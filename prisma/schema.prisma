@@ -1,14 +1,422 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../app/src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Role {
+  USER
+  MOD
+  ADMIN
+}
+
+enum WatchStatus {
+  PLAN_TO_WATCH
+  WATCHING
+  COMPLETED
+  ON_HOLD
+  DROPPED
+}
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ReportStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+// ---------------------------------------------------------------------------
+// Auth & Identity
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  displayName  String
+  bio          String?
+  avatarUrl    String?
+  passwordHash String
+  role         Role     @default(USER)
+  reputation   Int      @default(0)
+  isBanned     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  refreshTokens      RefreshToken[]
+  following          Follow[]           @relation("Follower")
+  followers          Follow[]           @relation("Following")
+  listEntries        ListEntry[]
+  posts              Post[]
+  postLikes          PostLike[]
+  postComments       PostComment[]
+  ownedClubs         Club[]             @relation("ClubOwner")
+  clubMemberships    ClubMember[]
+  threads            Thread[]
+  threadReplies      ThreadReply[]
+  reviews            Review[]
+  reviewLikes        ReviewLike[]
+  blogs              Blog[]
+  notifications      Notification[]
+  reports            Report[]           @relation("Reporter")
+  moderationActions  ModerationAction[]
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Follow {
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followingId])
+}
+
+// ---------------------------------------------------------------------------
+// Anime catalog
+// ---------------------------------------------------------------------------
+
+model Anime {
+  id             String    @id @default(cuid())
+  malId          Int       @unique
+  title          String
+  titleEnglish   String?
+  titleJapanese  String?
+  synopsis       String?
+  type           String?
+  episodes       Int?
+  status         String?
+  airedFrom      DateTime?
+  airedTo        DateTime?
+  season         String?
+  year           Int?
+  rating         String?
+  score          Float?
+  imageUrl       String?
+  trailerUrl     String?
+  source         String?
+  updatedAt      DateTime  @updatedAt
+
+  genres      AnimeGenre[]
+  studios     AnimeStudio[]
+  listEntries ListEntry[]
+  posts       Post[]
+  threads     Thread[]
+  reviews     Review[]
+
+  @@index([malId])
+  @@index([score])
+}
+
+model Genre {
+  id   String @id @default(cuid())
+  name String @unique
+
+  animes AnimeGenre[]
+}
+
+model Studio {
+  id   String @id @default(cuid())
+  name String @unique
+
+  animes AnimeStudio[]
+}
+
+model AnimeGenre {
+  animeId String
+  genreId String
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([animeId, genreId])
+}
+
+model AnimeStudio {
+  animeId  String
+  studioId String
+
+  anime  Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  studio Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  @@id([animeId, studioId])
+}
+
+// ---------------------------------------------------------------------------
+// User watch list
+// ---------------------------------------------------------------------------
+
+model ListEntry {
+  id           String      @id @default(cuid())
+  userId       String
+  animeId      String
+  status       WatchStatus
+  score        Int?
+  episodesSeen Int         @default(0)
+  startedAt    DateTime?
+  finishedAt   DateTime?
+  notes        String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, animeId])
+  @@index([userId, status])
+}
+
+// ---------------------------------------------------------------------------
+// Posts (Twitter-style feed)
+// ---------------------------------------------------------------------------
+
+model Post {
+  id        String    @id @default(cuid())
+  authorId  String
+  content   String
+  animeId   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  anime    Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
+  likes    PostLike[]
+  comments PostComment[]
+
+  @@index([authorId, createdAt])
+  @@index([createdAt])
+  @@index([animeId])
+}
+
+model PostLike {
+  userId String
+  postId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([userId, postId])
+}
+
+model PostComment {
+  id        String   @id @default(cuid())
+  postId    String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Clubs
+// ---------------------------------------------------------------------------
+
+model Club {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  ownerId     String
+  reputation  Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  members ClubMember[]
+  threads Thread[]
+
+  @@index([slug])
+}
+
+model ClubMember {
+  userId   String
+  clubId   String
+  role     Role     @default(USER)
+  joinedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@id([userId, clubId])
+  @@index([clubId])
+}
+
+// ---------------------------------------------------------------------------
+// Threads (Reddit-style discussion)
+// ---------------------------------------------------------------------------
+
+model Thread {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  authorId  String
+  clubId    String?
+  animeId   String?
+  isPinned  Boolean  @default(false)
+  isLocked  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author  User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  club    Club?         @relation(fields: [clubId], references: [id], onDelete: SetNull)
+  anime   Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
+  replies ThreadReply[]
+
+  @@index([clubId, createdAt])
+  @@index([animeId, createdAt])
+  @@index([authorId])
+}
+
+model ThreadReply {
+  id        String   @id @default(cuid())
+  threadId  String
+  authorId  String
+  parentId  String?
+  content   String
+  createdAt DateTime @default(now())
+
+  thread Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  author User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent ThreadReply? @relation("ReplyToReply", fields: [parentId], references: [id], onDelete: SetNull)
+  children ThreadReply[] @relation("ReplyToReply")
+
+  @@index([threadId, createdAt])
+  @@index([parentId])
+}
+
+// ---------------------------------------------------------------------------
+// Reviews
+// ---------------------------------------------------------------------------
+
+model Review {
+  id          String   @id @default(cuid())
+  animeId     String
+  authorId    String
+  score       Int
+  body        String
+  hasSpoilers Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  anime  Anime        @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  author User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  likes  ReviewLike[]
+
+  @@unique([animeId, authorId])
+  @@index([animeId, createdAt])
+  @@index([authorId])
+}
+
+model ReviewLike {
+  userId   String
+  reviewId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@id([userId, reviewId])
+}
+
+// ---------------------------------------------------------------------------
+// Blogs
+// ---------------------------------------------------------------------------
+
+model Blog {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  authorId    String
+  title       String
+  body        String
+  status      BlogStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([authorId])
+  @@index([status, publishedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Notifications
+// ---------------------------------------------------------------------------
+
+model Notification {
+  id          String   @id @default(cuid())
+  recipientId String
+  type        String
+  payload     Json
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  recipient User @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId, createdAt])
+  @@index([recipientId, read])
+}
+
+// ---------------------------------------------------------------------------
+// Moderation
+// ---------------------------------------------------------------------------
+
+model Report {
+  id         String       @id @default(cuid())
+  reporterId String
+  targetType String
+  targetId   String
+  reason     String
+  status     ReportStatus @default(OPEN)
+  createdAt  DateTime     @default(now())
+
+  reporter User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([reporterId])
+  @@index([targetType, targetId])
+}
+
+model ModerationAction {
+  id         String   @id @default(cuid())
+  modId      String
+  targetType String
+  targetId   String
+  action     String
+  note       String?
+  createdAt  DateTime @default(now())
+
+  mod User @relation(fields: [modId], references: [id], onDelete: Cascade)
+
+  @@index([modId])
+  @@index([targetType, targetId])
 }

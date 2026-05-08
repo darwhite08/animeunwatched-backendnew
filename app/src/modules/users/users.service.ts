@@ -1,0 +1,172 @@
+import { prisma } from "../../config/prisma";
+import { notFound, conflict } from "../../lib/errors";
+import type { UpdateMeDto } from "./users.schema";
+
+const safeUserSelect = {
+  id: true,
+  email: true,
+  username: true,
+  displayName: true,
+  bio: true,
+  avatarUrl: true,
+  role: true,
+  reputation: true,
+  createdAt: true,
+} as const;
+
+// ─── getProfile ───────────────────────────────────────────────────────────────
+
+export async function getProfile(username: string) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: {
+      ...safeUserSelect,
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+          listEntries: true,
+          reviews: true,
+        },
+      },
+      posts: {
+        where: { deletedAt: null },
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        select: {
+          id: true,
+          content: true,
+          animeId: true,
+          createdAt: true,
+        },
+      },
+      reviews: {
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        select: {
+          id: true,
+          animeId: true,
+          score: true,
+          body: true,
+          createdAt: true,
+        },
+      },
+    },
+  });
+
+  if (!user) throw notFound("User not found");
+
+  const { _count, posts, reviews, ...rest } = user;
+
+  return {
+    user: rest,
+    stats: {
+      followers: _count.followers,
+      following: _count.following,
+      listCount: _count.listEntries,
+      reviewCount: _count.reviews,
+    },
+    recentPosts: posts,
+    recentReviews: reviews,
+  };
+}
+
+// ─── updateMe ─────────────────────────────────────────────────────────────────
+
+export async function updateMe(userId: string, dto: UpdateMeDto) {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      ...(dto.displayName !== undefined ? { displayName: dto.displayName } : {}),
+      ...(dto.bio !== undefined ? { bio: dto.bio } : {}),
+      ...(dto.avatarUrl !== undefined ? { avatarUrl: dto.avatarUrl } : {}),
+    },
+    select: safeUserSelect,
+  });
+  return { user };
+}
+
+// ─── follow ───────────────────────────────────────────────────────────────────
+
+export async function follow(followerId: string, targetUsername: string) {
+  const target = await prisma.user.findUnique({ where: { username: targetUsername } });
+  if (!target) throw notFound("User not found");
+  if (target.id === followerId) {
+    throw conflict("You cannot follow yourself");
+  }
+
+  try {
+    await prisma.follow.create({
+      data: { followerId, followingId: target.id },
+    });
+  } catch (err: unknown) {
+    // Prisma unique constraint violation
+    if (
+      err instanceof Error &&
+      "code" in err &&
+      (err as { code: string }).code === "P2002"
+    ) {
+      throw conflict("Already following this user");
+    }
+    throw err;
+  }
+}
+
+// ─── unfollow ─────────────────────────────────────────────────────────────────
+
+export async function unfollow(followerId: string, targetUsername: string) {
+  const target = await prisma.user.findUnique({ where: { username: targetUsername } });
+  if (!target) throw notFound("User not found");
+
+  await prisma.follow.deleteMany({
+    where: { followerId, followingId: target.id },
+  });
+}
+
+// ─── getFollowers ─────────────────────────────────────────────────────────────
+
+export async function getFollowers(username: string, page = 1, limit = 20) {
+  const user = await prisma.user.findUnique({ where: { username } });
+  if (!user) throw notFound("User not found");
+
+  const skip = (page - 1) * limit;
+  const [rows, total] = await prisma.$transaction([
+    prisma.follow.findMany({
+      where: { followingId: user.id },
+      skip,
+      take: limit,
+      include: { follower: { select: safeUserSelect } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.follow.count({ where: { followingId: user.id } }),
+  ]);
+
+  return {
+    data: rows.map((r: { follower: unknown }) => r.follower),
+    meta: { total, page, limit, pages: Math.ceil(total / limit) },
+  };
+}
+
+// ─── getFollowing ─────────────────────────────────────────────────────────────
+
+export async function getFollowing(username: string, page = 1, limit = 20) {
+  const user = await prisma.user.findUnique({ where: { username } });
+  if (!user) throw notFound("User not found");
+
+  const skip = (page - 1) * limit;
+  const [rows, total] = await prisma.$transaction([
+    prisma.follow.findMany({
+      where: { followerId: user.id },
+      skip,
+      take: limit,
+      include: { following: { select: safeUserSelect } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.follow.count({ where: { followerId: user.id } }),
+  ]);
+
+  return {
+    data: rows.map((r: { following: unknown }) => r.following),
+    meta: { total, page, limit, pages: Math.ceil(total / limit) },
+  };
+}
