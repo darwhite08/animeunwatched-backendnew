@@ -8,12 +8,15 @@ import { notificationsRouter } from "./modules/notifications/notifications.route
 import { reviewsRouter, reviewsAnimeRouter } from "./modules/reviews/reviews.routes";
 import { blogsRouter } from "./modules/blogs/blogs.routes";
 import { searchRouter } from "./modules/search/search.routes";
+import { clubsRouter } from "./modules/clubs/clubs.routes";
+import { threadsRouter, animeThreadsRouter } from "./modules/threads/threads.routes";
 
 const router = Router();
 
 router.use("/auth", authRouter);
 router.use("/anime", animeRouter);
 router.use("/anime", reviewsAnimeRouter);   // mounts GET /anime/:animeId/reviews
+router.use("/anime/:malId/threads", animeThreadsRouter); // POST /anime/:malId/threads
 router.use("/users", usersRouter);
 router.use("/lists", listsRouter);
 router.use("/posts", postsRouter);
@@ -21,5 +24,7 @@ router.use("/notifications", notificationsRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/blogs", blogsRouter);
 router.use("/search", searchRouter);
+router.use("/clubs", clubsRouter);
+router.use("/threads", threadsRouter);
 
 export default router;
