@@ -4,15 +4,28 @@ import cookieParser from "cookie-parser";
 import { env } from "./src/config/env";
 import { errorHandler } from "./src/middlewares/error.middleware";
 import { rateLimit } from "./src/middlewares/rateLimit.middleware";
+import { responseTime, requestLogger } from "./src/middlewares/performance.middleware";
+import { apiVersionHeader } from "./src/middlewares/apiVersion.middleware";
 import router from "./src/routes";
 import { spec } from "./src/openapi";
 import { prisma } from "./src/config/prisma";
 
 const app = express();
 
-app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
+const ALLOWED_ORIGINS = [env.CORS_ORIGIN, "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"].filter(Boolean)
+
+app.use(responseTime);
+app.use(requestLogger);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) callback(null, true)
+    else callback(new Error("Not allowed by CORS"))
+  },
+  credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
+app.use(apiVersionHeader);
 
 // Global rate limit: 100 req/min per IP
 app.use(rateLimit(100, 60_000));

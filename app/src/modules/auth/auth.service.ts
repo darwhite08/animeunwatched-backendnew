@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth } from "../../lib/errors";
+import { sendEmail, welcomeEmail } from "../../lib/email";
 import type { RegisterDto, LoginDto } from "./auth.schema";
 
 // ---------- helpers ----------
@@ -79,6 +80,8 @@ export async function register(dto: RegisterDto) {
     },
     select: userSelect,
   });
+
+  sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
 
   const accessToken = signAccessToken(user.id);
   const refreshToken = signRefreshToken(user.id);
