@@ -57,6 +57,15 @@ export async function getFollowers(
   }
 }
 
+export async function getXp(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const result = await service.getXp((req.params.username as string));
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getFollowing(
   req: Request,
   res: Response,

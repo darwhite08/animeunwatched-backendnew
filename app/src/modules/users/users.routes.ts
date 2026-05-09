@@ -10,5 +10,6 @@ usersRouter.patch("/me", requireAuth, ctrl.updateMe);
 usersRouter.get("/:username", optionalAuth, ctrl.getProfile);
 usersRouter.post("/:username/follow", requireAuth, ctrl.follow);
 usersRouter.delete("/:username/follow", requireAuth, ctrl.unfollow);
+usersRouter.get("/:username/xp", ctrl.getXp);
 usersRouter.get("/:username/followers", optionalAuth, ctrl.getFollowers);
 usersRouter.get("/:username/following", optionalAuth, ctrl.getFollowing);

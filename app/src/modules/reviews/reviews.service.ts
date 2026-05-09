@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
+import { addReputation } from "../../lib/reputation";
 import type { CreateReviewDto, UpdateReviewDto } from "./reviews.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -75,6 +76,7 @@ export async function create(authorId: string, dto: CreateReviewDto) {
     },
     include: reviewInclude,
   });
+  addReputation(authorId, "review_posted").catch(console.error);
 
   return { review };
 }
@@ -122,6 +124,7 @@ export async function like(userId: string, reviewId: string) {
     create: { userId, reviewId },
     update: {},
   });
+  addReputation(review.authorId, "review_liked").catch(console.error);
 }
 
 // ─── unlike ───────────────────────────────────────────────────────────────────

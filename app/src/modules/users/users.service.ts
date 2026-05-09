@@ -112,6 +112,28 @@ export async function follow(followerId: string, targetUsername: string) {
   }
 }
 
+// ─── calculateXp ──────────────────────────────────────────────────────────────
+
+export function calculateXp(reputation: number): { xp: number; level: number; title: string; nextLevelXp: number } {
+  const xp = reputation * 100
+  const levels = [0, 500, 1500, 3000, 6000, 12000, 25000, 50000, 100000, 200000, 500000, 1000000]
+  const titles = ["Neophyte","Initiate","Apprentice","Shinobi","Jonin","Anbu","Elite Jonin","Kage","Legendary","Arch-Mage","Shadow Watcher","Neural Oracle"]
+  let level = 1
+  for (let i = 1; i < levels.length; i++) {
+    if (xp >= levels[i]) level = i + 1
+    else break
+  }
+  return { xp, level, title: titles[level - 1] ?? "Legendary", nextLevelXp: levels[level] ?? levels[levels.length - 1] }
+}
+
+// ─── getXp ────────────────────────────────────────────────────────────────────
+
+export async function getXp(username: string) {
+  const user = await prisma.user.findUnique({ where: { username }, select: { reputation: true } });
+  if (!user) throw notFound("User not found");
+  return calculateXp(user.reputation);
+}
+
 // ─── unfollow ─────────────────────────────────────────────────────────────────
 
 export async function unfollow(followerId: string, targetUsername: string) {

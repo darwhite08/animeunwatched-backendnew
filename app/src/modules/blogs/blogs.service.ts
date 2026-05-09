@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
+import { addReputation } from "../../lib/reputation";
 import type { CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
 
 // ─── Pagination helpers ───────────────────────────────────────────────────────
@@ -87,6 +88,7 @@ export async function create(authorId: string, dto: CreateBlogDto) {
     },
     include: blogInclude,
   });
+  if (isPublished) addReputation(authorId, "blog_published").catch(console.error);
 
   return { blog };
 }

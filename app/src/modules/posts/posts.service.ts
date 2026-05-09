@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
+import { addReputation } from "../../lib/reputation";
 import type { CreatePostDto } from "./posts.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -115,6 +116,7 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
     },
     include: postInclude,
   });
+  addReputation(authorId, "post_created").catch(console.error);
   return { post };
 }
 
@@ -144,6 +146,7 @@ export async function likePost(userId: string, postId: string) {
     create: { userId, postId },
     update: {},
   });
+  addReputation(post.authorId, "post_liked").catch(console.error);
 }
 
 // ─── unlikePost ───────────────────────────────────────────────────────────────
