@@ -134,6 +134,35 @@ export async function getXp(username: string) {
   return calculateXp(user.reputation);
 }
 
+// ─── getUserStats ─────────────────────────────────────────────────────────────
+
+export async function getUserStats(username: string) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    include: {
+      _count: {
+        select: {
+          listEntries: true,
+          posts: true,
+          reviews: true,
+          blogs: true,
+          followers: true,
+          following: true,
+        },
+      },
+    },
+  });
+  if (!user) throw notFound(`User ${username} not found`);
+  const xpData = calculateXp(user.reputation);
+  return {
+    username: user.username,
+    displayName: user.displayName,
+    reputation: user.reputation,
+    ...xpData,
+    stats: user._count,
+  };
+}
+
 // ─── unfollow ─────────────────────────────────────────────────────────────────
 
 export async function unfollow(followerId: string, targetUsername: string) {

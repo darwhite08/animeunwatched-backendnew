@@ -13,3 +13,4 @@ usersRouter.delete("/:username/follow", requireAuth, ctrl.unfollow);
 usersRouter.get("/:username/xp", ctrl.getXp);
 usersRouter.get("/:username/followers", optionalAuth, ctrl.getFollowers);
 usersRouter.get("/:username/following", optionalAuth, ctrl.getFollowing);
+usersRouter.get("/:username/stats", optionalAuth, ctrl.getUserStats);

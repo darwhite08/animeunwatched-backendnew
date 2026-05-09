@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
 import { badReq } from "../../lib/errors";
 
-type SearchType = "anime" | "posts" | "users" | "blogs";
+type SearchType = "anime" | "posts" | "users" | "blogs" | "clubs" | "threads";
 
 function paginate(page: number, limit: number) {
   return { skip: (page - 1) * limit, take: limit };
@@ -140,11 +140,113 @@ export async function search(req: Request, res: Response, next: NextFunction): P
         break;
       }
 
+      case "clubs": {
+        const where = {
+          OR: [
+            { name: { contains: q, mode: "insensitive" as const } },
+            { description: { contains: q, mode: "insensitive" as const } },
+          ],
+        };
+        [data, total] = await prisma.$transaction([
+          prisma.club.findMany({
+            where,
+            skip,
+            take,
+            orderBy: { reputation: "desc" },
+            include: {
+              owner: {
+                select: {
+                  id: true,
+                  username: true,
+                  displayName: true,
+                  avatarUrl: true,
+                },
+              },
+              _count: { select: { members: true, threads: true } },
+            },
+          }),
+          prisma.club.count({ where }),
+        ]);
+        break;
+      }
+
+      case "threads": {
+        const where = {
+          OR: [
+            { title: { contains: q, mode: "insensitive" as const } },
+            { content: { contains: q, mode: "insensitive" as const } },
+          ],
+        };
+        [data, total] = await prisma.$transaction([
+          prisma.thread.findMany({
+            where,
+            skip,
+            take,
+            orderBy: { createdAt: "desc" },
+            include: {
+              author: {
+                select: {
+                  id: true,
+                  username: true,
+                  displayName: true,
+                  avatarUrl: true,
+                },
+              },
+              _count: { select: { replies: true } },
+            },
+          }),
+          prisma.thread.count({ where }),
+        ]);
+        break;
+      }
+
       default:
-        throw badReq("Invalid type. Must be one of: anime, posts, users, blogs");
+        throw badReq("Invalid type. Must be one of: anime, posts, users, blogs, clubs, threads");
     }
 
     res.status(200).json({ data, meta: meta(total, page, limit) });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function suggestions(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const q = req.query.q as string | undefined;
+    if (!q || q.trim() === "") {
+      throw badReq("Query parameter 'q' is required");
+    }
+
+    const [anime, users] = await prisma.$transaction([
+      prisma.anime.findMany({
+        where: {
+          title: { contains: q, mode: "insensitive" },
+        },
+        take: 3,
+        orderBy: { score: "desc" },
+        select: {
+          malId: true,
+          title: true,
+          imageUrl: true,
+        },
+      }),
+      prisma.user.findMany({
+        where: {
+          OR: [
+            { username: { contains: q, mode: "insensitive" } },
+            { displayName: { contains: q, mode: "insensitive" } },
+          ],
+        },
+        take: 2,
+        orderBy: { reputation: "desc" },
+        select: {
+          username: true,
+          displayName: true,
+        },
+      }),
+    ]);
+
+    res.status(200).json({ anime, users });
   } catch (err) {
     next(err);
   }

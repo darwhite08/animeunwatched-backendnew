@@ -80,3 +80,12 @@ export async function getFollowing(
     next(err);
   }
 }
+
+export async function getUserStats(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const result = await service.getUserStats(req.params.username as string);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}

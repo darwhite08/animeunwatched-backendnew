@@ -8,17 +8,22 @@ export function rateLimit(limit: number, windowMs: number) {
     const now = Date.now()
     const entry = store.get(key)
 
+    res.set("X-RateLimit-Limit", String(limit))
+
     if (!entry || now > entry.resetAt) {
       store.set(key, { count: 1, resetAt: now + windowMs })
+      res.set("X-RateLimit-Remaining", String(limit - 1))
       return next()
     }
 
     if (entry.count >= limit) {
+      res.set("X-RateLimit-Remaining", "0")
       res.status(429).json({ error: { code: "RATE_LIMITED", message: "Too many requests" } })
       return
     }
 
     entry.count++
+    res.set("X-RateLimit-Remaining", String(Math.max(0, limit - entry.count)))
     next()
   }
 }
