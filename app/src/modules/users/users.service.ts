@@ -198,6 +198,24 @@ export async function getFollowers(username: string, page = 1, limit = 20) {
   };
 }
 
+// ─── exportMyData ─────────────────────────────────────────────────────────────
+
+export async function exportMyData(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      listEntries: { include: { anime: true } },
+      posts: { take: 100, orderBy: { createdAt: "desc" } },
+      reviews: { take: 50 },
+      blogs: { take: 50 },
+      notifications: { take: 100, orderBy: { createdAt: "desc" } },
+    },
+  });
+  if (!user) throw notFound("User not found");
+  const { passwordHash: _, ...safeUser } = user;
+  return safeUser;
+}
+
 // ─── getFollowing ─────────────────────────────────────────────────────────────
 
 export async function getFollowing(username: string, page = 1, limit = 20) {

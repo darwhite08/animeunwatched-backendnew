@@ -6,6 +6,7 @@ export const usersRouter = Router();
 
 // Specific routes before dynamic /:username
 usersRouter.patch("/me", requireAuth, ctrl.updateMe);
+usersRouter.get("/me/export", requireAuth, ctrl.exportMyData);
 
 usersRouter.get("/:username", optionalAuth, ctrl.getProfile);
 usersRouter.post("/:username/follow", requireAuth, ctrl.follow);

@@ -89,3 +89,14 @@ export async function getUserStats(req: Request, res: Response, next: NextFuncti
     next(err);
   }
 }
+
+export async function exportMyData(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const data = await service.exportMyData(userId);
+    res.setHeader("Content-Disposition", 'attachment; filename="my-data.json"');
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+}

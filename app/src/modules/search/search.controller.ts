@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
 import { badReq } from "../../lib/errors";
 
-type SearchType = "anime" | "posts" | "users" | "blogs" | "clubs" | "threads";
+type SearchType = "anime" | "posts" | "users" | "blogs" | "clubs" | "threads" | "reviews";
 
 function paginate(page: number, limit: number) {
   return { skip: (page - 1) * limit, take: limit };
@@ -200,8 +200,25 @@ export async function search(req: Request, res: Response, next: NextFunction): P
         break;
       }
 
+      case "reviews": {
+        const results = await prisma.review.findMany({
+          where: { body: { contains: q, mode: "insensitive" } },
+          include: {
+            author: { select: { id: true, username: true, displayName: true } },
+            anime: { select: { id: true, malId: true, title: true } },
+          },
+          take: limit,
+          skip,
+        });
+        const total = await prisma.review.count({
+          where: { body: { contains: q, mode: "insensitive" } },
+        });
+        res.json({ data: results, meta: meta(total, page, limit) });
+        return;
+      }
+
       default:
-        throw badReq("Invalid type. Must be one of: anime, posts, users, blogs, clubs, threads");
+        throw badReq("Invalid type. Must be one of: anime, posts, users, blogs, clubs, threads, reviews");
     }
 
     res.status(200).json({ data, meta: meta(total, page, limit) });

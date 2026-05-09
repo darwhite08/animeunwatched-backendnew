@@ -161,6 +161,36 @@ export async function setMemberRole(
   return { membership: updated };
 }
 
+// ─── getClubMembers ───────────────────────────────────────────────────────────
+
+export async function getClubMembers(slug: string, page: number, limit: number) {
+  const club = await prisma.club.findUnique({ where: { slug } });
+  if (!club) throw notFound("Club not found");
+
+  const [members, total] = await prisma.$transaction([
+    prisma.clubMember.findMany({
+      where: { clubId: club.id },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            displayName: true,
+            avatarUrl: true,
+            reputation: true,
+          },
+        },
+      },
+      orderBy: { joinedAt: "asc" },
+      take: limit,
+      skip: (page - 1) * limit,
+    }),
+    prisma.clubMember.count({ where: { clubId: club.id } }),
+  ]);
+
+  return { data: members, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}
+
 // ─── update ───────────────────────────────────────────────────────────────────
 
 export async function update(slug: string, actorId: string, dto: UpdateClubDto) {
