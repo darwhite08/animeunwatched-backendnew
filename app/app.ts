@@ -21,8 +21,23 @@ app.use(rateLimit(100, 60_000));
 app.use("/api/v1/auth", rateLimit(20, 15 * 60_000));
 
 // Health check
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok", ts: new Date().toISOString() });
+app.get("/health", async (_req, res) => {
+  const start = Date.now();
+  let dbStatus = "ok";
+  let dbLatencyMs = 0;
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    dbLatencyMs = Date.now() - start;
+  } catch {
+    dbStatus = "error";
+  }
+  res.json({
+    status: dbStatus === "ok" ? "ok" : "degraded",
+    version: "1.0.0",
+    uptime: Math.floor(process.uptime()),
+    db: { status: dbStatus, latencyMs: dbLatencyMs },
+    ts: new Date().toISOString(),
+  });
 });
 
 // OpenAPI spec

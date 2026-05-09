@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
+import { createNotification } from "../../lib/notify";
 import type { CreatePostDto } from "./posts.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -117,6 +118,38 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
     include: postInclude,
   });
   addReputation(authorId, "post_created").catch(console.error);
+
+  // Fire-and-forget: notify @mentioned users
+  void (async () => {
+    const mentionRegex = /\B@(\w+)/g;
+    const mentions: string[] = [];
+    let match: RegExpExecArray | null;
+    while ((match = mentionRegex.exec(dto.content)) !== null) {
+      mentions.push(match[1]);
+    }
+    if (mentions.length === 0) return;
+
+    const mentionedUsers = await prisma.user.findMany({
+      where: { username: { in: mentions } },
+      select: { id: true, username: true },
+    });
+
+    await Promise.all(
+      mentionedUsers
+        .filter((u: { id: string; username: string }) => u.id !== authorId)
+        .map((u: { id: string; username: string }) =>
+          createNotification({
+            recipientId: u.id,
+            type: "mention",
+            payload: {
+              postId: post.id,
+              content: dto.content.slice(0, 100),
+            },
+          }).catch(console.error),
+        ),
+    );
+  })();
+
   return { post };
 }
 

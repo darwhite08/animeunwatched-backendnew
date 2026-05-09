@@ -10,6 +10,8 @@ import { blogsRouter } from "./modules/blogs/blogs.routes";
 import { searchRouter } from "./modules/search/search.routes";
 import { clubsRouter } from "./modules/clubs/clubs.routes";
 import { threadsRouter, animeThreadsRouter } from "./modules/threads/threads.routes";
+import { adminRouter } from "./modules/admin/admin.routes";
+import { creatorRouter } from "./modules/creator/creator.routes";
 
 const router = Router();
 
@@ -26,5 +28,7 @@ router.use("/blogs", blogsRouter);
 router.use("/search", searchRouter);
 router.use("/clubs", clubsRouter);
 router.use("/threads", threadsRouter);
+router.use("/admin", adminRouter);
+router.use("/creator", creatorRouter);
 
 export default router;
