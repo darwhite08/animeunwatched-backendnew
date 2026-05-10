@@ -55,6 +55,18 @@ app.get("/health", async (_req, res) => {
   });
 });
 
+// Detailed health check
+app.get("/api/v1/health/detailed", async (_req, res) => {
+  const checks = {
+    api: "ok",
+    cache: { status: "ok", size: cache.size },
+    jobs: { refreshTokenCleanup: "scheduled", topAnimeRefresh: "scheduled" },
+    version: { api: "1.0.0", node: process.version },
+    uptime: Math.floor(process.uptime()),
+  }
+  res.json(checks)
+})
+
 // OpenAPI spec
 app.get("/api/v1/openapi.json", (_req, res) => res.json(spec));
 

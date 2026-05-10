@@ -26,10 +26,8 @@ export async function getById(req: Request, res: Response, next: NextFunction): 
 export async function search(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const q = (req.query.q as string) || "";
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
-    const result = await service.search(q, page, limit);
-    res.status(200).json(result);
+    const result = await service.searchWithFallback(q);
+    res.status(200).json({ data: result, meta: { total: result.length } });
   } catch (err) {
     next(err);
   }

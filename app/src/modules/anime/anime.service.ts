@@ -247,6 +247,51 @@ export async function getSeasonal(
   };
 }
 
+// ─── searchWithFallback ──────────────────────────────────────────────────────
+
+export async function searchWithFallback(q: string): Promise<AnimeWithRelations[]> {
+  const cacheKey = `search:${q}`
+  const cached = cache.get<AnimeWithRelations[]>(cacheKey)
+  if (cached) return cached
+
+  // Local DB first
+  const local = await prisma.anime.findMany({
+    where: {
+      OR: [
+        { title: { contains: q, mode: "insensitive" } },
+        { titleEnglish: { contains: q, mode: "insensitive" } },
+        { synopsis: { contains: q, mode: "insensitive" } },
+      ]
+    },
+    include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+    take: 20,
+    orderBy: { score: "desc" },
+  })
+
+  if (local.length >= 3) {
+    cache.set(cacheKey, local, 10 * 60_000) // 10 min
+    return local
+  }
+
+  // Upstream fallback
+  try {
+    const upstream = await catalog.searchAnime(q, { limit: 10 })
+    for (const a of upstream) {
+      await upsertFromCatalog(a)
+    }
+    const refreshed = await prisma.anime.findMany({
+      where: { title: { contains: q, mode: "insensitive" } },
+      include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+      take: 20,
+    })
+    cache.set(cacheKey, refreshed, 10 * 60_000)
+    return refreshed
+  } catch {
+    cache.set(cacheKey, local, 5 * 60_000)
+    return local
+  }
+}
+
 // ─── search ──────────────────────────────────────────────────────────────────
 
 export async function search(q: string, page = 1, limit = 20) {
