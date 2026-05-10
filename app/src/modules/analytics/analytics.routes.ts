@@ -6,3 +6,4 @@ export const analyticsRouter = Router();
 analyticsRouter.get("/stats", ctrl.platformStats);
 analyticsRouter.get("/top-anime", ctrl.topAnime);
 analyticsRouter.get("/activity", ctrl.recentActivity);
+analyticsRouter.get("/leaderboard", ctrl.reputationLeaderboard);

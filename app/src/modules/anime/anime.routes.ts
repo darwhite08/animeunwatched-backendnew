@@ -7,6 +7,7 @@ export const animeRouter = Router();
 // NOTE: named routes (/search, /season/..., /trending) must come before dynamic /:malId
 animeRouter.get("/search", optionalAuth, ctrl.search);
 animeRouter.get("/trending", ctrl.getTrending);
+animeRouter.get("/top", ctrl.getTrending);        // alias: GET /anime/top?limit=20
 animeRouter.get("/season/:year/:season", optionalAuth, ctrl.getSeasonal);
 animeRouter.get("/:malId/similar", optionalAuth, ctrl.getSimilar);
 animeRouter.get("/:malId", optionalAuth, ctrl.getById);

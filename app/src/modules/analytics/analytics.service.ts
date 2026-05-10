@@ -22,6 +22,15 @@ export async function getTopAnime(limit = 10) {
   });
 }
 
+export async function getReputationLeaderboard(limit = 20) {
+  return prisma.user.findMany({
+    where: { reputation: { gt: 0 } },
+    orderBy: { reputation: "desc" },
+    take: limit,
+    select: { id: true, username: true, displayName: true, reputation: true, avatarUrl: true },
+  })
+}
+
 export async function getRecentActivity(limit = 20) {
   const [posts, reviews] = await prisma.$transaction([
     prisma.post.findMany({
