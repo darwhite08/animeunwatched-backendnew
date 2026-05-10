@@ -100,3 +100,13 @@ export async function exportMyData(req: Request, res: Response, next: NextFuncti
     next(err);
   }
 }
+
+export async function getActivity(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit = Number(req.query.limit) || 20;
+    const result = await service.getActivity(req.params.username as string, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}

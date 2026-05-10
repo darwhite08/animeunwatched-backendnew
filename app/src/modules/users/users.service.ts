@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, conflict } from "../../lib/errors";
+import { createNotification, NotificationType } from "../../lib/notify";
 import type { UpdateMeDto } from "./users.schema";
 
 const safeUserSelect = {
@@ -110,6 +111,18 @@ export async function follow(followerId: string, targetUsername: string) {
     }
     throw err;
   }
+
+  // Notify the followed user
+  const follower = await prisma.user.findUnique({ where: { id: followerId }, select: { username: true, displayName: true } });
+  await createNotification({
+    recipientId: target.id,
+    type: NotificationType.NEW_FOLLOWER,
+    payload: {
+      message: `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
+      link: `/u/${follower?.username ?? ""}`,
+      followerUsername: follower?.username,
+    },
+  });
 }
 
 // ─── calculateXp ──────────────────────────────────────────────────────────────
@@ -214,6 +227,35 @@ export async function exportMyData(userId: string) {
   if (!user) throw notFound("User not found");
   const { passwordHash: _, ...safeUser } = user;
   return safeUser;
+}
+
+// ─── getActivity ─────────────────────────────────────────────────────────────
+
+export async function getActivity(username: string, limit = 20) {
+  const user = await prisma.user.findUnique({ where: { username } });
+  if (!user) throw notFound("User not found");
+  const perSection = Math.floor(limit / 3);
+  const [posts, reviews, listEntries] = await prisma.$transaction([
+    prisma.post.findMany({
+      where: { authorId: user.id, deletedAt: null },
+      take: perSection,
+      orderBy: { createdAt: "desc" },
+      include: { anime: { select: { title: true, malId: true } } },
+    }),
+    prisma.review.findMany({
+      where: { authorId: user.id },
+      take: perSection,
+      orderBy: { createdAt: "desc" },
+      include: { anime: { select: { title: true, malId: true } } },
+    }),
+    prisma.listEntry.findMany({
+      where: { userId: user.id },
+      take: perSection,
+      orderBy: { updatedAt: "desc" },
+      include: { anime: { select: { title: true, malId: true } } },
+    }),
+  ]);
+  return { posts, reviews, listEntries };
 }
 
 // ─── getFollowing ─────────────────────────────────────────────────────────────

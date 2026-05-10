@@ -45,3 +45,24 @@ export async function getSeasonal(req: Request, res: Response, next: NextFunctio
     next(err);
   }
 }
+
+export async function getTrending(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit = Number(req.query.limit) || 20;
+    const result = await service.getTrending(limit);
+    res.status(200).json({ data: result });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSimilar(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = Number(req.params.malId);
+    const limit = Number(req.query.limit) || 12;
+    const result = await service.getSimilar(malId, limit);
+    res.status(200).json({ data: result });
+  } catch (err) {
+    next(err);
+  }
+}

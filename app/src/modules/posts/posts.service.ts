@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
-import { createNotification } from "../../lib/notify";
+import { createNotification, NotificationType } from "../../lib/notify";
 import type { CreatePostDto } from "./posts.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -140,8 +140,9 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
         .map((u: { id: string; username: string }) =>
           createNotification({
             recipientId: u.id,
-            type: "mention",
+            type: NotificationType.MENTION,
             payload: {
+              message: `You were mentioned in a post`,
               postId: post.id,
               content: dto.content.slice(0, 100),
             },

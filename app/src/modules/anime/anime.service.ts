@@ -292,6 +292,50 @@ export async function searchWithFallback(q: string): Promise<AnimeWithRelations[
   }
 }
 
+// ─── getTrending ─────────────────────────────────────────────────────────────
+
+export async function getTrending(limit = 20) {
+  const cacheKey = `anime:trending`
+  const cached = cache.get<unknown[]>(cacheKey)
+  if (cached) return cached
+  const result = await prisma.anime.findMany({
+    where: { score: { not: null } },
+    orderBy: [{ status: "asc" }, { score: "desc" }], // airing first, then by score
+    take: limit,
+    include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+  })
+  cache.set(cacheKey, result, 15 * 60_000) // 15 min
+  return result
+}
+
+// ─── getSimilar ──────────────────────────────────────────────────────────────
+
+export async function getSimilar(malId: number, limit = 12) {
+  const cacheKey = `anime:similar:${malId}`
+  const cached = cache.get(cacheKey)
+  if (cached) return cached
+
+  const anime = await prisma.anime.findFirst({
+    where: { malId },
+    include: { genres: { include: { genre: true } } },
+  })
+  if (!anime) throw notFound("Anime not found")
+
+  const genreIds = anime.genres.map((g: { genreId: string }) => g.genreId)
+  const similar = await prisma.anime.findMany({
+    where: {
+      malId: { not: malId },
+      genres: { some: { genreId: { in: genreIds } } },
+      score: { not: null },
+    },
+    orderBy: { score: "desc" },
+    take: limit,
+    include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+  })
+  cache.set(cacheKey, similar, 60 * 60_000) // 1 hour
+  return similar
+}
+
 // ─── search ──────────────────────────────────────────────────────────────────
 
 export async function search(q: string, page = 1, limit = 20) {
