@@ -13,6 +13,7 @@ import { threadsRouter, animeThreadsRouter } from "./modules/threads/threads.rou
 import { adminRouter } from "./modules/admin/admin.routes";
 import { creatorRouter } from "./modules/creator/creator.routes";
 import { pollsRouter } from "./modules/polls/polls.routes";
+import { analyticsRouter } from "./modules/analytics/analytics.routes";
 
 const router = Router();
 
@@ -32,5 +33,6 @@ router.use("/threads", threadsRouter);
 router.use("/admin", adminRouter);
 router.use("/creator", creatorRouter);
 router.use("/polls", pollsRouter);
+router.use("/analytics", analyticsRouter);
 
 export default router;

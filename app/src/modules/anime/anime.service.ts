@@ -2,6 +2,7 @@ import { prisma } from "../../config/prisma";
 import { catalog } from "../../lib/catalog";
 import type { CatalogAnime } from "../../lib/catalog/types";
 import { notFound } from "../../lib/errors";
+import { cache } from "../../lib/cache";
 import type { BrowseQuery } from "./anime.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -125,12 +126,19 @@ export async function upsertFromCatalog(data: CatalogAnime) {
     skipDuplicates: true,
   });
 
+  // Invalidate per-anime cache entry so next read gets fresh data
+  cache.del(`anime:${data.malId}`);
+
   return flattenAnime(anime as AnimeWithRelations);
 }
 
 // ─── browse ───────────────────────────────────────────────────────────────────
 
 export async function browse(query: BrowseQuery) {
+  const cacheKey = `anime:browse:${JSON.stringify(query)}`;
+  const cached = cache.get<{ data: ReturnType<typeof flattenAnime>[]; meta: ReturnType<typeof buildMeta> }>(cacheKey);
+  if (cached) return cached;
+
   const { q, year, season, type, status, page, limit } = query;
   const { skip, take } = paginate(page, limit);
 
@@ -147,10 +155,13 @@ export async function browse(query: BrowseQuery) {
     prisma.anime.count({ where }),
   ]);
 
-  return {
+  const result = {
     data: (data as AnimeWithRelations[]).map((a: AnimeWithRelations) => flattenAnime(a)),
     meta: buildMeta(total, page, limit),
   };
+
+  cache.set(cacheKey, result, 5 * 60_000); // 5 min TTL
+  return result;
 }
 
 // ─── getById ──────────────────────────────────────────────────────────────────
@@ -158,6 +169,13 @@ export async function browse(query: BrowseQuery) {
 const STALE_AFTER_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export async function getById(malId: number, userId?: string) {
+  // Only cache for unauthenticated requests (no userId) since listEntry is user-specific
+  const cacheKey = `anime:${malId}`;
+  if (!userId) {
+    const cached = cache.get<{ anime: ReturnType<typeof flattenAnime>; listEntry: null }>(cacheKey);
+    if (cached) return cached;
+  }
+
   let anime = await prisma.anime.findUnique({
     where: { malId },
     include: animeInclude,
@@ -189,7 +207,13 @@ export async function getById(malId: number, userId?: string) {
     });
   }
 
-  return { anime: flat, listEntry };
+  const result = { anime: flat, listEntry };
+
+  if (!userId) {
+    cache.set(cacheKey, result, 7 * 24 * 60 * 60_000); // 7 days
+  }
+
+  return result;
 }
 
 // ─── getSeasonal ─────────────────────────────────────────────────────────────

@@ -9,6 +9,7 @@ import { apiVersionHeader } from "./src/middlewares/apiVersion.middleware";
 import router from "./src/routes";
 import { spec } from "./src/openapi";
 import { prisma } from "./src/config/prisma";
+import { cache } from "./src/lib/cache";
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.get("/health", async (_req, res) => {
     version: "1.0.0",
     uptime: Math.floor(process.uptime()),
     db: { status: dbStatus, latencyMs: dbLatencyMs },
+    cache: { size: cache.size },
     ts: new Date().toISOString(),
   });
 });
