@@ -13,7 +13,12 @@ import { cache } from "./src/lib/cache";
 
 const app = express();
 
-const ALLOWED_ORIGINS = [env.CORS_ORIGIN, "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"].filter(Boolean)
+const ALLOWED_ORIGINS = [
+  env.CORS_ORIGIN,
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://localhost:3002",
+].filter(Boolean)
 
 app.use(responseTime);
 app.use(requestLogger);
@@ -28,11 +33,18 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(apiVersionHeader);
 
-// Global rate limit: 100 req/min per IP
-app.use(rateLimit(100, 60_000));
+// Rate limiting — disabled in development (all requests share 127.0.0.1)
+if (env.NODE_ENV === "production") {
+  // Global: 200 req/min per IP
+  app.use(rateLimit(200, 60_000));
 
-// Stricter rate limit on auth routes: 20 req per 15 min per IP
-app.use("/api/v1/auth", rateLimit(20, 15 * 60_000));
+  // Auth write endpoints (login/register): strict brute-force protection
+  app.use("/api/v1/auth/login",    rateLimit(10, 15 * 60_000));
+  app.use("/api/v1/auth/register", rateLimit(10, 15 * 60_000));
+
+  // Auth read/session endpoints (refresh, me, logout): relaxed
+  app.use("/api/v1/auth", rateLimit(120, 60_000));
+}
 
 // Health check
 app.get("/health", async (_req, res) => {

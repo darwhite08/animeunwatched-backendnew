@@ -16,3 +16,6 @@ usersRouter.get("/:username/followers", optionalAuth, ctrl.getFollowers);
 usersRouter.get("/:username/following", optionalAuth, ctrl.getFollowing);
 usersRouter.get("/:username/stats", optionalAuth, ctrl.getUserStats);
 usersRouter.get("/:username/activity", optionalAuth, ctrl.getActivity);
+
+// Leaderboard — before dynamic routes
+usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);

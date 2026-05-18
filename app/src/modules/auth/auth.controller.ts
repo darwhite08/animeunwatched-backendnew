@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { env } from "../../config/env";
-import { registerSchema, loginSchema } from "./auth.schema";
+import { registerSchema, loginSchema, googleLoginSchema, appleLoginSchema } from "./auth.schema";
 import * as service from "./auth.service";
 
 const COOKIE_OPTS = {
@@ -77,4 +77,84 @@ export async function logoutAll(req: Request, res: Response, next: NextFunction)
 
 export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
+}
+
+export async function googleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const dto = googleLoginSchema.parse(req.body);
+    const { user, accessToken, refreshToken } = await service.googleLogin(dto);
+    res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    res.status(200).json({ user, accessToken });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function appleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const dto = appleLoginSchema.parse(req.body);
+    const { user, accessToken, refreshToken } = await service.appleLogin(dto);
+    res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    res.status(200).json({ user, accessToken });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ─── Redirect-based Google OAuth (works on mobile + all browsers) ─────────────
+
+/** Step 1 — redirect the browser to Google's consent screen */
+export function googleRedirect(req: Request, res: Response): void {
+  if (!env.GOOGLE_CLIENT_ID) {
+    res.status(503).send("Google OAuth not configured");
+    return;
+  }
+
+  // OAUTH_CALLBACK_BASE must be a publicly reachable URL registered in Google Console.
+  // For local dev + mobile: use ngrok (`ngrok http 4000`) and set OAUTH_CALLBACK_BASE
+  // to the ngrok HTTPS URL.  Falls back to localhost for same-machine testing.
+  const base = env.OAUTH_CALLBACK_BASE || `http://localhost:${env.PORT}`;
+  const callbackUrl = `${base}/api/v1/auth/google/callback`;
+
+  const params = new URLSearchParams({
+    client_id:     env.GOOGLE_CLIENT_ID,
+    redirect_uri:  callbackUrl,
+    response_type: "code",
+    scope:         "openid email profile",
+    access_type:   "online",
+    prompt:        "select_account",
+  });
+
+  res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
+}
+
+/** Step 2 — Google calls us back with ?code=… */
+export async function googleCallback(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const frontendUrl = env.FRONTEND_URL || "http://localhost:3000";
+
+  try {
+    const code = req.query.code as string | undefined;
+    if (!code) {
+      res.redirect(`${frontendUrl}/login?error=google_no_code`);
+      return;
+    }
+
+    const callbackUrl = `${req.protocol}://${req.get("host")}/api/v1/auth/google/callback`;
+    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl);
+
+    // Set refresh cookie (httpOnly)
+    res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+
+    // Redirect to frontend callback page with the access token in the URL.
+    // The callback page reads it, stores in Zustand, then redirects to /dashboard.
+    const qs = new URLSearchParams({
+      access_token:  accessToken,
+      display_name:  String(user.displayName ?? ""),
+      avatar_url:    String(user.avatarUrl ?? ""),
+    });
+    res.redirect(`${frontendUrl}/auth/callback?${qs.toString()}`);
+  } catch (err) {
+    console.error("[Google callback]", err);
+    res.redirect(`${frontendUrl}/login?error=google_failed`);
+  }
 }

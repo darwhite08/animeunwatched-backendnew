@@ -281,3 +281,37 @@ export async function getFollowing(username: string, page = 1, limit = 20) {
     meta: { total, page, limit, pages: Math.ceil(total / limit) },
   };
 }
+
+// ─── getLeaderboard ───────────────────────────────────────────────────────────
+
+export async function getLeaderboard(limit = 50, period = "all-time") {
+  const users = await prisma.user.findMany({
+    where: { isBanned: false },
+    orderBy: { reputation: "desc" },
+    take: limit,
+    select: {
+      ...safeUserSelect,
+      _count: { select: { listEntries: true, reviews: true, posts: true } },
+    },
+  });
+
+  return {
+    data: users.map((u: typeof users[0], i: number) => {
+      const xp = u.reputation * 100;
+      const level = Math.min(99, Math.floor(Math.sqrt(xp / 1000)));
+      return {
+        rank: i + 1,
+        username: u.username,
+        displayName: u.displayName,
+        avatarUrl: u.avatarUrl,
+        reputation: u.reputation,
+        xp,
+        level: Math.max(1, level),
+        archived: u._count.listEntries,
+        reviews: u._count.reviews,
+        posts: u._count.posts,
+      };
+    }),
+    meta: { total: users.length, period },
+  };
+}

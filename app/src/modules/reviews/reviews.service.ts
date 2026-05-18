@@ -132,3 +132,28 @@ export async function like(userId: string, reviewId: string) {
 export async function unlike(userId: string, reviewId: string) {
   await prisma.reviewLike.deleteMany({ where: { userId, reviewId } });
 }
+
+// ─── listReviews ──────────────────────────────────────────────────────────────
+
+export async function listReviews(sort = "recent", page = 1, limit = 20) {
+  const skip = (page - 1) * limit;
+  const orderBy =
+    sort === "helpful" ? { likes: { _count: "desc" as const } } :
+    sort === "highest" ? { score: "desc" as const } :
+    sort === "lowest"  ? { score: "asc"  as const } :
+    { createdAt: "desc" as const };
+
+  const [data, total] = await prisma.$transaction([
+    prisma.review.findMany({
+      skip, take: limit,
+      orderBy,
+      include: {
+        ...reviewInclude,
+        anime: { select: { id: true, malId: true, title: true, imageUrl: true } },
+      },
+    }),
+    prisma.review.count(),
+  ]);
+
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}

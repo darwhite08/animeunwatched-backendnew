@@ -16,8 +16,10 @@ threadsRouter.post("/:id/replies", requireAuth, ctrl.createReply);
 // ─── Club thread sub-router (mounted at /clubs/:slug in routes.ts) ─────────
 // Exported separately so it can be mounted under clubsRouter
 export const clubThreadsRouter = Router({ mergeParams: true });
+clubThreadsRouter.get("/", optionalAuth, ctrl.getClubThreads);
 clubThreadsRouter.post("/", requireAuth, ctrl.createClubThread);
 
 // ─── Anime thread sub-router (mounted at /anime/:malId in routes.ts) ────────
 export const animeThreadsRouter = Router({ mergeParams: true });
+animeThreadsRouter.get("/", optionalAuth, ctrl.getAnimeThreads);
 animeThreadsRouter.post("/", requireAuth, ctrl.createAnimeThread);

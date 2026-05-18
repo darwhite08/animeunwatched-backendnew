@@ -70,7 +70,14 @@ export const ModelName = {
   Blog: 'Blog',
   Notification: 'Notification',
   Report: 'Report',
-  ModerationAction: 'ModerationAction'
+  ModerationAction: 'ModerationAction',
+  Poll: 'Poll',
+  PollOption: 'PollOption',
+  PollVote: 'PollVote',
+  UserOAuthProvider: 'UserOAuthProvider',
+  UserPublicKey: 'UserPublicKey',
+  Conversation: 'Conversation',
+  DirectMessage: 'DirectMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -357,6 +364,80 @@ export const ModerationActionScalarFieldEnum = {
 } as const
 
 export type ModerationActionScalarFieldEnum = (typeof ModerationActionScalarFieldEnum)[keyof typeof ModerationActionScalarFieldEnum]
+
+
+export const PollScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  authorId: 'authorId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PollScalarFieldEnum = (typeof PollScalarFieldEnum)[keyof typeof PollScalarFieldEnum]
+
+
+export const PollOptionScalarFieldEnum = {
+  id: 'id',
+  pollId: 'pollId',
+  label: 'label',
+  order: 'order'
+} as const
+
+export type PollOptionScalarFieldEnum = (typeof PollOptionScalarFieldEnum)[keyof typeof PollOptionScalarFieldEnum]
+
+
+export const PollVoteScalarFieldEnum = {
+  userId: 'userId',
+  pollId: 'pollId',
+  optionId: 'optionId'
+} as const
+
+export type PollVoteScalarFieldEnum = (typeof PollVoteScalarFieldEnum)[keyof typeof PollVoteScalarFieldEnum]
+
+
+export const UserOAuthProviderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerId: 'providerId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserOAuthProviderScalarFieldEnum = (typeof UserOAuthProviderScalarFieldEnum)[keyof typeof UserOAuthProviderScalarFieldEnum]
+
+
+export const UserPublicKeyScalarFieldEnum = {
+  userId: 'userId',
+  publicKey: 'publicKey',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserPublicKeyScalarFieldEnum = (typeof UserPublicKeyScalarFieldEnum)[keyof typeof UserPublicKeyScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  participant1: 'participant1',
+  participant2: 'participant2',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const DirectMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  ciphertext: 'ciphertext',
+  iv: 'iv',
+  createdAt: 'createdAt',
+  readAt: 'readAt'
+} as const
+
+export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
 export const SortOrder = {

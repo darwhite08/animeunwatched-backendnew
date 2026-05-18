@@ -275,7 +275,7 @@ export async function searchWithFallback(q: string): Promise<AnimeWithRelations[
     orderBy: { score: { sort: "desc", nulls: "last" } },
   })
 
-  if (local.length >= 1) {
+  if (local.length >= 3) {
     cache.set(cacheKey, local, 10 * 60_000) // 10 min
     return local
   }

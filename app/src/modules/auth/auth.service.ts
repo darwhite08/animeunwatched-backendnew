@@ -1,10 +1,15 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+import { OAuth2Client } from "google-auth-library";
+import appleSignin from "apple-signin-auth";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth } from "../../lib/errors";
 import { sendEmail, welcomeEmail } from "../../lib/email";
-import type { RegisterDto, LoginDto } from "./auth.schema";
+import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto } from "./auth.schema";
+
+const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID);
 
 // ---------- helpers ----------
 
@@ -174,4 +179,183 @@ export async function logoutAll(userId: string): Promise<void> {
   await prisma.refreshToken.deleteMany({
     where: { userId },
   });
+}
+
+// ─── OAuth helpers ────────────────────────────────────────────────────────────
+
+async function generateUniqueUsername(base: string): Promise<string> {
+  // Strip non-alphanumeric chars, lowercase, cap at 20 chars
+  const clean = base.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().slice(0, 20) || "user";
+  const candidate = clean + Math.floor(Math.random() * 9000 + 1000);
+  const exists = await prisma.user.findUnique({ where: { username: candidate } });
+  // Retry once more if collision (astronomically unlikely)
+  if (exists) return clean + Math.floor(Math.random() * 9000 + 1000);
+  return candidate;
+}
+
+async function findOrCreateOAuthUser(opts: {
+  provider:    "google" | "apple";
+  providerId:  string;
+  email:       string;
+  displayName: string;
+  avatarUrl?:  string;
+}) {
+  // 1. Check if this provider account is already linked
+  const existingProvider = await prisma.userOAuthProvider.findUnique({
+    where: { provider_providerId: { provider: opts.provider, providerId: opts.providerId } },
+    include: { user: { select: userSelect } },
+  });
+  if (existingProvider) return existingProvider.user;
+
+  // 2. Check if a user already exists with this email (link the provider to them)
+  let user = await prisma.user.findUnique({
+    where:  { email: opts.email },
+    select: userSelect,
+  });
+
+  // Refresh avatar from OAuth provider on every login
+  if (user && opts.avatarUrl && user.avatarUrl !== opts.avatarUrl) {
+    user = await prisma.user.update({
+      where:  { id: user.id },
+      data:   { avatarUrl: opts.avatarUrl },
+      select: userSelect,
+    });
+  }
+
+  if (!user) {
+    // 3. Create a brand-new user
+    const username = await generateUniqueUsername(opts.email.split("@")[0]);
+    user = await prisma.user.create({
+      data: {
+        email:        opts.email,
+        username,
+        displayName:  opts.displayName,
+        passwordHash: crypto.randomBytes(32).toString("hex"), // unguessable; blocks password login
+        avatarUrl:    opts.avatarUrl,
+      },
+      select: userSelect,
+    });
+    sendEmail(welcomeEmail(opts.email, opts.displayName)).catch(console.error);
+  }
+
+  // 4. Link this OAuth provider to the user
+  await prisma.userOAuthProvider.create({
+    data: { userId: user.id, provider: opts.provider, providerId: opts.providerId },
+  });
+
+  return user;
+}
+
+export async function googleLogin(dto: GoogleLoginDto) {
+  if (!env.GOOGLE_CLIENT_ID) throw unauth("Google OAuth is not configured");
+
+  const ticket = await googleClient.verifyIdToken({
+    idToken: dto.idToken,
+    audience: env.GOOGLE_CLIENT_ID,
+  }).catch(() => { throw unauth("Invalid Google ID token"); });
+
+  const payload = ticket.getPayload();
+  if (!payload?.sub || !payload.email) throw unauth("Incomplete Google token payload");
+  if (!payload.email_verified) throw unauth("Google email is not verified");
+
+  const user = await findOrCreateOAuthUser({
+    provider:    "google",
+    providerId:  payload.sub,
+    email:       payload.email,
+    displayName: payload.name || payload.email.split("@")[0],
+    avatarUrl:   payload.picture,
+  });
+
+  return issueTokens(user);
+}
+
+export async function appleLogin(dto: AppleLoginDto) {
+  if (!env.APPLE_CLIENT_ID) throw unauth("Apple Sign In is not configured");
+
+  const payload = await appleSignin.verifyIdToken(dto.idToken, {
+    audience:          env.APPLE_CLIENT_ID,
+    ignoreExpiration:  false,
+  }).catch(() => { throw unauth("Invalid Apple ID token"); });
+
+  if (!payload.sub) throw unauth("Incomplete Apple token payload");
+
+  // Apple only sends email on first sign-in; fall back to dto.email
+  const email = payload.email || dto.email;
+  if (!email) throw unauth("Email required for Apple Sign In (first login only)");
+
+  const firstName = dto.firstName || "";
+  const lastName  = dto.lastName  || "";
+  const displayName = (firstName + " " + lastName).trim() || email.split("@")[0];
+
+  const user = await findOrCreateOAuthUser({
+    provider:   "apple",
+    providerId: payload.sub,
+    email,
+    displayName,
+  });
+
+  return issueTokens(user);
+}
+
+// ─── Redirect-based Google OAuth: exchange authorization code for tokens ─────
+
+export async function googleCallbackCode(code: string, redirectUri: string) {
+  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
+    throw unauth("Google OAuth is not configured");
+  }
+
+  // Exchange the auth code for Google tokens (redirectUri must exactly match what was sent in the auth request)
+  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      code,
+      client_id:     env.GOOGLE_CLIENT_ID,
+      client_secret: env.GOOGLE_CLIENT_SECRET,
+      redirect_uri:  redirectUri,
+      grant_type:    "authorization_code",
+    }),
+  });
+
+  if (!tokenRes.ok) {
+    const err = await tokenRes.text();
+    console.error("[Google token exchange]", err);
+    throw unauth("Failed to exchange Google authorization code");
+  }
+
+  const tokens = await tokenRes.json() as { id_token?: string; access_token?: string };
+
+  if (!tokens.id_token) throw unauth("No ID token from Google");
+
+  // Verify the ID token with google-auth-library
+  const ticket = await googleClient.verifyIdToken({
+    idToken: tokens.id_token,
+    audience: env.GOOGLE_CLIENT_ID,
+  }).catch(() => { throw unauth("Invalid Google ID token"); });
+
+  const payload = ticket.getPayload();
+  if (!payload?.sub || !payload.email) throw unauth("Incomplete Google token payload");
+  if (!payload.email_verified) throw unauth("Google email is not verified");
+
+  const user = await findOrCreateOAuthUser({
+    provider:    "google",
+    providerId:  payload.sub,
+    email:       payload.email,
+    displayName: payload.name || payload.email.split("@")[0],
+    avatarUrl:   payload.picture,
+  });
+
+  return issueTokens(user);
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+
+async function issueTokens(user: { id: string; [k: string]: unknown }) {
+  const accessToken  = signAccessToken(user.id as string);
+  const refreshToken = signRefreshToken(user.id as string);
+  const expiresAt    = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  await prisma.refreshToken.create({
+    data: { token: refreshToken, userId: user.id as string, expiresAt },
+  });
+  return { user, accessToken, refreshToken };
 }

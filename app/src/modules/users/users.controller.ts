@@ -110,3 +110,14 @@ export async function getActivity(req: Request, res: Response, next: NextFunctio
     next(err);
   }
 }
+
+export async function getLeaderboard(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit  = Number(req.query.limit)  || 50;
+    const period = (req.query.period as string) || "all-time";
+    const result = await service.getLeaderboard(limit, period);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}

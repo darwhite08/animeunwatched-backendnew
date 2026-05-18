@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma";
+import { getIo } from "../realtime/io-instance";
 
 export const NotificationType = {
   MENTION:         "mention",
@@ -19,13 +20,22 @@ export async function createNotification(opts: {
   type: NotificationTypeValue;
   payload: NotifPayload;
 }): Promise<void> {
-  await prisma.notification.create({
+  const notification = await prisma.notification.create({
     data: {
       recipientId: opts.recipientId,
       type: opts.type,
-      payload: opts.payload as Record<string, unknown>,
+      payload: opts.payload as unknown as import("@prisma/client/runtime/library").InputJsonValue,
     },
   });
-  // TODO: emit socket event when io instance is accessible
-  // For now, just create the DB record
+
+  const io = getIo();
+  if (io) {
+    io.to(`user:${opts.recipientId}`).emit("notification.new", {
+      id:          notification.id,
+      type:        notification.type,
+      payload:     notification.payload,
+      read:        notification.read,
+      createdAt:   notification.createdAt,
+    });
+  }
 }

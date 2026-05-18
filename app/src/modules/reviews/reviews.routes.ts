@@ -8,6 +8,9 @@ export const reviewsRouter = Router();
 export const reviewsAnimeRouter = Router({ mergeParams: true });
 reviewsAnimeRouter.get("/", optionalAuth, ctrl.getAnimeReviews);
 
+// Global reviews listing
+reviewsRouter.get("/", optionalAuth, ctrl.listReviews);
+
 // CRUD + like/unlike
 reviewsRouter.post("/", requireAuth, ctrl.createReview);
 reviewsRouter.patch("/:id", requireAuth, ctrl.updateReview);

@@ -104,3 +104,29 @@ export async function createReply(
     next(err);
   }
 }
+
+export async function getAnimeThreads(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const malId = Number(req.params.malId);
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const result = await service.getAnimeThreads(malId, page, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getClubThreads(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const slug = req.params.slug as string;
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const result = await service.getClubThreads(slug, page, limit);
+    res.status(200).json(result);
+  } catch (err) { next(err); }
+}

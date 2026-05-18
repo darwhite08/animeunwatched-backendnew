@@ -167,3 +167,46 @@ export async function createReply(
 
   return { reply };
 }
+
+// ─── getAnimeThreads ──────────────────────────────────────────────────────────
+
+export async function getAnimeThreads(malId: number, page = 1, limit = 20) {
+  const skip = (page - 1) * limit;
+  const anime = await prisma.anime.findUnique({ where: { malId }, select: { id: true } });
+  if (!anime) return { data: [], meta: { total: 0, page, limit, pages: 0 } };
+
+  const [data, total] = await prisma.$transaction([
+    prisma.thread.findMany({
+      where: { animeId: anime.id },
+      skip, take: limit,
+      orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
+      include: {
+        author: { select: authorSelect },
+        _count: { select: { replies: true } },
+      },
+    }),
+    prisma.thread.count({ where: { animeId: anime.id } }),
+  ]);
+
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}
+
+// ─── getClubThreads ───────────────────────────────────────────────────────────
+
+export async function getClubThreads(slug: string, page = 1, limit = 20) {
+  const skip = (page - 1) * limit;
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) return { data: [], meta: { total: 0, page, limit, pages: 0 } };
+
+  const [data, total] = await prisma.$transaction([
+    prisma.thread.findMany({
+      where: { clubId: club.id },
+      skip, take: limit,
+      orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
+      include: { author: { select: authorSelect }, _count: { select: { replies: true } } },
+    }),
+    prisma.thread.count({ where: { clubId: club.id } }),
+  ]);
+
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}

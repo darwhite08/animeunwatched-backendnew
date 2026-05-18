@@ -13,4 +13,20 @@ export const loginSchema = z.object({
 });
 
 export type RegisterDto = z.infer<typeof registerSchema>;
-export type LoginDto = z.infer<typeof loginSchema>;
+export type LoginDto    = z.infer<typeof loginSchema>;
+
+// OAuth — frontend sends the provider's id_token after user authenticates via popup
+export const googleLoginSchema = z.object({
+  idToken: z.string().min(1, "Google ID token required"),
+});
+
+export const appleLoginSchema = z.object({
+  idToken:     z.string().min(1, "Apple ID token required"),
+  // Apple only sends name/email on the FIRST sign-in; capture and persist them
+  email:       z.string().email().optional(),
+  firstName:   z.string().optional(),
+  lastName:    z.string().optional(),
+});
+
+export type GoogleLoginDto = z.infer<typeof googleLoginSchema>;
+export type AppleLoginDto  = z.infer<typeof appleLoginSchema>;

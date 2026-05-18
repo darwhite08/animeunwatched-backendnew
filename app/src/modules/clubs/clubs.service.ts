@@ -32,7 +32,7 @@ export async function list(page = 1, limit = 20) {
       take,
       orderBy: { reputation: "desc" },
       include: {
-        _count: { select: { members: true } },
+        _count: { select: { members: true, threads: true } },
       },
     }),
     prisma.club.count(),

@@ -152,3 +152,38 @@ export type Report = Prisma.ReportModel
  * 
  */
 export type ModerationAction = Prisma.ModerationActionModel
+/**
+ * Model Poll
+ * 
+ */
+export type Poll = Prisma.PollModel
+/**
+ * Model PollOption
+ * 
+ */
+export type PollOption = Prisma.PollOptionModel
+/**
+ * Model PollVote
+ * 
+ */
+export type PollVote = Prisma.PollVoteModel
+/**
+ * Model UserOAuthProvider
+ * 
+ */
+export type UserOAuthProvider = Prisma.UserOAuthProviderModel
+/**
+ * Model UserPublicKey
+ * 
+ */
+export type UserPublicKey = Prisma.UserPublicKeyModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model DirectMessage
+ * 
+ */
+export type DirectMessage = Prisma.DirectMessageModel

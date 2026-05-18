@@ -2,10 +2,12 @@ import http from "http";
 import app from "./app";
 import { env } from "./src/config/env";
 import { initSocket } from "./src/realtime/socket";
+import { setIo } from "./src/realtime/io-instance";
 import { startJobs } from "./src/jobs";
 
 const server = http.createServer(app);
-initSocket(server);
+const io = initSocket(server);
+setIo(io);
 startJobs();
 
 server.listen(env.PORT, () => {

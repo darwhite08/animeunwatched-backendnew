@@ -8,7 +8,14 @@ export async function getAnimeReviews(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const animeId = req.params.animeId as string;
+    let animeId = req.params.animeId as string;
+    // If animeId looks like a malId (all digits), resolve to DB id
+    if (/^\d+$/.test(animeId)) {
+      const { prisma } = await import("../../config/prisma");
+      const anime = await prisma.anime.findUnique({ where: { malId: parseInt(animeId, 10) }, select: { id: true } });
+      if (!anime) { res.status(200).json({ data: [], meta: { total: 0, page: 1, limit: 20, pages: 0 } }); return; }
+      animeId = anime.id;
+    }
     const sort = (req.query.sort as "helpful" | "recent") || "recent";
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
@@ -91,6 +98,18 @@ export async function unlikeReview(
     const reviewId = req.params.id as string;
     await service.unlike(userId, reviewId);
     res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function listReviews(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const sort = (req.query.sort as "helpful" | "recent" | "highest" | "lowest") || "recent";
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const result = await service.listReviews(sort, page, limit);
+    res.status(200).json(result);
   } catch (err) {
     next(err);
   }

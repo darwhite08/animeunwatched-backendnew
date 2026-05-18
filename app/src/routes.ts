@@ -15,12 +15,13 @@ import { creatorRouter } from "./modules/creator/creator.routes";
 import { pollsRouter } from "./modules/polls/polls.routes";
 import { analyticsRouter } from "./modules/analytics/analytics.routes";
 import { webhooksRouter } from "./modules/webhooks/webhooks.routes";
+import { chatRouter } from "./modules/chat/chat.routes";
 
 const router = Router();
 
 router.use("/auth", authRouter);
 router.use("/anime", animeRouter);
-router.use("/anime", reviewsAnimeRouter);   // mounts GET /anime/:animeId/reviews
+router.use("/anime/:animeId/reviews", reviewsAnimeRouter);   // GET /anime/:animeId/reviews
 router.use("/anime/:malId/threads", animeThreadsRouter); // POST /anime/:malId/threads
 router.use("/users", usersRouter);
 router.use("/lists", listsRouter);
@@ -36,5 +37,6 @@ router.use("/creator", creatorRouter);
 router.use("/polls", pollsRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/webhooks", webhooksRouter);
+router.use("/chat",     chatRouter);
 
 export default router;

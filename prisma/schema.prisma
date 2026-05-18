@@ -48,7 +48,7 @@ model User {
   displayName  String
   bio          String?
   avatarUrl    String?
-  passwordHash String
+  passwordHash String  @default("")
   role         Role     @default(USER)
   reputation   Int      @default(0)
   isBanned     Boolean  @default(false)
@@ -72,6 +72,15 @@ model User {
   notifications      Notification[]
   reports            Report[]           @relation("Reporter")
   moderationActions  ModerationAction[]
+  polls              Poll[]
+  pollVotes          PollVote[]
+  // OAuth providers linked to this account
+  oauthProviders     UserOAuthProvider[]
+  // Chat
+  publicKey          UserPublicKey?
+  sentMessages       DirectMessage[]    @relation("MessageSender")
+  conversations1     Conversation[]     @relation("ConvParticipant1")
+  conversations2     Conversation[]     @relation("ConvParticipant2")
 }
 
 model RefreshToken {
@@ -419,4 +428,117 @@ model ModerationAction {
 
   @@index([modId])
   @@index([targetType, targetId])
+}
+
+// ---------------------------------------------------------------------------
+// Polls
+// ---------------------------------------------------------------------------
+
+model Poll {
+  id        String   @id @default(cuid())
+  question  String
+  authorId  String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  author  User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  options PollOption[]
+  votes   PollVote[]
+
+  @@index([authorId])
+  @@index([expiresAt])
+}
+
+model PollOption {
+  id      String @id @default(cuid())
+  pollId  String
+  label   String
+  order   Int    @default(0)
+
+  poll  Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  votes PollVote[]
+
+  @@index([pollId])
+}
+
+model PollVote {
+  userId   String
+  pollId   String
+  optionId String
+
+  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  poll   Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  option PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, pollId])
+  @@index([pollId])
+}
+
+// ---------------------------------------------------------------------------
+// OAuth providers
+// ---------------------------------------------------------------------------
+
+// One row per OAuth provider linked to a user account.
+// Allows the same email to sign in via Google AND Apple without conflict.
+model UserOAuthProvider {
+  id         String   @id @default(cuid())
+  userId     String
+  provider   String   // "google" | "apple"
+  providerId String   // Provider's stable user ID (sub claim)
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Direct Messages — E2E Encrypted Chat
+// ---------------------------------------------------------------------------
+
+// Each user's ECDH P-256 public key (JWK JSON string).
+// The private key never leaves the client.
+model UserPublicKey {
+  userId    String   @id
+  publicKey String
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// A conversation between exactly two users.
+// participant1 is always the lexicographically smaller userId to enforce uniqueness.
+model Conversation {
+  id           String   @id @default(cuid())
+  participant1 String
+  participant2 String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user1    User            @relation("ConvParticipant1", fields: [participant1], references: [id], onDelete: Cascade)
+  user2    User            @relation("ConvParticipant2", fields: [participant2], references: [id], onDelete: Cascade)
+  messages DirectMessage[]
+
+  @@unique([participant1, participant2])
+  @@index([participant1])
+  @@index([participant2])
+}
+
+// A single encrypted message. The server stores ciphertext only — it cannot
+// read the message content. Clients decrypt using their ECDH-derived shared secret.
+model DirectMessage {
+  id             String    @id @default(cuid())
+  conversationId String
+  senderId       String
+  ciphertext     String    // AES-GCM encrypted content, base64
+  iv             String    // AES-GCM IV, base64
+  createdAt      DateTime  @default(now())
+  readAt         DateTime?
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@index([senderId])
 }
