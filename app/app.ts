@@ -16,12 +16,19 @@ const app = express();
 
 const ALLOWED_ORIGINS = [
   env.CORS_ORIGIN,
+  env.FRONTEND_URL,
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3002",
-  // Allow any device on the local network (192.168.x.x, 10.x.x.x, 172.x.x.x)
-  // This lets phones/tablets on the same WiFi access the app
+  "https://animeunwatched-frontend-delta.vercel.app",
 ].filter(Boolean)
+
+function isVercelPreviewOrigin(origin: string): boolean {
+  try {
+    const { hostname } = new URL(origin)
+    return hostname.endsWith(".vercel.app")
+  } catch { return false }
+}
 
 // Accept any local-network origin so phones on the same WiFi can log in
 function isLocalNetworkOrigin(origin: string): boolean {
@@ -45,7 +52,7 @@ app.use(responseTime);
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && isLocalNetworkOrigin(origin))) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin)))) {
       callback(null, true)
     } else {
       callback(new Error("Not allowed by CORS"))
