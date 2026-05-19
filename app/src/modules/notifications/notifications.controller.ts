@@ -4,8 +4,8 @@ import * as service from "./notifications.service";
 export async function list(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(100, Number(req.query.limit) || 20);
     const result = await service.list(userId, page, limit);
     res.status(200).json(result);
   } catch (err) {

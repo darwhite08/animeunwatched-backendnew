@@ -15,21 +15,29 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   app:
     build: .
     ports:
       - "4000:4000"
+    env_file:
+      - .env
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/animeunwatched"
       PORT: 4000
-      NODE_ENV: development
+      NODE_ENV: production
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - .:/app
-      - /app/node_modules
+    restart: unless-stopped
+    # No volume mount in production — code is baked into the image
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:4000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 volumes:
   postgres_data:

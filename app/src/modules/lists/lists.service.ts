@@ -70,14 +70,22 @@ export async function getUserList(
 // ─── upsertEntry ─────────────────────────────────────────────────────────────
 
 export async function upsertEntry(userId: string, animeId: string, dto: UpsertEntryDto) {
-  const anime = await prisma.anime.findUnique({ where: { id: animeId } });
+  // Support both internal cuid and malId (the frontend maps anime.id = String(malId))
+  const malIdNum = Number(animeId)
+  const anime = isNaN(malIdNum)
+    ? await prisma.anime.findUnique({ where: { id: animeId } })
+    : (await prisma.anime.findFirst({ where: { malId: malIdNum } }))
+      ?? await prisma.anime.findUnique({ where: { id: animeId } });
   if (!anime) throw notFound("Anime not found");
 
+  // Always use the resolved internal cuid for DB operations
+  const resolvedAnimeId = anime.id;
+
   const entry = await prisma.listEntry.upsert({
-    where: { userId_animeId: { userId, animeId } },
+    where: { userId_animeId: { userId, animeId: resolvedAnimeId } },
     create: {
       userId,
-      animeId,
+      animeId: resolvedAnimeId,
       status: dto.status,
       score: dto.score,
       episodesSeen: dto.episodesSeen ?? 0,
@@ -101,10 +109,18 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
 // ─── deleteEntry ─────────────────────────────────────────────────────────────
 
 export async function deleteEntry(userId: string, animeId: string) {
+  // Resolve malId → internal cuid so delete works regardless of which ID the frontend sends
+  let resolvedId = animeId
+  const malIdNum = Number(animeId)
+  if (!isNaN(malIdNum)) {
+    const anime = await prisma.anime.findFirst({ where: { malId: malIdNum }, select: { id: true } })
+    if (anime) resolvedId = anime.id
+  }
+
   const entry = await prisma.listEntry.findUnique({
-    where: { userId_animeId: { userId, animeId } },
+    where: { userId_animeId: { userId, animeId: resolvedId } },
   });
   if (!entry) throw notFound("List entry not found");
 
-  await prisma.listEntry.delete({ where: { userId_animeId: { userId, animeId } } });
+  await prisma.listEntry.delete({ where: { userId_animeId: { userId, animeId: resolvedId } } });
 }

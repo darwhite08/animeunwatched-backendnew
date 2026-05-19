@@ -83,7 +83,9 @@ export async function getReplies(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const result = await service.getReplies(req.params.id as string);
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(200, Number(req.query.limit) || 50);
+    const result = await service.getReplies(req.params.id as string, page, limit);
     res.status(200).json(result);
   } catch (err) {
     next(err);

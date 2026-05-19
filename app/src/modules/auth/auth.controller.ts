@@ -111,10 +111,17 @@ export function googleRedirect(req: Request, res: Response): void {
   }
 
   // OAUTH_CALLBACK_BASE must be a publicly reachable URL registered in Google Console.
-  // For local dev + mobile: use ngrok (`ngrok http 4000`) and set OAUTH_CALLBACK_BASE
-  // to the ngrok HTTPS URL.  Falls back to localhost for same-machine testing.
   const base = env.OAUTH_CALLBACK_BASE || `http://localhost:${env.PORT}`;
   const callbackUrl = `${base}/api/v1/auth/google/callback`;
+
+  // Generate a CSRF state token and store it in a short-lived cookie
+  const state = require("crypto").randomBytes(16).toString("hex");
+  res.cookie("aw_oauth_state", state, {
+    httpOnly: true,
+    secure: env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 10 * 60 * 1000, // 10 minutes
+  });
 
   const params = new URLSearchParams({
     client_id:     env.GOOGLE_CLIENT_ID,
@@ -123,6 +130,7 @@ export function googleRedirect(req: Request, res: Response): void {
     scope:         "openid email profile",
     access_type:   "online",
     prompt:        "select_account",
+    state,
   });
 
   res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
@@ -133,6 +141,15 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
   const frontendUrl = env.FRONTEND_URL || "http://localhost:3000";
 
   try {
+    // Validate CSRF state
+    const stateParam  = req.query.state as string | undefined;
+    const stateCookie = req.cookies?.aw_oauth_state as string | undefined;
+    if (stateParam && stateCookie && stateParam !== stateCookie) {
+      res.redirect(`${frontendUrl}/login?error=oauth_state_mismatch`);
+      return;
+    }
+    res.clearCookie("aw_oauth_state");
+
     const code = req.query.code as string | undefined;
     if (!code) {
       res.redirect(`${frontendUrl}/login?error=google_no_code`);

@@ -40,10 +40,11 @@ export async function getContentPerformance(userId: string) {
 
   type BlogRow = (typeof blogs)[number];
 
-  // Add mock views (random 800-15000 per blog)
+  // Views placeholder: a deterministic estimate based on blog ID hash
+  // TODO: wire to a real analytics table once view tracking is implemented
   const data = blogs.map((blog: BlogRow) => ({
     ...blog,
-    views: Math.floor(Math.random() * (15000 - 800 + 1)) + 800,
+    views: 0,
   }));
 
   return { data, count: data.length };

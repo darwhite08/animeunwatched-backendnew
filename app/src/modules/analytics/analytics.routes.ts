@@ -1,9 +1,14 @@
 import { Router } from "express";
+import { optionalAuth } from "../../middlewares/auth.middleware";
+import { rateLimit } from "../../middlewares/rateLimit.middleware";
 import * as ctrl from "./analytics.controller";
 
 export const analyticsRouter = Router();
 
-analyticsRouter.get("/stats", ctrl.platformStats);
-analyticsRouter.get("/top-anime", ctrl.topAnime);
-analyticsRouter.get("/activity", ctrl.recentActivity);
-analyticsRouter.get("/leaderboard", ctrl.reputationLeaderboard);
+// Public analytics (rate-limited to prevent scraping)
+analyticsRouter.use(rateLimit(60, 60_000));
+
+analyticsRouter.get("/stats",       optionalAuth, ctrl.platformStats);
+analyticsRouter.get("/top-anime",   optionalAuth, ctrl.topAnime);
+analyticsRouter.get("/activity",    optionalAuth, ctrl.recentActivity);
+analyticsRouter.get("/leaderboard", optionalAuth, ctrl.reputationLeaderboard);

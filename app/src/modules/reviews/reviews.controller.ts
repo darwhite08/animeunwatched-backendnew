@@ -103,11 +103,17 @@ export async function unlikeReview(
   }
 }
 
+const VALID_REVIEW_SORTS = ["helpful", "recent", "highest", "lowest"] as const;
+type ReviewSort = typeof VALID_REVIEW_SORTS[number];
+
 export async function listReviews(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const sort = (req.query.sort as "helpful" | "recent" | "highest" | "lowest") || "recent";
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
+    const rawSort = req.query.sort as string | undefined;
+    const sort: ReviewSort = VALID_REVIEW_SORTS.includes(rawSort as ReviewSort)
+      ? (rawSort as ReviewSort)
+      : "recent";
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(100, Number(req.query.limit) || 20);
     const result = await service.listReviews(sort, page, limit);
     res.status(200).json(result);
   } catch (err) {

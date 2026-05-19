@@ -54,5 +54,6 @@ export async function vote(pollId: string, userId: string, optionId: string) {
 
   await prisma.pollVote.create({ data: { userId, pollId, optionId } });
   const updated = await prisma.poll.findUnique({ where: { id: pollId }, include: pollInclude });
+  if (!updated) throw notFound("Poll not found after voting");
   return { poll: formatPoll(updated) };
 }

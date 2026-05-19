@@ -55,6 +55,9 @@ function flattenAnime(anime: AnimeWithRelations) {
   };
 }
 
+// Public export for use in the search controller
+export const flattenAnimePublic = flattenAnime;
+
 // ─── Upsert genres/studios ────────────────────────────────────────────────────
 
 export async function upsertFromCatalog(data: CatalogAnime) {
@@ -112,24 +115,26 @@ export async function upsertFromCatalog(data: CatalogAnime) {
     include: animeInclude,
   });
 
-  // Reconcile genres (delete-then-recreate diff)
-  await prisma.animeGenre.deleteMany({ where: { animeId: anime.id } });
-  await prisma.animeGenre.createMany({
-    data: genreRecords.map((g: { id: string }) => ({ animeId: anime.id, genreId: g.id })),
-    skipDuplicates: true,
-  });
-
-  // Reconcile studios
-  await prisma.animeStudio.deleteMany({ where: { animeId: anime.id } });
-  await prisma.animeStudio.createMany({
-    data: studioRecords.map((s: { id: string }) => ({ animeId: anime.id, studioId: s.id })),
-    skipDuplicates: true,
-  });
+  // Reconcile genres and studios atomically to prevent concurrent-update race conditions
+  await prisma.$transaction([
+    prisma.animeGenre.deleteMany({ where: { animeId: anime.id } }),
+    prisma.animeGenre.createMany({
+      data: genreRecords.map((g: { id: string }) => ({ animeId: anime.id, genreId: g.id })),
+      skipDuplicates: true,
+    }),
+    prisma.animeStudio.deleteMany({ where: { animeId: anime.id } }),
+    prisma.animeStudio.createMany({
+      data: studioRecords.map((s: { id: string }) => ({ animeId: anime.id, studioId: s.id })),
+      skipDuplicates: true,
+    }),
+  ]);
 
   // Invalidate per-anime cache entry so next read gets fresh data
   cache.del(`anime:${data.malId}`);
 
-  return flattenAnime(anime as AnimeWithRelations);
+  // Fetch fresh data (with updated genres/studios) for the return value
+  const fresh = await prisma.anime.findUnique({ where: { id: anime.id }, include: animeInclude });
+  return flattenAnime((fresh ?? anime) as AnimeWithRelations);
 }
 
 // ─── browse ───────────────────────────────────────────────────────────────────

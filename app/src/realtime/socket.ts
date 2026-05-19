@@ -6,7 +6,22 @@ import { env } from "../config/env";
 export function initSocket(httpServer: HttpServer) {
   const io = new SocketServer(httpServer, {
     path: "/socket/v1",
-    cors: { origin: env.CORS_ORIGIN, credentials: true },
+    cors: {
+      origin: (origin: string | undefined, callback: (err: Error | null, ok?: boolean) => void) => {
+        if (!origin) { callback(null, true); return }
+        const allowed = [env.CORS_ORIGIN, "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"].filter(Boolean)
+        if (allowed.includes(origin)) { callback(null, true); return }
+        // Allow any local-network origin (phones on same WiFi)
+        try {
+          const { hostname } = new URL(origin)
+          const isLan = /^192\.168\.\d+\.\d+$/.test(hostname) ||
+            /^10\.\d+\.\d+\.\d+$/.test(hostname) ||
+            /^172\.(1[6-9]|2\d|3[01])\.\d+\.\d+$/.test(hostname)
+          callback(null, isLan)
+        } catch { callback(new Error("Not allowed")) }
+      },
+      credentials: true,
+    },
   });
 
   io.use((socket, next) => {
@@ -68,6 +83,15 @@ export function initSocket(httpServer: HttpServer) {
     // Recipient → server → caller: already in another call
     socket.on("call:busy", (data: { to: string }) => {
       io.to(`user:${data.to}`).emit("call:busy");
+    });
+
+    // ── Typing indicators ────────────────────────────────────────────────────
+    socket.on("typing:start", (data: { conversationId: string; to: string }) => {
+      io.to(`user:${data.to}`).emit("typing:start", { from: userId, conversationId: data.conversationId });
+    });
+
+    socket.on("typing:stop", (data: { conversationId: string; to: string }) => {
+      io.to(`user:${data.to}`).emit("typing:stop", { from: userId, conversationId: data.conversationId });
     });
   });
 

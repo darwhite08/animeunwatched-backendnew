@@ -4,7 +4,7 @@ import * as service from "./users.service";
 
 export async function getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const result = await service.getProfile((req.params.username as string));
+    const result = await service.getProfile(req.params.username as string);
     res.status(200).json(result);
   } catch (err) {
     next(err);
@@ -25,7 +25,7 @@ export async function updateMe(req: Request, res: Response, next: NextFunction):
 export async function follow(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const followerId: string = res.locals.user.id;
-    await service.follow(followerId, (req.params.username as string));
+    await service.follow(followerId, req.params.username as string);
     res.status(204).send();
   } catch (err) {
     next(err);
@@ -35,22 +35,18 @@ export async function follow(req: Request, res: Response, next: NextFunction): P
 export async function unfollow(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const followerId: string = res.locals.user.id;
-    await service.unfollow(followerId, (req.params.username as string));
+    await service.unfollow(followerId, req.params.username as string);
     res.status(204).send();
   } catch (err) {
     next(err);
   }
 }
 
-export async function getFollowers(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> {
+export async function getFollowers(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
-    const result = await service.getFollowers((req.params.username as string), page, limit);
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(100, Number(req.query.limit) || 20);
+    const result = await service.getFollowers(req.params.username as string, page, limit);
     res.status(200).json(result);
   } catch (err) {
     next(err);
@@ -59,22 +55,18 @@ export async function getFollowers(
 
 export async function getXp(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const result = await service.getXp((req.params.username as string));
+    const result = await service.getXp(req.params.username as string);
     res.status(200).json(result);
   } catch (err) {
     next(err);
   }
 }
 
-export async function getFollowing(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> {
+export async function getFollowing(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
-    const result = await service.getFollowing((req.params.username as string), page, limit);
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(100, Number(req.query.limit) || 20);
+    const result = await service.getFollowing(req.params.username as string, page, limit);
     res.status(200).json(result);
   } catch (err) {
     next(err);
@@ -103,7 +95,7 @@ export async function exportMyData(req: Request, res: Response, next: NextFuncti
 
 export async function getActivity(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const limit = Number(req.query.limit) || 20;
+    const limit = Math.min(60, Number(req.query.limit) || 20);
     const result = await service.getActivity(req.params.username as string, limit);
     res.status(200).json(result);
   } catch (err) {
@@ -113,7 +105,7 @@ export async function getActivity(req: Request, res: Response, next: NextFunctio
 
 export async function getLeaderboard(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const limit  = Number(req.query.limit)  || 50;
+    const limit  = Math.min(200, Number(req.query.limit) || 50);
     const period = (req.query.period as string) || "all-time";
     const result = await service.getLeaderboard(limit, period);
     res.status(200).json(result);

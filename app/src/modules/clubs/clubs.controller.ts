@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { createClubSchema, updateClubSchema } from "./clubs.schema";
 import * as service from "./clubs.service";
+import { badReq } from "../../lib/errors";
+
+const VALID_MEMBER_ROLES = ["USER", "MOD", "ADMIN"] as const;
 
 export async function listClubs(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -65,8 +68,11 @@ export async function setMemberRole(
   try {
     const actorId: string = res.locals.user.id;
     const { slug, userId: targetUserId } = req.params as { slug: string; userId: string };
-    const { role } = req.body as { role: "USER" | "MOD" | "ADMIN" };
-    const result = await service.setMemberRole(actorId, slug, targetUserId, role);
+    const { role } = req.body as { role: string };
+    if (!VALID_MEMBER_ROLES.includes(role as typeof VALID_MEMBER_ROLES[number])) {
+      throw badReq(`role must be one of: ${VALID_MEMBER_ROLES.join(", ")}`);
+    }
+    const result = await service.setMemberRole(actorId, slug, targetUserId, role as "USER" | "MOD" | "ADMIN");
     res.status(200).json(result);
   } catch (err) {
     next(err);

@@ -7,8 +7,8 @@ export async function getUserList(req: Request, res: Response, next: NextFunctio
     const username = req.params.username as string;
     const status = req.query.status as string | undefined;
     const sort = req.query.sort as string | undefined;
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(100, Number(req.query.limit) || 20);
     const result = await service.getUserList(username, status, sort, page, limit);
     res.status(200).json(result);
   } catch (err) {

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
 import { env } from "./src/config/env";
 import { errorHandler } from "./src/middlewares/error.middleware";
 import { rateLimit } from "./src/middlewares/rateLimit.middleware";
@@ -18,18 +19,43 @@ const ALLOWED_ORIGINS = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3002",
+  // Allow any device on the local network (192.168.x.x, 10.x.x.x, 172.x.x.x)
+  // This lets phones/tablets on the same WiFi access the app
 ].filter(Boolean)
+
+// Accept any local-network origin so phones on the same WiFi can log in
+function isLocalNetworkOrigin(origin: string): boolean {
+  try {
+    const { hostname } = new URL(origin)
+    return (
+      /^192\.168\.\d+\.\d+$/.test(hostname) ||
+      /^10\.\d+\.\d+\.\d+$/.test(hostname) ||
+      /^172\.(1[6-9]|2\d|3[01])\.\d+\.\d+$/.test(hostname)
+    )
+  } catch { return false }
+}
+
+// Security headers — must come first
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: env.NODE_ENV === "production" ? undefined : false,
+}));
 
 app.use(responseTime);
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) callback(null, true)
-    else callback(new Error("Not allowed by CORS"))
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && isLocalNetworkOrigin(origin))) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
   },
   credentials: true,
 }));
-app.use(express.json());
+// 1 MB payload limit to prevent large body DoS
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 app.use(cookieParser());
 app.use(apiVersionHeader);
 

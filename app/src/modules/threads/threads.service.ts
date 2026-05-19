@@ -126,19 +126,25 @@ export async function deleteThread(id: string, userId: string, role: string) {
 
 // ─── getReplies ───────────────────────────────────────────────────────────────
 
-export async function getReplies(threadId: string) {
+export async function getReplies(threadId: string, page = 1, limit = 50) {
   const thread = await prisma.thread.findUnique({ where: { id: threadId } });
   if (!thread) throw notFound("Thread not found");
 
-  const replies = await prisma.threadReply.findMany({
-    where: { threadId },
-    orderBy: { createdAt: "asc" },
-    include: {
-      author: { select: authorSelect },
-    },
-  });
+  const skip = (page - 1) * limit;
+  const [replies, total] = await prisma.$transaction([
+    prisma.threadReply.findMany({
+      where: { threadId },
+      skip,
+      take: limit,
+      orderBy: { createdAt: "asc" },
+      include: {
+        author: { select: authorSelect },
+      },
+    }),
+    prisma.threadReply.count({ where: { threadId } }),
+  ]);
 
-  return { data: replies };
+  return { data: replies, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
 }
 
 // ─── createReply ──────────────────────────────────────────────────────────────
@@ -152,6 +158,15 @@ export async function createReply(
   if (!thread) throw notFound("Thread not found");
 
   if (thread.isLocked) throw forbidden("This thread is locked");
+
+  // Validate parentId belongs to the same thread
+  if (dto.parentId) {
+    const parent = await prisma.threadReply.findUnique({ where: { id: dto.parentId }, select: { threadId: true } });
+    if (!parent || parent.threadId !== threadId) {
+      const { badReq: br } = await import("../../lib/errors");
+      throw br("parentId does not belong to this thread");
+    }
+  }
 
   const reply = await prisma.threadReply.create({
     data: {

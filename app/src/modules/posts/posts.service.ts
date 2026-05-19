@@ -149,7 +149,7 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
           }).catch(console.error),
         ),
     );
-  })();
+  })().catch(console.error);
 
   return { post };
 }
@@ -175,12 +175,22 @@ export async function likePost(userId: string, postId: string) {
   const post = await prisma.post.findUnique({ where: { id: postId } });
   if (!post || post.deletedAt !== null) throw notFound("Post not found");
 
+  // Check if like already exists before awarding reputation
+  const existing = await prisma.postLike.findUnique({
+    where: { userId_postId: { userId, postId } },
+    select: { userId: true },
+  });
+
   await prisma.postLike.upsert({
     where: { userId_postId: { userId, postId } },
     create: { userId, postId },
     update: {},
   });
-  addReputation(post.authorId, "post_liked").catch(console.error);
+
+  // Only award reputation for a new like, not a duplicate
+  if (!existing) {
+    addReputation(post.authorId, "post_liked").catch(console.error);
+  }
 }
 
 // ─── unlikePost ───────────────────────────────────────────────────────────────

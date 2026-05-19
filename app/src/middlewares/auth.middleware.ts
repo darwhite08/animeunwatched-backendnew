@@ -13,6 +13,7 @@ const userSelect = {
   avatarUrl: true,
   role: true,
   reputation: true,
+  isBanned: true,
   createdAt: true,
 } as const;
 
@@ -31,6 +32,7 @@ export async function requireAuth(
       select: userSelect,
     });
     if (!user) return next(unauth());
+    if (user.isBanned) return next(unauth("Your account has been suspended"));
     res.locals.user = user;
     next();
   } catch {
@@ -49,8 +51,8 @@ export function optionalAuth(
     const payload = jwt.verify(header.slice(7), env.JWT_ACCESS_SECRET) as { userId: string };
     prisma.user
       .findUnique({ where: { id: payload.userId }, select: userSelect })
-      .then((user: unknown) => {
-        if (user) res.locals.user = user;
+      .then((user) => {
+        if (user && !user.isBanned) res.locals.user = user;
         next();
       })
       .catch(() => next());

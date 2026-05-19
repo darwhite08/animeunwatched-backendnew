@@ -112,17 +112,20 @@ export async function follow(followerId: string, targetUsername: string) {
     throw err;
   }
 
-  // Notify the followed user
-  const follower = await prisma.user.findUnique({ where: { id: followerId }, select: { username: true, displayName: true } });
-  await createNotification({
-    recipientId: target.id,
-    type: NotificationType.NEW_FOLLOWER,
-    payload: {
-      message: `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
-      link: `/u/${follower?.username ?? ""}`,
-      followerUsername: follower?.username,
-    },
-  });
+  // Notify the followed user — fire-and-forget so a notification failure doesn't break the follow
+  prisma.user.findUnique({ where: { id: followerId }, select: { username: true, displayName: true } })
+    .then((follower) =>
+      createNotification({
+        recipientId: target.id,
+        type: NotificationType.NEW_FOLLOWER,
+        payload: {
+          message: `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
+          link: `/u/${follower?.username ?? ""}`,
+          followerUsername: follower?.username,
+        },
+      })
+    )
+    .catch(console.error);
 }
 
 // ─── calculateXp ──────────────────────────────────────────────────────────────
@@ -216,17 +219,19 @@ export async function getFollowers(username: string, page = 1, limit = 20) {
 export async function exportMyData(userId: string) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: {
-      listEntries: { include: { anime: true } },
-      posts: { take: 100, orderBy: { createdAt: "desc" } },
-      reviews: { take: 50 },
-      blogs: { take: 50 },
-      notifications: { take: 100, orderBy: { createdAt: "desc" } },
+    select: {
+      // Safe fields only — never export passwordHash, isBanned, refreshTokens, oauthProviders
+      id: true, email: true, username: true, displayName: true,
+      bio: true, avatarUrl: true, role: true, reputation: true, createdAt: true, updatedAt: true,
+      listEntries: { include: { anime: { select: { malId: true, title: true } } }, take: 500 },
+      posts:        { take: 100, orderBy: { createdAt: "desc" }, select: { id: true, content: true, createdAt: true } },
+      reviews:      { take: 100, orderBy: { createdAt: "desc" }, select: { id: true, score: true, body: true, createdAt: true } },
+      blogs:        { take: 50,  orderBy: { createdAt: "desc" }, select: { id: true, title: true, status: true, publishedAt: true } },
+      notifications:{ take: 100, orderBy: { createdAt: "desc" }, select: { id: true, type: true, payload: true, read: true, createdAt: true } },
     },
   });
   if (!user) throw notFound("User not found");
-  const { passwordHash: _, ...safeUser } = user;
-  return safeUser;
+  return user;
 }
 
 // ─── getActivity ─────────────────────────────────────────────────────────────

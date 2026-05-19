@@ -23,12 +23,32 @@ export const env = {
   OAUTH_CALLBACK_BASE:  process.env.OAUTH_CALLBACK_BASE  || "",
 
   // Apple Sign In — https://developer.apple.com/
-  // Service ID (Bundle ID registered under "Sign in with Apple")
   APPLE_CLIENT_ID:   process.env.APPLE_CLIENT_ID   || "",
-  // 10-char Team ID from Apple Developer account
   APPLE_TEAM_ID:     process.env.APPLE_TEAM_ID     || "",
-  // Key ID of the .p8 private key
   APPLE_KEY_ID:      process.env.APPLE_KEY_ID      || "",
-  // Contents of the .p8 private key file (newlines as \n)
   APPLE_PRIVATE_KEY: process.env.APPLE_PRIVATE_KEY || "",
+
+  // Email (nodemailer / SendGrid)
+  SMTP_HOST: process.env.SMTP_HOST || "",
+  SMTP_PORT: Number(process.env.SMTP_PORT) || 587,
+  SMTP_USER: process.env.SMTP_USER || "",
+  SMTP_PASS: process.env.SMTP_PASS || "",
+  ENABLE_EMAIL_NOTIFICATIONS: process.env.ENABLE_EMAIL_NOTIFICATIONS === "true",
 };
+
+// ── Production startup guard ─────────────────────────────────────────────────
+// Fail fast if critical env vars are missing or still set to weak defaults.
+if (env.NODE_ENV === "production") {
+  const REQUIRED: (keyof typeof env)[] = ["DATABASE_URL", "JWT_ACCESS_SECRET", "JWT_REFRESH_SECRET", "CORS_ORIGIN"];
+  const missing = REQUIRED.filter((k) => !env[k]);
+  if (missing.length > 0) {
+    console.error(`[FATAL] Missing required env vars in production: ${missing.join(", ")}`);
+    process.exit(1);
+  }
+
+  const WEAK = ["dev-access-secret", "dev-refresh-secret", "change-me-access-secret-min-32-chars", "change-me-refresh-secret-min-32-chars"];
+  if (WEAK.includes(env.JWT_ACCESS_SECRET) || WEAK.includes(env.JWT_REFRESH_SECRET)) {
+    console.error("[FATAL] JWT secrets must not use default dev values in production.");
+    process.exit(1);
+  }
+}

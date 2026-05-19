@@ -104,8 +104,10 @@ export async function register(dto: RegisterDto) {
 }
 
 export async function login(dto: LoginDto) {
+  // Single query: fetch user with all needed fields + passwordHash
   const userWithHash = await prisma.user.findUnique({
     where: { email: dto.email },
+    select: { ...userSelect, passwordHash: true },
   });
 
   if (!userWithHash) throw unauth("Invalid email or password");
@@ -113,12 +115,8 @@ export async function login(dto: LoginDto) {
   const valid = await verifyPassword(userWithHash.passwordHash, dto.password);
   if (!valid) throw unauth("Invalid email or password");
 
-  const user = await prisma.user.findUnique({
-    where: { id: userWithHash.id },
-    select: userSelect,
-  });
-
-  if (!user) throw unauth("Invalid email or password");
+  // Strip the passwordHash before returning to callers
+  const { passwordHash: _hash, ...user } = userWithHash;
 
   const accessToken = signAccessToken(user.id);
   const refreshToken = signRefreshToken(user.id);
@@ -183,14 +181,16 @@ export async function logoutAll(userId: string): Promise<void> {
 
 // ─── OAuth helpers ────────────────────────────────────────────────────────────
 
-async function generateUniqueUsername(base: string): Promise<string> {
-  // Strip non-alphanumeric chars, lowercase, cap at 20 chars
+async function generateUniqueUsername(base: string, maxAttempts = 10): Promise<string> {
   const clean = base.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().slice(0, 20) || "user";
-  const candidate = clean + Math.floor(Math.random() * 9000 + 1000);
-  const exists = await prisma.user.findUnique({ where: { username: candidate } });
-  // Retry once more if collision (astronomically unlikely)
-  if (exists) return clean + Math.floor(Math.random() * 9000 + 1000);
-  return candidate;
+  for (let i = 0; i < maxAttempts; i++) {
+    const suffix   = Math.floor(Math.random() * 90000 + 10000); // 5-digit suffix
+    const candidate = `${clean}${suffix}`;
+    const exists = await prisma.user.findUnique({ where: { username: candidate }, select: { id: true } });
+    if (!exists) return candidate;
+  }
+  // Fallback: timestamp-based suffix is always unique
+  return `${clean}${Date.now().toString(36)}`;
 }
 
 async function findOrCreateOAuthUser(opts: {

@@ -119,12 +119,21 @@ export async function like(userId: string, reviewId: string) {
   const review = await prisma.review.findUnique({ where: { id: reviewId } });
   if (!review) throw notFound("Review not found");
 
+  const existingLike = await prisma.reviewLike.findUnique({
+    where: { userId_reviewId: { userId, reviewId } },
+    select: { userId: true },
+  });
+
   await prisma.reviewLike.upsert({
     where: { userId_reviewId: { userId, reviewId } },
     create: { userId, reviewId },
     update: {},
   });
-  addReputation(review.authorId, "review_liked").catch(console.error);
+
+  // Only award reputation once per unique like
+  if (!existingLike) {
+    addReputation(review.authorId, "review_liked").catch(console.error);
+  }
 }
 
 // ─── unlike ───────────────────────────────────────────────────────────────────
