@@ -138,20 +138,102 @@ export async function upsertFromCatalog(data: CatalogAnime) {
 }
 
 // ─── browse ───────────────────────────────────────────────────────────────────
+// When no filters are applied → fetch directly from Jikan (all 25000+ anime, paginated)
+// and cache results into our DB for future use.
+// When filters are applied → query our local DB which has synced data.
+
+type JikanAnimeRaw = Record<string, unknown>;
+
+function mapJikanRaw(a: JikanAnimeRaw) {
+  const aired = (a.aired as Record<string, unknown>)?.from as string | null;
+  return {
+    malId:         a.mal_id as number,
+    title:         a.title as string,
+    titleEnglish:  (a.title_english as string) || null,
+    titleJapanese: (a.title_japanese as string) || null,
+    synopsis:      (a.synopsis as string) || null,
+    type:          (a.type as string) || null,
+    episodes:      (a.episodes as number) || null,
+    status:        (a.status as string) || null,
+    airedFrom:     aired ? new Date(aired) : null,
+    airedTo:       null,
+    season:        (a.season as string) || null,
+    year:          (a.year as number) || null,
+    rating:        (a.rating as string) || null,
+    score:         (a.score as number) || null,
+    imageUrl:      ((a.images as Record<string, Record<string, string>>)?.jpg?.large_image_url)
+                   || ((a.images as Record<string, Record<string, string>>)?.jpg?.image_url) || null,
+    trailerUrl:    ((a.trailer as Record<string, string>)?.url) || null,
+    source:        (a.source as string) || null,
+    genres:        ((a.genres as Array<Record<string, string>>) ?? []).map(g => g.name),
+    studios:       ((a.studios as Array<Record<string, string>>) ?? []).map(s => s.name),
+  };
+}
+
+const JIKAN_BASE = process.env.JIKAN_BASE_URL ?? "https://api.jikan.moe/v4";
+
+async function browseJikan(page: number, limit: number, filters: {
+  q?: string; year?: number; season?: string; type?: string; status?: string;
+}) {
+  const qs = new URLSearchParams({ page: String(page), limit: String(Math.min(limit, 25)) });
+  if (filters.q)      qs.set("q", filters.q);
+  if (filters.year)   qs.set("start_date", `${filters.year}-01-01`);
+  if (filters.season) qs.set("season", filters.season);
+  if (filters.type)   qs.set("type", filters.type);
+  if (filters.status) qs.set("status", filters.status === "Finished Airing" ? "complete" : "airing");
+  qs.set("order_by", "score");
+  qs.set("sort", "desc");
+
+  const url = `${JIKAN_BASE}/anime?${qs.toString()}`;
+  const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  if (!res.ok) throw new Error(`Jikan browse returned ${res.status}`);
+
+  const json = await res.json() as {
+    data: JikanAnimeRaw[];
+    pagination: { items: { count: number; total: number; per_page: number }; last_visible_page: number; has_next_page: boolean };
+  };
+
+  // Background-cache fetched anime into our DB (fire-and-forget)
+  void Promise.all(
+    (json.data ?? []).map(a => upsertFromCatalog(mapJikanRaw(a)).catch(() => {}))
+  );
+
+  const perPage = json.pagination?.items?.per_page ?? limit;
+  const total   = json.pagination?.items?.total ?? 0;
+  const pages   = json.pagination?.last_visible_page ?? Math.ceil(total / perPage);
+
+  return {
+    data: (json.data ?? []).map(mapJikanRaw),
+    meta: { total, page, limit: perPage, pages },
+  };
+}
 
 export async function browse(query: BrowseQuery) {
   const cacheKey = `anime:browse:${JSON.stringify(query)}`;
-  const cached = cache.get<{ data: ReturnType<typeof flattenAnime>[]; meta: ReturnType<typeof buildMeta> }>(cacheKey);
+  const cached = cache.get<{ data: unknown[]; meta: unknown }>(cacheKey);
   if (cached) return cached;
 
   const { q, year, season, type, status, page, limit } = query;
-  const { skip, take } = paginate(page, limit);
+  const hasFilters = !!(q || year || season || type || status);
 
+  // ── No filters: proxy Jikan directly for ALL anime with pagination ──
+  if (!hasFilters) {
+    try {
+      const result = await browseJikan(page, limit, {});
+      cache.set(cacheKey, result, 3 * 60_000); // 3 min TTL (Jikan is live data)
+      return result;
+    } catch {
+      // Jikan unavailable → fall through to local DB
+    }
+  }
+
+  // ── Filters applied OR Jikan failed: use local DB ──
+  const { skip, take } = paginate(page, limit);
   const where = {
     ...(q ? { OR: [
-      { title: { contains: q, mode: "insensitive" as const } },
+      { title:        { contains: q, mode: "insensitive" as const } },
       { titleEnglish: { contains: q, mode: "insensitive" as const } },
-      { synopsis: { contains: q, mode: "insensitive" as const } },
+      { synopsis:     { contains: q, mode: "insensitive" as const } },
       { genres: { some: { genre: { name: { contains: q, mode: "insensitive" as const } } } } },
     ]} : {}),
     ...(year !== undefined ? { year } : {}),
@@ -165,12 +247,20 @@ export async function browse(query: BrowseQuery) {
     prisma.anime.count({ where }),
   ]);
 
+  // If DB has no results for a filtered query → try Jikan as fallback
+  if (total === 0 && hasFilters) {
+    try {
+      const jikanResult = await browseJikan(page, limit, { q, year, season, type, status });
+      cache.set(cacheKey, jikanResult, 3 * 60_000);
+      return jikanResult;
+    } catch { /* ignore */ }
+  }
+
   const result = {
     data: (data as AnimeWithRelations[]).map((a: AnimeWithRelations) => flattenAnime(a)),
     meta: buildMeta(total, page, limit),
   };
-
-  cache.set(cacheKey, result, 5 * 60_000); // 5 min TTL
+  cache.set(cacheKey, result, 5 * 60_000);
   return result;
 }
 

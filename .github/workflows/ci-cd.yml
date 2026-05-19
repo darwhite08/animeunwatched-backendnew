@@ -1,16 +1,10 @@
-name: Backend CI/CD — Google Cloud Run
+name: Backend CI/CD — Railway
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
-env:
-  PROJECT_ID: animeunwatched
-  SERVICE: animeunwatched-backend
-  REGION: asia-south1
-  IMAGE: asia-south1-docker.pkg.dev/animeunwatched/backend/api
 
 jobs:
   test:
@@ -45,58 +39,22 @@ jobs:
           JWT_ACCESS_SECRET: test-access-secret-min-32-chars-long!
           JWT_REFRESH_SECRET: test-refresh-secret-min-32-chars-long!
 
-  build-push:
-    name: Build & Push to Artifact Registry
+  deploy:
+    name: Deploy to Railway
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push'
-    outputs:
-      image: ${{ steps.meta.outputs.image }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - uses: google-github-actions/setup-gcloud@v2
-      - run: gcloud auth configure-docker asia-south1-docker.pkg.dev --quiet
-      - name: Build & Push
-        id: meta
-        run: |
-          IMAGE="${{ env.IMAGE }}:${{ github.sha }}"
-          docker build -t $IMAGE .
-          docker push $IMAGE
-          docker tag $IMAGE ${{ env.IMAGE }}:latest
-          docker push ${{ env.IMAGE }}:latest
-          echo "image=$IMAGE" >> $GITHUB_OUTPUT
-
-  deploy:
-    name: Deploy to Cloud Run
-    runs-on: ubuntu-latest
-    needs: build-push
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: production
-      url: ${{ steps.deploy.outputs.url }}
     steps:
-      - uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v2
-        with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          image: ${{ needs.build-push.outputs.image }}
-          env_vars: NODE_ENV=production,PORT=4000
-          secrets: |
-            DATABASE_URL=DATABASE_URL:latest
-            JWT_ACCESS_SECRET=JWT_ACCESS_SECRET:latest
-            JWT_REFRESH_SECRET=JWT_REFRESH_SECRET:latest
-            CORS_ORIGIN=CORS_ORIGIN:latest
-            FRONTEND_URL=FRONTEND_URL:latest
-            GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID:latest
-            GOOGLE_CLIENT_SECRET=GOOGLE_CLIENT_SECRET:latest
+      - uses: actions/checkout@v4
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      - name: Deploy
+        run: railway up --service animeunwatched-backend --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       - name: Health check
         run: |
-          sleep 15
-          curl -sf "${{ steps.deploy.outputs.url }}/health" | python3 -c "import sys,json; print('✅ Health:', json.load(sys.stdin)['status'])" || echo "⚠️ Check dashboard"
+          sleep 30
+          curl -sf "${{ secrets.RAILWAY_BACKEND_URL }}/health" | python3 -c "import sys,json; d=json.load(sys.stdin); print('✅ Health:', d.get('status','?'))" || echo "⚠️ Health check failed — check Railway dashboard"

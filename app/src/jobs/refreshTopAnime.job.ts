@@ -20,7 +20,8 @@ function mapJikanAnime(a: JikanAnime) {
     year: (a.year as number) || null,
     rating: (a.rating as string) || null,
     score: (a.score as number) || null,
-    imageUrl: ((a.images as Record<string, Record<string, string>>)?.jpg?.large_image_url) || ((a.images as Record<string, Record<string, string>>)?.jpg?.image_url) || null,
+    imageUrl: ((a.images as Record<string, Record<string, string>>)?.jpg?.large_image_url)
+      || ((a.images as Record<string, Record<string, string>>)?.jpg?.image_url) || null,
     trailerUrl: ((a.trailer as Record<string, string>)?.url) || null,
     source: (a.source as string) || null,
     genres: ((a.genres as Array<Record<string, string>>) ?? []).map((g) => g.name),
@@ -28,32 +29,53 @@ function mapJikanAnime(a: JikanAnime) {
   }
 }
 
+async function fetchJikanPage(page: number): Promise<JikanAnime[]> {
+  const res = await fetch(`${env.JIKAN_BASE_URL}/top/anime?limit=25&page=${page}`)
+  if (!res.ok) throw new Error(`Jikan page ${page} returned ${res.status}`)
+  const json = await res.json() as { data: JikanAnime[]; pagination: { has_next_page: boolean } }
+  return json.data ?? []
+}
+
 export async function refreshTopAnime(): Promise<void> {
-  console.log("[Job] refreshTopAnime starting")
+  console.log("[Job] refreshTopAnime starting — fetching all top anime from Jikan")
+  let totalUpserted = 0
+  let page = 1
+  const MAX_PAGES = 20 // up to 500 anime (25 per page)
+
   try {
-    const res = await fetch(`${env.JIKAN_BASE_URL}/top/anime?limit=50`)
-    if (!res.ok) {
-      console.warn("[Job] refreshTopAnime: Jikan returned", res.status)
-      return
-    }
-    const json = await res.json() as { data: JikanAnime[] }
-    if (!json?.data?.length) {
-      console.warn("[Job] refreshTopAnime: no data returned")
-      return
+    while (page <= MAX_PAGES) {
+      let items: JikanAnime[]
+      try {
+        items = await fetchJikanPage(page)
+      } catch (e) {
+        console.warn(`[Job] refreshTopAnime: page ${page} failed, stopping`)
+        break
+      }
+
+      if (!items.length) break
+
+      for (const item of items) {
+        try {
+          await upsertFromCatalog(mapJikanAnime(item))
+          totalUpserted++
+          // Jikan rate limit: 3 req/sec — 350ms gap keeps us safe
+          await new Promise(r => setTimeout(r, 350))
+        } catch {
+          // Skip individual failures silently
+        }
+      }
+
+      console.log(`[Job] refreshTopAnime: page ${page} done (${totalUpserted} total so far)`)
+
+      // Jikan paginates 25 per page; if we got < 25 there are no more pages
+      if (items.length < 25) break
+      page++
+
+      // Pause between pages to respect rate limits
+      await new Promise(r => setTimeout(r, 1000))
     }
 
-    let upserted = 0
-    for (const item of json.data) {
-      try {
-        const mapped = mapJikanAnime(item)
-        await upsertFromCatalog(mapped)
-        upserted++
-        await new Promise(r => setTimeout(r, 200)) // slight delay
-      } catch (e) {
-        // Skip individual failures silently
-      }
-    }
-    console.log(`[Job] refreshTopAnime: upserted ${upserted}/${json.data.length} anime`)
+    console.log(`[Job] refreshTopAnime: complete — ${totalUpserted} anime upserted`)
   } catch (e) {
     console.error("[Job] refreshTopAnime failed:", e)
   }
