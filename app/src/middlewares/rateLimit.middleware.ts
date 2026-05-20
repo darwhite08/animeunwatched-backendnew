@@ -17,8 +17,15 @@ export function rateLimit(limit: number, windowMs: number) {
     }
 
     if (entry.count >= limit) {
+      const retryAfterSec = Math.ceil((entry.resetAt - now) / 1000)
       res.set("X-RateLimit-Remaining", "0")
-      res.status(429).json({ error: { code: "RATE_LIMITED", message: "Too many requests" } })
+      res.set("Retry-After", String(retryAfterSec))
+      res.status(429).json({
+        error: {
+          code: "RATE_LIMITED",
+          message: `Too many requests. Try again in ${retryAfterSec} seconds.`,
+        },
+      })
       return
     }
 
