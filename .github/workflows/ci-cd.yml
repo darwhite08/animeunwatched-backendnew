@@ -1,4 +1,4 @@
-name: Backend CI/CD — Google Cloud Run
+name: Backend CI — Test & Deploy via Render
 
 on:
   push:
@@ -6,14 +6,8 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  PROJECT_ID:  ${{ secrets.GCP_PROJECT_ID }}
-  REGION:      ${{ secrets.GCP_REGION }}
-  SERVICE:     animeunwatched-backend
-  IMAGE:       ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/api
-
 jobs:
-  # ── 1. Test ────────────────────────────────────────────────────────────────
+  # ── Tests run on every push/PR ─────────────────────────────────────────────
   test:
     name: Test & Type-check
     runs-on: ubuntu-latest
@@ -48,85 +42,15 @@ jobs:
           JWT_ACCESS_SECRET: test-access-secret-min-32-chars-long!
           JWT_REFRESH_SECRET: test-refresh-secret-min-32-chars-long!
 
-  # ── 2. Build & Push Docker image ──────────────────────────────────────────
-  build-push:
-    name: Build & Push to Artifact Registry
+  # ── Render deploys automatically when tests pass on main ───────────────────
+  # No extra config needed — Render watches the main branch via render.yaml
+  # Set RENDER_DEPLOY_HOOK in GitHub secrets for an explicit trigger (optional)
+  deploy-notify:
+    name: Notify Render Deploy
     runs-on: ubuntu-latest
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
-
-      - name: Build & push image
-        run: |
-          IMAGE_TAG="${{ env.IMAGE }}:${{ github.sha }}"
-          docker build -t "$IMAGE_TAG" -t "${{ env.IMAGE }}:latest" .
-          docker push "$IMAGE_TAG"
-          docker push "${{ env.IMAGE }}:latest"
-          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-
-  # ── 3. Deploy to Cloud Run ────────────────────────────────────────────────
-  deploy:
-    name: Deploy to Cloud Run
-    runs-on: ubuntu-latest
-    needs: build-push
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.url }}
-
-    steps:
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v2
-        with:
-          service:   ${{ env.SERVICE }}
-          region:    ${{ env.REGION }}
-          image:     ${{ env.IMAGE }}:${{ github.sha }}
-          flags: >-
-            --min-instances=0
-            --max-instances=3
-            --memory=512Mi
-            --cpu=1
-            --concurrency=80
-            --timeout=60s
-            --port=4000
-            --allow-unauthenticated
-          env_vars: |
-            NODE_ENV=production
-            PORT=4000
-          secrets: |
-            DATABASE_URL=DATABASE_URL:latest
-            JWT_ACCESS_SECRET=JWT_ACCESS_SECRET:latest
-            JWT_REFRESH_SECRET=JWT_REFRESH_SECRET:latest
-            CORS_ORIGIN=CORS_ORIGIN:latest
-            FRONTEND_URL=FRONTEND_URL:latest
-            GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID:latest
-
-      - name: Health check
-        run: |
-          URL="${{ steps.deploy.outputs.url }}"
-          echo "Service URL: $URL"
-          sleep 15
-          curl -sf "$URL/health" | python3 -c "
-          import sys, json
-          d = json.load(sys.stdin)
-          print('✅ Status:', d.get('status'))
-          print('✅ DB:', d.get('db', {}).get('status'))
-          " || echo "⚠️ Health check failed — check Cloud Run logs"
+      - name: Trigger Render deploy hook
+        if: ${{ secrets.RENDER_DEPLOY_HOOK != '' }}
+        run: curl -s "${{ secrets.RENDER_DEPLOY_HOOK }}" | python3 -c "import sys,json; d=json.load(sys.stdin); print('Deploy triggered:', d.get('id','OK'))"
