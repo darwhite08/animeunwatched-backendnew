@@ -57,9 +57,10 @@ describe("errorHandler middleware", () => {
     errorHandler(new Error("Something exploded"), {} as Request, res, vi.fn());
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({
-      error: { code: "INTERNAL", message: "Internal server error" },
-    });
+    // In test/dev environment, response may include 'detail' field (OWASP A10 guard only strips it in production)
+    const call = (res.json as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.error.code).toBe("INTERNAL");
+    expect(call.error.message).toBe("Internal server error");
   });
 
   it("handles 401 HttpError correctly", async () => {

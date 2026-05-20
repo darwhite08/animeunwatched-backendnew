@@ -31,8 +31,17 @@ export function errorHandler(
   if (process.env.SENTRY_DSN) {
     Sentry.captureException(err);
   }
-  console.error(err);
-  res
-    .status(500)
-    .json({ error: { code: "INTERNAL", message: "Internal server error" } });
+
+  // OWASP A10: never leak stack traces or internal details in production
+  const isDev = process.env.NODE_ENV !== "production";
+  console.error(isDev ? err : (err instanceof Error ? err.message : "Unhandled error"));
+
+  res.status(500).json({
+    error: {
+      code: "INTERNAL",
+      message: "Internal server error",
+      // Only expose stack in development — never in production
+      ...(isDev && err instanceof Error ? { detail: err.message } : {}),
+    },
+  });
 }

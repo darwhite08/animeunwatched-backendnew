@@ -108,17 +108,58 @@ export async function register(dto: RegisterDto) {
   return { user, accessToken, refreshToken };
 }
 
+// ─── Brute-force lockout (in-memory, per email) ───────────────────────────────
+// Resets on restart — acceptable for MVP. Use Redis for multi-instance production.
+const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
+const MAX_ATTEMPTS  = 5;
+const LOCKOUT_MS    = 15 * 60 * 1000; // 15 minutes
+
+function checkLoginAttempts(email: string): void {
+  const entry = loginAttempts.get(email);
+  if (!entry) return;
+  if (entry.lockedUntil > Date.now()) {
+    const remaining = Math.ceil((entry.lockedUntil - Date.now()) / 60000);
+    throw Object.assign(new Error(`Too many failed attempts. Try again in ${remaining} minute(s).`), { statusCode: 429, code: "RATE_LIMITED" });
+  }
+}
+
+function recordFailedLogin(email: string): void {
+  const entry = loginAttempts.get(email) ?? { count: 0, lockedUntil: 0 };
+  entry.count += 1;
+  if (entry.count >= MAX_ATTEMPTS) {
+    entry.lockedUntil = Date.now() + LOCKOUT_MS;
+    entry.count = 0;
+  }
+  loginAttempts.set(email, entry);
+}
+
+function clearLoginAttempts(email: string): void {
+  loginAttempts.delete(email);
+}
+
 export async function login(dto: LoginDto) {
+  // Brute-force guard: reject immediately if account is temporarily locked
+  checkLoginAttempts(dto.email);
+
   // Single query: fetch user with all needed fields + passwordHash
   const userWithHash = await prisma.user.findUnique({
     where: { email: dto.email },
     select: { ...userSelect, passwordHash: true },
   });
 
-  if (!userWithHash) throw unauth("Invalid email or password");
+  if (!userWithHash) {
+    recordFailedLogin(dto.email);
+    throw unauth("Invalid email or password");
+  }
 
   const valid = await verifyPassword(userWithHash.passwordHash, dto.password);
-  if (!valid) throw unauth("Invalid email or password");
+  if (!valid) {
+    recordFailedLogin(dto.email);
+    throw unauth("Invalid email or password");
+  }
+
+  // Successful login → clear failure counter
+  clearLoginAttempts(dto.email);
 
   // Strip the passwordHash before returning to callers
   const { passwordHash: _hash, ...user } = userWithHash;

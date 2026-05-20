@@ -34,6 +34,8 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
+      - name: Security audit (supply chain)
+        run: npm audit --audit-level=high || echo "⚠️ High-severity vulnerabilities found — review before deploying"
       - run: npx tsc --noEmit
       - run: npm test
         env:
