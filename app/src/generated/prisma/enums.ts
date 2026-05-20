@@ -23,7 +23,8 @@ export const WatchStatus = {
   WATCHING: 'WATCHING',
   COMPLETED: 'COMPLETED',
   ON_HOLD: 'ON_HOLD',
-  DROPPED: 'DROPPED'
+  DROPPED: 'DROPPED',
+  REWATCHING: 'REWATCHING'
 } as const
 
 export type WatchStatus = (typeof WatchStatus)[keyof typeof WatchStatus]

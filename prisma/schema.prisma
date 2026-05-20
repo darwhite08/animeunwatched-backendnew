@@ -24,6 +24,7 @@ enum WatchStatus {
   COMPLETED
   ON_HOLD
   DROPPED
+  REWATCHING   // Most-requested missing status (research finding)
 }
 
 enum BlogStatus {
