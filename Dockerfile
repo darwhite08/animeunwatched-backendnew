@@ -31,4 +31,5 @@ EXPOSE 4000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
   CMD wget -qO- http://localhost:4000/health || exit 1
 
+# db push is safe for Cloud Run (no migrations folder, schema-only project)
 CMD ["sh", "-c", "npx prisma db push --accept-data-loss && node dist/server.js"]
