@@ -8,8 +8,9 @@ authRouter.post("/register",   ctrl.register);
 authRouter.post("/login",      ctrl.login);
 authRouter.post("/refresh",    ctrl.refresh);
 authRouter.post("/logout",     requireAuth, ctrl.logout);
-authRouter.post("/logout-all", requireAuth, ctrl.logoutAll);
-authRouter.get( "/me",         requireAuth, ctrl.me);
+authRouter.post("/logout-all",       requireAuth, ctrl.logoutAll);
+authRouter.post("/change-password",  requireAuth, ctrl.changePassword);
+authRouter.get( "/me",              requireAuth, ctrl.me);
 
 // OAuth — credential (One-Tap / popup, works on desktop)
 authRouter.post("/google", ctrl.googleLogin);

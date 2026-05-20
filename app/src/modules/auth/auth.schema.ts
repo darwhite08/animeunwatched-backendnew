@@ -30,3 +30,10 @@ export const appleLoginSchema = z.object({
 
 export type GoogleLoginDto = z.infer<typeof googleLoginSchema>;
 export type AppleLoginDto  = z.infer<typeof appleLoginSchema>;
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, "Current password required"),
+  newPassword:     z.string().min(8).max(128),
+});
+
+export type ChangePasswordDto = z.infer<typeof changePasswordSchema>;

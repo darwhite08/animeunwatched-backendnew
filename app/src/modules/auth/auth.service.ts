@@ -7,9 +7,9 @@ import { generateUniqueSlug } from "../../lib/slug";
 import { updateStreak } from "../../lib/streak";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
-import { conflict, unauth } from "../../lib/errors";
+import { conflict, unauth, badRequest } from "../../lib/errors";
 import { sendEmail, welcomeEmail } from "../../lib/email";
-import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto } from "./auth.schema";
+import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
 const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID);
 
@@ -401,6 +401,24 @@ export async function googleCallbackCode(code: string, redirectUri: string) {
   });
 
   return issueTokens(user);
+}
+
+// ─── changePassword ───────────────────────────────────────────────────────────
+
+export async function changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { passwordHash: true } });
+  if (!user) throw unauth("User not found");
+
+  // Accounts created via OAuth may have no password — reject gracefully
+  if (!user.passwordHash) {
+    throw badRequest("Your account uses OAuth (Google/Apple). Set a password from Security Settings first.");
+  }
+
+  const valid = await verifyPassword(user.passwordHash, dto.currentPassword);
+  if (!valid) throw badRequest("Current password is incorrect.");
+
+  const newHash = await hashPassword(dto.newPassword);
+  await prisma.user.update({ where: { id: userId }, data: { passwordHash: newHash } });
 }
 
 // ──────────────────────────────────────────────────────────────────────────────

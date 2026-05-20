@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { env } from "../../config/env";
-import { registerSchema, loginSchema, googleLoginSchema, appleLoginSchema } from "./auth.schema";
+import { registerSchema, loginSchema, googleLoginSchema, appleLoginSchema, changePasswordSchema } from "./auth.schema";
 import * as service from "./auth.service";
 
 const COOKIE_OPTS = {
@@ -77,6 +77,17 @@ export async function logoutAll(req: Request, res: Response, next: NextFunction)
 
 export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
+}
+
+export async function changePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user?.id;
+    const dto = changePasswordSchema.parse(req.body);
+    await service.changePassword(userId, dto);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
 }
 
 export async function googleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
