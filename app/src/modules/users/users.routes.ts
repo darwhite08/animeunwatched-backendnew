@@ -21,4 +21,5 @@ usersRouter.get("/:username/xp",           ctrl.getXp);
 usersRouter.get("/:username/followers",    optionalAuth, ctrl.getFollowers);
 usersRouter.get("/:username/following",    optionalAuth, ctrl.getFollowing);
 usersRouter.get("/:username/stats",        optionalAuth, ctrl.getUserStats);
-usersRouter.get("/:username/activity",     optionalAuth, ctrl.getActivity);
+usersRouter.get("/:username/activity",           optionalAuth, ctrl.getActivity);
+usersRouter.get("/:username/following-activity", optionalAuth, ctrl.getFollowingActivity);

@@ -323,6 +323,46 @@ export async function getLeaderboard(limit = 50, period = "all-time") {
   };
 }
 
+// ─── Friends activity feed ────────────────────────────────────────────────────
+
+/** Get recent list activity from people the user follows */
+export async function getFollowingActivity(username: string, limit = 10) {
+  const user = await prisma.user.findUnique({ where: { username }, select: { id: true } });
+  if (!user) throw notFound("User not found");
+
+  const following = await prisma.follow.findMany({
+    where: { followerId: user.id },
+    select: { followingId: true },
+    take: 50,
+  });
+
+  if (following.length === 0) return { data: [] };
+
+  const entries = await prisma.listEntry.findMany({
+    where: {
+      userId: { in: following.map((f: { followingId: string }) => f.followingId) },
+      animeId: { not: "" },
+    },
+    orderBy: { updatedAt: "desc" },
+    take: limit,
+    include: {
+      user: { select: { username: true, displayName: true, avatarUrl: true } },
+      anime: { select: { malId: true, title: true, imageUrl: true } },
+    },
+  });
+
+  return {
+    data: entries
+      .filter(e => e.anime)
+      .map(e => ({
+        user:      e.user,
+        anime:     e.anime,
+        status:    e.status,
+        updatedAt: e.updatedAt.toISOString(),
+      })),
+  };
+}
+
 // ─── Slug management ──────────────────────────────────────────────────────────
 
 /** Check if a slug is available (and valid format). Returns immediately — used for live validation. */

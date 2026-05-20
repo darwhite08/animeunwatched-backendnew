@@ -138,3 +138,13 @@ export async function updateSlug(req: Request, res: Response, next: NextFunction
     next(err);
   }
 }
+
+export async function getFollowingActivity(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit = Math.min(20, Number(req.query.limit) || 10);
+    const result = await service.getFollowingActivity(req.params.username as string, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
