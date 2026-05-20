@@ -1,3 +1,13 @@
+// Sentry must be initialized before anything else
+import * as Sentry from "@sentry/node";
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    tracesSampleRate: 0.1,
+    enabled: process.env.NODE_ENV === "production",
+  });
+}
+
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -50,6 +60,11 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
   contentSecurityPolicy: env.NODE_ENV === "production" ? undefined : false,
 }));
+
+// Sentry request handler — must come before other middleware
+if (process.env.SENTRY_DSN) {
+  Sentry.setupExpressErrorHandler(app);
+}
 
 app.use(responseTime);
 app.use(requestLogger);

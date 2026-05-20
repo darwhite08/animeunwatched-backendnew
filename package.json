@@ -17,6 +17,7 @@
   "keywords": [],
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@sentry/node": "^10.53.1",
     "apple-signin-auth": "^2.0.0",
     "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
