@@ -21,8 +21,9 @@ export async function getDiscover(
 ): Promise<void> {
   try {
     const cursor = req.query.cursor as string | undefined;
-    const limit = Number(req.query.limit) || 20;
-    const result = await service.getDiscover(cursor, limit);
+    const limit  = Number(req.query.limit) || 20;
+    const userId = (req as any).user?.id as string | undefined; // set by optionalAuth
+    const result = await service.getDiscover(userId, cursor, limit);
     res.status(200).json(result);
   } catch (err) {
     next(err);

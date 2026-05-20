@@ -38,6 +38,19 @@ function meta(total: number, page: number, limit: number) {
   return { total, page, limit, pages: Math.ceil(total / limit) };
 }
 
+/** Attach isLikedByMe flag to posts when userId is known */
+async function withLikeStatus<T extends { id: string }>(posts: T[], userId?: string): Promise<(T & { isLikedByMe: boolean })[]> {
+  if (!userId || posts.length === 0) {
+    return posts.map(p => ({ ...p, isLikedByMe: false }))
+  }
+  const likes = await prisma.postLike.findMany({
+    where: { userId, postId: { in: posts.map(p => p.id) } },
+    select: { postId: true },
+  })
+  const likedSet = new Set(likes.map((l: { postId: string }) => l.postId))
+  return posts.map(p => ({ ...p, isLikedByMe: likedSet.has(p.id) }))
+}
+
 // ─── getFeed ──────────────────────────────────────────────────────────────────
 
 export async function getFeed(userId: string, cursor?: string, limit = 20) {
@@ -59,7 +72,8 @@ export async function getFeed(userId: string, cursor?: string, limit = 20) {
   });
 
   const hasMore = posts.length > limit;
-  const data = hasMore ? posts.slice(0, limit) : posts;
+  const slice = hasMore ? posts.slice(0, limit) : posts;
+  const data = await withLikeStatus(slice, userId);
   const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
 
   return { data, meta: { nextCursor } };
@@ -67,7 +81,7 @@ export async function getFeed(userId: string, cursor?: string, limit = 20) {
 
 // ─── getDiscover ──────────────────────────────────────────────────────────────
 
-export async function getDiscover(cursor?: string, limit = 20) {
+export async function getDiscover(userId?: string, cursor?: string, limit = 20) {
   const posts = await prisma.post.findMany({
     where: {
       deletedAt: null,
@@ -79,7 +93,8 @@ export async function getDiscover(cursor?: string, limit = 20) {
   });
 
   const hasMore = posts.length > limit;
-  const data = hasMore ? posts.slice(0, limit) : posts;
+  const slice = hasMore ? posts.slice(0, limit) : posts;
+  const data = await withLikeStatus(slice, userId);
   const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
 
   return { data, meta: { nextCursor } };
