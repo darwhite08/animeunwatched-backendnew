@@ -4,6 +4,7 @@ import crypto from "crypto";
 import { OAuth2Client } from "google-auth-library";
 import appleSignin from "apple-signin-auth";
 import { generateUniqueSlug } from "../../lib/slug";
+import { updateStreak } from "../../lib/streak";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth } from "../../lib/errors";
@@ -56,12 +57,15 @@ const userSelect = {
   id: true,
   email: true,
   username: true,
-  slug: true,       // routing alias — never used for data access
+  slug: true,         // routing alias — never used for data access
   displayName: true,
   bio: true,
   avatarUrl: true,
   role: true,
   reputation: true,
+  streakDays: true,   // real streak tracking (not rep-estimate)
+  bestStreak: true,
+  lastActiveAt: true,
   createdAt: true,
 } as const;
 
@@ -175,6 +179,9 @@ export async function login(dto: LoginDto) {
       expiresAt,
     },
   });
+
+  // Update streak on login (Duolingo model: login = activity = streak tick)
+  void updateStreak(user.id).catch(() => {});
 
   return { user, accessToken, refreshToken };
 }

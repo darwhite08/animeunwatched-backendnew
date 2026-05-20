@@ -2635,6 +2635,9 @@ export const UserScalarFieldEnum = {
   role: 'role',
   reputation: 'reputation',
   isBanned: 'isBanned',
+  streakDays: 'streakDays',
+  lastActiveAt: 'lastActiveAt',
+  bestStreak: 'bestStreak',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
