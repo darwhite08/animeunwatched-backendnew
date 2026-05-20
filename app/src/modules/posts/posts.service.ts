@@ -2,6 +2,7 @@ import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { createNotification, NotificationType } from "../../lib/notify";
+import { updateStreak } from "../../lib/streak";
 import type { CreatePostDto } from "./posts.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -133,6 +134,7 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
     include: postInclude,
   });
   addReputation(authorId, "post_created").catch(console.error);
+  void updateStreak(authorId).catch(() => {});
 
   // Fire-and-forget: notify @mentioned users
   void (async () => {

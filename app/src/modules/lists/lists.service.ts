@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound } from "../../lib/errors";
+import { updateStreak } from "../../lib/streak";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -102,6 +103,9 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
       ...(dto.notes !== undefined ? { notes: dto.notes } : {}),
     },
   });
+
+  // Fire-and-forget streak update — list activity counts as daily engagement
+  void updateStreak(userId).catch(() => {});
 
   return { entry };
 }
