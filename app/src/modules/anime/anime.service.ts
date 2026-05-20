@@ -174,13 +174,16 @@ const JIKAN_BASE = process.env.JIKAN_BASE_URL ?? "https://api.jikan.moe/v4";
 
 async function browseJikan(page: number, limit: number, filters: {
   q?: string; year?: number; season?: string; type?: string; status?: string;
+  start_date?: string; end_date?: string;
 }) {
   const qs = new URLSearchParams({ page: String(page), limit: String(Math.min(limit, 25)) });
-  if (filters.q)      qs.set("q", filters.q);
-  if (filters.year)   qs.set("start_date", `${filters.year}-01-01`);
-  if (filters.season) qs.set("season", filters.season);
-  if (filters.type)   qs.set("type", filters.type);
-  if (filters.status) qs.set("status", filters.status === "Finished Airing" ? "complete" : "airing");
+  if (filters.q)          qs.set("q", filters.q);
+  if (filters.year)       qs.set("start_date", `${filters.year}-01-01`);
+  if (filters.start_date) qs.set("start_date", filters.start_date);
+  if (filters.end_date)   qs.set("end_date", filters.end_date);
+  if (filters.season)     qs.set("season", filters.season);
+  if (filters.type)       qs.set("type", filters.type);
+  if (filters.status)     qs.set("status", filters.status === "Finished Airing" ? "complete" : "airing");
   qs.set("order_by", "score");
   qs.set("sort", "desc");
 
@@ -213,8 +216,8 @@ export async function browse(query: BrowseQuery) {
   const cached = cache.get<{ data: unknown[]; meta: unknown }>(cacheKey);
   if (cached) return cached;
 
-  const { q, year, season, type, status, page, limit } = query;
-  const hasFilters = !!(q || year || season || type || status);
+  const { q, year, season, type, status, studio, start_date, end_date, page, limit } = query;
+  const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date);
 
   // ── No filters: proxy Jikan directly for ALL anime with pagination ──
   if (!hasFilters) {
@@ -240,6 +243,7 @@ export async function browse(query: BrowseQuery) {
     ...(season ? { season } : {}),
     ...(type ? { type } : {}),
     ...(status ? { status } : {}),
+    ...(studio ? { studios: { some: { studio: { name: { contains: studio, mode: "insensitive" as const } } } } } : {}),
   };
 
   const [data, total] = await prisma.$transaction([
@@ -250,7 +254,8 @@ export async function browse(query: BrowseQuery) {
   // If DB has no results for a filtered query → try Jikan as fallback
   if (total === 0 && hasFilters) {
     try {
-      const jikanResult = await browseJikan(page, limit, { q, year, season, type, status });
+      // studio filter uses local DB only — Jikan has no studio text-search param
+      const jikanResult = await browseJikan(page, limit, { q: q ?? studio, year, season, type, status, start_date, end_date });
       cache.set(cacheKey, jikanResult, 3 * 60_000);
       return jikanResult;
     } catch { /* ignore */ }
