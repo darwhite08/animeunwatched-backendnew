@@ -34,6 +34,9 @@ export const env = {
   SMTP_USER: process.env.SMTP_USER || "",
   SMTP_PASS: process.env.SMTP_PASS || "",
   ENABLE_EMAIL_NOTIFICATIONS: process.env.ENABLE_EMAIL_NOTIFICATIONS === "true",
+
+  // Cron security — all cron endpoints require this secret in x-cron-secret header
+  CRON_SECRET: process.env.CRON_SECRET || "",
 };
 
 // ── Production startup guard ─────────────────────────────────────────────────
