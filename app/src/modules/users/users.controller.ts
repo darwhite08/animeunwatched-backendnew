@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { updateMeSchema } from "./users.schema";
+import { updateMeSchema, updateSlugSchema } from "./users.schema";
 import * as service from "./users.service";
 
 export async function getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -109,6 +109,31 @@ export async function getLeaderboard(req: Request, res: Response, next: NextFunc
     const period = (req.query.period as string) || "all-time";
     const result = await service.getLeaderboard(limit, period);
     res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ── Slug management ───────────────────────────────────────────────────────────
+
+/** GET /users/slug-check?slug=foo  — live availability check (no auth needed) */
+export async function checkSlugAvailable(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const slug = String(req.query.slug ?? "").trim();
+    const result = await service.checkSlugAvailable(slug);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/** PATCH /users/me/slug  — change the authenticated user's routing slug */
+export async function updateSlug(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId = (req as any).user.id as string;
+    const dto    = updateSlugSchema.parse(req.body);
+    const user   = await service.updateSlug(userId, dto);
+    res.status(200).json({ user });
   } catch (err) {
     next(err);
   }

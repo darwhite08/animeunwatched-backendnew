@@ -45,6 +45,10 @@ model User {
   id           String   @id @default(cuid())
   email        String   @unique
   username     String   @unique
+  /// URL-safe slug for human-readable routing. Derived from displayName at registration.
+  /// Never used for data access — only for URL display. Always look up session userId internally.
+  /// Nullable so existing users can be backfilled without data loss.
+  slug         String?  @unique
   displayName  String
   bio          String?
   avatarUrl    String?
@@ -54,6 +58,8 @@ model User {
   isBanned     Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@index([slug])
 
   refreshTokens      RefreshToken[]
   following          Follow[]           @relation("Follower")

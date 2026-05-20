@@ -63,3 +63,4 @@ temp/
 .env.local
 certs/
 .next/
+.vercel

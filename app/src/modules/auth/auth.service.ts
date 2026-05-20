@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { OAuth2Client } from "google-auth-library";
 import appleSignin from "apple-signin-auth";
+import { generateUniqueSlug } from "../../lib/slug";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth } from "../../lib/errors";
@@ -55,6 +56,7 @@ const userSelect = {
   id: true,
   email: true,
   username: true,
+  slug: true,       // routing alias — never used for data access
   displayName: true,
   bio: true,
   avatarUrl: true,
@@ -75,12 +77,15 @@ export async function register(dto: RegisterDto) {
   if (existingUsername) throw conflict("Username is already taken");
 
   const passwordHash = await hashPassword(dto.password);
+  // Generate a human-readable slug from displayName. Unique, never exposes userId.
+  const slug = await generateUniqueSlug(dto.displayName || dto.username);
 
   const user = await prisma.user.create({
     data: {
       email: dto.email,
       username: dto.username,
       displayName: dto.displayName,
+      slug,
       passwordHash,
     },
     select: userSelect,
@@ -225,12 +230,14 @@ async function findOrCreateOAuthUser(opts: {
   if (!user) {
     // 3. Create a brand-new user
     const username = await generateUniqueUsername(opts.email.split("@")[0]);
+    const slug     = await generateUniqueSlug(opts.displayName || username);
     user = await prisma.user.create({
       data: {
         email:        opts.email,
         username,
         displayName:  opts.displayName,
-        passwordHash: crypto.randomBytes(32).toString("hex"), // unguessable; blocks password login
+        slug,
+        passwordHash: crypto.randomBytes(32).toString("hex"),
         avatarUrl:    opts.avatarUrl,
       },
       select: userSelect,

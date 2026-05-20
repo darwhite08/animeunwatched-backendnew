@@ -1,12 +1,14 @@
 import { prisma } from "../../config/prisma";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
-import type { UpdateMeDto } from "./users.schema";
+import { validateSlug } from "../../lib/slug";
+import type { UpdateMeDto, UpdateSlugDto } from "./users.schema";
 
 const safeUserSelect = {
   id: true,
   email: true,
   username: true,
+  slug: true,
   displayName: true,
   bio: true,
   avatarUrl: true,
@@ -319,4 +321,33 @@ export async function getLeaderboard(limit = 50, period = "all-time") {
     }),
     meta: { total: users.length, period },
   };
+}
+
+// ─── Slug management ──────────────────────────────────────────────────────────
+
+/** Check if a slug is available (and valid format). Returns immediately — used for live validation. */
+export async function checkSlugAvailable(slug: string): Promise<{ available: boolean; error?: string }> {
+  const formatError = validateSlug(slug);
+  if (formatError) return { available: false, error: formatError };
+
+  const existing = await prisma.user.findUnique({ where: { slug }, select: { id: true } });
+  return { available: !existing };
+}
+
+/** Update the authenticated user's slug. Validates format + uniqueness (excluding self). */
+export async function updateSlug(userId: string, dto: UpdateSlugDto) {
+  const formatError = validateSlug(dto.slug);
+  if (formatError) throw conflict(formatError);
+
+  const taken = await prisma.user.findFirst({
+    where: { slug: dto.slug, id: { not: userId } },
+    select: { id: true },
+  });
+  if (taken) throw conflict("This slug is already taken. Try a different one.");
+
+  return prisma.user.update({
+    where:  { id: userId },
+    data:   { slug: dto.slug },
+    select: safeUserSelect,
+  });
 }
