@@ -110,8 +110,13 @@ export function googleRedirect(req: Request, res: Response): void {
     return;
   }
 
-  // OAUTH_CALLBACK_BASE must be a publicly reachable URL registered in Google Console.
-  const base = env.OAUTH_CALLBACK_BASE || `http://localhost:${env.PORT}`;
+  // Derive the public base URL: explicit env var → Render auto-var → request host → localhost
+  const base =
+    env.OAUTH_CALLBACK_BASE ||
+    process.env.RENDER_EXTERNAL_URL ||
+    (env.NODE_ENV === "production"
+      ? `${req.protocol}://${req.get("host")}`
+      : `http://localhost:${env.PORT}`);
   const callbackUrl = `${base}/api/v1/auth/google/callback`;
 
   // Generate a CSRF state token and store it in a short-lived cookie
