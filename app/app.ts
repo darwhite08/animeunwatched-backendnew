@@ -14,6 +14,9 @@ import { cache } from "./src/lib/cache";
 
 const app = express();
 
+// Trust Render/cloud reverse proxy so req.protocol reflects https correctly
+app.set("trust proxy", 1);
+
 const ALLOWED_ORIGINS = [
   env.CORS_ORIGIN,
   env.FRONTEND_URL,

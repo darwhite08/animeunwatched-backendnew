@@ -161,7 +161,14 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
       return;
     }
 
-    const callbackUrl = `${req.protocol}://${req.get("host")}/api/v1/auth/google/callback`;
+    // Use the same base URL as step 1 to guarantee redirect_uri matches exactly
+    const base =
+      env.OAUTH_CALLBACK_BASE ||
+      process.env.RENDER_EXTERNAL_URL ||
+      (env.NODE_ENV === "production"
+        ? `https://${req.get("host")}`      // force https in prod (Render terminates SSL)
+        : `http://localhost:${env.PORT}`);
+    const callbackUrl = `${base}/api/v1/auth/google/callback`;
     const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl);
 
     // Set refresh cookie (httpOnly)
