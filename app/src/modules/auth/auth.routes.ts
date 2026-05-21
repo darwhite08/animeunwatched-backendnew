@@ -7,10 +7,13 @@ export const authRouter = Router();
 authRouter.post("/register",   ctrl.register);
 authRouter.post("/login",      ctrl.login);
 authRouter.post("/refresh",    ctrl.refresh);
-authRouter.post("/logout",     requireAuth, ctrl.logout);
+authRouter.post("/logout",           requireAuth, ctrl.logout);
 authRouter.post("/logout-all",       requireAuth, ctrl.logoutAll);
 authRouter.post("/change-password",  requireAuth, ctrl.changePassword);
-authRouter.get( "/me",              requireAuth, ctrl.me);
+authRouter.get( "/me",               requireAuth, ctrl.me);
+// No auth needed — clears stale refresh cookie so users can log in again
+// even if the JWT secret was rotated and their cookie is permanently invalid
+authRouter.get( "/clear-session",    ctrl.clearSession);
 
 // OAuth — credential (One-Tap / popup, works on desktop)
 authRouter.post("/google", ctrl.googleLogin);

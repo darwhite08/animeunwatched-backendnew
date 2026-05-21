@@ -79,6 +79,22 @@ export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
 }
 
+// No authentication required.
+// Clears the refresh cookie so the user can log in again even if the
+// JWT secret was rotated and their httpOnly cookie is permanently invalid.
+export function clearSession(req: Request, res: Response): void {
+  const cookiePath = "/api/v1/auth"
+  res.clearCookie("aw_refresh", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: cookiePath,
+  })
+  // Redirect to frontend login page after clearing the cookie
+  const frontendUrl = process.env.FRONTEND_URL ?? "https://animeunwatched-frontend-delta.vercel.app"
+  res.redirect(`${frontendUrl}/login`)
+}
+
 export async function changePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user?.id;
