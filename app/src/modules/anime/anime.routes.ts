@@ -10,5 +10,6 @@ animeRouter.get("/trending", ctrl.getTrending);
 animeRouter.get("/top", ctrl.getTrending);        // alias: GET /anime/top?limit=20
 animeRouter.get("/season/:year/:season", optionalAuth, ctrl.getSeasonal);
 animeRouter.get("/:malId/similar", optionalAuth, ctrl.getSimilar);
+animeRouter.get("/:malId/user-stats", optionalAuth, ctrl.getAnimeUserStats);
 animeRouter.get("/:malId", optionalAuth, ctrl.getById);
 animeRouter.get("/", optionalAuth, ctrl.browse);

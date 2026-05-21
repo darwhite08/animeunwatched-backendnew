@@ -416,6 +416,24 @@ export async function getTrending(limit = 20) {
   return result
 }
 
+// ─── getAnimeUserStats ────────────────────────────────────────────────────────
+
+export async function getAnimeUserStats(malId: number) {
+  const anime = await prisma.anime.findUnique({ where: { malId }, select: { id: true } });
+  if (!anime) return { watching: 0, completed: 0, planToWatch: 0, total: 0 };
+
+  const [watching, completed, planToWatch, onHold, dropped] = await Promise.all([
+    prisma.listEntry.count({ where: { animeId: anime.id, status: "WATCHING" } }),
+    prisma.listEntry.count({ where: { animeId: anime.id, status: "COMPLETED" } }),
+    prisma.listEntry.count({ where: { animeId: anime.id, status: "PLAN_TO_WATCH" } }),
+    prisma.listEntry.count({ where: { animeId: anime.id, status: "ON_HOLD" } }),
+    prisma.listEntry.count({ where: { animeId: anime.id, status: "DROPPED" } }),
+  ]);
+
+  const total = watching + completed + planToWatch + onHold + dropped;
+  return { watching, completed, planToWatch, onHold, dropped, total };
+}
+
 // ─── getSimilar ──────────────────────────────────────────────────────────────
 
 export async function getSimilar(malId: number, limit = 12) {

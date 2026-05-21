@@ -23,6 +23,16 @@ export async function browse(req: Request, res: Response, next: NextFunction): P
   }
 }
 
+export async function getAnimeUserStats(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = parseMalId(req.params.malId);
+    const result = await service.getAnimeUserStats(malId);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getById(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const malId = parseMalId(req.params.malId);
