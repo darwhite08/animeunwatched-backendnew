@@ -3,7 +3,7 @@ import { notFound } from "../../lib/errors";
 import { updateStreak } from "../../lib/streak";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { addReputation } from "../../lib/reputation";
-import { broadcastAnimeListChanged } from "../../realtime/broadcast";
+import { broadcastAnimeListChanged, broadcastUserListChanged } from "../../realtime/broadcast";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -112,6 +112,8 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
 
   // Realtime: anime detail page's user-stats counter updates live
   if (anime.malId) broadcastAnimeListChanged(anime.malId);
+  // Realtime: the user's own watchlist tabs/devices sync
+  try { broadcastUserListChanged(userId, anime.malId ?? 0, dto.status); } catch { /* best-effort */ }
 
   // On COMPLETED status: check for milestone achievements
   if (dto.status === "COMPLETED") {
@@ -166,4 +168,13 @@ export async function deleteEntry(userId: string, animeId: string) {
   if (!entry) throw notFound("List entry not found");
 
   await prisma.listEntry.delete({ where: { userId_animeId: { userId, animeId: resolvedId } } });
+
+  // Realtime: refresh anime detail user-stats + the user's own watchlist tabs
+  try {
+    const anime = await prisma.anime.findUnique({ where: { id: resolvedId }, select: { malId: true } });
+    if (anime?.malId) {
+      broadcastAnimeListChanged(anime.malId);
+      broadcastUserListChanged(userId, anime.malId, null);
+    }
+  } catch { /* best-effort */ }
 }

@@ -41,10 +41,17 @@ export function initSocket(httpServer: HttpServer) {
   // A user is "online" while count > 0. Multiple tabs/devices = multiple connections.
   const presenceCounts = new Map<string, number>();
 
+  function broadcastOnlineCount() {
+    io.emit("presence.count", { online: presenceCounts.size, at: Date.now() });
+  }
+
   function setOnline(userId: string) {
     const next = (presenceCounts.get(userId) ?? 0) + 1;
     presenceCounts.set(userId, next);
-    if (next === 1) io.emit("presence.online", { userId, at: Date.now() });
+    if (next === 1) {
+      io.emit("presence.online", { userId, at: Date.now() });
+      broadcastOnlineCount();
+    }
   }
 
   function setOffline(userId: string) {
@@ -52,14 +59,17 @@ export function initSocket(httpServer: HttpServer) {
     if (next === 0) {
       presenceCounts.delete(userId);
       io.emit("presence.offline", { userId, at: Date.now() });
+      broadcastOnlineCount();
     } else {
       presenceCounts.set(userId, next);
     }
   }
 
   // Expose presence list lookup on the io instance for HTTP handlers
-  (io as unknown as { getOnlineUsers: () => string[] }).getOnlineUsers = () =>
+  (io as unknown as { getOnlineUsers: () => string[]; getOnlineCount: () => number }).getOnlineUsers = () =>
     Array.from(presenceCounts.keys());
+  (io as unknown as { getOnlineUsers: () => string[]; getOnlineCount: () => number }).getOnlineCount = () =>
+    presenceCounts.size;
 
   io.on("connection", (socket) => {
     const userId = socket.data.userId as string;
@@ -68,8 +78,9 @@ export function initSocket(httpServer: HttpServer) {
     socket.join("feed");
     setOnline(userId);
 
-    // Snapshot of who is currently online (for status indicators)
+    // Snapshot of who is currently online (for status indicators) + total count
     socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });
+    socket.emit("presence.count", { online: presenceCounts.size, at: Date.now() });
 
     // Client opts in to anime / club / thread rooms when viewing those pages
     socket.on("room:join",  (room: string) => { if (typeof room === "string" && room.length < 64) socket.join(room) });

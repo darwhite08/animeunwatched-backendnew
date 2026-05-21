@@ -57,6 +57,11 @@ export function broadcastAnimeListChanged(malId: number): void {
   emit(animeRoom(malId), "anime.list-changed", { malId, at: Date.now() })
 }
 
+/** A user updated their own list — sync their watchlist tabs/devices */
+export function broadcastUserListChanged(userId: string, malId: number, status: string | null): void {
+  emit(userRoom(userId), "list.changed", { malId, status, at: Date.now() })
+}
+
 export function broadcastReviewCreated(malId: number, review: unknown): void {
   emit(animeRoom(malId), "review.created", review)
 }
