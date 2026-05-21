@@ -47,6 +47,24 @@ export async function updateBlog(req: Request, res: Response, next: NextFunction
   }
 }
 
+export async function getComments(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const page  = Number(req.query.page) || 1
+    const result = await service.getComments(req.params.slug as string, page)
+    res.status(200).json(result)
+  } catch (err) { next(err) }
+}
+
+export async function createComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const authorId = res.locals.user?.id as string
+    const { content } = req.body as { content: string }
+    if (!content?.trim()) { res.status(400).json({ error: { code: "VALIDATION", message: "Content required" } }); return }
+    const result = await service.createComment(req.params.slug as string, authorId, content.trim())
+    res.status(201).json(result)
+  } catch (err) { next(err) }
+}
+
 export async function deleteBlog(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

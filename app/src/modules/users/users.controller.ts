@@ -158,3 +158,11 @@ export async function getUserPosts(req: Request, res: Response, next: NextFuncti
     res.status(200).json(result)
   } catch (err) { next(err) }
 }
+
+export async function getConnectedAccounts(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId = res.locals.user?.id as string
+    const result = await service.getConnectedAccounts(userId)
+    res.status(200).json(result)
+  } catch (err) { next(err) }
+}

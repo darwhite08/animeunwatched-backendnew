@@ -138,6 +138,11 @@ export type ReviewLike = Prisma.ReviewLikeModel
  */
 export type Blog = Prisma.BlogModel
 /**
+ * Model BlogComment
+ * 
+ */
+export type BlogComment = Prisma.BlogCommentModel
+/**
  * Model Notification
  * 
  */

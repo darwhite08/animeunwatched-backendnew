@@ -80,6 +80,7 @@ model User {
   reviews            Review[]
   reviewLikes        ReviewLike[]
   blogs              Blog[]
+  blogComments       BlogComment[]
   notifications      Notification[]
   reports            Report[]           @relation("Reporter")
   moderationActions  ModerationAction[]
@@ -382,10 +383,25 @@ model Blog {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments BlogComment[]
 
   @@index([authorId])
   @@index([status, publishedAt])
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  blogId    String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([blogId, createdAt])
+  @@index([authorId])
 }
 
 // ---------------------------------------------------------------------------

@@ -409,6 +409,7 @@ export const ModelName = {
   Review: 'Review',
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
+  BlogComment: 'BlogComment',
   Notification: 'Notification',
   Report: 'Report',
   ModerationAction: 'ModerationAction',
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage"
+    modelProps: "user" | "refreshToken" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1844,6 +1845,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    BlogComment: {
+      payload: Prisma.$BlogCommentPayload<ExtArgs>
+      fields: Prisma.BlogCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlogCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlogCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.BlogCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlogCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        findMany: {
+          args: Prisma.BlogCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>[]
+        }
+        create: {
+          args: Prisma.BlogCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        createMany: {
+          args: Prisma.BlogCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlogCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.BlogCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        update: {
+          args: Prisma.BlogCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.BlogCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlogCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlogCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.BlogCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.BlogCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlogComment>
+        }
+        groupBy: {
+          args: Prisma.BlogCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlogCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogCommentCountAggregateOutputType> | number
+        }
+      }
+    }
     Notification: {
       payload: Prisma.$NotificationPayload<ExtArgs>
       fields: Prisma.NotificationFieldRefs
@@ -2859,6 +2934,17 @@ export const BlogScalarFieldEnum = {
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
 
 
+export const BlogCommentScalarFieldEnum = {
+  id: 'id',
+  blogId: 'blogId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogCommentScalarFieldEnum = (typeof BlogCommentScalarFieldEnum)[keyof typeof BlogCommentScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   recipientId: 'recipientId',
@@ -3255,6 +3341,7 @@ export type GlobalOmitConfig = {
   review?: Prisma.ReviewOmit
   reviewLike?: Prisma.ReviewLikeOmit
   blog?: Prisma.BlogOmit
+  blogComment?: Prisma.BlogCommentOmit
   notification?: Prisma.NotificationOmit
   report?: Prisma.ReportOmit
   moderationAction?: Prisma.ModerationActionOmit

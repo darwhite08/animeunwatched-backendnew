@@ -68,6 +68,7 @@ export const ModelName = {
   Review: 'Review',
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
+  BlogComment: 'BlogComment',
   Notification: 'Notification',
   Report: 'Report',
   ModerationAction: 'ModerationAction',
@@ -330,6 +331,17 @@ export const BlogScalarFieldEnum = {
 } as const
 
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const BlogCommentScalarFieldEnum = {
+  id: 'id',
+  blogId: 'blogId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogCommentScalarFieldEnum = (typeof BlogCommentScalarFieldEnum)[keyof typeof BlogCommentScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

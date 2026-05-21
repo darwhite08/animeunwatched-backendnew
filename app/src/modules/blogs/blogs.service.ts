@@ -118,6 +118,36 @@ export async function update(slug: string, userId: string, dto: UpdateBlogDto) {
   return { blog: updated };
 }
 
+// ─── getComments ─────────────────────────────────────────────────────────────
+
+export async function getComments(slug: string, page = 1, limit = 20) {
+  const blog = await prisma.blog.findUnique({ where: { slug }, select: { id: true } })
+  if (!blog) throw notFound("Blog not found")
+  const skip = (page - 1) * limit
+  const [data, total] = await prisma.$transaction([
+    prisma.blogComment.findMany({
+      where: { blogId: blog.id },
+      include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+      orderBy: { createdAt: "desc" },
+      skip, take: limit,
+    }),
+    prisma.blogComment.count({ where: { blogId: blog.id } }),
+  ])
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } }
+}
+
+// ─── createComment ────────────────────────────────────────────────────────────
+
+export async function createComment(slug: string, authorId: string, content: string) {
+  const blog = await prisma.blog.findUnique({ where: { slug }, select: { id: true } })
+  if (!blog) throw notFound("Blog not found")
+  const comment = await prisma.blogComment.create({
+    data: { blogId: blog.id, authorId, content },
+    include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+  })
+  return { comment }
+}
+
 // ─── deleteBlog ───────────────────────────────────────────────────────────────
 
 export async function deleteBlog(slug: string, userId: string, role: string) {

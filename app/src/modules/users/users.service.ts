@@ -392,6 +392,16 @@ export async function getUserPosts(username: string, page = 1, limit = 20) {
   return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } }
 }
 
+// ─── getConnectedAccounts ─────────────────────────────────────────────────────
+
+export async function getConnectedAccounts(userId: string) {
+  const providers = await prisma.userOAuthProvider.findMany({
+    where: { userId },
+    select: { id: true, provider: true, createdAt: true },
+  })
+  return { providers }
+}
+
 /** Update the authenticated user's slug. Validates format + uniqueness (excluding self). */
 export async function updateSlug(userId: string, dto: UpdateSlugDto) {
   const formatError = validateSlug(dto.slug);

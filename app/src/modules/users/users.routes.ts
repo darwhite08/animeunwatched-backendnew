@@ -5,10 +5,11 @@ import * as ctrl from "./users.controller";
 export const usersRouter = Router();
 
 // ── Static routes MUST be registered before dynamic /:username routes ─────────
-usersRouter.patch("/me",             requireAuth, ctrl.updateMe);
-usersRouter.get("/me/export",        requireAuth, ctrl.exportMyData);
+usersRouter.patch("/me",                      requireAuth, ctrl.updateMe);
+usersRouter.get("/me/export",                 requireAuth, ctrl.exportMyData);
+usersRouter.get("/me/connected-accounts",     requireAuth, ctrl.getConnectedAccounts);
 // Slug management — auth required; slug is the routing alias, never a data key
-usersRouter.patch("/me/slug",        requireAuth, ctrl.updateSlug);
+usersRouter.patch("/me/slug",                 requireAuth, ctrl.updateSlug);
 usersRouter.get("/slug-check",       ctrl.checkSlugAvailable);   // ?slug=foo  (public, no rate-limit hit)
 // Leaderboard must be before /:username or Express will match 'leaderboard' as username
 usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);
