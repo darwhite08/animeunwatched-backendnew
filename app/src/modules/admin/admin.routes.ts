@@ -7,6 +7,8 @@ export const adminRouter = Router();
 
 adminRouter.use(requireAuth, requireAdmin);
 
-adminRouter.get("/stats", ctrl.getStats);
-adminRouter.get("/users", ctrl.getRecentUsers);
+adminRouter.get("/stats",  ctrl.getStats);
+adminRouter.get("/users",  ctrl.getRecentUsers);
 adminRouter.get("/health", ctrl.getPlatformHealth);
+adminRouter.get("/reports",             requireAuth, requireAdmin, ctrl.listReports);
+adminRouter.patch("/reports/:reportId", requireAuth, requireAdmin, ctrl.resolveReport);

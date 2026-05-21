@@ -462,6 +462,58 @@ export async function getSimilar(malId: number, limit = 12) {
   return similar
 }
 
+// ─── getCharacters ───────────────────────────────────────────────────────────
+
+export async function getCharacters(malId: number) {
+  const key = `anime:characters:${malId}`
+  const cached = cache.get<unknown>(key)
+  if (cached) return cached
+  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/characters`)
+  if (!res.ok) return { data: [] }
+  const data = await res.json()
+  cache.set(key, data, 60 * 60_000) // 1 hour
+  return data
+}
+
+// ─── getStaff ────────────────────────────────────────────────────────────────
+
+export async function getStaff(malId: number) {
+  const key = `anime:staff:${malId}`
+  const cached = cache.get<unknown>(key)
+  if (cached) return cached
+  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/staff`)
+  if (!res.ok) return { data: [] }
+  const data = await res.json()
+  cache.set(key, data, 60 * 60_000)
+  return data
+}
+
+// ─── getEpisodes ──────────────────────────────────────────────────────────────
+
+export async function getEpisodes(malId: number, page = 1) {
+  const key = `anime:episodes:${malId}:${page}`
+  const cached = cache.get<unknown>(key)
+  if (cached) return cached
+  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/episodes?page=${page}`)
+  if (!res.ok) return { data: [], pagination: { last_visible_page: 1, has_next_page: false } }
+  const data = await res.json()
+  cache.set(key, data, 30 * 60_000) // 30 min
+  return data
+}
+
+// ─── getFranchise ────────────────────────────────────────────────────────────
+
+export async function getFranchise(malId: number) {
+  const key = `anime:franchise:${malId}`
+  const cached = cache.get<unknown>(key)
+  if (cached) return cached
+  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/relations`)
+  if (!res.ok) return { data: [] }
+  const data = await res.json()
+  cache.set(key, data, 60 * 60_000)
+  return data
+}
+
 // ─── search ──────────────────────────────────────────────────────────────────
 
 export async function search(q: string, page = 1, limit = 20) {

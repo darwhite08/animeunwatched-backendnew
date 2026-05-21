@@ -148,3 +148,13 @@ export async function getFollowingActivity(req: Request, res: Response, next: Ne
     next(err);
   }
 }
+
+export async function getUserPosts(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const username = req.params.username as string
+    const page  = Number(req.query.page)  || 1
+    const limit = Number(req.query.limit) || 20
+    const result = await service.getUserPosts(username, page, limit)
+    res.status(200).json(result)
+  } catch (err) { next(err) }
+}

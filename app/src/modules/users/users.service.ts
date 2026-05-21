@@ -374,6 +374,24 @@ export async function checkSlugAvailable(slug: string): Promise<{ available: boo
   return { available: !existing };
 }
 
+// ─── getUserPosts ─────────────────────────────────────────────────────────────
+
+export async function getUserPosts(username: string, page = 1, limit = 20) {
+  const user = await prisma.user.findUnique({ where: { username }, select: { id: true } })
+  if (!user) throw notFound("User not found")
+  const skip = (page - 1) * limit
+  const [data, total] = await prisma.$transaction([
+    prisma.post.findMany({
+      where: { authorId: user.id, deletedAt: null },
+      include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true } }, anime: { select: { id: true, malId: true, title: true, imageUrl: true } }, _count: { select: { likes: true, comments: true } } },
+      orderBy: { createdAt: "desc" },
+      skip, take: limit,
+    }),
+    prisma.post.count({ where: { authorId: user.id, deletedAt: null } }),
+  ])
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } }
+}
+
 /** Update the authenticated user's slug. Validates format + uniqueness (excluding self). */
 export async function updateSlug(userId: string, dto: UpdateSlugDto) {
   const formatError = validateSlug(dto.slug);

@@ -36,6 +36,36 @@ export async function getRecentUsers(limit = 20) {
   return { users, count: users.length };
 }
 
+// ─── listReports ──────────────────────────────────────────────────────────────
+
+export async function listReports(page = 1, limit = 20, status?: string) {
+  const skip = (page - 1) * limit
+  const where = status ? { status: status as import("../../generated/prisma/client").ReportStatus } : {}
+  const [data, total] = await prisma.$transaction([
+    prisma.report.findMany({
+      where,
+      include: { reporter: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+      orderBy: { createdAt: "desc" },
+      skip, take: limit,
+    }),
+    prisma.report.count({ where }),
+  ])
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } }
+}
+
+// ─── resolveReport ────────────────────────────────────────────────────────────
+
+export async function resolveReport(reportId: string, status: "RESOLVED" | "DISMISSED", modId: string) {
+  const report = await prisma.report.update({
+    where: { id: reportId },
+    data: { status },
+  })
+  await prisma.moderationAction.create({
+    data: { modId, targetType: "report", targetId: reportId, action: status.toLowerCase() },
+  })
+  return { report }
+}
+
 // ─── getPlatformHealth ────────────────────────────────────────────────────────
 
 export async function getPlatformHealth() {

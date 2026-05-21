@@ -97,3 +97,36 @@ export async function getSimilar(req: Request, res: Response, next: NextFunction
     next(err);
   }
 }
+
+export async function getCharacters(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = parseMalId(req.params.malId)
+    const data = await service.getCharacters(malId)
+    res.status(200).json(data)
+  } catch (err) { next(err) }
+}
+
+export async function getStaff(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = parseMalId(req.params.malId)
+    const data = await service.getStaff(malId)
+    res.status(200).json(data)
+  } catch (err) { next(err) }
+}
+
+export async function getEpisodes(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = parseMalId(req.params.malId)
+    const page  = Number(req.query.page) || 1
+    const data  = await service.getEpisodes(malId, page)
+    res.status(200).json(data)
+  } catch (err) { next(err) }
+}
+
+export async function getFranchise(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const malId = parseMalId(req.params.malId)
+    const data  = await service.getFranchise(malId)
+    res.status(200).json(data)
+  } catch (err) { next(err) }
+}
