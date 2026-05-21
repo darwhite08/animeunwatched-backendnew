@@ -79,6 +79,39 @@ export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
 }
 
+/**
+ * OAuth session handoff endpoint.
+ *
+ * Used after Google OAuth callback to ensure the refresh cookie is set on the
+ * SAME domain that the frontend uses for all other API calls. Solves a CORS-style
+ * problem: when Google's callback goes directly to the Render backend, the
+ * Set-Cookie lands on kaiveron-backend.onrender.com, which is a different
+ * domain from animeunwatched-frontend-delta.vercel.app — so future
+ * /auth/refresh calls (proxied through Vercel) don't send the cookie.
+ *
+ * Flow:
+ *  1. Google → Render OAuth callback (URL registered with Google) → sets short access token in URL
+ *  2. Frontend /auth/callback receives access_token, stores in Zustand
+ *  3. Frontend calls POST /auth/oauth-handoff THROUGH the Vercel proxy
+ *  4. This handler issues a fresh refresh token + sets the cookie
+ *  5. The Set-Cookie response goes through Vercel → browser stores it on the Vercel domain
+ *  6. Future /auth/refresh calls (also through Vercel) now include the cookie
+ */
+export async function oauthHandoff(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user?.id;
+    if (!userId) {
+      res.status(401).json({ error: { code: "UNAUTHORIZED", message: "Access token required" } });
+      return;
+    }
+    const refreshToken = await service.issueRefreshTokenForUser(userId);
+    res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
 // No authentication required.
 // Clears the refresh cookie so the user can log in again even if the
 // JWT secret was rotated and their httpOnly cookie is permanently invalid.

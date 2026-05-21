@@ -17,6 +17,12 @@ authRouter.get( "/me",               requireAuth, ctrl.me);
 // even if the JWT secret was rotated and their cookie is permanently invalid
 authRouter.get( "/clear-session",    ctrl.clearSession);
 
+// Issues a new refresh cookie on the request's response domain.
+// Used after Google OAuth callback to ensure the cookie lands on the
+// Vercel frontend domain (not the Render backend domain) so future
+// refresh calls can find it. Requires a valid Bearer access token.
+authRouter.post("/oauth-handoff",    requireAuth, ctrl.oauthHandoff);
+
 // OAuth — credential (One-Tap / popup, works on desktop)
 authRouter.post("/google", ctrl.googleLogin);
 authRouter.post("/apple",  ctrl.appleLogin);

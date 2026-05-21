@@ -453,3 +453,14 @@ async function issueTokens(user: { id: string; [k: string]: unknown }) {
   });
   return { user, accessToken, refreshToken };
 }
+
+// Used by the OAuth handoff endpoint to mint a fresh refresh token
+// after Google sign-in. The token is set as a cookie by the controller.
+export async function issueRefreshTokenForUser(userId: string): Promise<string> {
+  const refreshToken = signRefreshToken(userId);
+  const expiresAt    = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  await prisma.refreshToken.create({
+    data: { token: refreshToken, userId, expiresAt },
+  });
+  return refreshToken;
+}
