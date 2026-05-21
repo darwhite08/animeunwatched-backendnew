@@ -7,7 +7,9 @@ export const authRouter = Router();
 authRouter.post("/register",   ctrl.register);
 authRouter.post("/login",      ctrl.login);
 authRouter.post("/refresh",    ctrl.refresh);
-authRouter.post("/logout",           requireAuth, ctrl.logout);
+// Logout only needs the cookie (no Bearer token required) so it works
+// even when the access token has expired or was never in memory
+authRouter.post("/logout",           ctrl.logout);
 authRouter.post("/logout-all",       requireAuth, ctrl.logoutAll);
 authRouter.post("/change-password",  requireAuth, ctrl.changePassword);
 authRouter.get( "/me",               requireAuth, ctrl.me);
