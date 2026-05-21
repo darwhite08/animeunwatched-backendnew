@@ -36,9 +36,46 @@ export function initSocket(httpServer: HttpServer) {
     }
   });
 
+  // ── Presence tracking ──────────────────────────────────────────────────────
+  // In-memory map: userId → number of active socket connections.
+  // A user is "online" while count > 0. Multiple tabs/devices = multiple connections.
+  const presenceCounts = new Map<string, number>();
+
+  function setOnline(userId: string) {
+    const next = (presenceCounts.get(userId) ?? 0) + 1;
+    presenceCounts.set(userId, next);
+    if (next === 1) io.emit("presence.online", { userId, at: Date.now() });
+  }
+
+  function setOffline(userId: string) {
+    const next = Math.max(0, (presenceCounts.get(userId) ?? 1) - 1);
+    if (next === 0) {
+      presenceCounts.delete(userId);
+      io.emit("presence.offline", { userId, at: Date.now() });
+    } else {
+      presenceCounts.set(userId, next);
+    }
+  }
+
+  // Expose presence list lookup on the io instance for HTTP handlers
+  (io as unknown as { getOnlineUsers: () => string[] }).getOnlineUsers = () =>
+    Array.from(presenceCounts.keys());
+
   io.on("connection", (socket) => {
     const userId = socket.data.userId as string;
     socket.join(`user:${userId}`);
+    // Join the global feed channel so server can broadcast posts/reviews
+    socket.join("feed");
+    setOnline(userId);
+
+    // Snapshot of who is currently online (for status indicators)
+    socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });
+
+    // Client opts in to anime / club / thread rooms when viewing those pages
+    socket.on("room:join",  (room: string) => { if (typeof room === "string" && room.length < 64) socket.join(room) });
+    socket.on("room:leave", (room: string) => { if (typeof room === "string" && room.length < 64) socket.leave(room) });
+
+    socket.on("disconnect", () => { setOffline(userId) });
 
     // ── WebRTC call signaling ────────────────────────────────────────────────
     // The server is a pure relay — it never inspects SDP or ICE data.

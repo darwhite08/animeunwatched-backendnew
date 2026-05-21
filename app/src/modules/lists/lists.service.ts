@@ -3,6 +3,7 @@ import { notFound } from "../../lib/errors";
 import { updateStreak } from "../../lib/streak";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { addReputation } from "../../lib/reputation";
+import { broadcastAnimeListChanged } from "../../realtime/broadcast";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -108,6 +109,9 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
 
   // Fire-and-forget streak update — list activity counts as daily engagement
   void updateStreak(userId).catch(() => {});
+
+  // Realtime: anime detail page's user-stats counter updates live
+  if (anime.malId) broadcastAnimeListChanged(anime.malId);
 
   // On COMPLETED status: check for milestone achievements
   if (dto.status === "COMPLETED") {

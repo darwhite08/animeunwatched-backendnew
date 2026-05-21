@@ -3,6 +3,10 @@ import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { updateStreak } from "../../lib/streak";
+import {
+  broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
+  broadcastPostCommented, broadcastPostDeleted,
+} from "../../realtime/broadcast";
 import type { CreatePostDto } from "./posts.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -168,6 +172,9 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
     );
   })().catch(console.error);
 
+  // Realtime: broadcast the new post to all connected clients in the feed room
+  broadcastPostCreated(post);
+
   return { post };
 }
 
@@ -184,6 +191,8 @@ export async function deletePost(id: string, userId: string, userRole: string) {
     where: { id },
     data: { deletedAt: new Date() },
   });
+
+  broadcastPostDeleted(id);
 }
 
 // ─── likePost ─────────────────────────────────────────────────────────────────
@@ -208,12 +217,26 @@ export async function likePost(userId: string, postId: string) {
   if (!existing) {
     addReputation(post.authorId, "post_liked").catch(console.error);
   }
+
+  // Realtime: broadcast the new count so all viewers update instantly.
+  // Wrapped in try/catch — broadcast failure must not break the core like action.
+  try {
+    const likes = await prisma.postLike.count({ where: { postId } });
+    broadcastPostLiked(postId, post.authorId, likes, userId);
+  } catch { /* socket emission is best-effort */ }
 }
 
 // ─── unlikePost ───────────────────────────────────────────────────────────────
 
 export async function unlikePost(userId: string, postId: string) {
   await prisma.postLike.deleteMany({ where: { userId, postId } });
+  try {
+    const post = await prisma.post.findUnique({ where: { id: postId }, select: { authorId: true } });
+    if (post) {
+      const likes = await prisma.postLike.count({ where: { postId } });
+      broadcastPostUnliked(postId, post.authorId, likes);
+    }
+  } catch { /* best-effort broadcast */ }
 }
 
 // ─── getComments ─────────────────────────────────────────────────────────────
@@ -266,6 +289,12 @@ export async function createComment(postId: string, authorId: string, content: s
       },
     },
   });
+
+  // Realtime: broadcast new comment count (best-effort)
+  try {
+    const comments = await prisma.postComment.count({ where: { postId } });
+    broadcastPostCommented(postId, post.authorId, comments);
+  } catch { /* fire-and-forget */ }
 
   return { comment };
 }

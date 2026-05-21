@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
+import { broadcastReviewCreated } from "../../realtime/broadcast";
 import type { CreateReviewDto, UpdateReviewDto } from "./reviews.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -77,6 +78,12 @@ export async function create(authorId: string, dto: CreateReviewDto) {
     include: reviewInclude,
   });
   addReputation(authorId, "review_posted").catch(console.error);
+
+  // Realtime: broadcast to anyone viewing this anime page (best-effort)
+  try {
+    const animeRow = await prisma.anime.findUnique({ where: { id: dto.animeId }, select: { malId: true } });
+    if (animeRow) broadcastReviewCreated(animeRow.malId, review);
+  } catch { /* fire-and-forget */ }
 
   return { review };
 }

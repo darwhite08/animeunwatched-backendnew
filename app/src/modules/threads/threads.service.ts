@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
+import { broadcastThreadReply } from "../../realtime/broadcast";
 import type { CreateThreadDto, UpdateThreadDto, CreateReplyDto } from "./threads.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -179,6 +180,9 @@ export async function createReply(
       author: { select: authorSelect },
     },
   });
+
+  // Realtime: anyone watching this thread sees the new reply instantly
+  broadcastThreadReply(threadId, reply);
 
   return { reply };
 }
