@@ -606,6 +606,15 @@ model DirectMessage {
   createdAt      DateTime  @default(now())
   readAt         DateTime?
 
+  // WhatsApp-style deletion model:
+  // - deletedAt: set when sender uses "Delete for everyone" (within 24h);
+  //   ciphertext is cleared and clients render a tombstone for both users.
+  // - deletedForSender / deletedForRecipient: "Delete for me" — message is
+  //   hidden from that side's view but the other side still sees it.
+  deletedAt             DateTime?
+  deletedForSender      Boolean   @default(false)
+  deletedForRecipient   Boolean   @default(false)
+
   conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender       User         @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
 

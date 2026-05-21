@@ -3229,7 +3229,10 @@ export const DirectMessageScalarFieldEnum = {
   ciphertext: 'ciphertext',
   iv: 'iv',
   createdAt: 'createdAt',
-  readAt: 'readAt'
+  readAt: 'readAt',
+  deletedAt: 'deletedAt',
+  deletedForSender: 'deletedForSender',
+  deletedForRecipient: 'deletedForRecipient'
 } as const
 
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]

@@ -108,3 +108,16 @@ export async function markRead(req: Request, res: Response, next: NextFunction) 
     next(err);
   }
 }
+
+export async function deleteMessage(req: Request, res: Response, next: NextFunction) {
+  try {
+    const conversationId = req.params.conversationId as string
+    const messageId      = req.params.messageId as string
+    const userId         = res.locals.user.id as string
+    const scope          = (req.query.scope === "everyone" ? "everyone" : "me") as "me" | "everyone"
+    const result         = await chatService.deleteMessage({ conversationId, messageId, userId, scope })
+    res.json(result)
+  } catch (err) {
+    next(err)
+  }
+}

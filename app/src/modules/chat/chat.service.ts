@@ -191,10 +191,17 @@ export async function getMessages(opts: {
     throw forbidden("Not a participant in this conversation");
   }
 
+  // Filter out messages the requester has "deleted for me" (still visible to
+  // the other participant). Messages deleted "for everyone" are returned with
+  // deletedAt set, so the client renders a tombstone for both users.
   const messages = await prisma.directMessage.findMany({
     where: {
       conversationId: opts.conversationId,
       ...(opts.cursor ? { createdAt: { lt: new Date(opts.cursor) } } : {}),
+      OR: [
+        { senderId: opts.userId,           deletedForSender:    false },
+        { senderId: { not: opts.userId },  deletedForRecipient: false },
+      ],
     },
     orderBy: { createdAt: "desc" },
     take:    opts.limit + 1,
@@ -205,6 +212,7 @@ export async function getMessages(opts: {
       iv:        true,
       createdAt: true,
       readAt:    true,
+      deletedAt: true,
     },
   });
 
@@ -252,4 +260,75 @@ export async function markConversationRead(conversationId: string, userId: strin
   }
 
   return { conversationId, readAt: now };
+}
+
+// ─── Delete message (WhatsApp-style) ──────────────────────────────────────────
+
+const DELETE_FOR_EVERYONE_WINDOW_MS = 24 * 60 * 60 * 1000  // 24 hours
+
+export type DeleteScope = "me" | "everyone"
+
+/**
+ * Delete a message.
+ *   scope=me:        hide from the caller only; other side still sees it
+ *   scope=everyone:  only the sender can, only within 24h; both sides see tombstone
+ *
+ * Emits chat.deleted via socket so the other participant's UI updates live.
+ */
+export async function deleteMessage(opts: {
+  conversationId: string
+  messageId:      string
+  userId:         string
+  scope:          DeleteScope
+}) {
+  const conv = await prisma.conversation.findUnique({
+    where: { id: opts.conversationId },
+    select: { id: true, participant1: true, participant2: true },
+  })
+  if (!conv) throw notFound("Conversation not found")
+  if (conv.participant1 !== opts.userId && conv.participant2 !== opts.userId) {
+    throw forbidden("Not a participant in this conversation")
+  }
+
+  const msg = await prisma.directMessage.findUnique({
+    where:  { id: opts.messageId },
+    select: { id: true, senderId: true, conversationId: true, createdAt: true, deletedAt: true },
+  })
+  if (!msg || msg.conversationId !== opts.conversationId) throw notFound("Message not found")
+
+  const otherUserId = conv.participant1 === opts.userId ? conv.participant2 : conv.participant1
+  const isSender    = msg.senderId === opts.userId
+
+  if (opts.scope === "everyone") {
+    if (!isSender)                                              throw forbidden("Only the sender can delete for everyone")
+    if (msg.deletedAt)                                          return { ok: true, scope: "everyone" as const }
+    const age = Date.now() - msg.createdAt.getTime()
+    if (age > DELETE_FOR_EVERYONE_WINDOW_MS)                    throw forbidden("You can only delete for everyone within 24 hours")
+
+    await prisma.directMessage.update({
+      where: { id: msg.id },
+      data: {
+        deletedAt: new Date(),
+        // Clear the ciphertext so the message content can't be recovered from the DB
+        ciphertext: "",
+        iv:         "",
+      },
+    })
+
+    // Notify the other participant live
+    const io = getIo()
+    if (io) io.to(`user:${otherUserId}`).emit("chat.deleted", { conversationId: conv.id, messageId: msg.id, scope: "everyone" })
+
+    return { ok: true, scope: "everyone" as const }
+  }
+
+  // scope === "me" — hide from this side only
+  await prisma.directMessage.update({
+    where: { id: msg.id },
+    data: isSender
+      ? { deletedForSender:    true }
+      : { deletedForRecipient: true },
+  })
+
+  return { ok: true, scope: "me" as const }
 }
