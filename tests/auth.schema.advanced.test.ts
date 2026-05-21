@@ -59,24 +59,30 @@ describe("registerSchema — email edge cases", () => {
 describe("registerSchema — password edge cases", () => {
   const base = { email: "a@b.com", username: "user123", displayName: "User" };
 
-  it("accepts password with spaces", () => {
-    expect(() => registerSchema.parse({ ...base, password: "my pass word!" })).not.toThrow();
+  it("accepts password with spaces meeting complexity rules", () => {
+    expect(() => registerSchema.parse({ ...base, password: "My Pass1!  " })).not.toThrow();
   });
 
   it("accepts password with special chars", () => {
-    expect(() => registerSchema.parse({ ...base, password: "P@$$w0rd!#" })).not.toThrow();
+    expect(() => registerSchema.parse({ ...base, password: "P@$$w0rd!#9" })).not.toThrow();
   });
 
-  it("accepts password with unicode", () => {
-    expect(() => registerSchema.parse({ ...base, password: "パスワード123!" })).not.toThrow();
+  it("accepts password with unicode (counts as special)", () => {
+    // パスワードAa1! is only 9 chars; pad to meet 10-char minimum
+    expect(() => registerSchema.parse({ ...base, password: "パスワードAa1!xy" })).not.toThrow();
   });
 
-  it("rejects password with exactly 7 chars (under min)", () => {
-    expect(() => registerSchema.parse({ ...base, password: "1234567" })).toThrow();
+  it("rejects password under new 10-char minimum", () => {
+    expect(() => registerSchema.parse({ ...base, password: "Pass1!ab" })).toThrow();
   });
 
-  it("accepts password with exactly 8 chars (at min)", () => {
-    expect(() => registerSchema.parse({ ...base, password: "12345678" })).not.toThrow();
+  it("accepts password at exactly 10 chars with complexity", () => {
+    expect(() => registerSchema.parse({ ...base, password: "Pass1234!a" })).not.toThrow();
+  });
+
+  it("rejects common password from denylist (case-insensitive)", () => {
+    // "qwerty123" is in the denylist — case-insensitive check should reject "Qwerty123"
+    expect(() => registerSchema.parse({ ...base, password: "Qwerty123" })).toThrow();
   });
 });
 

@@ -26,20 +26,29 @@ describe("registerSchema — boundary values", () => {
     expect(() => registerSchema.parse({ ...valid, username: "a".repeat(31) })).toThrow();
   });
 
-  it("rejects password with exactly 7 chars", () => {
-    expect(() => registerSchema.parse({ ...valid, password: "1234567" })).toThrow();
+  it("rejects password with only 9 chars (under new 10-char minimum)", () => {
+    expect(() => registerSchema.parse({ ...valid, password: "Pass123!a" })).toThrow();
   });
 
-  it("accepts password with exactly 8 chars", () => {
-    expect(() => registerSchema.parse({ ...valid, password: "12345678" })).not.toThrow();
+  it("accepts password meeting min 10 + 3 character classes", () => {
+    expect(() => registerSchema.parse({ ...valid, password: "Pass1234!ab" })).not.toThrow();
   });
 
   it("rejects password with exactly 129 chars", () => {
-    expect(() => registerSchema.parse({ ...valid, password: "a".repeat(129) })).toThrow();
+    expect(() => registerSchema.parse({ ...valid, password: "Aa1!" + "x".repeat(125) })).toThrow();
   });
 
-  it("accepts password with exactly 128 chars", () => {
-    expect(() => registerSchema.parse({ ...valid, password: "a".repeat(128) })).not.toThrow();
+  it("accepts password with exactly 128 chars meeting complexity", () => {
+    expect(() => registerSchema.parse({ ...valid, password: "Aa1!" + "x".repeat(124) })).not.toThrow();
+  });
+
+  it("rejects common password 'password123'", () => {
+    expect(() => registerSchema.parse({ ...valid, password: "Password123" })).toThrow();
+  });
+
+  it("rejects password without complexity (3 character classes)", () => {
+    // 10+ chars but only lowercase
+    expect(() => registerSchema.parse({ ...valid, password: "abcdefghijk" })).toThrow();
   });
 
   it("rejects email with missing @", () => {

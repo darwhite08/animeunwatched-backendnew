@@ -464,3 +464,123 @@ export async function issueRefreshTokenForUser(userId: string): Promise<string> 
   });
   return refreshToken;
 }
+
+// ─── Password Reset ───────────────────────────────────────────────────────────
+
+/**
+ * Step 1: generate a reset token, store its hash, return the plaintext token.
+ * The plaintext token is emailed to the user — only its SHA-256 hash is in the DB,
+ * so even a DB read can't be used to reset a password.
+ *
+ * Returns null if the email isn't registered (caller should still pretend success
+ * to avoid user enumeration attacks).
+ */
+export async function createPasswordResetToken(email: string): Promise<string | null> {
+  const user = await prisma.user.findUnique({ where: { email }, select: { id: true } });
+  if (!user) return null;
+
+  // Invalidate any prior unconsumed tokens for this user (only the latest works)
+  await prisma.passwordResetToken.deleteMany({
+    where: { userId: user.id, consumedAt: null },
+  });
+
+  const token     = crypto.randomBytes(32).toString("base64url"); // 256 bits, URL-safe
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+  const expiresAt = new Date(Date.now() + 60 * 60_000);            // 1 hour
+
+  await prisma.passwordResetToken.create({
+    data: { tokenHash, userId: user.id, expiresAt },
+  });
+
+  return token;
+}
+
+/**
+ * Step 2: consume a reset token, set the new password.
+ * Throws on invalid, expired, or already-used tokens. Single-use enforced
+ * via consumedAt timestamp + unique tokenHash.
+ */
+export async function consumePasswordResetToken(token: string, newPassword: string): Promise<{ userId: string }> {
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+  const stored = await prisma.passwordResetToken.findUnique({
+    where: { tokenHash },
+    select: { id: true, userId: true, expiresAt: true, consumedAt: true },
+  });
+
+  if (!stored)                            throw unauth("Invalid or expired reset token");
+  if (stored.consumedAt)                  throw unauth("This reset link has already been used");
+  if (stored.expiresAt < new Date())      throw unauth("This reset link has expired");
+
+  const newHash = await hashPassword(newPassword);
+
+  // Atomic: update password + mark token consumed + revoke ALL existing sessions
+  await prisma.$transaction([
+    prisma.user.update({ where: { id: stored.userId }, data: { passwordHash: newHash } }),
+    prisma.passwordResetToken.update({ where: { id: stored.id }, data: { consumedAt: new Date() } }),
+    prisma.refreshToken.deleteMany({ where: { userId: stored.userId } }),
+  ]);
+
+  return { userId: stored.userId };
+}
+
+// ─── Account Deletion (GDPR) ──────────────────────────────────────────────────
+
+/**
+ * Hard-delete the user account. Cascading deletes in the Prisma schema clean up
+ * all owned data (posts, lists, refresh tokens, etc.). For OAuth-only accounts,
+ * the password check is skipped (no password to verify against).
+ */
+export async function deleteAccount(userId: string, password?: string): Promise<void> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { passwordHash: true },
+  });
+  if (!user) throw unauth("User not found");
+
+  // If the user has a password set, require it
+  if (user.passwordHash) {
+    if (!password) throw badRequest("Password confirmation required");
+    const valid = await verifyPassword(user.passwordHash, password);
+    if (!valid)   throw badRequest("Password is incorrect");
+  }
+
+  // ClubOwner is the only relation with onDelete: Restrict — null it out first
+  // so the cascade doesn't fail
+  await prisma.club.updateMany({
+    where: { ownerId: userId },
+    data:  { ownerId: "deleted_user" },
+  }).catch(() => {});
+
+  await prisma.user.delete({ where: { id: userId } });
+}
+
+// ─── Active Sessions ──────────────────────────────────────────────────────────
+
+export async function listActiveSessions(userId: string, currentRefreshToken: string | undefined) {
+  const sessions = await prisma.refreshToken.findMany({
+    where: { userId, expiresAt: { gt: new Date() } },
+    orderBy: { lastUsedAt: "desc" },
+    select: {
+      id: true,
+      userAgent: true,
+      ipAddress: true,
+      lastUsedAt: true,
+      createdAt: true,
+      token: true,
+    },
+  });
+
+  return sessions.map(s => ({
+    id:        s.id,
+    userAgent: s.userAgent ?? "Unknown device",
+    ipAddress: s.ipAddress,
+    lastUsedAt: s.lastUsedAt,
+    createdAt: s.createdAt,
+    isCurrent: !!currentRefreshToken && s.token === currentRefreshToken,
+  }));
+}
+
+export async function revokeSession(userId: string, sessionId: string): Promise<void> {
+  await prisma.refreshToken.deleteMany({ where: { id: sessionId, userId } });
+}

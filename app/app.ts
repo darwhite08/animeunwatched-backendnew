@@ -55,11 +55,34 @@ function isLocalNetworkOrigin(origin: string): boolean {
   } catch { return false }
 }
 
-// Security headers — must come first
+// Security headers — must come first.
+// Hardened: explicit HSTS (2-year preload), stricter Cross-Origin policies,
+// X-DNS-Prefetch-Control off, no referrer leakage, no client-side caching of API
+// responses to avoid stale-auth state on shared devices.
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
+  // CSP is set by Next.js for the frontend — the API doesn't serve HTML
   contentSecurityPolicy: env.NODE_ENV === "production" ? undefined : false,
+  hsts: {
+    maxAge:           63072000,  // 2 years (HSTS preload list requirement)
+    includeSubDomains: true,
+    preload:          true,
+  },
+  referrerPolicy:           { policy: "no-referrer" },
+  noSniff:                  true,
+  xssFilter:                true,
+  dnsPrefetchControl:       { allow: false },
+  frameguard:               { action: "deny" },
+  permittedCrossDomainPolicies: { permittedPolicies: "none" },
 }));
+
+// API responses should never be cached by the client/proxy — every response
+// can contain auth state that's invalid for another user
+app.use((_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
+  res.setHeader("Pragma", "no-cache")
+  next()
+});
 
 // Sentry request handler — must come before other middleware
 if (process.env.SENTRY_DSN) {

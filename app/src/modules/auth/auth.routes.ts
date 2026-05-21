@@ -23,6 +23,18 @@ authRouter.get( "/clear-session",    ctrl.clearSession);
 // refresh calls can find it. Requires a valid Bearer access token.
 authRouter.post("/oauth-handoff",    requireAuth, ctrl.oauthHandoff);
 
+// Password reset flow — both endpoints are unauthenticated (user is locked out)
+// but app.ts already rate-limits /auth/* to prevent abuse
+authRouter.post("/forgot-password",  ctrl.forgotPassword);
+authRouter.post("/reset-password",   ctrl.resetPassword);
+
+// GDPR account deletion — requires Bearer token + password confirmation
+authRouter.post("/delete-account",   requireAuth, ctrl.deleteAccount);
+
+// Active sessions for the security settings page
+authRouter.get( "/sessions",                  requireAuth, ctrl.listSessions);
+authRouter.delete("/sessions/:sessionId",     requireAuth, ctrl.revokeSession);
+
 // OAuth — credential (One-Tap / popup, works on desktop)
 authRouter.post("/google", ctrl.googleLogin);
 authRouter.post("/apple",  ctrl.appleLogin);

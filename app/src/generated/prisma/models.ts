@@ -10,6 +10,8 @@
  */
 export type * from './models/User'
 export type * from './models/RefreshToken'
+export type * from './models/PasswordResetToken'
+export type * from './models/SecurityEvent'
 export type * from './models/Follow'
 export type * from './models/Anime'
 export type * from './models/Genre'

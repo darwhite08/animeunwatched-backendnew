@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { env } from "../../config/env";
-import { registerSchema, loginSchema, googleLoginSchema, appleLoginSchema, changePasswordSchema } from "./auth.schema";
+import {
+  registerSchema, loginSchema, googleLoginSchema, appleLoginSchema,
+  changePasswordSchema, forgotPasswordSchema, resetPasswordSchema, deleteAccountSchema,
+} from "./auth.schema";
+import { sendEmail } from "../../lib/email";
+import { recordSecurityEvent } from "../../lib/audit";
 import * as service from "./auth.service";
 
 const COOKIE_OPTS = {
@@ -16,6 +21,7 @@ export async function register(req: Request, res: Response, next: NextFunction):
     const dto = registerSchema.parse(req.body);
     const { user, accessToken, refreshToken } = await service.register(dto);
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    recordSecurityEvent("register", { userId: (user as { id: string }).id, req });
     res.status(201).json({ user, accessToken });
   } catch (err) {
     next(err);
@@ -27,8 +33,15 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
     const dto = loginSchema.parse(req.body);
     const { user, accessToken, refreshToken } = await service.login(dto);
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    recordSecurityEvent("login_success", { userId: (user as { id: string }).id, req });
     res.status(200).json({ user, accessToken });
   } catch (err) {
+    // Log failed login attempt for security audit (only if it's an auth error,
+    // not a validation error)
+    const body = req.body as { email?: unknown }
+    if (body && typeof body.email === "string") {
+      recordSecurityEvent("login_failed", { req, metadata: { email: body.email } });
+    }
     next(err);
   }
 }
@@ -67,6 +80,7 @@ export async function logoutAll(req: Request, res: Response, next: NextFunction)
     const userId: string = res.locals.user?.id;
     if (userId) {
       await service.logoutAll(userId);
+      recordSecurityEvent("logout_all", { userId, req });
     }
     res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
     res.status(204).send();
@@ -133,6 +147,7 @@ export async function changePassword(req: Request, res: Response, next: NextFunc
     const userId: string = res.locals.user?.id;
     const dto = changePasswordSchema.parse(req.body);
     await service.changePassword(userId, dto);
+    recordSecurityEvent("password_changed", { userId, req });
     res.status(204).send();
   } catch (err) {
     next(err);
@@ -245,5 +260,116 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
   } catch (err) {
     console.error("[Google callback]", err);
     res.redirect(`${frontendUrl}/login?error=google_failed`);
+  }
+}
+
+// ─── Password Reset ───────────────────────────────────────────────────────────
+
+/**
+ * Request a password reset email. Always returns 204 — even when the email
+ * isn't registered — to prevent attackers from enumerating which emails
+ * have accounts.
+ */
+export async function forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const dto = forgotPasswordSchema.parse(req.body);
+    const token = await service.createPasswordResetToken(dto.email);
+
+    if (token) {
+      const frontendUrl = env.FRONTEND_URL || "http://localhost:3000";
+      const resetUrl    = `${frontendUrl}/reset-password?token=${encodeURIComponent(token)}`;
+
+      // Fire-and-forget email send; never block the response on email delivery
+      void sendEmail({
+        to:      dto.email,
+        subject: "Reset your Kaiveron password",
+        html: `
+          <div style="font-family:-apple-system,sans-serif;max-width:520px;margin:0 auto;background:#0a0a0a;color:#fff;border-radius:20px;overflow:hidden;border:1px solid #1a1a1a">
+            <div style="background:linear-gradient(135deg,#0f0f0f,#1a1100);padding:24px 32px;border-bottom:1px solid #1a1a1a">
+              <span style="font-size:20px;font-weight:900;font-style:italic;letter-spacing:-0.05em;color:#f59e0b">Kaiveron</span>
+            </div>
+            <div style="padding:32px">
+              <h1 style="color:#fff;font-size:22px;margin:0 0 12px">Reset your password</h1>
+              <p style="color:#aaa;line-height:1.7;margin-bottom:20px">
+                Someone (hopefully you) requested a password reset for your Kaiveron account.
+                The link below expires in <strong>1 hour</strong> and can only be used once.
+              </p>
+              <a href="${resetUrl}" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;text-decoration:none;border-radius:10px;font-weight:900;font-size:12px;letter-spacing:0.08em;text-transform:uppercase">Reset Password</a>
+              <p style="color:#555;font-size:11px;margin-top:24px">If you didn't request this, ignore this email — your password stays unchanged.</p>
+            </div>
+          </div>
+        `,
+      })
+
+      recordSecurityEvent("password_reset_requested", {
+        req,
+        metadata: { email: dto.email },
+      });
+    }
+
+    // Always 204 — don't leak existence of the email
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+/** Consume a reset token and update the password. */
+export async function resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const dto = resetPasswordSchema.parse(req.body);
+    const { userId } = await service.consumePasswordResetToken(dto.token, dto.newPassword);
+
+    recordSecurityEvent("password_reset_completed", { userId, req });
+
+    // Force re-login on the device that performed the reset
+    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ─── Account Deletion ─────────────────────────────────────────────────────────
+
+export async function deleteAccount(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId = res.locals.user?.id as string;
+    const dto    = deleteAccountSchema.parse(req.body);
+    await service.deleteAccount(userId, dto.password);
+
+    recordSecurityEvent("account_deleted", { userId, req });
+
+    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ─── Active Sessions ──────────────────────────────────────────────────────────
+
+export async function listSessions(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId       = res.locals.user?.id as string;
+    const refreshToken = req.cookies?.aw_refresh as string | undefined;
+    const sessions     = await service.listActiveSessions(userId, refreshToken);
+    res.status(200).json({ sessions });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function revokeSession(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId    = res.locals.user?.id as string;
+    const sessionId = req.params.sessionId as string;
+    await service.revokeSession(userId, sessionId);
+
+    recordSecurityEvent("session_revoked", { userId, req, metadata: { sessionId } });
+
+    res.status(204).send();
+  } catch (err) {
+    next(err);
   }
 }

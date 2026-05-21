@@ -88,6 +88,8 @@ model User {
   pollVotes          PollVote[]
   // OAuth providers linked to this account
   oauthProviders     UserOAuthProvider[]
+  passwordResetTokens PasswordResetToken[]
+  securityEvents      SecurityEvent[]
   // Chat
   publicKey          UserPublicKey?
   sentMessages       DirectMessage[]    @relation("MessageSender")
@@ -99,12 +101,53 @@ model RefreshToken {
   id        String   @id @default(cuid())
   token     String   @unique
   userId    String
+  // Session metadata — populated on issuance for the "active sessions" UI
+  userAgent String?
+  ipAddress String?
+  lastUsedAt DateTime @default(now())
   expiresAt DateTime
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([expiresAt]) // for the cleanup cron job
+}
+
+// Single-use password reset token. Created on POST /auth/forgot-password,
+// consumed on POST /auth/reset-password. Hashed in storage to prevent
+// DB-level token theft from being directly usable.
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique  // SHA-256 of the actual token sent to the user
+  userId     String
+  expiresAt  DateTime           // 1 hour from creation
+  consumedAt DateTime?           // set on successful reset
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// Append-only audit log for security-relevant events.
+// type values: "login_success" | "login_failed" | "password_changed" |
+//              "password_reset_requested" | "password_reset_completed" |
+//              "account_deleted" | "session_revoked" | "logout_all"
+model SecurityEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  type      String
+  ipAddress String?
+  userAgent String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([type, createdAt])
 }
 
 model Follow {

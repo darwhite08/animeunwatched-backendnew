@@ -333,6 +333,8 @@ export type UserWhereInput = {
   polls?: Prisma.PollListRelationFilter
   pollVotes?: Prisma.PollVoteListRelationFilter
   oauthProviders?: Prisma.UserOAuthProviderListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  securityEvents?: Prisma.SecurityEventListRelationFilter
   publicKey?: Prisma.XOR<Prisma.UserPublicKeyNullableScalarRelationFilter, Prisma.UserPublicKeyWhereInput> | null
   sentMessages?: Prisma.DirectMessageListRelationFilter
   conversations1?: Prisma.ConversationListRelationFilter
@@ -377,6 +379,8 @@ export type UserOrderByWithRelationInput = {
   polls?: Prisma.PollOrderByRelationAggregateInput
   pollVotes?: Prisma.PollVoteOrderByRelationAggregateInput
   oauthProviders?: Prisma.UserOAuthProviderOrderByRelationAggregateInput
+  passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
+  securityEvents?: Prisma.SecurityEventOrderByRelationAggregateInput
   publicKey?: Prisma.UserPublicKeyOrderByWithRelationInput
   sentMessages?: Prisma.DirectMessageOrderByRelationAggregateInput
   conversations1?: Prisma.ConversationOrderByRelationAggregateInput
@@ -424,6 +428,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   polls?: Prisma.PollListRelationFilter
   pollVotes?: Prisma.PollVoteListRelationFilter
   oauthProviders?: Prisma.UserOAuthProviderListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  securityEvents?: Prisma.SecurityEventListRelationFilter
   publicKey?: Prisma.XOR<Prisma.UserPublicKeyNullableScalarRelationFilter, Prisma.UserPublicKeyWhereInput> | null
   sentMessages?: Prisma.DirectMessageListRelationFilter
   conversations1?: Prisma.ConversationListRelationFilter
@@ -514,6 +520,8 @@ export type UserCreateInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -558,6 +566,8 @@ export type UserUncheckedCreateInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -602,6 +612,8 @@ export type UserUpdateInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -646,6 +658,8 @@ export type UserUncheckedUpdateInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -783,6 +797,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -827,6 +846,36 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   upsert?: Prisma.UserUpsertWithoutRefreshTokensInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type UserCreateNestedOneWithoutSecurityEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSecurityEventsInput, Prisma.UserUncheckedCreateWithoutSecurityEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSecurityEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSecurityEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSecurityEventsInput, Prisma.UserUncheckedCreateWithoutSecurityEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSecurityEventsInput
+  upsert?: Prisma.UserUpsertWithoutSecurityEventsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSecurityEventsInput, Prisma.UserUpdateWithoutSecurityEventsInput>, Prisma.UserUncheckedUpdateWithoutSecurityEventsInput>
 }
 
 export type UserCreateNestedOneWithoutFollowingInput = {
@@ -1202,6 +1251,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -1245,6 +1296,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -1304,6 +1357,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -1347,6 +1402,400 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+}
+
+export type UserCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+}
+
+export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+}
+
+export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpsertWithoutPasswordResetTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+}
+
+export type UserCreateWithoutSecurityEventsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+}
+
+export type UserUncheckedCreateWithoutSecurityEventsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+}
+
+export type UserCreateOrConnectWithoutSecurityEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSecurityEventsInput, Prisma.UserUncheckedCreateWithoutSecurityEventsInput>
+}
+
+export type UserUpsertWithoutSecurityEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSecurityEventsInput, Prisma.UserUncheckedUpdateWithoutSecurityEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSecurityEventsInput, Prisma.UserUncheckedCreateWithoutSecurityEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSecurityEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSecurityEventsInput, Prisma.UserUncheckedUpdateWithoutSecurityEventsInput>
+}
+
+export type UserUpdateWithoutSecurityEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+}
+
+export type UserUncheckedUpdateWithoutSecurityEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -1390,6 +1839,8 @@ export type UserCreateWithoutFollowingInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -1433,6 +1884,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -1481,6 +1934,8 @@ export type UserCreateWithoutFollowersInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -1524,6 +1979,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -1583,6 +2040,8 @@ export type UserUpdateWithoutFollowingInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -1626,6 +2085,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -1680,6 +2141,8 @@ export type UserUpdateWithoutFollowersInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -1723,6 +2186,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -1766,6 +2231,8 @@ export type UserCreateWithoutListEntriesInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -1809,6 +2276,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -1868,6 +2337,8 @@ export type UserUpdateWithoutListEntriesInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -1911,6 +2382,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -1954,6 +2427,8 @@ export type UserCreateWithoutPostsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -1997,6 +2472,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2056,6 +2533,8 @@ export type UserUpdateWithoutPostsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -2099,6 +2578,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -2142,6 +2623,8 @@ export type UserCreateWithoutPostLikesInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -2185,6 +2668,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2244,6 +2729,8 @@ export type UserUpdateWithoutPostLikesInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -2287,6 +2774,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -2330,6 +2819,8 @@ export type UserCreateWithoutPostCommentsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -2373,6 +2864,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2432,6 +2925,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -2475,6 +2970,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -2518,6 +3015,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -2561,6 +3060,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2620,6 +3121,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -2663,6 +3166,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -2706,6 +3211,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -2749,6 +3256,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2808,6 +3317,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -2851,6 +3362,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -2894,6 +3407,8 @@ export type UserCreateWithoutThreadsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -2937,6 +3452,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -2996,6 +3513,8 @@ export type UserUpdateWithoutThreadsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3039,6 +3558,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -3082,6 +3603,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -3125,6 +3648,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -3184,6 +3709,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3227,6 +3754,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -3270,6 +3799,8 @@ export type UserCreateWithoutReviewsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -3313,6 +3844,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -3372,6 +3905,8 @@ export type UserUpdateWithoutReviewsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3415,6 +3950,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -3458,6 +3995,8 @@ export type UserCreateWithoutReviewLikesInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -3501,6 +4040,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -3560,6 +4101,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3603,6 +4146,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -3646,6 +4191,8 @@ export type UserCreateWithoutBlogsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -3689,6 +4236,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -3748,6 +4297,8 @@ export type UserUpdateWithoutBlogsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3791,6 +4342,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -3834,6 +4387,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -3877,6 +4432,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -3936,6 +4493,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -3979,6 +4538,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4022,6 +4583,8 @@ export type UserCreateWithoutNotificationsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -4065,6 +4628,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -4124,6 +4689,8 @@ export type UserUpdateWithoutNotificationsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -4167,6 +4734,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4210,6 +4779,8 @@ export type UserCreateWithoutReportsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -4253,6 +4824,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -4312,6 +4885,8 @@ export type UserUpdateWithoutReportsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -4355,6 +4930,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4398,6 +4975,8 @@ export type UserCreateWithoutModerationActionsInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -4441,6 +5020,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -4500,6 +5081,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -4543,6 +5126,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4586,6 +5171,8 @@ export type UserCreateWithoutPollsInput = {
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -4629,6 +5216,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -4688,6 +5277,8 @@ export type UserUpdateWithoutPollsInput = {
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -4731,6 +5322,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4774,6 +5367,8 @@ export type UserCreateWithoutPollVotesInput = {
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -4817,6 +5412,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -4876,6 +5473,8 @@ export type UserUpdateWithoutPollVotesInput = {
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -4919,6 +5518,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -4962,6 +5563,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -5005,6 +5608,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -5064,6 +5669,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -5107,6 +5714,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -5151,6 +5760,8 @@ export type UserCreateWithoutPublicKeyInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5194,6 +5805,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5253,6 +5866,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5296,6 +5911,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5339,6 +5956,8 @@ export type UserCreateWithoutConversations1Input = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5382,6 +6001,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5430,6 +6051,8 @@ export type UserCreateWithoutConversations2Input = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -5473,6 +6096,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -5532,6 +6157,8 @@ export type UserUpdateWithoutConversations1Input = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5575,6 +6202,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5629,6 +6258,8 @@ export type UserUpdateWithoutConversations2Input = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -5672,6 +6303,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -5715,6 +6348,8 @@ export type UserCreateWithoutSentMessagesInput = {
   polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5758,6 +6393,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
   pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5817,6 +6454,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5860,6 +6499,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
   pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
   oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5892,6 +6533,8 @@ export type UserCountOutputType = {
   polls: number
   pollVotes: number
   oauthProviders: number
+  passwordResetTokens: number
+  securityEvents: number
   sentMessages: number
   conversations1: number
   conversations2: number
@@ -5919,6 +6562,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   polls?: boolean | UserCountOutputTypeCountPollsArgs
   pollVotes?: boolean | UserCountOutputTypeCountPollVotesArgs
   oauthProviders?: boolean | UserCountOutputTypeCountOauthProvidersArgs
+  passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+  securityEvents?: boolean | UserCountOutputTypeCountSecurityEventsArgs
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   conversations1?: boolean | UserCountOutputTypeCountConversations1Args
   conversations2?: boolean | UserCountOutputTypeCountConversations2Args
@@ -6084,6 +6729,20 @@ export type UserCountOutputTypeCountOauthProvidersArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSecurityEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SecurityEventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DirectMessageWhereInput
 }
@@ -6141,6 +6800,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   polls?: boolean | Prisma.User$pollsArgs<ExtArgs>
   pollVotes?: boolean | Prisma.User$pollVotesArgs<ExtArgs>
   oauthProviders?: boolean | Prisma.User$oauthProvidersArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  securityEvents?: boolean | Prisma.User$securityEventsArgs<ExtArgs>
   publicKey?: boolean | Prisma.User$publicKeyArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   conversations1?: boolean | Prisma.User$conversations1Args<ExtArgs>
@@ -6228,6 +6889,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   polls?: boolean | Prisma.User$pollsArgs<ExtArgs>
   pollVotes?: boolean | Prisma.User$pollVotesArgs<ExtArgs>
   oauthProviders?: boolean | Prisma.User$oauthProvidersArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  securityEvents?: boolean | Prisma.User$securityEventsArgs<ExtArgs>
   publicKey?: boolean | Prisma.User$publicKeyArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   conversations1?: boolean | Prisma.User$conversations1Args<ExtArgs>
@@ -6261,6 +6924,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     polls: Prisma.$PollPayload<ExtArgs>[]
     pollVotes: Prisma.$PollVotePayload<ExtArgs>[]
     oauthProviders: Prisma.$UserOAuthProviderPayload<ExtArgs>[]
+    passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+    securityEvents: Prisma.$SecurityEventPayload<ExtArgs>[]
     publicKey: Prisma.$UserPublicKeyPayload<ExtArgs> | null
     sentMessages: Prisma.$DirectMessagePayload<ExtArgs>[]
     conversations1: Prisma.$ConversationPayload<ExtArgs>[]
@@ -6703,6 +7368,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   polls<T extends Prisma.User$pollsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pollsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pollVotes<T extends Prisma.User$pollVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pollVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   oauthProviders<T extends Prisma.User$oauthProvidersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oauthProvidersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserOAuthProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  securityEvents<T extends Prisma.User$securityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$securityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SecurityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   publicKey<T extends Prisma.User$publicKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$publicKeyArgs<ExtArgs>>): Prisma.Prisma__UserPublicKeyClient<runtime.Types.Result.GetResult<Prisma.$UserPublicKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversations1<T extends Prisma.User$conversations1Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversations1Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7641,6 +8308,54 @@ export type User$oauthProvidersArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.UserOAuthProviderScalarFieldEnum | Prisma.UserOAuthProviderScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResetTokens
+ */
+export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordResetToken
+   */
+  select?: Prisma.PasswordResetTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordResetToken
+   */
+  omit?: Prisma.PasswordResetTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetTokenInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetTokenWhereInput
+  orderBy?: Prisma.PasswordResetTokenOrderByWithRelationInput | Prisma.PasswordResetTokenOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[]
+}
+
+/**
+ * User.securityEvents
+ */
+export type User$securityEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SecurityEvent
+   */
+  select?: Prisma.SecurityEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SecurityEvent
+   */
+  omit?: Prisma.SecurityEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SecurityEventInclude<ExtArgs> | null
+  where?: Prisma.SecurityEventWhereInput
+  orderBy?: Prisma.SecurityEventOrderByWithRelationInput | Prisma.SecurityEventOrderByWithRelationInput[]
+  cursor?: Prisma.SecurityEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SecurityEventScalarFieldEnum | Prisma.SecurityEventScalarFieldEnum[]
 }
 
 /**
