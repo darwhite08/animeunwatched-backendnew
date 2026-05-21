@@ -346,7 +346,7 @@ export async function getFollowingActivity(username: string, limit = 10) {
     orderBy: { updatedAt: "desc" },
     take: limit,
     include: {
-      user: { select: { username: true, displayName: true, avatarUrl: true } },
+      user: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
       anime: { select: { malId: true, title: true, imageUrl: true } },
     },
   });
