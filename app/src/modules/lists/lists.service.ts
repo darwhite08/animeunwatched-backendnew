@@ -1,6 +1,8 @@
 import { prisma } from "../../config/prisma";
 import { notFound } from "../../lib/errors";
 import { updateStreak } from "../../lib/streak";
+import { createNotification, NotificationType } from "../../lib/notify";
+import { addReputation } from "../../lib/reputation";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -106,6 +108,39 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
 
   // Fire-and-forget streak update — list activity counts as daily engagement
   void updateStreak(userId).catch(() => {});
+
+  // On COMPLETED status: check for milestone achievements
+  if (dto.status === "COMPLETED") {
+    void (async () => {
+      try {
+        const completedCount = await prisma.listEntry.count({ where: { userId, status: "COMPLETED" } });
+        const milestones: Record<number, { badge: string; xp: number }> = {
+          1:   { badge: "First Archive", xp: 100 },
+          10:  { badge: "Decade Watcher", xp: 200 },
+          25:  { badge: "Quarter Century", xp: 500 },
+          50:  { badge: "Half-Hundred", xp: 1000 },
+          100: { badge: "Centurion Watcher", xp: 2500 },
+          250: { badge: "Legendary Archive", xp: 5000 },
+          500: { badge: "Neural Oracle", xp: 10000 },
+        };
+        const milestone = milestones[completedCount];
+        if (milestone) {
+          await addReputation(userId, "achievement_unlocked").catch(() => {});
+          await createNotification({
+            recipientId: userId,
+            type: NotificationType.ACHIEVEMENT,
+            payload: {
+              message: `Achievement unlocked: ${milestone.badge}! You've completed ${completedCount} anime.`,
+              badge: milestone.badge,
+              completedCount,
+              xp: milestone.xp,
+              link: "/streak",
+            },
+          });
+        }
+      } catch { /* never fail the main request */ }
+    })();
+  }
 
   return { entry };
 }
