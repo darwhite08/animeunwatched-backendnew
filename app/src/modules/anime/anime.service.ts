@@ -216,8 +216,8 @@ export async function browse(query: BrowseQuery) {
   const cached = cache.get<{ data: unknown[]; meta: unknown }>(cacheKey);
   if (cached) return cached;
 
-  const { q, year, season, type, status, studio, start_date, end_date, page, limit } = query;
-  const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date);
+  const { q, year, season, type, status, studio, start_date, end_date, page, limit, genre } = query as typeof query & { genre?: string };
+  const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date || genre);
 
   // ── No filters: proxy Jikan directly for ALL anime with pagination ──
   if (!hasFilters) {
@@ -244,6 +244,7 @@ export async function browse(query: BrowseQuery) {
     ...(type ? { type } : {}),
     ...(status ? { status } : {}),
     ...(studio ? { studios: { some: { studio: { name: { contains: studio, mode: "insensitive" as const } } } } } : {}),
+    ...(genre  ? { genres:  { some: { genre:  { name: { contains: genre,  mode: "insensitive" as const } } } } } : {}),
   };
 
   const [data, total] = await prisma.$transaction([
