@@ -5,6 +5,7 @@ export const registerSchema = z.object({
   username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_]+$/),
   displayName: z.string().min(1).max(60),
   password: z.string().min(8).max(128),
+  referredBy: z.string().max(30).optional(), // referral username (for tracking viral loops)
 });
 
 export const loginSchema = z.object({

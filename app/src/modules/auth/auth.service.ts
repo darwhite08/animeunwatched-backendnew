@@ -8,6 +8,7 @@ import { updateStreak } from "../../lib/streak";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth, badRequest } from "../../lib/errors";
+import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail } from "../../lib/email";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
@@ -96,6 +97,26 @@ export async function register(dto: RegisterDto) {
   });
 
   sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
+
+  // Reward referrer if referredBy username is provided
+  if (dto.referredBy) {
+    void (async () => {
+      try {
+        const referrer = await prisma.user.findUnique({ where: { username: dto.referredBy! } });
+        if (referrer) {
+          await prisma.user.update({ where: { id: referrer.id }, data: { reputation: { increment: 100 } } });
+          await createNotification({
+            recipientId: referrer.id,
+            type: NotificationType.ACHIEVEMENT,
+            payload: {
+              message: `${dto.username} joined Kaiveron using your invite! +100 Rep for you.`,
+              link: `/u/${dto.username}`,
+            },
+          });
+        }
+      } catch { /* non-blocking */ }
+    })();
+  }
 
   const accessToken = signAccessToken(user.id);
   const refreshToken = signRefreshToken(user.id);
