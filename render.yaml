@@ -41,6 +41,8 @@ services:
         value: jikan
       - key: ENABLE_EMAIL_NOTIFICATIONS
         value: false
+      - key: CRON_SECRET
+        sync: false            # set a strong random secret in Render dashboard
 
 # ── PostgreSQL database ────────────────────────────────────────────────────
 databases:
