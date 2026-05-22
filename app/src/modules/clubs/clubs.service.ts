@@ -23,11 +23,21 @@ function meta(total: number, page: number, limit: number) {
 
 // ─── list ─────────────────────────────────────────────────────────────────────
 
-export async function list(page = 1, limit = 20) {
+export async function list(page = 1, limit = 20, q?: string) {
   const { skip, take } = paginate(page, limit);
+  const where = q
+    ? {
+        OR: [
+          { name:        { contains: q, mode: "insensitive" as const } },
+          { slug:        { contains: q, mode: "insensitive" as const } },
+          { description: { contains: q, mode: "insensitive" as const } },
+        ],
+      }
+    : undefined;
 
   const [data, total] = await prisma.$transaction([
     prisma.club.findMany({
+      where,
       skip,
       take,
       orderBy: { reputation: "desc" },
@@ -35,7 +45,7 @@ export async function list(page = 1, limit = 20) {
         _count: { select: { members: true, threads: true } },
       },
     }),
-    prisma.club.count(),
+    prisma.club.count({ where }),
   ]);
 
   return { data, meta: meta(total, page, limit) };
