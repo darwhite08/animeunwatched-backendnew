@@ -6,3 +6,4 @@ export const uploadsRouter = Router();
 
 uploadsRouter.post("/avatar", requireAuth, ctrl.avatar);
 uploadsRouter.post("/post-image", requireAuth, ctrl.postImage);
+uploadsRouter.post("/voice", requireAuth, ctrl.voice);

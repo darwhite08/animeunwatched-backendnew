@@ -53,7 +53,7 @@ export type UploadIntent = {
  */
 export async function presignImageUpload(opts: {
   userId: string;
-  scope: "avatar" | "post" | "club";
+  scope: "avatar" | "post" | "club" | "voice";
   contentType: string;
   ext: string;
 }): Promise<UploadIntent> {

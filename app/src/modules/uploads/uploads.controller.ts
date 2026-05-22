@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { badRequest } from "../../lib/errors";
 import * as service from "./uploads.service";
-import { avatarUploadSchema, postImageUploadSchema } from "./uploads.schema";
+import {
+  avatarUploadSchema,
+  postImageUploadSchema,
+  voiceUploadSchema,
+} from "./uploads.schema";
 
 export async function avatar(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -24,6 +28,21 @@ export async function postImage(req: Request, res: Response, next: NextFunction)
     const parsed = postImageUploadSchema.safeParse(req.body);
     if (!parsed.success) throw badRequest("Invalid image payload");
     const intent = await service.presignPostImage({
+      userId,
+      contentType: parsed.data.contentType,
+    });
+    res.status(200).json(intent);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function voice(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const parsed = voiceUploadSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid audio payload");
+    const intent = await service.presignVoiceMessage({
       userId,
       contentType: parsed.data.contentType,
     });
