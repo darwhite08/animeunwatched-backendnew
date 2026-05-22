@@ -15,6 +15,7 @@ export const FEED_ROOM            = "feed"
 export const animeRoom    = (malId: number) => `anime:${malId}`
 export const clubRoom     = (clubId: string) => `club:${clubId}`
 export const threadRoom   = (threadId: string) => `thread:${threadId}`
+export const postRoom     = (postId: string) => `post:${postId}`
 export const userRoom     = (userId: string) => `user:${userId}`
 
 // ── Generic helper ───────────────────────────────────────────────────────────
@@ -44,6 +45,11 @@ export function broadcastPostUnliked(postId: string, authorId: string, likes: nu
 export function broadcastPostCommented(postId: string, authorId: string, commentCount: number): void {
   emit(FEED_ROOM, "post.commented", { postId, comments: commentCount })
   emit(userRoom(authorId), "post.commented", { postId, comments: commentCount })
+}
+
+/** A new comment was written on a post — sent to the post's own room so viewers see it instantly */
+export function broadcastPostComment(postId: string, comment: unknown): void {
+  emit(postRoom(postId), "post.comment.new", comment)
 }
 
 export function broadcastPostDeleted(postId: string): void {

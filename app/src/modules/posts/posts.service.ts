@@ -5,7 +5,7 @@ import { createNotification, NotificationType } from "../../lib/notify";
 import { updateStreak } from "../../lib/streak";
 import {
   broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
-  broadcastPostCommented, broadcastPostDeleted,
+  broadcastPostCommented, broadcastPostDeleted, broadcastPostComment,
 } from "../../realtime/broadcast";
 import type { CreatePostDto } from "./posts.schema";
 
@@ -290,10 +290,11 @@ export async function createComment(postId: string, authorId: string, content: s
     },
   });
 
-  // Realtime: broadcast new comment count (best-effort)
+  // Realtime: broadcast new comment count + the comment itself to the post room
   try {
     const comments = await prisma.postComment.count({ where: { postId } });
     broadcastPostCommented(postId, post.authorId, comments);
+    broadcastPostComment(postId, comment);
   } catch { /* fire-and-forget */ }
 
   return { comment };
