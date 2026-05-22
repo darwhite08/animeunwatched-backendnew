@@ -308,6 +308,7 @@ export async function getLeaderboard(limit = 50, period = "all-time") {
       const level = Math.min(99, Math.floor(Math.sqrt(xp / 1000)));
       return {
         rank: i + 1,
+        id: u.id,
         username: u.username,
         displayName: u.displayName,
         avatarUrl: u.avatarUrl,

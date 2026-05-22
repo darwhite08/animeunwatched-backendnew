@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
-import { broadcastReviewCreated } from "../../realtime/broadcast";
+import { broadcastReviewCreated, broadcastPlatformActivity } from "../../realtime/broadcast";
 import type { CreateReviewDto, UpdateReviewDto } from "./reviews.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -79,10 +79,25 @@ export async function create(authorId: string, dto: CreateReviewDto) {
   });
   addReputation(authorId, "review_posted").catch(console.error);
 
-  // Realtime: broadcast to anyone viewing this anime page (best-effort)
+  // Realtime: broadcast to anyone viewing this anime page + platform activity ticker
   try {
-    const animeRow = await prisma.anime.findUnique({ where: { id: dto.animeId }, select: { malId: true } });
-    if (animeRow) broadcastReviewCreated(animeRow.malId, review);
+    const animeRow = await prisma.anime.findUnique({ where: { id: dto.animeId }, select: { malId: true, title: true } });
+    if (animeRow) {
+      broadcastReviewCreated(animeRow.malId, review);
+      const actor = await prisma.user.findUnique({
+        where: { id: authorId },
+        select: { id: true, username: true, displayName: true, avatarUrl: true },
+      });
+      if (actor) {
+        broadcastPlatformActivity({
+          kind: "reviewed",
+          actor,
+          target: { kind: "anime", label: animeRow.title, malId: animeRow.malId ?? undefined },
+          score: dto.score ?? null,
+          at: Date.now(),
+        });
+      }
+    }
   } catch { /* fire-and-forget */ }
 
   return { review };

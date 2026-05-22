@@ -3,7 +3,7 @@ import { notFound } from "../../lib/errors";
 import { updateStreak } from "../../lib/streak";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { addReputation } from "../../lib/reputation";
-import { broadcastAnimeListChanged, broadcastUserListChanged } from "../../realtime/broadcast";
+import { broadcastAnimeListChanged, broadcastUserListChanged, broadcastPlatformActivity } from "../../realtime/broadcast";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -114,6 +114,27 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
   if (anime.malId) broadcastAnimeListChanged(anime.malId);
   // Realtime: the user's own watchlist tabs/devices sync
   try { broadcastUserListChanged(userId, anime.malId ?? 0, dto.status); } catch { /* best-effort */ }
+
+  // Realtime: platform activity ticker (best-effort, swallow failures)
+  try {
+    const actor = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, username: true, displayName: true, avatarUrl: true },
+    });
+    if (actor && anime.malId) {
+      const kind = dto.status === "COMPLETED" ? "watched"
+        : dto.score !== undefined ? "rated"
+        : "watched";
+      broadcastPlatformActivity({
+        kind,
+        actor,
+        target: { kind: "anime", label: anime.title, malId: anime.malId },
+        status: dto.status,
+        score: dto.score ?? null,
+        at: Date.now(),
+      });
+    }
+  } catch { /* best-effort */ }
 
   // On COMPLETED status: check for milestone achievements
   if (dto.status === "COMPLETED") {

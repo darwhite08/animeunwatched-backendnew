@@ -68,6 +68,21 @@ export function broadcastUserListChanged(userId: string, malId: number, status: 
   emit(userRoom(userId), "list.changed", { malId, status, at: Date.now() })
 }
 
+// ── Platform-wide activity (drives the live activity ticker on dashboard) ────
+
+export type PlatformActivity = {
+  kind: "watched" | "rated" | "reviewed" | "posted" | "followed"
+  actor: { id: string; username: string; displayName: string; avatarUrl: string | null }
+  target?: { kind: "anime" | "user" | "post"; label: string; malId?: number; username?: string; id?: string }
+  status?: string | null
+  score?: number | null
+  at: number
+}
+
+export function broadcastPlatformActivity(activity: PlatformActivity): void {
+  emit(FEED_ROOM, "activity.new", activity)
+}
+
 export function broadcastReviewCreated(malId: number, review: unknown): void {
   emit(animeRoom(malId), "review.created", review)
 }
