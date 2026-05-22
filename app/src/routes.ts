@@ -16,6 +16,9 @@ import { pollsRouter } from "./modules/polls/polls.routes";
 import { analyticsRouter } from "./modules/analytics/analytics.routes";
 import { webhooksRouter } from "./modules/webhooks/webhooks.routes";
 import { chatRouter } from "./modules/chat/chat.routes";
+import { pushRouter } from "./modules/push/push.routes";
+import { uploadsRouter } from "./modules/uploads/uploads.routes";
+import { discoveryRouter } from "./modules/discovery/discovery.routes";
 
 const router = Router();
 
@@ -38,5 +41,8 @@ router.use("/polls", pollsRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/webhooks", webhooksRouter);
 router.use("/chat",     chatRouter);
+router.use("/push", pushRouter);
+router.use("/uploads", uploadsRouter);
+router.use("/discovery", discoveryRouter);
 
 export default router;
