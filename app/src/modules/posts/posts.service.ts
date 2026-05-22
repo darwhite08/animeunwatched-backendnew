@@ -133,7 +133,8 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
     data: {
       authorId,
       content: dto.content,
-      ...(dto.animeId ? { animeId: dto.animeId } : {}),
+      ...(dto.animeId  ? { animeId:  dto.animeId  } : {}),
+      ...(dto.imageUrl ? { imageUrl: dto.imageUrl } : {}),
     },
     include: postInclude,
   });

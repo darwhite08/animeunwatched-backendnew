@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createPostSchema = z.object({
   content: z.string().min(1).max(5000),
   animeId: z.string().optional(),
+  imageUrl: z.string().url().max(500).optional(),
 });
 
 export const createCommentSchema = z.object({
