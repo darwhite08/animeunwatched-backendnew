@@ -391,6 +391,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  DeviceToken: 'DeviceToken',
   RefreshToken: 'RefreshToken',
   PasswordResetToken: 'PasswordResetToken',
   SecurityEvent: 'SecurityEvent',
@@ -437,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -512,6 +513,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    DeviceToken: {
+      payload: Prisma.$DeviceTokenPayload<ExtArgs>
+      fields: Prisma.DeviceTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DeviceTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DeviceTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.DeviceTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DeviceTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        findMany: {
+          args: Prisma.DeviceTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        create: {
+          args: Prisma.DeviceTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        createMany: {
+          args: Prisma.DeviceTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DeviceTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.DeviceTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        update: {
+          args: Prisma.DeviceTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.DeviceTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DeviceTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DeviceTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.DeviceTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.DeviceTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDeviceToken>
+        }
+        groupBy: {
+          args: Prisma.DeviceTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeviceTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DeviceTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeviceTokenCountAggregateOutputType> | number
         }
       }
     }
@@ -2870,6 +2945,19 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const DeviceTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expoToken: 'expoToken',
+  platform: 'platform',
+  deviceName: 'deviceName',
+  lastSeenAt: 'lastSeenAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DeviceTokenScalarFieldEnum = (typeof DeviceTokenScalarFieldEnum)[keyof typeof DeviceTokenScalarFieldEnum]
+
+
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   token: 'token',
@@ -3512,6 +3600,7 @@ export interface PrismaClientOptions {
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  deviceToken?: Prisma.DeviceTokenOmit
   refreshToken?: Prisma.RefreshTokenOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   securityEvent?: Prisma.SecurityEventOmit

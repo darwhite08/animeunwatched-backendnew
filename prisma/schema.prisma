@@ -95,6 +95,26 @@ model User {
   sentMessages       DirectMessage[]    @relation("MessageSender")
   conversations1     Conversation[]     @relation("ConvParticipant1")
   conversations2     Conversation[]     @relation("ConvParticipant2")
+  // Push notification device tokens
+  deviceTokens       DeviceToken[]
+}
+
+// One row per registered push-notification device for a user.
+// A user can have many (phone + tablet + work device, etc.).
+// Token uniqueness across users: a given Expo push token belongs to ONE device,
+// so if it's seen on a new userId we transfer ownership rather than duplicate.
+model DeviceToken {
+  id          String   @id @default(cuid())
+  userId      String
+  expoToken   String   @unique
+  platform    String   // "ios" | "android" | "web"
+  deviceName  String?
+  lastSeenAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model RefreshToken {

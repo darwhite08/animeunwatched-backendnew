@@ -30,3 +30,6 @@ export const unauth = (msg = "Unauthorized") =>
 
 export const internal = (msg = "Internal server error") =>
   new HttpError(500, "INTERNAL", msg);
+
+export const configError = (msg = "Service not configured") =>
+  new HttpError(503, "NOT_CONFIGURED", msg);

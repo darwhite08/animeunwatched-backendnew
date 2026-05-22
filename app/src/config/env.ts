@@ -37,6 +37,18 @@ export const env = {
 
   // Cron security — all cron endpoints require this secret in x-cron-secret header
   CRON_SECRET: process.env.CRON_SECRET || "",
+
+  // Expo Push — optional; works on free tier without an access token
+  EXPO_ACCESS_TOKEN: process.env.EXPO_ACCESS_TOKEN || "",
+
+  // Cloudflare R2 (S3-compatible) for avatar / image uploads.
+  // R2_ENDPOINT is `https://<accountid>.r2.cloudflarestorage.com`
+  // R2_PUBLIC_URL is your custom domain or `https://pub-<hash>.r2.dev` (after enabling Public access)
+  R2_ENDPOINT:          process.env.R2_ENDPOINT          || "",
+  R2_ACCESS_KEY_ID:     process.env.R2_ACCESS_KEY_ID     || "",
+  R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY || "",
+  R2_BUCKET:            process.env.R2_BUCKET            || "",
+  R2_PUBLIC_URL:        process.env.R2_PUBLIC_URL        || "",
 };
 
 // ── Production startup guard ─────────────────────────────────────────────────

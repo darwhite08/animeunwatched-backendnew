@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model DeviceToken
+ * 
+ */
+export type DeviceToken = Prisma.DeviceTokenModel
+/**
  * Model RefreshToken
  * 
  */

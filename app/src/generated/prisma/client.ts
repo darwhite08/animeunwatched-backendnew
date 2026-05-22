@@ -48,6 +48,11 @@ path.join(process.cwd(), "app/src/generated/prisma/libquery_engine-darwin-arm64.
  */
 export type User = Prisma.UserModel
 /**
+ * Model DeviceToken
+ * 
+ */
+export type DeviceToken = Prisma.DeviceTokenModel
+/**
  * Model RefreshToken
  * 
  */
