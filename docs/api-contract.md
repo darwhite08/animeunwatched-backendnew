@@ -223,6 +223,13 @@ Query: `q (required), type=anime|posts|threads|users|blogs, page?, limit?`
 | POST   | /moderation/actions     | MOD+ | Hide/delete/warn/suspend/ban |
 | GET    | /moderation/actions     | MOD+ | Audit log                    |
 
+### Version (deploy verification)
+
+#### GET /version
+No auth. Returns `{ sha, shortSha, env, service: "kaiveron-backend", ts }`.
+`sha` is `process.env.RENDER_GIT_COMMIT` (Render-injected) or `"dev"` locally.
+Used by the project-root `check-deploys.sh` to verify a push is live.
+
 ### Uploads (R2 presigned PUT)
 
 Returns an `UploadIntent { uploadUrl, publicUrl, key, expiresIn, contentType }`.

@@ -20,6 +20,7 @@ import { pushRouter } from "./modules/push/push.routes";
 import { uploadsRouter } from "./modules/uploads/uploads.routes";
 import { discoveryRouter } from "./modules/discovery/discovery.routes";
 import { aiRouter } from "./modules/ai/ai.routes";
+import { versionRouter } from "./modules/version/version.routes";
 
 const router = Router();
 
@@ -46,5 +47,6 @@ router.use("/push", pushRouter);
 router.use("/uploads", uploadsRouter);
 router.use("/discovery", discoveryRouter);
 router.use("/ai", aiRouter);
+router.use("/version", versionRouter);
 
 export default router;
