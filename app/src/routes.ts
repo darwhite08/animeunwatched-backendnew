@@ -19,6 +19,7 @@ import { chatRouter } from "./modules/chat/chat.routes";
 import { pushRouter } from "./modules/push/push.routes";
 import { uploadsRouter } from "./modules/uploads/uploads.routes";
 import { discoveryRouter } from "./modules/discovery/discovery.routes";
+import { aiRouter } from "./modules/ai/ai.routes";
 
 const router = Router();
 
@@ -44,5 +45,6 @@ router.use("/chat",     chatRouter);
 router.use("/push", pushRouter);
 router.use("/uploads", uploadsRouter);
 router.use("/discovery", discoveryRouter);
+router.use("/ai", aiRouter);
 
 export default router;

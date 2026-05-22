@@ -49,6 +49,9 @@ export const env = {
   R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY || "",
   R2_BUCKET:            process.env.R2_BUCKET            || "",
   R2_PUBLIC_URL:        process.env.R2_PUBLIC_URL        || "",
+
+  // OpenAI for /ai/ask — optional; falls back to stub responses if not set
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
 };
 
 // ── Production startup guard ─────────────────────────────────────────────────

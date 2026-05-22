@@ -223,6 +223,31 @@ Query: `q (required), type=anime|posts|threads|users|blogs, page?, limit?`
 | POST   | /moderation/actions     | MOD+ | Hide/delete/warn/suspend/ban |
 | GET    | /moderation/actions     | MOD+ | Audit log                    |
 
+### Uploads (R2 presigned PUT)
+
+Returns an `UploadIntent { uploadUrl, publicUrl, key, expiresIn, contentType }`.
+The client must PUT bytes directly to `uploadUrl` with the same `Content-Type`
+within `expiresIn` seconds, then persist `publicUrl` on the owning record.
+
+| Method | Path             | Auth | Description                                                             |
+| ------ | ---------------- | ---- | ----------------------------------------------------------------------- |
+| POST   | /uploads/avatar  | ✓    | Body: `{ contentType: image/jpeg\|png\|webp\|gif }`                     |
+| POST   | /uploads/post-image | ✓ | Body: `{ contentType: image/*, size?: ≤10MB }`                          |
+| POST   | /uploads/voice   | ✓    | Body: `{ contentType: audio/m4a\|mp4\|mpeg\|aac\|webm\|ogg, durationMs?: ≤300_000 }` |
+
+### AI
+
+#### POST /ai/ask
+Body: `{ prompt: string (1..2000), context?: { animeId?, conversationId? } }`
+200: `{ rows: AIRow[≤8], tip?, summary?, source: "openai" | "stub" }`
+
+`AIRow = { label, a, b, delta?, good?: "a"|"b"|"tie" }`.
+
+Behavior: proxies to OpenAI (`gpt-4o-mini`, JSON response_format) constrained by
+an anime-comparison system prompt. If `OPENAI_API_KEY` is unset, or the upstream
+call fails / returns malformed JSON, returns a friendly stub response with
+`source: "stub"` so the UI can still render.
+
 ## WebSocket
 
 - URL: `/socket/v1` (Socket.io path)
