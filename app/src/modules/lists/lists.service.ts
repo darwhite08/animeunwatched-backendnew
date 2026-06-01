@@ -4,6 +4,7 @@ import { updateStreak } from "../../lib/streak";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { addReputation } from "../../lib/reputation";
 import { broadcastAnimeListChanged, broadcastUserListChanged, broadcastPlatformActivity } from "../../realtime/broadcast";
+import { flattenAnimePublic } from "../anime/anime.service";
 import type { UpsertEntryDto } from "./lists.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -68,7 +69,14 @@ export async function getUserList(
     prisma.listEntry.count({ where }),
   ]);
 
-  return { data, meta: meta(total, page, limit) };
+  // Flatten nested anime.genres / anime.studios so they're string[] — matches
+  // the /anime/:id response shape the frontend already consumes.
+  const flat = data.map((entry) => ({
+    ...entry,
+    anime: entry.anime ? flattenAnimePublic(entry.anime as Parameters<typeof flattenAnimePublic>[0]) : entry.anime,
+  }));
+
+  return { data: flat, meta: meta(total, page, limit) };
 }
 
 // ─── upsertEntry ─────────────────────────────────────────────────────────────
