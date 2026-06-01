@@ -12,9 +12,12 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import pinoHttp from "pino-http";
 import { env } from "./src/config/env";
 import { errorHandler } from "./src/middlewares/error.middleware";
 import { rateLimit } from "./src/middlewares/rateLimit.middleware";
+import { requestId } from "./src/middlewares/requestId.middleware";
+import { logger } from "./src/lib/logger";
 import { responseTime, requestLogger } from "./src/middlewares/performance.middleware";
 import { apiVersionHeader } from "./src/middlewares/apiVersion.middleware";
 import router from "./src/routes";
@@ -26,6 +29,33 @@ const app = express();
 
 // Trust Render/cloud reverse proxy so req.protocol reflects https correctly
 app.set("trust proxy", 1);
+
+// Per-request correlation id + structured JSON logger. requestId must run
+// before pino-http so the log line carries the id we set on res.locals.
+app.use(requestId);
+app.use(
+  pinoHttp({
+    logger,
+    // Pull the id we just set so log lines + response header stay in sync
+    genReqId: (_req, res) => (res as any).locals?.requestId ?? "",
+    customLogLevel: (_req, res, err) => {
+      if (err || res.statusCode >= 500) return "error";
+      if (res.statusCode >= 400)        return "warn";
+      return "info";
+    },
+    // Quiet success-path noise; keep failures verbose
+    customSuccessMessage: (req, res) => `${req.method} ${req.url} → ${res.statusCode}`,
+    customErrorMessage:   (req, res, err) =>
+      `${req.method} ${req.url} → ${res.statusCode} ${err.message ?? ""}`.trim(),
+    // Don't log static assets or health-check polling — they drown signal
+    autoLogging: {
+      ignore: (req) =>
+        req.url === "/health" ||
+        req.url === "/api/v1/version" ||
+        req.url?.startsWith("/favicon.ico") || false,
+    },
+  }),
+);
 
 const ALLOWED_ORIGINS = [
   env.CORS_ORIGIN,
