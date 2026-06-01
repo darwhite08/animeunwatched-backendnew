@@ -28,7 +28,24 @@ vi.mock("../app/src/config/prisma", () => ({
     user: {
       findMany: vi.fn().mockResolvedValue([]),
     },
-    $transaction: vi.fn((ops: Promise<unknown>[]) => Promise.all(ops)),
+    postCommentLike: {
+      findMany: vi.fn().mockResolvedValue([]),
+    },
+    // $transaction accepts BOTH the array form (legacy) and the callback form
+    // (interactive tx — used by createComment to bump parent replyCount in
+    // the same transaction).
+    $transaction: vi.fn((arg: unknown) => {
+      if (Array.isArray(arg)) return Promise.all(arg as Promise<unknown>[]);
+      if (typeof arg === "function") {
+        return (arg as (tx: unknown) => Promise<unknown>)({
+          postComment: {
+            create: vi.fn(),
+            update: vi.fn().mockResolvedValue(undefined),
+          },
+        });
+      }
+      return Promise.resolve();
+    }),
   },
 }));
 
@@ -99,7 +116,8 @@ describe("posts.service — getComments", () => {
 
     const mockComments = [
       { id: "c1", content: "Nice post!", postId: "p1", authorId: "u1",
-        author: { id: "u1", username: "user1", displayName: "User", avatarUrl: null } }
+        author:  { id: "u1", username: "user1", displayName: "User", avatarUrl: null },
+        replies: [] /* threaded-comments shape: includes inline-replies array */ },
     ];
     (prisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValueOnce([mockComments, 1]);
 
@@ -118,7 +136,7 @@ describe("posts.service — createComment", () => {
 
     (prisma.post.findUnique as ReturnType<typeof vi.fn>).mockResolvedValueOnce(null);
 
-    await expect(createComment("p1", "u1", { content: "Nice post!" })).rejects.toThrow("Post not found");
+    await expect(createComment("p1", "u1", "Nice post!")).rejects.toThrow("Post not found");
   });
 
   it("throws NOT_FOUND for deleted post", async () => {
@@ -129,7 +147,7 @@ describe("posts.service — createComment", () => {
       id: "p1", deletedAt: new Date(),
     });
 
-    await expect(createComment("p1", "u1", { content: "Comment!" })).rejects.toThrow("Post not found");
+    await expect(createComment("p1", "u1", "Comment!")).rejects.toThrow("Post not found");
   });
 
   it("creates comment for existing post", async () => {
@@ -139,9 +157,21 @@ describe("posts.service — createComment", () => {
     (prisma.post.findUnique as ReturnType<typeof vi.fn>).mockResolvedValueOnce({ id: "p1", deletedAt: null, authorId: "other-user" });
     const mockComment = { id: "c1", content: "Great!", postId: "p1", authorId: "u1",
       author: { id: "u1", username: "user1", displayName: "User", avatarUrl: null } };
-    (prisma.postComment.create as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockComment);
 
-    const result = await createComment("p1", "u1", { content: "Great!" });
+    // createComment uses prisma.$transaction(async (tx) => …). Provide a tx
+    // whose postComment.create returns our mock comment.
+    (prisma.$transaction as ReturnType<typeof vi.fn>).mockImplementationOnce(async (fn: (tx: unknown) => Promise<unknown>) => {
+      return fn({
+        postComment: {
+          create: vi.fn().mockResolvedValue(mockComment),
+          update: vi.fn().mockResolvedValue(undefined),
+        },
+      });
+    });
+    // count() runs after the tx (for broadcast) — return any value, we don't assert on it
+    (prisma.postComment.count as ReturnType<typeof vi.fn>).mockResolvedValueOnce(1);
+
+    const result = await createComment("p1", "u1", "Great!");
     expect(result.comment.content).toBe("Great!");
   });
 });

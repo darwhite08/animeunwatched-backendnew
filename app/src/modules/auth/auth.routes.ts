@@ -1,10 +1,13 @@
 import { Router } from "express";
 import * as ctrl from "./auth.controller";
 import { requireAuth } from "../../middlewares/auth.middleware";
+import { turnstile } from "../../middlewares/turnstile.middleware";
 
 export const authRouter = Router();
 
-authRouter.post("/register",   ctrl.register);
+// Turnstile guard activates only when TURNSTILE_SECRET is set in env.
+// Until then it is a no-op so the rest of the API keeps working.
+authRouter.post("/register",   turnstile(), ctrl.register);
 authRouter.post("/login",      ctrl.login);
 authRouter.post("/refresh",    ctrl.refresh);
 // Logout only needs the cookie (no Bearer token required) so it works

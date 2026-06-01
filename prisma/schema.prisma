@@ -57,6 +57,7 @@ model User {
   role         Role     @default(USER)
   reputation   Int      @default(0)
   isBanned     Boolean  @default(false)
+  bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
   // Streak tracking — real database-backed (not rep estimate)
   streakDays   Int      @default(0)
   lastActiveAt DateTime?
@@ -370,6 +371,8 @@ model Club {
   threads Thread[]
 
   @@index([slug])
+  @@index([createdAt])
+  @@index([reputation, createdAt])
 }
 
 model ClubMember {

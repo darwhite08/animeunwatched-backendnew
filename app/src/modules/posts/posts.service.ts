@@ -3,6 +3,7 @@ import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { updateStreak } from "../../lib/streak";
+import { auditDelete } from "../../lib/audit";
 import {
   broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
   broadcastPostCommented, broadcastPostDeleted, broadcastPostComment,
@@ -191,6 +192,13 @@ export async function deletePost(id: string, userId: string, userRole: string) {
   await prisma.post.update({
     where: { id },
     data: { deletedAt: new Date() },
+  });
+
+  auditDelete("post_deleted", {
+    actorId:    userId,
+    targetType: "Post",
+    targetId:   id,
+    extra: post.authorId !== userId ? { byMod: true, originalAuthorId: post.authorId } : undefined,
   });
 
   broadcastPostDeleted(id);

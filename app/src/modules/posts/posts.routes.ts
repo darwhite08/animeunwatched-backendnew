@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
+import { turnstile } from "../../middlewares/turnstile.middleware";
 import * as ctrl from "./posts.controller";
 
 export const postsRouter = Router();
@@ -14,9 +15,10 @@ postsRouter.post("/comments/:commentId/like", requireAuth, ctrl.likeComment);
 postsRouter.delete("/comments/:commentId/like", requireAuth, ctrl.unlikeComment);
 
 postsRouter.get("/:id", optionalAuth, ctrl.getPost);
-postsRouter.post("/", requireAuth, ctrl.createPost);
+// turnstile() is a no-op until TURNSTILE_SECRET is set
+postsRouter.post("/", requireAuth, turnstile(), ctrl.createPost);
 postsRouter.delete("/:id", requireAuth, ctrl.deletePost);
 postsRouter.post("/:id/like", requireAuth, ctrl.likePost);
 postsRouter.delete("/:id/like", requireAuth, ctrl.unlikePost);
 postsRouter.get("/:id/comments", optionalAuth, ctrl.getComments);
-postsRouter.post("/:id/comments", requireAuth, ctrl.createComment);
+postsRouter.post("/:id/comments", requireAuth, turnstile(), ctrl.createComment);

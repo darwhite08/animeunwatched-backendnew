@@ -50,6 +50,7 @@ export type UserMinAggregateOutputType = {
   role: $Enums.Role | null
   reputation: number | null
   isBanned: boolean | null
+  bannedReason: string | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -69,6 +70,7 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.Role | null
   reputation: number | null
   isBanned: boolean | null
+  bannedReason: string | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -88,6 +90,7 @@ export type UserCountAggregateOutputType = {
   role: number
   reputation: number
   isBanned: number
+  bannedReason: number
   streakDays: number
   lastActiveAt: number
   bestStreak: number
@@ -121,6 +124,7 @@ export type UserMinAggregateInputType = {
   role?: true
   reputation?: true
   isBanned?: true
+  bannedReason?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -140,6 +144,7 @@ export type UserMaxAggregateInputType = {
   role?: true
   reputation?: true
   isBanned?: true
+  bannedReason?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -159,6 +164,7 @@ export type UserCountAggregateInputType = {
   role?: true
   reputation?: true
   isBanned?: true
+  bannedReason?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -265,6 +271,7 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   reputation: number
   isBanned: boolean
+  bannedReason: string | null
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
@@ -307,6 +314,7 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
   isBanned?: Prisma.BoolFilter<"User"> | boolean
+  bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -359,6 +367,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -414,6 +423,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
   isBanned?: Prisma.BoolFilter<"User"> | boolean
+  bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -466,6 +476,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -493,6 +504,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntWithAggregatesFilter<"User"> | number
   isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -512,6 +524,7 @@ export type UserCreateInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -564,6 +577,7 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -616,6 +630,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -668,6 +683,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -720,6 +736,7 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -739,6 +756,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -758,6 +776,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -777,6 +796,7 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -802,6 +822,7 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -821,6 +842,7 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  bannedReason?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1352,6 +1374,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1403,6 +1426,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1470,6 +1494,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1521,6 +1546,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1572,6 +1598,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1623,6 +1650,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1690,6 +1718,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1741,6 +1770,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1792,6 +1822,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1843,6 +1874,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1910,6 +1942,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1961,6 +1994,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2012,6 +2046,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2063,6 +2098,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2130,6 +2166,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2181,6 +2218,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2232,6 +2270,7 @@ export type UserCreateWithoutFollowingInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2283,6 +2322,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2339,6 +2379,7 @@ export type UserCreateWithoutFollowersInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2390,6 +2431,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2457,6 +2499,7 @@ export type UserUpdateWithoutFollowingInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2508,6 +2551,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2570,6 +2614,7 @@ export type UserUpdateWithoutFollowersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2621,6 +2666,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2672,6 +2718,7 @@ export type UserCreateWithoutListEntriesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2723,6 +2770,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2790,6 +2838,7 @@ export type UserUpdateWithoutListEntriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2841,6 +2890,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2892,6 +2942,7 @@ export type UserCreateWithoutPostsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2943,6 +2994,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3010,6 +3062,7 @@ export type UserUpdateWithoutPostsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3061,6 +3114,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3112,6 +3166,7 @@ export type UserCreateWithoutPostLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3163,6 +3218,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3230,6 +3286,7 @@ export type UserUpdateWithoutPostLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3281,6 +3338,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3332,6 +3390,7 @@ export type UserCreateWithoutPostCommentsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3383,6 +3442,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3450,6 +3510,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3501,6 +3562,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3552,6 +3614,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3603,6 +3666,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3670,6 +3734,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3721,6 +3786,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3772,6 +3838,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3823,6 +3890,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3890,6 +3958,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3941,6 +4010,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3992,6 +4062,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4043,6 +4114,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4110,6 +4182,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4161,6 +4234,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4212,6 +4286,7 @@ export type UserCreateWithoutThreadsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4263,6 +4338,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4330,6 +4406,7 @@ export type UserUpdateWithoutThreadsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4381,6 +4458,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4432,6 +4510,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4483,6 +4562,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4550,6 +4630,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4601,6 +4682,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4652,6 +4734,7 @@ export type UserCreateWithoutReviewsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4703,6 +4786,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4770,6 +4854,7 @@ export type UserUpdateWithoutReviewsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4821,6 +4906,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4872,6 +4958,7 @@ export type UserCreateWithoutReviewLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4923,6 +5010,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4990,6 +5078,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5041,6 +5130,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5092,6 +5182,7 @@ export type UserCreateWithoutBlogsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5143,6 +5234,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5210,6 +5302,7 @@ export type UserUpdateWithoutBlogsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5261,6 +5354,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5312,6 +5406,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5363,6 +5458,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5430,6 +5526,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5481,6 +5578,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5532,6 +5630,7 @@ export type UserCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5583,6 +5682,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5650,6 +5750,7 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5701,6 +5802,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5752,6 +5854,7 @@ export type UserCreateWithoutReportsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5803,6 +5906,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5870,6 +5974,7 @@ export type UserUpdateWithoutReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5921,6 +6026,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5972,6 +6078,7 @@ export type UserCreateWithoutModerationActionsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6023,6 +6130,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6090,6 +6198,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6141,6 +6250,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6192,6 +6302,7 @@ export type UserCreateWithoutPollsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6243,6 +6354,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6310,6 +6422,7 @@ export type UserUpdateWithoutPollsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6361,6 +6474,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6412,6 +6526,7 @@ export type UserCreateWithoutPollVotesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6463,6 +6578,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6530,6 +6646,7 @@ export type UserUpdateWithoutPollVotesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6581,6 +6698,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6632,6 +6750,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6683,6 +6802,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6750,6 +6870,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6801,6 +6922,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6852,6 +6974,7 @@ export type UserCreateWithoutPublicKeyInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6903,6 +7026,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6970,6 +7094,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7021,6 +7146,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7072,6 +7198,7 @@ export type UserCreateWithoutConversations1Input = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7123,6 +7250,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7179,6 +7307,7 @@ export type UserCreateWithoutConversations2Input = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7230,6 +7359,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7297,6 +7427,7 @@ export type UserUpdateWithoutConversations1Input = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7348,6 +7479,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7410,6 +7542,7 @@ export type UserUpdateWithoutConversations2Input = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7461,6 +7594,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7512,6 +7646,7 @@ export type UserCreateWithoutSentMessagesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7563,6 +7698,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7630,6 +7766,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7681,6 +7818,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7732,6 +7870,7 @@ export type UserCreateWithoutActivitiesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7783,6 +7922,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7850,6 +7990,7 @@ export type UserUpdateWithoutActivitiesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7901,6 +8042,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7952,6 +8094,7 @@ export type UserCreateWithoutActivityLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8003,6 +8146,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8070,6 +8214,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8121,6 +8266,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8172,6 +8318,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8223,6 +8370,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8290,6 +8438,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8341,6 +8490,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8392,6 +8542,7 @@ export type UserCreateWithoutRepliesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8443,6 +8594,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   role?: $Enums.Role
   reputation?: number
   isBanned?: boolean
+  bannedReason?: string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8510,6 +8662,7 @@ export type UserUpdateWithoutRepliesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8561,6 +8714,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8922,6 +9076,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   reputation?: boolean
   isBanned?: boolean
+  bannedReason?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -8975,6 +9130,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   reputation?: boolean
   isBanned?: boolean
+  bannedReason?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -8994,6 +9150,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   reputation?: boolean
   isBanned?: boolean
+  bannedReason?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9013,6 +9170,7 @@ export type UserSelectScalar = {
   role?: boolean
   reputation?: boolean
   isBanned?: boolean
+  bannedReason?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9020,7 +9178,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -9114,6 +9272,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     reputation: number
     isBanned: boolean
+    bannedReason: string | null
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
@@ -9586,6 +9745,7 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly reputation: Prisma.FieldRef<"User", 'Int'>
   readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
+  readonly bannedReason: Prisma.FieldRef<"User", 'String'>
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>

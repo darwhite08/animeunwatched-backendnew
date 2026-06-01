@@ -10,6 +10,7 @@ import { env } from "../../config/env";
 import { conflict, unauth, badRequest } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail } from "../../lib/email";
+import { recordSecurityEvent } from "../../lib/audit";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
 const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID);
@@ -553,6 +554,13 @@ export async function deleteAccount(userId: string, password?: string): Promise<
   }).catch(() => {});
 
   await prisma.user.delete({ where: { id: userId } });
+
+  // Note: cascading delete already removed the user row, so we record the
+  // event AFTER the delete with userId=null + the original id in metadata.
+  recordSecurityEvent("account_deleted", {
+    userId: null,
+    metadata: { deletedUserId: userId, hadPassword: !!user.passwordHash },
+  });
 }
 
 // ─── Active Sessions ──────────────────────────────────────────────────────────

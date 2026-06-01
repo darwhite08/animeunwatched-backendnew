@@ -237,3 +237,75 @@ Deferred from this session, worth doing before public launch:
 - **Basic Terraform** to codify the hand-clicked infra (~2 hrs)
 - **DB index pass** with `EXPLAIN ANALYZE` on hot queries (~30 min)
 - **Turnstile** on signup + post per FEED_FEATURES §12
+
+---
+
+## 6. Second pass — "do everything" (2026-06-02)
+
+Owner followed up with: *"complete all the phases and all the things"* +
+*"add an admin dashboard at admin-dashboard.kaiveron.com and Google Analytics
+and all the reports an enterprise-grade system needs."*
+
+### ✅ Shipped in this pass
+
+| Item | Where | Notes |
+|---|---|---|
+| DB index pass | `prisma/schema.prisma` | Ran `EXPLAIN ANALYZE` on `/posts/feed`, `/activities/feed`, `/clubs`, and `PostComment` queries. Comments + Post + Activity + Notification + Review already optimally indexed. Added missing `Club.createdAt` and `Club.reputation+createdAt` composite indexes; `prisma db push` applied to AWS RDS. |
+| Terraform infra | `infra/` | `main.tf` + `variables.tf` + `outputs.tf` + `README.md`. Codifies RDS, Security Group, App Runner service. Secrets / runtime env left to `ignore_changes` so console / runbook can manage them. State stays local until there's a second operator. |
+| Secrets Manager runbook | `docs/runbooks/secrets-manager-migration.md` | Full migration script. **Not auto-executed** because `kaiveron-deploy` IAM user lacks `iam:CreateRole` — owner must attach the policy shown in §1 of the runbook, then run §2–§6. |
+| CloudWatch golden-signals dashboard | AWS CloudWatch `kaiveron-golden-signals` | App Runner req count, p50/p99 latency, 2xx/4xx/5xx, CPU/memory, instances, concurrency; RDS CPU/connections/free-storage. Created via `aws cloudwatch put-dashboard`. |
+| CloudWatch alarms (passive) | AWS CloudWatch | 4 alarms: `kaiveron-backend-5xx-high`, `…-latency-p99-high`, `kaiveron-rds-cpu-high`, `kaiveron-rds-storage-low`. **Actions empty** — `kaiveron-deploy` lacks `sns:CreateTopic`; wire to SNS later via `aws cloudwatch put-metric-alarm --alarm-actions <topic-arn>`. |
+| Generic audit log | `app/src/lib/audit.ts` + services | Extended existing `SecurityEvent` model (no new table). New helpers `auditDelete()` + `auditMod()` standardise the metadata shape. Wired into `deletePost`, `deleteBlog`, `deleteReview`, `deleteThread`, `deleteAccount`, `setMemberRole`, `resolveReport`. Query example in `docs/policies/data-retention.md`. |
+| `bannedReason` field on User | `prisma/schema.prisma` | Nullable column added to support admin-supplied ban reasons. `prisma db push` applied. |
+| Cloudflare Turnstile scaffolding | `app/src/middlewares/turnstile.middleware.ts` + `src/components/auth/TurnstileWidget.tsx` | Backend middleware mounted on `POST /auth/register`, `POST /posts`, `POST /posts/:id/comments`. Frontend widget renders when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set. **Both are no-ops** until owner provisions the Cloudflare account and sets `TURNSTILE_SECRET` (backend) + `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (frontend). |
+| DPDP-compliant privacy policy | `src/app/(public)/privacy/page.tsx` | Rewritten with operator info, data categories, DPDP §11–§14 rights, retention windows, hosting locations, children clause, contact for grievance officer requests. |
+| Data retention policy | `docs/policies/data-retention.md` | Field-by-field table, retention windows, what's kept after account delete (anonymised audit log only). Includes implementation TODOs (notification cleanup cron, audit-log expiry cron). |
+| Admin dashboard | `src/app/admin/` + middleware host-routing | Same Next.js app, separate `/admin/*` route group, edge middleware rewrites requests from `admin-dashboard.kaiveron.com` → `/admin/*` and bounces direct `/admin/*` on the marketing host. Pages: Overview (DAU, signups chart, totals), Users (search/filter/ban/unban), Moderation queue, Audit log viewer, System health. Role-gated 3 layers: edge cookie check + client `useSession` role check + backend `requireAdmin`. |
+| Backend admin endpoints | `app/src/modules/admin/admin.{service,controller,routes}.ts` | `GET /admin/metrics/overview`, `GET /admin/users` (paginated + search + role/banned filter), `GET /admin/users/:id` (detail + recent posts + sessions), `POST /admin/users/:id/ban`, `POST /admin/users/:id/unban`, `POST /admin/users/:id/role`, `GET /admin/audit`. Ban kicks user out by deleting all refresh tokens. Cannot ban yourself / cannot ban another ADMIN. |
+| Google Analytics 4 + consent | `src/lib/analytics/{consent,ga}.ts` + `src/components/analytics/GoogleAnalytics.tsx` + updated `CookieConsent` | GA4 loaded **only when** `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set AND user accepted the cookie banner AND not on the admin subdomain. `anonymize_ip: true`. App Router-aware page_view tracking. Custom events wired: `sign_up` (register success), `post_created` (create-post mutation success), `follow_user` / `unfollow_user`. |
+| Admin subdomain DNS | Hostinger DNS + Vercel | `admin-dashboard.kaiveron.com` A → `76.76.21.21` via Hostinger DNS API. Subdomain attached to the `animeunwatched-frontend` Vercel project. |
+
+### ⏭️ Owner actions queued (cannot auto-execute)
+
+| Item | Why blocked | Owner action |
+|---|---|---|
+| Run Secrets Manager migration | `kaiveron-deploy` lacks `iam:CreateRole` | Follow `docs/runbooks/secrets-manager-migration.md` §1 to grant, then §2–§6 to migrate |
+| Wire CloudWatch alarms to email/SMS | `kaiveron-deploy` lacks `sns:CreateTopic` | Console → SNS → create topic + email subscription → `aws cloudwatch put-metric-alarm --alarm-actions <topic-arn>` for the 4 alarms |
+| Provision Cloudflare Turnstile | Requires Cloudflare account | https://dash.cloudflare.com/?to=/:account/turnstile → add `kaiveron.com` → set both keys as env vars |
+| Provision Better Stack uptime monitor | Requires Better Stack signup | Same as Tier A — monitor `https://api.kaiveron.com/health` |
+| Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Requires GA4 property | https://analytics.google.com → create property → copy `G-XXXXXXXXXX` → `vercel env add NEXT_PUBLIC_GA_MEASUREMENT_ID production` |
+| Rotate Hostinger API token | Security hygiene | Hostinger → API tokens → revoke + regenerate |
+| Delete `~/Desktop/animeunwatched/{KEYS.md,aws.env}` | Wait 1 week of AWS stability | `shred -u ~/Desktop/animeunwatched/{KEYS.md,aws.env}` |
+
+### ❌ Still NOT done (deliberate — out of scope at current ~1 DAU)
+
+These remain Tier C "premature" per the spec's working rule #5. Adding
+them now would burn cash without proportionate risk reduction. Revisit
+when meaningful traffic shows up.
+
+- **Redis / ElastiCache** ($15+/mo) — in-memory rate-limit + cache is fine until we run >1 backend instance
+- **APM (Datadog / Grafana Cloud / New Relic)** ($15–200/mo) — CloudWatch + Sentry cover error/perf at this scale
+- **PagerDuty / Opsgenie** ($19+/user/mo) — owner is sole on-call; email alarm to info@athavita.com is enough
+- **Public status page** — pointless with no external users to notify
+- **RDS read replicas / multi-AZ** — RPO 24h via single-AZ snapshot is acceptable pre-revenue
+- **CloudFront / WAF in front of App Runner** — App Runner handles TLS termination already; WAF adds $$ per million requests
+- **Staging environment** (~$50/mo) — every PR runs CI + Vercel preview deploys; staging would mostly idle
+- **BullMQ / queue workers** — deferred to FEED V1 per the existing plan; current cadence doesn't justify it
+- **API gateway in front of App Runner** — App Runner IS the gateway
+
+If you want any of these flipped on, ping me — they're all 1–2 hour jobs given an account/budget approval.
+
+---
+
+## 7. Final scorecard
+
+| Phase | Done | Partial | Skipped (premature) | Owner action |
+|---|---|---|---|---|
+| 0 Truthful audit | 1/1 | — | — | — |
+| 1 Security & hardening | 12 | 1 | — | 3 (Turnstile, Better Stack, GA) |
+| 2 CI / safety net | 4 | — | 2 (E2E suite, full integration on every PR) | — |
+| 3 Observability | 4 (logs, dashboard, alarms passive, admin health page) | — | 2 (APM, RUM) | 1 (SNS wiring) |
+| 4 Reliability | 4 | — | 2 (multi-AZ, status page) | 1 (RDS retention bump when off free tier) |
+| 5 Compliance / docs | 6 | 1 (BullMQ deferred) | 3 (Redis, multi-instance, staging) | 1 (delete local creds) |
+| **Extra (this session)** | Admin dashboard, GA4 with consent, host-based routing, audit-log helpers | | | Set GA measurement ID; rotate Hostinger token |
+

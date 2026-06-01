@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
+import { auditDelete } from "../../lib/audit";
 import { broadcastReviewCreated, broadcastPlatformActivity } from "../../realtime/broadcast";
 import type { CreateReviewDto, UpdateReviewDto } from "./reviews.schema";
 
@@ -133,6 +134,13 @@ export async function deleteReview(id: string, userId: string, role: string) {
   if (!canDelete) throw forbidden("Not allowed to delete this review");
 
   await prisma.review.delete({ where: { id } });
+
+  auditDelete("review_deleted", {
+    actorId:    userId,
+    targetType: "Review",
+    targetId:   id,
+    extra: review.authorId !== userId ? { byMod: true, originalAuthorId: review.authorId } : undefined,
+  });
 }
 
 // ─── like ─────────────────────────────────────────────────────────────────────

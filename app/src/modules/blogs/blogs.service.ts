@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
+import { auditDelete } from "../../lib/audit";
 import type { CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
 
 // ─── Pagination helpers ───────────────────────────────────────────────────────
@@ -158,4 +159,11 @@ export async function deleteBlog(slug: string, userId: string, role: string) {
   if (!canDelete) throw forbidden("Not allowed to delete this blog");
 
   await prisma.blog.delete({ where: { slug } });
+
+  auditDelete("blog_deleted", {
+    actorId:    userId,
+    targetType: "Blog",
+    targetId:   blog.id,
+    extra: blog.authorId !== userId ? { byMod: true, originalAuthorId: blog.authorId } : undefined,
+  });
 }

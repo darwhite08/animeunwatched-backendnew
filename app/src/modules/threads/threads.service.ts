@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
+import { auditDelete } from "../../lib/audit";
 import { broadcastThreadReply } from "../../realtime/broadcast";
 import type { CreateThreadDto, UpdateThreadDto, CreateReplyDto } from "./threads.schema";
 
@@ -123,6 +124,13 @@ export async function deleteThread(id: string, userId: string, role: string) {
   if (!canDelete) throw forbidden("Not allowed to delete this thread");
 
   await prisma.thread.delete({ where: { id } });
+
+  auditDelete("thread_deleted", {
+    actorId:    userId,
+    targetType: "Thread",
+    targetId:   id,
+    extra: thread.authorId !== userId ? { byMod: true, originalAuthorId: thread.authorId } : undefined,
+  });
 }
 
 // ─── getReplies ───────────────────────────────────────────────────────────────

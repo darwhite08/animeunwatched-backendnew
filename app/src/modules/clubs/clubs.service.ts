@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
+import { auditMod } from "../../lib/audit";
 import type { CreateClubDto, UpdateClubDto } from "./clubs.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -166,6 +167,15 @@ export async function setMemberRole(
   const updated = await prisma.clubMember.update({
     where: { userId_clubId: { userId: targetUserId, clubId: club.id } },
     data: { role },
+  });
+
+  auditMod("club_role_changed", {
+    actorId:      actorId,
+    targetUserId: targetUserId,
+    targetType:   "Club",
+    targetId:     club.id,
+    action:       `set_role:${role}`,
+    extra:        { previousRole: targetMembership.role },
   });
 
   return { membership: updated };

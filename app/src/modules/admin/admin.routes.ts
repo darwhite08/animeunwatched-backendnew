@@ -5,10 +5,25 @@ import * as ctrl from "./admin.controller";
 
 export const adminRouter = Router();
 
+// Every admin route requires a valid Bearer token AND role=ADMIN.
 adminRouter.use(requireAuth, requireAdmin);
 
-adminRouter.get("/stats",  ctrl.getStats);
-adminRouter.get("/users",  ctrl.getRecentUsers);
-adminRouter.get("/health", ctrl.getPlatformHealth);
-adminRouter.get("/reports",             requireAuth, requireAdmin, ctrl.listReports);
-adminRouter.patch("/reports/:reportId", requireAuth, requireAdmin, ctrl.resolveReport);
+// Headline / overview
+adminRouter.get("/stats",            ctrl.getStats);
+adminRouter.get("/health",           ctrl.getPlatformHealth);
+adminRouter.get("/metrics/overview", ctrl.getMetricsOverview);
+
+// Users
+adminRouter.get("/users",                  ctrl.listUsers);
+adminRouter.get("/users/recent",           ctrl.getRecentUsers);
+adminRouter.get("/users/:userId",          ctrl.getUserDetail);
+adminRouter.post("/users/:userId/ban",     ctrl.banUser);
+adminRouter.post("/users/:userId/unban",   ctrl.unbanUser);
+adminRouter.post("/users/:userId/role",    ctrl.setUserRole);
+
+// Moderation queue
+adminRouter.get("/reports",                ctrl.listReports);
+adminRouter.patch("/reports/:reportId",    ctrl.resolveReport);
+
+// Audit log viewer
+adminRouter.get("/audit",                  ctrl.listAuditLog);
