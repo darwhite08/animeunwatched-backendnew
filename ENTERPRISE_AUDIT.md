@@ -186,18 +186,54 @@ read replicas, APM, PagerDuty, status page — all premature.
 
 ---
 
-## 5. What I need from you before touching code
+## 5. Execution log (2026-06-02)
 
-Per the plan's working rules (#3): "Never modify production, DNS, billing, or
-rotate live secrets without explicit user confirmation."
+Owner said "do everything that's safe". Tier A items implemented per the
+spec's right-sizing rule. Premature items skipped with explicit rationale.
 
-**Confirm scope.** I'll execute Tier A items 1–6 in this session if you reply
-with one of:
-- **"all of Tier A"** → I implement 1–7 (DPDP policy takes the longest)
-- **"core Tier A (1–6, skip DPDP)"** → I do everything except the privacy policy
-- **"just headers + logging + CI gate"** → smallest viable bundle (~2 hrs)
-- **"different scope"** → tell me which numbered items
+### ✅ Shipped
 
-I'll commit each item as its own commit (per working rule #2) and pause for
-confirmation before touching anything in the "modify production / DNS /
-billing / live secrets" list.
+| Item | Where | Notes |
+|---|---|---|
+| Backend security headers | `app/app.ts` | Helmet was already enterprise-grade (HSTS 2y+preload, frameguard deny, noSniff, referrerPolicy no-referrer, X-Permitted-Cross-Domain-Policies none). No code change. |
+| Frontend security headers | `next.config.ts` | Added HSTS 2y+includeSubDomains+preload, Cross-Origin-Opener-Policy same-origin-allow-popups (Spectre defense), `upgrade-insecure-requests`. `connect-src` lists both Render (legacy) + api.kaiveron.com (new) for cutover grace period. |
+| Structured JSON logging | `app/src/lib/logger.ts` + `app/src/middlewares/requestId.middleware.ts` | pino + pino-http with per-request `X-Request-ID`, password/token/cookie redaction, level-mapped status codes (5xx → error, 4xx → warn), `/health` + `/version` silenced. CloudWatch-queryable. |
+| Backend CI PR gate | `.github/workflows/ci.yml` | Postgres-16 service container, `prisma db push` + `tsc --noEmit` + `vitest run` on every PR + push to `main`. Configure GitHub branch protection to enforce. |
+| Frontend CI PR gate | `.github/workflows/ci.yml` | `tsc --noEmit` + `lint` + `next build` on every PR + push to `production`. |
+| DB restore runbook | `docs/runbooks/db-restore.md` | Full snapshot restore procedure, RTO/RPO (1h / 24h), quarterly drill, known gotchas. |
+| Site-down runbook | `docs/runbooks/site-down.md` | 5-min triage, rollback paths for both surfaces, CloudWatch queries by `X-Request-ID`. |
+| Security notes | `SECURITY.md` | Where secrets live, rotation schedule, breach response. |
+
+### ⏭️ Tier A items needing owner action
+
+| Item | Why deferred | Owner action |
+|---|---|---|
+| External uptime monitor (Better Stack / UptimeRobot) | Requires account signup | https://betterstack.com/uptime → free tier → monitor `https://api.kaiveron.com/health` every 5 min, alert email |
+| DPDP-compliant privacy policy | Needs legal-style copy review | Defer to launch prep |
+| Delete `~/Desktop/animeunwatched/KEYS.md` + `aws.env` | Wait ~1 week after AWS cutover proves stable | `shred -u ~/Desktop/animeunwatched/{KEYS.md,aws.env}` |
+| Rotate Hostinger API token | Was pasted in chat, persists in chat history | Hostinger → API tokens → revoke + generate fresh |
+
+### ❌ Tier C — confirmed premature at current scale (~1 DAU)
+
+Per the spec's working rule #5 ("right-size everything"), these would have
+negative ROI. Revisit when load shows up.
+
+- CloudFront / WAF in front of backend (0 RPS today)
+- ElastiCache (Redis) — in-memory `SimpleCache` is plenty
+- APM (Datadog / New Relic / Grafana) — paid; Sentry covers error budget
+- Real User Monitoring (RUM)
+- RDS read replicas / multi-AZ failover
+- PagerDuty / Opsgenie escalation (you're the on-call)
+- Public status page (no users to inform yet)
+- API gateway in front of App Runner (App Runner is already a proxy)
+- Auto-scaling rules — fixed at 1/1, sufficient for current load
+
+### 🔜 Tier B — recommended for V1 launch
+
+Deferred from this session, worth doing before public launch:
+
+- **AWS Secrets Manager** for `DATABASE_URL` + `JWT_*` + `GOOGLE_*` (~45 min, App Runner restart)
+- **Staging environment** (second App Runner + RDS + branch) — adds ~$50/mo
+- **Basic Terraform** to codify the hand-clicked infra (~2 hrs)
+- **DB index pass** with `EXPLAIN ANALYZE` on hot queries (~30 min)
+- **Turnstile** on signup + post per FEED_FEATURES §12
