@@ -64,6 +64,7 @@ export const ModelName = {
   Post: 'Post',
   PostLike: 'PostLike',
   PostComment: 'PostComment',
+  PostCommentLike: 'PostCommentLike',
   Club: 'Club',
   ClubMember: 'ClubMember',
   Thread: 'Thread',
@@ -81,7 +82,11 @@ export const ModelName = {
   UserOAuthProvider: 'UserOAuthProvider',
   UserPublicKey: 'UserPublicKey',
   Conversation: 'Conversation',
-  DirectMessage: 'DirectMessage'
+  DirectMessage: 'DirectMessage',
+  Activity: 'Activity',
+  ActivityLike: 'ActivityLike',
+  ActivityRepost: 'ActivityRepost',
+  Reply: 'Reply'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -284,10 +289,22 @@ export const PostCommentScalarFieldEnum = {
   postId: 'postId',
   authorId: 'authorId',
   content: 'content',
+  parentCommentId: 'parentCommentId',
+  likeCount: 'likeCount',
+  replyCount: 'replyCount',
   createdAt: 'createdAt'
 } as const
 
 export type PostCommentScalarFieldEnum = (typeof PostCommentScalarFieldEnum)[keyof typeof PostCommentScalarFieldEnum]
+
+
+export const PostCommentLikeScalarFieldEnum = {
+  userId: 'userId',
+  commentId: 'commentId',
+  createdAt: 'createdAt'
+} as const
+
+export type PostCommentLikeScalarFieldEnum = (typeof PostCommentLikeScalarFieldEnum)[keyof typeof PostCommentLikeScalarFieldEnum]
 
 
 export const ClubScalarFieldEnum = {
@@ -502,6 +519,64 @@ export const DirectMessageScalarFieldEnum = {
 } as const
 
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
+
+
+export const ActivityScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  kind: 'kind',
+  body: 'body',
+  linkedAnimeId: 'linkedAnimeId',
+  verb: 'verb',
+  episodeNumber: 'episodeNumber',
+  score: 'score',
+  wallOwnerId: 'wallOwnerId',
+  hasSpoiler: 'hasSpoiler',
+  repostOfId: 'repostOfId',
+  likeCount: 'likeCount',
+  repostCount: 'repostCount',
+  replyCount: 'replyCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const ActivityLikeScalarFieldEnum = {
+  userId: 'userId',
+  activityId: 'activityId',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityLikeScalarFieldEnum = (typeof ActivityLikeScalarFieldEnum)[keyof typeof ActivityLikeScalarFieldEnum]
+
+
+export const ActivityRepostScalarFieldEnum = {
+  userId: 'userId',
+  activityId: 'activityId',
+  repostActivityId: 'repostActivityId',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityRepostScalarFieldEnum = (typeof ActivityRepostScalarFieldEnum)[keyof typeof ActivityRepostScalarFieldEnum]
+
+
+export const ReplyScalarFieldEnum = {
+  id: 'id',
+  activityId: 'activityId',
+  authorId: 'authorId',
+  body: 'body',
+  hasSpoiler: 'hasSpoiler',
+  replyCount: 'replyCount',
+  likeCount: 'likeCount',
+  parentReplyId: 'parentReplyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ReplyScalarFieldEnum = (typeof ReplyScalarFieldEnum)[keyof typeof ReplyScalarFieldEnum]
 
 
 export const SortOrder = {

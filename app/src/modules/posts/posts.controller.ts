@@ -82,32 +82,49 @@ export async function unlikePost(req: Request, res: Response, next: NextFunction
   }
 }
 
-export async function getComments(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> {
+export async function getComments(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
-    const result = await service.getComments((req.params.id as string), page, limit);
+    const viewerId = res.locals.user?.id as string | undefined;
+    const result = await service.getComments((req.params.id as string), page, limit, viewerId);
     res.status(200).json(result);
-  } catch (err) {
-    next(err);
-  }
+  } catch (err) { next(err); }
 }
 
-export async function createComment(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> {
+export async function createComment(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authorId: string = res.locals.user.id;
-    const { content } = createCommentSchema.parse(req.body);
-    const result = await service.createComment((req.params.id as string), authorId, content);
+    const { content, parentCommentId } = createCommentSchema.parse(req.body);
+    const result = await service.createComment(
+      req.params.id as string, authorId, content, parentCommentId,
+    );
     res.status(201).json(result);
-  } catch (err) {
-    next(err);
-  }
+  } catch (err) { next(err); }
+}
+
+export async function getCommentReplies(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const viewerId = res.locals.user?.id as string | undefined;
+    const result = await service.getCommentReplies(req.params.commentId as string, page, limit, viewerId);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
+export async function likeComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.likeComment(userId, req.params.commentId as string);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
+export async function unlikeComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.unlikeComment(userId, req.params.commentId as string);
+    res.json(result);
+  } catch (err) { next(err); }
 }

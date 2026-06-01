@@ -73,6 +73,7 @@ model User {
   posts              Post[]
   postLikes          PostLike[]
   postComments       PostComment[]
+  postCommentLikes   PostCommentLike[]
   ownedClubs         Club[]             @relation("ClubOwner")
   clubMemberships    ClubMember[]
   threads            Thread[]
@@ -97,6 +98,11 @@ model User {
   conversations2     Conversation[]     @relation("ConvParticipant2")
   // Push notification device tokens
   deviceTokens       DeviceToken[]
+  // Activity feed (FEED_FEATURES §12 — MVP)
+  activities         Activity[]
+  activityLikes      ActivityLike[]
+  activityReposts    ActivityRepost[]
+  replies            Reply[]
 }
 
 // One row per registered push-notification device for a user.
@@ -213,6 +219,7 @@ model Anime {
   posts       Post[]
   threads     Thread[]
   reviews     Review[]
+  activities  Activity[]
 
   @@index([malId])
   @@index([score])
@@ -311,16 +318,38 @@ model PostLike {
 }
 
 model PostComment {
-  id        String   @id @default(cuid())
-  postId    String
-  authorId  String
-  content   String
+  id              String   @id @default(cuid())
+  postId          String
+  authorId        String
+  content         String
+  // Self-recursive parent → builds nested reply chains ("thread strings").
+  parentCommentId String?
+  // Denormalized engagement counters (always updated in the same transaction
+  // as the underlying like / reply write).
+  likeCount       Int      @default(0)
+  replyCount      Int      @default(0)
+  createdAt       DateTime @default(now())
+
+  post   Post          @relation(fields: [postId],          references: [id], onDelete: Cascade)
+  author User          @relation(fields: [authorId],        references: [id], onDelete: Cascade)
+  parent PostComment?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  replies PostComment[] @relation("CommentReplies")
+  likes  PostCommentLike[]
+
+  @@index([postId, parentCommentId, createdAt])
+  @@index([parentCommentId, createdAt])
+}
+
+model PostCommentLike {
+  userId    String
+  commentId String
   createdAt DateTime @default(now())
 
-  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [userId],    references: [id], onDelete: Cascade)
+  comment PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
-  @@index([postId, createdAt])
+  @@id([userId, commentId])
+  @@index([commentId])
 }
 
 // ---------------------------------------------------------------------------
@@ -641,4 +670,130 @@ model DirectMessage {
 
   @@index([conversationId, createdAt])
   @@index([senderId])
+}
+
+// ---------------------------------------------------------------------------
+// Activity Feed (FEED_FEATURES §12 — MVP)
+// ---------------------------------------------------------------------------
+//
+// Unified content unit for the social feed. Replaces Post going forward; Post
+// table is preserved for legacy data + endpoints, but new feed reads Activity.
+// Discriminator is `kind`. Most fields are nullable depending on kind:
+//   - TEXT          → body required; linkedAnime/verb/episodeNumber null
+//   - LIST_UPDATE   → linkedAnimeId + verb required; body optional
+//   - MESSAGE       → body required; addressed to recipient via wallOwnerId
+//
+// Engagement counters are denormalized for fast feed rendering. Always update
+// them in the same transaction as the underlying Like/Repost/Reply write.
+
+enum ActivityKind {
+  TEXT
+  LIST_UPDATE
+  MESSAGE
+}
+
+enum ListActivityVerb {
+  WATCHED_EPISODE        // ep 12 of Frieren
+  COMPLETED              // finished a series
+  ADDED_TO_PLAN          // moved to plan-to-watch
+  DROPPED
+  RATED                  // gave a score
+  STARTED                // first episode watched
+  REWATCHING
+}
+
+model Activity {
+  id              String          @id @default(cuid())
+  authorId        String
+  kind            ActivityKind
+  // Text body — required for TEXT and MESSAGE kinds; optional commentary on LIST_UPDATE
+  body            String?
+  // List-update specifics
+  linkedAnimeId   String?
+  verb            ListActivityVerb?
+  episodeNumber   Int?
+  score           Int?            // for RATED verb (1–10)
+  // Message specifics — non-null when kind=MESSAGE; recipient's profile wall
+  wallOwnerId     String?
+  // Spoiler scope — for client-side blur; server still ships text but the
+  // recipient must opt-in to render until they've passed `spoilerScopeAnimeId`.
+  hasSpoiler      Boolean         @default(false)
+  // Repost chain — non-null if this activity is a repost of another
+  repostOfId      String?
+  // Reply parent — non-null if this activity is a top-level reply (we keep
+  // Reply as a separate model for cheaper queries; this is reserved for V1
+  // quote-replies / threaded conversations rooted in Activity).
+  // Denormalized engagement counters
+  likeCount       Int             @default(0)
+  repostCount     Int             @default(0)
+  replyCount      Int             @default(0)
+  // Lifecycle
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+
+  author       User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  linkedAnime  Anime?            @relation(fields: [linkedAnimeId], references: [id], onDelete: SetNull)
+  repostOf     Activity?         @relation("Reposts", fields: [repostOfId], references: [id], onDelete: SetNull)
+  reposts      Activity[]        @relation("Reposts")
+  likes        ActivityLike[]
+  repostsBy    ActivityRepost[]
+  replies      Reply[]
+
+  @@index([authorId, createdAt])
+  @@index([createdAt])
+  @@index([linkedAnimeId, createdAt])
+  @@index([kind, createdAt])
+}
+
+model ActivityLike {
+  userId     String
+  activityId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@id([userId, activityId])
+  @@index([activityId])
+}
+
+// Separate from Activity.repostOfId because reposting creates BOTH a new
+// Activity row (visible in feeds) AND a join row here (for "did I repost"
+// checks + counter denormalization on the original).
+model ActivityRepost {
+  userId       String
+  activityId   String   // the ORIGINAL activity being reposted
+  // New Activity row produced by the repost; null only if we want to model
+  // "silent" boosts later. For MVP, always populated.
+  repostActivityId String? @unique
+  createdAt    DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@id([userId, activityId])
+  @@index([activityId])
+}
+
+model Reply {
+  id          String   @id @default(cuid())
+  activityId  String
+  authorId    String
+  body        String
+  hasSpoiler  Boolean  @default(false)
+  // Denorm for nested reply count (V1)
+  replyCount  Int      @default(0)
+  likeCount   Int      @default(0)
+  parentReplyId String?
+  createdAt   DateTime @default(now())
+  deletedAt   DateTime?
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  author   User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent   Reply?   @relation("ReplyParent", fields: [parentReplyId], references: [id], onDelete: SetNull)
+  children Reply[]  @relation("ReplyParent")
+
+  @@index([activityId, createdAt])
+  @@index([authorId])
 }

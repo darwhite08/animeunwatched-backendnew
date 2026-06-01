@@ -45,3 +45,25 @@ export const ReportStatus = {
 } as const
 
 export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
+
+
+export const ActivityKind = {
+  TEXT: 'TEXT',
+  LIST_UPDATE: 'LIST_UPDATE',
+  MESSAGE: 'MESSAGE'
+} as const
+
+export type ActivityKind = (typeof ActivityKind)[keyof typeof ActivityKind]
+
+
+export const ListActivityVerb = {
+  WATCHED_EPISODE: 'WATCHED_EPISODE',
+  COMPLETED: 'COMPLETED',
+  ADDED_TO_PLAN: 'ADDED_TO_PLAN',
+  DROPPED: 'DROPPED',
+  RATED: 'RATED',
+  STARTED: 'STARTED',
+  REWATCHING: 'REWATCHING'
+} as const
+
+export type ListActivityVerb = (typeof ListActivityVerb)[keyof typeof ListActivityVerb]

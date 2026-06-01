@@ -8,6 +8,11 @@ export const postsRouter = Router();
 postsRouter.get("/discover", optionalAuth, ctrl.getDiscover);
 postsRouter.get("/feed", requireAuth, ctrl.getFeed);
 
+// Threaded replies + comment likes (must be before /:id catch-all)
+postsRouter.get("/comments/:commentId/replies", optionalAuth, ctrl.getCommentReplies);
+postsRouter.post("/comments/:commentId/like", requireAuth, ctrl.likeComment);
+postsRouter.delete("/comments/:commentId/like", requireAuth, ctrl.unlikeComment);
+
 postsRouter.get("/:id", optionalAuth, ctrl.getPost);
 postsRouter.post("/", requireAuth, ctrl.createPost);
 postsRouter.delete("/:id", requireAuth, ctrl.deletePost);

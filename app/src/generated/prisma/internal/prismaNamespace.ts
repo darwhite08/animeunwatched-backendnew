@@ -405,6 +405,7 @@ export const ModelName = {
   Post: 'Post',
   PostLike: 'PostLike',
   PostComment: 'PostComment',
+  PostCommentLike: 'PostCommentLike',
   Club: 'Club',
   ClubMember: 'ClubMember',
   Thread: 'Thread',
@@ -422,7 +423,11 @@ export const ModelName = {
   UserOAuthProvider: 'UserOAuthProvider',
   UserPublicKey: 'UserPublicKey',
   Conversation: 'Conversation',
-  DirectMessage: 'DirectMessage'
+  DirectMessage: 'DirectMessage',
+  Activity: 'Activity',
+  ActivityLike: 'ActivityLike',
+  ActivityRepost: 'ActivityRepost',
+  Reply: 'Reply'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -438,7 +443,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1549,6 +1554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PostCommentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PostCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    PostCommentLike: {
+      payload: Prisma.$PostCommentLikePayload<ExtArgs>
+      fields: Prisma.PostCommentLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PostCommentLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PostCommentLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        findFirst: {
+          args: Prisma.PostCommentLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PostCommentLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        findMany: {
+          args: Prisma.PostCommentLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>[]
+        }
+        create: {
+          args: Prisma.PostCommentLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        createMany: {
+          args: Prisma.PostCommentLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PostCommentLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>[]
+        }
+        delete: {
+          args: Prisma.PostCommentLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        update: {
+          args: Prisma.PostCommentLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.PostCommentLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PostCommentLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PostCommentLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.PostCommentLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostCommentLikePayload>
+        }
+        aggregate: {
+          args: Prisma.PostCommentLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePostCommentLike>
+        }
+        groupBy: {
+          args: Prisma.PostCommentLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostCommentLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PostCommentLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostCommentLikeCountAggregateOutputType> | number
         }
       }
     }
@@ -2884,6 +2963,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Activity: {
+      payload: Prisma.$ActivityPayload<ExtArgs>
+      fields: Prisma.ActivityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ActivityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ActivityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        findFirst: {
+          args: Prisma.ActivityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ActivityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        findMany: {
+          args: Prisma.ActivityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+        }
+        create: {
+          args: Prisma.ActivityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        createMany: {
+          args: Prisma.ActivityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ActivityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+        }
+        delete: {
+          args: Prisma.ActivityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        update: {
+          args: Prisma.ActivityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        deleteMany: {
+          args: Prisma.ActivityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ActivityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ActivityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+        }
+        upsert: {
+          args: Prisma.ActivityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityPayload>
+        }
+        aggregate: {
+          args: Prisma.ActivityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateActivity>
+        }
+        groupBy: {
+          args: Prisma.ActivityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ActivityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityCountAggregateOutputType> | number
+        }
+      }
+    }
+    ActivityLike: {
+      payload: Prisma.$ActivityLikePayload<ExtArgs>
+      fields: Prisma.ActivityLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ActivityLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ActivityLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        findFirst: {
+          args: Prisma.ActivityLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ActivityLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        findMany: {
+          args: Prisma.ActivityLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>[]
+        }
+        create: {
+          args: Prisma.ActivityLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        createMany: {
+          args: Prisma.ActivityLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ActivityLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>[]
+        }
+        delete: {
+          args: Prisma.ActivityLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        update: {
+          args: Prisma.ActivityLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.ActivityLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ActivityLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ActivityLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.ActivityLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityLikePayload>
+        }
+        aggregate: {
+          args: Prisma.ActivityLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateActivityLike>
+        }
+        groupBy: {
+          args: Prisma.ActivityLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ActivityLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityLikeCountAggregateOutputType> | number
+        }
+      }
+    }
+    ActivityRepost: {
+      payload: Prisma.$ActivityRepostPayload<ExtArgs>
+      fields: Prisma.ActivityRepostFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ActivityRepostFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ActivityRepostFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        findFirst: {
+          args: Prisma.ActivityRepostFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ActivityRepostFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        findMany: {
+          args: Prisma.ActivityRepostFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>[]
+        }
+        create: {
+          args: Prisma.ActivityRepostCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        createMany: {
+          args: Prisma.ActivityRepostCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ActivityRepostCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>[]
+        }
+        delete: {
+          args: Prisma.ActivityRepostDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        update: {
+          args: Prisma.ActivityRepostUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        deleteMany: {
+          args: Prisma.ActivityRepostDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ActivityRepostUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ActivityRepostUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>[]
+        }
+        upsert: {
+          args: Prisma.ActivityRepostUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActivityRepostPayload>
+        }
+        aggregate: {
+          args: Prisma.ActivityRepostAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateActivityRepost>
+        }
+        groupBy: {
+          args: Prisma.ActivityRepostGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityRepostGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ActivityRepostCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActivityRepostCountAggregateOutputType> | number
+        }
+      }
+    }
+    Reply: {
+      payload: Prisma.$ReplyPayload<ExtArgs>
+      fields: Prisma.ReplyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReplyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReplyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        findFirst: {
+          args: Prisma.ReplyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReplyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        findMany: {
+          args: Prisma.ReplyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>[]
+        }
+        create: {
+          args: Prisma.ReplyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        createMany: {
+          args: Prisma.ReplyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReplyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>[]
+        }
+        delete: {
+          args: Prisma.ReplyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        update: {
+          args: Prisma.ReplyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReplyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReplyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReplyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReplyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReplyPayload>
+        }
+        aggregate: {
+          args: Prisma.ReplyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReply>
+        }
+        groupBy: {
+          args: Prisma.ReplyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReplyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReplyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReplyCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3107,10 +3482,22 @@ export const PostCommentScalarFieldEnum = {
   postId: 'postId',
   authorId: 'authorId',
   content: 'content',
+  parentCommentId: 'parentCommentId',
+  likeCount: 'likeCount',
+  replyCount: 'replyCount',
   createdAt: 'createdAt'
 } as const
 
 export type PostCommentScalarFieldEnum = (typeof PostCommentScalarFieldEnum)[keyof typeof PostCommentScalarFieldEnum]
+
+
+export const PostCommentLikeScalarFieldEnum = {
+  userId: 'userId',
+  commentId: 'commentId',
+  createdAt: 'createdAt'
+} as const
+
+export type PostCommentLikeScalarFieldEnum = (typeof PostCommentLikeScalarFieldEnum)[keyof typeof PostCommentLikeScalarFieldEnum]
 
 
 export const ClubScalarFieldEnum = {
@@ -3327,6 +3714,64 @@ export const DirectMessageScalarFieldEnum = {
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
+export const ActivityScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  kind: 'kind',
+  body: 'body',
+  linkedAnimeId: 'linkedAnimeId',
+  verb: 'verb',
+  episodeNumber: 'episodeNumber',
+  score: 'score',
+  wallOwnerId: 'wallOwnerId',
+  hasSpoiler: 'hasSpoiler',
+  repostOfId: 'repostOfId',
+  likeCount: 'likeCount',
+  repostCount: 'repostCount',
+  replyCount: 'replyCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
+
+
+export const ActivityLikeScalarFieldEnum = {
+  userId: 'userId',
+  activityId: 'activityId',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityLikeScalarFieldEnum = (typeof ActivityLikeScalarFieldEnum)[keyof typeof ActivityLikeScalarFieldEnum]
+
+
+export const ActivityRepostScalarFieldEnum = {
+  userId: 'userId',
+  activityId: 'activityId',
+  repostActivityId: 'repostActivityId',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityRepostScalarFieldEnum = (typeof ActivityRepostScalarFieldEnum)[keyof typeof ActivityRepostScalarFieldEnum]
+
+
+export const ReplyScalarFieldEnum = {
+  id: 'id',
+  activityId: 'activityId',
+  authorId: 'authorId',
+  body: 'body',
+  hasSpoiler: 'hasSpoiler',
+  replyCount: 'replyCount',
+  likeCount: 'likeCount',
+  parentReplyId: 'parentReplyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ReplyScalarFieldEnum = (typeof ReplyScalarFieldEnum)[keyof typeof ReplyScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3513,6 +3958,34 @@ export type EnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 export type ListEnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'ActivityKind'
+ */
+export type EnumActivityKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityKind'>
+    
+
+
+/**
+ * Reference to a field of type 'ActivityKind[]'
+ */
+export type ListEnumActivityKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ListActivityVerb'
+ */
+export type EnumListActivityVerbFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListActivityVerb'>
+    
+
+
+/**
+ * Reference to a field of type 'ListActivityVerb[]'
+ */
+export type ListEnumListActivityVerbFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListActivityVerb[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3615,6 +4088,7 @@ export type GlobalOmitConfig = {
   post?: Prisma.PostOmit
   postLike?: Prisma.PostLikeOmit
   postComment?: Prisma.PostCommentOmit
+  postCommentLike?: Prisma.PostCommentLikeOmit
   club?: Prisma.ClubOmit
   clubMember?: Prisma.ClubMemberOmit
   thread?: Prisma.ThreadOmit
@@ -3633,6 +4107,10 @@ export type GlobalOmitConfig = {
   userPublicKey?: Prisma.UserPublicKeyOmit
   conversation?: Prisma.ConversationOmit
   directMessage?: Prisma.DirectMessageOmit
+  activity?: Prisma.ActivityOmit
+  activityLike?: Prisma.ActivityLikeOmit
+  activityRepost?: Prisma.ActivityRepostOmit
+  reply?: Prisma.ReplyOmit
 }
 
 /* Types for Logging */

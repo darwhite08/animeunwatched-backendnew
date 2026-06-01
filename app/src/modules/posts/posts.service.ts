@@ -240,63 +240,171 @@ export async function unlikePost(userId: string, postId: string) {
   } catch { /* best-effort broadcast */ }
 }
 
-// ─── getComments ─────────────────────────────────────────────────────────────
+// ─── Comment helpers ─────────────────────────────────────────────────────────
 
-export async function getComments(postId: string, page = 1, limit = 20) {
+const COMMENT_AUTHOR_SELECT = {
+  id: true, username: true, displayName: true, avatarUrl: true,
+} as const;
+
+async function attachCommentLikeStatus<T extends { id: string }>(comments: T[], userId?: string) {
+  if (!userId || comments.length === 0) return comments.map(c => ({ ...c, isLikedByMe: false }));
+  const likes = await prisma.postCommentLike.findMany({
+    where: { userId, commentId: { in: comments.map(c => c.id) } },
+    select: { commentId: true },
+  });
+  const set = new Set(likes.map((l: { commentId: string }) => l.commentId));
+  return comments.map(c => ({ ...c, isLikedByMe: set.has(c.id) }));
+}
+
+// ─── getComments ─────────────────────────────────────────────────────────────
+//
+// Returns TOP-LEVEL comments (parentCommentId IS NULL) on a post, each with
+// the FIRST FEW nested replies inline (thread-string preview). Deeper levels
+// must be fetched via getCommentReplies.
+
+const REPLIES_INLINE = 3;
+
+export async function getComments(postId: string, page = 1, limit = 20, viewerId?: string) {
   const post = await prisma.post.findUnique({ where: { id: postId } });
   if (!post || post.deletedAt !== null) throw notFound("Post not found");
 
   const { skip, take } = paginate(page, limit);
 
-  const [data, total] = await prisma.$transaction([
+  const [topLevel, total] = await prisma.$transaction([
     prisma.postComment.findMany({
-      where: { postId },
+      where: { postId, parentCommentId: null },
       skip,
       take,
       orderBy: { createdAt: "asc" },
       include: {
-        author: {
-          select: {
-            id: true,
-            username: true,
-            displayName: true,
-            avatarUrl: true,
-          },
+        author:  { select: COMMENT_AUTHOR_SELECT },
+        replies: {
+          take: REPLIES_INLINE,
+          orderBy: { createdAt: "asc" },
+          include: { author: { select: COMMENT_AUTHOR_SELECT } },
         },
       },
     }),
-    prisma.postComment.count({ where: { postId } }),
+    prisma.postComment.count({ where: { postId, parentCommentId: null } }),
   ]);
 
+  // Attach isLikedByMe to BOTH top-level + inline replies
+  const allIds = topLevel.flatMap(c => [c.id, ...c.replies.map(r => r.id)]);
+  const likedSet = new Set<string>();
+  if (viewerId && allIds.length > 0) {
+    const likes = await prisma.postCommentLike.findMany({
+      where: { userId: viewerId, commentId: { in: allIds } },
+      select: { commentId: true },
+    });
+    for (const l of likes) likedSet.add(l.commentId);
+  }
+  const data = topLevel.map(c => ({
+    ...c,
+    isLikedByMe: likedSet.has(c.id),
+    replies: c.replies.map(r => ({ ...r, isLikedByMe: likedSet.has(r.id) })),
+  }));
+
+  return { data, meta: meta(total, page, limit) };
+}
+
+// ─── getCommentReplies ───────────────────────────────────────────────────────
+// Page-paginated replies for a single parent comment (used by "View N more").
+
+export async function getCommentReplies(commentId: string, page = 1, limit = 20, viewerId?: string) {
+  const parent = await prisma.postComment.findUnique({ where: { id: commentId }, select: { id: true } });
+  if (!parent) throw notFound("Comment not found");
+
+  const { skip, take } = paginate(page, limit);
+  const [rows, total] = await prisma.$transaction([
+    prisma.postComment.findMany({
+      where: { parentCommentId: commentId },
+      skip, take,
+      orderBy: { createdAt: "asc" },
+      include: { author: { select: COMMENT_AUTHOR_SELECT } },
+    }),
+    prisma.postComment.count({ where: { parentCommentId: commentId } }),
+  ]);
+  const data = await attachCommentLikeStatus(rows, viewerId);
   return { data, meta: meta(total, page, limit) };
 }
 
 // ─── createComment ────────────────────────────────────────────────────────────
 
-export async function createComment(postId: string, authorId: string, content: string) {
+export async function createComment(postId: string, authorId: string, content: string, parentCommentId?: string) {
   const post = await prisma.post.findUnique({ where: { id: postId } });
   if (!post || post.deletedAt !== null) throw notFound("Post not found");
 
-  const comment = await prisma.postComment.create({
-    data: { postId, authorId, content },
-    include: {
-      author: {
-        select: {
-          id: true,
-          username: true,
-          displayName: true,
-          avatarUrl: true,
-        },
+  if (parentCommentId) {
+    const parent = await prisma.postComment.findUnique({
+      where: { id: parentCommentId },
+      select: { postId: true },
+    });
+    if (!parent || parent.postId !== postId) throw notFound("Parent comment not found");
+  }
+
+  const comment = await prisma.$transaction(async (tx) => {
+    const created = await tx.postComment.create({
+      data: {
+        postId, authorId, content,
+        parentCommentId: parentCommentId ?? null,
       },
-    },
+      include: { author: { select: COMMENT_AUTHOR_SELECT } },
+    });
+    if (parentCommentId) {
+      await tx.postComment.update({
+        where: { id: parentCommentId },
+        data:  { replyCount: { increment: 1 } },
+      });
+    }
+    return created;
   });
 
-  // Realtime: broadcast new comment count + the comment itself to the post room
+  // Realtime: broadcast new top-level comment count (replies don't bump the
+  // post's headline count — they live under their parent thread).
   try {
-    const comments = await prisma.postComment.count({ where: { postId } });
-    broadcastPostCommented(postId, post.authorId, comments);
+    if (!parentCommentId) {
+      const comments = await prisma.postComment.count({ where: { postId, parentCommentId: null } });
+      broadcastPostCommented(postId, post.authorId, comments);
+    }
     broadcastPostComment(postId, comment);
   } catch { /* fire-and-forget */ }
 
-  return { comment };
+  return { comment: { ...comment, isLikedByMe: false, likeCount: 0, replyCount: 0, replies: [] } };
+}
+
+// ─── like / unlike a comment ─────────────────────────────────────────────────
+
+export async function likeComment(userId: string, commentId: string) {
+  return prisma.$transaction(async (tx) => {
+    const c = await tx.postComment.findUnique({ where: { id: commentId }, select: { id: true } });
+    if (!c) throw notFound("Comment not found");
+    try {
+      await tx.postCommentLike.create({ data: { userId, commentId } });
+      await tx.postComment.update({
+        where: { id: commentId },
+        data:  { likeCount: { increment: 1 } },
+      });
+    } catch (err) {
+      if ((err as { code?: string })?.code === "P2002") return { ok: true, alreadyLiked: true };
+      throw err;
+    }
+    return { ok: true };
+  });
+}
+
+export async function unlikeComment(userId: string, commentId: string) {
+  return prisma.$transaction(async (tx) => {
+    const existing = await tx.postCommentLike.findUnique({
+      where: { userId_commentId: { userId, commentId } },
+    });
+    if (!existing) return { ok: true, alreadyUnliked: true };
+    await tx.postCommentLike.delete({
+      where: { userId_commentId: { userId, commentId } },
+    });
+    await tx.postComment.update({
+      where: { id: commentId },
+      data:  { likeCount: { decrement: 1 } },
+    });
+    return { ok: true };
+  });
 }

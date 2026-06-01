@@ -346,6 +346,7 @@ export type AnimeWhereInput = {
   posts?: Prisma.PostListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  activities?: Prisma.ActivityListRelationFilter
 }
 
 export type AnimeOrderByWithRelationInput = {
@@ -374,6 +375,7 @@ export type AnimeOrderByWithRelationInput = {
   posts?: Prisma.PostOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  activities?: Prisma.ActivityOrderByRelationAggregateInput
 }
 
 export type AnimeWhereUniqueInput = Prisma.AtLeast<{
@@ -405,6 +407,7 @@ export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   posts?: Prisma.PostListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  activities?: Prisma.ActivityListRelationFilter
 }, "id" | "malId">
 
 export type AnimeOrderByWithAggregationInput = {
@@ -485,6 +488,7 @@ export type AnimeCreateInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateInput = {
@@ -513,6 +517,7 @@ export type AnimeUncheckedCreateInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUpdateInput = {
@@ -541,6 +546,7 @@ export type AnimeUpdateInput = {
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateInput = {
@@ -569,6 +575,7 @@ export type AnimeUncheckedUpdateInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateManyInput = {
@@ -831,6 +838,22 @@ export type AnimeUpdateOneRequiredWithoutReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutReviewsInput, Prisma.AnimeUpdateWithoutReviewsInput>, Prisma.AnimeUncheckedUpdateWithoutReviewsInput>
 }
 
+export type AnimeCreateNestedOneWithoutActivitiesInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutActivitiesInput, Prisma.AnimeUncheckedCreateWithoutActivitiesInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutActivitiesInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeUpdateOneWithoutActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutActivitiesInput, Prisma.AnimeUncheckedCreateWithoutActivitiesInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutActivitiesInput
+  upsert?: Prisma.AnimeUpsertWithoutActivitiesInput
+  disconnect?: Prisma.AnimeWhereInput | boolean
+  delete?: Prisma.AnimeWhereInput | boolean
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutActivitiesInput, Prisma.AnimeUpdateWithoutActivitiesInput>, Prisma.AnimeUncheckedUpdateWithoutActivitiesInput>
+}
+
 export type AnimeCreateWithoutGenresInput = {
   id?: string
   malId: number
@@ -856,6 +879,7 @@ export type AnimeCreateWithoutGenresInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutGenresInput = {
@@ -883,6 +907,7 @@ export type AnimeUncheckedCreateWithoutGenresInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutGenresInput = {
@@ -926,6 +951,7 @@ export type AnimeUpdateWithoutGenresInput = {
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutGenresInput = {
@@ -953,6 +979,7 @@ export type AnimeUncheckedUpdateWithoutGenresInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateWithoutStudiosInput = {
@@ -980,6 +1007,7 @@ export type AnimeCreateWithoutStudiosInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutStudiosInput = {
@@ -1007,6 +1035,7 @@ export type AnimeUncheckedCreateWithoutStudiosInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutStudiosInput = {
@@ -1050,6 +1079,7 @@ export type AnimeUpdateWithoutStudiosInput = {
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutStudiosInput = {
@@ -1077,6 +1107,7 @@ export type AnimeUncheckedUpdateWithoutStudiosInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateWithoutListEntriesInput = {
@@ -1104,6 +1135,7 @@ export type AnimeCreateWithoutListEntriesInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutListEntriesInput = {
@@ -1131,6 +1163,7 @@ export type AnimeUncheckedCreateWithoutListEntriesInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutListEntriesInput = {
@@ -1174,6 +1207,7 @@ export type AnimeUpdateWithoutListEntriesInput = {
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutListEntriesInput = {
@@ -1201,6 +1235,7 @@ export type AnimeUncheckedUpdateWithoutListEntriesInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateWithoutPostsInput = {
@@ -1228,6 +1263,7 @@ export type AnimeCreateWithoutPostsInput = {
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutPostsInput = {
@@ -1255,6 +1291,7 @@ export type AnimeUncheckedCreateWithoutPostsInput = {
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutPostsInput = {
@@ -1298,6 +1335,7 @@ export type AnimeUpdateWithoutPostsInput = {
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutPostsInput = {
@@ -1325,6 +1363,7 @@ export type AnimeUncheckedUpdateWithoutPostsInput = {
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateWithoutThreadsInput = {
@@ -1352,6 +1391,7 @@ export type AnimeCreateWithoutThreadsInput = {
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutThreadsInput = {
@@ -1379,6 +1419,7 @@ export type AnimeUncheckedCreateWithoutThreadsInput = {
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutThreadsInput = {
@@ -1422,6 +1463,7 @@ export type AnimeUpdateWithoutThreadsInput = {
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutThreadsInput = {
@@ -1449,6 +1491,7 @@ export type AnimeUncheckedUpdateWithoutThreadsInput = {
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeCreateWithoutReviewsInput = {
@@ -1476,6 +1519,7 @@ export type AnimeCreateWithoutReviewsInput = {
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutReviewsInput = {
@@ -1503,6 +1547,7 @@ export type AnimeUncheckedCreateWithoutReviewsInput = {
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutReviewsInput = {
@@ -1546,6 +1591,7 @@ export type AnimeUpdateWithoutReviewsInput = {
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutReviewsInput = {
@@ -1573,6 +1619,135 @@ export type AnimeUncheckedUpdateWithoutReviewsInput = {
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
+}
+
+export type AnimeCreateWithoutActivitiesInput = {
+  id?: string
+  malId: number
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  synopsis?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  imageUrl?: string | null
+  trailerUrl?: string | null
+  source?: string | null
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutActivitiesInput = {
+  id?: string
+  malId: number
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  synopsis?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  imageUrl?: string | null
+  trailerUrl?: string | null
+  source?: string | null
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutActivitiesInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutActivitiesInput, Prisma.AnimeUncheckedCreateWithoutActivitiesInput>
+}
+
+export type AnimeUpsertWithoutActivitiesInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutActivitiesInput, Prisma.AnimeUncheckedUpdateWithoutActivitiesInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutActivitiesInput, Prisma.AnimeUncheckedCreateWithoutActivitiesInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutActivitiesInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutActivitiesInput, Prisma.AnimeUncheckedUpdateWithoutActivitiesInput>
+}
+
+export type AnimeUpdateWithoutActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
 }
 
 
@@ -1587,6 +1762,7 @@ export type AnimeCountOutputType = {
   posts: number
   threads: number
   reviews: number
+  activities: number
 }
 
 export type AnimeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1596,6 +1772,7 @@ export type AnimeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   posts?: boolean | AnimeCountOutputTypeCountPostsArgs
   threads?: boolean | AnimeCountOutputTypeCountThreadsArgs
   reviews?: boolean | AnimeCountOutputTypeCountReviewsArgs
+  activities?: boolean | AnimeCountOutputTypeCountActivitiesArgs
 }
 
 /**
@@ -1650,6 +1827,13 @@ export type AnimeCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.ReviewWhereInput
 }
 
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ActivityWhereInput
+}
+
 
 export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1677,6 +1861,7 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   posts?: boolean | Prisma.Anime$postsArgs<ExtArgs>
   threads?: boolean | Prisma.Anime$threadsArgs<ExtArgs>
   reviews?: boolean | Prisma.Anime$reviewsArgs<ExtArgs>
+  activities?: boolean | Prisma.Anime$activitiesArgs<ExtArgs>
   _count?: boolean | Prisma.AnimeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["anime"]>
 
@@ -1754,6 +1939,7 @@ export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   posts?: boolean | Prisma.Anime$postsArgs<ExtArgs>
   threads?: boolean | Prisma.Anime$threadsArgs<ExtArgs>
   reviews?: boolean | Prisma.Anime$reviewsArgs<ExtArgs>
+  activities?: boolean | Prisma.Anime$activitiesArgs<ExtArgs>
   _count?: boolean | Prisma.AnimeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AnimeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1768,6 +1954,7 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     posts: Prisma.$PostPayload<ExtArgs>[]
     threads: Prisma.$ThreadPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    activities: Prisma.$ActivityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2189,6 +2376,7 @@ export interface Prisma__AnimeClient<T, Null = never, ExtArgs extends runtime.Ty
   posts<T extends Prisma.Anime$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threads<T extends Prisma.Anime$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Anime$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  activities<T extends Prisma.Anime$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2766,6 +2954,30 @@ export type Anime$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * Anime.activities
+ */
+export type Anime$activitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Activity
+   */
+  select?: Prisma.ActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Activity
+   */
+  omit?: Prisma.ActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActivityInclude<ExtArgs> | null
+  where?: Prisma.ActivityWhereInput
+  orderBy?: Prisma.ActivityOrderByWithRelationInput | Prisma.ActivityOrderByWithRelationInput[]
+  cursor?: Prisma.ActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActivityScalarFieldEnum | Prisma.ActivityScalarFieldEnum[]
 }
 
 /**

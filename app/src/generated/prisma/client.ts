@@ -118,6 +118,11 @@ export type PostLike = Prisma.PostLikeModel
  */
 export type PostComment = Prisma.PostCommentModel
 /**
+ * Model PostCommentLike
+ * 
+ */
+export type PostCommentLike = Prisma.PostCommentLikeModel
+/**
  * Model Club
  * 
  */
@@ -207,3 +212,23 @@ export type Conversation = Prisma.ConversationModel
  * 
  */
 export type DirectMessage = Prisma.DirectMessageModel
+/**
+ * Model Activity
+ * 
+ */
+export type Activity = Prisma.ActivityModel
+/**
+ * Model ActivityLike
+ * 
+ */
+export type ActivityLike = Prisma.ActivityLikeModel
+/**
+ * Model ActivityRepost
+ * 
+ */
+export type ActivityRepost = Prisma.ActivityRepostModel
+/**
+ * Model Reply
+ * 
+ */
+export type Reply = Prisma.ReplyModel

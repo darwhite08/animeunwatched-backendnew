@@ -21,6 +21,7 @@ import { uploadsRouter } from "./modules/uploads/uploads.routes";
 import { discoveryRouter } from "./modules/discovery/discovery.routes";
 import { aiRouter } from "./modules/ai/ai.routes";
 import { versionRouter } from "./modules/version/version.routes";
+import { activitiesRouter } from "./modules/activities/activities.routes";
 
 const router = Router();
 
@@ -31,6 +32,7 @@ router.use("/anime/:malId/threads", animeThreadsRouter); // POST /anime/:malId/t
 router.use("/users", usersRouter);
 router.use("/lists", listsRouter);
 router.use("/posts", postsRouter);
+router.use("/activities", activitiesRouter);
 router.use("/notifications", notificationsRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/blogs", blogsRouter);
