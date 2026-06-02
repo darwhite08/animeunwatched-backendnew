@@ -27,13 +27,23 @@ let cached: Backend | null = null
 function getBackend(): Backend {
   if (cached) return cached
 
+  // AWS SDK v3 auto-injects x-amz-checksum-* + x-amz-sdk-checksum-algorithm
+  // query params into the presigned URL, which a browser PUT can't satisfy
+  // without also sending the matching headers. Switching both knobs to
+  // WHEN_REQUIRED disables that pre-computation — the browser does a clean
+  // PUT with just Content-Type and the signature stays valid.
+  const checksumOff = {
+    requestChecksumCalculation: "WHEN_REQUIRED" as const,
+    responseChecksumValidation: "WHEN_REQUIRED" as const,
+  }
+
   // Prefer AWS S3 if configured
   if (env.S3_BUCKET) {
     const publicUrl = (env.S3_PUBLIC_URL || `https://${env.S3_BUCKET}.s3.${env.S3_REGION}.amazonaws.com`).replace(/\/$/, "")
     cached = {
       // No explicit credentials — picks up from the AWS env / IMDS / App Runner instance role
-      client:    new S3Client({ region: env.S3_REGION }),
-      bucket:    env.S3_BUCKET,
+      client: new S3Client({ region: env.S3_REGION, ...checksumOff }),
+      bucket: env.S3_BUCKET,
       publicUrl,
     }
     return cached
@@ -49,6 +59,7 @@ function getBackend(): Backend {
           accessKeyId:     env.R2_ACCESS_KEY_ID,
           secretAccessKey: env.R2_SECRET_ACCESS_KEY,
         },
+        ...checksumOff,
       }),
       bucket:    env.R2_BUCKET,
       publicUrl: env.R2_PUBLIC_URL.replace(/\/$/, ""),
