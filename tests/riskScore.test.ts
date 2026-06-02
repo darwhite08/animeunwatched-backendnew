@@ -16,6 +16,7 @@ vi.mock("../app/src/config/prisma", () => ({
       findMany: vi.fn(async (args: { distinct?: string[] }) => args.distinct ? distinctIps : events),
     },
     report:        { count: vi.fn(async () => reportCount) },
+    anomalyEvent:  { findMany: vi.fn(async () => []) },  // no anomalies — risk score from other signals only
   },
 }))
 

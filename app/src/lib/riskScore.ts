@@ -25,7 +25,7 @@ export async function computeUserRisk(userId: string): Promise<RiskBreakdown> {
   const since30d = new Date(Date.now() - 30 * 86_400_000);
   const since24h = new Date(Date.now() - 86_400_000);
 
-  const [user, eventsRecent, distinctIps, recentReports] = await Promise.all([
+  const [user, eventsRecent, distinctIps, recentReports, anomalies] = await Promise.all([
     prisma.user.findUnique({
       where:  { id: userId },
       select: { id: true, isBanned: true, isShadowBanned: true, createdAt: true, role: true },
@@ -42,6 +42,10 @@ export async function computeUserRisk(userId: string): Promise<RiskBreakdown> {
     prisma.report.count({
       where: { targetType: "User", targetId: userId, createdAt: { gte: since30d } },
     }),
+    prisma.anomalyEvent.findMany({
+      where:  { userId, createdAt: { gte: since30d }, acknowledgedAt: null },
+      select: { kind: true, severity: true },
+    }),
   ]);
 
   if (!user) return { score: 0, level: "low", signals: [] };
@@ -53,17 +57,26 @@ export async function computeUserRisk(userId: string): Promise<RiskBreakdown> {
   const rateLimitTrips30d = eventsRecent.filter(e => e.type === "rate_limit_tripped").length;
   const accountAgeDays    = (Date.now() - user.createdAt.getTime()) / 86_400_000;
 
+  const impossibleTravel = anomalies.some(a => a.kind === "impossible_travel")
+  const vpnLogin         = anomalies.some(a => a.kind === "vpn_login")
+  const newCountry       = anomalies.some(a => a.kind === "new_country" && a.severity !== "info")
+  const concurrentCountry = anomalies.some(a => a.kind === "concurrent_country")
+
   const candidates: RiskSignal[] = [
-    { code: "banned",            label: "Account is banned",                    weight: 40, when: user.isBanned },
-    { code: "shadow_banned",     label: "Account is shadow-banned",             weight: 30, when: user.isShadowBanned },
-    { code: "many_failed_24h",   label: `${failedLogins24h} failed logins in 24h`, weight: 25, when: failedLogins24h >= 5 },
-    { code: "many_failed_30d",   label: `${failedLogins30d} failed logins in 30d`, weight: 15, when: failedLogins30d >= 15 },
+    { code: "banned",            label: "Account is banned",                          weight: 40, when: user.isBanned },
+    { code: "shadow_banned",     label: "Account is shadow-banned",                   weight: 30, when: user.isShadowBanned },
+    { code: "impossible_travel", label: "Impossible-travel anomaly (30d)",            weight: 35, when: impossibleTravel },
+    { code: "concurrent_country",label: "Concurrent sessions from different countries", weight: 25, when: concurrentCountry },
+    { code: "vpn_login",         label: "Recent VPN/datacenter login",                weight: 10, when: vpnLogin },
+    { code: "new_country",       label: "Login from new country",                     weight: 10, when: newCountry },
+    { code: "many_failed_24h",   label: `${failedLogins24h} failed logins in 24h`,    weight: 25, when: failedLogins24h >= 5 },
+    { code: "many_failed_30d",   label: `${failedLogins30d} failed logins in 30d`,    weight: 15, when: failedLogins30d >= 15 },
     { code: "frequent_pwd_reset",label: `${passwordResets30d} password resets in 30d`, weight: 15, when: passwordResets30d >= 2 },
-    { code: "csrf",              label: `${csrfFailures30d} CSRF failures in 30d`,     weight: 20, when: csrfFailures30d >= 1 },
-    { code: "rate_limit",        label: `${rateLimitTrips30d} rate-limit trips`,       weight: 10, when: rateLimitTrips30d >= 3 },
-    { code: "many_ips",          label: `${distinctIps.length} distinct IPs ever`,     weight: 15, when: distinctIps.length >= 8 },
-    { code: "new_account",       label: `Account < 1 day old`,                         weight: 5,  when: accountAgeDays < 1 },
-    { code: "reported_30d",      label: `${recentReports} user reports in 30d`,        weight: 20, when: recentReports >= 3 },
+    { code: "csrf",              label: `${csrfFailures30d} CSRF failures in 30d`,    weight: 20, when: csrfFailures30d >= 1 },
+    { code: "rate_limit",        label: `${rateLimitTrips30d} rate-limit trips`,      weight: 10, when: rateLimitTrips30d >= 3 },
+    { code: "many_ips",          label: `${distinctIps.length} distinct IPs ever`,    weight: 15, when: distinctIps.length >= 8 },
+    { code: "new_account",       label: `Account < 1 day old`,                        weight: 5,  when: accountAgeDays < 1 },
+    { code: "reported_30d",      label: `${recentReports} user reports in 30d`,       weight: 20, when: recentReports >= 3 },
   ];
 
   const signals = candidates.filter(c => c.when);

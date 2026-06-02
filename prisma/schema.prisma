@@ -1305,3 +1305,51 @@ model ContentFingerprint {
   @@index([targetType, targetId])
 }
 
+// Cached geolocation + ASN for an IP. Populated lazily by lib/geoip on
+// first reference, refreshed weekly. Keeps the admin dashboard fast
+// (single-row lookup) while geo data stays current enough for forensics.
+model IpProfile {
+  ip            String   @id
+  country       String?                 // ISO-2 e.g. "US"
+  countryName   String?
+  region        String?
+  city          String?
+  latitude      Float?
+  longitude     Float?
+  isp           String?
+  org           String?
+  asn           String?
+  isVpn         Boolean  @default(false)
+  isProxy       Boolean  @default(false)
+  isHosting     Boolean  @default(false) // datacenter / cloud IP
+  lookupSource  String   @default("ip-api")
+  lookupError   String?
+  lastSeenAt    DateTime?               // updated whenever security events reference this IP
+  refreshedAt   DateTime @default(now())
+
+  @@index([country])
+  @@index([asn])
+  @@index([isVpn, isHosting])
+}
+
+// Detected anomalies. Different from AdminAlert (which is operator-facing
+// notifications) — anomalies are per-user/per-IP forensic findings that
+// power the /anomalies page and feed the risk score.
+model AnomalyEvent {
+  id            String   @id @default(cuid())
+  kind          String                  // "impossible_travel" | "new_country" | "new_ip" |
+                                         //   "ip_churn" | "concurrent_country" | "high_volume_signup_ip" |
+                                         //   "vpn_login" | "new_device"
+  severity      String   @default("info") // "info" | "warning" | "critical"
+  userId        String?
+  ipAddress     String?
+  evidence      Json?                   // structured detail per kind
+  acknowledgedAt DateTime?
+  acknowledgedBy String?
+  createdAt     DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([kind, createdAt])
+  @@index([acknowledgedAt])
+}
+

@@ -114,7 +114,9 @@ export const ModelName = {
   ReportSchedule: 'ReportSchedule',
   IpBlock: 'IpBlock',
   ContentRule: 'ContentRule',
-  ContentFingerprint: 'ContentFingerprint'
+  ContentFingerprint: 'ContentFingerprint',
+  IpProfile: 'IpProfile',
+  AnomalyEvent: 'AnomalyEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1034,6 +1036,44 @@ export const ContentFingerprintScalarFieldEnum = {
 } as const
 
 export type ContentFingerprintScalarFieldEnum = (typeof ContentFingerprintScalarFieldEnum)[keyof typeof ContentFingerprintScalarFieldEnum]
+
+
+export const IpProfileScalarFieldEnum = {
+  ip: 'ip',
+  country: 'country',
+  countryName: 'countryName',
+  region: 'region',
+  city: 'city',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  isp: 'isp',
+  org: 'org',
+  asn: 'asn',
+  isVpn: 'isVpn',
+  isProxy: 'isProxy',
+  isHosting: 'isHosting',
+  lookupSource: 'lookupSource',
+  lookupError: 'lookupError',
+  lastSeenAt: 'lastSeenAt',
+  refreshedAt: 'refreshedAt'
+} as const
+
+export type IpProfileScalarFieldEnum = (typeof IpProfileScalarFieldEnum)[keyof typeof IpProfileScalarFieldEnum]
+
+
+export const AnomalyEventScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  severity: 'severity',
+  userId: 'userId',
+  ipAddress: 'ipAddress',
+  evidence: 'evidence',
+  acknowledgedAt: 'acknowledgedAt',
+  acknowledgedBy: 'acknowledgedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type AnomalyEventScalarFieldEnum = (typeof AnomalyEventScalarFieldEnum)[keyof typeof AnomalyEventScalarFieldEnum]
 
 
 export const SortOrder = {

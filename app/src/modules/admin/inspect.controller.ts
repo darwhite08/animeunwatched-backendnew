@@ -4,6 +4,7 @@ import { badRequest, notFound } from "../../lib/errors"
 import { adminAuditR } from "../../lib/adminAudit"
 import { computeUserRisk } from "../../lib/riskScore"
 import { isIpBlocked } from "../../lib/loginGuard"
+import { getIpProfile } from "../../lib/geoip"
 
 /**
  * Forensic inspection endpoints. Lets operators trace an IP, score a
@@ -33,7 +34,7 @@ export async function getIpDossier(req: Request, res: Response, next: NextFuncti
     const ip = req.params.ip as string
     if (!ip) throw badRequest("ip required")
 
-    const [block, eventsByUser, refreshTokens, blockedRow] = await Promise.all([
+    const [block, eventsByUser, refreshTokens, blockedRow, geo, recentAnomalies] = await Promise.all([
       isIpBlocked(ip),
       prisma.securityEvent.findMany({
         where: { ipAddress: ip },
@@ -47,6 +48,12 @@ export async function getIpDossier(req: Request, res: Response, next: NextFuncti
         take:    50,
       }),
       prisma.ipBlock.findUnique({ where: { ip } }),
+      getIpProfile(ip),
+      prisma.anomalyEvent.findMany({
+        where:   { ipAddress: ip },
+        orderBy: { createdAt: "desc" },
+        take:    20,
+      }),
     ])
 
     // Build per-user rollup so we can show "this IP was used by these N accounts"
@@ -79,10 +86,13 @@ export async function getIpDossier(req: Request, res: Response, next: NextFuncti
       ip,
       block:          blockedRow,
       currentBlocked: block.blocked,
+      geo,
+      anomalies:      recentAnomalies,
       summary: {
         totalEvents:     eventsByUser.length,
         distinctUsers:   byUser.size,
         activeSessions:  refreshTokens.length,
+        recentAnomalies: recentAnomalies.length,
       },
       users:           Array.from(byUser.values()).sort((a, b) => b.events - a.events),
       recentEvents:    eventsByUser.slice(0, 50),

@@ -31,6 +31,7 @@ import * as mailer     from "./mailer.controller";
 import * as inspect    from "./inspect.controller";
 import * as cRules     from "./contentRules.controller";
 import * as modAct     from "./modActivity.controller";
+import * as anomalies  from "./anomalies.controller";
 
 export const adminRouter = Router();
 
@@ -242,4 +243,10 @@ adminRouter.post(  "/content/rules/test",              requirePermission("modera
 // Moderator activity dashboard + bulk queue actions
 adminRouter.get(   "/moderation/activity",             requirePermission("moderation","read"), modAct.getModActivity);
 adminRouter.post(  "/moderation/bulk",                 requirePermission("moderation","act"),  modAct.bulkModerate);
+
+// Anomalies (impossible travel, new country, VPN, IP churn, concurrent country)
+adminRouter.get(   "/anomalies",                       requirePermission("security","read"),  anomalies.listAnomalies);
+adminRouter.post(  "/anomalies/:id/ack",               requirePermission("security","write"), anomalies.ackAnomaly);
+adminRouter.post(  "/anomalies/bulk-ack",              requirePermission("security","write"), anomalies.bulkAckAnomalies);
+adminRouter.post(  "/anomalies/scan",                  requirePermission("security","write"), anomalies.triggerScan);
 

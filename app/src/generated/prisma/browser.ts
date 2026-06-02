@@ -347,3 +347,13 @@ export type ContentRule = Prisma.ContentRuleModel
  * 
  */
 export type ContentFingerprint = Prisma.ContentFingerprintModel
+/**
+ * Model IpProfile
+ * 
+ */
+export type IpProfile = Prisma.IpProfileModel
+/**
+ * Model AnomalyEvent
+ * 
+ */
+export type AnomalyEvent = Prisma.AnomalyEventModel

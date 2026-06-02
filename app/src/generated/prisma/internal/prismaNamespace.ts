@@ -455,7 +455,9 @@ export const ModelName = {
   ReportSchedule: 'ReportSchedule',
   IpBlock: 'IpBlock',
   ContentRule: 'ContentRule',
-  ContentFingerprint: 'ContentFingerprint'
+  ContentFingerprint: 'ContentFingerprint',
+  IpProfile: 'IpProfile',
+  AnomalyEvent: 'AnomalyEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -471,7 +473,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5359,6 +5361,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IpProfile: {
+      payload: Prisma.$IpProfilePayload<ExtArgs>
+      fields: Prisma.IpProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IpProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IpProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.IpProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IpProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        findMany: {
+          args: Prisma.IpProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>[]
+        }
+        create: {
+          args: Prisma.IpProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        createMany: {
+          args: Prisma.IpProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IpProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.IpProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        update: {
+          args: Prisma.IpProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.IpProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IpProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IpProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.IpProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.IpProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIpProfile>
+        }
+        groupBy: {
+          args: Prisma.IpProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IpProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    AnomalyEvent: {
+      payload: Prisma.$AnomalyEventPayload<ExtArgs>
+      fields: Prisma.AnomalyEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnomalyEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnomalyEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        findFirst: {
+          args: Prisma.AnomalyEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnomalyEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        findMany: {
+          args: Prisma.AnomalyEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>[]
+        }
+        create: {
+          args: Prisma.AnomalyEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        createMany: {
+          args: Prisma.AnomalyEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AnomalyEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>[]
+        }
+        delete: {
+          args: Prisma.AnomalyEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        update: {
+          args: Prisma.AnomalyEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.AnomalyEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnomalyEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AnomalyEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.AnomalyEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnomalyEventPayload>
+        }
+        aggregate: {
+          args: Prisma.AnomalyEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnomalyEvent>
+        }
+        groupBy: {
+          args: Prisma.AnomalyEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnomalyEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnomalyEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnomalyEventCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -6301,6 +6451,44 @@ export const ContentFingerprintScalarFieldEnum = {
 export type ContentFingerprintScalarFieldEnum = (typeof ContentFingerprintScalarFieldEnum)[keyof typeof ContentFingerprintScalarFieldEnum]
 
 
+export const IpProfileScalarFieldEnum = {
+  ip: 'ip',
+  country: 'country',
+  countryName: 'countryName',
+  region: 'region',
+  city: 'city',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  isp: 'isp',
+  org: 'org',
+  asn: 'asn',
+  isVpn: 'isVpn',
+  isProxy: 'isProxy',
+  isHosting: 'isHosting',
+  lookupSource: 'lookupSource',
+  lookupError: 'lookupError',
+  lastSeenAt: 'lastSeenAt',
+  refreshedAt: 'refreshedAt'
+} as const
+
+export type IpProfileScalarFieldEnum = (typeof IpProfileScalarFieldEnum)[keyof typeof IpProfileScalarFieldEnum]
+
+
+export const AnomalyEventScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  severity: 'severity',
+  userId: 'userId',
+  ipAddress: 'ipAddress',
+  evidence: 'evidence',
+  acknowledgedAt: 'acknowledgedAt',
+  acknowledgedBy: 'acknowledgedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type AnomalyEventScalarFieldEnum = (typeof AnomalyEventScalarFieldEnum)[keyof typeof AnomalyEventScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -6668,6 +6856,8 @@ export type GlobalOmitConfig = {
   ipBlock?: Prisma.IpBlockOmit
   contentRule?: Prisma.ContentRuleOmit
   contentFingerprint?: Prisma.ContentFingerprintOmit
+  ipProfile?: Prisma.IpProfileOmit
+  anomalyEvent?: Prisma.AnomalyEventOmit
 }
 
 /* Types for Logging */
