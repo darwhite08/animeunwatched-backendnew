@@ -12,6 +12,9 @@ export function initSocket(httpServer: HttpServer) {
         if (!origin) { callback(null, true); return }
         const allowed = [env.CORS_ORIGIN, "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"].filter(Boolean)
         if (allowed.includes(origin)) { callback(null, true); return }
+        // Defensive: Capacitor bundled mode (iOS capacitor:// scheme). With
+        // server.url the origin is already www.kaiveron.com (handled below).
+        if (origin === "capacitor://localhost") { callback(null, true); return }
         try {
           const { hostname } = new URL(origin)
           // Any kaiveron.com subdomain (admin-dashboard, www, etc.)

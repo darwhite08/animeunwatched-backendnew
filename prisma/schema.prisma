@@ -1609,6 +1609,46 @@ model SamlConfig {
   @@index([active])
 }
 
+// Observability — SLO definition. Computes error-budget burn against the
+// EndpointStat table. Single objective per endpoint today; multi-objective
+// (e.g. p99 latency AND error rate combined) in a later batch.
+model SloDefinition {
+  id              String   @id @default(cuid())
+  name            String                              // "API availability — anime catalogue"
+  endpoint        String                              // "GET /api/v1/anime/:id" or "*" for all
+  objectiveType   String                              // "availability" | "latency_p99"
+  targetPct       Float                               // e.g. 99.9 means 99.9% requests succeed / under p99 threshold
+  windowDays      Int      @default(30)               // rolling window
+  thresholdMs     Int?                                // required when objectiveType = latency_p99
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([endpoint])
+}
+
+// Observability — synthetic monitor SCHEDULE. We persist the schedule + last
+// outcome, but the runner itself is intentionally out of scope (needs a
+// separate worker we don't run in-process). Admins can record manual probes
+// via /admin/observability/monitors/:id/record.
+model SyntheticMonitor {
+  id              String   @id @default(cuid())
+  name            String                              // "Login flow"
+  url             String                              // probe URL
+  method          String   @default("GET")
+  expectedStatus  Int      @default(200)
+  expectedBodyContains String?                        // substring assertion (optional)
+  intervalSeconds Int      @default(300)              // how often it SHOULD run
+  enabled         Boolean  @default(true)
+  lastRunAt       DateTime?
+  lastOutcome     String?                             // "ok" | "fail" | "timeout"
+  lastLatencyMs   Int?
+  lastError       String?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
 // AI ops — per-call log of LLM inference requests. Populated by the existing
 // aiRouter wrappers; populates the cost dashboard and the latency trend chart.
 model LlmCall {

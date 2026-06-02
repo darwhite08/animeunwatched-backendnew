@@ -87,16 +87,13 @@ function isKaiveronOrigin(origin: string): boolean {
   } catch { return false }
 }
 
-// Accept the Capacitor native app's WebView origins. The app loads the site via
-// server.url, but its API/socket requests carry the WebView's own origin:
-//   iOS:     capacitor://localhost
-//   Android: https://localhost  (http://localhost only when cleartext dev)
+// Defensive allowance for the Capacitor native app. With server.url pointing at
+// https://www.kaiveron.com the WebView's origin is already that domain (covered
+// by isKaiveronOrigin). This only matters if the app is ever bundled (served
+// from the capacitor:// scheme) or for iOS edge cases. The capacitor:// scheme
+// cannot be produced by a web page, so this adds no browser-spoofable surface.
 function isCapacitorOrigin(origin: string): boolean {
-  return (
-    origin === "capacitor://localhost" ||
-    origin === "https://localhost" ||
-    origin === "http://localhost"
-  )
+  return origin === "capacitor://localhost"
 }
 
 // Accept any local-network origin so phones on the same WiFi can log in
@@ -154,7 +151,7 @@ import { deprecationHeaders } from "./src/middlewares/deprecation.middleware";
 app.use(deprecationHeaders());
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin) || isKaiveronOrigin(origin)))) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin) || isKaiveronOrigin(origin) || isCapacitorOrigin(origin)))) {
       callback(null, true)
     } else {
       callback(new Error("Not allowed by CORS"))

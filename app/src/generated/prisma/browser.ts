@@ -418,6 +418,16 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model SloDefinition
+ * 
+ */
+export type SloDefinition = Prisma.SloDefinitionModel
+/**
+ * Model SyntheticMonitor
+ * 
+ */
+export type SyntheticMonitor = Prisma.SyntheticMonitorModel
+/**
  * Model LlmCall
  * 
  */

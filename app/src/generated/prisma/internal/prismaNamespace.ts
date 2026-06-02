@@ -470,6 +470,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  SloDefinition: 'SloDefinition',
+  SyntheticMonitor: 'SyntheticMonitor',
   LlmCall: 'LlmCall',
   PromptVersion: 'PromptVersion',
   EvalResult: 'EvalResult',
@@ -500,7 +502,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6424,6 +6426,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SloDefinition: {
+      payload: Prisma.$SloDefinitionPayload<ExtArgs>
+      fields: Prisma.SloDefinitionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SloDefinitionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SloDefinitionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        findFirst: {
+          args: Prisma.SloDefinitionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SloDefinitionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        findMany: {
+          args: Prisma.SloDefinitionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>[]
+        }
+        create: {
+          args: Prisma.SloDefinitionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        createMany: {
+          args: Prisma.SloDefinitionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SloDefinitionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>[]
+        }
+        delete: {
+          args: Prisma.SloDefinitionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        update: {
+          args: Prisma.SloDefinitionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SloDefinitionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SloDefinitionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SloDefinitionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SloDefinitionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SloDefinitionPayload>
+        }
+        aggregate: {
+          args: Prisma.SloDefinitionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSloDefinition>
+        }
+        groupBy: {
+          args: Prisma.SloDefinitionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SloDefinitionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SloDefinitionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SloDefinitionCountAggregateOutputType> | number
+        }
+      }
+    }
+    SyntheticMonitor: {
+      payload: Prisma.$SyntheticMonitorPayload<ExtArgs>
+      fields: Prisma.SyntheticMonitorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SyntheticMonitorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SyntheticMonitorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        findFirst: {
+          args: Prisma.SyntheticMonitorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SyntheticMonitorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        findMany: {
+          args: Prisma.SyntheticMonitorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>[]
+        }
+        create: {
+          args: Prisma.SyntheticMonitorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        createMany: {
+          args: Prisma.SyntheticMonitorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SyntheticMonitorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>[]
+        }
+        delete: {
+          args: Prisma.SyntheticMonitorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        update: {
+          args: Prisma.SyntheticMonitorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        deleteMany: {
+          args: Prisma.SyntheticMonitorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SyntheticMonitorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SyntheticMonitorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>[]
+        }
+        upsert: {
+          args: Prisma.SyntheticMonitorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyntheticMonitorPayload>
+        }
+        aggregate: {
+          args: Prisma.SyntheticMonitorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSyntheticMonitor>
+        }
+        groupBy: {
+          args: Prisma.SyntheticMonitorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyntheticMonitorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SyntheticMonitorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyntheticMonitorCountAggregateOutputType> | number
+        }
+      }
+    }
     LlmCall: {
       payload: Prisma.$LlmCallPayload<ExtArgs>
       fields: Prisma.LlmCallFieldRefs
@@ -8714,6 +8864,43 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const SloDefinitionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  endpoint: 'endpoint',
+  objectiveType: 'objectiveType',
+  targetPct: 'targetPct',
+  windowDays: 'windowDays',
+  thresholdMs: 'thresholdMs',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SloDefinitionScalarFieldEnum = (typeof SloDefinitionScalarFieldEnum)[keyof typeof SloDefinitionScalarFieldEnum]
+
+
+export const SyntheticMonitorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  method: 'method',
+  expectedStatus: 'expectedStatus',
+  expectedBodyContains: 'expectedBodyContains',
+  intervalSeconds: 'intervalSeconds',
+  enabled: 'enabled',
+  lastRunAt: 'lastRunAt',
+  lastOutcome: 'lastOutcome',
+  lastLatencyMs: 'lastLatencyMs',
+  lastError: 'lastError',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SyntheticMonitorScalarFieldEnum = (typeof SyntheticMonitorScalarFieldEnum)[keyof typeof SyntheticMonitorScalarFieldEnum]
+
+
 export const LlmCallScalarFieldEnum = {
   id: 'id',
   provider: 'provider',
@@ -9348,6 +9535,8 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  sloDefinition?: Prisma.SloDefinitionOmit
+  syntheticMonitor?: Prisma.SyntheticMonitorOmit
   llmCall?: Prisma.LlmCallOmit
   promptVersion?: Prisma.PromptVersionOmit
   evalResult?: Prisma.EvalResultOmit

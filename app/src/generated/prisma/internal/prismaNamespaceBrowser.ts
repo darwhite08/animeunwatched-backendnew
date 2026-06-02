@@ -129,6 +129,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  SloDefinition: 'SloDefinition',
+  SyntheticMonitor: 'SyntheticMonitor',
   LlmCall: 'LlmCall',
   PromptVersion: 'PromptVersion',
   EvalResult: 'EvalResult',
@@ -1301,6 +1303,43 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const SloDefinitionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  endpoint: 'endpoint',
+  objectiveType: 'objectiveType',
+  targetPct: 'targetPct',
+  windowDays: 'windowDays',
+  thresholdMs: 'thresholdMs',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SloDefinitionScalarFieldEnum = (typeof SloDefinitionScalarFieldEnum)[keyof typeof SloDefinitionScalarFieldEnum]
+
+
+export const SyntheticMonitorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  method: 'method',
+  expectedStatus: 'expectedStatus',
+  expectedBodyContains: 'expectedBodyContains',
+  intervalSeconds: 'intervalSeconds',
+  enabled: 'enabled',
+  lastRunAt: 'lastRunAt',
+  lastOutcome: 'lastOutcome',
+  lastLatencyMs: 'lastLatencyMs',
+  lastError: 'lastError',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SyntheticMonitorScalarFieldEnum = (typeof SyntheticMonitorScalarFieldEnum)[keyof typeof SyntheticMonitorScalarFieldEnum]
 
 
 export const LlmCallScalarFieldEnum = {

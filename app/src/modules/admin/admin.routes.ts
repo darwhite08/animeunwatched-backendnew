@@ -47,6 +47,7 @@ import * as cost         from "./cost.controller";
 import * as dx           from "./dx.controller";
 import * as compliance   from "./compliance.controller";
 import * as aiOps        from "./aiOps.controller";
+import * as obs          from "./observability.controller";
 
 export const adminRouter = Router();
 
@@ -374,4 +375,15 @@ adminRouter.post(  "/ai/evals",                        requirePermission("settin
 adminRouter.get(   "/ai/rag",                          requirePermission("settings","read"),  aiOps.listRag);
 adminRouter.put(   "/ai/rag",                          requirePermission("settings","write"), aiOps.upsertRag);
 adminRouter.delete("/ai/rag/:id",                      requirePermission("settings","write"), aiOps.deleteRag);
+
+// Observability — SLO definitions + synthetic monitor schedules
+adminRouter.get(   "/observability/slos",              requirePermission("settings","read"),  obs.listSlos);
+adminRouter.put(   "/observability/slos",              requirePermission("settings","write"), obs.upsertSlo);
+adminRouter.put(   "/observability/slos/:id",          requirePermission("settings","write"), obs.upsertSlo);
+adminRouter.delete("/observability/slos/:id",          requirePermission("settings","write"), obs.deleteSlo);
+adminRouter.get(   "/observability/monitors",          requirePermission("settings","read"),  obs.listMonitors);
+adminRouter.put(   "/observability/monitors",          requirePermission("settings","write"), obs.upsertMonitor);
+adminRouter.put(   "/observability/monitors/:id",      requirePermission("settings","write"), obs.upsertMonitor);
+adminRouter.delete("/observability/monitors/:id",      requirePermission("settings","write"), obs.deleteMonitor);
+adminRouter.post(  "/observability/monitors/:id/record", requirePermission("settings","write"), obs.recordMonitorOutcome);
 
