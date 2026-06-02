@@ -165,15 +165,19 @@ export async function runScheduleNow(req: Request, res: Response, next: NextFunc
     const id = req.params.id as string;
     const sched = await prisma.reportSchedule.findUnique({ where: { id } });
     if (!sched) throw notFound("Schedule not found");
-    const result = await runReport(sched.reportKey as ReportKey);
+    const { runOneSchedule } = await import("../../jobs/reportScheduler.job");
+    const outcome = await runOneSchedule(sched.reportKey, sched.format, (sched.recipients as string[]) ?? [], sched.name);
+    const status = outcome.failed > 0
+      ? `partial:rowcount=${outcome.rows},sent=${outcome.delivered},dryRun=${outcome.dryRun},failed=${outcome.failed}`
+      : `ok:rowcount=${outcome.rows},sent=${outcome.delivered}${outcome.dryRun ? `,dryRun=${outcome.dryRun}` : ""}`;
     await prisma.reportSchedule.update({
       where: { id },
-      data:  { lastRunAt: new Date(), lastResult: `ok:rowcount=${result.rows.length}` },
+      data:  { lastRunAt: new Date(), lastResult: status },
     });
     await adminAuditR(req, res, {
       action: "report.schedule_run", targetType: "ReportSchedule", targetId: id,
-      metadata: { reportKey: sched.reportKey, rows: result.rows.length },
+      metadata: { reportKey: sched.reportKey, ...outcome },
     });
-    res.status(200).json({ ok: true, result });
+    res.status(200).json({ ok: true, outcome });
   } catch (err) { next(err); }
 }

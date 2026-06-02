@@ -27,6 +27,7 @@ import * as loginHist  from "./loginHistory.controller";
 import * as undo       from "./undo.controller";
 import * as search     from "./search.controller";
 import * as reports    from "./reports.controller";
+import * as mailer     from "./mailer.controller";
 
 export const adminRouter = Router();
 
@@ -214,4 +215,8 @@ adminRouter.post(  "/reports/schedules/:id/run",       requirePermission("audit"
 
 // Public webhook receiver (no auth — but the body must be a valid provider event)
 adminRouter.post(  "/billing/webhooks/:provider",      billing.receiveBillingWebhook);
+
+// Mailer status + test-send
+adminRouter.get(   "/mailer/status",                   requirePermission("settings","read"),  mailer.getMailerStatus);
+adminRouter.post(  "/mailer/test",                     requirePermission("settings","write"), mailer.sendTestEmail);
 

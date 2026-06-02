@@ -3,6 +3,7 @@ import argon2 from "argon2";
 import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { adminAudit } from "../../lib/adminAudit";
+import { sendMail, mailerConfigured } from "../../lib/mailer";
 
 const INVITE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 const PASSWORD_RESET_TTL_MS = 60 * 60 * 1000;
@@ -61,15 +62,31 @@ export async function adminGeneratePasswordReset(opts: {
   await prisma.passwordResetToken.create({
     data: { userId: opts.userId, tokenHash, expiresAt: new Date(Date.now() + PASSWORD_RESET_TTL_MS) },
   });
+  // Fire-and-forget email delivery — never blocks the operator response.
+  // The raw token is also returned so the operator can copy/share manually
+  // if SMTP isn't wired yet.
+  let mailDelivery: "queued" | "dryRun" | "failed" | "not_attempted" = "not_attempted";
+  if (mailerConfigured()) {
+    const r = await sendMail({
+      to:      user.email,
+      subject: "[Kaiveron] Password reset",
+      text:    `An administrator initiated a password reset for your account.\n\nUse this token to reset within ${PASSWORD_RESET_TTL_MS / 60_000} minutes:\n\n${raw}\n\nIf you did not request this, ignore the message and tell your admin.`,
+      tag:     "password-reset",
+    });
+    mailDelivery = r.ok ? (r.dryRun ? "dryRun" : "queued") : "failed";
+  } else {
+    mailDelivery = "dryRun";
+  }
+
   await adminAudit({
     actorId:    opts.actorId,
     action:     "user.password_reset_issued",
     targetType: "User",
     targetId:   opts.userId,
-    metadata:   { expiresInSec: PASSWORD_RESET_TTL_MS / 1000 },
+    metadata:   { expiresInSec: PASSWORD_RESET_TTL_MS / 1000, mailDelivery },
     ipAddress:  opts.ipAddress, userAgent: opts.userAgent,
   });
-  return { token: raw, expiresInSec: PASSWORD_RESET_TTL_MS / 1000, email: user.email };
+  return { token: raw, expiresInSec: PASSWORD_RESET_TTL_MS / 1000, email: user.email, mailDelivery };
 }
 
 /** Disable TOTP on a target account (operator emergency action). */
@@ -145,15 +162,28 @@ export async function createInvite(opts: {
     },
     select: { id: true, email: true, roleName: true, expiresAt: true, createdAt: true },
   });
+  let mailDelivery: "queued" | "dryRun" | "failed" | "not_attempted" = "not_attempted";
+  if (mailerConfigured()) {
+    const r = await sendMail({
+      to:      email,
+      subject: `[Kaiveron] You've been invited as an admin`,
+      text:    `You've been invited to join Kaiveron as an admin${opts.roleName ? ` with the ${opts.roleName} role` : ""}.\n\nAccept your invite within 7 days using this token:\n\n${raw}\n\nIf you don't expect this invite, ignore the message.`,
+      tag:     "admin-invite",
+    });
+    mailDelivery = r.ok ? (r.dryRun ? "dryRun" : "queued") : "failed";
+  } else {
+    mailDelivery = "dryRun";
+  }
+
   await adminAudit({
     actorId:    opts.actorId,
     action:     "invite.created",
     targetType: "UserInvite",
     targetId:   invite.id,
-    metadata:   { email, roleName: opts.roleName ?? null },
+    metadata:   { email, roleName: opts.roleName ?? null, mailDelivery },
     ipAddress:  opts.ipAddress, userAgent: opts.userAgent,
   });
-  return { invite, token: raw, expiresInSec: INVITE_TTL_MS / 1000 };
+  return { invite, token: raw, expiresInSec: INVITE_TTL_MS / 1000, mailDelivery };
 }
 
 export async function listInvites(opts: { page: number; limit: number }) {

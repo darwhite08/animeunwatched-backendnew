@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
 import { cache } from "../../lib/cache";
 import { isGA4Configured } from "../../lib/ga4";
+import { probeMailer } from "../../lib/mailer";
 
 /**
  * Snapshot of every external dependency the platform talks to. Used by
@@ -71,6 +72,11 @@ async function probeS3(): Promise<DepProbe> {
   };
 }
 
+async function probeMailerDep(): Promise<DepProbe> {
+  const r = await probeMailer();
+  return { name: "SMTP mailer", status: r.status, latencyMs: 0, detail: r.detail };
+}
+
 export async function getDependencies(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const results = await Promise.all([
@@ -79,6 +85,7 @@ export async function getDependencies(_req: Request, res: Response, next: NextFu
       probe("Jikan",        probeJikan),
       probe("GA4",          probeGa4),
       probe("S3",           probeS3),
+      probe("Mailer",       probeMailerDep),
     ]);
     const allOk = results.every(r => r.status === "ok" || r.status === "not_configured");
     res.status(200).json({ overallStatus: allOk ? "ok" : "degraded", dependencies: results, generatedAt: new Date().toISOString() });
