@@ -50,6 +50,13 @@ export const env = {
   R2_BUCKET:            process.env.R2_BUCKET            || "",
   R2_PUBLIC_URL:        process.env.R2_PUBLIC_URL        || "",
 
+  // Native AWS S3 — takes precedence over R2 when set.
+  // Credentials come from the App Runner instance role in prod, or from
+  // AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY for local dev.
+  S3_BUCKET:     process.env.S3_BUCKET     || "",
+  S3_REGION:     process.env.S3_REGION     || "us-east-1",
+  S3_PUBLIC_URL: process.env.S3_PUBLIC_URL || "",
+
   // OpenAI for /ai/ask — optional; falls back to stub responses if not set
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
 };
