@@ -103,7 +103,10 @@ export const ModelName = {
   WebhookEndpoint: 'WebhookEndpoint',
   WebhookDelivery: 'WebhookDelivery',
   Announcement: 'Announcement',
-  AdminSetting: 'AdminSetting'
+  AdminSetting: 'AdminSetting',
+  ModerationItem: 'ModerationItem',
+  NotificationTemplate: 'NotificationTemplate',
+  AdminAlert: 'AdminAlert'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -840,6 +843,56 @@ export const AdminSettingScalarFieldEnum = {
 } as const
 
 export type AdminSettingScalarFieldEnum = (typeof AdminSettingScalarFieldEnum)[keyof typeof AdminSettingScalarFieldEnum]
+
+
+export const ModerationItemScalarFieldEnum = {
+  id: 'id',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  reason: 'reason',
+  source: 'source',
+  status: 'status',
+  reviewerId: 'reviewerId',
+  reviewedAt: 'reviewedAt',
+  reviewNote: 'reviewNote',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ModerationItemScalarFieldEnum = (typeof ModerationItemScalarFieldEnum)[keyof typeof ModerationItemScalarFieldEnum]
+
+
+export const NotificationTemplateScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  channel: 'channel',
+  subject: 'subject',
+  body: 'body',
+  description: 'description',
+  isSystem: 'isSystem',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationTemplateScalarFieldEnum = (typeof NotificationTemplateScalarFieldEnum)[keyof typeof NotificationTemplateScalarFieldEnum]
+
+
+export const AdminAlertScalarFieldEnum = {
+  id: 'id',
+  severity: 'severity',
+  category: 'category',
+  title: 'title',
+  body: 'body',
+  link: 'link',
+  metadata: 'metadata',
+  acknowledgedAt: 'acknowledgedAt',
+  acknowledgedBy: 'acknowledgedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminAlertScalarFieldEnum = (typeof AdminAlertScalarFieldEnum)[keyof typeof AdminAlertScalarFieldEnum]
 
 
 export const SortOrder = {

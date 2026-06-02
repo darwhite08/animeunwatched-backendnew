@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
-import { verifyAdminAuditChain } from "../../lib/adminAudit";
+import { verifyAdminAuditChain, adminAuditR } from "../../lib/adminAudit";
 
 /**
  * Lists the AuditLog with optional filters. Read access requires
@@ -40,6 +40,13 @@ export async function listAuditLog(req: Request, res: Response, next: NextFuncti
       }),
       prisma.auditLog.count({ where }),
     ]);
+
+    // Per spec M8: "viewing audit logs is itself audited"
+    await adminAuditR(req, res, {
+      action: "audit.viewed",
+      metadata: { filters: { actorId, action, target, tId, from: from?.toISOString(), to: to?.toISOString() }, page, limit, count: data.length },
+    });
+
     res.status(200).json({ data, total, page, limit });
   } catch (err) { next(err); }
 }
@@ -66,6 +73,12 @@ export async function exportAuditLog(req: Request, res: Response, next: NextFunc
 
     const rows = await prisma.auditLog.findMany({
       where, orderBy: { createdAt: "desc" }, take: 10_000,
+    });
+
+    // Per spec M8: viewing/exporting audit is itself audited.
+    await adminAuditR(req, res, {
+      action: "audit.exported",
+      metadata: { filters: { actorId, action, target, from: from?.toISOString(), to: to?.toISOString() }, exportedRows: rows.length },
     });
 
     const escape = (v: unknown): string => {

@@ -101,3 +101,31 @@ export function uaFromReq(req: { headers: Record<string, unknown> }): string | n
   const ua = req.headers["user-agent"];
   return typeof ua === "string" ? ua.slice(0, 500) : null;
 }
+
+/**
+ * Request-aware audit helper. Automatically fills:
+ *   - actorId from res.locals.user.id
+ *   - impersonatorId from res.locals.impersonator.id (set by auth middleware
+ *     when the request is using an impersonation token)
+ *   - ipAddress + userAgent from req headers
+ *
+ * Use this from controllers — the explicit `adminAudit({...})` form should
+ * only be used outside the request path (e.g. background workers, system
+ * jobs) where there's no req/res.
+ */
+type ReqLike = { headers: Record<string, unknown>; ip?: string };
+type ResLike = { locals: { user?: { id: string }; impersonator?: { id: string } } };
+
+export async function adminAuditR(
+  req: ReqLike,
+  res: ResLike,
+  input: Omit<AdminAuditInput, "actorId" | "impersonatorId" | "ipAddress" | "userAgent">,
+): Promise<void> {
+  await adminAudit({
+    ...input,
+    actorId:        res.locals.user?.id        ?? null,
+    impersonatorId: res.locals.impersonator?.id ?? null,
+    ipAddress:      ipFromReq(req),
+    userAgent:      uaFromReq(req),
+  });
+}

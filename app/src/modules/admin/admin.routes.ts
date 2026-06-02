@@ -16,6 +16,12 @@ import * as apiKeys    from "./apiKeys.controller";
 import * as webhooks   from "./webhooks.controller";
 import * as ann        from "./announcements.controller";
 import * as settings   from "./settings.controller";
+import * as jobs       from "./jobs.controller";
+import * as deps       from "./dependencies.controller";
+import * as security   from "./security.controller";
+import * as templates  from "./templates.controller";
+import * as adminTeam  from "./adminTeam.controller";
+import * as modq       from "./moderationQueue.controller";
 
 export const adminRouter = Router();
 
@@ -141,4 +147,32 @@ adminRouter.get(   "/settings",                       requirePermission("setting
 adminRouter.get(   "/settings/:key",                  requirePermission("settings","read"),  settings.getSetting);
 adminRouter.put(   "/settings/:key",                  requirePermission("settings","write"), settings.upsertSetting);
 adminRouter.delete("/settings/:key",                  requirePermission("settings","write"), settings.deleteSetting);
+
+// M9 — jobs + dependency health
+adminRouter.get(   "/jobs",                           requirePermission("settings","read"), jobs.getJobs);
+adminRouter.post(  "/jobs/:name/retry",               requirePermission("settings","write"), jobs.retryJob);
+adminRouter.get(   "/health/dependencies",            requirePermission("settings","read"), deps.getDependencies);
+
+// M10 — security policies + events
+adminRouter.get(   "/security/policies",              requirePermission("security","read"),  security.getPolicies);
+adminRouter.patch( "/security/policies",              requirePermissionWithStepUp("security","write"), security.setPolicy);
+adminRouter.get(   "/security/events",                requirePermission("security","read"),  security.listSecurityEvents);
+
+// M14 — notification templates + admin alerts
+adminRouter.get(   "/notification-templates",         requirePermission("settings","read"),  templates.listTemplates);
+adminRouter.get(   "/notification-templates/:id",     requirePermission("settings","read"),  templates.getTemplate);
+adminRouter.post(  "/notification-templates",         requirePermission("settings","write"), templates.createTemplate);
+adminRouter.patch( "/notification-templates/:id",     requirePermission("settings","write"), templates.updateTemplate);
+adminRouter.delete("/notification-templates/:id",     requirePermission("settings","write"), templates.deleteTemplate);
+adminRouter.get(   "/alerts",                         requirePermission("settings","read"),  templates.listAdminAlerts);
+adminRouter.post(  "/alerts/:id/ack",                 requirePermission("settings","write"), templates.ackAlert);
+
+// M15 — admin team
+adminRouter.get(   "/admin-team",                     requirePermission("roles","read"),    adminTeam.listAdminTeam);
+adminRouter.post(  "/admin-team/:userId/reviewed",    requirePermissionWithStepUp("roles","write"), adminTeam.markReviewed);
+
+// M7 — generic moderation queue
+adminRouter.get(   "/moderation/queue",               requirePermission("moderation","read"), modq.listQueue);
+adminRouter.post(  "/moderation/queue",               requirePermission("moderation","act"),  modq.createQueueItem);
+adminRouter.patch( "/moderation/queue/:id",           requirePermission("moderation","act"),  modq.reviewQueueItem);
 

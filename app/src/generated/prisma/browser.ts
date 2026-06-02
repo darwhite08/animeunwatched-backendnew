@@ -292,3 +292,18 @@ export type Announcement = Prisma.AnnouncementModel
  * 
  */
 export type AdminSetting = Prisma.AdminSettingModel
+/**
+ * Model ModerationItem
+ * 
+ */
+export type ModerationItem = Prisma.ModerationItemModel
+/**
+ * Model NotificationTemplate
+ * 
+ */
+export type NotificationTemplate = Prisma.NotificationTemplateModel
+/**
+ * Model AdminAlert
+ * 
+ */
+export type AdminAlert = Prisma.AdminAlertModel

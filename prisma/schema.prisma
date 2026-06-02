@@ -1099,3 +1099,56 @@ model AdminSetting {
   updatedAt   DateTime @updatedAt
 }
 
+// Generic moderation queue. Source-agnostic: anything that needs human review
+// (auto-flagged posts, spam suspects, abuse reports) becomes a row here.
+// Status transitions: PENDING → APPROVED | REJECTED | REMOVED.
+model ModerationItem {
+  id         String   @id @default(cuid())
+  targetType String              // "Post" | "PostComment" | "Club" | "User" | ...
+  targetId   String
+  reason     String              // why it landed in the queue
+  source     String   @default("manual")  // "manual" | "auto_filter" | "user_report"
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED | REMOVED
+  reviewerId String?
+  reviewedAt DateTime?
+  reviewNote String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([targetType, targetId])
+}
+
+// User-facing notification templates so admins don't hardcode email/in-app copy.
+model NotificationTemplate {
+  id          String   @id @default(cuid())
+  key         String   @unique           // e.g. "welcome", "password_reset"
+  channel     String                      // "email" | "in_app" | "both"
+  subject     String?
+  body        String                      // template string, {{var}} interpolated
+  description String?
+  isSystem    Boolean  @default(false)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Operational alert surfaced in the admin overview. Emitted by anomaly
+// detection, high-error-rate watchers, expiring-trials sweepers, etc.
+model AdminAlert {
+  id          String   @id @default(cuid())
+  severity    String                      // "info" | "warning" | "critical"
+  category    String                      // "security" | "billing" | "uptime" | "moderation"
+  title       String
+  body        String?
+  link        String?                     // /admin/... destination
+  metadata    Json?
+  acknowledgedAt DateTime?
+  acknowledgedBy String?
+  createdAt   DateTime @default(now())
+
+  @@index([acknowledgedAt, createdAt])
+  @@index([severity])
+}
+
