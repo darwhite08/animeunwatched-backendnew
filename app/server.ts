@@ -7,6 +7,8 @@ import { startJobs } from "./src/jobs";
 import { prisma } from "./src/config/prisma";
 import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
+import { ensureAdminSeed } from "./src/lib/adminSeed";
+import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
 
 // Catch unhandled promise rejections so the process doesn't silently die
 process.on("unhandledRejection", (reason) => {
@@ -32,6 +34,18 @@ setInterval(() => {
   try { broadcastAdminAnalyticsLive(getLiveSnapshot()) }
   catch (err) { console.error("[analytics-ticker] emit failed:", err) }
 }, 5_000).unref();
+
+// Admin RBAC seed — idempotent. Runs after `prisma db push` completes (CMD chain).
+ensureAdminSeed()
+  .then(() => console.log("[admin-seed] permissions + roles synced"))
+  .catch((err: unknown) => console.error("[admin-seed] failed:", err));
+
+// Hourly cleanup of expired step-up tokens
+setInterval(() => {
+  purgeExpiredStepUpTokens().catch((err: unknown) =>
+    console.error("[stepup-purge] failed:", err),
+  );
+}, 60 * 60 * 1000).unref();
 
 server.listen(env.PORT, () => {
   console.log(`[${env.NODE_ENV}] Server on http://localhost:${env.PORT}`);

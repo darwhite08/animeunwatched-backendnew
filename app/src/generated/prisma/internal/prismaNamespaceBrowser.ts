@@ -86,7 +86,15 @@ export const ModelName = {
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
   ActivityRepost: 'ActivityRepost',
-  Reply: 'Reply'
+  Reply: 'Reply',
+  Permission: 'Permission',
+  AdminRole: 'AdminRole',
+  RolePermission: 'RolePermission',
+  UserAdminRole: 'UserAdminRole',
+  AuditLog: 'AuditLog',
+  UserInvite: 'UserInvite',
+  TotpSecret: 'TotpSecret',
+  StepUpToken: 'StepUpToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -578,6 +586,107 @@ export const ReplyScalarFieldEnum = {
 } as const
 
 export type ReplyScalarFieldEnum = (typeof ReplyScalarFieldEnum)[keyof typeof ReplyScalarFieldEnum]
+
+
+export const PermissionScalarFieldEnum = {
+  id: 'id',
+  resource: 'resource',
+  action: 'action',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+export const AdminRoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isSystem: 'isSystem',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdminRoleScalarFieldEnum = (typeof AdminRoleScalarFieldEnum)[keyof typeof AdminRoleScalarFieldEnum]
+
+
+export const RolePermissionScalarFieldEnum = {
+  roleId: 'roleId',
+  permissionId: 'permissionId',
+  createdAt: 'createdAt'
+} as const
+
+export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
+
+
+export const UserAdminRoleScalarFieldEnum = {
+  userId: 'userId',
+  roleId: 'roleId',
+  grantedBy: 'grantedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type UserAdminRoleScalarFieldEnum = (typeof UserAdminRoleScalarFieldEnum)[keyof typeof UserAdminRoleScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  impersonatorId: 'impersonatorId',
+  action: 'action',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  prevHash: 'prevHash',
+  integrityHash: 'integrityHash',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const UserInviteScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  tokenHash: 'tokenHash',
+  inviterId: 'inviterId',
+  roleName: 'roleName',
+  expiresAt: 'expiresAt',
+  acceptedAt: 'acceptedAt',
+  acceptedBy: 'acceptedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type UserInviteScalarFieldEnum = (typeof UserInviteScalarFieldEnum)[keyof typeof UserInviteScalarFieldEnum]
+
+
+export const TotpSecretScalarFieldEnum = {
+  userId: 'userId',
+  secretBase32: 'secretBase32',
+  enabled: 'enabled',
+  backupCodes: 'backupCodes',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TotpSecretScalarFieldEnum = (typeof TotpSecretScalarFieldEnum)[keyof typeof TotpSecretScalarFieldEnum]
+
+
+export const StepUpTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  purpose: 'purpose',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type StepUpTokenScalarFieldEnum = (typeof StepUpTokenScalarFieldEnum)[keyof typeof StepUpTokenScalarFieldEnum]
 
 
 export const SortOrder = {

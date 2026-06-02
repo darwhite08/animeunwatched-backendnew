@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as ctrl from "./auth.controller";
+import * as totp from "./totp.controller";
 import { requireAuth } from "../../middlewares/auth.middleware";
 import { turnstile } from "../../middlewares/turnstile.middleware";
 
@@ -45,3 +46,9 @@ authRouter.post("/apple",  ctrl.appleLogin);
 // OAuth — redirect flow (works on ALL devices including mobile)
 authRouter.get("/google/redirect",  ctrl.googleRedirect);
 authRouter.get("/google/callback",  ctrl.googleCallback);
+
+// TOTP (MFA) — enrollment + management
+authRouter.get( "/totp/status",   requireAuth, totp.getTotpStatus);
+authRouter.post("/totp/setup",    requireAuth, totp.setupTotp);
+authRouter.post("/totp/verify",   requireAuth, totp.verifyTotpEnroll);
+authRouter.post("/totp/disable", requireAuth, totp.disableTotp);

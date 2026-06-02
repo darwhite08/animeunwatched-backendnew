@@ -122,6 +122,32 @@ export function getAnalyticsLive(_req: Request, res: Response): void {
   res.status(200).json(getLiveSnapshot())
 }
 
+export async function getTimeSeries(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const days = Number(req.query.days) || 30
+    res.status(200).json({ data: await service.getTimeSeries({ days }) })
+  } catch (err) { next(err) }
+}
+
+export async function getTopPerformers(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const days = Number(req.query.days) || 7
+    res.status(200).json(await service.getTopPerformers({ days }))
+  } catch (err) { next(err) }
+}
+
+export async function getFunnel(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json({ data: await service.getFunnel() })
+  } catch (err) { next(err) }
+}
+
+export async function getSystemMetrics(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.getSystemMetrics())
+  } catch (err) { next(err) }
+}
+
 /**
  * GA4 realtime snapshot. Returns 200 with { configured: false } when
  * the env vars aren't set so the frontend can render the "connect GA4"

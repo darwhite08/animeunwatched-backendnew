@@ -299,6 +299,189 @@ export async function getMetricsOverview() {
   }
 }
 
+// ─── getTimeSeries ────────────────────────────────────────────────────────────
+
+/**
+ * Daily counts for the major event types over a configurable window.
+ * Returns a row per day for the whole range (zero-filled) so the chart
+ * doesn't have gaps. Used by the enterprise overview tile.
+ */
+export async function getTimeSeries(opts: { days: number }) {
+  const days = Math.min(180, Math.max(1, Math.floor(opts.days || 30)))
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+
+  const rows = await prisma.$queryRaw<Array<{
+    day: Date
+    signups:    bigint
+    posts:      bigint
+    activities: bigint
+    likes:      bigint
+    comments:   bigint
+  }>>`
+    WITH days AS (
+      SELECT generate_series(
+        date_trunc('day', ${since}::timestamptz),
+        date_trunc('day', NOW()),
+        '1 day'::interval
+      )::date AS day
+    )
+    SELECT
+      d.day,
+      COALESCE((SELECT COUNT(*) FROM "User"        WHERE date_trunc('day', "createdAt") = d.day), 0)::bigint AS signups,
+      COALESCE((SELECT COUNT(*) FROM "Post"        WHERE date_trunc('day', "createdAt") = d.day AND "deletedAt" IS NULL), 0)::bigint AS posts,
+      COALESCE((SELECT COUNT(*) FROM "Activity"    WHERE date_trunc('day', "createdAt") = d.day AND "deletedAt" IS NULL), 0)::bigint AS activities,
+      COALESCE((SELECT COUNT(*) FROM "PostLike"    WHERE date_trunc('day', "createdAt"::timestamptz) = d.day), 0)::bigint AS likes,
+      COALESCE((SELECT COUNT(*) FROM "PostComment" WHERE date_trunc('day', "createdAt") = d.day), 0)::bigint AS comments
+    FROM days d
+    ORDER BY d.day
+  `
+
+  return rows.map(r => ({
+    day:        r.day.toISOString().slice(0, 10),
+    signups:    Number(r.signups),
+    posts:      Number(r.posts),
+    activities: Number(r.activities),
+    likes:      Number(r.likes),
+    comments:   Number(r.comments),
+  }))
+}
+
+// ─── getTopPerformers ─────────────────────────────────────────────────────────
+
+export async function getTopPerformers(opts: { days: number }) {
+  const days = Math.min(180, Math.max(1, Math.floor(opts.days || 7)))
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+
+  const [topUsers, topPosts] = await Promise.all([
+    prisma.user.findMany({
+      orderBy: { reputation: "desc" },
+      take: 10,
+      select: {
+        id: true, username: true, displayName: true, avatarUrl: true,
+        reputation: true, role: true, isBanned: true, createdAt: true,
+        _count: { select: { posts: true, followers: true } },
+      },
+    }),
+    prisma.post.findMany({
+      where:   { deletedAt: null, createdAt: { gte: since } },
+      orderBy: { likes: { _count: "desc" } },
+      take:    10,
+      select: {
+        id: true, content: true, createdAt: true,
+        author: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
+        _count: { select: { likes: true, comments: true } },
+      },
+    }),
+  ])
+
+  return {
+    topUsers: topUsers.map(u => ({
+      id:          u.id,
+      username:    u.username,
+      displayName: u.displayName,
+      avatarUrl:   u.avatarUrl,
+      reputation:  u.reputation,
+      role:        u.role,
+      isBanned:    u.isBanned,
+      posts:       u._count.posts,
+      followers:   u._count.followers,
+    })),
+    topPosts: topPosts.map(p => ({
+      id:        p.id,
+      content:   p.content.slice(0, 140),
+      createdAt: p.createdAt.toISOString(),
+      author:    p.author,
+      likes:     p._count.likes,
+      comments:  p._count.comments,
+    })),
+  }
+}
+
+// ─── getFunnel ────────────────────────────────────────────────────────────────
+
+/**
+ * Acquisition funnel: signups → users who posted at least once →
+ * users who completed at least one anime → users active in last 7d.
+ * Each stage is a strict subset of the previous one. Cheap counts.
+ */
+export async function getFunnel() {
+  const day7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+
+  const [signups, hasPosted, hasCompleted, activeRecent] = await prisma.$transaction([
+    prisma.user.count(),
+    prisma.user.count({
+      where: { posts: { some: { deletedAt: null } } },
+    }),
+    prisma.user.count({
+      where: { listEntries: { some: { status: "COMPLETED" } } },
+    }),
+    prisma.user.count({
+      where: {
+        OR: [
+          { posts:      { some: { createdAt: { gte: day7 }, deletedAt: null } } },
+          { activities: { some: { createdAt: { gte: day7 }, deletedAt: null } } },
+        ],
+      },
+    }),
+  ])
+
+  return [
+    { stage: "Signed up",        users: signups,      pct: 100 },
+    { stage: "Posted at least 1", users: hasPosted,    pct: signups ? Math.round((hasPosted    / signups) * 100) : 0 },
+    { stage: "Completed an anime", users: hasCompleted, pct: signups ? Math.round((hasCompleted / signups) * 100) : 0 },
+    { stage: "Active in last 7d",  users: activeRecent, pct: signups ? Math.round((activeRecent / signups) * 100) : 0 },
+  ]
+}
+
+// ─── getSystemMetrics ─────────────────────────────────────────────────────────
+
+/**
+ * Cheap system snapshot. Real CPU/memory live in CloudWatch — surface
+ * just what the API can compute itself: DB latency, in-process memory,
+ * uptime, total event counts.
+ */
+export async function getSystemMetrics() {
+  const start = Date.now()
+  let dbStatus = "ok"
+  let dbLatencyMs = 0
+  try {
+    await prisma.$queryRaw`SELECT 1`
+    dbLatencyMs = Date.now() - start
+  } catch {
+    dbStatus = "error"
+  }
+
+  // 10 sequential pings to compute a rough p50/p99 — cheap, runs in ms
+  const samples: number[] = []
+  for (let i = 0; i < 10; i++) {
+    const t = Date.now()
+    try { await prisma.$queryRaw`SELECT 1` } catch { /* ignore */ }
+    samples.push(Date.now() - t)
+  }
+  samples.sort((a, b) => a - b)
+  const p50 = samples[Math.floor(samples.length * 0.5)]
+  const p99 = samples[Math.floor(samples.length * 0.99)] ?? samples[samples.length - 1]
+
+  const mem = process.memoryUsage()
+
+  return {
+    db: {
+      status:    dbStatus,
+      latencyMs: dbLatencyMs,
+      p50,
+      p99,
+    },
+    process: {
+      uptimeSec: Math.floor(process.uptime()),
+      rssMB:     Math.round(mem.rss        / 1024 / 1024),
+      heapMB:    Math.round(mem.heapUsed   / 1024 / 1024),
+      heapTotalMB: Math.round(mem.heapTotal / 1024 / 1024),
+      node:      process.version,
+    },
+    ts: new Date().toISOString(),
+  }
+}
+
 // ─── listReports ──────────────────────────────────────────────────────────────
 
 export async function listReports(page = 1, limit = 20, status?: string) {

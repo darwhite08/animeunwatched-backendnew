@@ -207,3 +207,43 @@ export type ActivityRepost = Prisma.ActivityRepostModel
  * 
  */
 export type Reply = Prisma.ReplyModel
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model AdminRole
+ * 
+ */
+export type AdminRole = Prisma.AdminRoleModel
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = Prisma.RolePermissionModel
+/**
+ * Model UserAdminRole
+ * 
+ */
+export type UserAdminRole = Prisma.UserAdminRoleModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model UserInvite
+ * 
+ */
+export type UserInvite = Prisma.UserInviteModel
+/**
+ * Model TotpSecret
+ * 
+ */
+export type TotpSecret = Prisma.TotpSecretModel
+/**
+ * Model StepUpToken
+ * 
+ */
+export type StepUpToken = Prisma.StepUpTokenModel

@@ -800,3 +800,127 @@ model Reply {
   @@index([activityId, createdAt])
   @@index([authorId])
 }
+
+// ---------------------------------------------------------------------------
+// Admin Foundation — RBAC, Audit, Invites, TOTP, Step-up
+// All additive; existing User.role enum stays as coarse end-user-app gating.
+// AdminRole/Permission tables grant fine-grained admin capabilities.
+// ---------------------------------------------------------------------------
+
+model Permission {
+  id          String   @id @default(cuid())
+  resource    String   // e.g. "users", "billing", "flags"
+  action      String   // e.g. "read", "suspend", "refund", "kill"
+  description String?
+  createdAt   DateTime @default(now())
+
+  roles RolePermission[]
+
+  @@unique([resource, action])
+  @@index([resource])
+}
+
+model AdminRole {
+  id          String   @id @default(cuid())
+  name        String   @unique          // SuperAdmin, Support, BillingAdmin, Moderator, ReadOnlyAdmin
+  description String?
+  isSystem    Boolean  @default(false)  // system roles cannot be deleted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  permissions RolePermission[]
+  users       UserAdminRole[]
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  createdAt    DateTime @default(now())
+
+  role       AdminRole  @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+}
+
+model UserAdminRole {
+  userId    String
+  roleId    String
+  grantedBy String?  // actorId who granted (null = system seed)
+  createdAt DateTime @default(now())
+
+  role AdminRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@index([roleId])
+}
+
+// Append-only audit log. Writes happen exclusively through lib/audit.ts.
+// Each entry's integrityHash = SHA-256(JSON.stringify({prevHash, ...entry})) —
+// chained from the previous row so tampering is detectable.
+model AuditLog {
+  id             String   @id @default(cuid())
+  actorId        String?  // userId taking the action (null = system)
+  impersonatorId String?  // userId actually driving the session, if impersonation
+  action         String   // e.g. "user.ban", "role.grant", "flag.kill"
+  targetType     String?  // e.g. "User", "Post"
+  targetId       String?
+  metadata       Json?    // { before, after, reason, ... }
+  ipAddress      String?
+  userAgent      String?
+  prevHash       String?  // integrityHash of the previous AuditLog row
+  integrityHash  String   @unique
+  createdAt      DateTime @default(now())
+
+  @@index([actorId, createdAt])
+  @@index([action, createdAt])
+  @@index([targetType, targetId])
+  @@index([createdAt])
+}
+
+// Admin-initiated invites that create new admin users (or upgrade an existing
+// account to admin). Token sent via email is hashed in storage.
+model UserInvite {
+  id         String   @id @default(cuid())
+  email      String
+  tokenHash  String   @unique
+  inviterId  String
+  roleName   String?  // AdminRole.name to assign on accept
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  acceptedBy String?  // userId that consumed the invite
+  createdAt  DateTime @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
+}
+
+// TOTP secret per user. Stored base32. enabled=true only after first successful
+// verify. backupCodes is a JSON array of SHA-256-hashed single-use codes.
+model TotpSecret {
+  userId       String   @id
+  secretBase32 String
+  enabled      Boolean  @default(false)
+  backupCodes  Json?
+  lastUsedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Short-lived "step-up" credential issued after re-authentication. Required
+// for high-risk admin actions (role grants, kill switches, DSAR delete,
+// impersonation start). Stored hashed.
+model StepUpToken {
+  id         String   @id @default(cuid())
+  userId     String
+  tokenHash  String   @unique
+  purpose    String   // free-form scope tag, e.g. "role.grant"
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
