@@ -452,7 +452,10 @@ export const ModelName = {
   Subscription: 'Subscription',
   Invoice: 'Invoice',
   BillingEvent: 'BillingEvent',
-  ReportSchedule: 'ReportSchedule'
+  ReportSchedule: 'ReportSchedule',
+  IpBlock: 'IpBlock',
+  ContentRule: 'ContentRule',
+  ContentFingerprint: 'ContentFingerprint'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -468,7 +471,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5134,6 +5137,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IpBlock: {
+      payload: Prisma.$IpBlockPayload<ExtArgs>
+      fields: Prisma.IpBlockFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IpBlockFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IpBlockFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        findFirst: {
+          args: Prisma.IpBlockFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IpBlockFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        findMany: {
+          args: Prisma.IpBlockFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>[]
+        }
+        create: {
+          args: Prisma.IpBlockCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        createMany: {
+          args: Prisma.IpBlockCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IpBlockCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>[]
+        }
+        delete: {
+          args: Prisma.IpBlockDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        update: {
+          args: Prisma.IpBlockUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        deleteMany: {
+          args: Prisma.IpBlockDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IpBlockUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IpBlockUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>[]
+        }
+        upsert: {
+          args: Prisma.IpBlockUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpBlockPayload>
+        }
+        aggregate: {
+          args: Prisma.IpBlockAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIpBlock>
+        }
+        groupBy: {
+          args: Prisma.IpBlockGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpBlockGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IpBlockCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpBlockCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContentRule: {
+      payload: Prisma.$ContentRulePayload<ExtArgs>
+      fields: Prisma.ContentRuleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContentRuleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContentRuleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        findFirst: {
+          args: Prisma.ContentRuleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContentRuleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        findMany: {
+          args: Prisma.ContentRuleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>[]
+        }
+        create: {
+          args: Prisma.ContentRuleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        createMany: {
+          args: Prisma.ContentRuleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContentRuleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>[]
+        }
+        delete: {
+          args: Prisma.ContentRuleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        update: {
+          args: Prisma.ContentRuleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        deleteMany: {
+          args: Prisma.ContentRuleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContentRuleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContentRuleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>[]
+        }
+        upsert: {
+          args: Prisma.ContentRuleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentRulePayload>
+        }
+        aggregate: {
+          args: Prisma.ContentRuleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContentRule>
+        }
+        groupBy: {
+          args: Prisma.ContentRuleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentRuleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContentRuleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentRuleCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContentFingerprint: {
+      payload: Prisma.$ContentFingerprintPayload<ExtArgs>
+      fields: Prisma.ContentFingerprintFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContentFingerprintFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContentFingerprintFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        findFirst: {
+          args: Prisma.ContentFingerprintFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContentFingerprintFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        findMany: {
+          args: Prisma.ContentFingerprintFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>[]
+        }
+        create: {
+          args: Prisma.ContentFingerprintCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        createMany: {
+          args: Prisma.ContentFingerprintCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContentFingerprintCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>[]
+        }
+        delete: {
+          args: Prisma.ContentFingerprintDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        update: {
+          args: Prisma.ContentFingerprintUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContentFingerprintDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContentFingerprintUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContentFingerprintUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContentFingerprintUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentFingerprintPayload>
+        }
+        aggregate: {
+          args: Prisma.ContentFingerprintAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContentFingerprint>
+        }
+        groupBy: {
+          args: Prisma.ContentFingerprintGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentFingerprintGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContentFingerprintCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentFingerprintCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -6035,6 +6260,47 @@ export const ReportScheduleScalarFieldEnum = {
 export type ReportScheduleScalarFieldEnum = (typeof ReportScheduleScalarFieldEnum)[keyof typeof ReportScheduleScalarFieldEnum]
 
 
+export const IpBlockScalarFieldEnum = {
+  ip: 'ip',
+  reason: 'reason',
+  blockedBy: 'blockedBy',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type IpBlockScalarFieldEnum = (typeof IpBlockScalarFieldEnum)[keyof typeof IpBlockScalarFieldEnum]
+
+
+export const ContentRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  kind: 'kind',
+  pattern: 'pattern',
+  target: 'target',
+  severity: 'severity',
+  enabled: 'enabled',
+  matchCount: 'matchCount',
+  lastMatchAt: 'lastMatchAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContentRuleScalarFieldEnum = (typeof ContentRuleScalarFieldEnum)[keyof typeof ContentRuleScalarFieldEnum]
+
+
+export const ContentFingerprintScalarFieldEnum = {
+  hash: 'hash',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  matchedRule: 'matchedRule',
+  decision: 'decision',
+  createdAt: 'createdAt'
+} as const
+
+export type ContentFingerprintScalarFieldEnum = (typeof ContentFingerprintScalarFieldEnum)[keyof typeof ContentFingerprintScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -6399,6 +6665,9 @@ export type GlobalOmitConfig = {
   invoice?: Prisma.InvoiceOmit
   billingEvent?: Prisma.BillingEventOmit
   reportSchedule?: Prisma.ReportScheduleOmit
+  ipBlock?: Prisma.IpBlockOmit
+  contentRule?: Prisma.ContentRuleOmit
+  contentFingerprint?: Prisma.ContentFingerprintOmit
 }
 
 /* Types for Logging */

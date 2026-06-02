@@ -3,6 +3,7 @@ import { cleanupRefreshTokens } from "./cleanupRefreshTokens.job"
 import { startWebhookDispatcher } from "./webhookDispatcher.job"
 import { runDataRetention } from "./dataRetention.job"
 import { runReportScheduler } from "./reportScheduler.job"
+import { runAuditChainCheck } from "./auditChainCheck.job"
 import { registerJob, instrument } from "../lib/jobRegistry"
 
 export function startJobs() {
@@ -23,11 +24,24 @@ export function startJobs() {
     name: "reportScheduler", description: "Run any due ReportSchedule entries (hourly check)",
     intervalMs: 60 * 60_000,  handler: runReportScheduler,
   })
+  registerJob({
+    name: "auditChainCheck", description: "Verify AuditLog hash chain integrity (daily, alerts on break)",
+    intervalMs: 24 * 60 * 60_000, handler: runAuditChainCheck,
+  })
+  registerJob({
+    name: "purgeExpiredIpBlocks", description: "Delete expired IpBlock rows (hourly)",
+    intervalMs: 60 * 60_000, handler: async () => {
+      const { prisma } = await import("../config/prisma")
+      const { count } = await prisma.ipBlock.deleteMany({ where: { expiresAt: { lt: new Date() } } })
+      return { purged: count }
+    },
+  })
 
-  const cleanup   = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
-  const refresh   = instrument("refreshTopAnime",      refreshTopAnime)
-  const retention = instrument("dataRetention",        runDataRetention)
-  const reports   = instrument("reportScheduler",      runReportScheduler)
+  const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
+  const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
+  const retention  = instrument("dataRetention",        runDataRetention)
+  const reports    = instrument("reportScheduler",      runReportScheduler)
+  const chainCheck = instrument("auditChainCheck",      runAuditChainCheck)
 
   // Cleanup every 6 hours
   setInterval(cleanup, 6 * 60 * 60_000)
@@ -42,6 +56,10 @@ export function startJobs() {
 
   // Report scheduler — hourly check
   setInterval(reports, 60 * 60_000)
+
+  // Audit chain integrity — once on startup, then every 24h
+  chainCheck().catch(console.error)
+  setInterval(chainCheck, 24 * 60 * 60_000)
 
   // Webhook dispatcher — polls WebhookDelivery rows every 30s
   startWebhookDispatcher()

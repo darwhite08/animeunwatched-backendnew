@@ -1257,3 +1257,51 @@ model ReportSchedule {
   updatedAt   DateTime @updatedAt
 }
 
+// ---------------------------------------------------------------------------
+// Security / inspection / moderation hardening
+// ---------------------------------------------------------------------------
+
+// Temporary IP block. Brute-force protection + admin manual ban. The
+// auth middleware checks this table before processing a request.
+model IpBlock {
+  ip         String   @id
+  reason     String                    // "bruteforce" | "manual" | "anomaly"
+  blockedBy  String?
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+// Auto-flag rule for content moderation. Posts/comments matching any
+// active rule land in the moderation queue automatically.
+model ContentRule {
+  id          String   @id @default(cuid())
+  name        String                    // human-readable
+  kind        String                    // "keyword" | "regex" | "min_length" | "link_count"
+  pattern     String                    // value depends on kind (the keyword, regex, threshold)
+  target      String   @default("post") // "post" | "comment" | "blog" | "review"
+  severity    String   @default("flag") // "flag" (queue) | "block" (refuse outright) | "shadow"
+  enabled     Boolean  @default(true)
+  matchCount  Int      @default(0)
+  lastMatchAt DateTime?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([enabled, target])
+}
+
+// Hash of every flagged piece of content. Lets the matcher catch
+// re-uses of previously-rejected text without re-running every rule.
+model ContentFingerprint {
+  hash        String   @id              // SHA-256 of normalized content
+  targetType  String                    // "Post" | "Comment" | ...
+  targetId    String
+  matchedRule String?
+  decision    String                    // "flag" | "removed" | "approved"
+  createdAt   DateTime @default(now())
+
+  @@index([targetType, targetId])
+}
+

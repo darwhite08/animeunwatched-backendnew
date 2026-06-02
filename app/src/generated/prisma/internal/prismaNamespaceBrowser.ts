@@ -111,7 +111,10 @@ export const ModelName = {
   Subscription: 'Subscription',
   Invoice: 'Invoice',
   BillingEvent: 'BillingEvent',
-  ReportSchedule: 'ReportSchedule'
+  ReportSchedule: 'ReportSchedule',
+  IpBlock: 'IpBlock',
+  ContentRule: 'ContentRule',
+  ContentFingerprint: 'ContentFingerprint'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -990,6 +993,47 @@ export const ReportScheduleScalarFieldEnum = {
 } as const
 
 export type ReportScheduleScalarFieldEnum = (typeof ReportScheduleScalarFieldEnum)[keyof typeof ReportScheduleScalarFieldEnum]
+
+
+export const IpBlockScalarFieldEnum = {
+  ip: 'ip',
+  reason: 'reason',
+  blockedBy: 'blockedBy',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type IpBlockScalarFieldEnum = (typeof IpBlockScalarFieldEnum)[keyof typeof IpBlockScalarFieldEnum]
+
+
+export const ContentRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  kind: 'kind',
+  pattern: 'pattern',
+  target: 'target',
+  severity: 'severity',
+  enabled: 'enabled',
+  matchCount: 'matchCount',
+  lastMatchAt: 'lastMatchAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContentRuleScalarFieldEnum = (typeof ContentRuleScalarFieldEnum)[keyof typeof ContentRuleScalarFieldEnum]
+
+
+export const ContentFingerprintScalarFieldEnum = {
+  hash: 'hash',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  matchedRule: 'matchedRule',
+  decision: 'decision',
+  createdAt: 'createdAt'
+} as const
+
+export type ContentFingerprintScalarFieldEnum = (typeof ContentFingerprintScalarFieldEnum)[keyof typeof ContentFingerprintScalarFieldEnum]
 
 
 export const SortOrder = {

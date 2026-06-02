@@ -332,3 +332,18 @@ export type BillingEvent = Prisma.BillingEventModel
  * 
  */
 export type ReportSchedule = Prisma.ReportScheduleModel
+/**
+ * Model IpBlock
+ * 
+ */
+export type IpBlock = Prisma.IpBlockModel
+/**
+ * Model ContentRule
+ * 
+ */
+export type ContentRule = Prisma.ContentRuleModel
+/**
+ * Model ContentFingerprint
+ * 
+ */
+export type ContentFingerprint = Prisma.ContentFingerprintModel

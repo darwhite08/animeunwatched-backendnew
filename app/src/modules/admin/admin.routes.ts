@@ -28,6 +28,9 @@ import * as undo       from "./undo.controller";
 import * as search     from "./search.controller";
 import * as reports    from "./reports.controller";
 import * as mailer     from "./mailer.controller";
+import * as inspect    from "./inspect.controller";
+import * as cRules     from "./contentRules.controller";
+import * as modAct     from "./modActivity.controller";
 
 export const adminRouter = Router();
 
@@ -219,4 +222,24 @@ adminRouter.post(  "/billing/webhooks/:provider",      billing.receiveBillingWeb
 // Mailer status + test-send
 adminRouter.get(   "/mailer/status",                   requirePermission("settings","read"),  mailer.getMailerStatus);
 adminRouter.post(  "/mailer/test",                     requirePermission("settings","write"), mailer.sendTestEmail);
+
+// Inspection / forensics
+adminRouter.get(   "/inspect/search",                  requirePermission("audit","read"),     inspect.inspectSearch);
+adminRouter.get(   "/inspect/ip/:ip",                  requirePermission("security","read"),  inspect.getIpDossier);
+adminRouter.get(   "/inspect/users/:userId/risk",      requirePermission("users","read"),     inspect.getUserRisk);
+adminRouter.get(   "/inspect/users/:userId/similar",   requirePermission("users","read"),     inspect.findSimilarAccounts);
+adminRouter.get(   "/inspect/ip-blocks",               requirePermission("security","read"),  inspect.listIpBlocks);
+adminRouter.post(  "/inspect/ip-blocks",               requirePermissionWithStepUp("security","write"), inspect.manualBlockIp);
+adminRouter.delete("/inspect/ip-blocks/:ip",           requirePermissionWithStepUp("security","write"), inspect.unblockIp);
+
+// Content auto-flag rules
+adminRouter.get(   "/content/rules",                   requirePermission("moderation","read"), cRules.listRules);
+adminRouter.post(  "/content/rules",                   requirePermission("moderation","act"),  cRules.createRule);
+adminRouter.patch( "/content/rules/:id",               requirePermission("moderation","act"),  cRules.updateRule);
+adminRouter.delete("/content/rules/:id",               requirePermission("moderation","act"),  cRules.deleteRule);
+adminRouter.post(  "/content/rules/test",              requirePermission("moderation","read"), cRules.testRule);
+
+// Moderator activity dashboard + bulk queue actions
+adminRouter.get(   "/moderation/activity",             requirePermission("moderation","read"), modAct.getModActivity);
+adminRouter.post(  "/moderation/bulk",                 requirePermission("moderation","act"),  modAct.bulkModerate);
 
