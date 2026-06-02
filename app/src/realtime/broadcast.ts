@@ -12,6 +12,7 @@ import { getIo } from "./io-instance"
 // ── Room names ───────────────────────────────────────────────────────────────
 
 export const FEED_ROOM            = "feed"
+export const ADMIN_ROOM           = "admin"
 export const animeRoom    = (malId: number) => `anime:${malId}`
 export const clubRoom     = (clubId: string) => `club:${clubId}`
 export const threadRoom   = (threadId: string) => `thread:${threadId}`
@@ -81,6 +82,49 @@ export type PlatformActivity = {
 
 export function broadcastPlatformActivity(activity: PlatformActivity): void {
   emit(FEED_ROOM, "activity.new", activity)
+}
+
+// ── Admin events — emitted ONLY to the `admin` room ─────────────────────────
+//
+// Subscribers: the admin dashboard at admin-dashboard.kaiveron.com. Every
+// emit is also a hint for the admin React Query cache to invalidate, so the
+// payload itself is minimal — the client refetches authoritative data.
+
+export function broadcastAdminUserSignup(user: { id: string; username: string; displayName: string; createdAt: string | Date }): void {
+  emit(ADMIN_ROOM, "admin.user.created", {
+    id:          user.id,
+    username:    user.username,
+    displayName: user.displayName,
+    createdAt:   typeof user.createdAt === "string" ? user.createdAt : user.createdAt.toISOString(),
+  })
+}
+
+export function broadcastAdminUserBan(userId: string, banned: boolean, actorId: string): void {
+  emit(ADMIN_ROOM, banned ? "admin.user.banned" : "admin.user.unbanned", { userId, actorId, at: Date.now() })
+}
+
+export function broadcastAdminUserRole(userId: string, role: "USER" | "MOD" | "ADMIN", actorId: string): void {
+  emit(ADMIN_ROOM, "admin.user.role-changed", { userId, role, actorId, at: Date.now() })
+}
+
+export function broadcastAdminPostCreated(): void {
+  emit(ADMIN_ROOM, "admin.post.created", { at: Date.now() })
+}
+
+export function broadcastAdminPostDeleted(postId: string, actorId: string): void {
+  emit(ADMIN_ROOM, "admin.post.deleted", { postId, actorId, at: Date.now() })
+}
+
+export function broadcastAdminReportCreated(report: { id: string; targetType: string; reason: string }): void {
+  emit(ADMIN_ROOM, "admin.report.created", { ...report, at: Date.now() })
+}
+
+export function broadcastAdminReportResolved(reportId: string, status: "RESOLVED" | "DISMISSED", actorId: string): void {
+  emit(ADMIN_ROOM, "admin.report.resolved", { reportId, status, actorId, at: Date.now() })
+}
+
+export function broadcastAdminAuditEvent(type: string, userId: string | null): void {
+  emit(ADMIN_ROOM, "admin.audit.appended", { type, userId, at: Date.now() })
 }
 
 export function broadcastReviewCreated(malId: number, review: unknown): void {

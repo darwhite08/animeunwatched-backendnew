@@ -1,5 +1,6 @@
 import type { Request } from "express"
 import { prisma } from "../config/prisma"
+import { broadcastAdminAuditEvent } from "../realtime/broadcast"
 
 export type SecurityEventType =
   // ── Auth / session
@@ -74,6 +75,10 @@ export function recordSecurityEvent(
     // Audit log failure must never break the user flow
     console.error("[audit] failed to record event:", type, err)
   })
+
+  // Every audit event also pings the admin dashboard so the audit-log
+  // viewer + overview counters update live.
+  broadcastAdminAuditEvent(type, opts.userId ?? null)
 }
 
 /**

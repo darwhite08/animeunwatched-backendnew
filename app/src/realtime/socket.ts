@@ -2,6 +2,7 @@ import { Server as SocketServer } from "socket.io";
 import { Server as HttpServer } from "http";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
+import { prisma } from "../config/prisma";
 
 export function initSocket(httpServer: HttpServer) {
   const io = new SocketServer(httpServer, {
@@ -11,9 +12,12 @@ export function initSocket(httpServer: HttpServer) {
         if (!origin) { callback(null, true); return }
         const allowed = [env.CORS_ORIGIN, "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"].filter(Boolean)
         if (allowed.includes(origin)) { callback(null, true); return }
-        // Allow any local-network origin (phones on same WiFi)
         try {
           const { hostname } = new URL(origin)
+          // Any kaiveron.com subdomain (admin-dashboard, www, etc.)
+          const isKaiveron = hostname === "kaiveron.com" || hostname.endsWith(".kaiveron.com")
+          if (isKaiveron) { callback(null, true); return }
+          // Local-network (phones on same WiFi)
           const isLan = /^192\.168\.\d+\.\d+$/.test(hostname) ||
             /^10\.\d+\.\d+\.\d+$/.test(hostname) ||
             /^172\.(1[6-9]|2\d|3[01])\.\d+\.\d+$/.test(hostname)
@@ -77,6 +81,22 @@ export function initSocket(httpServer: HttpServer) {
     // Join the global feed channel so server can broadcast posts/reviews
     socket.join("feed");
     setOnline(userId);
+
+    // ── Admin room ──────────────────────────────────────────────────────────
+    // ADMIN-role users auto-join `admin` so they get live updates of signups,
+    // reports, audit events, etc. Lookup is async — done outside the main
+    // connection handler critical path. Other handlers don't depend on it.
+    void prisma.user.findUnique({
+      where:  { id: userId },
+      select: { role: true },
+    }).then((u) => {
+      if (u?.role === "ADMIN") {
+        socket.join("admin")
+        socket.data.role = "ADMIN"
+      }
+    }).catch((err) => {
+      console.error("[socket] admin role lookup failed for user", userId, err)
+    })
 
     // Snapshot of who is currently online (for status indicators) + total count
     socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });

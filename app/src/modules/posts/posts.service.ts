@@ -6,6 +6,7 @@ import { updateStreak } from "../../lib/streak";
 import { auditDelete } from "../../lib/audit";
 import {
   broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
+  broadcastAdminPostCreated, broadcastAdminPostDeleted,
   broadcastPostCommented, broadcastPostDeleted, broadcastPostComment,
 } from "../../realtime/broadcast";
 import type { CreatePostDto } from "./posts.schema";
@@ -176,6 +177,7 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
 
   // Realtime: broadcast the new post to all connected clients in the feed room
   broadcastPostCreated(post);
+  broadcastAdminPostCreated();
 
   return { post };
 }
@@ -202,6 +204,7 @@ export async function deletePost(id: string, userId: string, userRole: string) {
   });
 
   broadcastPostDeleted(id);
+  broadcastAdminPostDeleted(id, userId);
 }
 
 // ─── likePost ─────────────────────────────────────────────────────────────────

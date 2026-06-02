@@ -2,6 +2,11 @@ import { prisma } from "../../config/prisma";
 import { Prisma } from "../../generated/prisma/client";
 import { notFound, badRequest } from "../../lib/errors";
 import { auditMod, recordSecurityEvent } from "../../lib/audit";
+import {
+  broadcastAdminUserBan,
+  broadcastAdminUserRole,
+  broadcastAdminReportResolved,
+} from "../../realtime/broadcast";
 
 // ─── getStats ─────────────────────────────────────────────────────────────────
 
@@ -147,6 +152,8 @@ export async function setUserBan(opts: {
     note:       opts.reason ?? null,
   })
 
+  broadcastAdminUserBan(opts.userId, opts.banned, opts.actorId)
+
   return { user: updated }
 }
 
@@ -180,6 +187,8 @@ export async function setUserRole(opts: {
     action:       `set_role:${opts.role}`,
     extra:        { previousRole },
   })
+
+  broadcastAdminUserRole(opts.userId, opts.role, opts.actorId)
 
   return { user: updated }
 }
@@ -323,6 +332,9 @@ export async function resolveReport(reportId: string, status: "RESOLVED" | "DISM
     targetId:   reportId,
     action:     status.toLowerCase(),
   })
+
+  broadcastAdminReportResolved(reportId, status, modId)
+
   return { report }
 }
 

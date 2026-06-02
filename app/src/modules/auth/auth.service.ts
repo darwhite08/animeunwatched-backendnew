@@ -11,6 +11,7 @@ import { conflict, unauth, badRequest } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
+import { broadcastAdminUserSignup } from "../../realtime/broadcast";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
 const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID);
@@ -96,6 +97,9 @@ export async function register(dto: RegisterDto) {
     },
     select: userSelect,
   });
+
+  // Realtime signal to the admin dashboard (no-op if Socket.io isn't up yet).
+  broadcastAdminUserSignup(user);
 
   sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
 
