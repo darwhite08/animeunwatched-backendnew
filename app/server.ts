@@ -9,6 +9,7 @@ import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 import { ensureAdminSeed } from "./src/lib/adminSeed";
 import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
+import { seedPiiInventory } from "./src/lib/piiScanner";
 
 // Catch unhandled promise rejections so the process doesn't silently die
 process.on("unhandledRejection", (reason) => {
@@ -39,6 +40,11 @@ setInterval(() => {
 ensureAdminSeed()
   .then(() => console.log("[admin-seed] permissions + roles synced"))
   .catch((err: unknown) => console.error("[admin-seed] failed:", err));
+
+// PII inventory seed — idempotent. Populates the GDPR Article 30 register on first boot.
+seedPiiInventory()
+  .then((r) => console.log(`[pii-seed] ${r.added} added, ${r.existing} existing`))
+  .catch((err: unknown) => console.error("[pii-seed] failed:", err));
 
 // Hourly cleanup of expired step-up tokens
 setInterval(() => {

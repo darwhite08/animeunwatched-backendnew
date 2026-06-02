@@ -1454,3 +1454,65 @@ model SavedReply {
   @@index([category])
 }
 
+// PII inventory — every database column that may hold personal data, its
+// classification, retention obligation, and which RBAC role is allowed to
+// read it. Required for GDPR Article 30 records of processing. Auto-seeded
+// from a known-field scanner; admins can override classification/retention.
+model PiiField {
+  id              String   @id @default(cuid())
+  model           String                       // Prisma model name, e.g. "User"
+  field           String                       // column name, e.g. "email"
+  classification  String                       // "identifier" | "contact" | "sensitive" | "behavioral" | "device"
+  legalBasis      String?                      // "consent" | "contract" | "legitimate_interest" | "legal_obligation"
+  retentionDays   Int?                         // null = retain indefinitely; otherwise auto-purge by dataRetention job
+  readRoleMin     String   @default("MOD")     // minimum role that may read this field directly
+  description     String?                      // human note
+  reviewedAt      DateTime?
+  reviewedBy      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([model, field])
+  @@index([classification])
+}
+
+// Two-person approval workflow. A subject action (delete user, transfer
+// ownership, etc.) is materialized as an ApprovalRequest; the actor cannot
+// approve their own request. Once approved, the original handler is allowed
+// to proceed by checking ApprovalRequest.status == "approved" before
+// performing the side effect.
+model ApprovalRequest {
+  id             String   @id @default(cuid())
+  action         String                       // "users.delete" | "billing.refund" | ...
+  resource       String                       // free-form: "user:abc" | "invoice:inv_123"
+  payload        Json                         // serialized request body to replay on approve
+  reason         String                       // why the actor requested this
+  status         String   @default("pending") // pending | approved | rejected | expired | executed
+  requestedBy    String                       // actor user id
+  reviewedBy     String?                      // approver user id
+  reviewedAt     DateTime?
+  reviewNote     String?
+  executedAt     DateTime?                    // when the original action actually ran post-approval
+  expiresAt      DateTime                     // auto-expire after 24h by default
+  createdAt      DateTime @default(now())
+  decisions      ApprovalDecision[]
+
+  @@index([status, expiresAt])
+  @@index([requestedBy])
+  @@index([action, status])
+}
+
+model ApprovalDecision {
+  id          String   @id @default(cuid())
+  requestId   String
+  reviewerId  String
+  decision    String                          // "approve" | "reject"
+  note        String?
+  createdAt   DateTime @default(now())
+
+  request     ApprovalRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([requestId])
+  @@index([reviewerId])
+}
+

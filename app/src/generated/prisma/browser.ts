@@ -382,3 +382,18 @@ export type EndpointStat = Prisma.EndpointStatModel
  * 
  */
 export type SavedReply = Prisma.SavedReplyModel
+/**
+ * Model PiiField
+ * 
+ */
+export type PiiField = Prisma.PiiFieldModel
+/**
+ * Model ApprovalRequest
+ * 
+ */
+export type ApprovalRequest = Prisma.ApprovalRequestModel
+/**
+ * Model ApprovalDecision
+ * 
+ */
+export type ApprovalDecision = Prisma.ApprovalDecisionModel

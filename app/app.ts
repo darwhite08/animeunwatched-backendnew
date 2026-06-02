@@ -23,6 +23,7 @@ import { apiVersionHeader } from "./src/middlewares/apiVersion.middleware";
 import { slaMetrics } from "./src/middlewares/slaMetrics.middleware";
 import router from "./src/routes";
 import { currentMaintenance } from "./src/modules/admin/maintenance.controller";
+import { publicStatus } from "./src/modules/status/status.controller";
 import { spec } from "./src/openapi";
 import { prisma } from "./src/config/prisma";
 import { cache } from "./src/lib/cache";
@@ -216,6 +217,8 @@ app.get("/sitemap.xml", async (_req, res) => {
 
 // Public status — frontends fetch current maintenance window for the banner
 app.get("/api/v1/status/maintenance", currentMaintenance);
+// Combined public status feed (maintenance + incidents) for status.kaiveron.com
+app.get("/api/v1/status",             publicStatus);
 
 // API v1
 app.use("/api/v1", router);

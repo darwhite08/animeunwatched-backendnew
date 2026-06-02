@@ -121,7 +121,10 @@ export const ModelName = {
   IncidentUpdate: 'IncidentUpdate',
   MaintenanceWindow: 'MaintenanceWindow',
   EndpointStat: 'EndpointStat',
-  SavedReply: 'SavedReply'
+  SavedReply: 'SavedReply',
+  PiiField: 'PiiField',
+  ApprovalRequest: 'ApprovalRequest',
+  ApprovalDecision: 'ApprovalDecision'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1158,6 +1161,55 @@ export const SavedReplyScalarFieldEnum = {
 } as const
 
 export type SavedReplyScalarFieldEnum = (typeof SavedReplyScalarFieldEnum)[keyof typeof SavedReplyScalarFieldEnum]
+
+
+export const PiiFieldScalarFieldEnum = {
+  id: 'id',
+  model: 'model',
+  field: 'field',
+  classification: 'classification',
+  legalBasis: 'legalBasis',
+  retentionDays: 'retentionDays',
+  readRoleMin: 'readRoleMin',
+  description: 'description',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PiiFieldScalarFieldEnum = (typeof PiiFieldScalarFieldEnum)[keyof typeof PiiFieldScalarFieldEnum]
+
+
+export const ApprovalRequestScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  resource: 'resource',
+  payload: 'payload',
+  reason: 'reason',
+  status: 'status',
+  requestedBy: 'requestedBy',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  reviewNote: 'reviewNote',
+  executedAt: 'executedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalRequestScalarFieldEnum = (typeof ApprovalRequestScalarFieldEnum)[keyof typeof ApprovalRequestScalarFieldEnum]
+
+
+export const ApprovalDecisionScalarFieldEnum = {
+  id: 'id',
+  requestId: 'requestId',
+  reviewerId: 'reviewerId',
+  decision: 'decision',
+  note: 'note',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalDecisionScalarFieldEnum = (typeof ApprovalDecisionScalarFieldEnum)[keyof typeof ApprovalDecisionScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -37,6 +37,9 @@ import * as maint      from "./maintenance.controller";
 import * as savedRep   from "./savedReplies.controller";
 import * as sla        from "./sla.controller";
 import * as openApi    from "./openapi.controller";
+import * as pii        from "./pii.controller";
+import * as approvals  from "./approvals.controller";
+import { requireApproval } from "../../lib/approvals";
 
 export const adminRouter = Router();
 
@@ -69,7 +72,9 @@ adminRouter.post(  "/users/:userId/password-reset",   requirePermission("users",
 adminRouter.post(  "/users/:userId/mfa-reset",        requirePermission("users","reset_mfa"),        users.resetMfa);
 adminRouter.post(  "/users/:userId/revoke-sessions",  requirePermission("users","revoke_sessions"),  users.revokeSessions);
 adminRouter.get(   "/users/:userId/sessions",         requirePermission("users","read"),             users.getUserSessions);
-adminRouter.delete("/users/:userId",                  requirePermissionWithStepUp("users","delete"), users.softDelete);
+adminRouter.delete("/users/:userId",                  requirePermissionWithStepUp("users","delete"),
+  requireApproval({ action: "users.delete", resource: (r) => `user:${r.params.userId}` }),
+  users.softDelete);
 adminRouter.post(  "/users/bulk",                     requirePermission("users","suspend"),          users.bulkAction);
 
 // Invites
@@ -198,7 +203,9 @@ adminRouter.post(  "/billing/plans",                   requirePermissionWithStep
 adminRouter.get(   "/billing/subscriptions",           requirePermission("billing","read"),    billing.listSubscriptions);
 adminRouter.get(   "/billing/subscriptions/:id",       requirePermission("billing","read"),    billing.getSubscription);
 adminRouter.post(  "/billing/subscriptions/:id/change-plan",   requirePermissionWithStepUp("billing","refund"), billing.changePlan);
-adminRouter.post(  "/billing/invoices/:id/refund",             requirePermissionWithStepUp("billing","refund"), billing.refundInvoice);
+adminRouter.post(  "/billing/invoices/:id/refund",             requirePermissionWithStepUp("billing","refund"),
+  requireApproval({ action: "billing.refund", resource: (r) => `invoice:${r.params.id}` }),
+  billing.refundInvoice);
 adminRouter.post(  "/billing/subscriptions/:id/credit",        requirePermission("billing","credit"),           billing.creditSubscription);
 adminRouter.post(  "/billing/subscriptions/:id/extend-trial",  requirePermission("billing","credit"),           billing.extendTrial);
 adminRouter.post(  "/billing/subscriptions/:id/cancel",        requirePermissionWithStepUp("billing","refund"), billing.cancelSubscription);
@@ -281,4 +288,15 @@ adminRouter.post(  "/saved-replies",                   requirePermission("modera
 adminRouter.patch( "/saved-replies/:id",               requirePermission("moderation","act"),  savedRep.updateReply);
 adminRouter.delete("/saved-replies/:id",               requirePermission("moderation","act"),  savedRep.deleteReply);
 adminRouter.post(  "/saved-replies/:id/use",           requirePermission("moderation","read"), savedRep.markUsed);
+
+// PII inventory — GDPR Article 30 records of processing
+adminRouter.get(   "/pii",                             requirePermission("security","read"),  pii.listPii);
+adminRouter.patch( "/pii/:id",                         requirePermission("security","write"), pii.updatePii);
+adminRouter.post(  "/pii/reseed",                      requirePermissionWithStepUp("security","write"), pii.reseedPii);
+adminRouter.get(   "/pii/export/ropa",                 requirePermission("security","read"),  pii.exportRopa);
+
+// Approval workflows (two-person rule for high-risk actions)
+adminRouter.get(   "/approvals",                       requirePermission("audit","read"),  approvals.listApprovals);
+adminRouter.get(   "/approvals/:id",                   requirePermission("audit","read"),  approvals.getApproval);
+adminRouter.post(  "/approvals/:id/review",            requirePermission("audit","read"),  approvals.reviewApproval);
 
