@@ -1609,6 +1609,34 @@ model SamlConfig {
   @@index([active])
 }
 
+// FinOps — per-endpoint cost rate. Admins fill in cents-per-1k-requests
+// based on infra observation; cost dashboard multiplies request volume
+// from EndpointStat by these rates. Default: 0 (free) when no rate set.
+model CostRate {
+  id              String   @id @default(cuid())
+  endpoint        String   @unique                 // "GET /api/v1/anime/:id" — must match EndpointStat.endpoint
+  centsPer1k      Int      @default(0)             // cost of 1000 requests, in 1/100ths of a cent (so 1 = $0.0001)
+  notes           String?
+  category        String?                          // "db_heavy" | "ai" | "cache_hit" | etc — for grouping
+  updatedBy       String?
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+}
+
+// Monthly spend budget. Crossing the threshold raises an AdminAlert and
+// (later) can trigger throttling. Single row per scope ("global" today;
+// per-endpoint in a later batch).
+model CostBudget {
+  id              String   @id @default(cuid())
+  scope           String   @unique                 // "global" today; "endpoint:GET /x" later
+  monthlyBudgetCents BigInt                        // total budget in 1/100ths of a cent (kept consistent w/ CostRate)
+  alertAtPct      Int      @default(80)            // raise warn alert at this % of budget
+  hardCapAtPct    Int?                             // null = no hard cap (no enforcement today; placeholder)
+  lastAlertAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
 // Audit trail for SSO logins — useful for "did SSO actually work last week?"
 // and for compliance reports. Distinct from SecurityEvent which covers
 // password/OAuth logins.

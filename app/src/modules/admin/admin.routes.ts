@@ -43,6 +43,7 @@ import { requireApproval } from "../../lib/approvals";
 import * as oauthClients from "./oauthClients.controller";
 import * as scimAdmin    from "./scim.controller";
 import * as samlCfg      from "./samlConfigs.controller";
+import * as cost         from "./cost.controller";
 
 export const adminRouter = Router();
 
@@ -325,4 +326,12 @@ adminRouter.post(  "/saml/deactivate",                 requirePermissionWithStep
 adminRouter.delete("/saml/configs/:id",                requirePermissionWithStepUp("security","write"), samlCfg.deleteConfig);
 adminRouter.get(   "/saml/login-events",               requirePermission("security","read"),  samlCfg.listLoginEvents);
 adminRouter.get(   "/saml/sp-urls",                    requirePermission("security","read"),  samlCfg.getSpMetadataUrl);
+
+// FinOps — cost dashboard + per-endpoint rate config + budget
+adminRouter.get(   "/cost/overview",                   requirePermission("settings","read"),  cost.getOverview);
+adminRouter.get(   "/cost/rates",                      requirePermission("settings","read"),  cost.listRates);
+adminRouter.put(   "/cost/rates",                      requirePermission("settings","write"), cost.upsertRate);
+adminRouter.delete("/cost/rates/:id",                  requirePermission("settings","write"), cost.deleteRate);
+adminRouter.get(   "/cost/budget",                     requirePermission("settings","read"),  cost.getBudget);
+adminRouter.put(   "/cost/budget",                     requirePermission("settings","write"), cost.setBudget);
 

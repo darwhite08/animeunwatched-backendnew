@@ -470,6 +470,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  CostRate: 'CostRate',
+  CostBudget: 'CostBudget',
   SamlLoginEvent: 'SamlLoginEvent'
 } as const
 
@@ -486,7 +488,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6410,6 +6412,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CostRate: {
+      payload: Prisma.$CostRatePayload<ExtArgs>
+      fields: Prisma.CostRateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CostRateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CostRateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        findFirst: {
+          args: Prisma.CostRateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CostRateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        findMany: {
+          args: Prisma.CostRateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>[]
+        }
+        create: {
+          args: Prisma.CostRateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        createMany: {
+          args: Prisma.CostRateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CostRateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>[]
+        }
+        delete: {
+          args: Prisma.CostRateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        update: {
+          args: Prisma.CostRateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        deleteMany: {
+          args: Prisma.CostRateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CostRateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CostRateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>[]
+        }
+        upsert: {
+          args: Prisma.CostRateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostRatePayload>
+        }
+        aggregate: {
+          args: Prisma.CostRateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCostRate>
+        }
+        groupBy: {
+          args: Prisma.CostRateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CostRateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CostRateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CostRateCountAggregateOutputType> | number
+        }
+      }
+    }
+    CostBudget: {
+      payload: Prisma.$CostBudgetPayload<ExtArgs>
+      fields: Prisma.CostBudgetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CostBudgetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CostBudgetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        findFirst: {
+          args: Prisma.CostBudgetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CostBudgetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        findMany: {
+          args: Prisma.CostBudgetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>[]
+        }
+        create: {
+          args: Prisma.CostBudgetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        createMany: {
+          args: Prisma.CostBudgetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CostBudgetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>[]
+        }
+        delete: {
+          args: Prisma.CostBudgetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        update: {
+          args: Prisma.CostBudgetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        deleteMany: {
+          args: Prisma.CostBudgetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CostBudgetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CostBudgetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>[]
+        }
+        upsert: {
+          args: Prisma.CostBudgetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CostBudgetPayload>
+        }
+        aggregate: {
+          args: Prisma.CostBudgetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCostBudget>
+        }
+        groupBy: {
+          args: Prisma.CostBudgetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CostBudgetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CostBudgetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CostBudgetCountAggregateOutputType> | number
+        }
+      }
+    }
     SamlLoginEvent: {
       payload: Prisma.$SamlLoginEventPayload<ExtArgs>
       fields: Prisma.SamlLoginEventFieldRefs
@@ -7664,6 +7814,34 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const CostRateScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  centsPer1k: 'centsPer1k',
+  notes: 'notes',
+  category: 'category',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CostRateScalarFieldEnum = (typeof CostRateScalarFieldEnum)[keyof typeof CostRateScalarFieldEnum]
+
+
+export const CostBudgetScalarFieldEnum = {
+  id: 'id',
+  scope: 'scope',
+  monthlyBudgetCents: 'monthlyBudgetCents',
+  alertAtPct: 'alertAtPct',
+  hardCapAtPct: 'hardCapAtPct',
+  lastAlertAt: 'lastAlertAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CostBudgetScalarFieldEnum = (typeof CostBudgetScalarFieldEnum)[keyof typeof CostBudgetScalarFieldEnum]
+
+
 export const SamlLoginEventScalarFieldEnum = {
   id: 'id',
   configId: 'configId',
@@ -8074,6 +8252,8 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  costRate?: Prisma.CostRateOmit
+  costBudget?: Prisma.CostBudgetOmit
   samlLoginEvent?: Prisma.SamlLoginEventOmit
 }
 

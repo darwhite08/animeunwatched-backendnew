@@ -418,6 +418,16 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model CostRate
+ * 
+ */
+export type CostRate = Prisma.CostRateModel
+/**
+ * Model CostBudget
+ * 
+ */
+export type CostBudget = Prisma.CostBudgetModel
+/**
  * Model SamlLoginEvent
  * 
  */

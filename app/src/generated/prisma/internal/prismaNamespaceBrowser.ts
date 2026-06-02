@@ -129,6 +129,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  CostRate: 'CostRate',
+  CostBudget: 'CostBudget',
   SamlLoginEvent: 'SamlLoginEvent'
 } as const
 
@@ -1287,6 +1289,34 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const CostRateScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  centsPer1k: 'centsPer1k',
+  notes: 'notes',
+  category: 'category',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CostRateScalarFieldEnum = (typeof CostRateScalarFieldEnum)[keyof typeof CostRateScalarFieldEnum]
+
+
+export const CostBudgetScalarFieldEnum = {
+  id: 'id',
+  scope: 'scope',
+  monthlyBudgetCents: 'monthlyBudgetCents',
+  alertAtPct: 'alertAtPct',
+  hardCapAtPct: 'hardCapAtPct',
+  lastAlertAt: 'lastAlertAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CostBudgetScalarFieldEnum = (typeof CostBudgetScalarFieldEnum)[keyof typeof CostBudgetScalarFieldEnum]
 
 
 export const SamlLoginEventScalarFieldEnum = {
