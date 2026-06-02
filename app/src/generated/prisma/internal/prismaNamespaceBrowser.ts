@@ -98,7 +98,12 @@ export const ModelName = {
   FeatureFlag: 'FeatureFlag',
   FeatureFlagOverride: 'FeatureFlagOverride',
   Entitlement: 'Entitlement',
-  ImpersonationSession: 'ImpersonationSession'
+  ImpersonationSession: 'ImpersonationSession',
+  ApiKey: 'ApiKey',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDelivery: 'WebhookDelivery',
+  Announcement: 'Announcement',
+  AdminSetting: 'AdminSetting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -130,6 +135,7 @@ export const UserScalarFieldEnum = {
   reputation: 'reputation',
   isBanned: 'isBanned',
   bannedReason: 'bannedReason',
+  isShadowBanned: 'isShadowBanned',
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',
@@ -757,6 +763,83 @@ export const ImpersonationSessionScalarFieldEnum = {
 } as const
 
 export type ImpersonationSessionScalarFieldEnum = (typeof ImpersonationSessionScalarFieldEnum)[keyof typeof ImpersonationSessionScalarFieldEnum]
+
+
+export const ApiKeyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  keyHash: 'keyHash',
+  keyPrefix: 'keyPrefix',
+  ownerUserId: 'ownerUserId',
+  scopes: 'scopes',
+  lastUsedAt: 'lastUsedAt',
+  revokedAt: 'revokedAt',
+  revokedBy: 'revokedBy',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type ApiKeyScalarFieldEnum = (typeof ApiKeyScalarFieldEnum)[keyof typeof ApiKeyScalarFieldEnum]
+
+
+export const WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  events: 'events',
+  secret: 'secret',
+  enabled: 'enabled',
+  description: 'description',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebhookEndpointScalarFieldEnum = (typeof WebhookEndpointScalarFieldEnum)[keyof typeof WebhookEndpointScalarFieldEnum]
+
+
+export const WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  endpointId: 'endpointId',
+  eventName: 'eventName',
+  eventId: 'eventId',
+  payload: 'payload',
+  responseStatus: 'responseStatus',
+  responseBody: 'responseBody',
+  attempts: 'attempts',
+  succeededAt: 'succeededAt',
+  lastTriedAt: 'lastTriedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
+
+
+export const AnnouncementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  body: 'body',
+  audience: 'audience',
+  channel: 'channel',
+  scheduledAt: 'scheduledAt',
+  publishedAt: 'publishedAt',
+  expiresAt: 'expiresAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const AdminSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  description: 'description',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdminSettingScalarFieldEnum = (typeof AdminSettingScalarFieldEnum)[keyof typeof AdminSettingScalarFieldEnum]
 
 
 export const SortOrder = {

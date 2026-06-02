@@ -58,6 +58,7 @@ model User {
   reputation   Int      @default(0)
   isBanned     Boolean  @default(false)
   bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
+  isShadowBanned Boolean @default(false)  // soft moderation: user can post but content is hidden from others
   // Streak tracking — real database-backed (not rep estimate)
   streakDays   Int      @default(0)
   lastActiveAt DateTime?
@@ -1007,5 +1008,94 @@ model ImpersonationSession {
   @@index([impersonatorId])
   @@index([targetUserId])
   @@index([expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// Phase 3 — API keys, webhooks, announcements, settings, shadow-ban
+// ---------------------------------------------------------------------------
+
+// Hashed API key for partner / programmatic access. The raw key is returned
+// ONCE at create time and never stored. Scopes are space-separated strings.
+model ApiKey {
+  id          String   @id @default(cuid())
+  name        String
+  keyHash     String   @unique
+  keyPrefix   String                       // first 8 chars of raw key — UI display
+  ownerUserId String?
+  scopes      String   @default("")        // "read:users write:posts" etc
+  lastUsedAt  DateTime?
+  revokedAt   DateTime?
+  revokedBy   String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+
+  @@index([ownerUserId])
+}
+
+// Outbound webhook endpoint config. `events` is a JSON array of event names
+// to deliver. `secret` is used to HMAC-sign payloads (raw → never returned
+// in API responses after first create).
+model WebhookEndpoint {
+  id          String   @id @default(cuid())
+  url         String
+  events      Json                          // ["user.created", "post.created"]
+  secret      String                        // for HMAC signing
+  enabled     Boolean  @default(true)
+  description String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  deliveries WebhookDelivery[]
+}
+
+// One row per attempted delivery. `attempts` counts retries; `responseStatus`
+// is the last HTTP code received. Replay creates a new row pointing to the
+// same eventId for traceability.
+model WebhookDelivery {
+  id              String   @id @default(cuid())
+  endpointId      String
+  eventName       String
+  eventId         String                   // dedupe + replay anchor
+  payload         Json
+  responseStatus  Int?
+  responseBody    String?
+  attempts        Int      @default(0)
+  succeededAt     DateTime?
+  lastTriedAt     DateTime?
+  createdAt       DateTime @default(now())
+
+  endpoint WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+
+  @@index([endpointId, createdAt])
+  @@index([eventId])
+}
+
+// Platform-wide announcement. Drives in-app banners and (optionally) emails.
+// `audience` examples: "all" | "admins" | "premium" | userId list (JSON).
+model Announcement {
+  id           String   @id @default(cuid())
+  title        String
+  body         String
+  audience     String   @default("all")
+  channel      String   @default("in_app")    // in_app | email | both
+  scheduledAt  DateTime?
+  publishedAt  DateTime?
+  expiresAt    DateTime?
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([publishedAt])
+}
+
+// Key/value platform settings. Used for non-feature-flag config like
+// brand colors, default tier limits, support email, etc.
+model AdminSetting {
+  key         String   @id
+  value       Json
+  description String?
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
 }
 

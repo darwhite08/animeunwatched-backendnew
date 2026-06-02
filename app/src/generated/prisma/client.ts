@@ -292,3 +292,28 @@ export type Entitlement = Prisma.EntitlementModel
  * 
  */
 export type ImpersonationSession = Prisma.ImpersonationSessionModel
+/**
+ * Model ApiKey
+ * 
+ */
+export type ApiKey = Prisma.ApiKeyModel
+/**
+ * Model WebhookEndpoint
+ * 
+ */
+export type WebhookEndpoint = Prisma.WebhookEndpointModel
+/**
+ * Model WebhookDelivery
+ * 
+ */
+export type WebhookDelivery = Prisma.WebhookDeliveryModel
+/**
+ * Model Announcement
+ * 
+ */
+export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model AdminSetting
+ * 
+ */
+export type AdminSetting = Prisma.AdminSettingModel

@@ -10,6 +10,12 @@ import * as stepup     from "./stepup.controller";
 import * as flags      from "./flags.controller";
 import * as ents       from "./entitlements.controller";
 import * as imp        from "./impersonation.controller";
+import * as content    from "./content.controller";
+import * as dsr        from "./dsr.controller";
+import * as apiKeys    from "./apiKeys.controller";
+import * as webhooks   from "./webhooks.controller";
+import * as ann        from "./announcements.controller";
+import * as settings   from "./settings.controller";
 
 export const adminRouter = Router();
 
@@ -97,4 +103,42 @@ adminRouter.delete("/entitlements/:id",               requirePermission("entitle
 adminRouter.post(  "/impersonation/start",            requirePermissionWithStepUp("impersonation","start"), imp.startImpersonation);
 adminRouter.post(  "/impersonation/stop",             imp.stopImpersonation);
 adminRouter.get(   "/impersonation/active",           requirePermission("impersonation","start"),           imp.listActive);
+
+// Content & moderation
+adminRouter.get(   "/content/posts",                  requirePermission("moderation","read"), content.listPosts);
+adminRouter.delete("/content/posts/:postId",          requirePermission("moderation","act"),  content.deletePost);
+adminRouter.get(   "/content/clubs",                  requirePermission("moderation","read"), content.listClubs);
+adminRouter.delete("/content/clubs/:clubId",          requirePermission("moderation","act"),  content.deleteClub);
+adminRouter.post(  "/users/:userId/shadow-ban",       requirePermission("moderation","act"),  content.shadowBanUser);
+adminRouter.delete("/users/:userId/shadow-ban",       requirePermission("moderation","act"),  content.unshadowBanUser);
+
+// DSR (Data Subject Requests) — high-risk → step-up
+adminRouter.get(   "/dsr/export/:userId",             requirePermissionWithStepUp("dsr","export"), dsr.exportUserData);
+adminRouter.delete("/dsr/:userId",                    requirePermissionWithStepUp("dsr","delete"), dsr.deleteUserData);
+
+// API keys
+adminRouter.get(   "/api-keys",                       requirePermission("api_keys","read"),         apiKeys.listApiKeys);
+adminRouter.post(  "/api-keys",                       requirePermissionWithStepUp("api_keys","write"), apiKeys.createApiKey);
+adminRouter.post(  "/api-keys/:keyId/rotate",         requirePermissionWithStepUp("api_keys","write"), apiKeys.rotateApiKey);
+adminRouter.delete("/api-keys/:keyId",                requirePermissionWithStepUp("api_keys","write"), apiKeys.revokeApiKey);
+
+// Webhooks
+adminRouter.get(   "/webhooks",                       requirePermission("webhooks","read"),  webhooks.listEndpoints);
+adminRouter.post(  "/webhooks",                       requirePermission("webhooks","write"), webhooks.createEndpoint);
+adminRouter.patch( "/webhooks/:endpointId",           requirePermission("webhooks","write"), webhooks.updateEndpoint);
+adminRouter.delete("/webhooks/:endpointId",           requirePermission("webhooks","write"), webhooks.deleteEndpoint);
+adminRouter.get(   "/webhooks/deliveries",            requirePermission("webhooks","read"),  webhooks.listDeliveries);
+adminRouter.post(  "/webhooks/deliveries/:deliveryId/replay", requirePermission("webhooks","replay"), webhooks.replayDelivery);
+
+// Announcements
+adminRouter.get(   "/announcements",                  requirePermission("settings","read"),  ann.listAnnouncements);
+adminRouter.post(  "/announcements",                  requirePermission("settings","write"), ann.createAnnouncement);
+adminRouter.post(  "/announcements/:id/publish",      requirePermission("settings","write"), ann.publishAnnouncement);
+adminRouter.delete("/announcements/:id",              requirePermission("settings","write"), ann.deleteAnnouncement);
+
+// Settings
+adminRouter.get(   "/settings",                       requirePermission("settings","read"),  settings.listSettings);
+adminRouter.get(   "/settings/:key",                  requirePermission("settings","read"),  settings.getSetting);
+adminRouter.put(   "/settings/:key",                  requirePermission("settings","write"), settings.upsertSetting);
+adminRouter.delete("/settings/:key",                  requirePermission("settings","write"), settings.deleteSetting);
 

@@ -51,6 +51,7 @@ export type UserMinAggregateOutputType = {
   reputation: number | null
   isBanned: boolean | null
   bannedReason: string | null
+  isShadowBanned: boolean | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -71,6 +72,7 @@ export type UserMaxAggregateOutputType = {
   reputation: number | null
   isBanned: boolean | null
   bannedReason: string | null
+  isShadowBanned: boolean | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -91,6 +93,7 @@ export type UserCountAggregateOutputType = {
   reputation: number
   isBanned: number
   bannedReason: number
+  isShadowBanned: number
   streakDays: number
   lastActiveAt: number
   bestStreak: number
@@ -125,6 +128,7 @@ export type UserMinAggregateInputType = {
   reputation?: true
   isBanned?: true
   bannedReason?: true
+  isShadowBanned?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -145,6 +149,7 @@ export type UserMaxAggregateInputType = {
   reputation?: true
   isBanned?: true
   bannedReason?: true
+  isShadowBanned?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -165,6 +170,7 @@ export type UserCountAggregateInputType = {
   reputation?: true
   isBanned?: true
   bannedReason?: true
+  isShadowBanned?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -272,6 +278,7 @@ export type UserGroupByOutputType = {
   reputation: number
   isBanned: boolean
   bannedReason: string | null
+  isShadowBanned: boolean
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
@@ -315,6 +322,7 @@ export type UserWhereInput = {
   reputation?: Prisma.IntFilter<"User"> | number
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
+  isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -368,6 +376,7 @@ export type UserOrderByWithRelationInput = {
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  isShadowBanned?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -424,6 +433,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reputation?: Prisma.IntFilter<"User"> | number
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
+  isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -477,6 +487,7 @@ export type UserOrderByWithAggregationInput = {
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  isShadowBanned?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -505,6 +516,7 @@ export type UserScalarWhereWithAggregatesInput = {
   reputation?: Prisma.IntWithAggregatesFilter<"User"> | number
   isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  isShadowBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -525,6 +537,7 @@ export type UserCreateInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -578,6 +591,7 @@ export type UserUncheckedCreateInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -631,6 +645,7 @@ export type UserUpdateInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -684,6 +699,7 @@ export type UserUncheckedUpdateInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -737,6 +753,7 @@ export type UserCreateManyInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -757,6 +774,7 @@ export type UserUpdateManyMutationInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -777,6 +795,7 @@ export type UserUncheckedUpdateManyInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -797,6 +816,7 @@ export type UserCountOrderByAggregateInput = {
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
+  isShadowBanned?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -823,6 +843,7 @@ export type UserMaxOrderByAggregateInput = {
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
+  isShadowBanned?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -843,6 +864,7 @@ export type UserMinOrderByAggregateInput = {
   reputation?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
+  isShadowBanned?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1375,6 +1397,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1427,6 +1450,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1495,6 +1519,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1547,6 +1572,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1599,6 +1625,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1651,6 +1678,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1719,6 +1747,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1771,6 +1800,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1823,6 +1853,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1875,6 +1906,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1943,6 +1975,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1995,6 +2028,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2047,6 +2081,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2099,6 +2134,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2167,6 +2203,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2219,6 +2256,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2271,6 +2309,7 @@ export type UserCreateWithoutFollowingInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2323,6 +2362,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2380,6 +2420,7 @@ export type UserCreateWithoutFollowersInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2432,6 +2473,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2500,6 +2542,7 @@ export type UserUpdateWithoutFollowingInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2552,6 +2595,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2615,6 +2659,7 @@ export type UserUpdateWithoutFollowersInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2667,6 +2712,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2719,6 +2765,7 @@ export type UserCreateWithoutListEntriesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2771,6 +2818,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2839,6 +2887,7 @@ export type UserUpdateWithoutListEntriesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2891,6 +2940,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2943,6 +2993,7 @@ export type UserCreateWithoutPostsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2995,6 +3046,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3063,6 +3115,7 @@ export type UserUpdateWithoutPostsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3115,6 +3168,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3167,6 +3221,7 @@ export type UserCreateWithoutPostLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3219,6 +3274,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3287,6 +3343,7 @@ export type UserUpdateWithoutPostLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3339,6 +3396,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3391,6 +3449,7 @@ export type UserCreateWithoutPostCommentsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3443,6 +3502,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3511,6 +3571,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3563,6 +3624,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3615,6 +3677,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3667,6 +3730,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3735,6 +3799,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3787,6 +3852,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3839,6 +3905,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3891,6 +3958,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3959,6 +4027,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4011,6 +4080,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4063,6 +4133,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4115,6 +4186,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4183,6 +4255,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4235,6 +4308,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4287,6 +4361,7 @@ export type UserCreateWithoutThreadsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4339,6 +4414,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4407,6 +4483,7 @@ export type UserUpdateWithoutThreadsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4459,6 +4536,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4511,6 +4589,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4563,6 +4642,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4631,6 +4711,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4683,6 +4764,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4735,6 +4817,7 @@ export type UserCreateWithoutReviewsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4787,6 +4870,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4855,6 +4939,7 @@ export type UserUpdateWithoutReviewsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4907,6 +4992,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4959,6 +5045,7 @@ export type UserCreateWithoutReviewLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5011,6 +5098,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5079,6 +5167,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5131,6 +5220,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5183,6 +5273,7 @@ export type UserCreateWithoutBlogsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5235,6 +5326,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5303,6 +5395,7 @@ export type UserUpdateWithoutBlogsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5355,6 +5448,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5407,6 +5501,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5459,6 +5554,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5527,6 +5623,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5579,6 +5676,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5631,6 +5729,7 @@ export type UserCreateWithoutNotificationsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5683,6 +5782,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5751,6 +5851,7 @@ export type UserUpdateWithoutNotificationsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5803,6 +5904,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5855,6 +5957,7 @@ export type UserCreateWithoutReportsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5907,6 +6010,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5975,6 +6079,7 @@ export type UserUpdateWithoutReportsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6027,6 +6132,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6079,6 +6185,7 @@ export type UserCreateWithoutModerationActionsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6131,6 +6238,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6199,6 +6307,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6251,6 +6360,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6303,6 +6413,7 @@ export type UserCreateWithoutPollsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6355,6 +6466,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6423,6 +6535,7 @@ export type UserUpdateWithoutPollsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6475,6 +6588,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6527,6 +6641,7 @@ export type UserCreateWithoutPollVotesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6579,6 +6694,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6647,6 +6763,7 @@ export type UserUpdateWithoutPollVotesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6699,6 +6816,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6751,6 +6869,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6803,6 +6922,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6871,6 +6991,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6923,6 +7044,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6975,6 +7097,7 @@ export type UserCreateWithoutPublicKeyInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7027,6 +7150,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7095,6 +7219,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7147,6 +7272,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7199,6 +7325,7 @@ export type UserCreateWithoutConversations1Input = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7251,6 +7378,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7308,6 +7436,7 @@ export type UserCreateWithoutConversations2Input = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7360,6 +7489,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7428,6 +7558,7 @@ export type UserUpdateWithoutConversations1Input = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7480,6 +7611,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7543,6 +7675,7 @@ export type UserUpdateWithoutConversations2Input = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7595,6 +7728,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7647,6 +7781,7 @@ export type UserCreateWithoutSentMessagesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7699,6 +7834,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7767,6 +7903,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7819,6 +7956,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7871,6 +8009,7 @@ export type UserCreateWithoutActivitiesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7923,6 +8062,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7991,6 +8131,7 @@ export type UserUpdateWithoutActivitiesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8043,6 +8184,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8095,6 +8237,7 @@ export type UserCreateWithoutActivityLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8147,6 +8290,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8215,6 +8359,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8267,6 +8412,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8319,6 +8465,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8371,6 +8518,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8439,6 +8587,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8491,6 +8640,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8543,6 +8693,7 @@ export type UserCreateWithoutRepliesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8595,6 +8746,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   reputation?: number
   isBanned?: boolean
   bannedReason?: string | null
+  isShadowBanned?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8663,6 +8815,7 @@ export type UserUpdateWithoutRepliesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8715,6 +8868,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9077,6 +9231,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reputation?: boolean
   isBanned?: boolean
   bannedReason?: boolean
+  isShadowBanned?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9131,6 +9286,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   reputation?: boolean
   isBanned?: boolean
   bannedReason?: boolean
+  isShadowBanned?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9151,6 +9307,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   reputation?: boolean
   isBanned?: boolean
   bannedReason?: boolean
+  isShadowBanned?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9171,6 +9328,7 @@ export type UserSelectScalar = {
   reputation?: boolean
   isBanned?: boolean
   bannedReason?: boolean
+  isShadowBanned?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -9178,7 +9336,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -9273,6 +9431,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reputation: number
     isBanned: boolean
     bannedReason: string | null
+    isShadowBanned: boolean
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
@@ -9746,6 +9905,7 @@ export interface UserFieldRefs {
   readonly reputation: Prisma.FieldRef<"User", 'Int'>
   readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
   readonly bannedReason: Prisma.FieldRef<"User", 'String'>
+  readonly isShadowBanned: Prisma.FieldRef<"User", 'Boolean'>
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>
