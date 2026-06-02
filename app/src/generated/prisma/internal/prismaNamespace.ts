@@ -470,6 +470,10 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  RateLimitOverride: 'RateLimitOverride',
+  ApiChangeLog: 'ApiChangeLog',
+  DeprecatedEndpoint: 'DeprecatedEndpoint',
+  RequestCapture: 'RequestCapture',
   CostRate: 'CostRate',
   CostBudget: 'CostBudget',
   SamlLoginEvent: 'SamlLoginEvent'
@@ -488,7 +492,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6412,6 +6416,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RateLimitOverride: {
+      payload: Prisma.$RateLimitOverridePayload<ExtArgs>
+      fields: Prisma.RateLimitOverrideFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RateLimitOverrideFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RateLimitOverrideFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        findFirst: {
+          args: Prisma.RateLimitOverrideFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RateLimitOverrideFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        findMany: {
+          args: Prisma.RateLimitOverrideFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>[]
+        }
+        create: {
+          args: Prisma.RateLimitOverrideCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        createMany: {
+          args: Prisma.RateLimitOverrideCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RateLimitOverrideCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>[]
+        }
+        delete: {
+          args: Prisma.RateLimitOverrideDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        update: {
+          args: Prisma.RateLimitOverrideUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        deleteMany: {
+          args: Prisma.RateLimitOverrideDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RateLimitOverrideUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RateLimitOverrideUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>[]
+        }
+        upsert: {
+          args: Prisma.RateLimitOverrideUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateLimitOverridePayload>
+        }
+        aggregate: {
+          args: Prisma.RateLimitOverrideAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRateLimitOverride>
+        }
+        groupBy: {
+          args: Prisma.RateLimitOverrideGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RateLimitOverrideGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RateLimitOverrideCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RateLimitOverrideCountAggregateOutputType> | number
+        }
+      }
+    }
+    ApiChangeLog: {
+      payload: Prisma.$ApiChangeLogPayload<ExtArgs>
+      fields: Prisma.ApiChangeLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApiChangeLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApiChangeLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        findFirst: {
+          args: Prisma.ApiChangeLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApiChangeLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        findMany: {
+          args: Prisma.ApiChangeLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>[]
+        }
+        create: {
+          args: Prisma.ApiChangeLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        createMany: {
+          args: Prisma.ApiChangeLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApiChangeLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>[]
+        }
+        delete: {
+          args: Prisma.ApiChangeLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        update: {
+          args: Prisma.ApiChangeLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApiChangeLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApiChangeLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApiChangeLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApiChangeLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiChangeLogPayload>
+        }
+        aggregate: {
+          args: Prisma.ApiChangeLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApiChangeLog>
+        }
+        groupBy: {
+          args: Prisma.ApiChangeLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiChangeLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApiChangeLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiChangeLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    DeprecatedEndpoint: {
+      payload: Prisma.$DeprecatedEndpointPayload<ExtArgs>
+      fields: Prisma.DeprecatedEndpointFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DeprecatedEndpointFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DeprecatedEndpointFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        findFirst: {
+          args: Prisma.DeprecatedEndpointFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DeprecatedEndpointFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        findMany: {
+          args: Prisma.DeprecatedEndpointFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>[]
+        }
+        create: {
+          args: Prisma.DeprecatedEndpointCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        createMany: {
+          args: Prisma.DeprecatedEndpointCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DeprecatedEndpointCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>[]
+        }
+        delete: {
+          args: Prisma.DeprecatedEndpointDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        update: {
+          args: Prisma.DeprecatedEndpointUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        deleteMany: {
+          args: Prisma.DeprecatedEndpointDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DeprecatedEndpointUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DeprecatedEndpointUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>[]
+        }
+        upsert: {
+          args: Prisma.DeprecatedEndpointUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeprecatedEndpointPayload>
+        }
+        aggregate: {
+          args: Prisma.DeprecatedEndpointAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDeprecatedEndpoint>
+        }
+        groupBy: {
+          args: Prisma.DeprecatedEndpointGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeprecatedEndpointGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DeprecatedEndpointCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeprecatedEndpointCountAggregateOutputType> | number
+        }
+      }
+    }
+    RequestCapture: {
+      payload: Prisma.$RequestCapturePayload<ExtArgs>
+      fields: Prisma.RequestCaptureFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RequestCaptureFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RequestCaptureFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        findFirst: {
+          args: Prisma.RequestCaptureFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RequestCaptureFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        findMany: {
+          args: Prisma.RequestCaptureFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>[]
+        }
+        create: {
+          args: Prisma.RequestCaptureCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        createMany: {
+          args: Prisma.RequestCaptureCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RequestCaptureCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>[]
+        }
+        delete: {
+          args: Prisma.RequestCaptureDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        update: {
+          args: Prisma.RequestCaptureUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        deleteMany: {
+          args: Prisma.RequestCaptureDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RequestCaptureUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RequestCaptureUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>[]
+        }
+        upsert: {
+          args: Prisma.RequestCaptureUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RequestCapturePayload>
+        }
+        aggregate: {
+          args: Prisma.RequestCaptureAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRequestCapture>
+        }
+        groupBy: {
+          args: Prisma.RequestCaptureGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RequestCaptureGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RequestCaptureCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RequestCaptureCountAggregateOutputType> | number
+        }
+      }
+    }
     CostRate: {
       payload: Prisma.$CostRatePayload<ExtArgs>
       fields: Prisma.CostRateFieldRefs
@@ -7814,6 +8114,67 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const RateLimitOverrideScalarFieldEnum = {
+  id: 'id',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  requestsPerWindow: 'requestsPerWindow',
+  windowSeconds: 'windowSeconds',
+  reason: 'reason',
+  expiresAt: 'expiresAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RateLimitOverrideScalarFieldEnum = (typeof RateLimitOverrideScalarFieldEnum)[keyof typeof RateLimitOverrideScalarFieldEnum]
+
+
+export const ApiChangeLogScalarFieldEnum = {
+  id: 'id',
+  publishedAt: 'publishedAt',
+  changeType: 'changeType',
+  title: 'title',
+  body: 'body',
+  affects: 'affects',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type ApiChangeLogScalarFieldEnum = (typeof ApiChangeLogScalarFieldEnum)[keyof typeof ApiChangeLogScalarFieldEnum]
+
+
+export const DeprecatedEndpointScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  deprecatedAt: 'deprecatedAt',
+  sunsetAt: 'sunsetAt',
+  reason: 'reason',
+  replacement: 'replacement',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type DeprecatedEndpointScalarFieldEnum = (typeof DeprecatedEndpointScalarFieldEnum)[keyof typeof DeprecatedEndpointScalarFieldEnum]
+
+
+export const RequestCaptureScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  method: 'method',
+  path: 'path',
+  headersJson: 'headersJson',
+  bodyJson: 'bodyJson',
+  bodyText: 'bodyText',
+  statusCode: 'statusCode',
+  responseMs: 'responseMs',
+  capturedBy: 'capturedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type RequestCaptureScalarFieldEnum = (typeof RequestCaptureScalarFieldEnum)[keyof typeof RequestCaptureScalarFieldEnum]
+
+
 export const CostRateScalarFieldEnum = {
   id: 'id',
   endpoint: 'endpoint',
@@ -8252,6 +8613,10 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  rateLimitOverride?: Prisma.RateLimitOverrideOmit
+  apiChangeLog?: Prisma.ApiChangeLogOmit
+  deprecatedEndpoint?: Prisma.DeprecatedEndpointOmit
+  requestCapture?: Prisma.RequestCaptureOmit
   costRate?: Prisma.CostRateOmit
   costBudget?: Prisma.CostBudgetOmit
   samlLoginEvent?: Prisma.SamlLoginEventOmit

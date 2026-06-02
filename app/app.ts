@@ -137,6 +137,9 @@ app.use(responseTime);
 app.use(requestLogger);
 // Per-endpoint RED metrics (record on response finish, never blocks the request)
 app.use(slaMetrics());
+// Sunset + Deprecation headers for endpoints listed in DeprecatedEndpoint
+import { deprecationHeaders } from "./src/middlewares/deprecation.middleware";
+app.use(deprecationHeaders());
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin) || isKaiveronOrigin(origin)))) {

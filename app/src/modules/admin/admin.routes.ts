@@ -44,6 +44,7 @@ import * as oauthClients from "./oauthClients.controller";
 import * as scimAdmin    from "./scim.controller";
 import * as samlCfg      from "./samlConfigs.controller";
 import * as cost         from "./cost.controller";
+import * as dx           from "./dx.controller";
 
 export const adminRouter = Router();
 
@@ -334,4 +335,17 @@ adminRouter.put(   "/cost/rates",                      requirePermission("settin
 adminRouter.delete("/cost/rates/:id",                  requirePermission("settings","write"), cost.deleteRate);
 adminRouter.get(   "/cost/budget",                     requirePermission("settings","read"),  cost.getBudget);
 adminRouter.put(   "/cost/budget",                     requirePermission("settings","write"), cost.setBudget);
+
+// DX — rate-limit overrides, API changelog, deprecations, captures
+adminRouter.get(   "/dx/rate-limits",                  requirePermission("settings","read"),  dx.listRateLimits);
+adminRouter.put(   "/dx/rate-limits",                  requirePermission("settings","write"), dx.upsertRateLimit);
+adminRouter.delete("/dx/rate-limits/:id",              requirePermission("settings","write"), dx.deleteRateLimit);
+adminRouter.get(   "/dx/changelog",                    requirePermission("settings","read"),  dx.listChangelog);
+adminRouter.post(  "/dx/changelog",                    requirePermission("settings","write"), dx.createChangelog);
+adminRouter.delete("/dx/changelog/:id",                requirePermission("settings","write"), dx.deleteChangelog);
+adminRouter.get(   "/dx/deprecations",                 requirePermission("settings","read"),  dx.listDeprecations);
+adminRouter.put(   "/dx/deprecations",                 requirePermission("settings","write"), dx.upsertDeprecation);
+adminRouter.delete("/dx/deprecations/:id",             requirePermission("settings","write"), dx.deleteDeprecation);
+adminRouter.get(   "/dx/captures",                     requirePermission("audit","read"),     dx.listCaptures);
+adminRouter.delete("/dx/captures/:id",                 requirePermission("audit","read"),     dx.deleteCapture);
 

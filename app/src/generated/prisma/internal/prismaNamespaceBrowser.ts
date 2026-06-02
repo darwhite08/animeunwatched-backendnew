@@ -129,6 +129,10 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  RateLimitOverride: 'RateLimitOverride',
+  ApiChangeLog: 'ApiChangeLog',
+  DeprecatedEndpoint: 'DeprecatedEndpoint',
+  RequestCapture: 'RequestCapture',
   CostRate: 'CostRate',
   CostBudget: 'CostBudget',
   SamlLoginEvent: 'SamlLoginEvent'
@@ -1289,6 +1293,67 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const RateLimitOverrideScalarFieldEnum = {
+  id: 'id',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  requestsPerWindow: 'requestsPerWindow',
+  windowSeconds: 'windowSeconds',
+  reason: 'reason',
+  expiresAt: 'expiresAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RateLimitOverrideScalarFieldEnum = (typeof RateLimitOverrideScalarFieldEnum)[keyof typeof RateLimitOverrideScalarFieldEnum]
+
+
+export const ApiChangeLogScalarFieldEnum = {
+  id: 'id',
+  publishedAt: 'publishedAt',
+  changeType: 'changeType',
+  title: 'title',
+  body: 'body',
+  affects: 'affects',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type ApiChangeLogScalarFieldEnum = (typeof ApiChangeLogScalarFieldEnum)[keyof typeof ApiChangeLogScalarFieldEnum]
+
+
+export const DeprecatedEndpointScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  deprecatedAt: 'deprecatedAt',
+  sunsetAt: 'sunsetAt',
+  reason: 'reason',
+  replacement: 'replacement',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type DeprecatedEndpointScalarFieldEnum = (typeof DeprecatedEndpointScalarFieldEnum)[keyof typeof DeprecatedEndpointScalarFieldEnum]
+
+
+export const RequestCaptureScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  method: 'method',
+  path: 'path',
+  headersJson: 'headersJson',
+  bodyJson: 'bodyJson',
+  bodyText: 'bodyText',
+  statusCode: 'statusCode',
+  responseMs: 'responseMs',
+  capturedBy: 'capturedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type RequestCaptureScalarFieldEnum = (typeof RequestCaptureScalarFieldEnum)[keyof typeof RequestCaptureScalarFieldEnum]
 
 
 export const CostRateScalarFieldEnum = {

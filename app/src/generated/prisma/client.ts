@@ -443,6 +443,26 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model RateLimitOverride
+ * 
+ */
+export type RateLimitOverride = Prisma.RateLimitOverrideModel
+/**
+ * Model ApiChangeLog
+ * 
+ */
+export type ApiChangeLog = Prisma.ApiChangeLogModel
+/**
+ * Model DeprecatedEndpoint
+ * 
+ */
+export type DeprecatedEndpoint = Prisma.DeprecatedEndpointModel
+/**
+ * Model RequestCapture
+ * 
+ */
+export type RequestCapture = Prisma.RequestCaptureModel
+/**
  * Model CostRate
  * 
  */

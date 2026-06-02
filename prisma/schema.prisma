@@ -1609,6 +1609,77 @@ model SamlConfig {
   @@index([active])
 }
 
+// DX — per-subject rate-limit override. Subject is either an ApiKey id or
+// an OauthClient id. Applied at request time by the rate-limit middleware
+// when present, replacing the default global limit.
+model RateLimitOverride {
+  id           String   @id @default(cuid())
+  subjectType  String                                  // "api_key" | "oauth_client"
+  subjectId    String                                  // FK to the appropriate table (no DB-side FK)
+  requestsPerWindow Int                                // total requests
+  windowSeconds Int                                    // window length
+  reason       String?                                 // why this override exists
+  expiresAt    DateTime?                               // null = never; auto-applied/expired by middleware
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([subjectType, subjectId])
+  @@index([expiresAt])
+}
+
+// DX — admin-managed changelog visible at /api/v1/changelog (public) and
+// the admin UI. Used for breaking-change announcements + deprecation notices.
+model ApiChangeLog {
+  id          String   @id @default(cuid())
+  publishedAt DateTime @default(now())                 // when the change went live
+  changeType  String                                   // "breaking" | "feature" | "fix" | "deprecation" | "security"
+  title       String
+  body        String                                   // markdown
+  affects     String[] @default([])                    // ["GET /api/v1/anime/:id", "POST /webhooks"]
+  authorId    String?
+  createdAt   DateTime @default(now())
+
+  @@index([publishedAt])
+  @@index([changeType])
+}
+
+// DX — endpoint deprecation tracker. Causes the SLA middleware to emit a
+// Sunset + Deprecation header automatically; surfaces in the docs UI with
+// a strikethrough or banner.
+model DeprecatedEndpoint {
+  id           String   @id @default(cuid())
+  endpoint     String   @unique                        // "GET /api/v1/anime/:id"
+  deprecatedAt DateTime @default(now())
+  sunsetAt     DateTime                                // when the endpoint will be removed
+  reason       String?
+  replacement  String?                                 // "GET /api/v2/anime/:id"
+  createdBy    String?
+  createdAt    DateTime @default(now())
+
+  @@index([sunsetAt])
+}
+
+// DX — request replay. Captures the raw request body + headers for a small
+// allowed set of routes so debug-mode can re-issue them. Persisted across
+// restarts; pruned by the dataRetention job.
+model RequestCapture {
+  id          String   @id @default(cuid())
+  endpoint    String                                   // "POST /webhooks/foo"
+  method      String
+  path        String
+  headersJson Json
+  bodyJson    Json?
+  bodyText    String?
+  statusCode  Int?
+  responseMs  Int?
+  capturedBy  String?                                  // userId that triggered the capture
+  createdAt   DateTime @default(now())
+
+  @@index([endpoint, createdAt])
+  @@index([createdAt])
+}
+
 // FinOps — per-endpoint cost rate. Admins fill in cents-per-1k-requests
 // based on infra observation; cost dashboard multiplies request volume
 // from EndpointStat by these rates. Default: 0 (free) when no rate set.
