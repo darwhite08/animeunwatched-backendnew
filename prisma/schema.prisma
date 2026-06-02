@@ -1353,3 +1353,104 @@ model AnomalyEvent {
   @@index([acknowledgedAt])
 }
 
+// ---------------------------------------------------------------------------
+// Enterprise: incidents, maintenance, SLA metrics, saved replies
+// ---------------------------------------------------------------------------
+
+// Structured incident records with full lifecycle. Different from AdminAlert
+// (which is a notification surface); an Incident is the THING that happens
+// and gets a real post-mortem.
+model Incident {
+  id            String   @id @default(cuid())
+  title         String
+  severity      String                       // "sev1" | "sev2" | "sev3" | "sev4"
+  status        String   @default("open")    // open | investigating | identified | monitoring | resolved
+  category      String                       // "outage" | "degradation" | "security" | "data" | "billing"
+  impactedAreas Json     @default("[]")      // ["auth","feed","search"]
+  startedAt     DateTime @default(now())
+  detectedAt    DateTime?                    // when ops first noticed
+  resolvedAt    DateTime?
+  postmortem    String?                      // markdown, written after-the-fact
+  rootCause     String?                      // short summary
+  openedBy      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  updates IncidentUpdate[]
+
+  @@index([status, severity])
+  @@index([startedAt])
+}
+
+// Append-only timeline of incident updates ("investigating", "identified the
+// root cause", "rolled back deploy", "resolved"). Each update is itself a
+// historical record.
+model IncidentUpdate {
+  id          String   @id @default(cuid())
+  incidentId  String
+  status      String                       // mirror of Incident.status at update time
+  message     String                       // markdown
+  authorId    String?
+  createdAt   DateTime @default(now())
+
+  incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+
+  @@index([incidentId, createdAt])
+}
+
+// Scheduled maintenance. When `startsAt` ≤ now ≤ `endsAt`, the public
+// /maintenance/current endpoint returns it; admin shell + the user-facing
+// app should show a banner during the window.
+model MaintenanceWindow {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  scope       String   @default("all")     // "all" | "api" | "uploads" | "admin"
+  startsAt    DateTime
+  endsAt      DateTime
+  cancelledAt DateTime?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([startsAt, endsAt])
+}
+
+// Rolling per-endpoint RED metrics aggregated by the SLA middleware. One row
+// per (endpoint, hour) bucket — kept compact so charts stay fast.
+model EndpointStat {
+  id            String   @id @default(cuid())
+  endpoint      String                      // "GET /api/v1/anime/:id"
+  hourBucket    DateTime                    // truncated to the hour
+  requests      Int      @default(0)
+  errors        Int      @default(0)        // 5xx
+  clientErrors  Int      @default(0)        // 4xx
+  totalDurationMs BigInt @default(0)        // sum (for mean = total/requests)
+  maxDurationMs Int      @default(0)
+  // p50/p99 are stored as the result of in-process reservoir sampling. Not
+  // exact, but good enough for an admin overview and cheap to compute.
+  p50Ms         Int      @default(0)
+  p99Ms         Int      @default(0)
+
+  @@unique([endpoint, hourBucket])
+  @@index([hourBucket])
+  @@index([endpoint])
+}
+
+// Canned response library for support — small templates a moderator can
+// drop into a reply with one click. Markdown body; {{vars}} replaced
+// client-side by the operator.
+model SavedReply {
+  id          String   @id @default(cuid())
+  title       String                       // short label shown in the picker
+  body        String                       // markdown template
+  category    String?                      // "billing" | "abuse" | "bug" | ...
+  shortcut    String?  @unique             // e.g. "/refund" — for type-ahead pickers
+  useCount    Int      @default(0)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+}
+

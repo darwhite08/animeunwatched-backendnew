@@ -32,6 +32,11 @@ import * as inspect    from "./inspect.controller";
 import * as cRules     from "./contentRules.controller";
 import * as modAct     from "./modActivity.controller";
 import * as anomalies  from "./anomalies.controller";
+import * as incidents  from "./incidents.controller";
+import * as maint      from "./maintenance.controller";
+import * as savedRep   from "./savedReplies.controller";
+import * as sla        from "./sla.controller";
+import * as openApi    from "./openapi.controller";
 
 export const adminRouter = Router();
 
@@ -249,4 +254,31 @@ adminRouter.get(   "/anomalies",                       requirePermission("securi
 adminRouter.post(  "/anomalies/:id/ack",               requirePermission("security","write"), anomalies.ackAnomaly);
 adminRouter.post(  "/anomalies/bulk-ack",              requirePermission("security","write"), anomalies.bulkAckAnomalies);
 adminRouter.post(  "/anomalies/scan",                  requirePermission("security","write"), anomalies.triggerScan);
+
+// Incidents (status-page lifecycle)
+adminRouter.get(   "/incidents",                       requirePermission("settings","read"),  incidents.listIncidents);
+adminRouter.get(   "/incidents/:id",                   requirePermission("settings","read"),  incidents.getIncident);
+adminRouter.post(  "/incidents",                       requirePermission("settings","write"), incidents.createIncident);
+adminRouter.patch( "/incidents/:id",                   requirePermission("settings","write"), incidents.patchIncident);
+adminRouter.post(  "/incidents/:id/updates",           requirePermission("settings","write"), incidents.appendUpdate);
+
+// Maintenance windows
+adminRouter.get(   "/maintenance",                     requirePermission("settings","read"),  maint.listMaintenance);
+adminRouter.post(  "/maintenance",                     requirePermission("settings","write"), maint.createMaintenance);
+adminRouter.post(  "/maintenance/:id/cancel",          requirePermission("settings","write"), maint.cancelMaintenance);
+adminRouter.delete("/maintenance/:id",                 requirePermissionWithStepUp("settings","write"), maint.deleteMaintenance);
+
+// SLA / RED metrics per endpoint
+adminRouter.get(   "/sla/overview",                    requirePermission("settings","read"),  sla.getSlaOverview);
+adminRouter.post(  "/sla/flush",                       requirePermission("settings","write"), sla.flushSla);
+
+// OpenAPI spec (live introspection of the running router)
+adminRouter.get(   "/openapi.json",                    requirePermission("settings","read"),  openApi.getOpenApi);
+
+// Saved replies (canned moderation/support responses)
+adminRouter.get(   "/saved-replies",                   requirePermission("moderation","read"), savedRep.listReplies);
+adminRouter.post(  "/saved-replies",                   requirePermission("moderation","act"),  savedRep.createReply);
+adminRouter.patch( "/saved-replies/:id",               requirePermission("moderation","act"),  savedRep.updateReply);
+adminRouter.delete("/saved-replies/:id",               requirePermission("moderation","act"),  savedRep.deleteReply);
+adminRouter.post(  "/saved-replies/:id/use",           requirePermission("moderation","read"), savedRep.markUsed);
 

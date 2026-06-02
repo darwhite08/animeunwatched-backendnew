@@ -116,7 +116,12 @@ export const ModelName = {
   ContentRule: 'ContentRule',
   ContentFingerprint: 'ContentFingerprint',
   IpProfile: 'IpProfile',
-  AnomalyEvent: 'AnomalyEvent'
+  AnomalyEvent: 'AnomalyEvent',
+  Incident: 'Incident',
+  IncidentUpdate: 'IncidentUpdate',
+  MaintenanceWindow: 'MaintenanceWindow',
+  EndpointStat: 'EndpointStat',
+  SavedReply: 'SavedReply'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1074,6 +1079,85 @@ export const AnomalyEventScalarFieldEnum = {
 } as const
 
 export type AnomalyEventScalarFieldEnum = (typeof AnomalyEventScalarFieldEnum)[keyof typeof AnomalyEventScalarFieldEnum]
+
+
+export const IncidentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  severity: 'severity',
+  status: 'status',
+  category: 'category',
+  impactedAreas: 'impactedAreas',
+  startedAt: 'startedAt',
+  detectedAt: 'detectedAt',
+  resolvedAt: 'resolvedAt',
+  postmortem: 'postmortem',
+  rootCause: 'rootCause',
+  openedBy: 'openedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IncidentScalarFieldEnum = (typeof IncidentScalarFieldEnum)[keyof typeof IncidentScalarFieldEnum]
+
+
+export const IncidentUpdateScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  status: 'status',
+  message: 'message',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type IncidentUpdateScalarFieldEnum = (typeof IncidentUpdateScalarFieldEnum)[keyof typeof IncidentUpdateScalarFieldEnum]
+
+
+export const MaintenanceWindowScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  scope: 'scope',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  cancelledAt: 'cancelledAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaintenanceWindowScalarFieldEnum = (typeof MaintenanceWindowScalarFieldEnum)[keyof typeof MaintenanceWindowScalarFieldEnum]
+
+
+export const EndpointStatScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  hourBucket: 'hourBucket',
+  requests: 'requests',
+  errors: 'errors',
+  clientErrors: 'clientErrors',
+  totalDurationMs: 'totalDurationMs',
+  maxDurationMs: 'maxDurationMs',
+  p50Ms: 'p50Ms',
+  p99Ms: 'p99Ms'
+} as const
+
+export type EndpointStatScalarFieldEnum = (typeof EndpointStatScalarFieldEnum)[keyof typeof EndpointStatScalarFieldEnum]
+
+
+export const SavedReplyScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  body: 'body',
+  category: 'category',
+  shortcut: 'shortcut',
+  useCount: 'useCount',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedReplyScalarFieldEnum = (typeof SavedReplyScalarFieldEnum)[keyof typeof SavedReplyScalarFieldEnum]
 
 
 export const SortOrder = {

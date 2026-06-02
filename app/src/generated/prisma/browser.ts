@@ -357,3 +357,28 @@ export type IpProfile = Prisma.IpProfileModel
  * 
  */
 export type AnomalyEvent = Prisma.AnomalyEventModel
+/**
+ * Model Incident
+ * 
+ */
+export type Incident = Prisma.IncidentModel
+/**
+ * Model IncidentUpdate
+ * 
+ */
+export type IncidentUpdate = Prisma.IncidentUpdateModel
+/**
+ * Model MaintenanceWindow
+ * 
+ */
+export type MaintenanceWindow = Prisma.MaintenanceWindowModel
+/**
+ * Model EndpointStat
+ * 
+ */
+export type EndpointStat = Prisma.EndpointStatModel
+/**
+ * Model SavedReply
+ * 
+ */
+export type SavedReply = Prisma.SavedReplyModel

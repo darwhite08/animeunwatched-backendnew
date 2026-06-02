@@ -5,6 +5,7 @@ import { runDataRetention } from "./dataRetention.job"
 import { runReportScheduler } from "./reportScheduler.job"
 import { runAuditChainCheck } from "./auditChainCheck.job"
 import { registerJob, instrument } from "../lib/jobRegistry"
+import { flushSlaMetrics } from "../middlewares/slaMetrics.middleware"
 
 export function startJobs() {
   // Register jobs in the in-process registry so /admin/jobs shows them.
@@ -36,6 +37,10 @@ export function startJobs() {
       return { purged: count }
     },
   })
+  registerJob({
+    name: "flushSlaMetrics", description: "Persist in-process RED metrics into EndpointStat (every 60s)",
+    intervalMs: 60_000, handler: async () => flushSlaMetrics(),
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -63,6 +68,10 @@ export function startJobs() {
 
   // Webhook dispatcher — polls WebhookDelivery rows every 30s
   startWebhookDispatcher()
+
+  // SLA metric flush — every 60s the in-process buckets are persisted into EndpointStat
+  const slaFlush = instrument("flushSlaMetrics", flushSlaMetrics)
+  setInterval(slaFlush, 60_000)
 
   console.log("[Jobs] Background jobs started")
 }

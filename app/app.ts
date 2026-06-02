@@ -20,7 +20,9 @@ import { requestId } from "./src/middlewares/requestId.middleware";
 import { logger } from "./src/lib/logger";
 import { responseTime, requestLogger } from "./src/middlewares/performance.middleware";
 import { apiVersionHeader } from "./src/middlewares/apiVersion.middleware";
+import { slaMetrics } from "./src/middlewares/slaMetrics.middleware";
 import router from "./src/routes";
+import { currentMaintenance } from "./src/modules/admin/maintenance.controller";
 import { spec } from "./src/openapi";
 import { prisma } from "./src/config/prisma";
 import { cache } from "./src/lib/cache";
@@ -130,6 +132,8 @@ if (process.env.SENTRY_DSN) {
 
 app.use(responseTime);
 app.use(requestLogger);
+// Per-endpoint RED metrics (record on response finish, never blocks the request)
+app.use(slaMetrics());
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin) || isKaiveronOrigin(origin)))) {
@@ -209,6 +213,9 @@ app.get("/sitemap.xml", async (_req, res) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(u => `<url><loc>${u}</loc></url>`).join("")}</urlset>`;
   res.set("Content-Type", "application/xml").send(xml);
 });
+
+// Public status — frontends fetch current maintenance window for the banner
+app.get("/api/v1/status/maintenance", currentMaintenance);
 
 // API v1
 app.use("/api/v1", router);
