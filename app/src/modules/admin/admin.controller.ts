@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as service from "./admin.service";
 import { badRequest } from "../../lib/errors";
 import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
+import { getGA4Realtime, isGA4Configured } from "../../lib/ga4";
 
 export async function getStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -119,4 +120,24 @@ export async function getMetricsOverview(_req: Request, res: Response, next: Nex
 
 export function getAnalyticsLive(_req: Request, res: Response): void {
   res.status(200).json(getLiveSnapshot())
+}
+
+/**
+ * GA4 realtime snapshot. Returns 200 with { configured: false } when
+ * the env vars aren't set so the frontend can render the "connect GA4"
+ * placeholder without lighting up an error state.
+ */
+export async function getGAAnalyticsLive(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    if (!isGA4Configured()) {
+      res.status(200).json({ configured: false })
+      return
+    }
+    const snap = await getGA4Realtime()
+    if (!snap) {
+      res.status(200).json({ configured: true, available: false })
+      return
+    }
+    res.status(200).json({ configured: true, available: true, ...snap })
+  } catch (err) { next(err) }
 }

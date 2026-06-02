@@ -13,6 +13,7 @@ adminRouter.get("/stats",            ctrl.getStats);
 adminRouter.get("/health",           ctrl.getPlatformHealth);
 adminRouter.get("/metrics/overview", ctrl.getMetricsOverview);
 adminRouter.get("/analytics/live",   ctrl.getAnalyticsLive);
+adminRouter.get("/ga/realtime",      ctrl.getGAAnalyticsLive);
 
 // Users
 adminRouter.get("/users",                  ctrl.listUsers);
