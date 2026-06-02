@@ -42,6 +42,7 @@ import * as approvals  from "./approvals.controller";
 import { requireApproval } from "../../lib/approvals";
 import * as oauthClients from "./oauthClients.controller";
 import * as scimAdmin    from "./scim.controller";
+import * as samlCfg      from "./samlConfigs.controller";
 
 export const adminRouter = Router();
 
@@ -313,4 +314,15 @@ adminRouter.delete("/oauth/clients/:clientId/tokens/:tokenId", requirePermission
 
 // SCIM 2.0 admin inspector — read-only status + recent provisioned users
 adminRouter.get(   "/scim/status",                     requirePermission("api_keys","read"), scimAdmin.getScimStatus);
+
+// SAML 2.0 SSO configuration
+adminRouter.get(   "/saml/configs",                    requirePermission("security","read"),  samlCfg.listConfigs);
+adminRouter.get(   "/saml/configs/:id",                requirePermission("security","read"),  samlCfg.getConfig);
+adminRouter.post(  "/saml/configs",                    requirePermissionWithStepUp("security","write"), samlCfg.createConfig);
+adminRouter.patch( "/saml/configs/:id",                requirePermissionWithStepUp("security","write"), samlCfg.updateConfig);
+adminRouter.post(  "/saml/configs/:id/activate",       requirePermissionWithStepUp("security","write"), samlCfg.activateConfig);
+adminRouter.post(  "/saml/deactivate",                 requirePermissionWithStepUp("security","write"), samlCfg.deactivateAll);
+adminRouter.delete("/saml/configs/:id",                requirePermissionWithStepUp("security","write"), samlCfg.deleteConfig);
+adminRouter.get(   "/saml/login-events",               requirePermission("security","read"),  samlCfg.listLoginEvents);
+adminRouter.get(   "/saml/sp-urls",                    requirePermission("security","read"),  samlCfg.getSpMetadataUrl);
 

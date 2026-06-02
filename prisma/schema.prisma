@@ -1582,3 +1582,48 @@ model ScimSubject {
   @@index([idpClientId])
 }
 
+// SAML 2.0 SSO configuration. One row per IdP integration. Today we
+// support a single active config (most enterprises have one IdP) — the
+// `active` flag is enforced by application code, not a DB constraint, so
+// we can keep historical configs around for audit.
+model SamlConfig {
+  id                String   @id @default(cuid())
+  name              String                              // human label, e.g. "Okta Production"
+  idpEntityId       String                              // urn:something from IdP metadata
+  idpSsoUrl         String                              // where AuthnRequests are POSTed
+  idpSloUrl         String?                             // optional single-logout endpoint
+  idpCertificate    String                              // PEM-formatted X.509 (without headers ok too)
+  spEntityId        String                              // our entityID — usually https://api.kaiveron.com/saml/metadata
+  emailAttribute    String   @default("email")          // SAML attr name to read for the user's email
+  displayNameAttr   String   @default("displayName")    // SAML attr name for the display name
+  autoProvision     Boolean  @default(true)             // create new users on first login?
+  active            Boolean  @default(false)            // exactly one active at a time (enforced app-side)
+  signRequests      Boolean  @default(false)            // sign our AuthnRequests?
+  wantAssertionsSigned Boolean @default(true)
+  spPrivateKey      String?                             // PEM key for signing; null if signRequests=false
+  spCertificate     String?                             // matching public cert
+  createdBy         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([active])
+}
+
+// Audit trail for SSO logins — useful for "did SSO actually work last week?"
+// and for compliance reports. Distinct from SecurityEvent which covers
+// password/OAuth logins.
+model SamlLoginEvent {
+  id          String   @id @default(cuid())
+  configId    String                                    // FK to SamlConfig.id (no constraint — config can be deleted)
+  userId      String?                                   // null if provisioning was rejected
+  email       String?                                   // raw email from SAML
+  outcome     String                                    // "success" | "rejected_provision" | "verification_failed" | "expired_assertion"
+  ipAddress   String?
+  userAgent   String?
+  errorDetail String?
+  createdAt   DateTime @default(now())
+
+  @@index([configId, createdAt])
+  @@index([userId])
+}
+

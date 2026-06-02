@@ -468,7 +468,9 @@ export const ModelName = {
   ApprovalDecision: 'ApprovalDecision',
   OauthClient: 'OauthClient',
   OauthAccessToken: 'OauthAccessToken',
-  ScimSubject: 'ScimSubject'
+  ScimSubject: 'ScimSubject',
+  SamlConfig: 'SamlConfig',
+  SamlLoginEvent: 'SamlLoginEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -484,7 +486,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6334,6 +6336,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SamlConfig: {
+      payload: Prisma.$SamlConfigPayload<ExtArgs>
+      fields: Prisma.SamlConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SamlConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SamlConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.SamlConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SamlConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        findMany: {
+          args: Prisma.SamlConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>[]
+        }
+        create: {
+          args: Prisma.SamlConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        createMany: {
+          args: Prisma.SamlConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SamlConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.SamlConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        update: {
+          args: Prisma.SamlConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.SamlConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SamlConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SamlConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.SamlConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.SamlConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSamlConfig>
+        }
+        groupBy: {
+          args: Prisma.SamlConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SamlConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SamlConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SamlConfigCountAggregateOutputType> | number
+        }
+      }
+    }
+    SamlLoginEvent: {
+      payload: Prisma.$SamlLoginEventPayload<ExtArgs>
+      fields: Prisma.SamlLoginEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SamlLoginEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SamlLoginEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        findFirst: {
+          args: Prisma.SamlLoginEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SamlLoginEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        findMany: {
+          args: Prisma.SamlLoginEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>[]
+        }
+        create: {
+          args: Prisma.SamlLoginEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        createMany: {
+          args: Prisma.SamlLoginEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SamlLoginEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>[]
+        }
+        delete: {
+          args: Prisma.SamlLoginEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        update: {
+          args: Prisma.SamlLoginEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.SamlLoginEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SamlLoginEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SamlLoginEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.SamlLoginEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SamlLoginEventPayload>
+        }
+        aggregate: {
+          args: Prisma.SamlLoginEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSamlLoginEvent>
+        }
+        groupBy: {
+          args: Prisma.SamlLoginEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SamlLoginEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SamlLoginEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SamlLoginEventCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -7490,6 +7640,45 @@ export const ScimSubjectScalarFieldEnum = {
 export type ScimSubjectScalarFieldEnum = (typeof ScimSubjectScalarFieldEnum)[keyof typeof ScimSubjectScalarFieldEnum]
 
 
+export const SamlConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  idpEntityId: 'idpEntityId',
+  idpSsoUrl: 'idpSsoUrl',
+  idpSloUrl: 'idpSloUrl',
+  idpCertificate: 'idpCertificate',
+  spEntityId: 'spEntityId',
+  emailAttribute: 'emailAttribute',
+  displayNameAttr: 'displayNameAttr',
+  autoProvision: 'autoProvision',
+  active: 'active',
+  signRequests: 'signRequests',
+  wantAssertionsSigned: 'wantAssertionsSigned',
+  spPrivateKey: 'spPrivateKey',
+  spCertificate: 'spCertificate',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const SamlLoginEventScalarFieldEnum = {
+  id: 'id',
+  configId: 'configId',
+  userId: 'userId',
+  email: 'email',
+  outcome: 'outcome',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  errorDetail: 'errorDetail',
+  createdAt: 'createdAt'
+} as const
+
+export type SamlLoginEventScalarFieldEnum = (typeof SamlLoginEventScalarFieldEnum)[keyof typeof SamlLoginEventScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -7884,6 +8073,8 @@ export type GlobalOmitConfig = {
   oauthClient?: Prisma.OauthClientOmit
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
+  samlConfig?: Prisma.SamlConfigOmit
+  samlLoginEvent?: Prisma.SamlLoginEventOmit
 }
 
 /* Types for Logging */

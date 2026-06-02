@@ -25,6 +25,7 @@ import router from "./src/routes";
 import { currentMaintenance } from "./src/modules/admin/maintenance.controller";
 import { publicStatus } from "./src/modules/status/status.controller";
 import { scimRouter }  from "./src/modules/scim/scim.routes";
+import { samlRouter }  from "./src/modules/saml/saml.routes";
 import { spec } from "./src/openapi";
 import { prisma } from "./src/config/prisma";
 import { cache } from "./src/lib/cache";
@@ -226,6 +227,9 @@ app.use("/api/v1", router);
 
 // SCIM 2.0 mounted at the root path per spec (IdPs append /Users, /Groups, etc.)
 app.use("/scim/v2", scimRouter);
+
+// SAML 2.0 SSO — endpoints called by IdPs and browser redirects, no /api/v1 prefix
+app.use("/saml", samlRouter);
 
 app.use(errorHandler);
 

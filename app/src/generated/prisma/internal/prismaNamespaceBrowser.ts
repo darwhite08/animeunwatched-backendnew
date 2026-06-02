@@ -127,7 +127,9 @@ export const ModelName = {
   ApprovalDecision: 'ApprovalDecision',
   OauthClient: 'OauthClient',
   OauthAccessToken: 'OauthAccessToken',
-  ScimSubject: 'ScimSubject'
+  ScimSubject: 'ScimSubject',
+  SamlConfig: 'SamlConfig',
+  SamlLoginEvent: 'SamlLoginEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1261,6 +1263,45 @@ export const ScimSubjectScalarFieldEnum = {
 } as const
 
 export type ScimSubjectScalarFieldEnum = (typeof ScimSubjectScalarFieldEnum)[keyof typeof ScimSubjectScalarFieldEnum]
+
+
+export const SamlConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  idpEntityId: 'idpEntityId',
+  idpSsoUrl: 'idpSsoUrl',
+  idpSloUrl: 'idpSloUrl',
+  idpCertificate: 'idpCertificate',
+  spEntityId: 'spEntityId',
+  emailAttribute: 'emailAttribute',
+  displayNameAttr: 'displayNameAttr',
+  autoProvision: 'autoProvision',
+  active: 'active',
+  signRequests: 'signRequests',
+  wantAssertionsSigned: 'wantAssertionsSigned',
+  spPrivateKey: 'spPrivateKey',
+  spCertificate: 'spCertificate',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const SamlLoginEventScalarFieldEnum = {
+  id: 'id',
+  configId: 'configId',
+  userId: 'userId',
+  email: 'email',
+  outcome: 'outcome',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  errorDetail: 'errorDetail',
+  createdAt: 'createdAt'
+} as const
+
+export type SamlLoginEventScalarFieldEnum = (typeof SamlLoginEventScalarFieldEnum)[keyof typeof SamlLoginEventScalarFieldEnum]
 
 
 export const SortOrder = {

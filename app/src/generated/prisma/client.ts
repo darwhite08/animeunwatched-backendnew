@@ -437,3 +437,13 @@ export type OauthAccessToken = Prisma.OauthAccessTokenModel
  * 
  */
 export type ScimSubject = Prisma.ScimSubjectModel
+/**
+ * Model SamlConfig
+ * 
+ */
+export type SamlConfig = Prisma.SamlConfigModel
+/**
+ * Model SamlLoginEvent
+ * 
+ */
+export type SamlLoginEvent = Prisma.SamlLoginEventModel
