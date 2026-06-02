@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./admin.service";
 import { badRequest } from "../../lib/errors";
+import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
 
 export async function getStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -114,4 +115,8 @@ export async function getMetricsOverview(_req: Request, res: Response, next: Nex
     const result = await service.getMetricsOverview()
     res.status(200).json(result)
   } catch (err) { next(err) }
+}
+
+export function getAnalyticsLive(_req: Request, res: Response): void {
+  res.status(200).json(getLiveSnapshot())
 }

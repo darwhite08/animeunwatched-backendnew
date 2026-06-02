@@ -12,3 +12,6 @@ analyticsRouter.get("/stats",       optionalAuth, ctrl.platformStats);
 analyticsRouter.get("/top-anime",   optionalAuth, ctrl.topAnime);
 analyticsRouter.get("/activity",    optionalAuth, ctrl.recentActivity);
 analyticsRouter.get("/leaderboard", optionalAuth, ctrl.reputationLeaderboard);
+
+// Realtime visitor tracking — feeds the admin dashboard's "right now" tile
+analyticsRouter.post("/pageview", optionalAuth, ctrl.pageview);

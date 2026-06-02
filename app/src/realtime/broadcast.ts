@@ -127,6 +127,10 @@ export function broadcastAdminAuditEvent(type: string, userId: string | null): v
   emit(ADMIN_ROOM, "admin.audit.appended", { type, userId, at: Date.now() })
 }
 
+export function broadcastAdminAnalyticsLive(snapshot: unknown): void {
+  emit(ADMIN_ROOM, "admin.analytics.live", snapshot)
+}
+
 export function broadcastReviewCreated(malId: number, review: unknown): void {
   emit(animeRoom(malId), "review.created", review)
 }

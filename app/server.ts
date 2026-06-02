@@ -5,6 +5,8 @@ import { initSocket } from "./src/realtime/socket";
 import { setIo } from "./src/realtime/io-instance";
 import { startJobs } from "./src/jobs";
 import { prisma } from "./src/config/prisma";
+import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
+import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 
 // Catch unhandled promise rejections so the process doesn't silently die
 process.on("unhandledRejection", (reason) => {
@@ -22,6 +24,14 @@ const server = http.createServer(app);
 const io = initSocket(server);
 setIo(io);
 startJobs();
+
+// Realtime analytics ticker — fires every 5 s; cheap (in-memory snapshot)
+// and only sends to the `admin` socket room, so it's a no-op when no
+// admins are connected.
+setInterval(() => {
+  try { broadcastAdminAnalyticsLive(getLiveSnapshot()) }
+  catch (err) { console.error("[analytics-ticker] emit failed:", err) }
+}, 5_000).unref();
 
 server.listen(env.PORT, () => {
   console.log(`[${env.NODE_ENV}] Server on http://localhost:${env.PORT}`);
