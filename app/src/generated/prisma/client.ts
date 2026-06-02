@@ -443,6 +443,26 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model ConsentRecord
+ * 
+ */
+export type ConsentRecord = Prisma.ConsentRecordModel
+/**
+ * Model RtbfRequest
+ * 
+ */
+export type RtbfRequest = Prisma.RtbfRequestModel
+/**
+ * Model VendorRecord
+ * 
+ */
+export type VendorRecord = Prisma.VendorRecordModel
+/**
+ * Model KmsKeyRotation
+ * 
+ */
+export type KmsKeyRotation = Prisma.KmsKeyRotationModel
+/**
  * Model RateLimitOverride
  * 
  */

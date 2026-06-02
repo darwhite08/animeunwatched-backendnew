@@ -129,6 +129,10 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  ConsentRecord: 'ConsentRecord',
+  RtbfRequest: 'RtbfRequest',
+  VendorRecord: 'VendorRecord',
+  KmsKeyRotation: 'KmsKeyRotation',
   RateLimitOverride: 'RateLimitOverride',
   ApiChangeLog: 'ApiChangeLog',
   DeprecatedEndpoint: 'DeprecatedEndpoint',
@@ -1293,6 +1297,75 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const ConsentRecordScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  version: 'version',
+  givenAt: 'givenAt',
+  withdrawnAt: 'withdrawnAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  source: 'source',
+  metadata: 'metadata'
+} as const
+
+export type ConsentRecordScalarFieldEnum = (typeof ConsentRecordScalarFieldEnum)[keyof typeof ConsentRecordScalarFieldEnum]
+
+
+export const RtbfRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  email: 'email',
+  status: 'status',
+  verificationTokenHash: 'verificationTokenHash',
+  verifiedAt: 'verifiedAt',
+  rejectedReason: 'rejectedReason',
+  executedAt: 'executedAt',
+  executorId: 'executorId',
+  retentionExceptionsJson: 'retentionExceptionsJson',
+  requestedAt: 'requestedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RtbfRequestScalarFieldEnum = (typeof RtbfRequestScalarFieldEnum)[keyof typeof RtbfRequestScalarFieldEnum]
+
+
+export const VendorRecordScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  category: 'category',
+  dataAccessed: 'dataAccessed',
+  region: 'region',
+  dpaUrl: 'dpaUrl',
+  contactEmail: 'contactEmail',
+  notes: 'notes',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VendorRecordScalarFieldEnum = (typeof VendorRecordScalarFieldEnum)[keyof typeof VendorRecordScalarFieldEnum]
+
+
+export const KmsKeyRotationScalarFieldEnum = {
+  id: 'id',
+  keyAlias: 'keyAlias',
+  provider: 'provider',
+  algorithm: 'algorithm',
+  lastRotatedAt: 'lastRotatedAt',
+  nextDueAt: 'nextDueAt',
+  rotatedBy: 'rotatedBy',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KmsKeyRotationScalarFieldEnum = (typeof KmsKeyRotationScalarFieldEnum)[keyof typeof KmsKeyRotationScalarFieldEnum]
 
 
 export const RateLimitOverrideScalarFieldEnum = {

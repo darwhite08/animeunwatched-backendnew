@@ -470,6 +470,10 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  ConsentRecord: 'ConsentRecord',
+  RtbfRequest: 'RtbfRequest',
+  VendorRecord: 'VendorRecord',
+  KmsKeyRotation: 'KmsKeyRotation',
   RateLimitOverride: 'RateLimitOverride',
   ApiChangeLog: 'ApiChangeLog',
   DeprecatedEndpoint: 'DeprecatedEndpoint',
@@ -492,7 +496,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6416,6 +6420,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ConsentRecord: {
+      payload: Prisma.$ConsentRecordPayload<ExtArgs>
+      fields: Prisma.ConsentRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConsentRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConsentRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.ConsentRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConsentRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        findMany: {
+          args: Prisma.ConsentRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>[]
+        }
+        create: {
+          args: Prisma.ConsentRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        createMany: {
+          args: Prisma.ConsentRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConsentRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.ConsentRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        update: {
+          args: Prisma.ConsentRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConsentRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConsentRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConsentRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConsentRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsentRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.ConsentRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConsentRecord>
+        }
+        groupBy: {
+          args: Prisma.ConsentRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsentRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConsentRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsentRecordCountAggregateOutputType> | number
+        }
+      }
+    }
+    RtbfRequest: {
+      payload: Prisma.$RtbfRequestPayload<ExtArgs>
+      fields: Prisma.RtbfRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RtbfRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RtbfRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.RtbfRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RtbfRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        findMany: {
+          args: Prisma.RtbfRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>[]
+        }
+        create: {
+          args: Prisma.RtbfRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        createMany: {
+          args: Prisma.RtbfRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RtbfRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.RtbfRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        update: {
+          args: Prisma.RtbfRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.RtbfRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RtbfRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RtbfRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.RtbfRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RtbfRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.RtbfRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRtbfRequest>
+        }
+        groupBy: {
+          args: Prisma.RtbfRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RtbfRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RtbfRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RtbfRequestCountAggregateOutputType> | number
+        }
+      }
+    }
+    VendorRecord: {
+      payload: Prisma.$VendorRecordPayload<ExtArgs>
+      fields: Prisma.VendorRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VendorRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VendorRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.VendorRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VendorRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        findMany: {
+          args: Prisma.VendorRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>[]
+        }
+        create: {
+          args: Prisma.VendorRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        createMany: {
+          args: Prisma.VendorRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VendorRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.VendorRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        update: {
+          args: Prisma.VendorRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.VendorRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VendorRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VendorRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.VendorRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.VendorRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVendorRecord>
+        }
+        groupBy: {
+          args: Prisma.VendorRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VendorRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VendorRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VendorRecordCountAggregateOutputType> | number
+        }
+      }
+    }
+    KmsKeyRotation: {
+      payload: Prisma.$KmsKeyRotationPayload<ExtArgs>
+      fields: Prisma.KmsKeyRotationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.KmsKeyRotationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.KmsKeyRotationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        findFirst: {
+          args: Prisma.KmsKeyRotationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.KmsKeyRotationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        findMany: {
+          args: Prisma.KmsKeyRotationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>[]
+        }
+        create: {
+          args: Prisma.KmsKeyRotationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        createMany: {
+          args: Prisma.KmsKeyRotationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.KmsKeyRotationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>[]
+        }
+        delete: {
+          args: Prisma.KmsKeyRotationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        update: {
+          args: Prisma.KmsKeyRotationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        deleteMany: {
+          args: Prisma.KmsKeyRotationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.KmsKeyRotationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.KmsKeyRotationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>[]
+        }
+        upsert: {
+          args: Prisma.KmsKeyRotationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KmsKeyRotationPayload>
+        }
+        aggregate: {
+          args: Prisma.KmsKeyRotationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateKmsKeyRotation>
+        }
+        groupBy: {
+          args: Prisma.KmsKeyRotationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KmsKeyRotationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.KmsKeyRotationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KmsKeyRotationCountAggregateOutputType> | number
+        }
+      }
+    }
     RateLimitOverride: {
       payload: Prisma.$RateLimitOverridePayload<ExtArgs>
       fields: Prisma.RateLimitOverrideFieldRefs
@@ -8114,6 +8414,75 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const ConsentRecordScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  version: 'version',
+  givenAt: 'givenAt',
+  withdrawnAt: 'withdrawnAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  source: 'source',
+  metadata: 'metadata'
+} as const
+
+export type ConsentRecordScalarFieldEnum = (typeof ConsentRecordScalarFieldEnum)[keyof typeof ConsentRecordScalarFieldEnum]
+
+
+export const RtbfRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  email: 'email',
+  status: 'status',
+  verificationTokenHash: 'verificationTokenHash',
+  verifiedAt: 'verifiedAt',
+  rejectedReason: 'rejectedReason',
+  executedAt: 'executedAt',
+  executorId: 'executorId',
+  retentionExceptionsJson: 'retentionExceptionsJson',
+  requestedAt: 'requestedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RtbfRequestScalarFieldEnum = (typeof RtbfRequestScalarFieldEnum)[keyof typeof RtbfRequestScalarFieldEnum]
+
+
+export const VendorRecordScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  category: 'category',
+  dataAccessed: 'dataAccessed',
+  region: 'region',
+  dpaUrl: 'dpaUrl',
+  contactEmail: 'contactEmail',
+  notes: 'notes',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VendorRecordScalarFieldEnum = (typeof VendorRecordScalarFieldEnum)[keyof typeof VendorRecordScalarFieldEnum]
+
+
+export const KmsKeyRotationScalarFieldEnum = {
+  id: 'id',
+  keyAlias: 'keyAlias',
+  provider: 'provider',
+  algorithm: 'algorithm',
+  lastRotatedAt: 'lastRotatedAt',
+  nextDueAt: 'nextDueAt',
+  rotatedBy: 'rotatedBy',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KmsKeyRotationScalarFieldEnum = (typeof KmsKeyRotationScalarFieldEnum)[keyof typeof KmsKeyRotationScalarFieldEnum]
+
+
 export const RateLimitOverrideScalarFieldEnum = {
   id: 'id',
   subjectType: 'subjectType',
@@ -8613,6 +8982,10 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  consentRecord?: Prisma.ConsentRecordOmit
+  rtbfRequest?: Prisma.RtbfRequestOmit
+  vendorRecord?: Prisma.VendorRecordOmit
+  kmsKeyRotation?: Prisma.KmsKeyRotationOmit
   rateLimitOverride?: Prisma.RateLimitOverrideOmit
   apiChangeLog?: Prisma.ApiChangeLogOmit
   deprecatedEndpoint?: Prisma.DeprecatedEndpointOmit

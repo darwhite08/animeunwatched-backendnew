@@ -1609,6 +1609,92 @@ model SamlConfig {
   @@index([active])
 }
 
+// Compliance — per-user consent record (GDPR Article 7 + EU AI Act).
+// One row per (userId, purpose). Created on consent given, updated on
+// withdrawal — `withdrawnAt` set rather than row deleted so the audit
+// trail is preserved.
+model ConsentRecord {
+  id          String   @id @default(cuid())
+  userId      String
+  purpose     String                                   // "marketing_email" | "personalization" | "third_party_analytics" | "ai_training" | ...
+  version     String                                   // copy of the consent text version
+  givenAt     DateTime @default(now())
+  withdrawnAt DateTime?
+  ipAddress   String?
+  userAgent   String?
+  source      String   @default("ui")                  // "ui" | "imported" | "scim" | "saml"
+  metadata    Json?
+
+  @@unique([userId, purpose])
+  @@index([userId])
+  @@index([purpose])
+}
+
+// Compliance — Right-To-Be-Forgotten request queue (GDPR Article 17).
+// Separate from DSAR (data export). A request goes through:
+//   pending → verified → executing → completed | rejected
+// Verification = email link the requester must click (proof of identity).
+// Execution = hard purge of personal data, leaving anonymized rows so the
+// audit hash chain isn't broken.
+model RtbfRequest {
+  id           String   @id @default(cuid())
+  userId       String
+  email        String                                  // captured at request time in case user is later anonymized
+  status       String   @default("pending")            // pending | verified | executing | completed | rejected
+  verificationTokenHash String?                        // sha256; null after verification
+  verifiedAt   DateTime?
+  rejectedReason String?
+  executedAt   DateTime?
+  executorId   String?                                 // admin who pressed execute
+  retentionExceptionsJson Json?                        // legal-hold items that survive the purge
+  requestedAt  DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status, requestedAt])
+  @@index([userId])
+}
+
+// Compliance — sub-processor / vendor register (GDPR Article 30 §2 +
+// SOC2 vendor management). Admin-managed list of every third party that
+// touches user data, what they do with it, and the contract.
+model VendorRecord {
+  id              String   @id @default(cuid())
+  name            String                               // "OpenAI"
+  url             String                               // homepage / privacy URL
+  category        String                               // "ai_model" | "email" | "monitoring" | "infra" | "support" | ...
+  dataAccessed    String[] @default([])                // ["email","posts","ip"]
+  region          String?                              // "us-east-1" | "eu-west-1"
+  dpaUrl          String?                              // signed DPA link
+  contactEmail    String?
+  notes           String?
+  reviewedAt      DateTime?
+  reviewedBy      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([category])
+}
+
+// Compliance — KMS / encryption-at-rest key rotation tracker. We don't
+// actually rotate keys here (the cloud KMS does) — we record when it
+// happened, who reviewed, and the next-due date so an SOC2 auditor can
+// see we're managing rotation policy.
+model KmsKeyRotation {
+  id            String   @id @default(cuid())
+  keyAlias      String                                 // "rds-master" | "uploads-bucket" | ...
+  provider      String                                 // "aws_kms" | "gcp_kms" | "vault"
+  algorithm     String?                                // "AES-256" | "RSA-2048"
+  lastRotatedAt DateTime
+  nextDueAt     DateTime                               // policy says rotate before this
+  rotatedBy     String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([keyAlias])
+  @@index([nextDueAt])
+}
+
 // DX — per-subject rate-limit override. Subject is either an ApiKey id or
 // an OauthClient id. Applied at request time by the rate-limit middleware
 // when present, replacing the default global limit.

@@ -45,6 +45,7 @@ import * as scimAdmin    from "./scim.controller";
 import * as samlCfg      from "./samlConfigs.controller";
 import * as cost         from "./cost.controller";
 import * as dx           from "./dx.controller";
+import * as compliance   from "./compliance.controller";
 
 export const adminRouter = Router();
 
@@ -348,4 +349,17 @@ adminRouter.put(   "/dx/deprecations",                 requirePermission("settin
 adminRouter.delete("/dx/deprecations/:id",             requirePermission("settings","write"), dx.deleteDeprecation);
 adminRouter.get(   "/dx/captures",                     requirePermission("audit","read"),     dx.listCaptures);
 adminRouter.delete("/dx/captures/:id",                 requirePermission("audit","read"),     dx.deleteCapture);
+
+// Compliance — consent, RTBF queue, vendor register, KMS rotation
+adminRouter.get(   "/compliance/consent",              requirePermission("security","read"),  compliance.listConsent);
+adminRouter.get(   "/compliance/rtbf",                 requirePermission("security","read"),  compliance.listRtbf);
+adminRouter.post(  "/compliance/rtbf",                 requirePermissionWithStepUp("dsr","delete"), compliance.createRtbf);
+adminRouter.post(  "/compliance/rtbf/:id/review",      requirePermissionWithStepUp("dsr","delete"), compliance.reviewRtbf);
+adminRouter.get(   "/compliance/vendors",              requirePermission("security","read"),  compliance.listVendors);
+adminRouter.post(  "/compliance/vendors",              requirePermission("security","write"), compliance.upsertVendor);
+adminRouter.put(   "/compliance/vendors/:id",          requirePermission("security","write"), compliance.upsertVendor);
+adminRouter.delete("/compliance/vendors/:id",          requirePermission("security","write"), compliance.deleteVendor);
+adminRouter.get(   "/compliance/kms",                  requirePermission("security","read"),  compliance.listKms);
+adminRouter.put(   "/compliance/kms",                  requirePermissionWithStepUp("security","write"), compliance.upsertKms);
+adminRouter.delete("/compliance/kms/:id",              requirePermissionWithStepUp("security","write"), compliance.deleteKms);
 
