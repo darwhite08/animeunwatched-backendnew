@@ -48,6 +48,7 @@ import * as dx           from "./dx.controller";
 import * as compliance   from "./compliance.controller";
 import * as aiOps        from "./aiOps.controller";
 import * as obs          from "./observability.controller";
+import * as secX         from "./securityExtras.controller";
 
 export const adminRouter = Router();
 
@@ -386,4 +387,16 @@ adminRouter.put(   "/observability/monitors",          requirePermission("settin
 adminRouter.put(   "/observability/monitors/:id",      requirePermission("settings","write"), obs.upsertMonitor);
 adminRouter.delete("/observability/monitors/:id",      requirePermission("settings","write"), obs.deleteMonitor);
 adminRouter.post(  "/observability/monitors/:id/record", requirePermission("settings","write"), obs.recordMonitorOutcome);
+
+// Security extras — IP allowlist, secrets vault, DR runbooks
+adminRouter.get(   "/security/allowlist",              requirePermission("security","read"),  secX.listAllowlist);
+adminRouter.post(  "/security/allowlist",              requirePermissionWithStepUp("security","write"), secX.createAllowlist);
+adminRouter.delete("/security/allowlist/:id",          requirePermissionWithStepUp("security","write"), secX.deleteAllowlist);
+adminRouter.get(   "/security/vault",                  requirePermission("security","read"),  secX.listVault);
+adminRouter.put(   "/security/vault",                  requirePermissionWithStepUp("security","write"), secX.upsertVault);
+adminRouter.delete("/security/vault/:id",              requirePermissionWithStepUp("security","write"), secX.deleteVault);
+adminRouter.get(   "/security/runbooks",               requirePermission("security","read"),  secX.listRunbooks);
+adminRouter.put(   "/security/runbooks",               requirePermission("security","write"), secX.upsertRunbook);
+adminRouter.put(   "/security/runbooks/:id",           requirePermission("security","write"), secX.upsertRunbook);
+adminRouter.delete("/security/runbooks/:id",           requirePermission("security","write"), secX.deleteRunbook);
 

@@ -1609,6 +1609,64 @@ model SamlConfig {
   @@index([active])
 }
 
+// Security — per-credential IP allowlist. Subject is an OauthClient,
+// ApiKey, or User. Empty allowlist means "no restriction". Enforced by a
+// new middleware that reads this table.
+model IpAllowlistEntry {
+  id           String   @id @default(cuid())
+  subjectType  String                                  // "api_key" | "oauth_client" | "user"
+  subjectId    String
+  cidr         String                                  // "203.0.113.0/24" or "203.0.113.42/32"
+  description  String?
+  createdBy    String?
+  createdAt    DateTime @default(now())
+
+  @@index([subjectType, subjectId])
+}
+
+// Security — abstracted secrets vault. Generalizes the existing ApiKey
+// pattern so things like "Stripe webhook signing secret" or "OpenAI key"
+// can be admin-managed. Secrets stored as AES-256-GCM ciphertext using
+// the app's master key (env). For new secrets we use AWS KMS in production;
+// here we only persist the ciphertext + meta — the actual decryption helper
+// lives in lib/vault.ts (which doesn't ship plaintext over the wire).
+model VaultEntry {
+  id           String   @id @default(cuid())
+  name         String   @unique                       // "stripe.webhook_secret"
+  category     String                                  // "payments" | "ai" | "comms" | "infra"
+  ciphertextB64 String                                 // AES-256-GCM ciphertext, base64
+  ivB64        String                                  // 12-byte IV, base64
+  authTagB64   String                                  // 16-byte auth tag, base64
+  rotationDueAt DateTime?
+  rotatedAt    DateTime?
+  rotatedBy    String?
+  lastReadAt   DateTime?                               // bumped on each readSecret()
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+}
+
+// Security — disaster recovery runbooks. Markdown body, severity, expected
+// duration. Surfaces alongside incidents during sev1/sev2 so the on-call
+// has the playbook one click away.
+model DrRunbook {
+  id              String   @id @default(cuid())
+  title           String
+  triggerCategory String                              // matches Incident.category
+  severity        String                              // "sev1" | "sev2" | "sev3"
+  body            String                              // markdown
+  expectedDurationMinutes Int?
+  ownerEmail      String?
+  reviewedAt      DateTime?
+  reviewedBy      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([triggerCategory, severity])
+}
+
 // Observability — SLO definition. Computes error-budget burn against the
 // EndpointStat table. Single objective per endpoint today; multi-objective
 // (e.g. p99 latency AND error rate combined) in a later batch.

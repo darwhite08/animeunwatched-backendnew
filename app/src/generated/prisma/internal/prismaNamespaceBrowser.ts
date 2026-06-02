@@ -129,6 +129,9 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  IpAllowlistEntry: 'IpAllowlistEntry',
+  VaultEntry: 'VaultEntry',
+  DrRunbook: 'DrRunbook',
   SloDefinition: 'SloDefinition',
   SyntheticMonitor: 'SyntheticMonitor',
   LlmCall: 'LlmCall',
@@ -1303,6 +1306,55 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const IpAllowlistEntryScalarFieldEnum = {
+  id: 'id',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  cidr: 'cidr',
+  description: 'description',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type IpAllowlistEntryScalarFieldEnum = (typeof IpAllowlistEntryScalarFieldEnum)[keyof typeof IpAllowlistEntryScalarFieldEnum]
+
+
+export const VaultEntryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  ciphertextB64: 'ciphertextB64',
+  ivB64: 'ivB64',
+  authTagB64: 'authTagB64',
+  rotationDueAt: 'rotationDueAt',
+  rotatedAt: 'rotatedAt',
+  rotatedBy: 'rotatedBy',
+  lastReadAt: 'lastReadAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VaultEntryScalarFieldEnum = (typeof VaultEntryScalarFieldEnum)[keyof typeof VaultEntryScalarFieldEnum]
+
+
+export const DrRunbookScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  triggerCategory: 'triggerCategory',
+  severity: 'severity',
+  body: 'body',
+  expectedDurationMinutes: 'expectedDurationMinutes',
+  ownerEmail: 'ownerEmail',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DrRunbookScalarFieldEnum = (typeof DrRunbookScalarFieldEnum)[keyof typeof DrRunbookScalarFieldEnum]
 
 
 export const SloDefinitionScalarFieldEnum = {

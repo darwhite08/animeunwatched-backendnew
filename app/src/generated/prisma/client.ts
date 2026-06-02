@@ -443,6 +443,21 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model IpAllowlistEntry
+ * 
+ */
+export type IpAllowlistEntry = Prisma.IpAllowlistEntryModel
+/**
+ * Model VaultEntry
+ * 
+ */
+export type VaultEntry = Prisma.VaultEntryModel
+/**
+ * Model DrRunbook
+ * 
+ */
+export type DrRunbook = Prisma.DrRunbookModel
+/**
  * Model SloDefinition
  * 
  */

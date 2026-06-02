@@ -239,6 +239,18 @@ export function googleRedirect(req: Request, res: Response): void {
     maxAge: 10 * 60 * 1000, // 10 minutes
   });
 
+  // Native (Capacitor) app flow: opened in the system browser with ?native=1.
+  // Remember it so the callback deep-links the result back into the app
+  // (kaiveron://) instead of redirecting to the web frontend.
+  if (req.query.native === "1") {
+    res.cookie("aw_oauth_native", "1", {
+      httpOnly: true,
+      secure: env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 10 * 60 * 1000,
+    });
+  }
+
   const params = new URLSearchParams({
     client_id:     env.GOOGLE_CLIENT_ID,
     redirect_uri:  callbackUrl,
@@ -256,19 +268,27 @@ export function googleRedirect(req: Request, res: Response): void {
 export async function googleCallback(req: Request, res: Response, next: NextFunction): Promise<void> {
   const frontendUrl = env.FRONTEND_URL || "http://localhost:3000";
 
+  // Native (Capacitor) app: send the result to the app's custom URL scheme so
+  // the in-app browser hands control back to the app. Web stays on the site.
+  const isNative = req.cookies?.aw_oauth_native === "1";
+  if (isNative) res.clearCookie("aw_oauth_native");
+  // Where errors go: a deep link for native, the web login page otherwise.
+  const errorDest = (code: string) =>
+    isNative ? `kaiveron://auth/callback?error=${code}` : `${frontendUrl}/login?error=${code}`;
+
   try {
     // Validate CSRF state
     const stateParam  = req.query.state as string | undefined;
     const stateCookie = req.cookies?.aw_oauth_state as string | undefined;
     if (stateParam && stateCookie && stateParam !== stateCookie) {
-      res.redirect(`${frontendUrl}/login?error=oauth_state_mismatch`);
+      res.redirect(errorDest("oauth_state_mismatch"));
       return;
     }
     res.clearCookie("aw_oauth_state");
 
     const code = req.query.code as string | undefined;
     if (!code) {
-      res.redirect(`${frontendUrl}/login?error=google_no_code`);
+      res.redirect(errorDest("google_no_code"));
       return;
     }
 
@@ -286,17 +306,24 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
     // Set refresh cookie (httpOnly)
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
 
-    // Redirect to frontend callback page with the access token in the URL.
-    // The callback page reads it, stores in Zustand, then redirects to /dashboard.
+    // Hand the access token to the callback page via the URL. The web callback
+    // page (also reached by the native app via deep link → in-app navigation)
+    // stores it, then calls /auth/oauth-handoff to land the refresh cookie on
+    // the right domain. For native, kaiveron://auth/callback opens the app,
+    // whose deep-link handler routes the WebView to /auth/callback?<same qs>.
     const qs = new URLSearchParams({
       access_token:  accessToken,
       display_name:  String(user.displayName ?? ""),
       avatar_url:    String(user.avatarUrl ?? ""),
     });
-    res.redirect(`${frontendUrl}/auth/callback?${qs.toString()}`);
+    res.redirect(
+      isNative
+        ? `kaiveron://auth/callback?${qs.toString()}`
+        : `${frontendUrl}/auth/callback?${qs.toString()}`,
+    );
   } catch (err) {
     console.error("[Google callback]", err);
-    res.redirect(`${frontendUrl}/login?error=google_failed`);
+    res.redirect(errorDest("google_failed"));
   }
 }
 

@@ -470,6 +470,9 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  IpAllowlistEntry: 'IpAllowlistEntry',
+  VaultEntry: 'VaultEntry',
+  DrRunbook: 'DrRunbook',
   SloDefinition: 'SloDefinition',
   SyntheticMonitor: 'SyntheticMonitor',
   LlmCall: 'LlmCall',
@@ -502,7 +505,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6426,6 +6429,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    IpAllowlistEntry: {
+      payload: Prisma.$IpAllowlistEntryPayload<ExtArgs>
+      fields: Prisma.IpAllowlistEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IpAllowlistEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IpAllowlistEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.IpAllowlistEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IpAllowlistEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        findMany: {
+          args: Prisma.IpAllowlistEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>[]
+        }
+        create: {
+          args: Prisma.IpAllowlistEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        createMany: {
+          args: Prisma.IpAllowlistEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IpAllowlistEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.IpAllowlistEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        update: {
+          args: Prisma.IpAllowlistEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.IpAllowlistEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IpAllowlistEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IpAllowlistEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.IpAllowlistEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpAllowlistEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.IpAllowlistEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIpAllowlistEntry>
+        }
+        groupBy: {
+          args: Prisma.IpAllowlistEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpAllowlistEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IpAllowlistEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpAllowlistEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    VaultEntry: {
+      payload: Prisma.$VaultEntryPayload<ExtArgs>
+      fields: Prisma.VaultEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VaultEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VaultEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.VaultEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VaultEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        findMany: {
+          args: Prisma.VaultEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>[]
+        }
+        create: {
+          args: Prisma.VaultEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        createMany: {
+          args: Prisma.VaultEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VaultEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.VaultEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        update: {
+          args: Prisma.VaultEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.VaultEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VaultEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VaultEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.VaultEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaultEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.VaultEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVaultEntry>
+        }
+        groupBy: {
+          args: Prisma.VaultEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VaultEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VaultEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VaultEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    DrRunbook: {
+      payload: Prisma.$DrRunbookPayload<ExtArgs>
+      fields: Prisma.DrRunbookFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DrRunbookFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DrRunbookFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        findFirst: {
+          args: Prisma.DrRunbookFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DrRunbookFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        findMany: {
+          args: Prisma.DrRunbookFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>[]
+        }
+        create: {
+          args: Prisma.DrRunbookCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        createMany: {
+          args: Prisma.DrRunbookCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DrRunbookCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>[]
+        }
+        delete: {
+          args: Prisma.DrRunbookDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        update: {
+          args: Prisma.DrRunbookUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        deleteMany: {
+          args: Prisma.DrRunbookDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DrRunbookUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DrRunbookUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>[]
+        }
+        upsert: {
+          args: Prisma.DrRunbookUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrRunbookPayload>
+        }
+        aggregate: {
+          args: Prisma.DrRunbookAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDrRunbook>
+        }
+        groupBy: {
+          args: Prisma.DrRunbookGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrRunbookGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DrRunbookCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrRunbookCountAggregateOutputType> | number
+        }
+      }
+    }
     SloDefinition: {
       payload: Prisma.$SloDefinitionPayload<ExtArgs>
       fields: Prisma.SloDefinitionFieldRefs
@@ -8864,6 +9089,55 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const IpAllowlistEntryScalarFieldEnum = {
+  id: 'id',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  cidr: 'cidr',
+  description: 'description',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type IpAllowlistEntryScalarFieldEnum = (typeof IpAllowlistEntryScalarFieldEnum)[keyof typeof IpAllowlistEntryScalarFieldEnum]
+
+
+export const VaultEntryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  ciphertextB64: 'ciphertextB64',
+  ivB64: 'ivB64',
+  authTagB64: 'authTagB64',
+  rotationDueAt: 'rotationDueAt',
+  rotatedAt: 'rotatedAt',
+  rotatedBy: 'rotatedBy',
+  lastReadAt: 'lastReadAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VaultEntryScalarFieldEnum = (typeof VaultEntryScalarFieldEnum)[keyof typeof VaultEntryScalarFieldEnum]
+
+
+export const DrRunbookScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  triggerCategory: 'triggerCategory',
+  severity: 'severity',
+  body: 'body',
+  expectedDurationMinutes: 'expectedDurationMinutes',
+  ownerEmail: 'ownerEmail',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DrRunbookScalarFieldEnum = (typeof DrRunbookScalarFieldEnum)[keyof typeof DrRunbookScalarFieldEnum]
+
+
 export const SloDefinitionScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -9535,6 +9809,9 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  ipAllowlistEntry?: Prisma.IpAllowlistEntryOmit
+  vaultEntry?: Prisma.VaultEntryOmit
+  drRunbook?: Prisma.DrRunbookOmit
   sloDefinition?: Prisma.SloDefinitionOmit
   syntheticMonitor?: Prisma.SyntheticMonitorOmit
   llmCall?: Prisma.LlmCallOmit
