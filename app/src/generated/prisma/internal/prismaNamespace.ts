@@ -467,7 +467,8 @@ export const ModelName = {
   ApprovalRequest: 'ApprovalRequest',
   ApprovalDecision: 'ApprovalDecision',
   OauthClient: 'OauthClient',
-  OauthAccessToken: 'OauthAccessToken'
+  OauthAccessToken: 'OauthAccessToken',
+  ScimSubject: 'ScimSubject'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -483,7 +484,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6259,6 +6260,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ScimSubject: {
+      payload: Prisma.$ScimSubjectPayload<ExtArgs>
+      fields: Prisma.ScimSubjectFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ScimSubjectFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ScimSubjectFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        findFirst: {
+          args: Prisma.ScimSubjectFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ScimSubjectFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        findMany: {
+          args: Prisma.ScimSubjectFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>[]
+        }
+        create: {
+          args: Prisma.ScimSubjectCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        createMany: {
+          args: Prisma.ScimSubjectCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ScimSubjectCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>[]
+        }
+        delete: {
+          args: Prisma.ScimSubjectDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        update: {
+          args: Prisma.ScimSubjectUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        deleteMany: {
+          args: Prisma.ScimSubjectDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ScimSubjectUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ScimSubjectUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>[]
+        }
+        upsert: {
+          args: Prisma.ScimSubjectUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScimSubjectPayload>
+        }
+        aggregate: {
+          args: Prisma.ScimSubjectAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateScimSubject>
+        }
+        groupBy: {
+          args: Prisma.ScimSubjectGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScimSubjectGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ScimSubjectCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScimSubjectCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -7402,6 +7477,19 @@ export const OauthAccessTokenScalarFieldEnum = {
 export type OauthAccessTokenScalarFieldEnum = (typeof OauthAccessTokenScalarFieldEnum)[keyof typeof OauthAccessTokenScalarFieldEnum]
 
 
+export const ScimSubjectScalarFieldEnum = {
+  id: 'id',
+  externalId: 'externalId',
+  userId: 'userId',
+  idpClientId: 'idpClientId',
+  meta: 'meta',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScimSubjectScalarFieldEnum = (typeof ScimSubjectScalarFieldEnum)[keyof typeof ScimSubjectScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -7795,6 +7883,7 @@ export type GlobalOmitConfig = {
   approvalDecision?: Prisma.ApprovalDecisionOmit
   oauthClient?: Prisma.OauthClientOmit
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
+  scimSubject?: Prisma.ScimSubjectOmit
 }
 
 /* Types for Logging */

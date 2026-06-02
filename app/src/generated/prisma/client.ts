@@ -432,3 +432,8 @@ export type OauthClient = Prisma.OauthClientModel
  * 
  */
 export type OauthAccessToken = Prisma.OauthAccessTokenModel
+/**
+ * Model ScimSubject
+ * 
+ */
+export type ScimSubject = Prisma.ScimSubjectModel

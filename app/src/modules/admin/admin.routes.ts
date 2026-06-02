@@ -41,6 +41,7 @@ import * as pii        from "./pii.controller";
 import * as approvals  from "./approvals.controller";
 import { requireApproval } from "../../lib/approvals";
 import * as oauthClients from "./oauthClients.controller";
+import * as scimAdmin    from "./scim.controller";
 
 export const adminRouter = Router();
 
@@ -309,4 +310,7 @@ adminRouter.patch( "/oauth/clients/:id",                   requirePermission("ap
 adminRouter.post(  "/oauth/clients/:id/rotate",            requirePermissionWithStepUp("api_keys","write"), oauthClients.rotateSecret);
 adminRouter.delete("/oauth/clients/:id",                   requirePermissionWithStepUp("api_keys","write"), oauthClients.revokeClient);
 adminRouter.delete("/oauth/clients/:clientId/tokens/:tokenId", requirePermission("api_keys","write"),    oauthClients.revokeToken);
+
+// SCIM 2.0 admin inspector — read-only status + recent provisioned users
+adminRouter.get(   "/scim/status",                     requirePermission("api_keys","read"), scimAdmin.getScimStatus);
 

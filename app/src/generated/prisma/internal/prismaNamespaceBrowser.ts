@@ -126,7 +126,8 @@ export const ModelName = {
   ApprovalRequest: 'ApprovalRequest',
   ApprovalDecision: 'ApprovalDecision',
   OauthClient: 'OauthClient',
-  OauthAccessToken: 'OauthAccessToken'
+  OauthAccessToken: 'OauthAccessToken',
+  ScimSubject: 'ScimSubject'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1247,6 +1248,19 @@ export const OauthAccessTokenScalarFieldEnum = {
 } as const
 
 export type OauthAccessTokenScalarFieldEnum = (typeof OauthAccessTokenScalarFieldEnum)[keyof typeof OauthAccessTokenScalarFieldEnum]
+
+
+export const ScimSubjectScalarFieldEnum = {
+  id: 'id',
+  externalId: 'externalId',
+  userId: 'userId',
+  idpClientId: 'idpClientId',
+  meta: 'meta',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScimSubjectScalarFieldEnum = (typeof ScimSubjectScalarFieldEnum)[keyof typeof ScimSubjectScalarFieldEnum]
 
 
 export const SortOrder = {

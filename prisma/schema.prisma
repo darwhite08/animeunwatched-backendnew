@@ -105,6 +105,8 @@ model User {
   activityLikes      ActivityLike[]
   activityReposts    ActivityRepost[]
   replies            Reply[]
+  // SCIM 2.0 provisioning mapping (optional — only populated if an IdP provisioned this user)
+  scimSubject        ScimSubject?
 }
 
 // One row per registered push-notification device for a user.
@@ -1559,5 +1561,24 @@ model OauthAccessToken {
 
   @@index([clientId, expiresAt])
   @@index([expiresAt])
+}
+
+// SCIM 2.0 subject mapping. An IdP (Okta, Azure AD, Google Workspace, etc.)
+// addresses our users by its OWN identifier — typically a stable UUID it
+// generated when the user was created in the IdP. We persist that mapping
+// here rather than adding an externalId column to User, so SCIM stays an
+// opt-in integration that can be removed without a User-table migration.
+model ScimSubject {
+  id          String   @id @default(cuid())
+  externalId  String   @unique                          // IdP-provided id
+  userId      String   @unique                          // local User.id (1-1)
+  idpClientId String?                                   // OauthClient.id that provisioned this row
+  meta        Json?                                     // raw IdP attrs we don't map (orgUnit, dept, etc.)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([idpClientId])
 }
 
