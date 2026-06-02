@@ -1609,6 +1609,48 @@ model SamlConfig {
   @@index([active])
 }
 
+// Support — generic ticket. Either user-created (authenticated POST) or
+// agent-created (admin opens on behalf of a user). Thread of TicketReplies
+// keeps the timeline. Status transitions: open → in_progress → resolved
+// (or closed without resolution). Saved replies (see SavedReply) can be
+// the source of the body for fast canned replies.
+model Ticket {
+  id           String   @id @default(cuid())
+  number       Int      @unique @default(autoincrement())   // human-friendly #1234
+  subject      String
+  body         String                                       // first message
+  status       String   @default("open")                    // open | in_progress | resolved | closed
+  priority     String   @default("normal")                  // low | normal | high | urgent
+  category     String?                                      // "bug" | "billing" | "account" | ...
+  userId       String?                                      // user who opened it (null when admin opens for someone else)
+  email        String                                       // contact email (captured at open time)
+  assigneeId   String?                                      // admin user assigned
+  tags         String[] @default([])
+  resolvedAt   DateTime?
+  closedAt     DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  replies      TicketReply[]
+
+  @@index([status, priority, createdAt])
+  @@index([assigneeId, status])
+  @@index([userId])
+}
+
+model TicketReply {
+  id          String   @id @default(cuid())
+  ticketId    String
+  authorId    String?                                       // null for system/external messages
+  authorKind  String   @default("agent")                    // "agent" | "user" | "system"
+  body        String
+  isInternal  Boolean  @default(false)                      // internal notes hidden from end user
+  createdAt   DateTime @default(now())
+
+  ticket      Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId, createdAt])
+}
+
 // Trust — admin-managed entries for the public Trust Center page. Each
 // row is a compliance certification, contact, or document. Surfaces at
 // GET /api/v1/trust without auth.

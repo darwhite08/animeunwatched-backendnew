@@ -50,6 +50,7 @@ import * as aiOps        from "./aiOps.controller";
 import * as obs          from "./observability.controller";
 import * as secX         from "./securityExtras.controller";
 import * as trust        from "./trustCenter.controller";
+import * as tickets      from "./tickets.controller";
 
 export const adminRouter = Router();
 
@@ -406,4 +407,11 @@ adminRouter.get(   "/trust/entries",                   requirePermission("settin
 adminRouter.put(   "/trust/entries",                   requirePermission("settings","write"), trust.upsertEntry);
 adminRouter.put(   "/trust/entries/:id",               requirePermission("settings","write"), trust.upsertEntry);
 adminRouter.delete("/trust/entries/:id",               requirePermission("settings","write"), trust.deleteEntry);
+
+// Support tickets
+adminRouter.get(   "/tickets",                         requirePermission("moderation","read"), tickets.listTickets);
+adminRouter.get(   "/tickets/:id",                     requirePermission("moderation","read"), tickets.getTicket);
+adminRouter.post(  "/tickets",                         requirePermission("moderation","act"),  tickets.createTicket);
+adminRouter.patch( "/tickets/:id",                     requirePermission("moderation","act"),  tickets.updateTicket);
+adminRouter.post(  "/tickets/:id/replies",             requirePermission("moderation","act"),  tickets.addReply);
 

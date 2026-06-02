@@ -24,6 +24,7 @@ import { versionRouter } from "./modules/version/version.routes";
 import { activitiesRouter } from "./modules/activities/activities.routes";
 import { oauthRouter } from "./modules/oauth/oauth.routes";
 import { changelogRouter } from "./modules/changelog/changelog.routes";
+import { ticketsRouter } from "./modules/tickets/tickets.routes";
 
 const router = Router();
 
@@ -54,5 +55,6 @@ router.use("/ai", aiRouter);
 router.use("/version", versionRouter);
 router.use("/oauth", oauthRouter);
 router.use("/changelog", changelogRouter);
+router.use("/tickets", ticketsRouter);
 
 export default router;

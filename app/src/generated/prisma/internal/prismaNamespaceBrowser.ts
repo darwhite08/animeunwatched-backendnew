@@ -129,6 +129,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  Ticket: 'Ticket',
+  TicketReply: 'TicketReply',
   TrustCenterEntry: 'TrustCenterEntry',
   IpAllowlistEntry: 'IpAllowlistEntry',
   VaultEntry: 'VaultEntry',
@@ -1307,6 +1309,40 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const TicketScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  subject: 'subject',
+  body: 'body',
+  status: 'status',
+  priority: 'priority',
+  category: 'category',
+  userId: 'userId',
+  email: 'email',
+  assigneeId: 'assigneeId',
+  tags: 'tags',
+  resolvedAt: 'resolvedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
+export const TicketReplyScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  authorId: 'authorId',
+  authorKind: 'authorKind',
+  body: 'body',
+  isInternal: 'isInternal',
+  createdAt: 'createdAt'
+} as const
+
+export type TicketReplyScalarFieldEnum = (typeof TicketReplyScalarFieldEnum)[keyof typeof TicketReplyScalarFieldEnum]
 
 
 export const TrustCenterEntryScalarFieldEnum = {
