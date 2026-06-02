@@ -8,12 +8,20 @@ import { sendEmail } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
 import * as service from "./auth.service";
 
+// Setting `domain: ".kaiveron.com"` makes the refresh cookie readable on
+// every subdomain (kaiveron.com, www, api, admin-dashboard, etc.) so the
+// admin subdomain can bootstrap a session from a kaiveron.com login.
+// In non-production we omit the domain so localhost / vercel preview hosts
+// still work without a hosts file hack.
+const PROD_COOKIE_DOMAIN = env.NODE_ENV === "production" ? ".kaiveron.com" : undefined;
+
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: env.NODE_ENV === "production",
+  secure:   env.NODE_ENV === "production",
   sameSite: "lax" as const,
-  path: "/api/v1/auth",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  path:     "/api/v1/auth",
+  maxAge:   7 * 24 * 60 * 60 * 1000,
+  ...(PROD_COOKIE_DOMAIN ? { domain: PROD_COOKIE_DOMAIN } : {}),
 };
 
 export async function register(req: Request, res: Response, next: NextFunction): Promise<void> {
