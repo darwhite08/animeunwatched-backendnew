@@ -46,6 +46,7 @@ import * as samlCfg      from "./samlConfigs.controller";
 import * as cost         from "./cost.controller";
 import * as dx           from "./dx.controller";
 import * as compliance   from "./compliance.controller";
+import * as aiOps        from "./aiOps.controller";
 
 export const adminRouter = Router();
 
@@ -362,4 +363,15 @@ adminRouter.delete("/compliance/vendors/:id",          requirePermission("securi
 adminRouter.get(   "/compliance/kms",                  requirePermission("security","read"),  compliance.listKms);
 adminRouter.put(   "/compliance/kms",                  requirePermissionWithStepUp("security","write"), compliance.upsertKms);
 adminRouter.delete("/compliance/kms/:id",              requirePermissionWithStepUp("security","write"), compliance.deleteKms);
+
+// AI Ops — LLM observability, prompt registry, eval results, RAG inventory
+adminRouter.get(   "/ai/llm/overview",                 requirePermission("settings","read"),  aiOps.getLlmOverview);
+adminRouter.get(   "/ai/prompts",                      requirePermission("settings","read"),  aiOps.listPrompts);
+adminRouter.post(  "/ai/prompts",                      requirePermission("settings","write"), aiOps.createPromptVersion);
+adminRouter.post(  "/ai/prompts/:id/activate",         requirePermission("settings","write"), aiOps.activatePromptVersion);
+adminRouter.get(   "/ai/evals",                        requirePermission("settings","read"),  aiOps.listEvals);
+adminRouter.post(  "/ai/evals",                        requirePermission("settings","write"), aiOps.createEval);
+adminRouter.get(   "/ai/rag",                          requirePermission("settings","read"),  aiOps.listRag);
+adminRouter.put(   "/ai/rag",                          requirePermission("settings","write"), aiOps.upsertRag);
+adminRouter.delete("/ai/rag/:id",                      requirePermission("settings","write"), aiOps.deleteRag);
 

@@ -1609,6 +1609,83 @@ model SamlConfig {
   @@index([active])
 }
 
+// AI ops — per-call log of LLM inference requests. Populated by the existing
+// aiRouter wrappers; populates the cost dashboard and the latency trend chart.
+model LlmCall {
+  id              String   @id @default(cuid())
+  provider        String                              // "openai" | "anthropic" | "gateway"
+  model           String                              // "gpt-4o-mini" | "claude-sonnet-4-6" | ...
+  endpoint        String?                             // "/ai/discover" | "/ai/recommend"
+  userId          String?
+  promptTokens    Int      @default(0)
+  completionTokens Int     @default(0)
+  totalTokens     Int      @default(0)
+  costCents       Int      @default(0)                // 1/100ths of a cent (consistent with CostRate)
+  latencyMs       Int      @default(0)
+  status          String   @default("ok")             // "ok" | "error" | "timeout" | "filtered"
+  errorDetail     String?
+  promptVersionId String?                             // optional FK to PromptVersion
+  createdAt       DateTime @default(now())
+
+  @@index([provider, createdAt])
+  @@index([userId, createdAt])
+  @@index([endpoint, createdAt])
+  @@index([status])
+}
+
+// AI ops — prompt registry with versioning. Lets a non-engineer iterate
+// on a prompt, ship a new version, A/B between them.
+model PromptVersion {
+  id              String   @id @default(cuid())
+  key             String                              // logical name like "anime_recommender"
+  version         Int                                 // monotonic per key
+  template        String                              // markdown template; {{vars}} substituted in code
+  description     String?
+  active          Boolean  @default(false)            // exactly one active per key (app-side enforced)
+  metricsJson     Json?                               // snapshot of eval scores at activation
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([key, version])
+  @@index([key, active])
+}
+
+// AI ops — eval results from regression test runs. Aggregated per
+// (promptVersion, evalSet) so the dashboard shows trends across versions.
+model EvalResult {
+  id              String   @id @default(cuid())
+  promptVersionId String
+  evalSet         String                              // "regression_v1" | "safety_v2"
+  scoreOverall    Float
+  scoresJson      Json                                // per-criterion breakdown
+  sampleCount     Int
+  ranAt           DateTime @default(now())
+  ranBy           String?
+
+  @@index([promptVersionId])
+  @@index([evalSet, ranAt])
+}
+
+// AI ops — RAG document inventory. Each row is a document indexed for
+// retrieval; size + chunk count surface in the dashboard so admins know
+// what the model is grounded on.
+model RagDocument {
+  id              String   @id @default(cuid())
+  collection      String                              // "anime_facts" | "help_articles"
+  title           String
+  sourceUrl       String?
+  contentHash     String                              // sha256 of source — for change detection
+  chunks          Int      @default(0)
+  bytes           Int      @default(0)
+  lastIndexedAt   DateTime @default(now())
+  active          Boolean  @default(true)
+  metadata        Json?
+
+  @@unique([collection, contentHash])
+  @@index([collection, active])
+}
+
 // Compliance — per-user consent record (GDPR Article 7 + EU AI Act).
 // One row per (userId, purpose). Created on consent given, updated on
 // withdrawal — `withdrawnAt` set rather than row deleted so the audit

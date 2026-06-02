@@ -418,6 +418,26 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model LlmCall
+ * 
+ */
+export type LlmCall = Prisma.LlmCallModel
+/**
+ * Model PromptVersion
+ * 
+ */
+export type PromptVersion = Prisma.PromptVersionModel
+/**
+ * Model EvalResult
+ * 
+ */
+export type EvalResult = Prisma.EvalResultModel
+/**
+ * Model RagDocument
+ * 
+ */
+export type RagDocument = Prisma.RagDocumentModel
+/**
  * Model ConsentRecord
  * 
  */

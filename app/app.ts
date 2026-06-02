@@ -87,6 +87,18 @@ function isKaiveronOrigin(origin: string): boolean {
   } catch { return false }
 }
 
+// Accept the Capacitor native app's WebView origins. The app loads the site via
+// server.url, but its API/socket requests carry the WebView's own origin:
+//   iOS:     capacitor://localhost
+//   Android: https://localhost  (http://localhost only when cleartext dev)
+function isCapacitorOrigin(origin: string): boolean {
+  return (
+    origin === "capacitor://localhost" ||
+    origin === "https://localhost" ||
+    origin === "http://localhost"
+  )
+}
+
 // Accept any local-network origin so phones on the same WiFi can log in
 function isLocalNetworkOrigin(origin: string): boolean {
   try {

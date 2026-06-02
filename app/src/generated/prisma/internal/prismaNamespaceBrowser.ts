@@ -129,6 +129,10 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  LlmCall: 'LlmCall',
+  PromptVersion: 'PromptVersion',
+  EvalResult: 'EvalResult',
+  RagDocument: 'RagDocument',
   ConsentRecord: 'ConsentRecord',
   RtbfRequest: 'RtbfRequest',
   VendorRecord: 'VendorRecord',
@@ -1297,6 +1301,72 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const LlmCallScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  model: 'model',
+  endpoint: 'endpoint',
+  userId: 'userId',
+  promptTokens: 'promptTokens',
+  completionTokens: 'completionTokens',
+  totalTokens: 'totalTokens',
+  costCents: 'costCents',
+  latencyMs: 'latencyMs',
+  status: 'status',
+  errorDetail: 'errorDetail',
+  promptVersionId: 'promptVersionId',
+  createdAt: 'createdAt'
+} as const
+
+export type LlmCallScalarFieldEnum = (typeof LlmCallScalarFieldEnum)[keyof typeof LlmCallScalarFieldEnum]
+
+
+export const PromptVersionScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  version: 'version',
+  template: 'template',
+  description: 'description',
+  active: 'active',
+  metricsJson: 'metricsJson',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PromptVersionScalarFieldEnum = (typeof PromptVersionScalarFieldEnum)[keyof typeof PromptVersionScalarFieldEnum]
+
+
+export const EvalResultScalarFieldEnum = {
+  id: 'id',
+  promptVersionId: 'promptVersionId',
+  evalSet: 'evalSet',
+  scoreOverall: 'scoreOverall',
+  scoresJson: 'scoresJson',
+  sampleCount: 'sampleCount',
+  ranAt: 'ranAt',
+  ranBy: 'ranBy'
+} as const
+
+export type EvalResultScalarFieldEnum = (typeof EvalResultScalarFieldEnum)[keyof typeof EvalResultScalarFieldEnum]
+
+
+export const RagDocumentScalarFieldEnum = {
+  id: 'id',
+  collection: 'collection',
+  title: 'title',
+  sourceUrl: 'sourceUrl',
+  contentHash: 'contentHash',
+  chunks: 'chunks',
+  bytes: 'bytes',
+  lastIndexedAt: 'lastIndexedAt',
+  active: 'active',
+  metadata: 'metadata'
+} as const
+
+export type RagDocumentScalarFieldEnum = (typeof RagDocumentScalarFieldEnum)[keyof typeof RagDocumentScalarFieldEnum]
 
 
 export const ConsentRecordScalarFieldEnum = {
