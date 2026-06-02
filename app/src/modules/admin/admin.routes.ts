@@ -49,6 +49,7 @@ import * as compliance   from "./compliance.controller";
 import * as aiOps        from "./aiOps.controller";
 import * as obs          from "./observability.controller";
 import * as secX         from "./securityExtras.controller";
+import * as trust        from "./trustCenter.controller";
 
 export const adminRouter = Router();
 
@@ -399,4 +400,10 @@ adminRouter.get(   "/security/runbooks",               requirePermission("securi
 adminRouter.put(   "/security/runbooks",               requirePermission("security","write"), secX.upsertRunbook);
 adminRouter.put(   "/security/runbooks/:id",           requirePermission("security","write"), secX.upsertRunbook);
 adminRouter.delete("/security/runbooks/:id",           requirePermission("security","write"), secX.deleteRunbook);
+
+// Trust Center editor — public consumer at GET /api/v1/trust
+adminRouter.get(   "/trust/entries",                   requirePermission("settings","read"),  trust.listEntries);
+adminRouter.put(   "/trust/entries",                   requirePermission("settings","write"), trust.upsertEntry);
+adminRouter.put(   "/trust/entries/:id",               requirePermission("settings","write"), trust.upsertEntry);
+adminRouter.delete("/trust/entries/:id",               requirePermission("settings","write"), trust.deleteEntry);
 

@@ -443,6 +443,11 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model TrustCenterEntry
+ * 
+ */
+export type TrustCenterEntry = Prisma.TrustCenterEntryModel
+/**
  * Model IpAllowlistEntry
  * 
  */

@@ -470,6 +470,7 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  TrustCenterEntry: 'TrustCenterEntry',
   IpAllowlistEntry: 'IpAllowlistEntry',
   VaultEntry: 'VaultEntry',
   DrRunbook: 'DrRunbook',
@@ -505,7 +506,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6429,6 +6430,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TrustCenterEntry: {
+      payload: Prisma.$TrustCenterEntryPayload<ExtArgs>
+      fields: Prisma.TrustCenterEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TrustCenterEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TrustCenterEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.TrustCenterEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TrustCenterEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        findMany: {
+          args: Prisma.TrustCenterEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>[]
+        }
+        create: {
+          args: Prisma.TrustCenterEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        createMany: {
+          args: Prisma.TrustCenterEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TrustCenterEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.TrustCenterEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        update: {
+          args: Prisma.TrustCenterEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.TrustCenterEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TrustCenterEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TrustCenterEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.TrustCenterEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrustCenterEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.TrustCenterEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTrustCenterEntry>
+        }
+        groupBy: {
+          args: Prisma.TrustCenterEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrustCenterEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TrustCenterEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrustCenterEntryCountAggregateOutputType> | number
+        }
+      }
+    }
     IpAllowlistEntry: {
       payload: Prisma.$IpAllowlistEntryPayload<ExtArgs>
       fields: Prisma.IpAllowlistEntryFieldRefs
@@ -9089,6 +9164,23 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const TrustCenterEntryScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  title: 'title',
+  body: 'body',
+  url: 'url',
+  validUntil: 'validUntil',
+  order: 'order',
+  active: 'active',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrustCenterEntryScalarFieldEnum = (typeof TrustCenterEntryScalarFieldEnum)[keyof typeof TrustCenterEntryScalarFieldEnum]
+
+
 export const IpAllowlistEntryScalarFieldEnum = {
   id: 'id',
   subjectType: 'subjectType',
@@ -9809,6 +9901,7 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  trustCenterEntry?: Prisma.TrustCenterEntryOmit
   ipAllowlistEntry?: Prisma.IpAllowlistEntryOmit
   vaultEntry?: Prisma.VaultEntryOmit
   drRunbook?: Prisma.DrRunbookOmit

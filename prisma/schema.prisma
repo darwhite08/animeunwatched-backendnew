@@ -1609,6 +1609,25 @@ model SamlConfig {
   @@index([active])
 }
 
+// Trust — admin-managed entries for the public Trust Center page. Each
+// row is a compliance certification, contact, or document. Surfaces at
+// GET /api/v1/trust without auth.
+model TrustCenterEntry {
+  id          String   @id @default(cuid())
+  kind        String                                  // "certification" | "document" | "contact" | "principle" | "audit_report"
+  title       String                                  // "SOC 2 Type II"
+  body        String?                                 // short markdown description
+  url         String?                                 // download / link
+  validUntil  DateTime?
+  order       Int      @default(0)                    // display order within kind group
+  active      Boolean  @default(true)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, kind, order])
+}
+
 // Security — per-credential IP allowlist. Subject is an OauthClient,
 // ApiKey, or User. Empty allowlist means "no restriction". Enforced by a
 // new middleware that reads this table.

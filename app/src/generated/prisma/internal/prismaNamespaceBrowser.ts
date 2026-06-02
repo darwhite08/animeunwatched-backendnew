@@ -129,6 +129,7 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  TrustCenterEntry: 'TrustCenterEntry',
   IpAllowlistEntry: 'IpAllowlistEntry',
   VaultEntry: 'VaultEntry',
   DrRunbook: 'DrRunbook',
@@ -1306,6 +1307,23 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const TrustCenterEntryScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  title: 'title',
+  body: 'body',
+  url: 'url',
+  validUntil: 'validUntil',
+  order: 'order',
+  active: 'active',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrustCenterEntryScalarFieldEnum = (typeof TrustCenterEntryScalarFieldEnum)[keyof typeof TrustCenterEntryScalarFieldEnum]
 
 
 export const IpAllowlistEntryScalarFieldEnum = {

@@ -24,6 +24,7 @@ import { slaMetrics } from "./src/middlewares/slaMetrics.middleware";
 import router from "./src/routes";
 import { currentMaintenance } from "./src/modules/admin/maintenance.controller";
 import { publicStatus } from "./src/modules/status/status.controller";
+import { getTrustCenter } from "./src/modules/trust/trust.controller";
 import { scimRouter }  from "./src/modules/scim/scim.routes";
 import { samlRouter }  from "./src/modules/saml/saml.routes";
 import { spec } from "./src/openapi";
@@ -233,6 +234,8 @@ app.get("/sitemap.xml", async (_req, res) => {
 app.get("/api/v1/status/maintenance", currentMaintenance);
 // Combined public status feed (maintenance + incidents) for status.kaiveron.com
 app.get("/api/v1/status",             publicStatus);
+// Public Trust Center — certifications, sub-processors, encryption posture
+app.get("/api/v1/trust",              getTrustCenter);
 
 // API v1
 app.use("/api/v1", router);
