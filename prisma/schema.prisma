@@ -924,3 +924,88 @@ model StepUpToken {
   @@index([expiresAt])
 }
 
+// ---------------------------------------------------------------------------
+// Phase 2 — Feature flags, entitlements, impersonation
+// ---------------------------------------------------------------------------
+
+// Feature flag for runtime gating. `type` distinguishes release-vs-permission
+// flags so the UI can group them. `isKillSwitch` flips the default-on flag
+// off without redeploy.
+model FeatureFlag {
+  id                String   @id @default(cuid())
+  key               String   @unique
+  description       String?
+  type              String   @default("release")  // release | experiment | ops | permission
+  enabledGlobally   Boolean  @default(false)
+  rolloutRules      Json?                          // { percentage?, cohorts?, tiers? }
+  isKillSwitch      Boolean  @default(false)
+  killedAt          DateTime?
+  killedBy          String?
+  killedReason      String?
+  createdBy         String?
+  lastEvaluatedAt   DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  overrides FeatureFlagOverride[]
+
+  @@index([type])
+}
+
+// Per-user override that pins a flag to a value regardless of rollout rules.
+// Used by support to enable/disable a feature for one account during triage.
+model FeatureFlagOverride {
+  id        String   @id @default(cuid())
+  flagId    String
+  userId    String
+  enabled   Boolean
+  reason    String?
+  grantedBy String?
+  expiresAt DateTime?
+  createdAt DateTime @default(now())
+
+  flag FeatureFlag @relation(fields: [flagId], references: [id], onDelete: Cascade)
+
+  @@unique([flagId, userId])
+  @@index([userId])
+}
+
+// Paid feature access. Separate from FeatureFlag — flags gate code paths;
+// entitlements gate paid features. Source = "plan" for plan-derived,
+// "manual" for support-granted, "trial" for time-limited grants.
+model Entitlement {
+  id        String   @id @default(cuid())
+  userId    String
+  feature   String                  // e.g. "creator_studio", "ai_oracle"
+  limit     Int?                    // null = unlimited; int = cap (e.g. 5 posts/day)
+  source    String   @default("manual")
+  expiresAt DateTime?
+  grantedBy String?
+  reason    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, feature])
+  @@index([userId])
+}
+
+// Active operator-driven impersonation. The operator's real session stays
+// separate; this row records the scoped session and is checked on every
+// request that carries an impersonation access token.
+model ImpersonationSession {
+  id             String   @id @default(cuid())
+  impersonatorId String
+  targetUserId   String
+  reason         String
+  ipAddress      String?
+  userAgent      String?
+  startedAt      DateTime @default(now())
+  expiresAt      DateTime
+  endedAt        DateTime?
+  endedReason    String?  // "operator_stop" | "expired" | "killed"
+
+  @@index([impersonatorId])
+  @@index([targetUserId])
+  @@index([expiresAt])
+}
+

@@ -7,6 +7,9 @@ import * as users      from "./users.controller";
 import * as roles      from "./roles.controller";
 import * as auditCtrl  from "./auditLog.controller";
 import * as stepup     from "./stepup.controller";
+import * as flags      from "./flags.controller";
+import * as ents       from "./entitlements.controller";
+import * as imp        from "./impersonation.controller";
 
 export const adminRouter = Router();
 
@@ -72,3 +75,26 @@ adminRouter.get("/audit/admin/verify",     requirePermission("audit","read"),   
 
 // Step-up authentication — no extra permission gate; the password+TOTP IS the gate
 adminRouter.post("/stepup",                stepup.requestStepUp);
+
+// Feature flags & overrides
+adminRouter.get(   "/flags",                          requirePermission("flags","read"),            flags.listFlags);
+adminRouter.post(  "/flags",                          requirePermissionWithStepUp("flags","write"), flags.createFlag);
+adminRouter.patch( "/flags/:flagId",                  requirePermission("flags","write"),           flags.updateFlag);
+adminRouter.delete("/flags/:flagId",                  requirePermissionWithStepUp("flags","write"), flags.deleteFlag);
+adminRouter.post(  "/flags/:flagId/kill",             requirePermissionWithStepUp("flags","kill"),  flags.killFlag);
+adminRouter.post(  "/flags/:flagId/revive",           requirePermissionWithStepUp("flags","kill"),  flags.reviveFlag);
+adminRouter.get(   "/flags/:flagId/overrides",        requirePermission("flags","read"),            flags.listOverrides);
+adminRouter.post(  "/flags/:flagId/overrides",        requirePermission("flags","write"),           flags.createOverride);
+adminRouter.delete("/flags/overrides/:overrideId",    requirePermission("flags","write"),           flags.deleteOverride);
+adminRouter.get(   "/flags/evaluate/:key",            requirePermission("flags","read"),            flags.evaluateFlag);
+
+// Entitlements
+adminRouter.get(   "/entitlements",                   requirePermission("entitlements","read"),  ents.listEntitlements);
+adminRouter.post(  "/entitlements",                   requirePermission("entitlements","write"), ents.grantEntitlement);
+adminRouter.delete("/entitlements/:id",               requirePermission("entitlements","write"), ents.revokeEntitlement);
+
+// Impersonation
+adminRouter.post(  "/impersonation/start",            requirePermissionWithStepUp("impersonation","start"), imp.startImpersonation);
+adminRouter.post(  "/impersonation/stop",             imp.stopImpersonation);
+adminRouter.get(   "/impersonation/active",           requirePermission("impersonation","start"),           imp.listActive);
+

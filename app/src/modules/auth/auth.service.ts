@@ -32,6 +32,25 @@ export function signAccessToken(userId: string): string {
   });
 }
 
+/**
+ * Issue a SCOPED access token for an impersonation session. The token's
+ * sub is the target user (so downstream code "sees" the target's perspective)
+ * but the JWT also carries impersonatorId + sessionId so the auth middleware
+ * can validate the session is still active and audit-tag every request.
+ */
+export function signImpersonationToken(opts: {
+  targetUserId:   string;
+  impersonatorId: string;
+  sessionId:      string;
+  expiresInSec:   number;
+}): string {
+  return jwt.sign(
+    { userId: opts.targetUserId, impersonatorId: opts.impersonatorId, impSessionId: opts.sessionId },
+    env.JWT_ACCESS_SECRET,
+    { expiresIn: opts.expiresInSec },
+  );
+}
+
 export function signRefreshToken(userId: string): string {
   return jwt.sign({ userId }, env.JWT_REFRESH_SECRET, {
     expiresIn: env.JWT_REFRESH_EXPIRY as jwt.SignOptions["expiresIn"],

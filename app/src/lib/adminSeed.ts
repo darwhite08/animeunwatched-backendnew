@@ -136,4 +136,19 @@ export async function ensureAdminSeed(): Promise<void> {
       });
     }
   }
+
+  // 4. Bootstrap built-in feature flags. Created once with safe defaults;
+  //    operators can toggle them in /flags.
+  const builtinFlags = [
+    { key: "impersonation.enabled", description: "Master kill switch for the admin impersonation feature.", type: "ops",        enabledGlobally: true,  isKillSwitch: true },
+    { key: "registration.enabled",  description: "Allow new account signups.",                              type: "ops",        enabledGlobally: true,  isKillSwitch: true },
+    { key: "uploads.enabled",       description: "Master kill switch for media uploads.",                   type: "ops",        enabledGlobally: true,  isKillSwitch: true },
+  ] as const;
+  for (const f of builtinFlags) {
+    await prisma.featureFlag.upsert({
+      where:  { key: f.key },
+      update: {},
+      create: { ...f },
+    });
+  }
 }

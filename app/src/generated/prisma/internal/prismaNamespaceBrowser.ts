@@ -94,7 +94,11 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   UserInvite: 'UserInvite',
   TotpSecret: 'TotpSecret',
-  StepUpToken: 'StepUpToken'
+  StepUpToken: 'StepUpToken',
+  FeatureFlag: 'FeatureFlag',
+  FeatureFlagOverride: 'FeatureFlagOverride',
+  Entitlement: 'Entitlement',
+  ImpersonationSession: 'ImpersonationSession'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -687,6 +691,72 @@ export const StepUpTokenScalarFieldEnum = {
 } as const
 
 export type StepUpTokenScalarFieldEnum = (typeof StepUpTokenScalarFieldEnum)[keyof typeof StepUpTokenScalarFieldEnum]
+
+
+export const FeatureFlagScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  description: 'description',
+  type: 'type',
+  enabledGlobally: 'enabledGlobally',
+  rolloutRules: 'rolloutRules',
+  isKillSwitch: 'isKillSwitch',
+  killedAt: 'killedAt',
+  killedBy: 'killedBy',
+  killedReason: 'killedReason',
+  createdBy: 'createdBy',
+  lastEvaluatedAt: 'lastEvaluatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeatureFlagScalarFieldEnum = (typeof FeatureFlagScalarFieldEnum)[keyof typeof FeatureFlagScalarFieldEnum]
+
+
+export const FeatureFlagOverrideScalarFieldEnum = {
+  id: 'id',
+  flagId: 'flagId',
+  userId: 'userId',
+  enabled: 'enabled',
+  reason: 'reason',
+  grantedBy: 'grantedBy',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type FeatureFlagOverrideScalarFieldEnum = (typeof FeatureFlagOverrideScalarFieldEnum)[keyof typeof FeatureFlagOverrideScalarFieldEnum]
+
+
+export const EntitlementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  feature: 'feature',
+  limit: 'limit',
+  source: 'source',
+  expiresAt: 'expiresAt',
+  grantedBy: 'grantedBy',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EntitlementScalarFieldEnum = (typeof EntitlementScalarFieldEnum)[keyof typeof EntitlementScalarFieldEnum]
+
+
+export const ImpersonationSessionScalarFieldEnum = {
+  id: 'id',
+  impersonatorId: 'impersonatorId',
+  targetUserId: 'targetUserId',
+  reason: 'reason',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  startedAt: 'startedAt',
+  expiresAt: 'expiresAt',
+  endedAt: 'endedAt',
+  endedReason: 'endedReason'
+} as const
+
+export type ImpersonationSessionScalarFieldEnum = (typeof ImpersonationSessionScalarFieldEnum)[keyof typeof ImpersonationSessionScalarFieldEnum]
 
 
 export const SortOrder = {

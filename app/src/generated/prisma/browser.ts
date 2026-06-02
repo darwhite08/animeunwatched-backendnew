@@ -247,3 +247,23 @@ export type TotpSecret = Prisma.TotpSecretModel
  * 
  */
 export type StepUpToken = Prisma.StepUpTokenModel
+/**
+ * Model FeatureFlag
+ * 
+ */
+export type FeatureFlag = Prisma.FeatureFlagModel
+/**
+ * Model FeatureFlagOverride
+ * 
+ */
+export type FeatureFlagOverride = Prisma.FeatureFlagOverrideModel
+/**
+ * Model Entitlement
+ * 
+ */
+export type Entitlement = Prisma.EntitlementModel
+/**
+ * Model ImpersonationSession
+ * 
+ */
+export type ImpersonationSession = Prisma.ImpersonationSessionModel
