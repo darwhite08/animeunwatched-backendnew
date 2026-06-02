@@ -1609,6 +1609,139 @@ model SamlConfig {
   @@index([active])
 }
 
+// A/B experiments — extends the FeatureFlag system. An Experiment binds a
+// flag-style key to N variants with allocation weights summing to 100.
+// User assignment uses sha256(userId + key) modulo 100 so it's stable —
+// the same user always sees the same variant unless we change the key.
+model Experiment {
+  id              String   @id @default(cuid())
+  key             String   @unique                    // "homepage_hero_copy"
+  description     String?
+  status          String   @default("draft")          // "draft" | "running" | "paused" | "completed"
+  startedAt       DateTime?
+  endedAt         DateTime?
+  primaryMetric   String                              // "signup_completed" | "post_created" | ...
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  variants        ExperimentVariant[]
+  exposures       ExperimentExposure[]
+
+  @@index([status])
+}
+
+model ExperimentVariant {
+  id             String   @id @default(cuid())
+  experimentId   String
+  name           String                               // "control" | "treatment" | "var_b"
+  weight         Int                                  // 0..100, sums to 100 across variants
+  isControl      Boolean  @default(false)
+  payload        Json?                                // arbitrary per-variant config the app reads at runtime
+
+  experiment     Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  exposures      ExperimentExposure[]
+
+  @@unique([experimentId, name])
+}
+
+// Append-only exposure log. Captures (userId, variant, event=assigned|converted).
+// Conversion is tracked by the application calling recordExposure(key, userId, "converted")
+// after the primary metric fires. Results endpoint aggregates these.
+model ExperimentExposure {
+  id            String   @id @default(cuid())
+  experimentId  String
+  variantId     String
+  userId        String?
+  event         String                                // "assigned" | "converted"
+  occurredAt    DateTime @default(now())
+
+  experiment    Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  variant       ExperimentVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([experimentId, event])
+  @@index([userId, experimentId])
+}
+
+// On-call rotation. A schedule pins N admin users to slots that repeat
+// every rotationDays. Combined with EscalationPolicy and AdminAlert, the
+// "who do I page right now?" answer becomes a 1-line lookup.
+model OnCallSchedule {
+  id            String   @id @default(cuid())
+  name          String                                // "Primary 24/7" | "DB on-call"
+  timezone      String   @default("UTC")
+  rotationDays  Int      @default(7)                  // length of each shift
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  shifts        OnCallShift[]
+
+  @@index([active])
+}
+
+model OnCallShift {
+  id            String   @id @default(cuid())
+  scheduleId    String
+  userId        String                                // FK to User.id; the on-call admin
+  startsAt      DateTime
+  endsAt        DateTime
+  notes         String?
+
+  schedule      OnCallSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId, startsAt])
+  @@index([userId])
+}
+
+// Severity → channel routing. When an AdminAlert fires, we look up the
+// matching policy and emit notifications via the listed channels.
+model EscalationPolicy {
+  id            String   @id @default(cuid())
+  severity      String   @unique                      // "critical" | "warning" | "info"
+  emailTo       String[] @default([])                 // emails to notify
+  slackWebhookSecretName String?                      // VaultEntry name resolving to Slack webhook URL
+  pushUserIds   String[] @default([])                 // admin User.ids to push-notify
+  pagerOnCall   Boolean  @default(false)              // also notify the current on-call from primary schedule
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Backup tracker. Records every database/storage backup, its size, and the
+// last verification status. If the dataRetention job notices a missed
+// expected backup window, it raises an AdminAlert.
+model BackupRecord {
+  id              String   @id @default(cuid())
+  kind            String                              // "db" | "uploads" | "vault"
+  location        String                              // "s3://kaiveron-backups/db/2026-06-03.dump"
+  sizeBytes       BigInt
+  durationMs      Int?
+  startedAt       DateTime
+  completedAt     DateTime
+  verifiedAt      DateTime?                           // null until a restore-drill verifies
+  verifiedBy      String?
+  retentionUntil  DateTime?
+  notes           String?
+  createdAt       DateTime @default(now())
+
+  @@index([kind, completedAt])
+  @@index([verifiedAt])
+}
+
+// Per-user admin notes. Internal-only — never returned via the public
+// /users/:username API. Pinned notes surface first on the user inspect view.
+model UserNote {
+  id          String   @id @default(cuid())
+  userId      String                                  // the user the note is about
+  authorId    String                                  // the admin who wrote it
+  body        String
+  pinned      Boolean  @default(false)
+  category    String?                                 // "support" | "billing" | "safety" | "vip"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, pinned, createdAt])
+  @@index([authorId])
+}
+
 // Observability — distributed trace span. Self-hosted in Postgres (good
 // enough for hobby + low-mid scale; swap for OTel collector + Tempo/Jaeger
 // when volume warrants). Sampled at 10% by default — controlled by

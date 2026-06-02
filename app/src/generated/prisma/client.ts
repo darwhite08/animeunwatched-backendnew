@@ -443,6 +443,46 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model Experiment
+ * 
+ */
+export type Experiment = Prisma.ExperimentModel
+/**
+ * Model ExperimentVariant
+ * 
+ */
+export type ExperimentVariant = Prisma.ExperimentVariantModel
+/**
+ * Model ExperimentExposure
+ * 
+ */
+export type ExperimentExposure = Prisma.ExperimentExposureModel
+/**
+ * Model OnCallSchedule
+ * 
+ */
+export type OnCallSchedule = Prisma.OnCallScheduleModel
+/**
+ * Model OnCallShift
+ * 
+ */
+export type OnCallShift = Prisma.OnCallShiftModel
+/**
+ * Model EscalationPolicy
+ * 
+ */
+export type EscalationPolicy = Prisma.EscalationPolicyModel
+/**
+ * Model BackupRecord
+ * 
+ */
+export type BackupRecord = Prisma.BackupRecordModel
+/**
+ * Model UserNote
+ * 
+ */
+export type UserNote = Prisma.UserNoteModel
+/**
  * Model TraceSpan
  * 
  */

@@ -8,6 +8,7 @@ import { registerJob, instrument } from "../lib/jobRegistry"
 import { flushSlaMetrics } from "../middlewares/slaMetrics.middleware"
 import { runSyntheticMonitors } from "./syntheticMonitor.job"
 import { flushLogs } from "../lib/logSink"
+import { backupHeartbeat } from "./backupHeartbeat.job"
 
 export function startJobs() {
   // Register jobs in the in-process registry so /admin/jobs shows them.
@@ -51,6 +52,10 @@ export function startJobs() {
     name: "flushLogs", description: "Flush in-process WARN+ log buffer to Postgres (every 5s)",
     intervalMs: 5_000, handler: async () => flushLogs(),
   })
+  registerJob({
+    name: "backupHeartbeat", description: "Alert if no critical-kind backup in the last RPO window (hourly)",
+    intervalMs: 60 * 60_000, handler: backupHeartbeat,
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -90,6 +95,10 @@ export function startJobs() {
   // Log buffer flush — every 5s the in-process WARN+ buffer goes to Postgres
   const logFlush = instrument("flushLogs", flushLogs)
   setInterval(logFlush, 5_000)
+
+  // Backup heartbeat — hourly check that critical backups landed within RPO
+  const bh = instrument("backupHeartbeat", backupHeartbeat)
+  setInterval(bh, 60 * 60_000)
 
   console.log("[Jobs] Background jobs started")
 }

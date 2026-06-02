@@ -54,6 +54,10 @@ import * as tickets      from "./tickets.controller";
 import * as traces       from "./traces.controller";
 import * as logs         from "./logs.controller";
 import * as tHooks       from "./ticketWebhooks.controller";
+import * as exps         from "./experiments.controller";
+import * as onCall       from "./onCall.controller";
+import * as backups      from "./backups.controller";
+import * as userNotes    from "./userNotes.controller";
 
 export const adminRouter = Router();
 
@@ -432,4 +436,32 @@ adminRouter.post(  "/tickets/webhooks",                requirePermissionWithStep
 adminRouter.patch( "/tickets/webhooks/:id",            requirePermission("webhooks","write"), tHooks.updateHook);
 adminRouter.post(  "/tickets/webhooks/:id/rotate",     requirePermissionWithStepUp("webhooks","write"), tHooks.rotateHookSecret);
 adminRouter.delete("/tickets/webhooks/:id",            requirePermission("webhooks","write"), tHooks.deleteHook);
+
+// A/B experiments
+adminRouter.get(   "/experiments",                     requirePermission("flags","read"),  exps.listExperiments);
+adminRouter.post(  "/experiments",                     requirePermission("flags","write"), exps.createExperiment);
+adminRouter.post(  "/experiments/:id/transition",      requirePermission("flags","write"), exps.transitionExperiment);
+adminRouter.get(   "/experiments/:id/results",         requirePermission("flags","read"),  exps.getExperimentResults);
+adminRouter.delete("/experiments/:id",                 requirePermissionWithStepUp("flags","write"), exps.deleteExperiment);
+
+// On-call rotation + escalation
+adminRouter.get(   "/oncall/schedules",                requirePermission("settings","read"),  onCall.listSchedules);
+adminRouter.post(  "/oncall/schedules",                requirePermission("settings","write"), onCall.createSchedule);
+adminRouter.post(  "/oncall/schedules/:id/rotation",   requirePermission("settings","write"), onCall.postRotation);
+adminRouter.delete("/oncall/shifts/:id",               requirePermission("settings","write"), onCall.deleteShift);
+adminRouter.get(   "/oncall/current",                  requirePermission("settings","read"),  onCall.getCurrent);
+adminRouter.get(   "/oncall/policies",                 requirePermission("settings","read"),  onCall.listPolicies);
+adminRouter.put(   "/oncall/policies",                 requirePermissionWithStepUp("settings","write"), onCall.upsertPolicy);
+
+// Backup tracker
+adminRouter.get(   "/backups",                         requirePermission("security","read"),  backups.listBackups);
+adminRouter.post(  "/backups",                         requirePermission("security","write"), backups.recordBackup);
+adminRouter.post(  "/backups/:id/verify",              requirePermission("security","write"), backups.verifyBackup);
+adminRouter.delete("/backups/:id",                     requirePermissionWithStepUp("security","write"), backups.deleteBackup);
+
+// Internal user notes (admin-only CRM-lite per user)
+adminRouter.get(   "/users/:userId/notes",             requirePermission("users","read"),   userNotes.listForUser);
+adminRouter.post(  "/users/:userId/notes",             requirePermission("users","update"), userNotes.createNote);
+adminRouter.patch( "/user-notes/:id",                  requirePermission("users","update"), userNotes.updateNote);
+adminRouter.delete("/user-notes/:id",                  requirePermission("users","update"), userNotes.deleteNote);
 

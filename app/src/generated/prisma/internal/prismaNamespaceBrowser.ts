@@ -129,6 +129,14 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  Experiment: 'Experiment',
+  ExperimentVariant: 'ExperimentVariant',
+  ExperimentExposure: 'ExperimentExposure',
+  OnCallSchedule: 'OnCallSchedule',
+  OnCallShift: 'OnCallShift',
+  EscalationPolicy: 'EscalationPolicy',
+  BackupRecord: 'BackupRecord',
+  UserNote: 'UserNote',
   TraceSpan: 'TraceSpan',
   LogEntry: 'LogEntry',
   TicketWebhook: 'TicketWebhook',
@@ -1312,6 +1320,117 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const ExperimentScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  description: 'description',
+  status: 'status',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt',
+  primaryMetric: 'primaryMetric',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExperimentScalarFieldEnum = (typeof ExperimentScalarFieldEnum)[keyof typeof ExperimentScalarFieldEnum]
+
+
+export const ExperimentVariantScalarFieldEnum = {
+  id: 'id',
+  experimentId: 'experimentId',
+  name: 'name',
+  weight: 'weight',
+  isControl: 'isControl',
+  payload: 'payload'
+} as const
+
+export type ExperimentVariantScalarFieldEnum = (typeof ExperimentVariantScalarFieldEnum)[keyof typeof ExperimentVariantScalarFieldEnum]
+
+
+export const ExperimentExposureScalarFieldEnum = {
+  id: 'id',
+  experimentId: 'experimentId',
+  variantId: 'variantId',
+  userId: 'userId',
+  event: 'event',
+  occurredAt: 'occurredAt'
+} as const
+
+export type ExperimentExposureScalarFieldEnum = (typeof ExperimentExposureScalarFieldEnum)[keyof typeof ExperimentExposureScalarFieldEnum]
+
+
+export const OnCallScheduleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  timezone: 'timezone',
+  rotationDays: 'rotationDays',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OnCallScheduleScalarFieldEnum = (typeof OnCallScheduleScalarFieldEnum)[keyof typeof OnCallScheduleScalarFieldEnum]
+
+
+export const OnCallShiftScalarFieldEnum = {
+  id: 'id',
+  scheduleId: 'scheduleId',
+  userId: 'userId',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  notes: 'notes'
+} as const
+
+export type OnCallShiftScalarFieldEnum = (typeof OnCallShiftScalarFieldEnum)[keyof typeof OnCallShiftScalarFieldEnum]
+
+
+export const EscalationPolicyScalarFieldEnum = {
+  id: 'id',
+  severity: 'severity',
+  emailTo: 'emailTo',
+  slackWebhookSecretName: 'slackWebhookSecretName',
+  pushUserIds: 'pushUserIds',
+  pagerOnCall: 'pagerOnCall',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EscalationPolicyScalarFieldEnum = (typeof EscalationPolicyScalarFieldEnum)[keyof typeof EscalationPolicyScalarFieldEnum]
+
+
+export const BackupRecordScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  location: 'location',
+  sizeBytes: 'sizeBytes',
+  durationMs: 'durationMs',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  verifiedAt: 'verifiedAt',
+  verifiedBy: 'verifiedBy',
+  retentionUntil: 'retentionUntil',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type BackupRecordScalarFieldEnum = (typeof BackupRecordScalarFieldEnum)[keyof typeof BackupRecordScalarFieldEnum]
+
+
+export const UserNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  authorId: 'authorId',
+  body: 'body',
+  pinned: 'pinned',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserNoteScalarFieldEnum = (typeof UserNoteScalarFieldEnum)[keyof typeof UserNoteScalarFieldEnum]
 
 
 export const TraceSpanScalarFieldEnum = {
