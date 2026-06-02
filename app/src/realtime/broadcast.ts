@@ -8,6 +8,17 @@
  * `getIo()` directly so it's easy to find every broadcast in one place.
  */
 import { getIo } from "./io-instance"
+import { enqueueWebhook } from "../jobs/webhookDispatcher.job"
+
+/**
+ * Fan an event out to every subscribed webhook endpoint. Fire-and-forget:
+ * never blocks the primary request, errors are logged not thrown.
+ */
+function enqueueOutbound(eventName: string, payload: Record<string, unknown>): Promise<void> {
+  return enqueueWebhook(eventName, payload).catch(err => {
+    console.error("[webhook-enqueue]", eventName, "failed:", err)
+  })
+}
 
 // ── Room names ───────────────────────────────────────────────────────────────
 
@@ -101,6 +112,7 @@ export function broadcastAdminUserSignup(user: { id: string; username: string; d
 
 export function broadcastAdminUserBan(userId: string, banned: boolean, actorId: string): void {
   emit(ADMIN_ROOM, banned ? "admin.user.banned" : "admin.user.unbanned", { userId, actorId, at: Date.now() })
+  void enqueueOutbound(banned ? "user.banned" : "user.unbanned", { userId, actorId, at: Date.now() })
 }
 
 export function broadcastAdminUserRole(userId: string, role: "USER" | "MOD" | "ADMIN", actorId: string): void {
@@ -109,14 +121,17 @@ export function broadcastAdminUserRole(userId: string, role: "USER" | "MOD" | "A
 
 export function broadcastAdminPostCreated(): void {
   emit(ADMIN_ROOM, "admin.post.created", { at: Date.now() })
+  void enqueueOutbound("post.created", { at: Date.now() })
 }
 
 export function broadcastAdminPostDeleted(postId: string, actorId: string): void {
   emit(ADMIN_ROOM, "admin.post.deleted", { postId, actorId, at: Date.now() })
+  void enqueueOutbound("post.deleted", { postId, actorId, at: Date.now() })
 }
 
 export function broadcastAdminReportCreated(report: { id: string; targetType: string; reason: string }): void {
   emit(ADMIN_ROOM, "admin.report.created", { ...report, at: Date.now() })
+  void enqueueOutbound("report.created", { ...report, at: Date.now() })
 }
 
 export function broadcastAdminReportResolved(reportId: string, status: "RESOLVED" | "DISMISSED", actorId: string): void {
