@@ -8,6 +8,8 @@ export const animeRouter = Router();
 animeRouter.get("/search", optionalAuth, ctrl.search);
 animeRouter.get("/trending", ctrl.getTrending);
 animeRouter.get("/top", ctrl.getTrending);        // alias: GET /anime/top?limit=20
+animeRouter.get("/genres",  ctrl.listGenres);     // distinct catalog genres
+animeRouter.get("/studios", ctrl.listStudios);    // distinct catalog studios
 animeRouter.get("/season/:year/:season", optionalAuth, ctrl.getSeasonal);
 animeRouter.get("/:malId/similar",     optionalAuth, ctrl.getSimilar);
 animeRouter.get("/:malId/user-stats",  optionalAuth, ctrl.getAnimeUserStats);

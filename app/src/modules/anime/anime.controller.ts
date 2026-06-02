@@ -130,3 +130,17 @@ export async function getFranchise(req: Request, res: Response, next: NextFuncti
     res.status(200).json(data)
   } catch (err) { next(err) }
 }
+
+export async function listGenres(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50))
+    res.status(200).json({ data: await service.listGenres(limit) })
+  } catch (err) { next(err) }
+}
+
+export async function listStudios(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50))
+    res.status(200).json({ data: await service.listStudios(limit) })
+  } catch (err) { next(err) }
+}

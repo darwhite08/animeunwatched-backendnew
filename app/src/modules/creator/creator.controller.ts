@@ -20,3 +20,12 @@ export async function getContentPerformance(_req: Request, res: Response, next: 
     next(err);
   }
 }
+
+export async function getDailySeries(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json({ data: await service.getDailySeries(userId) });
+  } catch (err) {
+    next(err);
+  }
+}

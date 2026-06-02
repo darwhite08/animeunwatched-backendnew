@@ -6,5 +6,6 @@ export const creatorRouter = Router();
 
 creatorRouter.use(requireAuth);
 
-creatorRouter.get("/stats", ctrl.getCreatorStats);
+creatorRouter.get("/stats",   ctrl.getCreatorStats);
 creatorRouter.get("/content", ctrl.getContentPerformance);
+creatorRouter.get("/daily",   ctrl.getDailySeries);

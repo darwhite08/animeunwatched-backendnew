@@ -516,6 +516,32 @@ export async function getFranchise(malId: number) {
 
 // ─── search ──────────────────────────────────────────────────────────────────
 
+/** Distinct catalog genres, ordered by how many anime use them. */
+export async function listGenres(limit = 50) {
+  const rows = await prisma.genre.findMany({
+    take: limit,
+    include: { _count: { select: { animes: true } } },
+    orderBy: { animes: { _count: "desc" } },
+  })
+  return rows.map((g: { name: string; _count: { animes: number } }) => ({
+    name:  g.name,
+    count: g._count.animes,
+  }))
+}
+
+/** Distinct catalog studios, ordered by anime count. */
+export async function listStudios(limit = 50) {
+  const rows = await prisma.studio.findMany({
+    take: limit,
+    include: { _count: { select: { animes: true } } },
+    orderBy: { animes: { _count: "desc" } },
+  })
+  return rows.map((s: { name: string; _count: { animes: number } }) => ({
+    name:  s.name,
+    count: s._count.animes,
+  }))
+}
+
 export async function search(q: string, page = 1, limit = 20) {
   const { skip, take } = paginate(page, limit);
   const where = { title: { contains: q, mode: "insensitive" as const } };
