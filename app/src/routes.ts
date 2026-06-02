@@ -22,6 +22,7 @@ import { discoveryRouter } from "./modules/discovery/discovery.routes";
 import { aiRouter } from "./modules/ai/ai.routes";
 import { versionRouter } from "./modules/version/version.routes";
 import { activitiesRouter } from "./modules/activities/activities.routes";
+import { oauthRouter } from "./modules/oauth/oauth.routes";
 
 const router = Router();
 
@@ -50,5 +51,6 @@ router.use("/uploads", uploadsRouter);
 router.use("/discovery", discoveryRouter);
 router.use("/ai", aiRouter);
 router.use("/version", versionRouter);
+router.use("/oauth", oauthRouter);
 
 export default router;

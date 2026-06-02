@@ -397,3 +397,13 @@ export type ApprovalRequest = Prisma.ApprovalRequestModel
  * 
  */
 export type ApprovalDecision = Prisma.ApprovalDecisionModel
+/**
+ * Model OauthClient
+ * 
+ */
+export type OauthClient = Prisma.OauthClientModel
+/**
+ * Model OauthAccessToken
+ * 
+ */
+export type OauthAccessToken = Prisma.OauthAccessTokenModel

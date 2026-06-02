@@ -124,7 +124,9 @@ export const ModelName = {
   SavedReply: 'SavedReply',
   PiiField: 'PiiField',
   ApprovalRequest: 'ApprovalRequest',
-  ApprovalDecision: 'ApprovalDecision'
+  ApprovalDecision: 'ApprovalDecision',
+  OauthClient: 'OauthClient',
+  OauthAccessToken: 'OauthAccessToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1210,6 +1212,41 @@ export const ApprovalDecisionScalarFieldEnum = {
 } as const
 
 export type ApprovalDecisionScalarFieldEnum = (typeof ApprovalDecisionScalarFieldEnum)[keyof typeof ApprovalDecisionScalarFieldEnum]
+
+
+export const OauthClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  clientId: 'clientId',
+  clientSecretHash: 'clientSecretHash',
+  type: 'type',
+  scopes: 'scopes',
+  redirectUris: 'redirectUris',
+  description: 'description',
+  ownerEmail: 'ownerEmail',
+  revokedAt: 'revokedAt',
+  lastUsedAt: 'lastUsedAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OauthClientScalarFieldEnum = (typeof OauthClientScalarFieldEnum)[keyof typeof OauthClientScalarFieldEnum]
+
+
+export const OauthAccessTokenScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  tokenHash: 'tokenHash',
+  scopes: 'scopes',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  lastUsedAt: 'lastUsedAt',
+  useCount: 'useCount',
+  createdAt: 'createdAt'
+} as const
+
+export type OauthAccessTokenScalarFieldEnum = (typeof OauthAccessTokenScalarFieldEnum)[keyof typeof OauthAccessTokenScalarFieldEnum]
 
 
 export const SortOrder = {

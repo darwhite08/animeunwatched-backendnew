@@ -465,7 +465,9 @@ export const ModelName = {
   SavedReply: 'SavedReply',
   PiiField: 'PiiField',
   ApprovalRequest: 'ApprovalRequest',
-  ApprovalDecision: 'ApprovalDecision'
+  ApprovalDecision: 'ApprovalDecision',
+  OauthClient: 'OauthClient',
+  OauthAccessToken: 'OauthAccessToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -481,7 +483,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6109,6 +6111,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OauthClient: {
+      payload: Prisma.$OauthClientPayload<ExtArgs>
+      fields: Prisma.OauthClientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OauthClientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OauthClientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        findFirst: {
+          args: Prisma.OauthClientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OauthClientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        findMany: {
+          args: Prisma.OauthClientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>[]
+        }
+        create: {
+          args: Prisma.OauthClientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        createMany: {
+          args: Prisma.OauthClientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OauthClientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>[]
+        }
+        delete: {
+          args: Prisma.OauthClientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        update: {
+          args: Prisma.OauthClientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        deleteMany: {
+          args: Prisma.OauthClientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OauthClientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OauthClientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>[]
+        }
+        upsert: {
+          args: Prisma.OauthClientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthClientPayload>
+        }
+        aggregate: {
+          args: Prisma.OauthClientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOauthClient>
+        }
+        groupBy: {
+          args: Prisma.OauthClientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OauthClientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OauthClientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OauthClientCountAggregateOutputType> | number
+        }
+      }
+    }
+    OauthAccessToken: {
+      payload: Prisma.$OauthAccessTokenPayload<ExtArgs>
+      fields: Prisma.OauthAccessTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OauthAccessTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OauthAccessTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.OauthAccessTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OauthAccessTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        findMany: {
+          args: Prisma.OauthAccessTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>[]
+        }
+        create: {
+          args: Prisma.OauthAccessTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        createMany: {
+          args: Prisma.OauthAccessTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OauthAccessTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.OauthAccessTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        update: {
+          args: Prisma.OauthAccessTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.OauthAccessTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OauthAccessTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OauthAccessTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.OauthAccessTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OauthAccessTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.OauthAccessTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOauthAccessToken>
+        }
+        groupBy: {
+          args: Prisma.OauthAccessTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OauthAccessTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OauthAccessTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OauthAccessTokenCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -7217,6 +7367,41 @@ export const ApprovalDecisionScalarFieldEnum = {
 export type ApprovalDecisionScalarFieldEnum = (typeof ApprovalDecisionScalarFieldEnum)[keyof typeof ApprovalDecisionScalarFieldEnum]
 
 
+export const OauthClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  clientId: 'clientId',
+  clientSecretHash: 'clientSecretHash',
+  type: 'type',
+  scopes: 'scopes',
+  redirectUris: 'redirectUris',
+  description: 'description',
+  ownerEmail: 'ownerEmail',
+  revokedAt: 'revokedAt',
+  lastUsedAt: 'lastUsedAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OauthClientScalarFieldEnum = (typeof OauthClientScalarFieldEnum)[keyof typeof OauthClientScalarFieldEnum]
+
+
+export const OauthAccessTokenScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  tokenHash: 'tokenHash',
+  scopes: 'scopes',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  lastUsedAt: 'lastUsedAt',
+  useCount: 'useCount',
+  createdAt: 'createdAt'
+} as const
+
+export type OauthAccessTokenScalarFieldEnum = (typeof OauthAccessTokenScalarFieldEnum)[keyof typeof OauthAccessTokenScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -7608,6 +7793,8 @@ export type GlobalOmitConfig = {
   piiField?: Prisma.PiiFieldOmit
   approvalRequest?: Prisma.ApprovalRequestOmit
   approvalDecision?: Prisma.ApprovalDecisionOmit
+  oauthClient?: Prisma.OauthClientOmit
+  oauthAccessToken?: Prisma.OauthAccessTokenOmit
 }
 
 /* Types for Logging */

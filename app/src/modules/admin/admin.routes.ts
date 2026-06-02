@@ -40,6 +40,7 @@ import * as openApi    from "./openapi.controller";
 import * as pii        from "./pii.controller";
 import * as approvals  from "./approvals.controller";
 import { requireApproval } from "../../lib/approvals";
+import * as oauthClients from "./oauthClients.controller";
 
 export const adminRouter = Router();
 
@@ -299,4 +300,13 @@ adminRouter.get(   "/pii/export/ropa",                 requirePermission("securi
 adminRouter.get(   "/approvals",                       requirePermission("audit","read"),  approvals.listApprovals);
 adminRouter.get(   "/approvals/:id",                   requirePermission("audit","read"),  approvals.getApproval);
 adminRouter.post(  "/approvals/:id/review",            requirePermission("audit","read"),  approvals.reviewApproval);
+
+// OAuth 2.0 client registry
+adminRouter.get(   "/oauth/clients",                       requirePermission("api_keys","read"),         oauthClients.listClients);
+adminRouter.get(   "/oauth/clients/:id",                   requirePermission("api_keys","read"),         oauthClients.getClient);
+adminRouter.post(  "/oauth/clients",                       requirePermissionWithStepUp("api_keys","write"), oauthClients.createClient);
+adminRouter.patch( "/oauth/clients/:id",                   requirePermission("api_keys","write"),        oauthClients.updateClient);
+adminRouter.post(  "/oauth/clients/:id/rotate",            requirePermissionWithStepUp("api_keys","write"), oauthClients.rotateSecret);
+adminRouter.delete("/oauth/clients/:id",                   requirePermissionWithStepUp("api_keys","write"), oauthClients.revokeClient);
+adminRouter.delete("/oauth/clients/:clientId/tokens/:tokenId", requirePermission("api_keys","write"),    oauthClients.revokeToken);
 

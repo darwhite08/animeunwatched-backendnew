@@ -1516,3 +1516,48 @@ model ApprovalDecision {
   @@index([reviewerId])
 }
 
+// Registered OAuth 2.0 client (third-party app / integration).
+// Today we support client_credentials grant (app-to-app, no user context);
+// authorization_code grant lands in a later batch when the consent UI is
+// designed. Secret is stored as a one-way hash — admin sees plaintext only
+// once at creation/rotation time.
+model OauthClient {
+  id              String   @id @default(cuid())
+  name            String                                // human label, e.g. "Zapier"
+  clientId        String   @unique                      // public identifier (prefix ka_oc_)
+  clientSecretHash String                               // sha256(secret)
+  type            String   @default("confidential")     // "confidential" | "public"
+  scopes          String[] @default([])                 // "read:users" | "scim" | "webhooks:write" | ...
+  redirectUris    String[] @default([])                 // for future authorization_code flow
+  description     String?
+  ownerEmail      String?                               // contact email for breach notifications
+  revokedAt       DateTime?
+  lastUsedAt      DateTime?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  accessTokens    OauthAccessToken[]
+
+  @@index([revokedAt])
+}
+
+// Issued OAuth access token. Stored as a hash so a DB leak can't be used to
+// forge calls. Refresh tokens are not part of client_credentials grant —
+// the client just re-exchanges its secret for a new token.
+model OauthAccessToken {
+  id          String   @id @default(cuid())
+  clientId    String                                    // FK to OauthClient.id
+  tokenHash   String   @unique                          // sha256 of the bearer token
+  scopes      String[] @default([])                     // granted at issuance (subset of client scopes)
+  expiresAt   DateTime
+  revokedAt   DateTime?
+  lastUsedAt  DateTime?
+  useCount    Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  client      OauthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId, expiresAt])
+  @@index([expiresAt])
+}
+
