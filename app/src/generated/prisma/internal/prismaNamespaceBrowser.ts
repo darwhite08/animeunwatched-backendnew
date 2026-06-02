@@ -129,6 +129,9 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  TraceSpan: 'TraceSpan',
+  LogEntry: 'LogEntry',
+  TicketWebhook: 'TicketWebhook',
   Ticket: 'Ticket',
   TicketReply: 'TicketReply',
   TrustCenterEntry: 'TrustCenterEntry',
@@ -1309,6 +1312,53 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const TraceSpanScalarFieldEnum = {
+  id: 'id',
+  traceId: 'traceId',
+  spanId: 'spanId',
+  parentSpanId: 'parentSpanId',
+  name: 'name',
+  kind: 'kind',
+  status: 'status',
+  startedAt: 'startedAt',
+  durationMs: 'durationMs',
+  attributes: 'attributes'
+} as const
+
+export type TraceSpanScalarFieldEnum = (typeof TraceSpanScalarFieldEnum)[keyof typeof TraceSpanScalarFieldEnum]
+
+
+export const LogEntryScalarFieldEnum = {
+  id: 'id',
+  level: 'level',
+  message: 'message',
+  requestId: 'requestId',
+  traceId: 'traceId',
+  attributes: 'attributes',
+  createdAt: 'createdAt'
+} as const
+
+export type LogEntryScalarFieldEnum = (typeof LogEntryScalarFieldEnum)[keyof typeof LogEntryScalarFieldEnum]
+
+
+export const TicketWebhookScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  events: 'events',
+  secret: 'secret',
+  active: 'active',
+  description: 'description',
+  lastDeliveryAt: 'lastDeliveryAt',
+  lastDeliveryStatus: 'lastDeliveryStatus',
+  failCount: 'failCount',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TicketWebhookScalarFieldEnum = (typeof TicketWebhookScalarFieldEnum)[keyof typeof TicketWebhookScalarFieldEnum]
 
 
 export const TicketScalarFieldEnum = {

@@ -51,6 +51,9 @@ import * as obs          from "./observability.controller";
 import * as secX         from "./securityExtras.controller";
 import * as trust        from "./trustCenter.controller";
 import * as tickets      from "./tickets.controller";
+import * as traces       from "./traces.controller";
+import * as logs         from "./logs.controller";
+import * as tHooks       from "./ticketWebhooks.controller";
 
 export const adminRouter = Router();
 
@@ -414,4 +417,19 @@ adminRouter.get(   "/tickets/:id",                     requirePermission("modera
 adminRouter.post(  "/tickets",                         requirePermission("moderation","act"),  tickets.createTicket);
 adminRouter.patch( "/tickets/:id",                     requirePermission("moderation","act"),  tickets.updateTicket);
 adminRouter.post(  "/tickets/:id/replies",             requirePermission("moderation","act"),  tickets.addReply);
+
+// Distributed traces (self-hosted)
+adminRouter.get(   "/traces",                          requirePermission("audit","read"), traces.listTraces);
+adminRouter.get(   "/traces/:traceId",                 requirePermission("audit","read"), traces.getTrace);
+
+// Log search (WARN+ persisted into LogEntry)
+adminRouter.get(   "/logs",                            requirePermission("audit","read"), logs.listLogs);
+adminRouter.post(  "/logs/flush",                      requirePermission("audit","read"), logs.forceFlush);
+
+// Ticket integration webhooks (HMAC-signed outbound)
+adminRouter.get(   "/tickets/webhooks/list",           requirePermission("webhooks","read"),  tHooks.listHooks);
+adminRouter.post(  "/tickets/webhooks",                requirePermissionWithStepUp("webhooks","write"), tHooks.createHook);
+adminRouter.patch( "/tickets/webhooks/:id",            requirePermission("webhooks","write"), tHooks.updateHook);
+adminRouter.post(  "/tickets/webhooks/:id/rotate",     requirePermissionWithStepUp("webhooks","write"), tHooks.rotateHookSecret);
+adminRouter.delete("/tickets/webhooks/:id",            requirePermission("webhooks","write"), tHooks.deleteHook);
 

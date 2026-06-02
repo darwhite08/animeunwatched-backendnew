@@ -418,6 +418,21 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model TraceSpan
+ * 
+ */
+export type TraceSpan = Prisma.TraceSpanModel
+/**
+ * Model LogEntry
+ * 
+ */
+export type LogEntry = Prisma.LogEntryModel
+/**
+ * Model TicketWebhook
+ * 
+ */
+export type TicketWebhook = Prisma.TicketWebhookModel
+/**
  * Model Ticket
  * 
  */

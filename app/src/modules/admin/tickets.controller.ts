@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express"
 import { prisma } from "../../config/prisma"
 import { badRequest, notFound } from "../../lib/errors"
 import { adminAuditR } from "../../lib/adminAudit"
+import { fireTicketEvent } from "../../lib/ticketWebhooks"
 
 const VALID_STATUS   = ["open", "in_progress", "resolved", "closed"] as const
 const VALID_PRIORITY = ["low", "normal", "high", "urgent"] as const
@@ -57,6 +58,7 @@ export async function createTicket(req: Request, res: Response, next: NextFuncti
       action: "ticket.create", targetType: "Ticket", targetId: t.id,
       metadata: { subject: t.subject, email: t.email, openedBy: actorId },
     })
+    void fireTicketEvent("ticket.created", { id: t.id, number: t.number, subject: t.subject, status: t.status, priority: t.priority, email: t.email, userId: t.userId })
     res.status(200).json({ ticket: t })
   } catch (err) { next(err) }
 }
@@ -86,6 +88,9 @@ export async function updateTicket(req: Request, res: Response, next: NextFuncti
       action: "ticket.update", targetType: "Ticket", targetId: id,
       metadata: { actorId, fields: Object.keys(req.body as object) },
     })
+    if (typeof status === "string" && status !== existing.status) {
+      void fireTicketEvent("ticket.status_changed", { id, number: updated.number, fromStatus: existing.status, toStatus: status })
+    }
     res.status(200).json({ ticket: updated })
   } catch (err) { next(err) }
 }
@@ -110,6 +115,9 @@ export async function addReply(req: Request, res: Response, next: NextFunction):
       action: "ticket.reply", targetType: "Ticket", targetId: id,
       metadata: { isInternal: isInternal === true },
     })
+    if (isInternal !== true) {
+      void fireTicketEvent("ticket.replied", { id, number: t.number, replyId: reply.id, authorKind: "agent" })
+    }
     res.status(200).json({ reply })
   } catch (err) { next(err) }
 }

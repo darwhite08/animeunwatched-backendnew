@@ -470,6 +470,9 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  TraceSpan: 'TraceSpan',
+  LogEntry: 'LogEntry',
+  TicketWebhook: 'TicketWebhook',
   Ticket: 'Ticket',
   TicketReply: 'TicketReply',
   TrustCenterEntry: 'TrustCenterEntry',
@@ -508,7 +511,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6432,6 +6435,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TraceSpan: {
+      payload: Prisma.$TraceSpanPayload<ExtArgs>
+      fields: Prisma.TraceSpanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TraceSpanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TraceSpanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        findFirst: {
+          args: Prisma.TraceSpanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TraceSpanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        findMany: {
+          args: Prisma.TraceSpanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>[]
+        }
+        create: {
+          args: Prisma.TraceSpanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        createMany: {
+          args: Prisma.TraceSpanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TraceSpanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>[]
+        }
+        delete: {
+          args: Prisma.TraceSpanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        update: {
+          args: Prisma.TraceSpanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        deleteMany: {
+          args: Prisma.TraceSpanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TraceSpanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TraceSpanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>[]
+        }
+        upsert: {
+          args: Prisma.TraceSpanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TraceSpanPayload>
+        }
+        aggregate: {
+          args: Prisma.TraceSpanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTraceSpan>
+        }
+        groupBy: {
+          args: Prisma.TraceSpanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TraceSpanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TraceSpanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TraceSpanCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogEntry: {
+      payload: Prisma.$LogEntryPayload<ExtArgs>
+      fields: Prisma.LogEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.LogEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        findMany: {
+          args: Prisma.LogEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>[]
+        }
+        create: {
+          args: Prisma.LogEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        createMany: {
+          args: Prisma.LogEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.LogEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        update: {
+          args: Prisma.LogEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.LogEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogEntry>
+        }
+        groupBy: {
+          args: Prisma.LogEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    TicketWebhook: {
+      payload: Prisma.$TicketWebhookPayload<ExtArgs>
+      fields: Prisma.TicketWebhookFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TicketWebhookFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TicketWebhookFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        findFirst: {
+          args: Prisma.TicketWebhookFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TicketWebhookFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        findMany: {
+          args: Prisma.TicketWebhookFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>[]
+        }
+        create: {
+          args: Prisma.TicketWebhookCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        createMany: {
+          args: Prisma.TicketWebhookCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TicketWebhookCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>[]
+        }
+        delete: {
+          args: Prisma.TicketWebhookDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        update: {
+          args: Prisma.TicketWebhookUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        deleteMany: {
+          args: Prisma.TicketWebhookDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TicketWebhookUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TicketWebhookUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>[]
+        }
+        upsert: {
+          args: Prisma.TicketWebhookUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TicketWebhookPayload>
+        }
+        aggregate: {
+          args: Prisma.TicketWebhookAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTicketWebhook>
+        }
+        groupBy: {
+          args: Prisma.TicketWebhookGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TicketWebhookGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TicketWebhookCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TicketWebhookCountAggregateOutputType> | number
+        }
+      }
+    }
     Ticket: {
       payload: Prisma.$TicketPayload<ExtArgs>
       fields: Prisma.TicketFieldRefs
@@ -9314,6 +9539,53 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const TraceSpanScalarFieldEnum = {
+  id: 'id',
+  traceId: 'traceId',
+  spanId: 'spanId',
+  parentSpanId: 'parentSpanId',
+  name: 'name',
+  kind: 'kind',
+  status: 'status',
+  startedAt: 'startedAt',
+  durationMs: 'durationMs',
+  attributes: 'attributes'
+} as const
+
+export type TraceSpanScalarFieldEnum = (typeof TraceSpanScalarFieldEnum)[keyof typeof TraceSpanScalarFieldEnum]
+
+
+export const LogEntryScalarFieldEnum = {
+  id: 'id',
+  level: 'level',
+  message: 'message',
+  requestId: 'requestId',
+  traceId: 'traceId',
+  attributes: 'attributes',
+  createdAt: 'createdAt'
+} as const
+
+export type LogEntryScalarFieldEnum = (typeof LogEntryScalarFieldEnum)[keyof typeof LogEntryScalarFieldEnum]
+
+
+export const TicketWebhookScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  events: 'events',
+  secret: 'secret',
+  active: 'active',
+  description: 'description',
+  lastDeliveryAt: 'lastDeliveryAt',
+  lastDeliveryStatus: 'lastDeliveryStatus',
+  failCount: 'failCount',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TicketWebhookScalarFieldEnum = (typeof TicketWebhookScalarFieldEnum)[keyof typeof TicketWebhookScalarFieldEnum]
+
+
 export const TicketScalarFieldEnum = {
   id: 'id',
   number: 'number',
@@ -10085,6 +10357,9 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  traceSpan?: Prisma.TraceSpanOmit
+  logEntry?: Prisma.LogEntryOmit
+  ticketWebhook?: Prisma.TicketWebhookOmit
   ticket?: Prisma.TicketOmit
   ticketReply?: Prisma.TicketReplyOmit
   trustCenterEntry?: Prisma.TrustCenterEntryOmit

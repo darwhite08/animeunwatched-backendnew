@@ -1609,6 +1609,68 @@ model SamlConfig {
   @@index([active])
 }
 
+// Observability — distributed trace span. Self-hosted in Postgres (good
+// enough for hobby + low-mid scale; swap for OTel collector + Tempo/Jaeger
+// when volume warrants). Sampled at 10% by default — controlled by
+// TRACE_SAMPLE_PCT env.
+//
+// Note: this is intentionally a SMALL traces backend. It captures root
+// request spans only; nested DB/HTTP-client spans would need a Prisma
+// extension + fetch wrapper, which is a bigger lift.
+model TraceSpan {
+  id           String   @id @default(cuid())
+  traceId      String                                  // shared across spans in one trace
+  spanId       String                                  // unique to this span
+  parentSpanId String?                                 // nullable for root spans
+  name         String                                  // "GET /api/v1/anime/:id"
+  kind         String   @default("server")             // "server" | "client" | "internal"
+  status       String   @default("ok")                 // "ok" | "error"
+  startedAt    DateTime
+  durationMs   Int
+  attributes   Json?                                   // {statusCode, ip, userId, ...}
+
+  @@index([traceId])
+  @@index([startedAt])
+  @@index([name, startedAt])
+}
+
+// Observability — log entry. Pino transport writes WARN+ here so the admin
+// UI can search recent errors without external log infra. Verbose levels
+// stay on stdout. Pruned by dataRetention job (default 30d).
+model LogEntry {
+  id          String   @id @default(cuid())
+  level       String                                   // "warn" | "error" | "fatal"
+  message     String
+  requestId   String?
+  traceId     String?
+  attributes  Json?                                    // arbitrary structured fields
+  createdAt   DateTime @default(now())
+
+  @@index([level, createdAt])
+  @@index([traceId])
+  @@index([requestId])
+}
+
+// Outbound webhook for ticket events — lets external systems (Zapier,
+// n8n, Zendesk, Linear, Slack) subscribe to ticket lifecycle without us
+// having to integrate with each vendor. HMAC-SHA-256 signed.
+model TicketWebhook {
+  id           String   @id @default(cuid())
+  url          String
+  events       String[] @default(["*"])                // ["ticket.created","ticket.replied","ticket.status_changed"] or ["*"]
+  secret       String                                  // for HMAC sig
+  active       Boolean  @default(true)
+  description  String?
+  lastDeliveryAt DateTime?
+  lastDeliveryStatus String?                           // "ok" | "fail"
+  failCount    Int      @default(0)
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([active])
+}
+
 // Support — generic ticket. Either user-created (authenticated POST) or
 // agent-created (admin opens on behalf of a user). Thread of TicketReplies
 // keeps the timeline. Status transitions: open → in_progress → resolved

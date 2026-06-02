@@ -39,6 +39,7 @@ app.set("trust proxy", 1);
 // Per-request correlation id + structured JSON logger. requestId must run
 // before pino-http so the log line carries the id we set on res.locals.
 app.use(requestId);
+import { recordLog } from "./src/lib/logSink";
 app.use(
   pinoHttp({
     logger,
@@ -62,6 +63,20 @@ app.use(
     },
   }),
 );
+// Hook into pino so WARN+ entries land in the searchable LogEntry table
+app.use((req, res, next) => {
+  res.on("finish", () => {
+    if (res.statusCode < 400) return
+    const requestId = (res.locals as { requestId?: string }).requestId
+    const traceId   = (res.locals as { traceId?: string }).traceId
+    recordLog(
+      res.statusCode >= 500 ? "error" : "warn",
+      `${req.method} ${req.url} → ${res.statusCode}`,
+      { requestId, traceId, attributes: { statusCode: res.statusCode, ua: req.header("User-Agent")?.slice(0, 200) } },
+    )
+  })
+  next()
+})
 
 const ALLOWED_ORIGINS = [
   env.CORS_ORIGIN,
@@ -147,6 +162,9 @@ app.use(responseTime);
 app.use(requestLogger);
 // Per-endpoint RED metrics (record on response finish, never blocks the request)
 app.use(slaMetrics());
+// Distributed trace capture (sampled root spans) — sets X-Trace-Id header
+import { traceCapture } from "./src/middlewares/trace.middleware";
+app.use(traceCapture());
 // Sunset + Deprecation headers for endpoints listed in DeprecatedEndpoint
 import { deprecationHeaders } from "./src/middlewares/deprecation.middleware";
 app.use(deprecationHeaders());

@@ -6,6 +6,8 @@ import { runReportScheduler } from "./reportScheduler.job"
 import { runAuditChainCheck } from "./auditChainCheck.job"
 import { registerJob, instrument } from "../lib/jobRegistry"
 import { flushSlaMetrics } from "../middlewares/slaMetrics.middleware"
+import { runSyntheticMonitors } from "./syntheticMonitor.job"
+import { flushLogs } from "../lib/logSink"
 
 export function startJobs() {
   // Register jobs in the in-process registry so /admin/jobs shows them.
@@ -41,6 +43,14 @@ export function startJobs() {
     name: "flushSlaMetrics", description: "Persist in-process RED metrics into EndpointStat (every 60s)",
     intervalMs: 60_000, handler: async () => flushSlaMetrics(),
   })
+  registerJob({
+    name: "syntheticMonitors", description: "Probe enabled SyntheticMonitor rows on their interval",
+    intervalMs: 30_000, handler: runSyntheticMonitors,
+  })
+  registerJob({
+    name: "flushLogs", description: "Flush in-process WARN+ log buffer to Postgres (every 5s)",
+    intervalMs: 5_000, handler: async () => flushLogs(),
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -72,6 +82,14 @@ export function startJobs() {
   // SLA metric flush — every 60s the in-process buckets are persisted into EndpointStat
   const slaFlush = instrument("flushSlaMetrics", flushSlaMetrics)
   setInterval(slaFlush, 60_000)
+
+  // Synthetic monitor probes — every 30s pick up any monitors that are due
+  const synth = instrument("syntheticMonitors", runSyntheticMonitors)
+  setInterval(synth, 30_000)
+
+  // Log buffer flush — every 5s the in-process WARN+ buffer goes to Postgres
+  const logFlush = instrument("flushLogs", flushLogs)
+  setInterval(logFlush, 5_000)
 
   console.log("[Jobs] Background jobs started")
 }
