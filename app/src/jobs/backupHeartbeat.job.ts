@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma"
+import { raiseAlert } from "../lib/raiseAlert"
 
 /**
  * Watches BackupRecord history. If no successful backup of a critical
@@ -28,14 +29,11 @@ export async function backupHeartbeat(): Promise<{ missing: string[] }> {
       },
     })
     if (already) continue
-    await prisma.adminAlert.create({
-      data: {
-        severity: "critical",
-        category: "backup",
-        title:    `Backup missing: ${kind}`,
-        link:     "/backups",
-      },
-    }).catch((err) => console.error("[backup-heartbeat] alert insert failed:", err))
+    await raiseAlert({
+      severity: "critical", category: "backup",
+      title: `Backup missing: ${kind}`, link: "/backups",
+      metadata: { kind, rpoHours: RPO_HOURS },
+    })
   }
   return { missing }
 }

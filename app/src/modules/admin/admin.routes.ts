@@ -61,6 +61,8 @@ import * as userNotes    from "./userNotes.controller";
 import * as dashboards   from "./dashboards.controller";
 import * as exportsCtrl  from "./exports.controller";
 import * as notifyCh     from "./notifyChannels.controller";
+import * as platformH    from "./platformHealth.controller";
+import * as inbox        from "./inbox.controller";
 
 export const adminRouter = Router();
 
@@ -424,6 +426,7 @@ adminRouter.get(   "/tickets/:id",                     requirePermission("modera
 adminRouter.post(  "/tickets",                         requirePermission("moderation","act"),  tickets.createTicket);
 adminRouter.patch( "/tickets/:id",                     requirePermission("moderation","act"),  tickets.updateTicket);
 adminRouter.post(  "/tickets/:id/replies",             requirePermission("moderation","act"),  tickets.addReply);
+adminRouter.post(  "/tickets/bulk",                    requirePermission("moderation","act"),  tickets.bulkAction);
 
 // Distributed traces (self-hosted)
 adminRouter.get(   "/traces",                          requirePermission("audit","read"), traces.listTraces);
@@ -493,4 +496,10 @@ adminRouter.post(  "/notify/rules",                    requirePermission("settin
 adminRouter.patch( "/notify/rules/:id",                requirePermission("settings","write"), notifyCh.updateRule);
 adminRouter.delete("/notify/rules/:id",                requirePermissionWithStepUp("settings","write"), notifyCh.deleteRule);
 adminRouter.post(  "/notify/test",                     requirePermission("settings","write"), notifyCh.testDispatch);
+
+// Composite platform-health view
+adminRouter.get(   "/platform-health/overview",        requirePermission("settings","read"),  platformH.getPlatformHealthOverview);
+
+// Admin activity inbox
+adminRouter.get(   "/inbox",                           requirePermission("settings","read"),  inbox.getInbox);
 

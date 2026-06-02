@@ -65,15 +65,16 @@ export async function createIncident(req: Request, res: Response, next: NextFunc
       metadata: { title, severity, category },
     })
 
-    // Critical severity also raises an AdminAlert so it lands in the overview attention panel.
+    // Critical severity also raises an AdminAlert + fans through the
+    // notification router so it lands in the overview attention panel AND
+    // pages any configured channels.
     if (severity === "sev1" || severity === "sev2") {
-      await prisma.adminAlert.create({
-        data: {
-          severity: "critical",
-          category: "uptime",
-          title:    `${severity.toUpperCase()}: ${title}`,
-          link:     `/incidents/${inc.id}`,
-        },
+      const { raiseAlert } = await import("../../lib/raiseAlert")
+      await raiseAlert({
+        severity: "critical", category: "uptime",
+        title:    `${severity.toUpperCase()}: ${title}`,
+        link:     `/incidents/${inc.id}`,
+        metadata: { incidentId: inc.id, category: inc.category },
       })
     }
     res.status(200).json({ incident: inc })

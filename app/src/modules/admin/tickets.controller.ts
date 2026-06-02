@@ -121,3 +121,46 @@ export async function addReply(req: Request, res: Response, next: NextFunction):
     res.status(200).json({ reply })
   } catch (err) { next(err) }
 }
+
+/**
+ * Bulk action over a list of ticket ids — close / resolve / set priority /
+ * assign. Each row is updated independently; failures are tallied and
+ * returned so the UI can show a "9 of 10 succeeded" toast.
+ */
+export async function bulkAction(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string
+    const { ticketIds, action, assigneeId, priority } = req.body as Record<string, unknown>
+    if (!Array.isArray(ticketIds) || ticketIds.length === 0) throw badRequest("ticketIds[] required")
+    if (ticketIds.length > 200)                              throw badRequest("max 200 tickets per bulk action")
+    if (typeof action !== "string")                          throw badRequest("action required")
+
+    let succeeded = 0, failed = 0
+    for (const tid of ticketIds.map(String)) {
+      try {
+        if (action === "close") {
+          await prisma.ticket.update({ where: { id: tid }, data: { status: "closed", closedAt: new Date() } })
+        } else if (action === "resolve") {
+          await prisma.ticket.update({ where: { id: tid }, data: { status: "resolved", resolvedAt: new Date() } })
+        } else if (action === "assign") {
+          if (typeof assigneeId !== "string") throw new Error("assigneeId required for assign")
+          await prisma.ticket.update({ where: { id: tid }, data: { assigneeId } })
+        } else if (action === "set_priority") {
+          if (!VALID_PRIORITY.includes(priority as typeof VALID_PRIORITY[number])) throw new Error("invalid priority")
+          await prisma.ticket.update({ where: { id: tid }, data: { priority: priority as string } })
+        } else {
+          throw new Error(`unknown action: ${action}`)
+        }
+        succeeded++
+      } catch (err) {
+        failed++
+        console.error(`[tickets.bulk] ${tid} failed:`, (err as Error).message)
+      }
+    }
+    await adminAuditR(req, res, {
+      action: `ticket.bulk.${action}`, targetType: "Ticket",
+      metadata: { count: ticketIds.length, succeeded, failed, actorId },
+    })
+    res.status(200).json({ succeeded, failed })
+  } catch (err) { next(err) }
+}

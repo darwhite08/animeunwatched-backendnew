@@ -56,15 +56,14 @@ async function createAnomaly(a: CreateAnomalyInput): Promise<void> {
   })
 
   if (a.severity === "critical") {
-    await prisma.adminAlert.create({
-      data: {
-        severity: "critical",
-        category: "security",
-        title:    `Security anomaly: ${a.kind.replace(/_/g, " ")}`,
-        body:     a.userId ? `User ${a.userId}` + (a.ipAddress ? ` from IP ${a.ipAddress}` : "") : a.ipAddress ?? null,
-        link:     a.userId ? `/users/${a.userId}` : a.ipAddress ? `/inspect/ip/${a.ipAddress}` : "/anomalies",
-        metadata: { kind: a.kind, ...(a.evidence ?? {}) } as never,
-      },
+    const { raiseAlert } = await import("./raiseAlert")
+    await raiseAlert({
+      severity: "critical",
+      category: "security",
+      title:    `Security anomaly: ${a.kind.replace(/_/g, " ")}`,
+      body:     a.userId ? `User ${a.userId}` + (a.ipAddress ? ` from IP ${a.ipAddress}` : "") : a.ipAddress ?? null,
+      link:     a.userId ? `/users/${a.userId}` : a.ipAddress ? `/inspect/ip/${a.ipAddress}` : "/anomalies",
+      metadata: { kind: a.kind, ...(a.evidence ?? {}) },
     })
   }
 }

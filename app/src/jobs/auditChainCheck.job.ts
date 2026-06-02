@@ -1,5 +1,5 @@
-import { prisma } from "../config/prisma"
 import { verifyAdminAuditChain } from "../lib/adminAudit"
+import { raiseAlert } from "../lib/raiseAlert"
 
 /**
  * Daily audit-log integrity check. Runs verifyAdminAuditChain and, on a
@@ -14,15 +14,12 @@ export async function runAuditChainCheck(): Promise<{ intact: boolean; brokenAt:
   const result = await verifyAdminAuditChain()
   if (!result) return { intact: true, brokenAt: null }
 
-  await prisma.adminAlert.create({
-    data: {
-      severity: "critical",
-      category: "security",
-      title:    `Audit log integrity check FAILED`,
-      body:     `Chain broken at AuditLog row ${result.brokenAt}. Review immediately — tampering or DB corruption.`,
-      link:     "/audit",
-      metadata: { brokenAt: result.brokenAt } as never,
-    },
+  await raiseAlert({
+    severity: "critical", category: "security",
+    title: `Audit log integrity check FAILED`,
+    body:  `Chain broken at AuditLog row ${result.brokenAt}. Review immediately — tampering or DB corruption.`,
+    link:  "/audit",
+    metadata: { brokenAt: result.brokenAt },
   })
   return { intact: false, brokenAt: result.brokenAt }
 }
