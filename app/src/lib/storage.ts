@@ -83,6 +83,36 @@ export type UploadIntent = {
  * Caller must PUT the bytes to uploadUrl with the same Content-Type header
  * within `expiresIn` seconds, then save `publicUrl` to their model.
  */
+function makeKey(opts: { scope: "avatar" | "post" | "club" | "voice"; userId: string; ext: string }): string {
+  const rand = randomBytes(8).toString("hex")
+  const safeExt = (opts.ext || "jpg").replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 5)
+  return `${opts.scope}/${opts.userId}/${Date.now()}-${rand}.${safeExt}`
+}
+
+/**
+ * Server-side upload — for the fallback flow when the browser can't reach
+ * S3 directly (extension blockers, strict CSP, corporate proxy). Accepts
+ * raw bytes, returns the same shape as presigned URL upload.
+ */
+export async function uploadImageBuffer(opts: {
+  userId:      string
+  scope:       "avatar" | "post" | "club" | "voice"
+  contentType: string
+  ext:         string
+  body:        Buffer
+}): Promise<{ publicUrl: string; key: string }> {
+  const b = getBackend()
+  const key = makeKey({ scope: opts.scope, userId: opts.userId, ext: opts.ext })
+  await b.client.send(new PutObjectCommand({
+    Bucket:       b.bucket,
+    Key:          key,
+    Body:         opts.body,
+    ContentType:  opts.contentType,
+    CacheControl: "public, max-age=31536000, immutable",
+  }))
+  return { publicUrl: `${b.publicUrl}/${key}`, key }
+}
+
 export async function presignImageUpload(opts: {
   userId:      string
   scope:       "avatar" | "post" | "club" | "voice"
@@ -90,9 +120,7 @@ export async function presignImageUpload(opts: {
   ext:         string
 }): Promise<UploadIntent> {
   const b = getBackend()
-  const rand = randomBytes(8).toString("hex")
-  const safeExt = (opts.ext || "jpg").replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 5)
-  const key = `${opts.scope}/${opts.userId}/${Date.now()}-${rand}.${safeExt}`
+  const key = makeKey({ scope: opts.scope, userId: opts.userId, ext: opts.ext })
 
   const cmd = new PutObjectCommand({
     Bucket:       b.bucket,
