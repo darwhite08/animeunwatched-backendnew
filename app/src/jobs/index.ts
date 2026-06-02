@@ -2,6 +2,7 @@ import { refreshTopAnime } from "./refreshTopAnime.job"
 import { cleanupRefreshTokens } from "./cleanupRefreshTokens.job"
 import { startWebhookDispatcher } from "./webhookDispatcher.job"
 import { runDataRetention } from "./dataRetention.job"
+import { runReportScheduler } from "./reportScheduler.job"
 import { registerJob, instrument } from "../lib/jobRegistry"
 
 export function startJobs() {
@@ -18,10 +19,15 @@ export function startJobs() {
     name: "dataRetention",   description: "Purge expired sessions/security events/audit logs per security.dataRetentionDays",
     intervalMs: 24 * 60 * 60_000, handler: runDataRetention,
   })
+  registerJob({
+    name: "reportScheduler", description: "Run any due ReportSchedule entries (hourly check)",
+    intervalMs: 60 * 60_000,  handler: runReportScheduler,
+  })
 
   const cleanup   = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh   = instrument("refreshTopAnime",      refreshTopAnime)
   const retention = instrument("dataRetention",        runDataRetention)
+  const reports   = instrument("reportScheduler",      runReportScheduler)
 
   // Cleanup every 6 hours
   setInterval(cleanup, 6 * 60 * 60_000)
@@ -33,6 +39,9 @@ export function startJobs() {
 
   // Data retention purger — daily
   setInterval(retention, 24 * 60 * 60_000)
+
+  // Report scheduler — hourly check
+  setInterval(reports, 60 * 60_000)
 
   // Webhook dispatcher — polls WebhookDelivery rows every 30s
   startWebhookDispatcher()

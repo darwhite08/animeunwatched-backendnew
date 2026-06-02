@@ -106,7 +106,12 @@ export const ModelName = {
   AdminSetting: 'AdminSetting',
   ModerationItem: 'ModerationItem',
   NotificationTemplate: 'NotificationTemplate',
-  AdminAlert: 'AdminAlert'
+  AdminAlert: 'AdminAlert',
+  Plan: 'Plan',
+  Subscription: 'Subscription',
+  Invoice: 'Invoice',
+  BillingEvent: 'BillingEvent',
+  ReportSchedule: 'ReportSchedule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -893,6 +898,98 @@ export const AdminAlertScalarFieldEnum = {
 } as const
 
 export type AdminAlertScalarFieldEnum = (typeof AdminAlertScalarFieldEnum)[keyof typeof AdminAlertScalarFieldEnum]
+
+
+export const PlanScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  name: 'name',
+  description: 'description',
+  priceCents: 'priceCents',
+  currency: 'currency',
+  interval: 'interval',
+  trialDays: 'trialDays',
+  features: 'features',
+  isPublic: 'isPublic',
+  providerPriceId: 'providerPriceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
+
+
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  status: 'status',
+  provider: 'provider',
+  providerSubId: 'providerSubId',
+  currentPeriodStart: 'currentPeriodStart',
+  currentPeriodEnd: 'currentPeriodEnd',
+  trialEndsAt: 'trialEndsAt',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  canceledAt: 'canceledAt',
+  pausedAt: 'pausedAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const InvoiceScalarFieldEnum = {
+  id: 'id',
+  subscriptionId: 'subscriptionId',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  paidAt: 'paidAt',
+  refundedAmount: 'refundedAmount',
+  refundedAt: 'refundedAt',
+  refundReason: 'refundReason',
+  providerInvoiceId: 'providerInvoiceId',
+  hostedInvoiceUrl: 'hostedInvoiceUrl',
+  failureReason: 'failureReason',
+  createdAt: 'createdAt'
+} as const
+
+export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const BillingEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  eventType: 'eventType',
+  eventId: 'eventId',
+  payload: 'payload',
+  processed: 'processed',
+  processedAt: 'processedAt',
+  error: 'error',
+  createdAt: 'createdAt'
+} as const
+
+export type BillingEventScalarFieldEnum = (typeof BillingEventScalarFieldEnum)[keyof typeof BillingEventScalarFieldEnum]
+
+
+export const ReportScheduleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  reportKey: 'reportKey',
+  cron: 'cron',
+  format: 'format',
+  recipients: 'recipients',
+  enabled: 'enabled',
+  lastRunAt: 'lastRunAt',
+  lastResult: 'lastResult',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReportScheduleScalarFieldEnum = (typeof ReportScheduleScalarFieldEnum)[keyof typeof ReportScheduleScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -307,3 +307,28 @@ export type NotificationTemplate = Prisma.NotificationTemplateModel
  * 
  */
 export type AdminAlert = Prisma.AdminAlertModel
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = Prisma.InvoiceModel
+/**
+ * Model BillingEvent
+ * 
+ */
+export type BillingEvent = Prisma.BillingEventModel
+/**
+ * Model ReportSchedule
+ * 
+ */
+export type ReportSchedule = Prisma.ReportScheduleModel

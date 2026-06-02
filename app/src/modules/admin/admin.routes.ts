@@ -22,6 +22,11 @@ import * as security   from "./security.controller";
 import * as templates  from "./templates.controller";
 import * as adminTeam  from "./adminTeam.controller";
 import * as modq       from "./moderationQueue.controller";
+import * as billing    from "./billing.controller";
+import * as loginHist  from "./loginHistory.controller";
+import * as undo       from "./undo.controller";
+import * as search     from "./search.controller";
+import * as reports    from "./reports.controller";
 
 export const adminRouter = Router();
 
@@ -175,4 +180,38 @@ adminRouter.post(  "/admin-team/:userId/reviewed",    requirePermissionWithStepU
 adminRouter.get(   "/moderation/queue",               requirePermission("moderation","read"), modq.listQueue);
 adminRouter.post(  "/moderation/queue",               requirePermission("moderation","act"),  modq.createQueueItem);
 adminRouter.patch( "/moderation/queue/:id",           requirePermission("moderation","act"),  modq.reviewQueueItem);
+
+// M5 — Billing
+adminRouter.get(   "/billing/provider",                requirePermission("billing","read"),    billing.getProviderStatus);
+adminRouter.get(   "/billing/plans",                   requirePermission("billing","read"),    billing.listPlans);
+adminRouter.post(  "/billing/plans",                   requirePermissionWithStepUp("billing","refund"), billing.createPlan);
+adminRouter.get(   "/billing/subscriptions",           requirePermission("billing","read"),    billing.listSubscriptions);
+adminRouter.get(   "/billing/subscriptions/:id",       requirePermission("billing","read"),    billing.getSubscription);
+adminRouter.post(  "/billing/subscriptions/:id/change-plan",   requirePermissionWithStepUp("billing","refund"), billing.changePlan);
+adminRouter.post(  "/billing/invoices/:id/refund",             requirePermissionWithStepUp("billing","refund"), billing.refundInvoice);
+adminRouter.post(  "/billing/subscriptions/:id/credit",        requirePermission("billing","credit"),           billing.creditSubscription);
+adminRouter.post(  "/billing/subscriptions/:id/extend-trial",  requirePermission("billing","credit"),           billing.extendTrial);
+adminRouter.post(  "/billing/subscriptions/:id/cancel",        requirePermissionWithStepUp("billing","refund"), billing.cancelSubscription);
+
+// M2 — login history (per user)
+adminRouter.get(   "/users/:userId/login-history",     requirePermission("users","read"),      loginHist.getLoginHistory);
+
+// Undo system
+adminRouter.get(   "/undo/recent",                     requirePermission("audit","read"),      undo.getUndoable);
+adminRouter.post(  "/undo/:auditId",                   requirePermissionWithStepUp("audit","read"), undo.undoAction);
+
+// Global search (command palette)
+adminRouter.get(   "/search",                          requirePermission("users","read"),      search.globalSearch);
+
+// M13 — reports
+adminRouter.get(   "/reports",                         requirePermission("audit","read"),      reports.listReportNames);
+adminRouter.get(   "/reports/:name",                   requirePermission("audit","read"),      reports.getReport);
+adminRouter.get(   "/reports/:name/export",            requirePermission("audit","export"),    reports.exportReport);
+adminRouter.get(   "/reports/schedules/list",          requirePermission("audit","read"),      reports.listSchedules);
+adminRouter.post(  "/reports/schedules",               requirePermission("audit","export"),    reports.createSchedule);
+adminRouter.delete("/reports/schedules/:id",           requirePermission("audit","export"),    reports.deleteSchedule);
+adminRouter.post(  "/reports/schedules/:id/run",       requirePermission("audit","export"),    reports.runScheduleNow);
+
+// Public webhook receiver (no auth — but the body must be a valid provider event)
+adminRouter.post(  "/billing/webhooks/:provider",      billing.receiveBillingWebhook);
 
