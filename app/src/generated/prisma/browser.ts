@@ -418,6 +418,36 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model Dashboard
+ * 
+ */
+export type Dashboard = Prisma.DashboardModel
+/**
+ * Model DashboardWidget
+ * 
+ */
+export type DashboardWidget = Prisma.DashboardWidgetModel
+/**
+ * Model ExportJob
+ * 
+ */
+export type ExportJob = Prisma.ExportJobModel
+/**
+ * Model NotificationChannel
+ * 
+ */
+export type NotificationChannel = Prisma.NotificationChannelModel
+/**
+ * Model NotificationRule
+ * 
+ */
+export type NotificationRule = Prisma.NotificationRuleModel
+/**
+ * Model NotificationRuleChannel
+ * 
+ */
+export type NotificationRuleChannel = Prisma.NotificationRuleChannelModel
+/**
  * Model Experiment
  * 
  */

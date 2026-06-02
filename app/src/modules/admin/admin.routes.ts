@@ -58,6 +58,9 @@ import * as exps         from "./experiments.controller";
 import * as onCall       from "./onCall.controller";
 import * as backups      from "./backups.controller";
 import * as userNotes    from "./userNotes.controller";
+import * as dashboards   from "./dashboards.controller";
+import * as exportsCtrl  from "./exports.controller";
+import * as notifyCh     from "./notifyChannels.controller";
 
 export const adminRouter = Router();
 
@@ -464,4 +467,30 @@ adminRouter.get(   "/users/:userId/notes",             requirePermission("users"
 adminRouter.post(  "/users/:userId/notes",             requirePermission("users","update"), userNotes.createNote);
 adminRouter.patch( "/user-notes/:id",                  requirePermission("users","update"), userNotes.updateNote);
 adminRouter.delete("/user-notes/:id",                  requirePermission("users","update"), userNotes.deleteNote);
+
+// Custom dashboards — composable widget grids
+adminRouter.get(   "/dashboards/sources",              requirePermission("settings","read"),  dashboards.listSources);
+adminRouter.get(   "/dashboards",                      requirePermission("settings","read"),  dashboards.listDashboards);
+adminRouter.get(   "/dashboards/:id",                  requirePermission("settings","read"),  dashboards.getDashboard);
+adminRouter.post(  "/dashboards",                      requirePermission("settings","write"), dashboards.createDashboard);
+adminRouter.patch( "/dashboards/:id",                  requirePermission("settings","write"), dashboards.updateDashboard);
+adminRouter.delete("/dashboards/:id",                  requirePermission("settings","write"), dashboards.deleteDashboard);
+adminRouter.post(  "/dashboards/:id/widgets",          requirePermission("settings","write"), dashboards.upsertWidget);
+adminRouter.put(   "/dashboards/:id/widgets/:widgetId",requirePermission("settings","write"), dashboards.upsertWidget);
+adminRouter.delete("/dashboards/widgets/:widgetId",    requirePermission("settings","write"), dashboards.deleteWidget);
+
+// Bulk exports — CSV/JSON of safelisted resources
+adminRouter.get(   "/export/sources",                  requirePermission("audit","read"),   exportsCtrl.listExportSources);
+adminRouter.get(   "/export/:resource",                requirePermission("audit","export"), exportsCtrl.exportResource);
+
+// Notification router — channels + rules + manual test dispatch
+adminRouter.get(   "/notify/channels",                 requirePermission("settings","read"),  notifyCh.listChannels);
+adminRouter.post(  "/notify/channels",                 requirePermission("settings","write"), notifyCh.createChannel);
+adminRouter.patch( "/notify/channels/:id",             requirePermission("settings","write"), notifyCh.updateChannel);
+adminRouter.delete("/notify/channels/:id",             requirePermissionWithStepUp("settings","write"), notifyCh.deleteChannel);
+adminRouter.get(   "/notify/rules",                    requirePermission("settings","read"),  notifyCh.listRules);
+adminRouter.post(  "/notify/rules",                    requirePermission("settings","write"), notifyCh.createRule);
+adminRouter.patch( "/notify/rules/:id",                requirePermission("settings","write"), notifyCh.updateRule);
+adminRouter.delete("/notify/rules/:id",                requirePermissionWithStepUp("settings","write"), notifyCh.deleteRule);
+adminRouter.post(  "/notify/test",                     requirePermission("settings","write"), notifyCh.testDispatch);
 

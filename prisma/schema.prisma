@@ -1609,6 +1609,111 @@ model SamlConfig {
   @@index([active])
 }
 
+// Dashboards — admin-composed layouts of widgets pulling from a safelist
+// of approved data sources. The frontend grid renders each widget's
+// `kind` against `source` (one of the registered keys) with `config` for
+// per-widget options (axes, columns, filter).
+model Dashboard {
+  id          String   @id @default(cuid())
+  name        String                                  // "Trust & Safety overview"
+  description String?
+  ownerId     String?                                 // admin user that owns this dashboard
+  shared      Boolean  @default(false)                // visible to all admins when true
+  layout      Json     @default("{}")                 // grid props (cols/rowHeight/etc.)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  widgets     DashboardWidget[]
+
+  @@index([ownerId])
+  @@index([shared])
+}
+
+model DashboardWidget {
+  id            String   @id @default(cuid())
+  dashboardId   String
+  kind          String                                // "stat" | "table" | "chart" | "text"
+  source        String                                // safelisted source key, e.g. "cost.overview"
+  title         String
+  configJson    Json     @default("{}")               // shape varies by kind
+  x             Int      @default(0)
+  y             Int      @default(0)
+  w             Int      @default(4)                  // columns wide (out of 12)
+  h             Int      @default(3)                  // rows tall
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  dashboard     Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+
+  @@index([dashboardId])
+}
+
+// Bulk exports — async export jobs for large result sets. Small exports
+// (<10k rows) can stream synchronously; this table is for bigger jobs
+// that need to land in object storage.
+model ExportJob {
+  id            String   @id @default(cuid())
+  resource      String                                // "users" | "tickets" | ...
+  format        String                                // "csv" | "json"
+  filtersJson   Json     @default("{}")
+  status        String   @default("pending")          // pending | running | completed | failed
+  rowCount      Int?
+  fileLocation  String?                               // s3://... after completion
+  errorDetail   String?
+  requestedBy   String
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime @default(now())
+
+  @@index([status, createdAt])
+  @@index([requestedBy])
+}
+
+// Notification router. A NotificationChannel is a destination; rules
+// match an event pattern + min severity and fan out to N channels.
+// AdminAlert.create() goes through this pipeline so existing alert UI
+// keeps working unchanged.
+model NotificationChannel {
+  id            String   @id @default(cuid())
+  name          String                                // "Slack #ops" | "PagerDuty critical"
+  kind          String                                // "email" | "slack" | "webhook" | "push"
+  configJson    Json
+  active        Boolean  @default(true)
+  lastDeliveryAt DateTime?
+  lastDeliveryStatus String?
+  failCount     Int      @default(0)
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rules         NotificationRuleChannel[]
+
+  @@index([active, kind])
+}
+
+model NotificationRule {
+  id            String   @id @default(cuid())
+  name          String                                // "All critical alerts to #ops"
+  eventPattern  String                                // "alert.critical.*" or exact "incident.created"
+  minSeverity   String   @default("info")             // info | warning | critical
+  active        Boolean  @default(true)
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  channels      NotificationRuleChannel[]
+
+  @@index([active])
+}
+
+model NotificationRuleChannel {
+  id          String   @id @default(cuid())
+  ruleId      String
+  channelId   String
+
+  rule        NotificationRule    @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  channel     NotificationChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@unique([ruleId, channelId])
+}
+
 // A/B experiments — extends the FeatureFlag system. An Experiment binds a
 // flag-style key to N variants with allocation weights summing to 100.
 // User assignment uses sha256(userId + key) modulo 100 so it's stable —

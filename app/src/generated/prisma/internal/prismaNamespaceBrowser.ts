@@ -129,6 +129,12 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  Dashboard: 'Dashboard',
+  DashboardWidget: 'DashboardWidget',
+  ExportJob: 'ExportJob',
+  NotificationChannel: 'NotificationChannel',
+  NotificationRule: 'NotificationRule',
+  NotificationRuleChannel: 'NotificationRuleChannel',
   Experiment: 'Experiment',
   ExperimentVariant: 'ExperimentVariant',
   ExperimentExposure: 'ExperimentExposure',
@@ -1320,6 +1326,96 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const DashboardScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  ownerId: 'ownerId',
+  shared: 'shared',
+  layout: 'layout',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DashboardScalarFieldEnum = (typeof DashboardScalarFieldEnum)[keyof typeof DashboardScalarFieldEnum]
+
+
+export const DashboardWidgetScalarFieldEnum = {
+  id: 'id',
+  dashboardId: 'dashboardId',
+  kind: 'kind',
+  source: 'source',
+  title: 'title',
+  configJson: 'configJson',
+  x: 'x',
+  y: 'y',
+  w: 'w',
+  h: 'h',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DashboardWidgetScalarFieldEnum = (typeof DashboardWidgetScalarFieldEnum)[keyof typeof DashboardWidgetScalarFieldEnum]
+
+
+export const ExportJobScalarFieldEnum = {
+  id: 'id',
+  resource: 'resource',
+  format: 'format',
+  filtersJson: 'filtersJson',
+  status: 'status',
+  rowCount: 'rowCount',
+  fileLocation: 'fileLocation',
+  errorDetail: 'errorDetail',
+  requestedBy: 'requestedBy',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ExportJobScalarFieldEnum = (typeof ExportJobScalarFieldEnum)[keyof typeof ExportJobScalarFieldEnum]
+
+
+export const NotificationChannelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  kind: 'kind',
+  configJson: 'configJson',
+  active: 'active',
+  lastDeliveryAt: 'lastDeliveryAt',
+  lastDeliveryStatus: 'lastDeliveryStatus',
+  failCount: 'failCount',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationChannelScalarFieldEnum = (typeof NotificationChannelScalarFieldEnum)[keyof typeof NotificationChannelScalarFieldEnum]
+
+
+export const NotificationRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  eventPattern: 'eventPattern',
+  minSeverity: 'minSeverity',
+  active: 'active',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationRuleScalarFieldEnum = (typeof NotificationRuleScalarFieldEnum)[keyof typeof NotificationRuleScalarFieldEnum]
+
+
+export const NotificationRuleChannelScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  channelId: 'channelId'
+} as const
+
+export type NotificationRuleChannelScalarFieldEnum = (typeof NotificationRuleChannelScalarFieldEnum)[keyof typeof NotificationRuleChannelScalarFieldEnum]
 
 
 export const ExperimentScalarFieldEnum = {
