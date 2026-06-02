@@ -93,7 +93,7 @@ const userSelect = {
 
 // ---------- service methods ----------
 
-export async function register(dto: RegisterDto) {
+export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   const [existingEmail, existingUsername] = await Promise.all([
     prisma.user.findUnique({ where: { email: dto.email } }),
     prisma.user.findUnique({ where: { username: dto.username } }),
@@ -148,9 +148,11 @@ export async function register(dto: RegisterDto) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   await prisma.refreshToken.create({
     data: {
-      token: refreshToken,
-      userId: user.id,
+      token:     refreshToken,
+      userId:    user.id,
       expiresAt,
+      ipAddress: meta.ip        ?? null,
+      userAgent: meta.userAgent?.slice(0, 500) ?? null,
     },
   });
 
@@ -186,7 +188,18 @@ function clearLoginAttempts(email: string): void {
   loginAttempts.delete(email);
 }
 
-export async function login(dto: LoginDto) {
+/**
+ * Request metadata captured by the controller. Threaded through every
+ * auth path so RefreshToken rows preserve IP + UA — without this the
+ * admin "active sessions" UI shows dashes and the anomaly detector
+ * has no geo signal.
+ */
+export interface AuthMeta {
+  ip?:        string | null
+  userAgent?: string | null
+}
+
+export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   // Brute-force guard: reject immediately if account is temporarily locked
   checkLoginAttempts(dto.email);
 
@@ -219,9 +232,11 @@ export async function login(dto: LoginDto) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   await prisma.refreshToken.create({
     data: {
-      token: refreshToken,
-      userId: user.id,
+      token:     refreshToken,
+      userId:    user.id,
       expiresAt,
+      ipAddress: meta.ip        ?? null,
+      userAgent: meta.userAgent?.slice(0, 500) ?? null,
     },
   });
 
@@ -231,7 +246,7 @@ export async function login(dto: LoginDto) {
   return { user, accessToken, refreshToken };
 }
 
-export async function refresh(oldToken: string) {
+export async function refresh(oldToken: string, meta: AuthMeta = {}) {
   // Validate JWT signature/expiry first
   const payload = verifyRefreshToken(oldToken);
 
@@ -247,7 +262,9 @@ export async function refresh(oldToken: string) {
     throw unauth("Refresh token has expired");
   }
 
-  // Rotate: delete old, issue new
+  // Rotate: delete old, issue new — carry through current request's IP+UA
+  // so the session row reflects where the user actually IS now, not where
+  // they originally signed in.
   await prisma.refreshToken.delete({ where: { token: oldToken } });
 
   const accessToken = signAccessToken(payload.userId);
@@ -256,9 +273,11 @@ export async function refresh(oldToken: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   await prisma.refreshToken.create({
     data: {
-      token: newRefreshToken,
-      userId: payload.userId,
+      token:     newRefreshToken,
+      userId:    payload.userId,
       expiresAt,
+      ipAddress: meta.ip        ?? storedToken.ipAddress ?? null,
+      userAgent: meta.userAgent?.slice(0, 500) ?? storedToken.userAgent ?? null,
     },
   });
 
@@ -346,7 +365,7 @@ async function findOrCreateOAuthUser(opts: {
   return user;
 }
 
-export async function googleLogin(dto: GoogleLoginDto) {
+export async function googleLogin(dto: GoogleLoginDto, meta: AuthMeta = {}) {
   if (!env.GOOGLE_CLIENT_ID) throw unauth("Google OAuth is not configured");
 
   const ticket = await googleClient.verifyIdToken({
@@ -366,10 +385,10 @@ export async function googleLogin(dto: GoogleLoginDto) {
     avatarUrl:   payload.picture,
   });
 
-  return issueTokens(user);
+  return issueTokens(user, meta);
 }
 
-export async function appleLogin(dto: AppleLoginDto) {
+export async function appleLogin(dto: AppleLoginDto, meta: AuthMeta = {}) {
   if (!env.APPLE_CLIENT_ID) throw unauth("Apple Sign In is not configured");
 
   const payload = await appleSignin.verifyIdToken(dto.idToken, {
@@ -394,12 +413,12 @@ export async function appleLogin(dto: AppleLoginDto) {
     displayName,
   });
 
-  return issueTokens(user);
+  return issueTokens(user, meta);
 }
 
 // ─── Redirect-based Google OAuth: exchange authorization code for tokens ─────
 
-export async function googleCallbackCode(code: string, redirectUri: string) {
+export async function googleCallbackCode(code: string, redirectUri: string, meta: AuthMeta = {}) {
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
     throw unauth("Google OAuth is not configured");
   }
@@ -445,7 +464,7 @@ export async function googleCallbackCode(code: string, redirectUri: string) {
     avatarUrl:   payload.picture,
   });
 
-  return issueTokens(user);
+  return issueTokens(user, meta);
 }
 
 // ─── changePassword ───────────────────────────────────────────────────────────
@@ -468,23 +487,35 @@ export async function changePassword(userId: string, dto: ChangePasswordDto): Pr
 
 // ──────────────────────────────────────────────────────────────────────────────
 
-async function issueTokens(user: { id: string; [k: string]: unknown }) {
+async function issueTokens(user: { id: string; [k: string]: unknown }, meta: AuthMeta = {}) {
   const accessToken  = signAccessToken(user.id as string);
   const refreshToken = signRefreshToken(user.id as string);
   const expiresAt    = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   await prisma.refreshToken.create({
-    data: { token: refreshToken, userId: user.id as string, expiresAt },
+    data: {
+      token:     refreshToken,
+      userId:    user.id as string,
+      expiresAt,
+      ipAddress: meta.ip        ?? null,
+      userAgent: meta.userAgent?.slice(0, 500) ?? null,
+    },
   });
   return { user, accessToken, refreshToken };
 }
 
 // Used by the OAuth handoff endpoint to mint a fresh refresh token
 // after Google sign-in. The token is set as a cookie by the controller.
-export async function issueRefreshTokenForUser(userId: string): Promise<string> {
+export async function issueRefreshTokenForUser(userId: string, meta: AuthMeta = {}): Promise<string> {
   const refreshToken = signRefreshToken(userId);
   const expiresAt    = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   await prisma.refreshToken.create({
-    data: { token: refreshToken, userId, expiresAt },
+    data: {
+      token:     refreshToken,
+      userId,
+      expiresAt,
+      ipAddress: meta.ip        ?? null,
+      userAgent: meta.userAgent?.slice(0, 500) ?? null,
+    },
   });
   return refreshToken;
 }

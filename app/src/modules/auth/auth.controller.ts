@@ -8,6 +8,20 @@ import { sendEmail } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
 import * as service from "./auth.service";
 
+/**
+ * Extract the IP + User-Agent off an incoming request. Used to populate
+ * RefreshToken.ipAddress + .userAgent so the admin "active sessions" list
+ * shows where the user actually signed in from, and the anomaly detector
+ * has geo data to work with. Reads X-Forwarded-For first (we sit behind
+ * App Runner's ALB; trust proxy is set in app.ts).
+ */
+function authMeta(req: Request): { ip: string | null; userAgent: string | null } {
+  const xff = req.headers["x-forwarded-for"]
+  const ip  = typeof xff === "string" ? xff.split(",")[0].trim() : (req.ip ?? null)
+  const ua  = req.headers["user-agent"]
+  return { ip: ip || null, userAgent: typeof ua === "string" ? ua : null }
+}
+
 // Setting `domain: ".kaiveron.com"` makes the refresh cookie readable on
 // every subdomain (kaiveron.com, www, api, admin-dashboard, etc.) so the
 // admin subdomain can bootstrap a session from a kaiveron.com login.
@@ -45,7 +59,7 @@ function clearRefreshCookieEverywhere(res: Response): void {
 export async function register(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const dto = registerSchema.parse(req.body);
-    const { user, accessToken, refreshToken } = await service.register(dto);
+    const { user, accessToken, refreshToken } = await service.register(dto, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
     recordSecurityEvent("register", { userId: (user as { id: string }).id, req });
     res.status(201).json({ user, accessToken });
@@ -57,7 +71,7 @@ export async function register(req: Request, res: Response, next: NextFunction):
 export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const dto = loginSchema.parse(req.body);
-    const { user, accessToken, refreshToken } = await service.login(dto);
+    const { user, accessToken, refreshToken } = await service.login(dto, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
     recordSecurityEvent("login_success", { userId: (user as { id: string }).id, req });
     res.status(200).json({ user, accessToken });
@@ -79,7 +93,7 @@ export async function refresh(req: Request, res: Response, next: NextFunction): 
       res.status(401).json({ error: { code: "UNAUTHORIZED", message: "No refresh token" } });
       return;
     }
-    const { accessToken, refreshToken } = await service.refresh(oldToken);
+    const { accessToken, refreshToken } = await service.refresh(oldToken, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
     res.status(200).json({ accessToken });
   } catch (err) {
@@ -144,7 +158,7 @@ export async function oauthHandoff(req: Request, res: Response, next: NextFuncti
       res.status(401).json({ error: { code: "UNAUTHORIZED", message: "Access token required" } });
       return;
     }
-    const refreshToken = await service.issueRefreshTokenForUser(userId);
+    const refreshToken = await service.issueRefreshTokenForUser(userId, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
     res.status(204).send();
   } catch (err) {
@@ -177,8 +191,9 @@ export async function changePassword(req: Request, res: Response, next: NextFunc
 export async function googleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const dto = googleLoginSchema.parse(req.body);
-    const { user, accessToken, refreshToken } = await service.googleLogin(dto);
+    const { user, accessToken, refreshToken } = await service.googleLogin(dto, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "google" } });
     res.status(200).json({ user, accessToken });
   } catch (err) {
     next(err);
@@ -188,8 +203,9 @@ export async function googleLogin(req: Request, res: Response, next: NextFunctio
 export async function appleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const dto = appleLoginSchema.parse(req.body);
-    const { user, accessToken, refreshToken } = await service.appleLogin(dto);
+    const { user, accessToken, refreshToken } = await service.appleLogin(dto, authMeta(req));
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
+    recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "apple" } });
     res.status(200).json({ user, accessToken });
   } catch (err) {
     next(err);
@@ -264,7 +280,8 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
         ? `https://${req.get("host")}`      // force https in prod (Render terminates SSL)
         : `http://localhost:${env.PORT}`);
     const callbackUrl = `${base}/api/v1/auth/google/callback`;
-    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl);
+    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req));
+    recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "google", flow: "redirect" } });
 
     // Set refresh cookie (httpOnly)
     res.cookie("aw_refresh", refreshToken, COOKIE_OPTS);
