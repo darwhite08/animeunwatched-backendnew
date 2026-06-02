@@ -24,6 +24,24 @@ const COOKIE_OPTS = {
   ...(PROD_COOKIE_DOMAIN ? { domain: PROD_COOKIE_DOMAIN } : {}),
 };
 
+/**
+ * Clear the refresh cookie in EVERY shape it might exist in the browser:
+ *   1. The current shape (Domain=.kaiveron.com)
+ *   2. The legacy shape from before that fix went out (no Domain, scoped
+ *      to the exact request host)
+ * Without (2), users who logged in pre-fix keep a stale duplicate cookie
+ * that cookie-parser picks instead of the live one.
+ */
+function clearRefreshCookieEverywhere(res: Response): void {
+  // 1) Domain-scoped (current)
+  res.clearCookie("aw_refresh", {
+    path:   COOKIE_OPTS.path,
+    ...(PROD_COOKIE_DOMAIN ? { domain: PROD_COOKIE_DOMAIN } : {}),
+  });
+  // 2) Host-only legacy
+  res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+}
+
 export async function register(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const dto = registerSchema.parse(req.body);
@@ -76,7 +94,7 @@ export async function logout(req: Request, res: Response, next: NextFunction): P
     if (refreshToken && userId) {
       await service.logout(userId, refreshToken);
     }
-    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    clearRefreshCookieEverywhere(res);
     res.status(204).send();
   } catch (err) {
     next(err);
@@ -90,7 +108,7 @@ export async function logoutAll(req: Request, res: Response, next: NextFunction)
       await service.logoutAll(userId);
       recordSecurityEvent("logout_all", { userId, req });
     }
-    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    clearRefreshCookieEverywhere(res);
     res.status(204).send();
   } catch (err) {
     next(err);
@@ -138,15 +156,9 @@ export async function oauthHandoff(req: Request, res: Response, next: NextFuncti
 // Clears the refresh cookie so the user can log in again even if the
 // JWT secret was rotated and their httpOnly cookie is permanently invalid.
 export function clearSession(req: Request, res: Response): void {
-  const cookiePath = "/api/v1/auth"
-  res.clearCookie("aw_refresh", {
-    httpOnly: true,
-    secure: true,
-    sameSite: "lax",
-    path: cookiePath,
-  })
+  clearRefreshCookieEverywhere(res)
   // Redirect to frontend login page after clearing the cookie
-  const frontendUrl = process.env.FRONTEND_URL ?? "https://animeunwatched-frontend-delta.vercel.app"
+  const frontendUrl = process.env.FRONTEND_URL ?? "https://kaiveron.com"
   res.redirect(`${frontendUrl}/login`)
 }
 
@@ -331,7 +343,7 @@ export async function resetPassword(req: Request, res: Response, next: NextFunct
     recordSecurityEvent("password_reset_completed", { userId, req });
 
     // Force re-login on the device that performed the reset
-    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    clearRefreshCookieEverywhere(res);
     res.status(204).send();
   } catch (err) {
     next(err);
@@ -348,7 +360,7 @@ export async function deleteAccount(req: Request, res: Response, next: NextFunct
 
     recordSecurityEvent("account_deleted", { userId, req });
 
-    res.clearCookie("aw_refresh", { path: COOKIE_OPTS.path });
+    clearRefreshCookieEverywhere(res);
     res.status(204).send();
   } catch (err) {
     next(err);
