@@ -230,25 +230,27 @@ export async function likePost(userId: string, postId: string) {
     addReputation(post.authorId, "post_liked").catch(console.error);
   }
 
-  // Realtime: broadcast the new count so all viewers update instantly.
-  // Wrapped in try/catch — broadcast failure must not break the core like action.
+  // Authoritative count from the DB — used by the response AND the broadcast,
+  // so the client never has to guess.
+  const count = await prisma.postLike.count({ where: { postId } });
+
   try {
-    const likes = await prisma.postLike.count({ where: { postId } });
-    broadcastPostLiked(postId, post.authorId, likes, userId);
+    broadcastPostLiked(postId, post.authorId, count, userId);
   } catch { /* socket emission is best-effort */ }
+
+  return { liked: true, count };
 }
 
 // ─── unlikePost ───────────────────────────────────────────────────────────────
 
 export async function unlikePost(userId: string, postId: string) {
   await prisma.postLike.deleteMany({ where: { userId, postId } });
+  const count = await prisma.postLike.count({ where: { postId } });
   try {
     const post = await prisma.post.findUnique({ where: { id: postId }, select: { authorId: true } });
-    if (post) {
-      const likes = await prisma.postLike.count({ where: { postId } });
-      broadcastPostUnliked(postId, post.authorId, likes);
-    }
+    if (post) broadcastPostUnliked(postId, post.authorId, count);
   } catch { /* best-effort broadcast */ }
+  return { liked: false, count };
 }
 
 // ─── Comment helpers ─────────────────────────────────────────────────────────

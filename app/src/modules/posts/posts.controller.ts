@@ -65,8 +65,8 @@ export async function deletePost(req: Request, res: Response, next: NextFunction
 export async function likePost(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
-    await service.likePost(userId, (req.params.id as string));
-    res.status(204).send();
+    const result = await service.likePost(userId, (req.params.id as string));
+    res.status(200).json(result);
   } catch (err) {
     next(err);
   }
@@ -75,8 +75,8 @@ export async function likePost(req: Request, res: Response, next: NextFunction):
 export async function unlikePost(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
-    await service.unlikePost(userId, (req.params.id as string));
-    res.status(204).send();
+    const result = await service.unlikePost(userId, (req.params.id as string));
+    res.status(200).json(result);
   } catch (err) {
     next(err);
   }

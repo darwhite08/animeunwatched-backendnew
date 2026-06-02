@@ -22,6 +22,7 @@ vi.mock("../app/src/config/prisma", () => ({
       findUnique: vi.fn(),
       upsert: vi.fn(),
       deleteMany: vi.fn(),
+      count: vi.fn().mockResolvedValue(1),
     },
     follow: {
       findMany: vi.fn(),
