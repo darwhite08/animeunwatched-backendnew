@@ -3,6 +3,7 @@ import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { adminAuditR } from "../../lib/adminAudit";
 import { activeProvider, providerConfigured, providerChangePlan, providerRefund, providerCancel } from "../../lib/billing";
+import { broadcastAdminBillingChanged } from "../../realtime/broadcast";
 
 /**
  * M5 — billing. All mutations write a local Subscription/Invoice row AND
@@ -116,6 +117,7 @@ export async function changePlan(req: Request, res: Response, next: NextFunction
       action: "billing.change_plan", targetType: "Subscription", targetId: id,
       metadata: { from: sub.planId, to: planId, prorate, dryRun: result.dryRun },
     });
+    broadcastAdminBillingChanged("change_plan", id);
     res.status(200).json({ subscription: updated, dryRun: result.dryRun });
   } catch (err) { next(err); }
 }
@@ -152,6 +154,7 @@ export async function refundInvoice(req: Request, res: Response, next: NextFunct
       action: "billing.refund", targetType: "Invoice", targetId: id,
       metadata: { amountCents: amount, totalRefunded: newRefunded, reason, dryRun: result.dryRun },
     });
+    broadcastAdminBillingChanged("refund", id);
     res.status(200).json({ invoice: updated, dryRun: result.dryRun });
   } catch (err) { next(err); }
 }
@@ -179,6 +182,7 @@ export async function creditSubscription(req: Request, res: Response, next: Next
       action: "billing.credit", targetType: "Subscription", targetId: id,
       metadata: { invoiceId: inv.id, amountCents, reason },
     });
+    broadcastAdminBillingChanged("credit", id);
     res.status(200).json({ invoice: inv });
   } catch (err) { next(err); }
 }
@@ -199,6 +203,7 @@ export async function extendTrial(req: Request, res: Response, next: NextFunctio
       action: "billing.extend_trial", targetType: "Subscription", targetId: id,
       metadata: { days, newTrialEndsAt: newTrialEnd.toISOString() },
     });
+    broadcastAdminBillingChanged("extend_trial", id);
     res.status(200).json({ subscription: updated });
   } catch (err) { next(err); }
 }
@@ -225,6 +230,7 @@ export async function cancelSubscription(req: Request, res: Response, next: Next
       action: "billing.cancel", targetType: "Subscription", targetId: id,
       metadata: { atPeriodEnd, dryRun: result.dryRun },
     });
+    broadcastAdminBillingChanged("cancel", id);
     res.status(200).json({ subscription: updated, dryRun: result.dryRun });
   } catch (err) { next(err); }
 }

@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
 import { badRequest, notFound, forbidden } from "../../lib/errors";
 import { adminAuditR } from "../../lib/adminAudit";
+import { broadcastAdminAlertAcked } from "../../realtime/broadcast";
 
 /**
  * M14 — notification templates. Operators edit subject/body so engineering
@@ -107,6 +108,7 @@ export async function ackAlert(req: Request, res: Response, next: NextFunction):
     await adminAuditR(req, res, {
       action: "alert.ack", targetType: "AdminAlert", targetId: id,
     });
+    broadcastAdminAlertAcked(id, actorId);
     res.status(200).json({ ok: true });
   } catch (err) { next(err); }
 }

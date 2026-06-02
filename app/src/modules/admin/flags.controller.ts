@@ -3,6 +3,7 @@ import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { adminAudit, ipFromReq, uaFromReq } from "../../lib/adminAudit";
 import { invalidateFlagCache, isEnabled } from "../../lib/featureFlags";
+import { broadcastAdminFlagChanged } from "../../realtime/broadcast";
 
 export async function listFlags(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -47,6 +48,7 @@ export async function createFlag(req: Request, res: Response, next: NextFunction
       actorId, action: "flag.create", targetType: "FeatureFlag", targetId: flag.id,
       metadata: { key, type: flag.type }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "create", actorId);
     res.status(200).json({ flag });
   } catch (err) { next(err); }
 }
@@ -77,6 +79,7 @@ export async function updateFlag(req: Request, res: Response, next: NextFunction
       metadata: { before, after: { enabledGlobally: updated.enabledGlobally, type: updated.type, rolloutRules: updated.rolloutRules } },
       ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "update", actorId);
     res.status(200).json({ flag: updated });
   } catch (err) { next(err); }
 }
@@ -97,6 +100,7 @@ export async function killFlag(req: Request, res: Response, next: NextFunction):
       actorId, action: "flag.kill", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key, reason }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "kill", actorId);
     res.status(200).json({ flag: updated });
   } catch (err) { next(err); }
 }
@@ -116,6 +120,7 @@ export async function reviveFlag(req: Request, res: Response, next: NextFunction
       actorId, action: "flag.revive", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "revive", actorId);
     res.status(200).json({ flag: updated });
   } catch (err) { next(err); }
 }
@@ -132,6 +137,7 @@ export async function deleteFlag(req: Request, res: Response, next: NextFunction
       actorId, action: "flag.delete", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "delete", actorId);
     res.status(200).json({ ok: true });
   } catch (err) { next(err); }
 }
@@ -158,6 +164,7 @@ export async function createOverride(req: Request, res: Response, next: NextFunc
       metadata: { key: flag.key, userId, enabled, reason },
       ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
     });
+    broadcastAdminFlagChanged(flag.key, "override", actorId);
     res.status(200).json({ override });
   } catch (err) { next(err); }
 }

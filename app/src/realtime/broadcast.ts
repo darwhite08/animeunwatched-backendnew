@@ -146,6 +146,40 @@ export function broadcastAdminAnalyticsLive(snapshot: unknown): void {
   emit(ADMIN_ROOM, "admin.analytics.live", snapshot)
 }
 
+// ── New broadcast helpers for the expanded admin surface ────────────────────
+// All payloads are minimal; the admin client refetches authoritative data.
+export function broadcastAdminAlertCreated(alert: { id: string; severity: string; category: string; title: string }): void {
+  emit(ADMIN_ROOM, "admin.alert.created", { ...alert, at: Date.now() })
+}
+
+export function broadcastAdminAlertAcked(alertId: string, actorId: string): void {
+  emit(ADMIN_ROOM, "admin.alert.acked", { alertId, actorId, at: Date.now() })
+}
+
+export function broadcastAdminFlagChanged(flagKey: string, action: "create"|"update"|"kill"|"revive"|"delete"|"override", actorId: string | null): void {
+  emit(ADMIN_ROOM, "admin.flag.changed", { flagKey, action, actorId, at: Date.now() })
+}
+
+export function broadcastAdminQueueChanged(itemId: string, status: string): void {
+  emit(ADMIN_ROOM, "admin.queue.changed", { itemId, status, at: Date.now() })
+}
+
+export function broadcastAdminBillingChanged(action: "change_plan"|"refund"|"credit"|"extend_trial"|"cancel"|"plan_create", targetId: string): void {
+  emit(ADMIN_ROOM, "admin.billing.changed", { action, targetId, at: Date.now() })
+}
+
+export function broadcastAdminJobRan(jobName: string, status: "ok"|"error"): void {
+  emit(ADMIN_ROOM, "admin.job.ran", { jobName, status, at: Date.now() })
+}
+
+export function broadcastAdminDepsChanged(): void {
+  emit(ADMIN_ROOM, "admin.deps.changed", { at: Date.now() })
+}
+
+export function broadcastAdminWebhookChanged(deliveryId: string | null, kind: "endpoint"|"delivery"): void {
+  emit(ADMIN_ROOM, "admin.webhook.changed", { deliveryId, kind, at: Date.now() })
+}
+
 export function broadcastReviewCreated(malId: number, review: unknown): void {
   emit(animeRoom(malId), "review.created", review)
 }

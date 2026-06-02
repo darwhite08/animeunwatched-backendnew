@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { adminAuditR } from "../../lib/adminAudit";
+import { broadcastAdminQueueChanged } from "../../realtime/broadcast";
 
 /**
  * M7 — generic moderation queue. Source-agnostic: rows can come from
@@ -50,6 +51,7 @@ export async function createQueueItem(req: Request, res: Response, next: NextFun
       action: "moderation.enqueue", targetType: "ModerationItem", targetId: item.id,
       metadata: { targetType, contentId: targetId, source },
     });
+    broadcastAdminQueueChanged(item.id, item.status);
     res.status(200).json({ item });
   } catch (err) { next(err); }
 }
@@ -75,6 +77,7 @@ export async function reviewQueueItem(req: Request, res: Response, next: NextFun
       targetType: "ModerationItem", targetId: id,
       metadata: { targetType: item.targetType, contentId: item.targetId, note },
     });
+    broadcastAdminQueueChanged(id, status);
     res.status(200).json({ item: updated });
   } catch (err) { next(err); }
 }
