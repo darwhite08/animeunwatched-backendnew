@@ -73,6 +73,15 @@ function isVercelPreviewOrigin(origin: string): boolean {
   } catch { return false }
 }
 
+// Accept any kaiveron.com subdomain — main site, www, admin-dashboard, etc.
+// Single source of truth so adding a new subdomain doesn't require an env change.
+function isKaiveronOrigin(origin: string): boolean {
+  try {
+    const { hostname } = new URL(origin)
+    return hostname === "kaiveron.com" || hostname.endsWith(".kaiveron.com")
+  } catch { return false }
+}
+
 // Accept any local-network origin so phones on the same WiFi can log in
 function isLocalNetworkOrigin(origin: string): boolean {
   try {
@@ -123,7 +132,7 @@ app.use(responseTime);
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin)))) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (isLocalNetworkOrigin(origin) || isVercelPreviewOrigin(origin) || isKaiveronOrigin(origin)))) {
       callback(null, true)
     } else {
       callback(new Error("Not allowed by CORS"))
