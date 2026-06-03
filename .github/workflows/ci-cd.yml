@@ -1,4 +1,4 @@
-name: Backend CI — Test & Deploy via Render
+name: Backend CI — Test & Deploy via AWS App Runner
 
 on:
   push:
@@ -44,15 +44,15 @@ jobs:
           JWT_ACCESS_SECRET: test-access-secret-min-32-chars-long!
           JWT_REFRESH_SECRET: test-refresh-secret-min-32-chars-long!
 
-  # ── Render deploys automatically when tests pass on main ───────────────────
-  # No extra config needed — Render watches the main branch via render.yaml
-  # Set RENDER_DEPLOY_HOOK in GitHub secrets for an explicit trigger (optional)
-  deploy-notify:
-    name: Notify Render Deploy
+  # ── AWS App Runner deploys automatically when tests pass on main ──────────
+  # The App Runner service watches the main branch via its GitHub source
+  # connection (configured in the AWS console; IaC mirror is apprunner.yaml).
+  # No GitHub-side step is required for deploys; this job exists only as a
+  # gate so that App Runner won't pull a SHA the tests haven't approved.
+  deploy-gate:
+    name: Tests passed — App Runner free to deploy
     runs-on: ubuntu-latest
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: Trigger Render deploy hook
-        if: ${{ secrets.RENDER_DEPLOY_HOOK != '' }}
-        run: curl -s "${{ secrets.RENDER_DEPLOY_HOOK }}" | python3 -c "import sys,json; d=json.load(sys.stdin); print('Deploy triggered:', d.get('id','OK'))"
+      - run: echo "Tests passed on main — AWS App Runner will pull this SHA on its next watch tick."

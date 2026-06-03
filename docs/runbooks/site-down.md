@@ -15,14 +15,10 @@ curl -sS -o /dev/null -w "Vercel /api/version → %{http_code} in %{time_total}s
 # Backend
 curl -sS -o /dev/null -w "AWS /health → %{http_code} in %{time_total}s\n" \
   https://api.kaiveron.com/health
-
-# Render fallback (still up during cutover)
-curl -sS -o /dev/null -w "Render /health → %{http_code} in %{time_total}s\n" \
-  https://kaiveron-backend.onrender.com/health
 ```
 
-Three possibilities:
-- **All three 200** → user-side issue (their network, their cache, their account). Stop here, reply with troubleshooting steps.
+Two possibilities:
+- **Both 200** → user-side issue (their network, their cache, their account). Stop here, reply with troubleshooting steps.
 - **Vercel 200 but AWS 5xx** → backend is down, jump to §2.
 - **Vercel 5xx** → frontend is down, jump to §1.
 
@@ -72,17 +68,17 @@ git revert <bad-sha>
 git push origin main
 ```
 
-Or **fast cutover** — point Vercel back at the Render backend while we debug:
+If the App Runner service is fully down (rare), pause the bleeding by
+pointing Vercel at the App Runner direct URL instead of the api.kaiveron.com
+custom domain (so DNS issues are bypassed):
 
 ```bash
 cd ~/Desktop/animeunwatched/animeunwatched-frontend
+# Replace <direct> with the *.us-east-1.awsapprunner.com URL from the AWS console
+DIRECT="https://<direct>.us-east-1.awsapprunner.com"
 echo y | vercel env rm NEXT_PUBLIC_API_BASE production --yes
-echo y | vercel env rm NEXT_PUBLIC_SOCKET_URL production --yes
-echo y | vercel env rm API_BASE production --yes
-echo "https://kaiveron-backend.onrender.com" | vercel env add NEXT_PUBLIC_API_BASE production
-echo "https://kaiveron-backend.onrender.com" | vercel env add NEXT_PUBLIC_SOCKET_URL production
-echo "https://kaiveron-backend.onrender.com" | vercel env add API_BASE production
-git commit --allow-empty -m "rollback: point frontend back at Render backend"
+echo "$DIRECT" | vercel env add NEXT_PUBLIC_API_BASE production
+git commit --allow-empty -m "rollback: bypass custom domain → direct App Runner URL"
 git push origin production
 # Then promote the new preview → prod via the standard 'vercel promote'
 ```

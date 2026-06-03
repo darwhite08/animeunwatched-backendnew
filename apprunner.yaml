@@ -1,0 +1,29 @@
+# AWS App Runner config for kaiveron-backend.
+#
+# Used when re-importing the service from this repo. The running service is
+# already provisioned (us-east-1, ARN in docs/runbooks/site-down.md) and App
+# Runner re-pulls from this file when you create/update the service via the
+# AWS console or CLI.
+#
+# Most deploys today happen via the existing service auto-pulling from the
+# `main` branch through its existing source connection; this file is the IaC
+# source-of-truth in case the service ever needs to be re-created.
+
+version: 1.0
+runtime: docker
+build:
+  commands:
+    pre-build:
+      - echo "Build is handled by the Dockerfile; nothing to pre-build."
+run:
+  command: sh -c "npx prisma db push --accept-data-loss && node dist/server.js"
+  network:
+    port: 4000
+    env: PORT
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: PORT
+      value: "4000"
+    # The rest (DATABASE_URL, JWT secrets, etc.) come from App Runner's
+    # secrets manager — never commit them here.

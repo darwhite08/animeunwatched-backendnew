@@ -33,7 +33,7 @@ import { cache } from "./src/lib/cache";
 
 const app = express();
 
-// Trust Render/cloud reverse proxy so req.protocol reflects https correctly
+// Trust App Runner/cloud reverse proxy so req.protocol reflects https correctly
 app.set("trust proxy", 1);
 
 // Per-request correlation id + structured JSON logger. requestId must run

@@ -46,7 +46,7 @@ premature given actual scale, and proposes a right-sized order.
 | Item | Status | Evidence |
 |---|---|---|
 | HTTPS frontend | ✅ | Vercel-issued cert, prod domain `animeunwatched-frontend-delta.vercel.app` |
-| HTTPS backend | ✅ (Render today, will be ✅ on AWS via App Runner) | `https://kaiveron-backend.onrender.com` |
+| HTTPS backend | ✅ AWS App Runner (us-east-1) behind `api.kaiveron.com` | `https://api.kaiveron.com/health` |
 | Sentry — backend | ✅ Wired | `app/app.ts:1-4` |
 | Sentry — frontend | ✅ Wired | `sentry.{client,server,edge}.config.ts` |
 | Argon2 password hashing | ✅ | `argon2` dep, used in auth service |

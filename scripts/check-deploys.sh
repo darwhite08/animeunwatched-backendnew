@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # check-deploys.sh — verify the latest local commits are actually live on
-# Render (backend) and Vercel (frontend).
+# AWS App Runner (backend) and Vercel (frontend).
 #
 # Compares for each surface:
 #   local HEAD  vs  origin/<deploy-branch>  vs  deployed SHA (/version endpoint)
 #
 # States per surface:
 #   ✅ live          — local HEAD == origin == deployed
-#   ⏳ deploying     — local HEAD == origin but deployed is older (Render/Vercel still building)
+#   ⏳ deploying     — local HEAD == origin but deployed is older (App Runner/Vercel still building)
 #   📝 unpushed      — local HEAD != origin (you have local commits not pushed yet)
 #   ❌ drift         — origin != deployed AND it's not still building (manual investigation)
 #   ⚠️  unreachable  — could not fetch /version
@@ -24,7 +24,9 @@ BACKEND_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 PROJECT_ROOT="$(cd "$BACKEND_DIR/.." && pwd)"
 
 BACKEND_BRANCH="main"
-BACKEND_URL="https://kaiveron-backend.onrender.com/api/v1/version"
+# Stable custom domain — CNAMEs to whichever host (App Runner) is currently
+# serving. Switching hosts doesn't require updating this script.
+BACKEND_URL="https://api.kaiveron.com/api/v1/version"
 
 FRONTEND_DIR="$PROJECT_ROOT/animeunwatched-frontend"
 FRONTEND_BRANCH="production"

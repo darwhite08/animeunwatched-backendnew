@@ -138,13 +138,13 @@ export function me(req: Request, res: Response): void {
  *
  * Used after Google OAuth callback to ensure the refresh cookie is set on the
  * SAME domain that the frontend uses for all other API calls. Solves a CORS-style
- * problem: when Google's callback goes directly to the Render backend, the
- * Set-Cookie lands on kaiveron-backend.onrender.com, which is a different
- * domain from animeunwatched-frontend-delta.vercel.app — so future
- * /auth/refresh calls (proxied through Vercel) don't send the cookie.
+ * problem: when Google's callback goes directly to the backend host, the
+ * Set-Cookie lands on api.kaiveron.com, which is a different domain from
+ * animeunwatched-frontend-delta.vercel.app — so future /auth/refresh calls
+ * (proxied through Vercel) don't send the cookie.
  *
  * Flow:
- *  1. Google → Render OAuth callback (URL registered with Google) → sets short access token in URL
+ *  1. Google → backend OAuth callback (URL registered with Google) → sets short access token in URL
  *  2. Frontend /auth/callback receives access_token, stores in Zustand
  *  3. Frontend calls POST /auth/oauth-handoff THROUGH the Vercel proxy
  *  4. This handler issues a fresh refresh token + sets the cookie
