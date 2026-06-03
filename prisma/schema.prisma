@@ -102,6 +102,7 @@ model User {
   // Push notification device tokens
   deviceTokens       DeviceToken[]
   nativePushTokens   NativePushToken[] // Capacitor FCM/APNs tokens (additive)
+  messageReactions   MessageReaction[]
   // Activity feed (FEED_FEATURES §12 — MVP)
   activities         Activity[]
   activityLikes      ActivityLike[]
@@ -698,9 +699,25 @@ model DirectMessage {
   sender          User                @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
   senderDeviceKey UserDeviceKey?      @relation("MsgSenderDeviceKey", fields: [senderDeviceKeyId], references: [id])
   envelopes       MessageKeyEnvelope[]
+  reactions       MessageReaction[]
 
   @@index([conversationId, createdAt])
   @@index([senderId])
+}
+
+// Emoji reactions on a direct message. One row per (message, user, emoji).
+model MessageReaction {
+  id        String   @id @default(cuid())
+  messageId String
+  userId    String
+  emoji     String
+  createdAt DateTime @default(now())
+
+  message DirectMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId, emoji])
+  @@index([messageId])
 }
 
 // Multi-device E2E (Phase 1). Each device registers its own ECDH P-256 public

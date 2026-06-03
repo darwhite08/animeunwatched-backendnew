@@ -23,3 +23,6 @@ chatRouter.post("/conversations/:conversationId/messages", requireAuth, ctrl.sen
 chatRouter.patch("/conversations/:conversationId/read",    requireAuth, ctrl.markRead);
 // Delete a message — scope=me (hide from self) or scope=everyone (sender-only, within 24h)
 chatRouter.delete("/conversations/:conversationId/messages/:messageId", requireAuth, ctrl.deleteMessage);
+// Emoji reactions on a message
+chatRouter.post(  "/messages/:messageId/reactions", requireAuth, ctrl.addReaction);
+chatRouter.delete("/messages/:messageId/reactions", requireAuth, ctrl.removeReaction);

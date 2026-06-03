@@ -84,6 +84,7 @@ export const ModelName = {
   UserPublicKey: 'UserPublicKey',
   Conversation: 'Conversation',
   DirectMessage: 'DirectMessage',
+  MessageReaction: 'MessageReaction',
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
   Activity: 'Activity',
@@ -621,6 +622,17 @@ export const DirectMessageScalarFieldEnum = {
 } as const
 
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
+
+
+export const MessageReactionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReactionScalarFieldEnum = (typeof MessageReactionScalarFieldEnum)[keyof typeof MessageReactionScalarFieldEnum]
 
 
 export const UserDeviceKeyScalarFieldEnum = {

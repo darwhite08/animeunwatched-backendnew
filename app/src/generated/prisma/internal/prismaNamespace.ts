@@ -425,6 +425,7 @@ export const ModelName = {
   UserPublicKey: 'UserPublicKey',
   Conversation: 'Conversation',
   DirectMessage: 'DirectMessage',
+  MessageReaction: 'MessageReaction',
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
   Activity: 'Activity',
@@ -530,7 +531,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "userDeviceKey" | "messageKeyEnvelope" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3121,6 +3122,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DirectMessageCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DirectMessageCountAggregateOutputType> | number
+        }
+      }
+    }
+    MessageReaction: {
+      payload: Prisma.$MessageReactionPayload<ExtArgs>
+      fields: Prisma.MessageReactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessageReactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessageReactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        findFirst: {
+          args: Prisma.MessageReactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessageReactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        findMany: {
+          args: Prisma.MessageReactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>[]
+        }
+        create: {
+          args: Prisma.MessageReactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        createMany: {
+          args: Prisma.MessageReactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessageReactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>[]
+        }
+        delete: {
+          args: Prisma.MessageReactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        update: {
+          args: Prisma.MessageReactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.MessageReactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessageReactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessageReactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.MessageReactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReactionPayload>
+        }
+        aggregate: {
+          args: Prisma.MessageReactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessageReaction>
+        }
+        groupBy: {
+          args: Prisma.MessageReactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageReactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessageReactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageReactionCountAggregateOutputType> | number
         }
       }
     }
@@ -10254,6 +10329,17 @@ export const DirectMessageScalarFieldEnum = {
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
 
 
+export const MessageReactionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReactionScalarFieldEnum = (typeof MessageReactionScalarFieldEnum)[keyof typeof MessageReactionScalarFieldEnum]
+
+
 export const UserDeviceKeyScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -12007,6 +12093,7 @@ export type GlobalOmitConfig = {
   userPublicKey?: Prisma.UserPublicKeyOmit
   conversation?: Prisma.ConversationOmit
   directMessage?: Prisma.DirectMessageOmit
+  messageReaction?: Prisma.MessageReactionOmit
   userDeviceKey?: Prisma.UserDeviceKeyOmit
   messageKeyEnvelope?: Prisma.MessageKeyEnvelopeOmit
   activity?: Prisma.ActivityOmit

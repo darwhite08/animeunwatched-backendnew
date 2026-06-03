@@ -51,3 +51,8 @@ export const getMessagesSchema = z.object({
     limit:  z.coerce.number().int().min(1).max(50).default(30),
   }),
 });
+
+export const reactionSchema = z.object({
+  params: z.object({ messageId: z.string().min(1) }),
+  body:   z.object({ emoji: z.string().min(1).max(16) }),
+});

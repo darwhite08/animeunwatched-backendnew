@@ -268,16 +268,57 @@ export async function getMessages(opts: {
         where:  { recipientDeviceKeyId: { in: myKeyIds } },
         select: { recipientDeviceKeyId: true, wrappedKey: true, wrapIv: true },
       },
+      reactions: { select: { emoji: true, userId: true } },
     },
   });
 
   const hasMore = messages.length > opts.limit;
   const items   = hasMore ? messages.slice(0, opts.limit) : messages;
 
+  // Aggregate reactions per message → [{ emoji, count, reactedByMe }].
+  const withReactions = items.map((m) => {
+    const byEmoji = new Map<string, { emoji: string; count: number; reactedByMe: boolean }>();
+    for (const r of m.reactions) {
+      const e = byEmoji.get(r.emoji) ?? { emoji: r.emoji, count: 0, reactedByMe: false };
+      e.count += 1;
+      if (r.userId === opts.userId) e.reactedByMe = true;
+      byEmoji.set(r.emoji, e);
+    }
+    return { ...m, reactions: [...byEmoji.values()] };
+  });
+
   return {
-    messages:   items,
+    messages:   withReactions,
     nextCursor: hasMore ? items[items.length - 1].createdAt.toISOString() : null,
   };
+}
+
+// ─── Reactions ─────────────────────────────────────────────────────────────────
+async function assertParticipantForMessage(messageId: string, userId: string) {
+  const msg = await prisma.directMessage.findUnique({
+    where: { id: messageId },
+    select: { conversation: { select: { participant1: true, participant2: true } } },
+  });
+  if (!msg) throw notFound("Message not found");
+  if (msg.conversation.participant1 !== userId && msg.conversation.participant2 !== userId) {
+    throw forbidden("Not a participant in this conversation");
+  }
+}
+
+export async function addReaction(userId: string, messageId: string, emoji: string) {
+  await assertParticipantForMessage(messageId, userId);
+  await prisma.messageReaction.upsert({
+    where:  { messageId_userId_emoji: { messageId, userId, emoji } },
+    create: { messageId, userId, emoji },
+    update: {},
+  });
+  return { ok: true };
+}
+
+export async function removeReaction(userId: string, messageId: string, emoji: string) {
+  await assertParticipantForMessage(messageId, userId);
+  await prisma.messageReaction.deleteMany({ where: { messageId, userId, emoji } });
+  return { ok: true };
 }
 
 export async function markConversationRead(conversationId: string, userId: string) {

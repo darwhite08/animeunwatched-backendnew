@@ -193,6 +193,11 @@ export type Conversation = Prisma.ConversationModel
  */
 export type DirectMessage = Prisma.DirectMessageModel
 /**
+ * Model MessageReaction
+ * 
+ */
+export type MessageReaction = Prisma.MessageReactionModel
+/**
  * Model UserDeviceKey
  * 
  */

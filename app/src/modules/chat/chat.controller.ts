@@ -6,7 +6,28 @@ import {
   startConversationSchema,
   sendMessageSchema,
   getMessagesSchema,
+  reactionSchema,
 } from "./chat.schema";
+
+export async function addReaction(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, body } = reactionSchema.parse({ params: req.params, body: req.body });
+    await chatService.addReaction(res.locals.user.id as string, params.messageId, body.emoji);
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function removeReaction(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, body } = reactionSchema.parse({ params: req.params, body: req.body });
+    await chatService.removeReaction(res.locals.user.id as string, params.messageId, body.emoji);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+}
 
 export async function uploadPublicKey(req: Request, res: Response, next: NextFunction) {
   try {
