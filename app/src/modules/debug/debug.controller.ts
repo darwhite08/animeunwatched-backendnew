@@ -40,3 +40,19 @@ export async function debugSchema(_req: Request, res: Response): Promise<void> {
 
   res.status(200).json(out)
 }
+
+export async function debugDbPush(_req: Request, res: Response): Promise<void> {
+  const { spawn } = await import("node:child_process")
+  const child = spawn("npx", ["prisma", "db", "push", "--accept-data-loss"], {
+    env: { ...process.env, PATH: process.env.PATH ?? "/usr/local/bin:/usr/bin:/bin" },
+  })
+  let stdout = "", stderr = ""
+  child.stdout.on("data", (d: Buffer) => { stdout += d.toString() })
+  child.stderr.on("data", (d: Buffer) => { stderr += d.toString() })
+  child.on("close", (code) => {
+    res.status(200).json({ exitCode: code, stdout: stdout.slice(-4000), stderr: stderr.slice(-4000) })
+  })
+  child.on("error", (e) => {
+    res.status(500).json({ spawnError: (e as Error).message })
+  })
+}
