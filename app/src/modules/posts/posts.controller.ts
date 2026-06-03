@@ -41,6 +41,40 @@ export async function getTrending(req: Request, res: Response, next: NextFunctio
   }
 }
 
+export async function hidePost(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.hidePost(userId, req.params.id as string);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function unhidePost(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.unhidePost(userId, req.params.id as string);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function setPostScoreOverride(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { manualBoost, shadowPenalty } = req.body as {
+      manualBoost?: number; shadowPenalty?: number;
+    };
+    const result = await service.setPostScoreOverride(req.params.id as string, {
+      manualBoost, shadowPenalty,
+    });
+    res.status(200).json(result ?? { changed: false });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getPost(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string | undefined = res.locals.user?.id;

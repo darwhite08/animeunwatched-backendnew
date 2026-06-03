@@ -164,6 +164,11 @@ adminRouter.get(   "/impersonation/active",           requirePermission("imperso
 // Content & moderation
 adminRouter.get(   "/content/posts",                  requirePermission("moderation","read"), content.listPosts);
 adminRouter.delete("/content/posts/:postId",          requirePermission("moderation","act"),  content.deletePost);
+// Trending-algorithm manual override (HN-style admin escape hatch).
+// manualBoost > 1 promotes; shadowPenalty < 1 silently demotes. Step-up
+// required because abuse here lets one operator covertly skew the feed.
+import { setPostScoreOverride as setPostScore } from "../posts/posts.controller";
+adminRouter.patch( "/content/posts/:id/score",        requirePermissionWithStepUp("moderation","act"), setPostScore);
 adminRouter.get(   "/content/clubs",                  requirePermission("moderation","read"), content.listClubs);
 adminRouter.delete("/content/clubs/:clubId",          requirePermission("moderation","act"),  content.deleteClub);
 adminRouter.post(  "/users/:userId/shadow-ban",       requirePermission("moderation","act"),  content.shadowBanUser);

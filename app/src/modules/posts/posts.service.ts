@@ -144,27 +144,140 @@ export async function getDiscover(userId?: string, cursor?: string, limit = 20) 
 // Instagram four-signals (Mosseri 2023), TikTok Monolith.
 
 export const TRENDING_CONFIG = {
+  // Base engagement-vs-age formula (HN-style, see getTrending docstring)
   GRAVITY:             1.8,
   ENGAGEMENT_EXPONENT: 0.8,
   OFFSET_HOURS:        2.0,
   W_LIKE:              1.0,
   W_COMMENT:           3.0,
   WINDOW_DAYS:         7,
-  FOLLOW_BOOST:        1.3,
+
+  // Personalization multipliers (applied in JS post-fetch so the SQL cache
+  // can stay viewer-independent).
+  FOLLOW_BOOST:        1.3,   // viewer follows author
+  WATCHLIST_BOOST:     1.25,  // post's anime is in viewer's watchlist
+  RATED_HIGH_BOOST:    1.4,   // viewer rated this anime ≥ 8/10
+  AUTHOR_AFFINITY_PER_LIKE: 0.05, // +5% per past like of this author (cap 1.5×)
+  AUTHOR_AFFINITY_CAP: 1.5,
+
+  // Negative signals — research-backed: report on X = −369 vs favorite +0.5.
+  // A single Hide drops the post entirely; 3+ hides of the same author
+  // applies a strong soft-block to that author's other posts for that viewer.
+  AUTHOR_HIDE_THRESHOLD: 3,
+  AUTHOR_HIDE_PENALTY:   0.2,  // ×0.2 — almost-but-not-quite invisible
+
+  // Cold-start freshness bonus — additive, decays linearly to 0 at 24h.
+  // Lets a brand-new post with 0 engagement still appear above an
+  // 18-hour-old post with 1 like.
+  FRESHNESS_BONUS_PEAK:  0.5,
+  FRESHNESS_DECAY_HOURS: 24,
+
+  // Author quality (light influence: 0.85× to 1.15× over the rep range)
+  AUTHOR_REP_MIN_MULT: 0.85,
+  AUTHOR_REP_MAX_MULT: 1.15,
+  AUTHOR_REP_SOFTCAP:  1000,  // reputation above this stops increasing the mult
+
+  // Diversity + caching
   MAX_PER_AUTHOR:      2,
   CACHE_TTL_MS:        60_000,
 } as const
 
-type ScoredId = { id: string; authorId: string; baseScore: number }
+/**
+ * Pure author-quality multiplier from raw reputation. Logarithmic so a
+ * 1000-rep user isn't 100× a 10-rep user — capped at AUTHOR_REP_MAX_MULT.
+ *
+ * Exported for unit testing.
+ */
+export function authorQualityMultiplier(reputation: number): number {
+  const { AUTHOR_REP_MIN_MULT: lo, AUTHOR_REP_MAX_MULT: hi, AUTHOR_REP_SOFTCAP: cap } = TRENDING_CONFIG
+  const r = Math.max(0, reputation)
+  // log10 family — softly maps [0, cap] → [0, 1]
+  const norm = Math.min(1, Math.log10(r + 1) / Math.log10(cap + 1))
+  return lo + (hi - lo) * norm
+}
+
+/** Linearly-decaying freshness bonus, peaking at FRESHNESS_BONUS_PEAK at age=0. */
+export function freshnessBonus(ageHours: number): number {
+  const { FRESHNESS_BONUS_PEAK: peak, FRESHNESS_DECAY_HOURS: span } = TRENDING_CONFIG
+  if (ageHours <= 0) return peak
+  if (ageHours >= span) return 0
+  return peak * (1 - ageHours / span)
+}
+
+type ScoredRow = {
+  id:              string
+  authorId:        string
+  animeId:         string | null
+  authorReputation: number
+  ageHours:        number
+  baseScore:       number   // already includes manualBoost × shadowPenalty
+}
+
+export interface PersonalizationInputs {
+  followedAuthors:    Set<string>
+  hiddenPostIds:      Set<string>
+  authorHideCounts:   Map<string, number>
+  watchlistAnimeIds:  Set<string>
+  highlyRatedAnimeIds: Set<string>
+  authorLikeCounts:   Map<string, number>
+}
+
+/**
+ * Final per-viewer score given the cached base row + personalization inputs.
+ * Pure — exported for unit testing the math in isolation from Prisma.
+ */
+export function personalizedScore(row: ScoredRow, p: PersonalizationInputs): number {
+  if (p.hiddenPostIds.has(row.id)) return -Infinity  // hard-hide
+
+  let score = row.baseScore
+
+  // Author quality (light multiplier, log-scaled)
+  score *= authorQualityMultiplier(row.authorReputation)
+
+  // In-network: viewer follows author
+  if (p.followedAuthors.has(row.authorId)) {
+    score *= TRENDING_CONFIG.FOLLOW_BOOST
+  }
+
+  // Author affinity: more likes you've given this author → higher score
+  const pastLikes = p.authorLikeCounts.get(row.authorId) ?? 0
+  if (pastLikes > 0) {
+    const mult = Math.min(
+      TRENDING_CONFIG.AUTHOR_AFFINITY_CAP,
+      1 + pastLikes * TRENDING_CONFIG.AUTHOR_AFFINITY_PER_LIKE,
+    )
+    score *= mult
+  }
+
+  // Anime affinity: post about an anime the viewer cares about
+  if (row.animeId) {
+    if (p.highlyRatedAnimeIds.has(row.animeId)) {
+      score *= TRENDING_CONFIG.RATED_HIGH_BOOST
+    } else if (p.watchlistAnimeIds.has(row.animeId)) {
+      score *= TRENDING_CONFIG.WATCHLIST_BOOST
+    }
+  }
+
+  // Author-level soft-block: hidden too many → strongly demote remaining
+  const hidesFromAuthor = p.authorHideCounts.get(row.authorId) ?? 0
+  if (hidesFromAuthor >= TRENDING_CONFIG.AUTHOR_HIDE_THRESHOLD) {
+    score *= TRENDING_CONFIG.AUTHOR_HIDE_PENALTY
+  }
+
+  // Cold-start freshness bonus (additive)
+  score += freshnessBonus(row.ageHours)
+
+  return score
+}
 
 /** Apply per-author diversity cap to a score-sorted list. */
-export function applyDiversityCap(
-  scored: ScoredId[],
+export function applyDiversityCap<T extends { authorId: string }>(
+  scored: T[],
   limit: number,
   maxPerAuthor: number = TRENDING_CONFIG.MAX_PER_AUTHOR,
-): ScoredId[] {
+): T[] {
   const seen = new Map<string, number>()
-  const out: ScoredId[] = []
+  const out: T[] = []
   for (const s of scored) {
     const n = seen.get(s.authorId) ?? 0
     if (n < maxPerAuthor) {
@@ -176,76 +289,165 @@ export function applyDiversityCap(
   return out
 }
 
+/**
+ * Algorithm-ranked trending feed.
+ *
+ * Layered scoring (see TRENDING_CONFIG for tuning constants):
+ *
+ *   1. BASE (cached SQL — viewer-independent)
+ *      Hacker-News-style:
+ *          (W_LIKE·likes + W_COMMENT·comments + 0.5)^0.8
+ *        ──────────────────────────────────────────────── × manualBoost × shadowPenalty
+ *                  (age_hours + 2)^1.8
+ *
+ *   2. PERSONALIZATION (per-request JS — see personalizedScore):
+ *      × authorQualityMultiplier(reputation)    — light log-scaled quality
+ *      × FOLLOW_BOOST if follows author
+ *      × (1 + AUTHOR_AFFINITY_PER_LIKE · pastLikes)  — capped
+ *      × WATCHLIST_BOOST / RATED_HIGH_BOOST if anime overlap
+ *      × AUTHOR_HIDE_PENALTY if viewer has hidden ≥3 from this author
+ *      + freshnessBonus(age) for cold-start
+ *      = -Infinity if viewer has hidden THIS post
+ *
+ *   3. DIVERSITY (post-ranking): cap per-author at MAX_PER_AUTHOR.
+ *
+ * Step 1 cached 60s and shared across all viewers. Step 2 runs in-memory
+ * per request, so caching still helps under load even though each viewer
+ * sees a different ordering.
+ */
 export async function getTrending(userId?: string, limit = 20) {
-  // Step 1: base scores — shared across all viewers, cached.
+  // Step 1: base scores — viewer-independent, cached.
   const baseCacheKey = `posts:trending:base:${limit}`
-  let scored = cache.get<ScoredId[]>(baseCacheKey)
+  let baseRows = cache.get<ScoredRow[]>(baseCacheKey)
 
-  if (!scored) {
-    // Over-fetch so the diversity + personalization passes still have
-    // headroom after the cap kicks in.
+  if (!baseRows) {
     const overFetch = Math.max(limit * 4, 80)
-
     const rows = await prisma.$queryRaw<Array<{
-      id: string; authorId: string; score: number
+      id:               string
+      authorId:         string
+      animeId:          string | null
+      authorReputation: number
+      ageHours:         number
+      score:            number
     }>>`
       SELECT
         p.id,
         p."authorId",
-        POWER(
-          GREATEST(
-            COUNT(DISTINCT pl."userId") * ${TRENDING_CONFIG.W_LIKE}::float +
-            COUNT(DISTINCT pc.id)       * ${TRENDING_CONFIG.W_COMMENT}::float,
-            0.0
-          ) + 0.5,
-          ${TRENDING_CONFIG.ENGAGEMENT_EXPONENT}::float
-        ) / POWER(
-          EXTRACT(EPOCH FROM (NOW() - p."createdAt")) / 3600.0
-            + ${TRENDING_CONFIG.OFFSET_HOURS}::float,
-          ${TRENDING_CONFIG.GRAVITY}::float
-        ) AS score
+        p."animeId",
+        u.reputation AS "authorReputation",
+        EXTRACT(EPOCH FROM (NOW() - p."createdAt")) / 3600.0 AS "ageHours",
+        (
+          POWER(
+            GREATEST(
+              COUNT(DISTINCT pl."userId") * ${TRENDING_CONFIG.W_LIKE}::float +
+              COUNT(DISTINCT pc.id)       * ${TRENDING_CONFIG.W_COMMENT}::float,
+              0.0
+            ) + 0.5,
+            ${TRENDING_CONFIG.ENGAGEMENT_EXPONENT}::float
+          ) / POWER(
+            EXTRACT(EPOCH FROM (NOW() - p."createdAt")) / 3600.0
+              + ${TRENDING_CONFIG.OFFSET_HOURS}::float,
+            ${TRENDING_CONFIG.GRAVITY}::float
+          )
+        ) * p."manualBoost" * p."shadowPenalty" AS score
       FROM "Post" p
-      LEFT JOIN "PostLike"    pl ON pl."postId" = p.id
-      LEFT JOIN "PostComment" pc ON pc."postId" = p.id
+      JOIN "User" u                ON u.id = p."authorId"
+      LEFT JOIN "PostLike"    pl  ON pl."postId" = p.id
+      LEFT JOIN "PostComment" pc  ON pc."postId" = p.id
       WHERE p."deletedAt" IS NULL
         AND p."createdAt" > NOW()
           - (${TRENDING_CONFIG.WINDOW_DAYS} || ' days')::interval
-      GROUP BY p.id, p."authorId"
+      GROUP BY p.id, p."authorId", p."animeId", p."manualBoost", p."shadowPenalty", u.reputation
       ORDER BY score DESC
       LIMIT ${overFetch}
     `
-    scored = rows.map(r => ({
-      id:        r.id,
-      authorId:  r.authorId,
-      baseScore: Number(r.score),
+    baseRows = rows.map(r => ({
+      id:               r.id,
+      authorId:         r.authorId,
+      animeId:          r.animeId,
+      authorReputation: Number(r.authorReputation ?? 0),
+      ageHours:         Number(r.ageHours),
+      baseScore:        Number(r.score),
     }))
-    cache.set(baseCacheKey, scored, TRENDING_CONFIG.CACHE_TTL_MS)
+    cache.set(baseCacheKey, baseRows, TRENDING_CONFIG.CACHE_TTL_MS)
   }
 
-  // Step 2: personalize (in-network boost) if we know who's looking.
-  let personalized = scored
-  if (userId && scored.length > 0) {
-    const follows = await prisma.follow.findMany({
-      where:  { followerId: userId },
-      select: { followingId: true },
-    })
-    const followedSet = new Set(follows.map(f => f.followingId))
-    personalized = scored
-      .map(s => ({
-        ...s,
-        baseScore: s.baseScore
-          * (followedSet.has(s.authorId) ? TRENDING_CONFIG.FOLLOW_BOOST : 1.0),
-      }))
-      .sort((a, b) => b.baseScore - a.baseScore)
+  if (baseRows.length === 0) {
+    return { data: [], meta: { algorithm: "trending-v2", count: 0, personalized: !!userId } }
   }
 
-  // Step 3: diversity cap.
-  const diversified = applyDiversityCap(personalized, limit)
+  // Step 2: fetch viewer-specific personalization inputs in parallel.
+  let inputs: PersonalizationInputs = {
+    followedAuthors:    new Set(),
+    hiddenPostIds:      new Set(),
+    authorHideCounts:   new Map(),
+    watchlistAnimeIds:  new Set(),
+    highlyRatedAnimeIds: new Set(),
+    authorLikeCounts:   new Map(),
+  }
+
+  if (userId) {
+    const candidateIds      = baseRows.map(r => r.id)
+    const candidateAuthors  = [...new Set(baseRows.map(r => r.authorId))]
+    const candidateAnimeIds = baseRows.map(r => r.animeId).filter((a): a is string => !!a)
+
+    const [follows, hides, hideAuthorAgg, watchlist, pastLikesAgg] = await Promise.all([
+      prisma.follow.findMany({
+        where: { followerId: userId },
+        select: { followingId: true },
+      }),
+      prisma.postHide.findMany({
+        where: { userId, postId: { in: candidateIds } },
+        select: { postId: true },
+      }),
+      // Total hides per author (across ALL posts, not just current candidates)
+      // — that's how author-level soft-blocks accumulate.
+      prisma.postHide.findMany({
+        where: { userId, post: { authorId: { in: candidateAuthors } } },
+        select: { post: { select: { authorId: true } } },
+      }),
+      prisma.listEntry.findMany({
+        where: { userId, animeId: { in: candidateAnimeIds } },
+        select: { animeId: true, score: true },
+      }),
+      // Past likes given by viewer to candidates' authors — author affinity.
+      prisma.postLike.findMany({
+        where: { userId, post: { authorId: { in: candidateAuthors } } },
+        select: { post: { select: { authorId: true } } },
+      }),
+    ])
+
+    inputs.followedAuthors = new Set(follows.map(f => f.followingId))
+    inputs.hiddenPostIds   = new Set(hides.map(h => h.postId))
+
+    for (const w of watchlist) {
+      inputs.watchlistAnimeIds.add(w.animeId)
+      if ((w.score ?? 0) >= 8) inputs.highlyRatedAnimeIds.add(w.animeId)
+    }
+    for (const h of hideAuthorAgg) {
+      const a = h.post.authorId
+      inputs.authorHideCounts.set(a, (inputs.authorHideCounts.get(a) ?? 0) + 1)
+    }
+    for (const l of pastLikesAgg) {
+      const a = l.post.authorId
+      inputs.authorLikeCounts.set(a, (inputs.authorLikeCounts.get(a) ?? 0) + 1)
+    }
+  }
+
+  // Step 3: score per viewer + filter hard-hidden posts.
+  const scored = baseRows
+    .map(r => ({ row: r, score: personalizedScore(r, inputs) }))
+    .filter(s => Number.isFinite(s.score))
+    .sort((a, b) => b.score - a.score)
+    .map(s => s.row)
+
+  // Step 4: diversity cap.
+  const diversified = applyDiversityCap(scored, limit)
   if (diversified.length === 0) {
-    return { data: [], meta: { algorithm: "trending-v1", count: 0, personalized: !!userId } }
+    return { data: [], meta: { algorithm: "trending-v2", count: 0, personalized: !!userId } }
   }
 
-  // Step 4: hydrate with full post shape, preserve ranked order.
+  // Step 5: hydrate full post shape, preserve ranked order.
   const ids = diversified.map(d => d.id)
   const posts = await prisma.post.findMany({
     where:   { id: { in: ids } },
@@ -260,11 +462,54 @@ export async function getTrending(userId?: string, limit = 20) {
   return {
     data,
     meta: {
-      algorithm:    "trending-v1",
+      algorithm:    "trending-v2",
       count:        data.length,
       personalized: !!userId,
     },
   }
+}
+
+// ─── Negative-signal API (Not Interested) ────────────────────────────────────
+
+export async function hidePost(userId: string, postId: string) {
+  const post = await prisma.post.findUnique({ where: { id: postId }, select: { id: true } })
+  if (!post) throw notFound("Post not found")
+  await prisma.postHide.upsert({
+    where:  { userId_postId: { userId, postId } },
+    update: {},
+    create: { userId, postId },
+  })
+  return { hidden: true }
+}
+
+export async function unhidePost(userId: string, postId: string) {
+  await prisma.postHide.deleteMany({ where: { userId, postId } })
+  return { hidden: false }
+}
+
+// ─── Admin manual-override API ───────────────────────────────────────────────
+
+export async function setPostScoreOverride(
+  postId: string,
+  patch: { manualBoost?: number; shadowPenalty?: number },
+) {
+  // Light sanity — admin UI should clamp but defend in depth.
+  const data: { manualBoost?: number; shadowPenalty?: number } = {}
+  if (typeof patch.manualBoost === "number") {
+    data.manualBoost = Math.max(0, Math.min(10, patch.manualBoost))
+  }
+  if (typeof patch.shadowPenalty === "number") {
+    data.shadowPenalty = Math.max(0, Math.min(1, patch.shadowPenalty))
+  }
+  if (Object.keys(data).length === 0) return null
+  const post = await prisma.post.update({
+    where: { id: postId },
+    data,
+    select: { id: true, manualBoost: true, shadowPenalty: true },
+  })
+  // Invalidate the trending base cache so the change shows up immediately.
+  cache.delPattern("posts:trending:base:")
+  return post
 }
 
 // ─── getPost ──────────────────────────────────────────────────────────────────
