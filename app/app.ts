@@ -254,10 +254,6 @@ app.get("/api/v1/status/maintenance", currentMaintenance);
 app.get("/api/v1/status",             publicStatus);
 // Public Trust Center — certifications, sub-processors, encryption posture
 app.get("/api/v1/trust",              getTrustCenter);
-// TEMP: prod diagnostic — remove after /trust + /changelog root cause confirmed
-import { debugSchema, debugDbPush } from "./src/modules/debug/debug.controller";
-app.get("/__debug/schema",            debugSchema);
-app.post("/__debug/sync",             debugDbPush);
 
 // API v1
 app.use("/api/v1", router);
