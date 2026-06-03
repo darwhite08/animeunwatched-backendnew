@@ -25,10 +25,16 @@ export async function requestStepUp(req: Request, res: Response, next: NextFunct
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw forbidden("User not found");
 
-    // OAuth-only admins have no password (passwordHash defaults to "") —
-    // they prove identity via TOTP instead. Without either factor we can't
-    // step them up; tell them how to fix it instead of returning 500.
-    const hasPassword = typeof user.passwordHash === "string" && user.passwordHash.length > 0;
+    // OAuth-only admins don't have a real password. The User row still has a
+    // `passwordHash` value (default "" for legacy rows, a 32-byte random hex
+    // string for users created via Google/Apple OAuth — see
+    // findOrCreateOAuthUser), but neither is a valid argon2 hash, so
+    // argon2.verify would throw at runtime and bubble out as 500.
+    //
+    // Real argon2 hashes always start with `$argon2`. Treat anything else as
+    // "no password set" and route the user through the TOTP-only path.
+    const hasPassword = typeof user.passwordHash === "string"
+      && user.passwordHash.startsWith("$argon2");
     const totpRow = await prisma.totpSecret.findUnique({ where: { userId } });
     const totpEnrolled = !!totpRow?.enabled;
 

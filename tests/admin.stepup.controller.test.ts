@@ -38,9 +38,14 @@ function makeRes() {
   return { locals: { user: { id: "op-1" } }, status: vi.fn().mockReturnThis(), json: vi.fn().mockReturnThis() } as never;
 }
 
+// Looks like a real argon2id hash so the controller's argon2-prefix check
+// treats this user as having a password set. Real hashes look exactly like
+// this: "$argon2id$v=19$m=65536,t=3,p=4$<salt>$<hash>".
+const ARGON2_PLACEHOLDER = "$argon2id$v=19$m=65536,t=3,p=4$AAAAAAAAAAAAAAAA$BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
 beforeEach(() => {
   users.clear(); totpRow = null; tokens.clear(); audits.length = 0;
-  users.set("op-1", { id: "op-1", passwordHash: "h" });
+  users.set("op-1", { id: "op-1", passwordHash: ARGON2_PLACEHOLDER });
 });
 
 describe("stepup controller", () => {
@@ -77,8 +82,8 @@ describe("stepup controller", () => {
     expect((next2.mock.calls[0][0] as Error).message).toMatch(/Invalid TOTP/);
   });
 
-  it("OAuth user with no MFA gets a clear 403 (no 500)", async () => {
-    // OAuth-only users have an empty passwordHash and no TOTP. Used to crash
+  it("OAuth user (empty passwordHash) with no MFA gets a clear 403 (no 500)", async () => {
+    // Legacy OAuth rows have passwordHash="" and no TOTP. Used to crash
     // argon2.verify and bubble as "Internal server error".
     users.set("op-1", { id: "op-1", passwordHash: "" });
     const next = vi.fn();
@@ -86,11 +91,19 @@ describe("stepup controller", () => {
     expect((next.mock.calls[0][0] as Error).message).toMatch(/OAuth.*MFA/);
   });
 
-  it("OAuth user with TOTP enrolled can step up using TOTP alone", async () => {
-    users.set("op-1", { id: "op-1", passwordHash: "" });
+  it("OAuth user (random-hex placeholder) with no MFA also gets the same 403", async () => {
+    // findOrCreateOAuthUser writes a 32-byte hex string as passwordHash.
+    // It's non-empty but not a real argon2 hash, so it must NOT be treated
+    // as a settable password — otherwise argon2.verify throws → 500.
+    users.set("op-1", { id: "op-1", passwordHash: "deadbeef".repeat(8) }); // 64 hex chars, no $argon2 prefix
+    const next = vi.fn();
+    await requestStepUp(makeReq({ totp: "076596", purpose: "users:role" }), makeRes(), next as never);
+    expect((next.mock.calls[0][0] as Error).message).toMatch(/OAuth.*MFA/);
+  });
+
+  it("OAuth user (random-hex placeholder) with TOTP enrolled can step up using TOTP alone", async () => {
+    users.set("op-1", { id: "op-1", passwordHash: "deadbeef".repeat(8) });
     totpRow = { userId: "op-1", secretBase32: "JBSWY3DPEHPK3PXP", enabled: true, backupCodes: null };
-    // Generate the actual TOTP code for the current 30-second window so the
-    // test does not depend on a fixed code.
     const { totp: makeTotp } = await import("../app/src/lib/totp");
     const code = makeTotp("JBSWY3DPEHPK3PXP");
     const res = makeRes();
