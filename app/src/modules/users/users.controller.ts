@@ -4,7 +4,7 @@ import * as service from "./users.service";
 
 export async function getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const result = await service.getProfile(req.params.username as string);
+    const result = await service.getProfile(req.params.username as string, res.locals.user?.id as string | undefined);
     res.status(200).json(result);
   } catch (err) {
     next(err);

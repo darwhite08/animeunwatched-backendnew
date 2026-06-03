@@ -21,7 +21,7 @@ const safeUserSelect = {
 
 // ─── getProfile ───────────────────────────────────────────────────────────────
 
-export async function getProfile(username: string) {
+export async function getProfile(username: string, viewerId?: string) {
   const user = await prisma.user.findUnique({
     where: { username },
     select: {
@@ -63,8 +63,19 @@ export async function getProfile(username: string) {
 
   const { _count, posts, reviews, ...rest } = user;
 
+  // Whether the logged-in viewer follows this profile (for the Follow button).
+  let isFollowing = false;
+  if (viewerId && viewerId !== rest.id) {
+    const f = await prisma.follow.findFirst({
+      where: { followerId: viewerId, followingId: rest.id },
+      select: { followerId: true },
+    });
+    isFollowing = !!f;
+  }
+
   return {
-    user: rest,
+    user: { ...rest, isFollowing },
+    isFollowing,
     stats: {
       followers: _count.followers,
       following: _count.following,
