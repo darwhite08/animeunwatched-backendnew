@@ -95,11 +95,13 @@ model User {
   securityEvents      SecurityEvent[]
   // Chat
   publicKey          UserPublicKey?
+  deviceKeys         UserDeviceKey[]    // multi-device E2E (Phase 1, additive)
   sentMessages       DirectMessage[]    @relation("MessageSender")
   conversations1     Conversation[]     @relation("ConvParticipant1")
   conversations2     Conversation[]     @relation("ConvParticipant2")
   // Push notification device tokens
   deviceTokens       DeviceToken[]
+  nativePushTokens   NativePushToken[] // Capacitor FCM/APNs tokens (additive)
   // Activity feed (FEED_FEATURES §12 — MVP)
   activities         Activity[]
   activityLikes      ActivityLike[]
@@ -121,6 +123,21 @@ model DeviceToken {
   deviceName  String?
   lastSeenAt  DateTime @default(now())
   createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// Capacitor native push tokens (FCM on Android / APNs via FCM on iOS). Separate
+// from DeviceToken (Expo) because the token formats + send paths differ.
+model NativePushToken {
+  id         String   @id @default(cuid())
+  userId     String
+  token      String   @unique
+  platform   String   // "ios" | "android"
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -671,11 +688,54 @@ model DirectMessage {
   deletedForSender      Boolean   @default(false)
   deletedForRecipient   Boolean   @default(false)
 
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender       User         @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  // Multi-device E2E (Phase 1, additive & nullable for back-compat). When set,
+  // the message key is wrapped per-device in MessageKeyEnvelope and `ciphertext`
+  // is encrypted with a random per-message key (not the pairwise ECDH secret).
+  // Legacy messages leave these null and use the old single-key path.
+  senderDeviceKeyId String?
+
+  conversation    Conversation        @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender          User                @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderDeviceKey UserDeviceKey?      @relation("MsgSenderDeviceKey", fields: [senderDeviceKeyId], references: [id])
+  envelopes       MessageKeyEnvelope[]
 
   @@index([conversationId, createdAt])
   @@index([senderId])
+}
+
+// Multi-device E2E (Phase 1). Each device registers its own ECDH P-256 public
+// key (JWK JSON). Many per user — replaces the single-key UserPublicKey going
+// forward; existing UserPublicKey rows are backfilled here as deviceId "legacy".
+model UserDeviceKey {
+  id        String   @id @default(cuid())
+  userId    String
+  deviceId  String   // stable client-generated id (e.g. random, stored locally)
+  publicKey String   // ECDH P-256 public key, JWK JSON string
+  createdAt DateTime @default(now())
+  lastSeenAt DateTime @updatedAt
+
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sentMessages   DirectMessage[]      @relation("MsgSenderDeviceKey")
+  envelopes      MessageKeyEnvelope[]
+
+  @@unique([userId, deviceId])
+  @@index([userId])
+}
+
+// Per-recipient-device wrapped copy of a message's random AES key. The server
+// stores only wrapped key material — it still cannot read message content.
+model MessageKeyEnvelope {
+  id                   String @id @default(cuid())
+  messageId            String
+  recipientDeviceKeyId String
+  wrappedKey           String // message AES key, ECDH-wrapped for this device (base64)
+  wrapIv               String // IV used for the wrap (base64)
+
+  message         DirectMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  recipientDevice UserDeviceKey @relation(fields: [recipientDeviceKeyId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, recipientDeviceKeyId])
+  @@index([recipientDeviceKeyId])
 }
 
 // ---------------------------------------------------------------------------

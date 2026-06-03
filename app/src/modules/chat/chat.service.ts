@@ -150,6 +150,10 @@ export async function sendMessage(opts: {
   senderId: string;
   ciphertext: string;
   iv: string;
+  // Multi-device E2E (optional, additive). When present, ciphertext is encrypted
+  // with a random per-message key wrapped per recipient device in `envelopes`.
+  senderDeviceKeyId?: string;
+  envelopes?: { recipientDeviceKeyId: string; wrappedKey: string; wrapIv: string }[];
 }) {
   // Verify caller is a participant
   const conversation = await prisma.conversation.findUnique({
@@ -166,17 +170,32 @@ export async function sendMessage(opts: {
       senderId:       opts.senderId,
       ciphertext:     opts.ciphertext,
       iv:             opts.iv,
+      ...(opts.senderDeviceKeyId ? { senderDeviceKeyId: opts.senderDeviceKeyId } : {}),
     },
     select: {
-      id:             true,
-      conversationId: true,
-      senderId:       true,
-      ciphertext:     true,
-      iv:             true,
-      createdAt:      true,
-      readAt:         true,
+      id:               true,
+      conversationId:   true,
+      senderId:         true,
+      ciphertext:       true,
+      iv:               true,
+      createdAt:        true,
+      readAt:           true,
+      senderDeviceKeyId: true,
     },
   });
+
+  // Store per-device key envelopes (E2E). Legacy messages send none.
+  if (opts.envelopes?.length) {
+    await prisma.messageKeyEnvelope.createMany({
+      data: opts.envelopes.map((e) => ({
+        messageId:            message.id,
+        recipientDeviceKeyId: e.recipientDeviceKeyId,
+        wrappedKey:           e.wrappedKey,
+        wrapIv:               e.wrapIv,
+      })),
+      skipDuplicates: true,
+    });
+  }
 
   // Update conversation timestamp
   await prisma.conversation.update({
@@ -192,7 +211,8 @@ export async function sendMessage(opts: {
 
   const io = getIo();
   if (io) {
-    io.to(`user:${recipientId}`).emit("chat.message", message);
+    // Include envelopes so the recipient can decrypt the live message without a refetch.
+    io.to(`user:${recipientId}`).emit("chat.message", { ...message, envelopes: opts.envelopes ?? [] });
   }
 
   return message;
@@ -211,6 +231,14 @@ export async function getMessages(opts: {
   if (conversation.participant1 !== opts.userId && conversation.participant2 !== opts.userId) {
     throw forbidden("Not a participant in this conversation");
   }
+
+  // The requester's device key ids — used to return only the envelopes wrapped
+  // for THIS user's devices (the client picks the one for its current device).
+  const myDeviceKeys = await prisma.userDeviceKey.findMany({
+    where:  { userId: opts.userId },
+    select: { id: true },
+  });
+  const myKeyIds = myDeviceKeys.map((d) => d.id);
 
   // Filter out messages the requester has "deleted for me" (still visible to
   // the other participant). Messages deleted "for everyone" are returned with
@@ -234,6 +262,12 @@ export async function getMessages(opts: {
       createdAt: true,
       readAt:    true,
       deletedAt: true,
+      senderDeviceKeyId: true,
+      // Only the envelopes addressed to this user's device(s) (empty for legacy).
+      envelopes: {
+        where:  { recipientDeviceKeyId: { in: myKeyIds } },
+        select: { recipientDeviceKeyId: true, wrappedKey: true, wrapIv: true },
+      },
     },
   });
 

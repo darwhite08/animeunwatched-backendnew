@@ -27,6 +27,18 @@ export const sendMessageSchema = z.object({
   body: z.object({
     ciphertext: z.string().min(1, "ciphertext is required"),
     iv: z.string().min(1, "iv is required"),
+    // Multi-device E2E (optional, additive).
+    senderDeviceKeyId: z.string().min(1).optional(),
+    envelopes: z
+      .array(
+        z.object({
+          recipientDeviceKeyId: z.string().min(1),
+          wrappedKey: z.string().min(1),
+          wrapIv: z.string().min(1),
+        }),
+      )
+      .max(50)
+      .optional(),
   }),
 });
 

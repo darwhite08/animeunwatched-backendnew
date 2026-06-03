@@ -51,6 +51,7 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   User: 'User',
   DeviceToken: 'DeviceToken',
+  NativePushToken: 'NativePushToken',
   RefreshToken: 'RefreshToken',
   PasswordResetToken: 'PasswordResetToken',
   SecurityEvent: 'SecurityEvent',
@@ -226,6 +227,18 @@ export const DeviceTokenScalarFieldEnum = {
 } as const
 
 export type DeviceTokenScalarFieldEnum = (typeof DeviceTokenScalarFieldEnum)[keyof typeof DeviceTokenScalarFieldEnum]
+
+
+export const NativePushTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type NativePushTokenScalarFieldEnum = (typeof NativePushTokenScalarFieldEnum)[keyof typeof NativePushTokenScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {

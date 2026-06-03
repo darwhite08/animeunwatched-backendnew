@@ -53,6 +53,11 @@ export type User = Prisma.UserModel
  */
 export type DeviceToken = Prisma.DeviceTokenModel
 /**
+ * Model NativePushToken
+ * 
+ */
+export type NativePushToken = Prisma.NativePushTokenModel
+/**
  * Model RefreshToken
  * 
  */

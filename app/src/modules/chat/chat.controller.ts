@@ -95,6 +95,8 @@ export async function sendMessage(req: Request, res: Response, next: NextFunctio
       senderId,
       ciphertext: body.ciphertext,
       iv:         body.iv,
+      senderDeviceKeyId: body.senderDeviceKeyId,
+      envelopes:         body.envelopes,
     });
     res.status(201).json({ message });
   } catch (err) {
