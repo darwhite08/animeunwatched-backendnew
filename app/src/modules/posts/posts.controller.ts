@@ -30,6 +30,17 @@ export async function getDiscover(
   }
 }
 
+export async function getTrending(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string | undefined = res.locals.user?.id;
+    const limit  = Math.min(50, Math.max(1, Number(req.query.limit) || 20));
+    const result = await service.getTrending(userId, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getPost(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string | undefined = res.locals.user?.id;

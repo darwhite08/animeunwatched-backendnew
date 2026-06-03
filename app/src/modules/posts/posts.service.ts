@@ -4,6 +4,7 @@ import { addReputation } from "../../lib/reputation";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { updateStreak } from "../../lib/streak";
 import { auditDelete } from "../../lib/audit";
+import { cache } from "../../lib/cache";
 import {
   broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
   broadcastAdminPostCreated, broadcastAdminPostDeleted,
@@ -105,6 +106,165 @@ export async function getDiscover(userId?: string, cursor?: string, limit = 20) 
   const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
 
   return { data, meta: { nextCursor } };
+}
+
+// ─── getTrending (algorithm-ranked feed) ─────────────────────────────────────
+//
+// Score per post:
+//
+//      (W_LIKE·likes + W_COMMENT·comments + 0.5) ^ ENGAGEMENT_EXP
+//   ────────────────────────────────────────────────────────────────
+//                  (age_hours + OFFSET_HOURS) ^ GRAVITY
+//
+// Hacker-News-style: sublinear engagement (so the first 10 likes matter more
+// than the next 100) divided by superlinear age decay (so every post is
+// guaranteed to fade). Comments outweigh likes 3× — effort-weighted, per X's
+// open-sourced HeavyRanker which prices a reply ~27× a favorite and
+// Instagram's emphasis on saves/comments over taps.
+//
+// Personalization (when userId present): 1.3× multiplier if the viewer
+// follows the author (X-style 50/50 in-network/out-of-network mix; we lean
+// in-network without dominating it).
+//
+// Diversity: post-ranking pass caps each author at MAX_PER_AUTHOR slots in
+// the final result, so one prolific poster can't carpet-bomb the feed.
+//
+// Base scores (no personalization) are cached for 60s and shared across
+// users — personalization is layered in-memory per request, so caching
+// works even though personalization differs per user.
+//
+// Tuning levers (most likely to want changing first):
+//   - GRAVITY: ↑ = newer wins more,    ↓ = old viral posts linger
+//   - W_COMMENT: how much a comment outweighs a like
+//   - FOLLOW_BOOST: how much in-network beats out-of-network
+//   - MAX_PER_AUTHOR: lower for more diversity, higher for hero accounts
+//
+// Inspired by: HN gravity formula, Reddit hot.py, Twitter/X open-sourced
+// algorithm (the-algorithm + the-algorithm-ml HeavyRanker weights),
+// Instagram four-signals (Mosseri 2023), TikTok Monolith.
+
+export const TRENDING_CONFIG = {
+  GRAVITY:             1.8,
+  ENGAGEMENT_EXPONENT: 0.8,
+  OFFSET_HOURS:        2.0,
+  W_LIKE:              1.0,
+  W_COMMENT:           3.0,
+  WINDOW_DAYS:         7,
+  FOLLOW_BOOST:        1.3,
+  MAX_PER_AUTHOR:      2,
+  CACHE_TTL_MS:        60_000,
+} as const
+
+type ScoredId = { id: string; authorId: string; baseScore: number }
+
+/** Apply per-author diversity cap to a score-sorted list. */
+export function applyDiversityCap(
+  scored: ScoredId[],
+  limit: number,
+  maxPerAuthor: number = TRENDING_CONFIG.MAX_PER_AUTHOR,
+): ScoredId[] {
+  const seen = new Map<string, number>()
+  const out: ScoredId[] = []
+  for (const s of scored) {
+    const n = seen.get(s.authorId) ?? 0
+    if (n < maxPerAuthor) {
+      out.push(s)
+      seen.set(s.authorId, n + 1)
+    }
+    if (out.length >= limit) break
+  }
+  return out
+}
+
+export async function getTrending(userId?: string, limit = 20) {
+  // Step 1: base scores — shared across all viewers, cached.
+  const baseCacheKey = `posts:trending:base:${limit}`
+  let scored = cache.get<ScoredId[]>(baseCacheKey)
+
+  if (!scored) {
+    // Over-fetch so the diversity + personalization passes still have
+    // headroom after the cap kicks in.
+    const overFetch = Math.max(limit * 4, 80)
+
+    const rows = await prisma.$queryRaw<Array<{
+      id: string; authorId: string; score: number
+    }>>`
+      SELECT
+        p.id,
+        p."authorId",
+        POWER(
+          GREATEST(
+            COUNT(DISTINCT pl."userId") * ${TRENDING_CONFIG.W_LIKE}::float +
+            COUNT(DISTINCT pc.id)       * ${TRENDING_CONFIG.W_COMMENT}::float,
+            0.0
+          ) + 0.5,
+          ${TRENDING_CONFIG.ENGAGEMENT_EXPONENT}::float
+        ) / POWER(
+          EXTRACT(EPOCH FROM (NOW() - p."createdAt")) / 3600.0
+            + ${TRENDING_CONFIG.OFFSET_HOURS}::float,
+          ${TRENDING_CONFIG.GRAVITY}::float
+        ) AS score
+      FROM "Post" p
+      LEFT JOIN "PostLike"    pl ON pl."postId" = p.id
+      LEFT JOIN "PostComment" pc ON pc."postId" = p.id
+      WHERE p."deletedAt" IS NULL
+        AND p."createdAt" > NOW()
+          - (${TRENDING_CONFIG.WINDOW_DAYS} || ' days')::interval
+      GROUP BY p.id, p."authorId"
+      ORDER BY score DESC
+      LIMIT ${overFetch}
+    `
+    scored = rows.map(r => ({
+      id:        r.id,
+      authorId:  r.authorId,
+      baseScore: Number(r.score),
+    }))
+    cache.set(baseCacheKey, scored, TRENDING_CONFIG.CACHE_TTL_MS)
+  }
+
+  // Step 2: personalize (in-network boost) if we know who's looking.
+  let personalized = scored
+  if (userId && scored.length > 0) {
+    const follows = await prisma.follow.findMany({
+      where:  { followerId: userId },
+      select: { followingId: true },
+    })
+    const followedSet = new Set(follows.map(f => f.followingId))
+    personalized = scored
+      .map(s => ({
+        ...s,
+        baseScore: s.baseScore
+          * (followedSet.has(s.authorId) ? TRENDING_CONFIG.FOLLOW_BOOST : 1.0),
+      }))
+      .sort((a, b) => b.baseScore - a.baseScore)
+  }
+
+  // Step 3: diversity cap.
+  const diversified = applyDiversityCap(personalized, limit)
+  if (diversified.length === 0) {
+    return { data: [], meta: { algorithm: "trending-v1", count: 0, personalized: !!userId } }
+  }
+
+  // Step 4: hydrate with full post shape, preserve ranked order.
+  const ids = diversified.map(d => d.id)
+  const posts = await prisma.post.findMany({
+    where:   { id: { in: ids } },
+    include: postInclude,
+  })
+  const byId = new Map(posts.map(p => [p.id, p]))
+  const ordered = ids
+    .map(id => byId.get(id))
+    .filter((p): p is NonNullable<typeof p> => !!p)
+  const data = await withLikeStatus(ordered, userId)
+
+  return {
+    data,
+    meta: {
+      algorithm:    "trending-v1",
+      count:        data.length,
+      personalized: !!userId,
+    },
+  }
 }
 
 // ─── getPost ──────────────────────────────────────────────────────────────────

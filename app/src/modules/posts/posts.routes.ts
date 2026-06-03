@@ -7,7 +7,8 @@ export const postsRouter = Router();
 
 // Specific named routes before dynamic /:id
 postsRouter.get("/discover", optionalAuth, ctrl.getDiscover);
-postsRouter.get("/feed", requireAuth, ctrl.getFeed);
+postsRouter.get("/trending", optionalAuth, ctrl.getTrending);
+postsRouter.get("/feed",     requireAuth,  ctrl.getFeed);
 
 // Threaded replies + comment likes (must be before /:id catch-all)
 postsRouter.get("/comments/:commentId/replies", optionalAuth, ctrl.getCommentReplies);
