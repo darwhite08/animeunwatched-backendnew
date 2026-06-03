@@ -113,6 +113,11 @@ export type ListEntry = Prisma.ListEntryModel
  */
 export type Post = Prisma.PostModel
 /**
+ * Model PostHide
+ * 
+ */
+export type PostHide = Prisma.PostHideModel
+/**
  * Model PostLike
  * 
  */

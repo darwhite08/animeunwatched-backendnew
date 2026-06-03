@@ -63,6 +63,7 @@ export const ModelName = {
   AnimeStudio: 'AnimeStudio',
   ListEntry: 'ListEntry',
   Post: 'Post',
+  PostHide: 'PostHide',
   PostLike: 'PostLike',
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
@@ -207,6 +208,7 @@ export const UserScalarFieldEnum = {
   isBanned: 'isBanned',
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',
+  isPrivate: 'isPrivate',
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',
@@ -284,6 +286,7 @@ export type SecurityEventScalarFieldEnum = (typeof SecurityEventScalarFieldEnum)
 export const FollowScalarFieldEnum = {
   followerId: 'followerId',
   followingId: 'followingId',
+  status: 'status',
   createdAt: 'createdAt'
 } as const
 
@@ -372,10 +375,21 @@ export const PostScalarFieldEnum = {
   imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  manualBoost: 'manualBoost',
+  shadowPenalty: 'shadowPenalty'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const PostHideScalarFieldEnum = {
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+} as const
+
+export type PostHideScalarFieldEnum = (typeof PostHideScalarFieldEnum)[keyof typeof PostHideScalarFieldEnum]
 
 
 export const PostLikeScalarFieldEnum = {

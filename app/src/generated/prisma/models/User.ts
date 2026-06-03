@@ -52,6 +52,7 @@ export type UserMinAggregateOutputType = {
   isBanned: boolean | null
   bannedReason: string | null
   isShadowBanned: boolean | null
+  isPrivate: boolean | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -73,6 +74,7 @@ export type UserMaxAggregateOutputType = {
   isBanned: boolean | null
   bannedReason: string | null
   isShadowBanned: boolean | null
+  isPrivate: boolean | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -94,6 +96,7 @@ export type UserCountAggregateOutputType = {
   isBanned: number
   bannedReason: number
   isShadowBanned: number
+  isPrivate: number
   streakDays: number
   lastActiveAt: number
   bestStreak: number
@@ -129,6 +132,7 @@ export type UserMinAggregateInputType = {
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
+  isPrivate?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -150,6 +154,7 @@ export type UserMaxAggregateInputType = {
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
+  isPrivate?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -171,6 +176,7 @@ export type UserCountAggregateInputType = {
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
+  isPrivate?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -279,6 +285,7 @@ export type UserGroupByOutputType = {
   isBanned: boolean
   bannedReason: string | null
   isShadowBanned: boolean
+  isPrivate: boolean
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
@@ -323,6 +330,7 @@ export type UserWhereInput = {
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolFilter<"User"> | boolean
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -336,6 +344,7 @@ export type UserWhereInput = {
   postLikes?: Prisma.PostLikeListRelationFilter
   postComments?: Prisma.PostCommentListRelationFilter
   postCommentLikes?: Prisma.PostCommentLikeListRelationFilter
+  postHides?: Prisma.PostHideListRelationFilter
   ownedClubs?: Prisma.ClubListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
@@ -381,6 +390,7 @@ export type UserOrderByWithRelationInput = {
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -394,6 +404,7 @@ export type UserOrderByWithRelationInput = {
   postLikes?: Prisma.PostLikeOrderByRelationAggregateInput
   postComments?: Prisma.PostCommentOrderByRelationAggregateInput
   postCommentLikes?: Prisma.PostCommentLikeOrderByRelationAggregateInput
+  postHides?: Prisma.PostHideOrderByRelationAggregateInput
   ownedClubs?: Prisma.ClubOrderByRelationAggregateInput
   clubMemberships?: Prisma.ClubMemberOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
@@ -442,6 +453,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolFilter<"User"> | boolean
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -455,6 +467,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   postLikes?: Prisma.PostLikeListRelationFilter
   postComments?: Prisma.PostCommentListRelationFilter
   postCommentLikes?: Prisma.PostCommentLikeListRelationFilter
+  postHides?: Prisma.PostHideListRelationFilter
   ownedClubs?: Prisma.ClubListRelationFilter
   clubMemberships?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
@@ -500,6 +513,7 @@ export type UserOrderByWithAggregationInput = {
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -529,6 +543,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -550,6 +565,7 @@ export type UserCreateInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -563,6 +579,7 @@ export type UserCreateInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -608,6 +625,7 @@ export type UserUncheckedCreateInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -621,6 +639,7 @@ export type UserUncheckedCreateInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -666,6 +685,7 @@ export type UserUpdateInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -679,6 +699,7 @@ export type UserUpdateInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -724,6 +745,7 @@ export type UserUncheckedUpdateInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -737,6 +759,7 @@ export type UserUncheckedUpdateInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -782,6 +805,7 @@ export type UserCreateManyInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -803,6 +827,7 @@ export type UserUpdateManyMutationInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -824,6 +849,7 @@ export type UserUncheckedUpdateManyInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -845,6 +871,7 @@ export type UserCountOrderByAggregateInput = {
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -872,6 +899,7 @@ export type UserMaxOrderByAggregateInput = {
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -893,6 +921,7 @@ export type UserMinOrderByAggregateInput = {
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1074,6 +1103,20 @@ export type UserUpdateOneRequiredWithoutPostsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutPostsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostsInput, Prisma.UserUpdateWithoutPostsInput>, Prisma.UserUncheckedUpdateWithoutPostsInput>
+}
+
+export type UserCreateNestedOneWithoutPostHidesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostHidesInput, Prisma.UserUncheckedCreateWithoutPostHidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostHidesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPostHidesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostHidesInput, Prisma.UserUncheckedCreateWithoutPostHidesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostHidesInput
+  upsert?: Prisma.UserUpsertWithoutPostHidesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostHidesInput, Prisma.UserUpdateWithoutPostHidesInput>, Prisma.UserUncheckedUpdateWithoutPostHidesInput>
 }
 
 export type UserCreateNestedOneWithoutPostLikesInput = {
@@ -1482,6 +1525,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1495,6 +1539,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -1539,6 +1584,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1552,6 +1598,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -1612,6 +1659,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1625,6 +1673,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -1669,6 +1718,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1682,6 +1732,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1726,6 +1777,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1739,6 +1791,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -1783,6 +1836,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1796,6 +1850,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -1856,6 +1911,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1869,6 +1925,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -1913,6 +1970,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1926,6 +1984,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1970,6 +2029,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1982,6 +2042,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -2027,6 +2088,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2039,6 +2101,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -2100,6 +2163,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2112,6 +2176,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -2157,6 +2222,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2169,6 +2235,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2214,6 +2281,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2227,6 +2295,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -2271,6 +2340,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2284,6 +2354,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -2344,6 +2415,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2357,6 +2429,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -2401,6 +2474,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2414,6 +2488,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2458,6 +2533,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2471,6 +2547,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -2515,6 +2592,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2528,6 +2606,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -2588,6 +2667,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2601,6 +2681,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -2645,6 +2726,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2658,6 +2740,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2702,6 +2785,7 @@ export type UserCreateWithoutFollowingInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2714,6 +2798,7 @@ export type UserCreateWithoutFollowingInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -2759,6 +2844,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2771,6 +2857,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -2821,6 +2908,7 @@ export type UserCreateWithoutFollowersInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2833,6 +2921,7 @@ export type UserCreateWithoutFollowersInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -2878,6 +2967,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2890,6 +2980,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -2951,6 +3042,7 @@ export type UserUpdateWithoutFollowingInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2963,6 +3055,7 @@ export type UserUpdateWithoutFollowingInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -3008,6 +3101,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3020,6 +3114,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3076,6 +3171,7 @@ export type UserUpdateWithoutFollowersInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3088,6 +3184,7 @@ export type UserUpdateWithoutFollowersInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -3133,6 +3230,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3145,6 +3243,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3190,6 +3289,7 @@ export type UserCreateWithoutListEntriesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3202,6 +3302,7 @@ export type UserCreateWithoutListEntriesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -3247,6 +3348,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3259,6 +3361,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -3320,6 +3423,7 @@ export type UserUpdateWithoutListEntriesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3332,6 +3436,7 @@ export type UserUpdateWithoutListEntriesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -3377,6 +3482,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3389,6 +3495,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3434,6 +3541,7 @@ export type UserCreateWithoutPostsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3446,6 +3554,7 @@ export type UserCreateWithoutPostsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -3491,6 +3600,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3503,6 +3613,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -3564,6 +3675,7 @@ export type UserUpdateWithoutPostsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3576,6 +3688,7 @@ export type UserUpdateWithoutPostsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -3621,6 +3734,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3630,6 +3744,259 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPostHidesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPostHidesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPostHidesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostHidesInput, Prisma.UserUncheckedCreateWithoutPostHidesInput>
+}
+
+export type UserUpsertWithoutPostHidesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPostHidesInput, Prisma.UserUncheckedUpdateWithoutPostHidesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostHidesInput, Prisma.UserUncheckedCreateWithoutPostHidesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPostHidesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPostHidesInput, Prisma.UserUncheckedUpdateWithoutPostHidesInput>
+}
+
+export type UserUpdateWithoutPostHidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPostHidesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -3678,6 +4045,7 @@ export type UserCreateWithoutPostLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3690,6 +4058,7 @@ export type UserCreateWithoutPostLikesInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -3735,6 +4104,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3747,6 +4117,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -3808,6 +4179,7 @@ export type UserUpdateWithoutPostLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3820,6 +4192,7 @@ export type UserUpdateWithoutPostLikesInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -3865,6 +4238,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3877,6 +4251,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3922,6 +4297,7 @@ export type UserCreateWithoutPostCommentsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3934,6 +4310,7 @@ export type UserCreateWithoutPostCommentsInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -3979,6 +4356,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3991,6 +4369,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -4052,6 +4431,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4064,6 +4444,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -4109,6 +4490,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4121,6 +4503,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4166,6 +4549,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4178,6 +4562,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -4223,6 +4608,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4235,6 +4621,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -4296,6 +4683,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4308,6 +4696,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -4353,6 +4742,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4365,6 +4755,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4410,6 +4801,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4423,6 +4815,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
@@ -4467,6 +4860,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4480,6 +4874,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
@@ -4540,6 +4935,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4553,6 +4949,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
@@ -4597,6 +4994,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4610,6 +5008,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4654,6 +5053,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4667,6 +5067,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
@@ -4711,6 +5112,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4724,6 +5126,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
@@ -4784,6 +5187,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4797,6 +5201,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
@@ -4841,6 +5246,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4854,6 +5260,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4898,6 +5305,7 @@ export type UserCreateWithoutThreadsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4911,6 +5319,7 @@ export type UserCreateWithoutThreadsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
@@ -4955,6 +5364,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4968,6 +5378,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
@@ -5028,6 +5439,7 @@ export type UserUpdateWithoutThreadsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5041,6 +5453,7 @@ export type UserUpdateWithoutThreadsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
@@ -5085,6 +5498,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5098,6 +5512,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5142,6 +5557,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5155,6 +5571,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -5199,6 +5616,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5212,6 +5630,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -5272,6 +5691,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5285,6 +5705,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -5329,6 +5750,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5342,6 +5764,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5386,6 +5809,7 @@ export type UserCreateWithoutReviewsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5399,6 +5823,7 @@ export type UserCreateWithoutReviewsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -5443,6 +5868,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5456,6 +5882,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -5516,6 +5943,7 @@ export type UserUpdateWithoutReviewsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5529,6 +5957,7 @@ export type UserUpdateWithoutReviewsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -5573,6 +6002,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5586,6 +6016,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5630,6 +6061,7 @@ export type UserCreateWithoutReviewLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5643,6 +6075,7 @@ export type UserCreateWithoutReviewLikesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -5687,6 +6120,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5700,6 +6134,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -5760,6 +6195,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5773,6 +6209,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -5817,6 +6254,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5830,6 +6268,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5874,6 +6313,7 @@ export type UserCreateWithoutBlogsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5887,6 +6327,7 @@ export type UserCreateWithoutBlogsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -5931,6 +6372,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5944,6 +6386,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -6004,6 +6447,7 @@ export type UserUpdateWithoutBlogsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6017,6 +6461,7 @@ export type UserUpdateWithoutBlogsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -6061,6 +6506,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6074,6 +6520,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6118,6 +6565,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6131,6 +6579,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -6175,6 +6624,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6188,6 +6638,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -6248,6 +6699,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6261,6 +6713,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -6305,6 +6758,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6318,6 +6772,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6362,6 +6817,7 @@ export type UserCreateWithoutNotificationsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6375,6 +6831,7 @@ export type UserCreateWithoutNotificationsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -6419,6 +6876,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6432,6 +6890,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -6492,6 +6951,7 @@ export type UserUpdateWithoutNotificationsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6505,6 +6965,7 @@ export type UserUpdateWithoutNotificationsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -6549,6 +7010,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6562,6 +7024,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6606,6 +7069,7 @@ export type UserCreateWithoutReportsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6619,6 +7083,7 @@ export type UserCreateWithoutReportsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -6663,6 +7128,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6676,6 +7142,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -6736,6 +7203,7 @@ export type UserUpdateWithoutReportsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6749,6 +7217,7 @@ export type UserUpdateWithoutReportsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -6793,6 +7262,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6806,6 +7276,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6850,6 +7321,7 @@ export type UserCreateWithoutModerationActionsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6863,6 +7335,7 @@ export type UserCreateWithoutModerationActionsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -6907,6 +7380,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6920,6 +7394,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -6980,6 +7455,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6993,6 +7469,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -7037,6 +7514,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7050,6 +7528,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7094,6 +7573,7 @@ export type UserCreateWithoutPollsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7107,6 +7587,7 @@ export type UserCreateWithoutPollsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -7151,6 +7632,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7164,6 +7646,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -7224,6 +7707,7 @@ export type UserUpdateWithoutPollsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7237,6 +7721,7 @@ export type UserUpdateWithoutPollsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -7281,6 +7766,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7294,6 +7780,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7338,6 +7825,7 @@ export type UserCreateWithoutPollVotesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7351,6 +7839,7 @@ export type UserCreateWithoutPollVotesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -7395,6 +7884,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7408,6 +7898,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -7468,6 +7959,7 @@ export type UserUpdateWithoutPollVotesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7481,6 +7973,7 @@ export type UserUpdateWithoutPollVotesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -7525,6 +8018,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7538,6 +8032,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7582,6 +8077,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7595,6 +8091,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -7639,6 +8136,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7652,6 +8150,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -7712,6 +8211,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7725,6 +8225,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -7769,6 +8270,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7782,6 +8284,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7826,6 +8329,7 @@ export type UserCreateWithoutPublicKeyInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7839,6 +8343,7 @@ export type UserCreateWithoutPublicKeyInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -7883,6 +8388,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7896,6 +8402,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -7956,6 +8463,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7969,6 +8477,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -8013,6 +8522,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8026,6 +8536,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8070,6 +8581,7 @@ export type UserCreateWithoutConversations1Input = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8083,6 +8595,7 @@ export type UserCreateWithoutConversations1Input = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -8127,6 +8640,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8140,6 +8654,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -8189,6 +8704,7 @@ export type UserCreateWithoutConversations2Input = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8202,6 +8718,7 @@ export type UserCreateWithoutConversations2Input = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -8246,6 +8763,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8259,6 +8777,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -8319,6 +8838,7 @@ export type UserUpdateWithoutConversations1Input = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8332,6 +8852,7 @@ export type UserUpdateWithoutConversations1Input = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -8376,6 +8897,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8389,6 +8911,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8444,6 +8967,7 @@ export type UserUpdateWithoutConversations2Input = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8457,6 +8981,7 @@ export type UserUpdateWithoutConversations2Input = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -8501,6 +9026,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8514,6 +9040,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8558,6 +9085,7 @@ export type UserCreateWithoutSentMessagesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8571,6 +9099,7 @@ export type UserCreateWithoutSentMessagesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -8615,6 +9144,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8628,6 +9158,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -8688,6 +9219,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8701,6 +9233,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -8745,6 +9278,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8758,6 +9292,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8802,6 +9337,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8815,6 +9351,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -8859,6 +9396,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8872,6 +9410,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -8932,6 +9471,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8945,6 +9485,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -8989,6 +9530,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9002,6 +9544,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9046,6 +9589,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9059,6 +9603,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -9103,6 +9648,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9116,6 +9662,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -9176,6 +9723,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9189,6 +9737,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -9233,6 +9782,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9246,6 +9796,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9290,6 +9841,7 @@ export type UserCreateWithoutActivitiesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9303,6 +9855,7 @@ export type UserCreateWithoutActivitiesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -9347,6 +9900,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9360,6 +9914,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -9420,6 +9975,7 @@ export type UserUpdateWithoutActivitiesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9433,6 +9989,7 @@ export type UserUpdateWithoutActivitiesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -9477,6 +10034,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9490,6 +10048,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9534,6 +10093,7 @@ export type UserCreateWithoutActivityLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9547,6 +10107,7 @@ export type UserCreateWithoutActivityLikesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -9591,6 +10152,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9604,6 +10166,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -9664,6 +10227,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9677,6 +10241,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -9721,6 +10286,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9734,6 +10300,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9778,6 +10345,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9791,6 +10359,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -9835,6 +10404,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9848,6 +10418,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -9908,6 +10479,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9921,6 +10493,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -9965,6 +10538,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9978,6 +10552,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10022,6 +10597,7 @@ export type UserCreateWithoutRepliesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10035,6 +10611,7 @@ export type UserCreateWithoutRepliesInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -10079,6 +10656,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10092,6 +10670,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -10152,6 +10731,7 @@ export type UserUpdateWithoutRepliesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10165,6 +10745,7 @@ export type UserUpdateWithoutRepliesInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -10209,6 +10790,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10222,6 +10804,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10266,6 +10849,7 @@ export type UserCreateWithoutScimSubjectInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10279,6 +10863,7 @@ export type UserCreateWithoutScimSubjectInput = {
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
@@ -10323,6 +10908,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10336,6 +10922,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
   ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
@@ -10396,6 +10983,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10409,6 +10997,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
@@ -10453,6 +11042,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10466,6 +11056,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10510,6 +11101,7 @@ export type UserCountOutputType = {
   postLikes: number
   postComments: number
   postCommentLikes: number
+  postHides: number
   ownedClubs: number
   clubMemberships: number
   threads: number
@@ -10548,6 +11140,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   postLikes?: boolean | UserCountOutputTypeCountPostLikesArgs
   postComments?: boolean | UserCountOutputTypeCountPostCommentsArgs
   postCommentLikes?: boolean | UserCountOutputTypeCountPostCommentLikesArgs
+  postHides?: boolean | UserCountOutputTypeCountPostHidesArgs
   ownedClubs?: boolean | UserCountOutputTypeCountOwnedClubsArgs
   clubMemberships?: boolean | UserCountOutputTypeCountClubMembershipsArgs
   threads?: boolean | UserCountOutputTypeCountThreadsArgs
@@ -10641,6 +11234,13 @@ export type UserCountOutputTypeCountPostCommentsArgs<ExtArgs extends runtime.Typ
  */
 export type UserCountOutputTypeCountPostCommentLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PostCommentLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPostHidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostHideWhereInput
 }
 
 /**
@@ -10847,6 +11447,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -10860,6 +11461,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   postLikes?: boolean | Prisma.User$postLikesArgs<ExtArgs>
   postComments?: boolean | Prisma.User$postCommentsArgs<ExtArgs>
   postCommentLikes?: boolean | Prisma.User$postCommentLikesArgs<ExtArgs>
+  postHides?: boolean | Prisma.User$postHidesArgs<ExtArgs>
   ownedClubs?: boolean | Prisma.User$ownedClubsArgs<ExtArgs>
   clubMemberships?: boolean | Prisma.User$clubMembershipsArgs<ExtArgs>
   threads?: boolean | Prisma.User$threadsArgs<ExtArgs>
@@ -10906,6 +11508,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -10927,6 +11530,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -10948,6 +11552,7 @@ export type UserSelectScalar = {
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
+  isPrivate?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -10955,7 +11560,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -10965,6 +11570,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   postLikes?: boolean | Prisma.User$postLikesArgs<ExtArgs>
   postComments?: boolean | Prisma.User$postCommentsArgs<ExtArgs>
   postCommentLikes?: boolean | Prisma.User$postCommentLikesArgs<ExtArgs>
+  postHides?: boolean | Prisma.User$postHidesArgs<ExtArgs>
   ownedClubs?: boolean | Prisma.User$ownedClubsArgs<ExtArgs>
   clubMemberships?: boolean | Prisma.User$clubMembershipsArgs<ExtArgs>
   threads?: boolean | Prisma.User$threadsArgs<ExtArgs>
@@ -11010,6 +11616,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     postLikes: Prisma.$PostLikePayload<ExtArgs>[]
     postComments: Prisma.$PostCommentPayload<ExtArgs>[]
     postCommentLikes: Prisma.$PostCommentLikePayload<ExtArgs>[]
+    postHides: Prisma.$PostHidePayload<ExtArgs>[]
     ownedClubs: Prisma.$ClubPayload<ExtArgs>[]
     clubMemberships: Prisma.$ClubMemberPayload<ExtArgs>[]
     threads: Prisma.$ThreadPayload<ExtArgs>[]
@@ -11059,6 +11666,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isBanned: boolean
     bannedReason: string | null
     isShadowBanned: boolean
+    isPrivate: boolean
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
@@ -11466,6 +12074,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   postLikes<T extends Prisma.User$postLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   postComments<T extends Prisma.User$postCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   postCommentLikes<T extends Prisma.User$postCommentLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postCommentLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostCommentLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  postHides<T extends Prisma.User$postHidesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postHidesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostHidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedClubs<T extends Prisma.User$ownedClubsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedClubsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubMemberships<T extends Prisma.User$clubMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threads<T extends Prisma.User$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11537,6 +12146,7 @@ export interface UserFieldRefs {
   readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
   readonly bannedReason: Prisma.FieldRef<"User", 'String'>
   readonly isShadowBanned: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isPrivate: Prisma.FieldRef<"User", 'Boolean'>
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>
@@ -12119,6 +12729,30 @@ export type User$postCommentLikesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.PostCommentLikeScalarFieldEnum | Prisma.PostCommentLikeScalarFieldEnum[]
+}
+
+/**
+ * User.postHides
+ */
+export type User$postHidesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostHide
+   */
+  select?: Prisma.PostHideSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostHide
+   */
+  omit?: Prisma.PostHideOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostHideInclude<ExtArgs> | null
+  where?: Prisma.PostHideWhereInput
+  orderBy?: Prisma.PostHideOrderByWithRelationInput | Prisma.PostHideOrderByWithRelationInput[]
+  cursor?: Prisma.PostHideWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostHideScalarFieldEnum | Prisma.PostHideScalarFieldEnum[]
 }
 
 /**

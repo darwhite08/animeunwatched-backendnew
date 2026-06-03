@@ -47,6 +47,14 @@ export const ReportStatus = {
 export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
 
 
+export const FollowStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED'
+} as const
+
+export type FollowStatus = (typeof FollowStatus)[keyof typeof FollowStatus]
+
+
 export const ActivityKind = {
   TEXT: 'TEXT',
   LIST_UPDATE: 'LIST_UPDATE',
