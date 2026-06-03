@@ -134,6 +134,88 @@ export async function patchIncident(req: Request, res: Response, next: NextFunct
   } catch (err) { next(err) }
 }
 
+/**
+ * Create an incident pre-filled from an unacked AdminAlert. Speeds up the
+ * "we got paged, declare it" path so the on-call doesn't retype severity
+ * + category + title.
+ *
+ * Severity mapping: alert.severity "critical" → sev2 (caller can bump to
+ * sev1 in the open-update). Acks the alert in the same transaction so the
+ * inbox count drops.
+ */
+export async function declareFromAlert(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string
+    const alertId = req.params.alertId as string
+    const alert = await prisma.adminAlert.findUnique({ where: { id: alertId } })
+    if (!alert) throw notFound("Alert not found")
+
+    const sev = alert.severity === "critical" ? "sev2" : alert.severity === "warning" ? "sev3" : "sev4"
+    const inc = await prisma.incident.create({
+      data: {
+        title:    alert.title.replace(/^\[?[A-Z]+\]?:?\s*/, "").slice(0, 200) || alert.title,
+        severity: sev,
+        category: alert.category,
+        impactedAreas: [] as never,
+        detectedAt: alert.createdAt,
+        openedBy:   actorId,
+      },
+    })
+    await prisma.incidentUpdate.create({
+      data: { incidentId: inc.id, status: "open", message: `Incident declared from alert "${alert.title}"`, authorId: actorId },
+    })
+    if (!alert.acknowledgedAt) {
+      await prisma.adminAlert.update({ where: { id: alertId }, data: { acknowledgedAt: new Date(), acknowledgedBy: actorId } })
+    }
+    await adminAuditR(req, res, {
+      action: "incident.declare_from_alert", targetType: "Incident", targetId: inc.id,
+      metadata: { alertId, severity: sev, category: alert.category },
+    })
+    res.status(200).json({ incident: inc })
+  } catch (err) { next(err) }
+}
+
+/**
+ * Resolve-time recap: total duration, # of updates, related alerts during
+ * the window, mean response from open to first update (rough MTTA).
+ */
+export async function getIncidentRecap(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const id = req.params.id as string
+    const inc = await prisma.incident.findUnique({
+      where: { id },
+      include: { updates: { orderBy: { createdAt: "asc" } } },
+    })
+    if (!inc) throw notFound("Incident not found")
+
+    const closedAt   = inc.resolvedAt ?? new Date()
+    const totalMs    = closedAt.getTime() - inc.startedAt.getTime()
+    const firstUpdate = inc.updates.find(u => u.message !== "Incident opened.")
+    const mttaMs     = firstUpdate ? firstUpdate.createdAt.getTime() - inc.startedAt.getTime() : null
+    const alertsInWindow = await prisma.adminAlert.count({
+      where: { createdAt: { gte: inc.startedAt, lte: closedAt } },
+    })
+
+    res.status(200).json({
+      durationMs:    totalMs,
+      durationHuman: humanizeDuration(totalMs),
+      mttaMs:        mttaMs,
+      mttaHuman:     mttaMs !== null ? humanizeDuration(mttaMs) : null,
+      updateCount:   inc.updates.length,
+      alertsInWindow,
+      hasPostmortem: !!inc.postmortem,
+      hasRootCause:  !!inc.rootCause,
+    })
+  } catch (err) { next(err) }
+}
+
+function humanizeDuration(ms: number): string {
+  if (ms < 60_000)         return `${Math.round(ms / 1000)}s`
+  if (ms < 60 * 60_000)    return `${Math.round(ms / 60_000)}m`
+  if (ms < 24 * 60 * 60_000) return `${(ms / (60 * 60_000)).toFixed(1)}h`
+  return `${(ms / (24 * 60 * 60_000)).toFixed(1)}d`
+}
+
 /** Bulk-resolve several incidents (sev3/sev4 cleanup, scheduled post-mortems). */
 export async function bulkResolve(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

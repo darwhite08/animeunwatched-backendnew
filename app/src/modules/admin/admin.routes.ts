@@ -66,6 +66,7 @@ import * as inbox        from "./inbox.controller";
 import * as savedSrch    from "./savedSearches.controller";
 import * as integ        from "./integrations.controller";
 import * as triage       from "./triage.controller";
+import * as flagsExtras  from "./flagsExtras.controller";
 
 export const adminRouter = Router();
 
@@ -146,6 +147,9 @@ adminRouter.get(   "/flags/:flagId/overrides",        requirePermission("flags",
 adminRouter.post(  "/flags/:flagId/overrides",        requirePermission("flags","write"),           flags.createOverride);
 adminRouter.delete("/flags/overrides/:overrideId",    requirePermission("flags","write"),           flags.deleteOverride);
 adminRouter.get(   "/flags/evaluate/:key",            requirePermission("flags","read"),            flags.evaluateFlag);
+adminRouter.get(   "/flags/:flagId/impact",           requirePermission("flags","read"),            flagsExtras.getFlagImpact);
+adminRouter.get(   "/flags/:flagId/audit",            requirePermission("flags","read"),            flagsExtras.getFlagAudit);
+adminRouter.post(  "/flags/:flagId/rollout",          requirePermission("flags","write"),           flagsExtras.setRolloutPercent);
 
 // Entitlements
 adminRouter.get(   "/entitlements",                   requirePermission("entitlements","read"),  ents.listEntitlements);
