@@ -25,36 +25,56 @@ import { activitiesRouter } from "./modules/activities/activities.routes";
 import { oauthRouter } from "./modules/oauth/oauth.routes";
 import { changelogRouter } from "./modules/changelog/changelog.routes";
 import { ticketsRouter } from "./modules/tickets/tickets.routes";
+import { clubThreadsRouter } from "./modules/threads/threads.routes";
+
+/**
+ * Source of truth for what's mounted under /api/v1. Single array consumed
+ * by both the real router (so Express knows what to serve) and the
+ * OpenAPI builder (so the spec stays in sync with the routes by
+ * construction — no manual maintenance).
+ *
+ * Adding a new top-level resource? Append one tuple here.
+ */
+export const ROUTE_MOUNTS = [
+  ["/auth",                            authRouter],
+  ["/anime",                           animeRouter],
+  ["/anime/:animeId/reviews",          reviewsAnimeRouter],
+  ["/anime/:malId/threads",            animeThreadsRouter],
+  ["/users",                           usersRouter],
+  ["/lists",                           listsRouter],
+  ["/posts",                           postsRouter],
+  ["/activities",                      activitiesRouter],
+  ["/notifications",                   notificationsRouter],
+  ["/reviews",                         reviewsRouter],
+  ["/blogs",                           blogsRouter],
+  ["/search",                          searchRouter],
+  ["/clubs",                           clubsRouter],
+  ["/clubs/:slug/threads",             clubThreadsRouter],   // nested mount on clubsRouter
+  ["/threads",                         threadsRouter],
+  ["/admin",                           adminRouter],
+  ["/creator",                         creatorRouter],
+  ["/polls",                           pollsRouter],
+  ["/analytics",                       analyticsRouter],
+  ["/webhooks",                        webhooksRouter],
+  ["/chat",                            chatRouter],
+  ["/push",                            pushRouter],
+  ["/uploads",                         uploadsRouter],
+  ["/discovery",                       discoveryRouter],
+  ["/ai",                              aiRouter],
+  ["/version",                         versionRouter],
+  ["/oauth",                           oauthRouter],
+  ["/changelog",                       changelogRouter],
+  ["/tickets",                         ticketsRouter],
+] as const;
 
 const router = Router();
 
-router.use("/auth", authRouter);
-router.use("/anime", animeRouter);
-router.use("/anime/:animeId/reviews", reviewsAnimeRouter);   // GET /anime/:animeId/reviews
-router.use("/anime/:malId/threads", animeThreadsRouter); // POST /anime/:malId/threads
-router.use("/users", usersRouter);
-router.use("/lists", listsRouter);
-router.use("/posts", postsRouter);
-router.use("/activities", activitiesRouter);
-router.use("/notifications", notificationsRouter);
-router.use("/reviews", reviewsRouter);
-router.use("/blogs", blogsRouter);
-router.use("/search", searchRouter);
-router.use("/clubs", clubsRouter);
-router.use("/threads", threadsRouter);
-router.use("/admin", adminRouter);
-router.use("/creator", creatorRouter);
-router.use("/polls", pollsRouter);
-router.use("/analytics", analyticsRouter);
-router.use("/webhooks", webhooksRouter);
-router.use("/chat",     chatRouter);
-router.use("/push", pushRouter);
-router.use("/uploads", uploadsRouter);
-router.use("/discovery", discoveryRouter);
-router.use("/ai", aiRouter);
-router.use("/version", versionRouter);
-router.use("/oauth", oauthRouter);
-router.use("/changelog", changelogRouter);
-router.use("/tickets", ticketsRouter);
+// Mount everything from the canonical list. ROUTE_MOUNTS lists the nested
+// clubsThreadsRouter — but clubs.routes already mounts it internally, so
+// we skip the duplicate at the top level here.
+for (const [prefix, sub] of ROUTE_MOUNTS) {
+  if (prefix === "/clubs/:slug/threads") continue;
+  router.use(prefix, sub);
+}
 
 export default router;

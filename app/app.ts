@@ -233,6 +233,45 @@ app.get("/api/v1/health/detailed", async (_req, res) => {
 // OpenAPI spec
 app.get("/api/v1/openapi.json", (_req, res) => res.json(spec));
 
+// Swagger UI — interactive API explorer. Loads the swagger-ui-dist bundle
+// from a CDN so we don't add a build-time dep. Points at our live spec.
+// Both `/docs` and `/api/v1/docs` work; the former is the canonical URL.
+app.get(["/docs", "/api/v1/docs"], (_req, res) => {
+  res.type("html").send(`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kaiveron API — Reference</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui.css" />
+  <style>
+    body { margin: 0; background: #0c0c10; }
+    .topbar { display: none !important; }
+    .swagger-ui .info .title small.version-stamp { display: none; }
+  </style>
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui-bundle.js" crossorigin></script>
+  <script>
+    window.addEventListener("load", () => {
+      window.ui = SwaggerUIBundle({
+        url: "/api/v1/openapi.json",
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        defaultModelsExpandDepth: 0,
+        docExpansion: "list",
+        filter: true,
+        tryItOutEnabled: true,
+        persistAuthorization: true,
+      })
+    })
+  </script>
+</body>
+</html>`)
+})
+
 // Sitemap
 app.get("/sitemap.xml", async (_req, res) => {
   const anime = await prisma.anime.findMany({ select: { malId: true }, take: 500 });
