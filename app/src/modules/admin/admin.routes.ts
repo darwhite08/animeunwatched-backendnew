@@ -65,6 +65,7 @@ import * as platformH    from "./platformHealth.controller";
 import * as inbox        from "./inbox.controller";
 import * as savedSrch    from "./savedSearches.controller";
 import * as integ        from "./integrations.controller";
+import * as triage       from "./triage.controller";
 
 export const adminRouter = Router();
 
@@ -87,6 +88,7 @@ adminRouter.get("/metrics/system",     ctrl.getSystemMetrics);
 adminRouter.get("/users",                  requirePermission("users","read"),  ctrl.listUsers);
 adminRouter.get("/users/recent",           requirePermission("users","read"),  ctrl.getRecentUsers);
 adminRouter.get("/users/:userId",          requirePermission("users","read"),  ctrl.getUserDetail);
+adminRouter.get("/users/:userId/triage",   requirePermission("users","read"),  triage.getUserTriage);
 
 // Users — mutations
 adminRouter.patch( "/users/:userId",                  requirePermission("users","update"),           users.patchUser);

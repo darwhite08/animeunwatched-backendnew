@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./admin.service";
 import { badRequest } from "../../lib/errors";
+import { prisma } from "../../config/prisma";
 import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
 import { getGA4Realtime, isGA4Configured } from "../../lib/ga4";
 
@@ -74,6 +75,30 @@ export async function banUser(req: Request, res: Response, next: NextFunction): 
     const actorId = res.locals.user?.id as string
     const reason  = typeof req.body?.reason === "string" ? req.body.reason : null
     const result  = await service.setUserBan({ actorId, userId, banned: true, reason })
+
+    // If the caller provided evidence (anomalyId / ipAddress / similarUserIds /
+    // freeText), pin it as a user note so future admins see what triggered the
+    // ban without re-running the investigation.
+    const evidence = req.body?.evidence
+    if (evidence && typeof evidence === "object") {
+      const noteLines = [
+        `Ban reason: ${reason ?? "(no reason)"}`,
+        ...(evidence.anomalyId       ? [`Anomaly: ${evidence.anomalyId}`]                             : []),
+        ...(evidence.ipAddress       ? [`Source IP: ${evidence.ipAddress}`]                           : []),
+        ...(Array.isArray(evidence.similarUserIds) && evidence.similarUserIds.length > 0
+                                     ? [`Linked accounts: ${(evidence.similarUserIds as string[]).join(", ")}`] : []),
+        ...(evidence.freeText        ? [`Notes: ${evidence.freeText}`]                                : []),
+      ]
+      await prisma.userNote.create({
+        data: {
+          userId, authorId: actorId,
+          body:    noteLines.join("\n"),
+          pinned:  true,
+          category: "safety",
+        },
+      }).catch((err) => console.error("[ban:evidence-note] failed:", err))
+    }
+
     res.status(200).json(result)
   } catch (err) { next(err) }
 }
