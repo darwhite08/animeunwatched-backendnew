@@ -37,6 +37,26 @@ export async function registerDevice(opts: {
   return { device: created };
 }
 
+// ─── Native (Capacitor FCM/APNs) tokens ─────────────────────────────────────────
+export async function registerNativeToken(opts: {
+  userId: string;
+  token: string;
+  platform: "ios" | "android";
+}) {
+  // Token is unique across users — transfer to the latest owner (shared device).
+  const device = await prisma.nativePushToken.upsert({
+    where:  { token: opts.token },
+    create: { userId: opts.userId, token: opts.token, platform: opts.platform },
+    update: { userId: opts.userId, platform: opts.platform, lastSeenAt: new Date() },
+  });
+  return { device };
+}
+
+export async function unregisterNativeToken(opts: { userId: string; token: string }) {
+  await prisma.nativePushToken.deleteMany({ where: { token: opts.token, userId: opts.userId } });
+  return { ok: true };
+}
+
 export async function unregisterDevice(opts: { userId: string; expoToken: string }) {
   // Only allow deletion of tokens owned by this user — silently no-op otherwise
   // so we don't reveal whether a token exists for another account.
