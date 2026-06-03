@@ -112,3 +112,24 @@ export async function ackAlert(req: Request, res: Response, next: NextFunction):
     res.status(200).json({ ok: true });
   } catch (err) { next(err); }
 }
+
+export async function bulkAckAlerts(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string;
+    const { alertIds } = req.body as { alertIds?: unknown };
+    if (!Array.isArray(alertIds) || alertIds.length === 0) {
+      res.status(400).json({ error: { code: "BAD_REQUEST", message: "alertIds[] required" } }); return;
+    }
+    const ids = alertIds.map(String).slice(0, 200);
+    const r = await prisma.adminAlert.updateMany({
+      where: { id: { in: ids }, acknowledgedAt: null },
+      data:  { acknowledgedAt: new Date(), acknowledgedBy: actorId },
+    });
+    await adminAuditR(req, res, {
+      action: "alert.bulk_ack", targetType: "AdminAlert",
+      metadata: { requested: ids.length, acknowledged: r.count },
+    });
+    for (const id of ids) broadcastAdminAlertAcked(id, actorId);
+    res.status(200).json({ acknowledged: r.count });
+  } catch (err) { next(err); }
+}

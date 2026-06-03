@@ -63,6 +63,8 @@ import * as exportsCtrl  from "./exports.controller";
 import * as notifyCh     from "./notifyChannels.controller";
 import * as platformH    from "./platformHealth.controller";
 import * as inbox        from "./inbox.controller";
+import * as savedSrch    from "./savedSearches.controller";
+import * as integ        from "./integrations.controller";
 
 export const adminRouter = Router();
 
@@ -209,6 +211,7 @@ adminRouter.patch( "/notification-templates/:id",     requirePermission("setting
 adminRouter.delete("/notification-templates/:id",     requirePermission("settings","write"), templates.deleteTemplate);
 adminRouter.get(   "/alerts",                         requirePermission("settings","read"),  templates.listAdminAlerts);
 adminRouter.post(  "/alerts/:id/ack",                 requirePermission("settings","write"), templates.ackAlert);
+adminRouter.post(  "/alerts/bulk-ack",                requirePermission("settings","write"), templates.bulkAckAlerts);
 
 // M15 — admin team
 adminRouter.get(   "/admin-team",                     requirePermission("roles","read"),    adminTeam.listAdminTeam);
@@ -291,6 +294,7 @@ adminRouter.get(   "/incidents/:id",                   requirePermission("settin
 adminRouter.post(  "/incidents",                       requirePermission("settings","write"), incidents.createIncident);
 adminRouter.patch( "/incidents/:id",                   requirePermission("settings","write"), incidents.patchIncident);
 adminRouter.post(  "/incidents/:id/updates",           requirePermission("settings","write"), incidents.appendUpdate);
+adminRouter.post(  "/incidents/bulk-resolve",          requirePermission("settings","write"), incidents.bulkResolve);
 
 // Maintenance windows
 adminRouter.get(   "/maintenance",                     requirePermission("settings","read"),  maint.listMaintenance);
@@ -322,6 +326,7 @@ adminRouter.get(   "/pii/export/ropa",                 requirePermission("securi
 adminRouter.get(   "/approvals",                       requirePermission("audit","read"),  approvals.listApprovals);
 adminRouter.get(   "/approvals/:id",                   requirePermission("audit","read"),  approvals.getApproval);
 adminRouter.post(  "/approvals/:id/review",            requirePermission("audit","read"),  approvals.reviewApproval);
+adminRouter.post(  "/approvals/bulk-reject",           requirePermission("audit","read"),  approvals.bulkReject);
 
 // OAuth 2.0 client registry
 adminRouter.get(   "/oauth/clients",                       requirePermission("api_keys","read"),         oauthClients.listClients);
@@ -502,4 +507,17 @@ adminRouter.get(   "/platform-health/overview",        requirePermission("settin
 
 // Admin activity inbox
 adminRouter.get(   "/inbox",                           requirePermission("settings","read"),  inbox.getInbox);
+
+// Saved searches per resource
+adminRouter.get(   "/saved-searches/:resource",        requirePermission("settings","read"),  savedSrch.listForResource);
+adminRouter.post(  "/saved-searches",                  requirePermission("settings","read"),  savedSrch.createSearch);
+adminRouter.delete("/saved-searches/:id",              requirePermission("settings","read"),  savedSrch.deleteSearch);
+
+// Vendor integration framework (Datadog/Zendesk/Slack/Linear/Stripe Connect)
+adminRouter.get(   "/integrations/providers",          requirePermission("settings","read"),  integ.listProviders);
+adminRouter.get(   "/integrations",                    requirePermission("settings","read"),  integ.listIntegrations);
+adminRouter.post(  "/integrations",                    requirePermissionWithStepUp("settings","write"), integ.createIntegration);
+adminRouter.patch( "/integrations/:id",                requirePermission("settings","write"), integ.updateIntegration);
+adminRouter.delete("/integrations/:id",                requirePermissionWithStepUp("settings","write"), integ.deleteIntegration);
+adminRouter.post(  "/integrations/:provider/sync",     requirePermission("settings","write"), integ.syncProvider);
 

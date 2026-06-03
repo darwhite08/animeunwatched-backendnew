@@ -418,6 +418,16 @@ export type ScimSubject = Prisma.ScimSubjectModel
  */
 export type SamlConfig = Prisma.SamlConfigModel
 /**
+ * Model SavedSearch
+ * 
+ */
+export type SavedSearch = Prisma.SavedSearchModel
+/**
+ * Model Integration
+ * 
+ */
+export type Integration = Prisma.IntegrationModel
+/**
  * Model Dashboard
  * 
  */

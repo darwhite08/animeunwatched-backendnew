@@ -133,3 +133,21 @@ export async function patchIncident(req: Request, res: Response, next: NextFunct
     res.status(200).json({ incident: updated })
   } catch (err) { next(err) }
 }
+
+/** Bulk-resolve several incidents (sev3/sev4 cleanup, scheduled post-mortems). */
+export async function bulkResolve(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { incidentIds, postmortem } = req.body as { incidentIds?: unknown; postmortem?: string }
+    if (!Array.isArray(incidentIds) || incidentIds.length === 0) throw badRequest("incidentIds[] required")
+    const ids = incidentIds.map(String).slice(0, 50)
+    const r = await prisma.incident.updateMany({
+      where: { id: { in: ids }, status: { not: "resolved" } },
+      data:  { status: "resolved", resolvedAt: new Date(), ...(typeof postmortem === "string" ? { postmortem } : {}) },
+    })
+    await adminAuditR(req, res, {
+      action: "incident.bulk_resolve", targetType: "Incident",
+      metadata: { resolved: r.count, requested: ids.length },
+    })
+    res.status(200).json({ resolved: r.count })
+  } catch (err) { next(err) }
+}

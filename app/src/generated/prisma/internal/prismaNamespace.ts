@@ -470,6 +470,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  SavedSearch: 'SavedSearch',
+  Integration: 'Integration',
   Dashboard: 'Dashboard',
   DashboardWidget: 'DashboardWidget',
   ExportJob: 'ExportJob',
@@ -525,7 +527,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6449,6 +6451,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SavedSearch: {
+      payload: Prisma.$SavedSearchPayload<ExtArgs>
+      fields: Prisma.SavedSearchFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SavedSearchFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SavedSearchFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        findFirst: {
+          args: Prisma.SavedSearchFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SavedSearchFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        findMany: {
+          args: Prisma.SavedSearchFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+        }
+        create: {
+          args: Prisma.SavedSearchCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        createMany: {
+          args: Prisma.SavedSearchCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SavedSearchCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+        }
+        delete: {
+          args: Prisma.SavedSearchDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        update: {
+          args: Prisma.SavedSearchUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        deleteMany: {
+          args: Prisma.SavedSearchDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SavedSearchUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SavedSearchUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+        }
+        upsert: {
+          args: Prisma.SavedSearchUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+        }
+        aggregate: {
+          args: Prisma.SavedSearchAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSavedSearch>
+        }
+        groupBy: {
+          args: Prisma.SavedSearchGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedSearchGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SavedSearchCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedSearchCountAggregateOutputType> | number
+        }
+      }
+    }
+    Integration: {
+      payload: Prisma.$IntegrationPayload<ExtArgs>
+      fields: Prisma.IntegrationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntegrationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntegrationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        findFirst: {
+          args: Prisma.IntegrationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntegrationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        findMany: {
+          args: Prisma.IntegrationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>[]
+        }
+        create: {
+          args: Prisma.IntegrationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        createMany: {
+          args: Prisma.IntegrationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntegrationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>[]
+        }
+        delete: {
+          args: Prisma.IntegrationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        update: {
+          args: Prisma.IntegrationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntegrationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntegrationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntegrationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntegrationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationPayload>
+        }
+        aggregate: {
+          args: Prisma.IntegrationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntegration>
+        }
+        groupBy: {
+          args: Prisma.IntegrationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegrationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntegrationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegrationCountAggregateOutputType> | number
+        }
+      }
+    }
     Dashboard: {
       payload: Prisma.$DashboardPayload<ExtArgs>
       fields: Prisma.DashboardFieldRefs
@@ -10589,6 +10739,39 @@ export const SamlConfigScalarFieldEnum = {
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
 
 
+export const SavedSearchScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  resource: 'resource',
+  name: 'name',
+  query: 'query',
+  shared: 'shared',
+  pinned: 'pinned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedSearchScalarFieldEnum = (typeof SavedSearchScalarFieldEnum)[keyof typeof SavedSearchScalarFieldEnum]
+
+
+export const IntegrationScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  name: 'name',
+  configJson: 'configJson',
+  secretName: 'secretName',
+  active: 'active',
+  lastSyncAt: 'lastSyncAt',
+  lastSyncStatus: 'lastSyncStatus',
+  lastError: 'lastError',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationScalarFieldEnum = (typeof IntegrationScalarFieldEnum)[keyof typeof IntegrationScalarFieldEnum]
+
+
 export const DashboardScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -11608,6 +11791,8 @@ export type GlobalOmitConfig = {
   oauthAccessToken?: Prisma.OauthAccessTokenOmit
   scimSubject?: Prisma.ScimSubjectOmit
   samlConfig?: Prisma.SamlConfigOmit
+  savedSearch?: Prisma.SavedSearchOmit
+  integration?: Prisma.IntegrationOmit
   dashboard?: Prisma.DashboardOmit
   dashboardWidget?: Prisma.DashboardWidgetOmit
   exportJob?: Prisma.ExportJobOmit

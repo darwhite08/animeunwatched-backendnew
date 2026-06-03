@@ -137,3 +137,57 @@ export async function exportResource(req: Request, res: Response, next: NextFunc
     }
   } catch (err) { next(err) }
 }
+
+/**
+ * Async export — for resources/sizes that exceed the sync cap. Creates an
+ * ExportJob row and returns its id; a background worker picks it up and
+ * lands the file in S3.
+ */
+export async function enqueueExport(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string
+    const { resource, format, filters } = req.body as Record<string, unknown>
+    if (typeof resource !== "string" || !resource.trim())          throw badRequest("resource required")
+    const fmt = (typeof format === "string" ? format : "csv").toLowerCase()
+    if (fmt !== "csv" && fmt !== "json")                            throw badRequest("format ∈ csv|json")
+    const row = await prisma.exportJob.create({
+      data: {
+        resource: resource.trim(), format: fmt,
+        filtersJson: (filters ?? {}) as never,
+        requestedBy: actorId,
+      },
+    })
+    await adminAuditR(req, res, {
+      action: "export.enqueue", targetType: "ExportJob", targetId: row.id,
+      metadata: { resource, format: fmt },
+    })
+    res.status(202).json({ jobId: row.id, status: row.status })
+  } catch (err) { next(err) }
+}
+
+export async function listExportJobs(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const rows = await prisma.exportJob.findMany({ orderBy: { createdAt: "desc" }, take: 100 })
+    res.status(200).json({ data: rows })
+  } catch (err) { next(err) }
+}
+
+/** Signs the file URL on read. Caller hits this when they want the download link. */
+export async function getExportDownloadUrl(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const id = req.params.id as string
+    const job = await prisma.exportJob.findUnique({ where: { id } })
+    if (!job) throw badRequest("Job not found")
+    if (job.status !== "completed" || !job.fileLocation) {
+      res.status(409).json({ error: { code: "NOT_READY", message: `Job is ${job.status}` } })
+      return
+    }
+    const { signExport } = await import("../../lib/exportRunner")
+    const url = await signExport(job.fileLocation)
+    if (!url) {
+      res.status(503).json({ error: { code: "STORAGE_UNAVAILABLE", message: "Object storage not configured" } })
+      return
+    }
+    res.status(200).json({ url, expiresIn: 3600 })
+  } catch (err) { next(err) }
+}

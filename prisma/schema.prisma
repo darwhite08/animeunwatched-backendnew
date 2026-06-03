@@ -1609,6 +1609,42 @@ model SamlConfig {
   @@index([active])
 }
 
+// Per-user saved filter combinations on any admin list page. Bookmarks
+// a URL search-string snapshot under a friendly name.
+model SavedSearch {
+  id          String   @id @default(cuid())
+  ownerId     String
+  resource    String                                  // "users" | "tickets" | "anomalies" | ...
+  name        String
+  query       String                                  // raw search string snapshot
+  shared      Boolean  @default(false)
+  pinned      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([ownerId, resource, name])
+  @@index([resource, shared])
+}
+
+// Generic third-party integration registry.
+model Integration {
+  id              String   @id @default(cuid())
+  provider        String                              // "datadog" | "zendesk" | ...
+  name            String
+  configJson      Json     @default("{}")
+  secretName      String?                             // VaultEntry name for credentials
+  active          Boolean  @default(true)
+  lastSyncAt      DateTime?
+  lastSyncStatus  String?
+  lastError       String?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([provider, name])
+  @@index([provider, active])
+}
+
 // Dashboards — admin-composed layouts of widgets pulling from a safelist
 // of approved data sources. The frontend grid renders each widget's
 // `kind` against `source` (one of the registered keys) with `config` for

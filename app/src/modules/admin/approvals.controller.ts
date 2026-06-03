@@ -76,3 +76,32 @@ export async function getApproval(req: Request, res: Response, next: NextFunctio
     res.status(200).json(ar)
   } catch (err) { next(err) }
 }
+
+/**
+ * Bulk-reject several pending approvals at once — useful for clearing
+ * old/abandoned requests. Approver still cannot be the requester.
+ */
+export async function bulkReject(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const reviewerId = res.locals.user?.id as string
+    const { approvalIds, note } = req.body as { approvalIds?: unknown; note?: string }
+    if (!Array.isArray(approvalIds) || approvalIds.length === 0) throw badRequest("approvalIds[] required")
+    const ids = approvalIds.map(String).slice(0, 200)
+    const targets = await prisma.approvalRequest.findMany({ where: { id: { in: ids }, status: "pending" } })
+    let rejected = 0, skipped = 0
+    for (const ar of targets) {
+      if (ar.requestedBy === reviewerId) { skipped++; continue }   // can't reject your own
+      await prisma.approvalDecision.create({ data: { requestId: ar.id, reviewerId, decision: "reject", note: note ?? null } })
+      await prisma.approvalRequest.update({
+        where: { id: ar.id },
+        data: { status: "rejected", reviewedBy: reviewerId, reviewedAt: new Date(), reviewNote: note ?? null },
+      })
+      rejected++
+    }
+    await adminAuditR(req, res, {
+      action: "approval.bulk_reject", targetType: "ApprovalRequest",
+      metadata: { rejected, skipped, requested: ids.length },
+    })
+    res.status(200).json({ rejected, skipped })
+  } catch (err) { next(err) }
+}

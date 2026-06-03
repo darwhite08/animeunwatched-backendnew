@@ -129,6 +129,8 @@ export const ModelName = {
   OauthAccessToken: 'OauthAccessToken',
   ScimSubject: 'ScimSubject',
   SamlConfig: 'SamlConfig',
+  SavedSearch: 'SavedSearch',
+  Integration: 'Integration',
   Dashboard: 'Dashboard',
   DashboardWidget: 'DashboardWidget',
   ExportJob: 'ExportJob',
@@ -1326,6 +1328,39 @@ export const SamlConfigScalarFieldEnum = {
 } as const
 
 export type SamlConfigScalarFieldEnum = (typeof SamlConfigScalarFieldEnum)[keyof typeof SamlConfigScalarFieldEnum]
+
+
+export const SavedSearchScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  resource: 'resource',
+  name: 'name',
+  query: 'query',
+  shared: 'shared',
+  pinned: 'pinned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedSearchScalarFieldEnum = (typeof SavedSearchScalarFieldEnum)[keyof typeof SavedSearchScalarFieldEnum]
+
+
+export const IntegrationScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  name: 'name',
+  configJson: 'configJson',
+  secretName: 'secretName',
+  active: 'active',
+  lastSyncAt: 'lastSyncAt',
+  lastSyncStatus: 'lastSyncStatus',
+  lastError: 'lastError',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationScalarFieldEnum = (typeof IntegrationScalarFieldEnum)[keyof typeof IntegrationScalarFieldEnum]
 
 
 export const DashboardScalarFieldEnum = {

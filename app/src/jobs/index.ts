@@ -9,6 +9,7 @@ import { flushSlaMetrics } from "../middlewares/slaMetrics.middleware"
 import { runSyntheticMonitors } from "./syntheticMonitor.job"
 import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
+import { runExportJobs } from "../lib/exportRunner"
 
 export function startJobs() {
   // Register jobs in the in-process registry so /admin/jobs shows them.
@@ -56,6 +57,10 @@ export function startJobs() {
     name: "backupHeartbeat", description: "Alert if no critical-kind backup in the last RPO window (hourly)",
     intervalMs: 60 * 60_000, handler: backupHeartbeat,
   })
+  registerJob({
+    name: "exportRunner", description: "Process pending ExportJob rows; lands files in S3 (every 30s)",
+    intervalMs: 30_000, handler: async () => runExportJobs(3),
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -99,6 +104,10 @@ export function startJobs() {
   // Backup heartbeat — hourly check that critical backups landed within RPO
   const bh = instrument("backupHeartbeat", backupHeartbeat)
   setInterval(bh, 60 * 60_000)
+
+  // Async export runner — every 30s pick up to 3 pending ExportJobs
+  const exp = instrument("exportRunner", () => runExportJobs(3))
+  setInterval(exp, 30_000)
 
   console.log("[Jobs] Background jobs started")
 }
