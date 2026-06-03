@@ -35,6 +35,7 @@ export type DirectMessageMinAggregateOutputType = {
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
+  senderDeviceKeyId: string | null
 }
 
 export type DirectMessageMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type DirectMessageMaxAggregateOutputType = {
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
+  senderDeviceKeyId: string | null
 }
 
 export type DirectMessageCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type DirectMessageCountAggregateOutputType = {
   deletedAt: number
   deletedForSender: number
   deletedForRecipient: number
+  senderDeviceKeyId: number
   _all: number
 }
 
@@ -76,6 +79,7 @@ export type DirectMessageMinAggregateInputType = {
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
+  senderDeviceKeyId?: true
 }
 
 export type DirectMessageMaxAggregateInputType = {
@@ -89,6 +93,7 @@ export type DirectMessageMaxAggregateInputType = {
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
+  senderDeviceKeyId?: true
 }
 
 export type DirectMessageCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type DirectMessageCountAggregateInputType = {
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
+  senderDeviceKeyId?: true
   _all?: true
 }
 
@@ -188,6 +194,7 @@ export type DirectMessageGroupByOutputType = {
   deletedAt: Date | null
   deletedForSender: boolean
   deletedForRecipient: boolean
+  senderDeviceKeyId: string | null
   _count: DirectMessageCountAggregateOutputType | null
   _min: DirectMessageMinAggregateOutputType | null
   _max: DirectMessageMaxAggregateOutputType | null
@@ -222,8 +229,11 @@ export type DirectMessageWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
+  senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
+  envelopes?: Prisma.MessageKeyEnvelopeListRelationFilter
 }
 
 export type DirectMessageOrderByWithRelationInput = {
@@ -237,8 +247,11 @@ export type DirectMessageOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
+  senderDeviceKeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   conversation?: Prisma.ConversationOrderByWithRelationInput
   sender?: Prisma.UserOrderByWithRelationInput
+  senderDeviceKey?: Prisma.UserDeviceKeyOrderByWithRelationInput
+  envelopes?: Prisma.MessageKeyEnvelopeOrderByRelationAggregateInput
 }
 
 export type DirectMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -255,8 +268,11 @@ export type DirectMessageWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
+  senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
+  envelopes?: Prisma.MessageKeyEnvelopeListRelationFilter
 }, "id">
 
 export type DirectMessageOrderByWithAggregationInput = {
@@ -270,6 +286,7 @@ export type DirectMessageOrderByWithAggregationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
+  senderDeviceKeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DirectMessageCountOrderByAggregateInput
   _max?: Prisma.DirectMessageMaxOrderByAggregateInput
   _min?: Prisma.DirectMessageMinOrderByAggregateInput
@@ -289,6 +306,7 @@ export type DirectMessageScalarWhereWithAggregatesInput = {
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
+  senderDeviceKeyId?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
 }
 
 export type DirectMessageCreateInput = {
@@ -302,6 +320,8 @@ export type DirectMessageCreateInput = {
   deletedForRecipient?: boolean
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageUncheckedCreateInput = {
@@ -315,6 +335,8 @@ export type DirectMessageUncheckedCreateInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageUpdateInput = {
@@ -328,6 +350,8 @@ export type DirectMessageUpdateInput = {
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageUncheckedUpdateInput = {
@@ -341,6 +365,8 @@ export type DirectMessageUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageCreateManyInput = {
@@ -354,6 +380,7 @@ export type DirectMessageCreateManyInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
 }
 
 export type DirectMessageUpdateManyMutationInput = {
@@ -378,6 +405,7 @@ export type DirectMessageUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DirectMessageListRelationFilter = {
@@ -401,6 +429,7 @@ export type DirectMessageCountOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
+  senderDeviceKeyId?: Prisma.SortOrder
 }
 
 export type DirectMessageMaxOrderByAggregateInput = {
@@ -414,6 +443,7 @@ export type DirectMessageMaxOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
+  senderDeviceKeyId?: Prisma.SortOrder
 }
 
 export type DirectMessageMinOrderByAggregateInput = {
@@ -427,6 +457,12 @@ export type DirectMessageMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
+  senderDeviceKeyId?: Prisma.SortOrder
+}
+
+export type DirectMessageScalarRelationFilter = {
+  is?: Prisma.DirectMessageWhereInput
+  isNot?: Prisma.DirectMessageWhereInput
 }
 
 export type DirectMessageCreateNestedManyWithoutSenderInput = {
@@ -513,6 +549,62 @@ export type DirectMessageUncheckedUpdateManyWithoutConversationNestedInput = {
   deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
 }
 
+export type DirectMessageCreateNestedManyWithoutSenderDeviceKeyInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput> | Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput[] | Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput | Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput[]
+  createMany?: Prisma.DirectMessageCreateManySenderDeviceKeyInputEnvelope
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+}
+
+export type DirectMessageUncheckedCreateNestedManyWithoutSenderDeviceKeyInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput> | Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput[] | Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput | Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput[]
+  createMany?: Prisma.DirectMessageCreateManySenderDeviceKeyInputEnvelope
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+}
+
+export type DirectMessageUpdateManyWithoutSenderDeviceKeyNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput> | Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput[] | Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput | Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput[]
+  upsert?: Prisma.DirectMessageUpsertWithWhereUniqueWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpsertWithWhereUniqueWithoutSenderDeviceKeyInput[]
+  createMany?: Prisma.DirectMessageCreateManySenderDeviceKeyInputEnvelope
+  set?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  disconnect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  delete?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  update?: Prisma.DirectMessageUpdateWithWhereUniqueWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpdateWithWhereUniqueWithoutSenderDeviceKeyInput[]
+  updateMany?: Prisma.DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput[]
+  deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
+}
+
+export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput> | Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput[] | Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput | Prisma.DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput[]
+  upsert?: Prisma.DirectMessageUpsertWithWhereUniqueWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpsertWithWhereUniqueWithoutSenderDeviceKeyInput[]
+  createMany?: Prisma.DirectMessageCreateManySenderDeviceKeyInputEnvelope
+  set?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  disconnect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  delete?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  update?: Prisma.DirectMessageUpdateWithWhereUniqueWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpdateWithWhereUniqueWithoutSenderDeviceKeyInput[]
+  updateMany?: Prisma.DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput | Prisma.DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput[]
+  deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
+}
+
+export type DirectMessageCreateNestedOneWithoutEnvelopesInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesInput>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutEnvelopesInput
+  connect?: Prisma.DirectMessageWhereUniqueInput
+}
+
+export type DirectMessageUpdateOneRequiredWithoutEnvelopesNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesInput>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutEnvelopesInput
+  upsert?: Prisma.DirectMessageUpsertWithoutEnvelopesInput
+  connect?: Prisma.DirectMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DirectMessageUpdateToOneWithWhereWithoutEnvelopesInput, Prisma.DirectMessageUpdateWithoutEnvelopesInput>, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesInput>
+}
+
 export type DirectMessageCreateWithoutSenderInput = {
   id?: string
   ciphertext: string
@@ -523,6 +615,8 @@ export type DirectMessageCreateWithoutSenderInput = {
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageUncheckedCreateWithoutSenderInput = {
@@ -535,6 +629,8 @@ export type DirectMessageUncheckedCreateWithoutSenderInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageCreateOrConnectWithoutSenderInput = {
@@ -577,6 +673,7 @@ export type DirectMessageScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
+  senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
 }
 
 export type DirectMessageCreateWithoutConversationInput = {
@@ -589,6 +686,8 @@ export type DirectMessageCreateWithoutConversationInput = {
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageUncheckedCreateWithoutConversationInput = {
@@ -601,6 +700,8 @@ export type DirectMessageUncheckedCreateWithoutConversationInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageCreateOrConnectWithoutConversationInput = {
@@ -629,6 +730,132 @@ export type DirectMessageUpdateManyWithWhereWithoutConversationInput = {
   data: Prisma.XOR<Prisma.DirectMessageUpdateManyMutationInput, Prisma.DirectMessageUncheckedUpdateManyWithoutConversationInput>
 }
 
+export type DirectMessageCreateWithoutSenderDeviceKeyInput = {
+  id?: string
+  ciphertext: string
+  iv: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  ciphertext: string
+  iv: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageCreateOrConnectWithoutSenderDeviceKeyInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput>
+}
+
+export type DirectMessageCreateManySenderDeviceKeyInputEnvelope = {
+  data: Prisma.DirectMessageCreateManySenderDeviceKeyInput | Prisma.DirectMessageCreateManySenderDeviceKeyInput[]
+  skipDuplicates?: boolean
+}
+
+export type DirectMessageUpsertWithWhereUniqueWithoutSenderDeviceKeyInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.DirectMessageUpdateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput>
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput>
+}
+
+export type DirectMessageUpdateWithWhereUniqueWithoutSenderDeviceKeyInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateWithoutSenderDeviceKeyInput, Prisma.DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput>
+}
+
+export type DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput = {
+  where: Prisma.DirectMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateManyMutationInput, Prisma.DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput>
+}
+
+export type DirectMessageCreateWithoutEnvelopesInput = {
+  id?: string
+  ciphertext: string
+  iv: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+}
+
+export type DirectMessageUncheckedCreateWithoutEnvelopesInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  ciphertext: string
+  iv: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+}
+
+export type DirectMessageCreateOrConnectWithoutEnvelopesInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesInput>
+}
+
+export type DirectMessageUpsertWithoutEnvelopesInput = {
+  update: Prisma.XOR<Prisma.DirectMessageUpdateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesInput>
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesInput>
+  where?: Prisma.DirectMessageWhereInput
+}
+
+export type DirectMessageUpdateToOneWithWhereWithoutEnvelopesInput = {
+  where?: Prisma.DirectMessageWhereInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateWithoutEnvelopesInput, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesInput>
+}
+
+export type DirectMessageUpdateWithoutEnvelopesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
+  iv?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+}
+
+export type DirectMessageUncheckedUpdateWithoutEnvelopesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
+  iv?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type DirectMessageCreateManySenderInput = {
   id?: string
   conversationId: string
@@ -639,6 +866,7 @@ export type DirectMessageCreateManySenderInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
 }
 
 export type DirectMessageUpdateWithoutSenderInput = {
@@ -651,6 +879,8 @@ export type DirectMessageUpdateWithoutSenderInput = {
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageUncheckedUpdateWithoutSenderInput = {
@@ -663,6 +893,8 @@ export type DirectMessageUncheckedUpdateWithoutSenderInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
@@ -675,6 +907,7 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DirectMessageCreateManyConversationInput = {
@@ -687,6 +920,7 @@ export type DirectMessageCreateManyConversationInput = {
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
 }
 
 export type DirectMessageUpdateWithoutConversationInput = {
@@ -699,6 +933,8 @@ export type DirectMessageUpdateWithoutConversationInput = {
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageUncheckedUpdateWithoutConversationInput = {
@@ -711,6 +947,8 @@ export type DirectMessageUncheckedUpdateWithoutConversationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageUncheckedUpdateManyWithoutConversationInput = {
@@ -723,8 +961,92 @@ export type DirectMessageUncheckedUpdateManyWithoutConversationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+export type DirectMessageCreateManySenderDeviceKeyInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  ciphertext: string
+  iv: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+}
+
+export type DirectMessageUpdateWithoutSenderDeviceKeyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
+  iv?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
+  iv?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
+  iv?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+
+/**
+ * Count Type DirectMessageCountOutputType
+ */
+
+export type DirectMessageCountOutputType = {
+  envelopes: number
+}
+
+export type DirectMessageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  envelopes?: boolean | DirectMessageCountOutputTypeCountEnvelopesArgs
+}
+
+/**
+ * DirectMessageCountOutputType without action
+ */
+export type DirectMessageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectMessageCountOutputType
+   */
+  select?: Prisma.DirectMessageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * DirectMessageCountOutputType without action
+ */
+export type DirectMessageCountOutputTypeCountEnvelopesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageKeyEnvelopeWhereInput
+}
 
 
 export type DirectMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -738,8 +1060,12 @@ export type DirectMessageSelect<ExtArgs extends runtime.Types.Extensions.Interna
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: boolean
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
+  envelopes?: boolean | Prisma.DirectMessage$envelopesArgs<ExtArgs>
+  _count?: boolean | Prisma.DirectMessageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["directMessage"]>
 
 export type DirectMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -753,8 +1079,10 @@ export type DirectMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: boolean
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
 }, ExtArgs["result"]["directMessage"]>
 
 export type DirectMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -768,8 +1096,10 @@ export type DirectMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: boolean
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
 }, ExtArgs["result"]["directMessage"]>
 
 export type DirectMessageSelectScalar = {
@@ -783,20 +1113,26 @@ export type DirectMessageSelectScalar = {
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  senderDeviceKeyId?: boolean
 }
 
-export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "ciphertext" | "iv" | "createdAt" | "readAt" | "deletedAt" | "deletedForSender" | "deletedForRecipient", ExtArgs["result"]["directMessage"]>
+export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "ciphertext" | "iv" | "createdAt" | "readAt" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
 export type DirectMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
+  envelopes?: boolean | Prisma.DirectMessage$envelopesArgs<ExtArgs>
+  _count?: boolean | Prisma.DirectMessageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DirectMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
 }
 export type DirectMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
 }
 
 export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -804,6 +1140,8 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     conversation: Prisma.$ConversationPayload<ExtArgs>
     sender: Prisma.$UserPayload<ExtArgs>
+    senderDeviceKey: Prisma.$UserDeviceKeyPayload<ExtArgs> | null
+    envelopes: Prisma.$MessageKeyEnvelopePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -816,6 +1154,7 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
     deletedAt: Date | null
     deletedForSender: boolean
     deletedForRecipient: boolean
+    senderDeviceKeyId: string | null
   }, ExtArgs["result"]["directMessage"]>
   composites: {}
 }
@@ -1212,6 +1551,8 @@ export interface Prisma__DirectMessageClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   conversation<T extends Prisma.ConversationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ConversationDefaultArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  senderDeviceKey<T extends Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>>): Prisma.Prisma__UserDeviceKeyClient<runtime.Types.Result.GetResult<Prisma.$UserDeviceKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  envelopes<T extends Prisma.DirectMessage$envelopesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$envelopesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageKeyEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1251,6 +1592,7 @@ export interface DirectMessageFieldRefs {
   readonly deletedAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly deletedForSender: Prisma.FieldRef<"DirectMessage", 'Boolean'>
   readonly deletedForRecipient: Prisma.FieldRef<"DirectMessage", 'Boolean'>
+  readonly senderDeviceKeyId: Prisma.FieldRef<"DirectMessage", 'String'>
 }
     
 
@@ -1644,6 +1986,49 @@ export type DirectMessageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many DirectMessages to delete.
    */
   limit?: number
+}
+
+/**
+ * DirectMessage.senderDeviceKey
+ */
+export type DirectMessage$senderDeviceKeyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserDeviceKey
+   */
+  select?: Prisma.UserDeviceKeySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserDeviceKey
+   */
+  omit?: Prisma.UserDeviceKeyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserDeviceKeyInclude<ExtArgs> | null
+  where?: Prisma.UserDeviceKeyWhereInput
+}
+
+/**
+ * DirectMessage.envelopes
+ */
+export type DirectMessage$envelopesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageKeyEnvelope
+   */
+  select?: Prisma.MessageKeyEnvelopeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageKeyEnvelope
+   */
+  omit?: Prisma.MessageKeyEnvelopeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageKeyEnvelopeInclude<ExtArgs> | null
+  where?: Prisma.MessageKeyEnvelopeWhereInput
+  orderBy?: Prisma.MessageKeyEnvelopeOrderByWithRelationInput | Prisma.MessageKeyEnvelopeOrderByWithRelationInput[]
+  cursor?: Prisma.MessageKeyEnvelopeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageKeyEnvelopeScalarFieldEnum | Prisma.MessageKeyEnvelopeScalarFieldEnum[]
 }
 
 /**

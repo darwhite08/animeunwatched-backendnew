@@ -18,6 +18,27 @@ export async function getPublicKey(userId: string) {
   return row;
 }
 
+// ─── Multi-device keys (Phase 1, additive) ─────────────────────────────────────
+// Append-or-update a device's public key (never overwrites OTHER devices). This
+// is what fixes the multi-device problem — the old upsertPublicKey replaced the
+// single per-user key.
+export async function registerDeviceKey(userId: string, deviceId: string, publicKey: string) {
+  return prisma.userDeviceKey.upsert({
+    where:  { userId_deviceId: { userId, deviceId } },
+    create: { userId, deviceId, publicKey },
+    update: { publicKey },
+  });
+}
+
+// All device public keys for a user (sender encrypts a message key for each).
+export async function getDeviceKeys(userId: string) {
+  return prisma.userDeviceKey.findMany({
+    where:   { userId },
+    select:  { id: true, deviceId: true, publicKey: true },
+    orderBy: { createdAt: "asc" },
+  });
+}
+
 // ─── Conversation management ──────────────────────────────────────────────────
 
 export async function getOrCreateConversation(callerId: string, recipientId: string) {

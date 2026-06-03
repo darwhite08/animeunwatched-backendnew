@@ -83,6 +83,8 @@ export const ModelName = {
   UserPublicKey: 'UserPublicKey',
   Conversation: 'Conversation',
   DirectMessage: 'DirectMessage',
+  UserDeviceKey: 'UserDeviceKey',
+  MessageKeyEnvelope: 'MessageKeyEnvelope',
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
   ActivityRepost: 'ActivityRepost',
@@ -601,10 +603,34 @@ export const DirectMessageScalarFieldEnum = {
   readAt: 'readAt',
   deletedAt: 'deletedAt',
   deletedForSender: 'deletedForSender',
-  deletedForRecipient: 'deletedForRecipient'
+  deletedForRecipient: 'deletedForRecipient',
+  senderDeviceKeyId: 'senderDeviceKeyId'
 } as const
 
 export type DirectMessageScalarFieldEnum = (typeof DirectMessageScalarFieldEnum)[keyof typeof DirectMessageScalarFieldEnum]
+
+
+export const UserDeviceKeyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  deviceId: 'deviceId',
+  publicKey: 'publicKey',
+  createdAt: 'createdAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type UserDeviceKeyScalarFieldEnum = (typeof UserDeviceKeyScalarFieldEnum)[keyof typeof UserDeviceKeyScalarFieldEnum]
+
+
+export const MessageKeyEnvelopeScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  recipientDeviceKeyId: 'recipientDeviceKeyId',
+  wrappedKey: 'wrappedKey',
+  wrapIv: 'wrapIv'
+} as const
+
+export type MessageKeyEnvelopeScalarFieldEnum = (typeof MessageKeyEnvelopeScalarFieldEnum)[keyof typeof MessageKeyEnvelopeScalarFieldEnum]
 
 
 export const ActivityScalarFieldEnum = {

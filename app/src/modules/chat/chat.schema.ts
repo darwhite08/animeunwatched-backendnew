@@ -6,6 +6,14 @@ export const uploadPublicKeySchema = z.object({
   }),
 });
 
+// Multi-device E2E (Phase 1, additive)
+export const registerDeviceKeySchema = z.object({
+  body: z.object({
+    deviceId:  z.string().min(1, "deviceId is required").max(128),
+    publicKey: z.string().min(1, "publicKey is required"),
+  }),
+});
+
 export const startConversationSchema = z.object({
   body: z.object({
     recipientId: z.string().min(1, "recipientId is required"),

@@ -16,9 +16,43 @@ import { prisma } from "../config/prisma"
 
 export type TicketEvent = "ticket.created" | "ticket.replied" | "ticket.status_changed"
 
+/**
+ * Side-effect: also forward to Zendesk if an active integration exists.
+ * The webhook fan-out + Zendesk mirror are independent — one can fail
+ * without breaking the other.
+ */
+async function maybeMirrorToZendesk(event: TicketEvent, payload: Record<string, unknown>): Promise<void> {
+  try {
+    const { mirrorTicketCreated, mirrorTicketReplied } = await import("./integrations/zendesk")
+    if (event === "ticket.created") {
+      const subject = String(payload.subject ?? "")
+      const email   = String(payload.email ?? "")
+      const number  = Number(payload.number ?? 0)
+      // The body lives on the ticket row, not the webhook payload — fetch it once.
+      const id = String(payload.id ?? "")
+      if (!id) return
+      const ticket = await prisma.ticket.findUnique({ where: { id }, select: { body: true } })
+      if (!ticket) return
+      await mirrorTicketCreated({ number, subject, body: ticket.body, requesterEmail: email })
+    } else if (event === "ticket.replied") {
+      const number  = Number(payload.number ?? 0)
+      const replyId = String(payload.replyId ?? "")
+      if (!replyId) return
+      const reply = await prisma.ticketReply.findUnique({ where: { id: replyId }, select: { body: true, isInternal: true } })
+      if (!reply || reply.isInternal) return
+      await mirrorTicketReplied({ number, body: reply.body })
+    }
+  } catch (err) {
+    console.error("[ticketWebhooks] Zendesk mirror failed:", (err as Error).message)
+  }
+}
+
 const TIMEOUT_MS = 5_000
 
 export async function fireTicketEvent(event: TicketEvent, payload: Record<string, unknown>): Promise<void> {
+  // Independent side-effect — runs in parallel with webhook fan-out
+  void maybeMirrorToZendesk(event, payload)
+
   const hooks = await prisma.ticketWebhook.findMany({ where: { active: true } }).catch(() => [])
   if (hooks.length === 0) return
   const body = JSON.stringify({ event, payload, deliveredAt: new Date().toISOString() })

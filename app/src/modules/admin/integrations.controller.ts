@@ -100,6 +100,17 @@ export async function syncProvider(req: Request, res: Response, next: NextFuncti
       res.status(200).json(r)
       return
     }
+    if (provider === "zendesk") {
+      // Zendesk mirror is event-driven (fireTicketEvent triggers it).
+      // The 'sync now' button is a config probe — confirms credentials decode.
+      const integration = await prisma.integration.findFirst({ where: { provider: "zendesk", active: true } })
+      if (!integration) {
+        res.status(404).json({ error: { code: "NOT_FOUND", message: "No active Zendesk integration" } })
+        return
+      }
+      res.status(200).json({ ok: true, note: "Zendesk mirror is event-driven — wire status appears on the next ticket event" })
+      return
+    }
     res.status(400).json({ error: { code: "BAD_REQUEST", message: `No sync implemented for ${provider}` } })
   } catch (err) { next(err) }
 }

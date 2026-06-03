@@ -6,6 +6,10 @@ export const chatRouter = Router();
 
 // ─── Public key exchange (E2E encryption handshake) ───────────────────────────
 chatRouter.put( "/keys/me",        requireAuth, ctrl.uploadPublicKey);
+// Multi-device E2E (Phase 1, additive — old single-key routes stay for back-compat).
+// Register a per-device key (append, never overwrite) and list a user's devices.
+chatRouter.post("/keys/devices",          requireAuth, ctrl.registerDeviceKey);
+chatRouter.get( "/keys/:userId/devices",  requireAuth, ctrl.getDeviceKeys);
 chatRouter.get( "/keys/:userId",   requireAuth, ctrl.getPublicKey);
 
 // ─── Conversations ────────────────────────────────────────────────────────────

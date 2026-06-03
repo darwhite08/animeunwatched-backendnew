@@ -63,6 +63,59 @@ export async function exportUserData(req: Request, res: Response, next: NextFunc
 }
 
 /**
+ * Preview what an export would contain — record counts only, no PII bodies.
+ * Used by the admin UI to confirm scope before the actual export runs.
+ * No step-up required (read-only counts), but still gated by dsr:export
+ * at the route layer.
+ */
+export async function previewUserData(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId = req.params.userId as string
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, email: true, username: true, displayName: true, createdAt: true, isBanned: true },
+    })
+    if (!user) throw notFound("User not found")
+
+    const [posts, comments, reviews, blogs, listEntries, threads, replies, activities, follows, notifications, conversations, devices, securityEvents] = await Promise.all([
+      prisma.post.count({ where: { authorId: userId } }),
+      prisma.postComment.count({ where: { authorId: userId } }),
+      prisma.review.count({ where: { authorId: userId } }),
+      prisma.blog.count({ where: { authorId: userId } }),
+      prisma.listEntry.count({ where: { userId } }),
+      prisma.thread.count({ where: { authorId: userId } }),
+      prisma.threadReply.count({ where: { authorId: userId } }),
+      prisma.activity.count({ where: { authorId: userId } }),
+      prisma.follow.count({ where: { OR: [{ followerId: userId }, { followingId: userId }] } }),
+      prisma.notification.count({ where: { recipientId: userId } }),
+      prisma.conversation.count({ where: { OR: [{ participant1: userId }, { participant2: userId }] } }),
+      prisma.deviceToken.count({ where: { userId } }),
+      prisma.securityEvent.count({ where: { userId } }),
+    ])
+
+    const total = posts + comments + reviews + blogs + listEntries + threads + replies + activities + follows + notifications + conversations + devices + securityEvents
+
+    res.status(200).json({
+      user,
+      total,
+      counts: { posts, comments, reviews, blogs, listEntries, threads, replies, activities, follows, notifications, conversations, devices, securityEvents },
+    })
+  } catch (err) { next(err) }
+}
+
+/** Recent DSR audit log entries (export + delete) so the admin UI can show a receipt feed. */
+export async function listRecentDsr(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const data = await prisma.auditLog.findMany({
+      where: { action: { in: ["dsr.export", "dsr.delete"] } },
+      orderBy: { createdAt: "desc" }, take: 25,
+      select: { id: true, action: true, actorId: true, targetId: true, metadata: true, createdAt: true, ipAddress: true },
+    })
+    res.status(200).json({ data })
+  } catch (err) { next(err) }
+}
+
+/**
  * Hard-delete the user and cascade. Relations with onDelete: Cascade clean
  * themselves; others are SetNull or deleted explicitly. This is irreversible
  * — operator must pass step-up.

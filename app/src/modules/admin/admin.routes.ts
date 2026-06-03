@@ -171,6 +171,8 @@ adminRouter.delete("/users/:userId/shadow-ban",       requirePermission("moderat
 
 // DSR (Data Subject Requests) — high-risk → step-up
 adminRouter.get(   "/dsr/export/:userId",             requirePermissionWithStepUp("dsr","export"), dsr.exportUserData);
+adminRouter.get(   "/dsr/preview/:userId",            requirePermission("dsr","export"),           dsr.previewUserData);
+adminRouter.get(   "/dsr/recent",                     requirePermission("dsr","export"),           dsr.listRecentDsr);
 adminRouter.delete("/dsr/:userId",                    requirePermissionWithStepUp("dsr","delete"), dsr.deleteUserData);
 
 // API keys

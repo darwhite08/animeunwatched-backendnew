@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as chatService from "./chat.service";
 import {
   uploadPublicKeySchema,
+  registerDeviceKeySchema,
   startConversationSchema,
   sendMessageSchema,
   getMessagesSchema,
@@ -23,6 +24,28 @@ export async function getPublicKey(req: Request, res: Response, next: NextFuncti
     const userId = req.params.userId as string;
     const result = await chatService.getPublicKey(userId);
     res.json({ publicKey: result.publicKey });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ─── Multi-device keys (Phase 1, additive) ─────────────────────────────────────
+export async function registerDeviceKey(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { body } = registerDeviceKeySchema.parse({ body: req.body });
+    const userId   = res.locals.user.id as string;
+    const row      = await chatService.registerDeviceKey(userId, body.deviceId, body.publicKey);
+    res.json({ deviceKey: { id: row.id, deviceId: row.deviceId, publicKey: row.publicKey } });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getDeviceKeys(req: Request, res: Response, next: NextFunction) {
+  try {
+    const userId = req.params.userId as string;
+    const keys   = await chatService.getDeviceKeys(userId);
+    res.json({ deviceKeys: keys });
   } catch (err) {
     next(err);
   }

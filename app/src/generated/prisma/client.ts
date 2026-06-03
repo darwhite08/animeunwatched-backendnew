@@ -213,6 +213,16 @@ export type Conversation = Prisma.ConversationModel
  */
 export type DirectMessage = Prisma.DirectMessageModel
 /**
+ * Model UserDeviceKey
+ * 
+ */
+export type UserDeviceKey = Prisma.UserDeviceKeyModel
+/**
+ * Model MessageKeyEnvelope
+ * 
+ */
+export type MessageKeyEnvelope = Prisma.MessageKeyEnvelopeModel
+/**
  * Model Activity
  * 
  */
