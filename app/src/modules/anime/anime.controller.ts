@@ -91,8 +91,20 @@ export async function getSimilar(req: Request, res: Response, next: NextFunction
   try {
     const malId = parseMalId(req.params.malId);
     const limit = Math.min(50, Number(req.query.limit) || 12);
-    const result = await service.getSimilar(malId, limit);
+    const userId: string | undefined = res.locals.user?.id;
+    const result = await service.getSimilar(malId, limit, userId);
     res.status(200).json({ data: result });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getForYou(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 20));
+    const result = await service.getForYou(userId, limit);
+    res.status(200).json({ data: result, meta: { algorithm: "for-you-v1" } });
   } catch (err) {
     next(err);
   }

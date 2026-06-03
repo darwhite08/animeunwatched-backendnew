@@ -2,6 +2,8 @@ import { prisma } from "../../config/prisma";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { validateSlug } from "../../lib/slug";
+import { cache } from "../../lib/cache";
+import { jaccard, logNormalize } from "../../lib/ranking";
 import type { UpdateMeDto, UpdateSlugDto } from "./users.schema";
 
 const safeUserSelect = {
@@ -419,4 +421,126 @@ export async function updateSlug(userId: string, dto: UpdateSlugDto) {
     data:   { slug: dto.slug },
     select: safeUserSelect,
   });
+}
+
+// ─── whoToFollow (people-you-may-know) ───────────────────────────────────────
+//
+// Three signals, weighted:
+//   0.50 × FOAF  — friend-of-a-friend density.
+//                  Count of viewer's followed-users who follow this candidate,
+//                  normalised by viewer's following count. 0–1.
+//   0.30 × taste — Jaccard similarity of the two users' watchlist anime sets.
+//                  Captures "people who watch what you watch".
+//   0.15 × recency — 1 / (days_since_active + 1). Dead accounts don't surface.
+//   0.05 × reputation — log10 normalised; tie-breaker, not driver.
+//
+// Excludes: viewer themselves, anyone they already follow, anyone they've
+// blocked. Cached 10 min per viewer (taste/follow graphs change slowly).
+
+export async function whoToFollow(viewerId: string, limit = 10) {
+  const cacheKey = `users:whoToFollow:${viewerId}:${limit}`
+  const cached = cache.get<unknown[]>(cacheKey)
+  if (cached) return cached
+
+  // Viewer's follow set + watchlist (taste vector)
+  const [following, viewerList] = await Promise.all([
+    prisma.follow.findMany({
+      where: { followerId: viewerId },
+      select: { followingId: true },
+    }),
+    prisma.listEntry.findMany({
+      where: { userId: viewerId },
+      select: { animeId: true },
+    }),
+  ])
+  const followingIds = new Set(following.map(f => f.followingId))
+  const viewerAnime  = new Set(viewerList.map(l => l.animeId))
+  const followingCount = followingIds.size
+
+  // ── Candidate pool: 2nd-degree (FOAF) + recent-active high-rep
+  //    Capped at 200; reranked in JS.
+  const [foafCandidates, recentActive] = await Promise.all([
+    followingCount === 0
+      ? Promise.resolve([] as Array<{ followingId: string }>)
+      : prisma.follow.findMany({
+          where: {
+            followerId: { in: [...followingIds] },
+            followingId: { notIn: [viewerId, ...followingIds] },
+          },
+          select: { followingId: true },
+          take: 500,
+        }),
+    prisma.user.findMany({
+      where: {
+        id: { notIn: [viewerId, ...followingIds] },
+        reputation: { gte: 10 },
+      },
+      orderBy: { reputation: "desc" },
+      take: 60,
+      select: { id: true },
+    }),
+  ])
+
+  // Tally FOAF: how many of viewer's follows follow each candidate?
+  const foafCount = new Map<string, number>()
+  for (const f of foafCandidates) {
+    foafCount.set(f.followingId, (foafCount.get(f.followingId) ?? 0) + 1)
+  }
+  for (const u of recentActive) {
+    if (!foafCount.has(u.id)) foafCount.set(u.id, 0)
+  }
+  if (foafCount.size === 0) {
+    cache.set(cacheKey, [], 10 * 60_000)
+    return []
+  }
+
+  // Hydrate candidate users + their watchlist anime IDs in one round-trip
+  const candidateIds = [...foafCount.keys()]
+  const users = await prisma.user.findMany({
+    where: { id: { in: candidateIds } },
+    select: {
+      id: true, username: true, displayName: true,
+      avatarUrl: true, bio: true, reputation: true, lastActiveAt: true,
+      listEntries: { select: { animeId: true }, take: 200 },
+    },
+  })
+
+  const now = Date.now()
+  const scored = users.map(u => {
+    const foaf = followingCount > 0 ? Math.min(1, (foafCount.get(u.id) ?? 0) / Math.max(1, Math.sqrt(followingCount))) : 0
+    const taste = jaccard(viewerAnime, new Set(u.listEntries.map(e => e.animeId)))
+    const daysSinceActive = u.lastActiveAt
+      ? Math.max(0, (now - u.lastActiveAt.getTime()) / (24 * 3600 * 1000))
+      : 365
+    const recency = 1 / (daysSinceActive + 1)
+    const repNorm = logNormalize(u.reputation, 1000)
+
+    return {
+      user: u,
+      score: 0.50 * foaf
+           + 0.30 * taste
+           + 0.15 * recency
+           + 0.05 * repNorm,
+      reason:
+        foaf  > 0.15 ? "Followed by people you follow" :
+        taste > 0.10 ? "Similar taste"                 :
+        repNorm > 0.5 ? "Top reputation"               :
+                       "Active in your community",
+    }
+  })
+
+  const ranked = scored
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(s => ({
+      user:   {
+        id: s.user.id, username: s.user.username, displayName: s.user.displayName,
+        avatarUrl: s.user.avatarUrl, bio: s.user.bio, reputation: s.user.reputation,
+      },
+      reason: s.reason,
+    }))
+
+  cache.set(cacheKey, ranked, 10 * 60_000)
+  return ranked
 }

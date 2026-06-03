@@ -166,3 +166,12 @@ export async function getConnectedAccounts(req: Request, res: Response, next: Ne
     res.status(200).json(result)
   } catch (err) { next(err) }
 }
+
+export async function whoToFollow(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const viewerId = res.locals.user.id as string
+    const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 10))
+    const data = await service.whoToFollow(viewerId, limit)
+    res.status(200).json({ data, meta: { algorithm: "who-to-follow-v1", count: data.length } })
+  } catch (err) { next(err) }
+}

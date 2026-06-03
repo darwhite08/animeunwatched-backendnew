@@ -3,6 +3,7 @@ import { catalog } from "../../lib/catalog";
 import type { CatalogAnime } from "../../lib/catalog/types";
 import { notFound } from "../../lib/errors";
 import { cache } from "../../lib/cache";
+import { jaccard, overlapCoeff, linearProximity, capPerGroup, logNormalize } from "../../lib/ranking";
 import type { BrowseQuery } from "./anime.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -465,32 +466,230 @@ export async function getAnimeUserStats(malId: number) {
   return { watching, completed, planToWatch, onHold, dropped, total };
 }
 
-// ─── getSimilar ──────────────────────────────────────────────────────────────
+// ─── getForYou (personalised "what to watch next") ───────────────────────────
+//
+// Build a TASTE PROFILE from the viewer's list:
+//   - genre affinities  — weighted by the viewer's per-entry score (or 6/10
+//                         default for unrated entries; COMPLETED counts double
+//                         since it's stronger signal than PLAN_TO_WATCH)
+//   - studio affinities — bare count, capped
+//   - preferred era     — average year of liked entries
+//
+// Score each candidate (anime NOT in the viewer's list) by:
+//     0.55 × (sum over its genres of genre_affinity) / sqrt(genre count)
+//   + 0.20 × (sum over its studios of studio_affinity)
+//   + 0.15 × era_proximity to preferred year
+//   + 0.10 × logNormalize(catalog_score)
+//
+// Then diversity-cap to 1 entry per studio so we surface a varied list,
+// not the same studio's back-catalogue. Falls back to high-rated catalog
+// browse when the viewer has no list yet.
 
-export async function getSimilar(malId: number, limit = 12) {
-  const cacheKey = `anime:similar:${malId}`
+export async function getForYou(userId: string, limit = 20) {
+  const cacheKey = `anime:foryou:${userId}:${limit}`
   const cached = cache.get(cacheKey)
   if (cached) return cached
 
-  const anime = await prisma.anime.findFirst({
-    where: { malId },
-    include: { genres: { include: { genre: true } } },
+  const entries = await prisma.listEntry.findMany({
+    where: { userId },
+    select: {
+      animeId: true, status: true, score: true,
+      anime: {
+        select: {
+          id: true, year: true,
+          genres:  { select: { genreId: true  } },
+          studios: { select: { studioId: true } },
+        },
+      },
+    },
   })
-  if (!anime) throw notFound("Anime not found")
 
-  const genreIds = anime.genres.map((g: { genreId: string }) => g.genreId)
-  const similar = await prisma.anime.findMany({
+  // Cold-start: brand-new user → return globally top-rated as a fallback.
+  if (entries.length === 0) {
+    const fallback = await prisma.anime.findMany({
+      where: { score: { gte: 7.5 } },
+      orderBy: { score: { sort: "desc", nulls: "last" } },
+      take: limit,
+      include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+    })
+    cache.set(cacheKey, fallback, 30 * 60_000)
+    return fallback
+  }
+
+  // ── Build taste profile ──
+  const genreAffinity  = new Map<string, number>()
+  const studioAffinity = new Map<string, number>()
+  let yearSum = 0, yearCount = 0
+  const watched = new Set<string>()
+
+  for (const e of entries) {
+    watched.add(e.animeId)
+    const ratingWeight = (e.score ?? 6) / 10 // 0.1–1.0
+    const statusBoost  = e.status === "COMPLETED" ? 2 : 1
+    const w = ratingWeight * statusBoost
+
+    for (const g of e.anime.genres) {
+      genreAffinity.set(g.genreId, (genreAffinity.get(g.genreId) ?? 0) + w)
+    }
+    for (const s of e.anime.studios) {
+      studioAffinity.set(s.studioId, (studioAffinity.get(s.studioId) ?? 0) + w * 0.5)
+    }
+    if (e.anime.year) { yearSum += e.anime.year * w; yearCount += w }
+  }
+  const preferredYear = yearCount > 0 ? yearSum / yearCount : null
+
+  const topGenres = [...genreAffinity.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(e => e[0])
+
+  // ── Candidate pull: anime with at least one of the user's top genres,
+  //    not already on their list. Capped at 300 then reranked in JS.
+  const candidates = await prisma.anime.findMany({
+    where: {
+      id:    { notIn: [...watched] },
+      genres: { some: { genreId: { in: topGenres } } },
+      score:  { gte: 6.0 },  // basic quality floor — junk doesn't get personalised
+    },
+    take: 300,
+    include: {
+      genres: { include: { genre: true } },
+      studios: { include: { studio: true } },
+    },
+  })
+
+  // ── Score + sort ──
+  const scored = candidates.map(c => {
+    const cGenres  = c.genres.map(g => g.genreId)
+    const cStudios = c.studios.map(s => s.studioId)
+    const genreFit = cGenres.reduce((sum, g) => sum + (genreAffinity.get(g) ?? 0), 0)
+                   / Math.max(1, Math.sqrt(cGenres.length))
+    const studioFit = cStudios.reduce((sum, s) => sum + (studioAffinity.get(s) ?? 0), 0)
+    const era = (preferredYear && c.year) ? linearProximity(preferredYear, c.year, 15) : 0
+    const quality = logNormalize(Math.round((c.score ?? 0) * 10), 100)
+
+    return {
+      anime: c,
+      score: 0.55 * genreFit
+           + 0.20 * studioFit
+           + 0.15 * era
+           + 0.10 * quality,
+    }
+  })
+
+  const sorted = scored.sort((a, b) => b.score - a.score)
+  const capped = capPerGroup(
+    sorted,
+    s => s.anime.studios[0]?.studioId ?? "_no_studio",
+    2,
+    limit,
+  )
+
+  const out = capped.map(s => s.anime)
+  cache.set(cacheKey, out, 15 * 60_000) // 15 min — taste evolves slowly
+  return out
+}
+
+// ─── getSimilar ──────────────────────────────────────────────────────────────
+//
+// Algorithm: weighted multi-signal similarity, not just "any genre matches".
+//
+//   similarity =
+//       0.50 × jaccard(genres)
+//     + 0.20 × overlapCoeff(studios)        — studio match is a strong signal
+//     + 0.15 × type_match (TV ↔ TV > TV ↔ Movie)
+//     + 0.10 × era_proximity (within 10 years scaling linearly)
+//     + 0.05 × quality_proximity (don't recommend a 4 from a 9)
+//
+// Then sort, cap at one entry per franchise-shaped group (same studio set
+// AND same type) to avoid recommending 5 entries of the same show.
+//
+// When called with a userId, anime already in the viewer's list are
+// removed so we don't recommend things they've already tracked.
+
+export async function getSimilar(malId: number, limit = 12, userId?: string) {
+  // Personalised exclusion can't share the anonymous cache.
+  const cacheKey = userId ? `anime:similar:${malId}:u:${userId}` : `anime:similar:${malId}`
+  const cached = cache.get(cacheKey)
+  if (cached) return cached
+
+  const source = await prisma.anime.findFirst({
+    where: { malId },
+    include: { genres: true, studios: true },
+  })
+  if (!source) throw notFound("Anime not found")
+
+  const sourceGenreIds  = source.genres.map((g: { genreId: string }) => g.genreId)
+  const sourceStudioIds = source.studios.map((s: { studioId: string }) => s.studioId)
+  if (sourceGenreIds.length === 0) {
+    // Without genres we have no signal; fall back to top-score in same type.
+    const fallback = await prisma.anime.findMany({
+      where: { malId: { not: malId }, type: source.type, score: { not: null } },
+      orderBy: { score: { sort: "desc", nulls: "last" } },
+      take: limit,
+      include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+    })
+    cache.set(cacheKey, fallback, 60 * 60_000)
+    return fallback
+  }
+
+  // Cast a wide net: any genre overlap. We then rerank in JS.
+  // Excluded: source itself, items in the viewer's list (when authed).
+  const watchedAnimeIds = userId
+    ? new Set((await prisma.listEntry.findMany({
+        where: { userId }, select: { animeId: true },
+      })).map(e => e.animeId))
+    : new Set<string>()
+
+  const candidates = await prisma.anime.findMany({
     where: {
       malId: { not: malId },
-      genres: { some: { genreId: { in: genreIds } } },
-      score: { not: null },
+      id:    { notIn: [...watchedAnimeIds] },
+      genres: { some: { genreId: { in: sourceGenreIds } } },
     },
-    orderBy: { score: { sort: "desc", nulls: "last" } },
-    take: limit,
-    include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+    take: 200,
+    include: { genres: true, studios: true },
   })
-  cache.set(cacheKey, similar, 60 * 60_000) // 1 hour
-  return similar
+
+  const sourceGenreSet  = new Set(sourceGenreIds)
+  const sourceStudioSet = new Set(sourceStudioIds)
+  const sourceYear      = source.year ?? null
+  const sourceScore     = source.score ?? null
+
+  const scored = candidates.map(c => {
+    const cGenres  = new Set(c.genres.map(g => g.genreId))
+    const cStudios = new Set(c.studios.map(s => s.studioId))
+
+    const genreScore  = jaccard(sourceGenreSet, cGenres)
+    const studioScore = overlapCoeff(sourceStudioSet, cStudios)
+    const typeScore   = c.type && source.type && c.type === source.type ? 1 : 0
+    const yearScore   = (sourceYear && c.year)
+      ? linearProximity(sourceYear, c.year, 10)
+      : 0
+    const qualityScore = (sourceScore != null && c.score != null)
+      ? linearProximity(sourceScore, c.score, 5)
+      : 0
+
+    return {
+      anime: c,
+      score: 0.50 * genreScore
+           + 0.20 * studioScore
+           + 0.15 * typeScore
+           + 0.10 * yearScore
+           + 0.05 * qualityScore,
+    }
+  })
+
+  // Sort then diversity cap: at most 2 per primary-studio so a single
+  // production house can't dominate the recommendations.
+  const sorted = scored.sort((a, b) => b.score - a.score)
+  const capped = capPerGroup(
+    sorted,
+    s => s.anime.studios[0]?.studioId ?? "_no_studio",
+    2,
+    limit,
+  )
+
+  const out = capped.map(s => s.anime)
+  cache.set(cacheKey, out, 60 * 60_000) // 1 hour
+  return out
 }
 
 // ─── getCharacters ───────────────────────────────────────────────────────────

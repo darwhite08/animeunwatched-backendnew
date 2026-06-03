@@ -65,7 +65,10 @@ describe("search controller — type branches", () => {
     expect(prisma.post.findMany).not.toHaveBeenCalled();
   });
 
-  it("paginates results correctly", async () => {
+  it("over-fetches candidates and paginates in JS for relevance ranking", async () => {
+    // As of trending-v2 the anime search no longer paginates in SQL — it
+    // pulls up to 200 candidates so the multi-signal relevance ranker can
+    // see them all before slicing. See lib/ranking.ts + search.controller.
     const { prisma } = await import("../app/src/config/prisma");
     const { search } = await import("../app/src/modules/search/search.controller");
     const res = makeRes();
@@ -73,8 +76,11 @@ describe("search controller — type branches", () => {
     await search(makeReq({ q: "naruto", type: "anime", page: "2", limit: "10" }), res, vi.fn());
 
     expect(prisma.anime.findMany).toHaveBeenCalledWith(
-      expect.objectContaining({ skip: 10, take: 10 })
+      expect.objectContaining({ take: 200 })
     );
+    // SQL should NOT have been called with a `skip` — pagination is JS-side now.
+    const callArg = (prisma.anime.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0]
+    expect(callArg).not.toHaveProperty("skip")
   });
 
   it("returns 400 for empty query", async () => {

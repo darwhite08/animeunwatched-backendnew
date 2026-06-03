@@ -13,6 +13,8 @@ usersRouter.patch("/me/slug",                 requireAuth, ctrl.updateSlug);
 usersRouter.get("/slug-check",       ctrl.checkSlugAvailable);   // ?slug=foo  (public, no rate-limit hit)
 // Leaderboard must be before /:username or Express will match 'leaderboard' as username
 usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);
+// Personalised people-you-may-know — FOAF + taste similarity + recency
+usersRouter.get("/suggestions",     requireAuth, ctrl.whoToFollow);
 
 // ── Dynamic routes ────────────────────────────────────────────────────────────
 usersRouter.get("/:username",              optionalAuth, ctrl.getProfile);
