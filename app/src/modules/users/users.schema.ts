@@ -4,6 +4,7 @@ export const updateMeSchema = z.object({
   displayName: z.string().min(1).max(60).optional(),
   bio: z.string().max(500).optional(),
   avatarUrl: z.string().url().optional(),
+  isPrivate: z.boolean().optional(),
 });
 
 export type UpdateMeDto = z.infer<typeof updateMeSchema>;

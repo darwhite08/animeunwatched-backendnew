@@ -16,6 +16,11 @@ usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);
 // Personalised people-you-may-know — FOAF + taste similarity + recency
 usersRouter.get("/suggestions",     requireAuth, ctrl.whoToFollow);
 
+// Follow requests (private accounts)
+usersRouter.get( "/me/follow-requests",                     requireAuth, ctrl.getFollowRequests);
+usersRouter.post("/me/follow-requests/:requesterId/accept", requireAuth, ctrl.acceptFollowRequest);
+usersRouter.post("/me/follow-requests/:requesterId/reject", requireAuth, ctrl.rejectFollowRequest);
+
 // ── Dynamic routes ────────────────────────────────────────────────────────────
 usersRouter.get("/:username",              optionalAuth, ctrl.getProfile);
 usersRouter.post("/:username/follow",      requireAuth,  ctrl.follow);

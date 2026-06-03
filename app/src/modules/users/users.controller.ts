@@ -25,8 +25,32 @@ export async function updateMe(req: Request, res: Response, next: NextFunction):
 export async function follow(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const followerId: string = res.locals.user.id;
-    await service.follow(followerId, req.params.username as string);
-    res.status(204).send();
+    const result = await service.follow(followerId, req.params.username as string);
+    res.status(200).json(result); // { status: "ACCEPTED" | "PENDING" }
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getFollowRequests(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.listFollowRequests(res.locals.user.id as string));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function acceptFollowRequest(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.respondFollowRequest(res.locals.user.id as string, req.params.requesterId as string, true));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function rejectFollowRequest(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.respondFollowRequest(res.locals.user.id as string, req.params.requesterId as string, false));
   } catch (err) {
     next(err);
   }

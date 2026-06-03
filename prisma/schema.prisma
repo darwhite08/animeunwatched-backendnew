@@ -59,6 +59,7 @@ model User {
   isBanned     Boolean  @default(false)
   bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
   isShadowBanned Boolean @default(false)  // soft moderation: user can post but content is hidden from others
+  isPrivate    Boolean  @default(false)   // private account (Instagram-style): followers need approval
   // Streak tracking — real database-backed (not rep estimate)
   streakDays   Int      @default(0)
   lastActiveAt DateTime?
@@ -199,9 +200,15 @@ model SecurityEvent {
   @@index([type, createdAt])
 }
 
+enum FollowStatus {
+  PENDING   // request awaiting approval (target is a private account)
+  ACCEPTED  // active follow
+}
+
 model Follow {
   followerId  String
   followingId String
+  status      FollowStatus @default(ACCEPTED)
   createdAt   DateTime @default(now())
 
   follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
@@ -209,6 +216,7 @@ model Follow {
 
   @@unique([followerId, followingId])
   @@index([followingId])
+  @@index([followingId, status])
 }
 
 // ---------------------------------------------------------------------------

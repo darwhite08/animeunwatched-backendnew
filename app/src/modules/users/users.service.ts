@@ -26,10 +26,12 @@ export async function getProfile(username: string, viewerId?: string) {
     where: { username },
     select: {
       ...safeUserSelect,
+      isPrivate: true,
       _count: {
         select: {
-          followers: true,
-          following: true,
+          // Count only active (ACCEPTED) follows, not pending requests.
+          followers: { where: { status: "ACCEPTED" } },
+          following: { where: { status: "ACCEPTED" } },
           listEntries: true,
           reviews: true,
         },
@@ -63,27 +65,35 @@ export async function getProfile(username: string, viewerId?: string) {
 
   const { _count, posts, reviews, ...rest } = user;
 
-  // Whether the logged-in viewer follows this profile (for the Follow button).
+  // Viewer's follow relationship: ACCEPTED → following, PENDING → requested.
   let isFollowing = false;
+  let followRequested = false;
   if (viewerId && viewerId !== rest.id) {
-    const f = await prisma.follow.findFirst({
-      where: { followerId: viewerId, followingId: rest.id },
-      select: { followerId: true },
+    const f = await prisma.follow.findUnique({
+      where: { followerId_followingId: { followerId: viewerId, followingId: rest.id } },
+      select: { status: true },
     });
-    isFollowing = !!f;
+    isFollowing = f?.status === "ACCEPTED";
+    followRequested = f?.status === "PENDING";
   }
 
+  // Private account content is hidden from non-followers (Instagram-style).
+  const locked = !!rest.isPrivate && viewerId !== rest.id && !isFollowing;
+
   return {
-    user: { ...rest, isFollowing },
+    user: { ...rest, isFollowing, followRequested },
     isFollowing,
+    followRequested,
+    isPrivate: rest.isPrivate,
+    locked,
     stats: {
       followers: _count.followers,
       following: _count.following,
       listCount: _count.listEntries,
       reviewCount: _count.reviews,
     },
-    recentPosts: posts,
-    recentReviews: reviews,
+    recentPosts: locked ? [] : posts,
+    recentReviews: locked ? [] : reviews,
   };
 }
 
@@ -96,8 +106,9 @@ export async function updateMe(userId: string, dto: UpdateMeDto) {
       ...(dto.displayName !== undefined ? { displayName: dto.displayName } : {}),
       ...(dto.bio !== undefined ? { bio: dto.bio } : {}),
       ...(dto.avatarUrl !== undefined ? { avatarUrl: dto.avatarUrl } : {}),
+      ...(dto.isPrivate !== undefined ? { isPrivate: dto.isPrivate } : {}),
     },
-    select: safeUserSelect,
+    select: { ...safeUserSelect, isPrivate: true },
   });
   return { user };
 }
@@ -111,18 +122,21 @@ export async function follow(followerId: string, targetUsername: string) {
     throw conflict("You cannot follow yourself");
   }
 
+  // Private accounts require approval → create a PENDING request instead of an active follow.
+  const status = target.isPrivate ? "PENDING" : "ACCEPTED";
+
   try {
     await prisma.follow.create({
-      data: { followerId, followingId: target.id },
+      data: { followerId, followingId: target.id, status },
     });
   } catch (err: unknown) {
-    // Prisma unique constraint violation
-    if (
-      err instanceof Error &&
-      "code" in err &&
-      (err as { code: string }).code === "P2002"
-    ) {
-      throw conflict("Already following this user");
+    // Already following or already requested → idempotent, report current state.
+    if (err instanceof Error && "code" in err && (err as { code: string }).code === "P2002") {
+      const existing = await prisma.follow.findUnique({
+        where: { followerId_followingId: { followerId, followingId: target.id } },
+        select: { status: true },
+      });
+      return { status: existing?.status ?? "ACCEPTED" };
     }
     throw err;
   }
@@ -134,13 +148,64 @@ export async function follow(followerId: string, targetUsername: string) {
         recipientId: target.id,
         type: NotificationType.NEW_FOLLOWER,
         payload: {
-          message: `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
+          message:
+            status === "PENDING"
+              ? `${follower?.displayName ?? follower?.username ?? "Someone"} requested to follow you`
+              : `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
           link: `/u/${follower?.username ?? ""}`,
           followerUsername: follower?.username,
+          requested: status === "PENDING",
         },
       })
     )
     .catch(console.error);
+
+  return { status };
+}
+
+// ─── follow requests (private accounts) ─────────────────────────────────────────
+
+/** People who have requested to follow me (PENDING). */
+export async function listFollowRequests(userId: string) {
+  const rows = await prisma.follow.findMany({
+    where: { followingId: userId, status: "PENDING" },
+    include: { follower: { select: safeUserSelect } },
+    orderBy: { createdAt: "desc" },
+  });
+  return { data: rows.map((r) => r.follower) };
+}
+
+/** Approve or reject a pending follow request from `requesterId`. */
+export async function respondFollowRequest(userId: string, requesterId: string, accept: boolean) {
+  const req = await prisma.follow.findUnique({
+    where: { followerId_followingId: { followerId: requesterId, followingId: userId } },
+    select: { status: true },
+  });
+  if (!req || req.status !== "PENDING") throw notFound("No pending request from this user");
+
+  if (accept) {
+    await prisma.follow.update({
+      where: { followerId_followingId: { followerId: requesterId, followingId: userId } },
+      data: { status: "ACCEPTED" },
+    });
+    prisma.user.findUnique({ where: { id: userId }, select: { username: true, displayName: true } })
+      .then((me) =>
+        createNotification({
+          recipientId: requesterId,
+          type: NotificationType.NEW_FOLLOWER,
+          payload: {
+            message: `${me?.displayName ?? me?.username ?? "Someone"} accepted your follow request`,
+            link: `/u/${me?.username ?? ""}`,
+          },
+        })
+      )
+      .catch(console.error);
+  } else {
+    await prisma.follow.delete({
+      where: { followerId_followingId: { followerId: requesterId, followingId: userId } },
+    });
+  }
+  return { ok: true, accepted: accept };
 }
 
 // ─── calculateXp ──────────────────────────────────────────────────────────────
@@ -214,13 +279,13 @@ export async function getFollowers(username: string, page = 1, limit = 20) {
   const skip = (page - 1) * limit;
   const [rows, total] = await prisma.$transaction([
     prisma.follow.findMany({
-      where: { followingId: user.id },
+      where: { followingId: user.id, status: "ACCEPTED" },
       skip,
       take: limit,
       include: { follower: { select: safeUserSelect } },
       orderBy: { createdAt: "desc" },
     }),
-    prisma.follow.count({ where: { followingId: user.id } }),
+    prisma.follow.count({ where: { followingId: user.id, status: "ACCEPTED" } }),
   ]);
 
   return {
@@ -287,13 +352,13 @@ export async function getFollowing(username: string, page = 1, limit = 20) {
   const skip = (page - 1) * limit;
   const [rows, total] = await prisma.$transaction([
     prisma.follow.findMany({
-      where: { followerId: user.id },
+      where: { followerId: user.id, status: "ACCEPTED" },
       skip,
       take: limit,
       include: { following: { select: safeUserSelect } },
       orderBy: { createdAt: "desc" },
     }),
-    prisma.follow.count({ where: { followerId: user.id } }),
+    prisma.follow.count({ where: { followerId: user.id, status: "ACCEPTED" } }),
   ]);
 
   return {
