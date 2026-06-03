@@ -24,6 +24,9 @@ export async function listPosts(req: Request, res: Response, next: NextFunction)
         skip: (page - 1) * limit, take: limit,
         select: {
           id: true, content: true, createdAt: true,
+          // Trending-algorithm override fields so the admin UI can show
+          // current boost/penalty and operators can tweak via PATCH /score.
+          manualBoost: true, shadowPenalty: true,
           author: { select: { id: true, username: true, displayName: true, isShadowBanned: true } },
           _count: { select: { likes: true, comments: true } },
         },
