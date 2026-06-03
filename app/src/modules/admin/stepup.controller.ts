@@ -20,28 +20,43 @@ export async function requestStepUp(req: Request, res: Response, next: NextFunct
     const { password, totp, purpose } = req.body as {
       password?: string; totp?: string; purpose?: string;
     };
-    if (!password) throw badReq("password required");
     if (!purpose)  throw badReq("purpose required");
 
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw forbidden("User not found");
 
-    const passOk = await argon2.verify(user.passwordHash, password);
-    if (!passOk) {
-      await adminAudit({
-        actorId: userId, action: "stepup.failed", metadata: { purpose, reason: "bad_password" },
-        ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
-      });
-      throw forbidden("Invalid password");
+    // OAuth-only admins have no password (passwordHash defaults to "") —
+    // they prove identity via TOTP instead. Without either factor we can't
+    // step them up; tell them how to fix it instead of returning 500.
+    const hasPassword = typeof user.passwordHash === "string" && user.passwordHash.length > 0;
+    const totpRow = await prisma.totpSecret.findUnique({ where: { userId } });
+    const totpEnrolled = !!totpRow?.enabled;
+
+    if (!hasPassword && !totpEnrolled) {
+      throw forbidden(
+        "You signed in via OAuth and have no MFA enrolled. " +
+        "Open Settings → Security to set a password or enable TOTP before performing this action.",
+      );
     }
 
-    const totpRow = await prisma.totpSecret.findUnique({ where: { userId } });
-    if (totpRow?.enabled) {
+    if (hasPassword) {
+      if (!password) throw badReq("password required");
+      const passOk = await argon2.verify(user.passwordHash, password);
+      if (!passOk) {
+        await adminAudit({
+          actorId: userId, action: "stepup.failed", metadata: { purpose, reason: "bad_password" },
+          ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
+        });
+        throw forbidden("Invalid password");
+      }
+    }
+
+    if (totpEnrolled) {
       if (!totp) throw badReq("totp code required");
-      let totpOk = verifyTotp(totpRow.secretBase32, totp);
-      if (!totpOk && Array.isArray(totpRow.backupCodes)) {
+      let totpOk = verifyTotp(totpRow!.secretBase32, totp);
+      if (!totpOk && Array.isArray(totpRow!.backupCodes)) {
         const hash = hashBackupCode(totp);
-        const codes = totpRow.backupCodes as string[];
+        const codes = totpRow!.backupCodes as string[];
         if (codes.includes(hash)) {
           totpOk = true;
           await prisma.totpSecret.update({

@@ -76,4 +76,27 @@ describe("stepup controller", () => {
     await requestStepUp(makeReq({ password: "correct", totp: "000000", purpose: "x" }), makeRes(), next2 as never);
     expect((next2.mock.calls[0][0] as Error).message).toMatch(/Invalid TOTP/);
   });
+
+  it("OAuth user with no MFA gets a clear 403 (no 500)", async () => {
+    // OAuth-only users have an empty passwordHash and no TOTP. Used to crash
+    // argon2.verify and bubble as "Internal server error".
+    users.set("op-1", { id: "op-1", passwordHash: "" });
+    const next = vi.fn();
+    await requestStepUp(makeReq({ password: "anything", purpose: "users:role" }), makeRes(), next as never);
+    expect((next.mock.calls[0][0] as Error).message).toMatch(/OAuth.*MFA/);
+  });
+
+  it("OAuth user with TOTP enrolled can step up using TOTP alone", async () => {
+    users.set("op-1", { id: "op-1", passwordHash: "" });
+    totpRow = { userId: "op-1", secretBase32: "JBSWY3DPEHPK3PXP", enabled: true, backupCodes: null };
+    // Generate the actual TOTP code for the current 30-second window so the
+    // test does not depend on a fixed code.
+    const { totp: makeTotp } = await import("../app/src/lib/totp");
+    const code = makeTotp("JBSWY3DPEHPK3PXP");
+    const res = makeRes();
+    await requestStepUp(makeReq({ totp: code, purpose: "users:role" }), res, vi.fn() as never);
+    const call = (res.json as ReturnType<typeof vi.fn>).mock.calls[0]?.[0];
+    expect(call?.token).toMatch(/^[A-Za-z0-9_-]+$/);
+    expect(audits).toContain("stepup.issued");
+  });
 });

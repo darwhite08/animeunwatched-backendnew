@@ -219,14 +219,45 @@ export async function browse(query: BrowseQuery) {
   const { q, year, season, type, status, studio, start_date, end_date, page, limit, genre } = query as typeof query & { genre?: string };
   const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date || genre);
 
-  // ── No filters: proxy Jikan directly for ALL anime with pagination ──
+  // ── No filters: prefer local DB (fast, ~50ms) when it has enough rows
+  // for this page; only fall through to Jikan when the DB is sparse. Jikan
+  // round-trips run 5-8s end-to-end from us-east-1, so the previous "always
+  // Jikan on the cold path" cost every 3rd-minute visitor a multi-second
+  // page wait. Local DB serves immediately and the topAnime catalog seed
+  // keeps it warm.
   if (!hasFilters) {
+    const { skip, take } = paginate(page, limit);
+    const [localData, localTotal] = await prisma.$transaction([
+      prisma.anime.findMany({
+        skip, take, include: animeInclude,
+        orderBy: { score: { sort: "desc", nulls: "last" } },
+      }),
+      prisma.anime.count(),
+    ]);
+
+    if (localData.length === take) {
+      const result = {
+        data: (localData as AnimeWithRelations[]).map((a) => flattenAnime(a)),
+        meta: buildMeta(localTotal, page, limit),
+      };
+      cache.set(cacheKey, result, 15 * 60_000); // 15 min — local data is stable
+      return result;
+    }
+
+    // DB doesn't have a full page → fall back to Jikan and cache aggressively.
+    // Jikan's top-list is stable so a longer TTL is safe.
     try {
       const result = await browseJikan(page, limit, {});
-      cache.set(cacheKey, result, 3 * 60_000); // 3 min TTL (Jikan is live data)
+      cache.set(cacheKey, result, 30 * 60_000); // 30 min (was 3 min)
       return result;
     } catch {
-      // Jikan unavailable → fall through to local DB
+      // Jikan unavailable → serve whatever DB has rather than 500.
+      const result = {
+        data: (localData as AnimeWithRelations[]).map((a) => flattenAnime(a)),
+        meta: buildMeta(localTotal, page, limit),
+      };
+      cache.set(cacheKey, result, 60_000); // short cache on degraded path
+      return result;
     }
   }
 
