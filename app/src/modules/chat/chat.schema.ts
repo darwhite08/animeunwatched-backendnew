@@ -55,6 +55,18 @@ export const sendMessageSchema = z.object({
       )
       .max(50)
       .optional(),
+    // DM E2EE layer (addendum) — opaque ciphertext + per-device envelopes.
+    e2ee: z.object({
+      ciphertext: z.string().min(1).max(100000),
+      contentIv: z.string().min(1).max(512),
+      frankingTag: z.string().min(1).max(512),
+      envelopes: z.array(z.object({
+        deviceId: z.string().min(1),
+        ephemeralPub: z.string().min(1).max(512),
+        wrappedCK: z.string().min(1).max(2048),
+        wrapIv: z.string().min(1).max(512),
+      })).min(1).max(50),
+    }).optional(),
   }),
 });
 

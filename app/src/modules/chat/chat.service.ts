@@ -6,6 +6,7 @@ import { env } from "../../config/env";
 import { pushToUser } from "../../lib/push";
 import { isOnline, isViewing } from "../../realtime/presence";
 import { canSeeActivity } from "../../realtime/activityGuard";
+import { computeServerFrank } from "../../lib/franking";
 
 // ─── DM v2 helpers ──────────────────────────────────────────────────────────
 
@@ -341,6 +342,14 @@ export type SendMessageDto = {
   iv?: string;
   senderDeviceKeyId?: string;
   envelopes?: { recipientDeviceKeyId: string; wrappedKey: string; wrapIv: string }[];
+  // DM E2EE layer (addendum): server-readable metadata + opaque ciphertext +
+  // per-device content-key envelopes. body stays null; server can't read it.
+  e2ee?: {
+    ciphertext: string;
+    contentIv: string;
+    frankingTag: string;
+    envelopes: { deviceId: string; ephemeralPub: string; wrappedCK: string; wrapIv: string }[];
+  };
 };
 
 const MSG_SELECT = {
@@ -348,7 +357,8 @@ const MSG_SELECT = {
   mediaUrl: true, mediaMime: true, mediaSizeBytes: true, mediaWidth: true,
   mediaHeight: true, mediaDurationS: true, mediaBlurhash: true,
   animeMalId: true, animeEpisode: true, replyToId: true, clientNonce: true,
-  ciphertext: true, iv: true, createdAt: true, readAt: true, deliveredAt: true,
+  ciphertext: true, iv: true, contentIv: true, isE2EE: true,
+  createdAt: true, readAt: true, deliveredAt: true,
   editedAt: true, deletedAt: true, senderDeviceKeyId: true,
 } as const;
 
@@ -403,7 +413,22 @@ export async function sendMessage(opts: SendMessageDto) {
   const type = opts.type ?? (opts.body != null ? "TEXT" : opts.ciphertext ? "TEXT" : "TEXT");
   let body: string | null = null;
   const data: Record<string, unknown> = {};
-  if (opts.ciphertext != null && opts.body == null) {
+  if (opts.e2ee) {
+    // E2EE branch: store opaque ciphertext + franking; body stays null. Media
+    // metadata (type/anime/reply) is still clear and validated below.
+    data.isE2EE = true;
+    data.ciphertext = opts.e2ee.ciphertext;
+    data.contentIv = opts.e2ee.contentIv;
+    data.frankingTag = opts.e2ee.frankingTag;
+    if (type === "ANIME_CARD") {
+      if (!opts.animeMalId) throw badReq("animeMalId required");
+      data.animeMalId = opts.animeMalId;
+      if (opts.animeEpisode != null) data.animeEpisode = opts.animeEpisode;
+    }
+    if (type === "IMAGE" || type === "VOICE") {
+      if (opts.media?.mediaUrl) Object.assign(data, opts.media); // encrypted blob URL + clear dims/blurhash
+    }
+  } else if (opts.ciphertext != null && opts.body == null) {
     // Legacy E2E path (back-compat).
     data.ciphertext = opts.ciphertext;
     data.iv = opts.iv ?? "";
@@ -475,13 +500,30 @@ export async function sendMessage(opts: SendMessageDto) {
         skipDuplicates: true,
       });
     }
+    // E2EE: counter-sign the franking tag + store per-device content-key envelopes.
+    if (opts.e2ee) {
+      const serverFrank = computeServerFrank({
+        frankingTag: opts.e2ee.frankingTag, messageId: created.id,
+        senderId: opts.senderId, ts: created.createdAt.getTime(),
+      });
+      await tx.directMessage.update({ where: { id: created.id }, data: { serverFrank } });
+      if (opts.e2ee.envelopes.length) {
+        await tx.messageEnvelope.createMany({
+          data: opts.e2ee.envelopes.map((e) => ({
+            messageId: created.id, deviceId: e.deviceId,
+            ephemeralPub: e.ephemeralPub, wrappedCK: e.wrappedCK, wrapIv: e.wrapIv,
+          })),
+          skipDuplicates: true,
+        });
+      }
+    }
     return created;
   });
 
   // Real-time fan-out behind the realtime layer.
   const io = getIo();
   if (io) {
-    io.to(`user:${recipientId}`).emit("chat.message", { ...message, envelopes: opts.envelopes ?? [] });
+    io.to(`user:${recipientId}`).emit("chat.message", { ...message, envelopes: opts.envelopes ?? [], e2eeEnvelopes: opts.e2ee?.envelopes ?? [] });
     io.to(`user:${opts.senderId}`).emit("chat.sent", { nonce: opts.clientNonce ?? null, message });
     if (recipientOnline) {
       io.to(`user:${opts.senderId}`).emit("chat.delivered", { conversationId: conversation.id, messageId: message.id, deliveredAt: now });
@@ -631,12 +673,20 @@ export async function getMessages(opts: {
       animeMalId: true, animeEpisode: true, replyToId: true, editedAt: true,
       ciphertext: true,
       iv:        true,
+      contentIv: true,
+      isE2EE:    true,
       createdAt: true,
       readAt:    true,
       deliveredAt: true,
       deletedAt: true,
       senderDeviceKeyId: true,
       replyTo: { select: { id: true, senderId: true, type: true, body: true, deletedAt: true } },
+      // E2EE content-key envelopes addressed to THIS user's devices (the client
+      // picks the one matching its current device id).
+      envelopesV2: {
+        where:  { device: { userId: opts.userId } },
+        select: { deviceId: true, ephemeralPub: true, wrappedCK: true, wrapIv: true },
+      },
       // Only the envelopes addressed to this user's device(s) (empty for legacy).
       envelopes: {
         where:  { recipientDeviceKeyId: { in: myKeyIds } },

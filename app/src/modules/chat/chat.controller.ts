@@ -241,6 +241,7 @@ export async function sendMessage(req: Request, res: Response, next: NextFunctio
       iv:         body.iv,
       senderDeviceKeyId: body.senderDeviceKeyId,
       envelopes:         body.envelopes,
+      e2ee:              body.e2ee,
     });
     res.status(201).json({ message });
   } catch (err) {
