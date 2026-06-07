@@ -363,6 +363,10 @@ export type UserWhereInput = {
   securityEvents?: Prisma.SecurityEventListRelationFilter
   publicKey?: Prisma.XOR<Prisma.UserPublicKeyNullableScalarRelationFilter, Prisma.UserPublicKeyWhereInput> | null
   deviceKeys?: Prisma.UserDeviceKeyListRelationFilter
+  shots?: Prisma.ShotListRelationFilter
+  shotLikes?: Prisma.ShotLikeListRelationFilter
+  stories?: Prisma.StoryListRelationFilter
+  storyViews?: Prisma.StoryViewListRelationFilter
   sentMessages?: Prisma.DirectMessageListRelationFilter
   conversations1?: Prisma.ConversationListRelationFilter
   conversations2?: Prisma.ConversationListRelationFilter
@@ -423,6 +427,10 @@ export type UserOrderByWithRelationInput = {
   securityEvents?: Prisma.SecurityEventOrderByRelationAggregateInput
   publicKey?: Prisma.UserPublicKeyOrderByWithRelationInput
   deviceKeys?: Prisma.UserDeviceKeyOrderByRelationAggregateInput
+  shots?: Prisma.ShotOrderByRelationAggregateInput
+  shotLikes?: Prisma.ShotLikeOrderByRelationAggregateInput
+  stories?: Prisma.StoryOrderByRelationAggregateInput
+  storyViews?: Prisma.StoryViewOrderByRelationAggregateInput
   sentMessages?: Prisma.DirectMessageOrderByRelationAggregateInput
   conversations1?: Prisma.ConversationOrderByRelationAggregateInput
   conversations2?: Prisma.ConversationOrderByRelationAggregateInput
@@ -486,6 +494,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   securityEvents?: Prisma.SecurityEventListRelationFilter
   publicKey?: Prisma.XOR<Prisma.UserPublicKeyNullableScalarRelationFilter, Prisma.UserPublicKeyWhereInput> | null
   deviceKeys?: Prisma.UserDeviceKeyListRelationFilter
+  shots?: Prisma.ShotListRelationFilter
+  shotLikes?: Prisma.ShotLikeListRelationFilter
+  stories?: Prisma.StoryListRelationFilter
+  storyViews?: Prisma.StoryViewListRelationFilter
   sentMessages?: Prisma.DirectMessageListRelationFilter
   conversations1?: Prisma.ConversationListRelationFilter
   conversations2?: Prisma.ConversationListRelationFilter
@@ -598,6 +610,10 @@ export type UserCreateInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -658,6 +674,10 @@ export type UserUncheckedCreateInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -718,6 +738,10 @@ export type UserUpdateInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -778,6 +802,10 @@ export type UserUncheckedUpdateInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -1511,6 +1539,62 @@ export type UserUpdateOneRequiredWithoutScimSubjectNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutScimSubjectInput, Prisma.UserUpdateWithoutScimSubjectInput>, Prisma.UserUncheckedUpdateWithoutScimSubjectInput>
 }
 
+export type UserCreateNestedOneWithoutShotsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotsInput, Prisma.UserUncheckedCreateWithoutShotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShotsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotsInput, Prisma.UserUncheckedCreateWithoutShotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotsInput
+  upsert?: Prisma.UserUpsertWithoutShotsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotsInput, Prisma.UserUpdateWithoutShotsInput>, Prisma.UserUncheckedUpdateWithoutShotsInput>
+}
+
+export type UserCreateNestedOneWithoutShotLikesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotLikesInput, Prisma.UserUncheckedCreateWithoutShotLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShotLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotLikesInput, Prisma.UserUncheckedCreateWithoutShotLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotLikesInput
+  upsert?: Prisma.UserUpsertWithoutShotLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotLikesInput, Prisma.UserUpdateWithoutShotLikesInput>, Prisma.UserUncheckedUpdateWithoutShotLikesInput>
+}
+
+export type UserCreateNestedOneWithoutStoriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoriesInput, Prisma.UserUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoriesInput, Prisma.UserUncheckedCreateWithoutStoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoriesInput
+  upsert?: Prisma.UserUpsertWithoutStoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoriesInput, Prisma.UserUpdateWithoutStoriesInput>, Prisma.UserUncheckedUpdateWithoutStoriesInput>
+}
+
+export type UserCreateNestedOneWithoutStoryViewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoryViewsInput, Prisma.UserUncheckedCreateWithoutStoryViewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoryViewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStoryViewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoryViewsInput, Prisma.UserUncheckedCreateWithoutStoryViewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoryViewsInput
+  upsert?: Prisma.UserUpsertWithoutStoryViewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoryViewsInput, Prisma.UserUpdateWithoutStoryViewsInput>, Prisma.UserUncheckedUpdateWithoutStoryViewsInput>
+}
+
 export type UserCreateWithoutDeviceTokensInput = {
   id?: string
   email: string
@@ -1558,6 +1642,10 @@ export type UserCreateWithoutDeviceTokensInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -1617,6 +1705,10 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -1692,6 +1784,10 @@ export type UserUpdateWithoutDeviceTokensInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -1751,6 +1847,10 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -1810,6 +1910,10 @@ export type UserCreateWithoutNativePushTokensInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -1869,6 +1973,10 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -1944,6 +2052,10 @@ export type UserUpdateWithoutNativePushTokensInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -2003,6 +2115,10 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -2061,6 +2177,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -2120,6 +2240,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -2195,6 +2319,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -2254,6 +2382,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -2313,6 +2445,10 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -2372,6 +2508,10 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -2447,6 +2587,10 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -2506,6 +2650,10 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -2565,6 +2713,10 @@ export type UserCreateWithoutSecurityEventsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -2624,6 +2776,10 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -2699,6 +2855,10 @@ export type UserUpdateWithoutSecurityEventsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -2758,6 +2918,10 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -2817,6 +2981,10 @@ export type UserCreateWithoutFollowingInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -2876,6 +3044,10 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -2940,6 +3112,10 @@ export type UserCreateWithoutFollowersInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -2999,6 +3175,10 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -3074,6 +3254,10 @@ export type UserUpdateWithoutFollowingInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -3133,6 +3317,10 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -3203,6 +3391,10 @@ export type UserUpdateWithoutFollowersInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -3262,6 +3454,10 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -3321,6 +3517,10 @@ export type UserCreateWithoutListEntriesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -3380,6 +3580,10 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -3455,6 +3659,10 @@ export type UserUpdateWithoutListEntriesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -3514,6 +3722,10 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -3573,6 +3785,10 @@ export type UserCreateWithoutPostsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -3632,6 +3848,10 @@ export type UserUncheckedCreateWithoutPostsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -3707,6 +3927,10 @@ export type UserUpdateWithoutPostsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -3766,6 +3990,10 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -3825,6 +4053,10 @@ export type UserCreateWithoutPostHidesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -3884,6 +4116,10 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -3959,6 +4195,10 @@ export type UserUpdateWithoutPostHidesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -4018,6 +4258,10 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -4077,6 +4321,10 @@ export type UserCreateWithoutPostLikesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -4136,6 +4384,10 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -4211,6 +4463,10 @@ export type UserUpdateWithoutPostLikesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -4270,6 +4526,10 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -4329,6 +4589,10 @@ export type UserCreateWithoutPostCommentsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -4388,6 +4652,10 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -4463,6 +4731,10 @@ export type UserUpdateWithoutPostCommentsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -4522,6 +4794,10 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -4581,6 +4857,10 @@ export type UserCreateWithoutPostCommentLikesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -4640,6 +4920,10 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -4715,6 +4999,10 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -4774,6 +5062,10 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -4833,6 +5125,10 @@ export type UserCreateWithoutOwnedClubsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -4892,6 +5188,10 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -4967,6 +5267,10 @@ export type UserUpdateWithoutOwnedClubsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5026,6 +5330,10 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5085,6 +5393,10 @@ export type UserCreateWithoutClubMembershipsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5144,6 +5456,10 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5219,6 +5535,10 @@ export type UserUpdateWithoutClubMembershipsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5278,6 +5598,10 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5337,6 +5661,10 @@ export type UserCreateWithoutThreadsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5396,6 +5724,10 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5471,6 +5803,10 @@ export type UserUpdateWithoutThreadsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5530,6 +5866,10 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5589,6 +5929,10 @@ export type UserCreateWithoutThreadRepliesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5648,6 +5992,10 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5723,6 +6071,10 @@ export type UserUpdateWithoutThreadRepliesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -5782,6 +6134,10 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -5841,6 +6197,10 @@ export type UserCreateWithoutReviewsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -5900,6 +6260,10 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -5975,6 +6339,10 @@ export type UserUpdateWithoutReviewsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -6034,6 +6402,10 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -6093,6 +6465,10 @@ export type UserCreateWithoutReviewLikesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -6152,6 +6528,10 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -6227,6 +6607,10 @@ export type UserUpdateWithoutReviewLikesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -6286,6 +6670,10 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -6345,6 +6733,10 @@ export type UserCreateWithoutBlogsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -6404,6 +6796,10 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -6479,6 +6875,10 @@ export type UserUpdateWithoutBlogsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -6538,6 +6938,10 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -6597,6 +7001,10 @@ export type UserCreateWithoutBlogCommentsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -6656,6 +7064,10 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -6731,6 +7143,10 @@ export type UserUpdateWithoutBlogCommentsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -6790,6 +7206,10 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -6849,6 +7269,10 @@ export type UserCreateWithoutNotificationsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -6908,6 +7332,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -6983,6 +7411,10 @@ export type UserUpdateWithoutNotificationsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -7042,6 +7474,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -7101,6 +7537,10 @@ export type UserCreateWithoutReportsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -7160,6 +7600,10 @@ export type UserUncheckedCreateWithoutReportsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -7235,6 +7679,10 @@ export type UserUpdateWithoutReportsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -7294,6 +7742,10 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -7353,6 +7805,10 @@ export type UserCreateWithoutModerationActionsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -7412,6 +7868,10 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -7487,6 +7947,10 @@ export type UserUpdateWithoutModerationActionsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -7546,6 +8010,10 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -7605,6 +8073,10 @@ export type UserCreateWithoutPollsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -7664,6 +8136,10 @@ export type UserUncheckedCreateWithoutPollsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -7739,6 +8215,10 @@ export type UserUpdateWithoutPollsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -7798,6 +8278,10 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -7857,6 +8341,10 @@ export type UserCreateWithoutPollVotesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -7916,6 +8404,10 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -7991,6 +8483,10 @@ export type UserUpdateWithoutPollVotesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -8050,6 +8546,10 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -8109,6 +8609,10 @@ export type UserCreateWithoutOauthProvidersInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -8168,6 +8672,10 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -8243,6 +8751,10 @@ export type UserUpdateWithoutOauthProvidersInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -8302,6 +8814,10 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -8361,6 +8877,10 @@ export type UserCreateWithoutPublicKeyInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -8420,6 +8940,10 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -8495,6 +9019,10 @@ export type UserUpdateWithoutPublicKeyInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -8554,6 +9082,10 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -8614,6 +9146,10 @@ export type UserCreateWithoutConversations1Input = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
@@ -8673,6 +9209,10 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8737,6 +9277,10 @@ export type UserCreateWithoutConversations2Input = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
@@ -8796,6 +9340,10 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8871,6 +9419,10 @@ export type UserUpdateWithoutConversations1Input = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
@@ -8930,6 +9482,10 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9000,6 +9556,10 @@ export type UserUpdateWithoutConversations2Input = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
@@ -9059,6 +9619,10 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9118,6 +9682,10 @@ export type UserCreateWithoutSentMessagesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
@@ -9177,6 +9745,10 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
@@ -9252,6 +9824,10 @@ export type UserUpdateWithoutSentMessagesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
@@ -9311,6 +9887,10 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9370,6 +9950,10 @@ export type UserCreateWithoutMessageReactionsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -9429,6 +10013,10 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -9504,6 +10092,10 @@ export type UserUpdateWithoutMessageReactionsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -9563,6 +10155,10 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -9621,6 +10217,10 @@ export type UserCreateWithoutDeviceKeysInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -9680,6 +10280,10 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -9755,6 +10359,10 @@ export type UserUpdateWithoutDeviceKeysInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -9814,6 +10422,10 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -9874,6 +10486,10 @@ export type UserCreateWithoutActivitiesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -9933,6 +10549,10 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -10008,6 +10628,10 @@ export type UserUpdateWithoutActivitiesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -10067,6 +10691,10 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -10126,6 +10754,10 @@ export type UserCreateWithoutActivityLikesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -10185,6 +10817,10 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -10260,6 +10896,10 @@ export type UserUpdateWithoutActivityLikesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -10319,6 +10959,10 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -10378,6 +11022,10 @@ export type UserCreateWithoutActivityRepostsInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -10437,6 +11085,10 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -10512,6 +11164,10 @@ export type UserUpdateWithoutActivityRepostsInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -10571,6 +11227,10 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -10630,6 +11290,10 @@ export type UserCreateWithoutRepliesInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -10689,6 +11353,10 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -10764,6 +11432,10 @@ export type UserUpdateWithoutRepliesInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -10823,6 +11495,10 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -10882,6 +11558,10 @@ export type UserCreateWithoutScimSubjectInput = {
   securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
@@ -10941,6 +11621,10 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
   publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
@@ -11016,6 +11700,10 @@ export type UserUpdateWithoutScimSubjectInput = {
   securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
@@ -11075,6 +11763,10 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
@@ -11085,6 +11777,1078 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutShotsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShotsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShotsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotsInput, Prisma.UserUncheckedCreateWithoutShotsInput>
+}
+
+export type UserUpsertWithoutShotsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShotsInput, Prisma.UserUncheckedUpdateWithoutShotsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotsInput, Prisma.UserUncheckedCreateWithoutShotsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShotsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShotsInput, Prisma.UserUncheckedUpdateWithoutShotsInput>
+}
+
+export type UserUpdateWithoutShotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutShotLikesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShotLikesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShotLikesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotLikesInput, Prisma.UserUncheckedCreateWithoutShotLikesInput>
+}
+
+export type UserUpsertWithoutShotLikesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShotLikesInput, Prisma.UserUncheckedUpdateWithoutShotLikesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotLikesInput, Prisma.UserUncheckedCreateWithoutShotLikesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShotLikesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShotLikesInput, Prisma.UserUncheckedUpdateWithoutShotLikesInput>
+}
+
+export type UserUpdateWithoutShotLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShotLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStoriesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStoriesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStoriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoriesInput, Prisma.UserUncheckedCreateWithoutStoriesInput>
+}
+
+export type UserUpsertWithoutStoriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStoriesInput, Prisma.UserUncheckedUpdateWithoutStoriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoriesInput, Prisma.UserUncheckedCreateWithoutStoriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStoriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStoriesInput, Prisma.UserUncheckedUpdateWithoutStoriesInput>
+}
+
+export type UserUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStoryViewsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStoryViewsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStoryViewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoryViewsInput, Prisma.UserUncheckedCreateWithoutStoryViewsInput>
+}
+
+export type UserUpsertWithoutStoryViewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStoryViewsInput, Prisma.UserUncheckedUpdateWithoutStoryViewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoryViewsInput, Prisma.UserUncheckedCreateWithoutStoryViewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStoryViewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStoryViewsInput, Prisma.UserUncheckedUpdateWithoutStoryViewsInput>
+}
+
+export type UserUpdateWithoutStoryViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStoryViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -11119,6 +12883,10 @@ export type UserCountOutputType = {
   passwordResetTokens: number
   securityEvents: number
   deviceKeys: number
+  shots: number
+  shotLikes: number
+  stories: number
+  storyViews: number
   sentMessages: number
   conversations1: number
   conversations2: number
@@ -11158,6 +12926,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   securityEvents?: boolean | UserCountOutputTypeCountSecurityEventsArgs
   deviceKeys?: boolean | UserCountOutputTypeCountDeviceKeysArgs
+  shots?: boolean | UserCountOutputTypeCountShotsArgs
+  shotLikes?: boolean | UserCountOutputTypeCountShotLikesArgs
+  stories?: boolean | UserCountOutputTypeCountStoriesArgs
+  storyViews?: boolean | UserCountOutputTypeCountStoryViewsArgs
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   conversations1?: boolean | UserCountOutputTypeCountConversations1Args
   conversations2?: boolean | UserCountOutputTypeCountConversations2Args
@@ -11365,6 +13137,34 @@ export type UserCountOutputTypeCountDeviceKeysArgs<ExtArgs extends runtime.Types
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountShotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShotLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStoryViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoryViewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DirectMessageWhereInput
 }
@@ -11480,6 +13280,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   securityEvents?: boolean | Prisma.User$securityEventsArgs<ExtArgs>
   publicKey?: boolean | Prisma.User$publicKeyArgs<ExtArgs>
   deviceKeys?: boolean | Prisma.User$deviceKeysArgs<ExtArgs>
+  shots?: boolean | Prisma.User$shotsArgs<ExtArgs>
+  shotLikes?: boolean | Prisma.User$shotLikesArgs<ExtArgs>
+  stories?: boolean | Prisma.User$storiesArgs<ExtArgs>
+  storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   conversations1?: boolean | Prisma.User$conversations1Args<ExtArgs>
   conversations2?: boolean | Prisma.User$conversations2Args<ExtArgs>
@@ -11589,6 +13393,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   securityEvents?: boolean | Prisma.User$securityEventsArgs<ExtArgs>
   publicKey?: boolean | Prisma.User$publicKeyArgs<ExtArgs>
   deviceKeys?: boolean | Prisma.User$deviceKeysArgs<ExtArgs>
+  shots?: boolean | Prisma.User$shotsArgs<ExtArgs>
+  shotLikes?: boolean | Prisma.User$shotLikesArgs<ExtArgs>
+  stories?: boolean | Prisma.User$storiesArgs<ExtArgs>
+  storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   conversations1?: boolean | Prisma.User$conversations1Args<ExtArgs>
   conversations2?: boolean | Prisma.User$conversations2Args<ExtArgs>
@@ -11635,6 +13443,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     securityEvents: Prisma.$SecurityEventPayload<ExtArgs>[]
     publicKey: Prisma.$UserPublicKeyPayload<ExtArgs> | null
     deviceKeys: Prisma.$UserDeviceKeyPayload<ExtArgs>[]
+    shots: Prisma.$ShotPayload<ExtArgs>[]
+    shotLikes: Prisma.$ShotLikePayload<ExtArgs>[]
+    stories: Prisma.$StoryPayload<ExtArgs>[]
+    storyViews: Prisma.$StoryViewPayload<ExtArgs>[]
     sentMessages: Prisma.$DirectMessagePayload<ExtArgs>[]
     conversations1: Prisma.$ConversationPayload<ExtArgs>[]
     conversations2: Prisma.$ConversationPayload<ExtArgs>[]
@@ -12093,6 +13905,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   securityEvents<T extends Prisma.User$securityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$securityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SecurityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   publicKey<T extends Prisma.User$publicKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$publicKeyArgs<ExtArgs>>): Prisma.Prisma__UserPublicKeyClient<runtime.Types.Result.GetResult<Prisma.$UserPublicKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   deviceKeys<T extends Prisma.User$deviceKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deviceKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDeviceKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shots<T extends Prisma.User$shotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shotLikes<T extends Prisma.User$shotLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stories<T extends Prisma.User$storiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storyViews<T extends Prisma.User$storyViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storyViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversations1<T extends Prisma.User$conversations1Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversations1Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversations2<T extends Prisma.User$conversations2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversations2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13180,6 +14996,102 @@ export type User$deviceKeysArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.UserDeviceKeyScalarFieldEnum | Prisma.UserDeviceKeyScalarFieldEnum[]
+}
+
+/**
+ * User.shots
+ */
+export type User$shotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Shot
+   */
+  select?: Prisma.ShotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Shot
+   */
+  omit?: Prisma.ShotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotInclude<ExtArgs> | null
+  where?: Prisma.ShotWhereInput
+  orderBy?: Prisma.ShotOrderByWithRelationInput | Prisma.ShotOrderByWithRelationInput[]
+  cursor?: Prisma.ShotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotScalarFieldEnum | Prisma.ShotScalarFieldEnum[]
+}
+
+/**
+ * User.shotLikes
+ */
+export type User$shotLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotLike
+   */
+  select?: Prisma.ShotLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotLike
+   */
+  omit?: Prisma.ShotLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotLikeInclude<ExtArgs> | null
+  where?: Prisma.ShotLikeWhereInput
+  orderBy?: Prisma.ShotLikeOrderByWithRelationInput | Prisma.ShotLikeOrderByWithRelationInput[]
+  cursor?: Prisma.ShotLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotLikeScalarFieldEnum | Prisma.ShotLikeScalarFieldEnum[]
+}
+
+/**
+ * User.stories
+ */
+export type User$storiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Story
+   */
+  select?: Prisma.StorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Story
+   */
+  omit?: Prisma.StoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoryInclude<ExtArgs> | null
+  where?: Prisma.StoryWhereInput
+  orderBy?: Prisma.StoryOrderByWithRelationInput | Prisma.StoryOrderByWithRelationInput[]
+  cursor?: Prisma.StoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoryScalarFieldEnum | Prisma.StoryScalarFieldEnum[]
+}
+
+/**
+ * User.storyViews
+ */
+export type User$storyViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StoryView
+   */
+  select?: Prisma.StoryViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StoryView
+   */
+  omit?: Prisma.StoryViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoryViewInclude<ExtArgs> | null
+  where?: Prisma.StoryViewWhereInput
+  orderBy?: Prisma.StoryViewOrderByWithRelationInput | Prisma.StoryViewOrderByWithRelationInput[]
+  cursor?: Prisma.StoryViewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoryViewScalarFieldEnum | Prisma.StoryViewScalarFieldEnum[]
 }
 
 /**

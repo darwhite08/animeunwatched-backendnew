@@ -10,6 +10,10 @@ function extFromContentType(ct: string): string {
   if (ct === "audio/aac")  return "aac";
   if (ct === "audio/webm") return "webm";
   if (ct === "audio/ogg")  return "ogg";
+  if (ct === "video/mp4")       return "mp4";
+  if (ct === "video/webm")      return "webm";
+  if (ct === "video/quicktime") return "mov";
+  if (ct === "video/3gpp")      return "3gp";
   return "bin";
 }
 
@@ -32,6 +36,30 @@ export async function presignPostImage(opts: {
   return presignImageUpload({
     userId: opts.userId,
     scope: "post",
+    contentType: opts.contentType,
+    ext: extFromContentType(opts.contentType),
+  });
+}
+
+export async function presignShotVideo(opts: {
+  userId: string;
+  contentType: string;
+}): Promise<UploadIntent> {
+  return presignImageUpload({
+    userId: opts.userId,
+    scope: "shot",
+    contentType: opts.contentType,
+    ext: extFromContentType(opts.contentType),
+  });
+}
+
+export async function presignStory(opts: {
+  userId: string;
+  contentType: string;
+}): Promise<UploadIntent> {
+  return presignImageUpload({
+    userId: opts.userId,
+    scope: "story",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
   });

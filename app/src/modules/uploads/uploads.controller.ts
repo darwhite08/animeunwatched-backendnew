@@ -6,6 +6,8 @@ import {
   avatarUploadSchema,
   postImageUploadSchema,
   voiceUploadSchema,
+  shotVideoUploadSchema,
+  storyUploadSchema,
 } from "./uploads.schema";
 
 const ALLOWED_IMG = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"])
@@ -77,6 +79,36 @@ export async function postImage(req: Request, res: Response, next: NextFunction)
     const parsed = postImageUploadSchema.safeParse(req.body);
     if (!parsed.success) throw badRequest("Invalid image payload");
     const intent = await service.presignPostImage({
+      userId,
+      contentType: parsed.data.contentType,
+    });
+    res.status(200).json(intent);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function shotVideo(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const parsed = shotVideoUploadSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid video payload — MP4/WebM/MOV up to 100MB");
+    const intent = await service.presignShotVideo({
+      userId,
+      contentType: parsed.data.contentType,
+    });
+    res.status(200).json(intent);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function story(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const parsed = storyUploadSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid story media — image or MP4/WebM/MOV video up to 50MB");
+    const intent = await service.presignStory({
       userId,
       contentType: parsed.data.contentType,
     });

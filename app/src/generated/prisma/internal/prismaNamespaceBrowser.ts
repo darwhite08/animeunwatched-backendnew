@@ -175,7 +175,11 @@ export const ModelName = {
   RequestCapture: 'RequestCapture',
   CostRate: 'CostRate',
   CostBudget: 'CostBudget',
-  SamlLoginEvent: 'SamlLoginEvent'
+  SamlLoginEvent: 'SamlLoginEvent',
+  Shot: 'Shot',
+  ShotLike: 'ShotLike',
+  Story: 'Story',
+  StoryView: 'StoryView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2050,6 +2054,53 @@ export const SamlLoginEventScalarFieldEnum = {
 } as const
 
 export type SamlLoginEventScalarFieldEnum = (typeof SamlLoginEventScalarFieldEnum)[keyof typeof SamlLoginEventScalarFieldEnum]
+
+
+export const ShotScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  caption: 'caption',
+  videoUrl: 'videoUrl',
+  thumbnailUrl: 'thumbnailUrl',
+  durationMs: 'durationMs',
+  animeId: 'animeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ShotScalarFieldEnum = (typeof ShotScalarFieldEnum)[keyof typeof ShotScalarFieldEnum]
+
+
+export const ShotLikeScalarFieldEnum = {
+  userId: 'userId',
+  shotId: 'shotId'
+} as const
+
+export type ShotLikeScalarFieldEnum = (typeof ShotLikeScalarFieldEnum)[keyof typeof ShotLikeScalarFieldEnum]
+
+
+export const StoryScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  mediaUrl: 'mediaUrl',
+  mediaType: 'mediaType',
+  caption: 'caption',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
+export const StoryViewScalarFieldEnum = {
+  userId: 'userId',
+  storyId: 'storyId',
+  viewedAt: 'viewedAt'
+} as const
+
+export type StoryViewScalarFieldEnum = (typeof StoryViewScalarFieldEnum)[keyof typeof StoryViewScalarFieldEnum]
 
 
 export const SortOrder = {

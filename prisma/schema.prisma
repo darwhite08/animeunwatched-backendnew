@@ -98,6 +98,12 @@ model User {
   // Chat
   publicKey          UserPublicKey?
   deviceKeys         UserDeviceKey[]    // multi-device E2E (Phase 1, additive)
+  // Shots (short vertical videos)
+  shots              Shot[]
+  shotLikes          ShotLike[]
+  // Peeak (24h stories)
+  stories            Story[]
+  storyViews         StoryView[]
   sentMessages       DirectMessage[]    @relation("MessageSender")
   conversations1     Conversation[]     @relation("ConvParticipant1")
   conversations2     Conversation[]     @relation("ConvParticipant2")
@@ -251,6 +257,7 @@ model Anime {
   threads     Thread[]
   reviews     Review[]
   activities  Activity[]
+  shots       Shot[]
 
   @@index([malId])
   @@index([score])
@@ -2497,3 +2504,73 @@ model SamlLoginEvent {
   @@index([userId])
 }
 
+
+// ─── Shots — short vertical videos (reels) ──────────────────────────────────
+// Mirrors the Post/PostLike pattern: soft-delete, cursor feed on createdAt,
+// composite-PK likes. Video bytes live in object storage (presigned PUT, same
+// flow as post images) — only URLs are stored here.
+
+model Shot {
+  id           String    @id @default(cuid())
+  authorId     String
+  caption      String?
+  videoUrl     String
+  thumbnailUrl String?
+  durationMs   Int?
+  animeId      String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  author User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  anime  Anime?     @relation(fields: [animeId], references: [id], onDelete: SetNull)
+  likes  ShotLike[]
+
+  @@index([createdAt])
+  @@index([authorId, createdAt])
+  @@index([animeId])
+}
+
+model ShotLike {
+  userId String
+  shotId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
+
+  @@id([userId, shotId])
+}
+
+
+// ─── Peeak — 24-hour stories ────────────────────────────────────────────────
+// Ephemeral media shown in the Messages-screen rail. Soft-deleted + expiry
+// filtered in queries; a cleanup job can hard-delete later. Views power the
+// seen/unseen ring state per viewer.
+
+model Story {
+  id        String    @id @default(cuid())
+  authorId  String
+  mediaUrl  String
+  mediaType String    // "image" | "video"
+  caption   String?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  deletedAt DateTime?
+
+  author User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  views  StoryView[]
+
+  @@index([authorId, createdAt])
+  @@index([expiresAt])
+}
+
+model StoryView {
+  userId   String
+  storyId  String
+  viewedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storyId])
+}

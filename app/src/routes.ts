@@ -4,6 +4,8 @@ import { animeRouter } from "./modules/anime/anime.routes";
 import { usersRouter } from "./modules/users/users.routes";
 import { listsRouter } from "./modules/lists/lists.routes";
 import { postsRouter } from "./modules/posts/posts.routes";
+import { shotsRouter } from "./modules/shots/shots.routes";
+import { storiesRouter } from "./modules/stories/stories.routes";
 import { notificationsRouter } from "./modules/notifications/notifications.routes";
 import { reviewsRouter, reviewsAnimeRouter } from "./modules/reviews/reviews.routes";
 import { blogsRouter } from "./modules/blogs/blogs.routes";
@@ -43,6 +45,8 @@ export const ROUTE_MOUNTS = [
   ["/users",                           usersRouter],
   ["/lists",                           listsRouter],
   ["/posts",                           postsRouter],
+  ["/shots",                           shotsRouter],
+  ["/stories",                         storiesRouter],
   ["/activities",                      activitiesRouter],
   ["/notifications",                   notificationsRouter],
   ["/reviews",                         reviewsRouter],

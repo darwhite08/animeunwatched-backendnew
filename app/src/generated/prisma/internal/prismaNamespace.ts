@@ -516,7 +516,11 @@ export const ModelName = {
   RequestCapture: 'RequestCapture',
   CostRate: 'CostRate',
   CostBudget: 'CostBudget',
-  SamlLoginEvent: 'SamlLoginEvent'
+  SamlLoginEvent: 'SamlLoginEvent',
+  Shot: 'Shot',
+  ShotLike: 'ShotLike',
+  Story: 'Story',
+  StoryView: 'StoryView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -532,7 +536,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent"
+    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -9934,6 +9938,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Shot: {
+      payload: Prisma.$ShotPayload<ExtArgs>
+      fields: Prisma.ShotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        findFirst: {
+          args: Prisma.ShotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        findMany: {
+          args: Prisma.ShotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>[]
+        }
+        create: {
+          args: Prisma.ShotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        createMany: {
+          args: Prisma.ShotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>[]
+        }
+        delete: {
+          args: Prisma.ShotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        update: {
+          args: Prisma.ShotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotPayload>
+        }
+        aggregate: {
+          args: Prisma.ShotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShot>
+        }
+        groupBy: {
+          args: Prisma.ShotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShotLike: {
+      payload: Prisma.$ShotLikePayload<ExtArgs>
+      fields: Prisma.ShotLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShotLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShotLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        findFirst: {
+          args: Prisma.ShotLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShotLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        findMany: {
+          args: Prisma.ShotLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>[]
+        }
+        create: {
+          args: Prisma.ShotLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        createMany: {
+          args: Prisma.ShotLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShotLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>[]
+        }
+        delete: {
+          args: Prisma.ShotLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        update: {
+          args: Prisma.ShotLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.ShotLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShotLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShotLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.ShotLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotLikePayload>
+        }
+        aggregate: {
+          args: Prisma.ShotLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShotLike>
+        }
+        groupBy: {
+          args: Prisma.ShotLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShotLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotLikeCountAggregateOutputType> | number
+        }
+      }
+    }
+    Story: {
+      payload: Prisma.$StoryPayload<ExtArgs>
+      fields: Prisma.StoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        findFirst: {
+          args: Prisma.StoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        findMany: {
+          args: Prisma.StoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>[]
+        }
+        create: {
+          args: Prisma.StoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        createMany: {
+          args: Prisma.StoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>[]
+        }
+        delete: {
+          args: Prisma.StoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        update: {
+          args: Prisma.StoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.StoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.StoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryPayload>
+        }
+        aggregate: {
+          args: Prisma.StoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStory>
+        }
+        groupBy: {
+          args: Prisma.StoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    StoryView: {
+      payload: Prisma.$StoryViewPayload<ExtArgs>
+      fields: Prisma.StoryViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StoryViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StoryViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        findFirst: {
+          args: Prisma.StoryViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StoryViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        findMany: {
+          args: Prisma.StoryViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        create: {
+          args: Prisma.StoryViewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        createMany: {
+          args: Prisma.StoryViewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StoryViewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        delete: {
+          args: Prisma.StoryViewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        update: {
+          args: Prisma.StoryViewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        deleteMany: {
+          args: Prisma.StoryViewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StoryViewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StoryViewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        upsert: {
+          args: Prisma.StoryViewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        aggregate: {
+          args: Prisma.StoryViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStoryView>
+        }
+        groupBy: {
+          args: Prisma.StoryViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StoryViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryViewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -11831,6 +12131,53 @@ export const SamlLoginEventScalarFieldEnum = {
 export type SamlLoginEventScalarFieldEnum = (typeof SamlLoginEventScalarFieldEnum)[keyof typeof SamlLoginEventScalarFieldEnum]
 
 
+export const ShotScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  caption: 'caption',
+  videoUrl: 'videoUrl',
+  thumbnailUrl: 'thumbnailUrl',
+  durationMs: 'durationMs',
+  animeId: 'animeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ShotScalarFieldEnum = (typeof ShotScalarFieldEnum)[keyof typeof ShotScalarFieldEnum]
+
+
+export const ShotLikeScalarFieldEnum = {
+  userId: 'userId',
+  shotId: 'shotId'
+} as const
+
+export type ShotLikeScalarFieldEnum = (typeof ShotLikeScalarFieldEnum)[keyof typeof ShotLikeScalarFieldEnum]
+
+
+export const StoryScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  mediaUrl: 'mediaUrl',
+  mediaType: 'mediaType',
+  caption: 'caption',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
+export const StoryViewScalarFieldEnum = {
+  userId: 'userId',
+  storyId: 'storyId',
+  viewedAt: 'viewedAt'
+} as const
+
+export type StoryViewScalarFieldEnum = (typeof StoryViewScalarFieldEnum)[keyof typeof StoryViewScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -12287,6 +12634,10 @@ export type GlobalOmitConfig = {
   costRate?: Prisma.CostRateOmit
   costBudget?: Prisma.CostBudgetOmit
   samlLoginEvent?: Prisma.SamlLoginEventOmit
+  shot?: Prisma.ShotOmit
+  shotLike?: Prisma.ShotLikeOmit
+  story?: Prisma.StoryOmit
+  storyView?: Prisma.StoryViewOmit
 }
 
 /* Types for Logging */

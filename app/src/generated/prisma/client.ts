@@ -677,3 +677,23 @@ export type CostBudget = Prisma.CostBudgetModel
  * 
  */
 export type SamlLoginEvent = Prisma.SamlLoginEventModel
+/**
+ * Model Shot
+ * 
+ */
+export type Shot = Prisma.ShotModel
+/**
+ * Model ShotLike
+ * 
+ */
+export type ShotLike = Prisma.ShotLikeModel
+/**
+ * Model Story
+ * 
+ */
+export type Story = Prisma.StoryModel
+/**
+ * Model StoryView
+ * 
+ */
+export type StoryView = Prisma.StoryViewModel
