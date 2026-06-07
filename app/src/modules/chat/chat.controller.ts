@@ -104,6 +104,22 @@ export async function listConversations(req: Request, res: Response, next: NextF
   }
 }
 
+// Inline reply from a system notification — token-authenticated (see service).
+export async function pushReply(req: Request, res: Response, next: NextFunction) {
+  try {
+    const token = String(req.body?.token ?? "");
+    const content = String(req.body?.content ?? "").trim().slice(0, 2000);
+    if (!token || !content) {
+      res.status(400).json({ error: { code: "BAD_REQUEST", message: "token and content required" } });
+      return;
+    }
+    const message = await chatService.sendPushReply(token, content);
+    res.status(201).json({ message });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function sendMessage(req: Request, res: Response, next: NextFunction) {
   try {
     const { params, body } = sendMessageSchema.parse({

@@ -1,6 +1,9 @@
+import jwt from "jsonwebtoken";
 import { prisma } from "../../config/prisma";
 import { getIo } from "../../realtime/io-instance";
 import { notFound, forbidden } from "../../lib/errors";
+import { env } from "../../config/env";
+import { pushToUser } from "../../lib/push";
 
 // ─── Public key management ────────────────────────────────────────────────────
 
@@ -215,7 +218,56 @@ export async function sendMessage(opts: {
     io.to(`user:${recipientId}`).emit("chat.message", { ...message, envelopes: opts.envelopes ?? [] });
   }
 
+  // Fire-and-forget native push so the recipient sees it in the system tray.
+  // Content is E2E-encrypted server-side, so the body stays generic. A
+  // short-lived reply token rides along so the Android notification can offer
+  // inline reply without storing credentials natively.
+  void notifyRecipientPush(opts.senderId, recipientId, opts.conversationId).catch(() => {});
+
   return message;
+}
+
+async function notifyRecipientPush(senderId: string, recipientId: string, conversationId: string) {
+  const sender = await prisma.user.findUnique({
+    where: { id: senderId },
+    select: { username: true, displayName: true },
+  });
+  const senderName = sender?.displayName || sender?.username || "New message";
+  const replyToken = jwt.sign(
+    { typ: "push-reply", uid: recipientId, cid: conversationId },
+    env.JWT_ACCESS_SECRET,
+    { expiresIn: "24h" },
+  );
+  await pushToUser(recipientId, {
+    title: senderName,
+    body: "Sent you a secure message",
+    data: { type: "dm", conversationId, senderName, replyToken },
+  });
+}
+
+/**
+ * Inline reply from an Android notification. Authenticated by the short-lived
+ * reply token minted in notifyRecipientPush — no session stored natively.
+ * Replies ride the legacy plain-marker path ("PLAIN_NO_E2E"), which every
+ * client decodes, so they interoperate with the E2E envelope path.
+ */
+export async function sendPushReply(token: string, content: string) {
+  let claims: { typ?: string; uid?: string; cid?: string };
+  try {
+    claims = jwt.verify(token, env.JWT_ACCESS_SECRET) as typeof claims;
+  } catch {
+    throw forbidden("Invalid or expired reply token");
+  }
+  if (claims.typ !== "push-reply" || !claims.uid || !claims.cid) {
+    throw forbidden("Invalid reply token");
+  }
+  const ciphertext = Buffer.from(content, "utf8").toString("base64");
+  return sendMessage({
+    conversationId: claims.cid,
+    senderId: claims.uid,
+    ciphertext,
+    iv: "PLAIN_NO_E2E",
+  });
 }
 
 export async function getMessages(opts: {

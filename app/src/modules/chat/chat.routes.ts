@@ -20,6 +20,8 @@ chatRouter.get( "/conversations/:conversationId",    requireAuth, ctrl.getConver
 // ─── Messages ─────────────────────────────────────────────────────────────────
 chatRouter.get( "/conversations/:conversationId/messages", requireAuth, ctrl.getMessages);
 chatRouter.post("/conversations/:conversationId/messages", requireAuth, ctrl.sendMessage);
+// No requireAuth — authenticated by the short-lived push-reply token itself.
+chatRouter.post("/push-reply", ctrl.pushReply);
 chatRouter.patch("/conversations/:conversationId/read",    requireAuth, ctrl.markRead);
 // Delete a message — scope=me (hide from self) or scope=everyone (sender-only, within 24h)
 chatRouter.delete("/conversations/:conversationId/messages/:messageId", requireAuth, ctrl.deleteMessage);
