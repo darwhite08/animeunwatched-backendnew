@@ -380,27 +380,56 @@ export async function getMessages(opts: {
 async function assertParticipantForMessage(messageId: string, userId: string) {
   const msg = await prisma.directMessage.findUnique({
     where: { id: messageId },
-    select: { conversation: { select: { participant1: true, participant2: true } } },
+    select: {
+      conversationId: true,
+      conversation: { select: { participant1: true, participant2: true } },
+    },
   });
   if (!msg) throw notFound("Message not found");
   if (msg.conversation.participant1 !== userId && msg.conversation.participant2 !== userId) {
     throw forbidden("Not a participant in this conversation");
   }
+  return msg;
+}
+
+function emitReaction(
+  msg: { conversationId: string; conversation: { participant1: string; participant2: string } },
+  payload: { messageId: string; userId: string; emoji: string; op: "set" | "remove"; prevEmoji?: string | null },
+) {
+  const io = getIo();
+  if (!io) return;
+  // Both participants (covers the actor's other devices too)
+  io.to(`user:${msg.conversation.participant1}`)
+    .to(`user:${msg.conversation.participant2}`)
+    .emit("chat.reaction", { ...payload, conversationId: msg.conversationId });
 }
 
 export async function addReaction(userId: string, messageId: string, emoji: string) {
-  await assertParticipantForMessage(messageId, userId);
-  await prisma.messageReaction.upsert({
-    where:  { messageId_userId_emoji: { messageId, userId, emoji } },
-    create: { messageId, userId, emoji },
-    update: {},
+  const msg = await assertParticipantForMessage(messageId, userId);
+  // Previous emoji (if any) rides on the socket event so clients can patch
+  // their aggregate counts without a refetch.
+  const prev = await prisma.messageReaction.findFirst({
+    where: { messageId, userId },
+    select: { emoji: true },
   });
+  // WhatsApp model: ONE reaction per user per message — picking a new emoji
+  // replaces the previous one atomically.
+  await prisma.$transaction([
+    prisma.messageReaction.deleteMany({ where: { messageId, userId, NOT: { emoji } } }),
+    prisma.messageReaction.upsert({
+      where:  { messageId_userId_emoji: { messageId, userId, emoji } },
+      create: { messageId, userId, emoji },
+      update: {},
+    }),
+  ]);
+  emitReaction(msg, { messageId, userId, emoji, op: "set", prevEmoji: prev?.emoji ?? null });
   return { ok: true };
 }
 
 export async function removeReaction(userId: string, messageId: string, emoji: string) {
-  await assertParticipantForMessage(messageId, userId);
+  const msg = await assertParticipantForMessage(messageId, userId);
   await prisma.messageReaction.deleteMany({ where: { messageId, userId, emoji } });
+  emitReaction(msg, { messageId, userId, emoji, op: "remove" });
   return { ok: true };
 }
 
