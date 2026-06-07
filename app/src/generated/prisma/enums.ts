@@ -84,6 +84,15 @@ export const MessageType = {
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
+export const KeyWrapMethod = {
+  PASSKEY_PRF: 'PASSKEY_PRF',
+  RECOVERY_CODE: 'RECOVERY_CODE',
+  FALLBACK_PASSPHRASE: 'FALLBACK_PASSPHRASE'
+} as const
+
+export type KeyWrapMethod = (typeof KeyWrapMethod)[keyof typeof KeyWrapMethod]
+
+
 export const ActivityKind = {
   TEXT: 'TEXT',
   LIST_UPDATE: 'LIST_UPDATE',

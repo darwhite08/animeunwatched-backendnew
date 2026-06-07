@@ -494,6 +494,23 @@ export type EnumMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumMessageTypeFilter<$PrismaModel>
 }
 
+export type EnumKeyWrapMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.KeyWrapMethod | Prisma.EnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel> | $Enums.KeyWrapMethod
+}
+
+export type EnumKeyWrapMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.KeyWrapMethod | Prisma.EnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKeyWrapMethodWithAggregatesFilter<$PrismaModel> | $Enums.KeyWrapMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel>
+}
+
 export type EnumActivityKindFilter<$PrismaModel = never> = {
   equals?: $Enums.ActivityKind | Prisma.EnumActivityKindFieldRefInput<$PrismaModel>
   in?: $Enums.ActivityKind[] | Prisma.ListEnumActivityKindFieldRefInput<$PrismaModel>
@@ -970,6 +987,23 @@ export type NestedEnumMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMessageTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMessageTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumKeyWrapMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.KeyWrapMethod | Prisma.EnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel> | $Enums.KeyWrapMethod
+}
+
+export type NestedEnumKeyWrapMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.KeyWrapMethod | Prisma.EnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KeyWrapMethod[] | Prisma.ListEnumKeyWrapMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKeyWrapMethodWithAggregatesFilter<$PrismaModel> | $Enums.KeyWrapMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumKeyWrapMethodFilter<$PrismaModel>
 }
 
 export type NestedEnumActivityKindFilter<$PrismaModel = never> = {

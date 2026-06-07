@@ -434,6 +434,10 @@ export const ModelName = {
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
   UserBlock: 'UserBlock',
+  WebAuthnCredential: 'WebAuthnCredential',
+  UserMasterKeyWrap: 'UserMasterKeyWrap',
+  UserDevice: 'UserDevice',
+  MessageEnvelope: 'MessageEnvelope',
   MessageReport: 'MessageReport',
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
@@ -542,7 +546,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
+    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3799,6 +3803,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserBlockCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserBlockCountAggregateOutputType> | number
+        }
+      }
+    }
+    WebAuthnCredential: {
+      payload: Prisma.$WebAuthnCredentialPayload<ExtArgs>
+      fields: Prisma.WebAuthnCredentialFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WebAuthnCredentialFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WebAuthnCredentialFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        findFirst: {
+          args: Prisma.WebAuthnCredentialFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WebAuthnCredentialFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        findMany: {
+          args: Prisma.WebAuthnCredentialFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>[]
+        }
+        create: {
+          args: Prisma.WebAuthnCredentialCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        createMany: {
+          args: Prisma.WebAuthnCredentialCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WebAuthnCredentialCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>[]
+        }
+        delete: {
+          args: Prisma.WebAuthnCredentialDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        update: {
+          args: Prisma.WebAuthnCredentialUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        deleteMany: {
+          args: Prisma.WebAuthnCredentialDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WebAuthnCredentialUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WebAuthnCredentialUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>[]
+        }
+        upsert: {
+          args: Prisma.WebAuthnCredentialUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebAuthnCredentialPayload>
+        }
+        aggregate: {
+          args: Prisma.WebAuthnCredentialAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWebAuthnCredential>
+        }
+        groupBy: {
+          args: Prisma.WebAuthnCredentialGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebAuthnCredentialGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WebAuthnCredentialCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebAuthnCredentialCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserMasterKeyWrap: {
+      payload: Prisma.$UserMasterKeyWrapPayload<ExtArgs>
+      fields: Prisma.UserMasterKeyWrapFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserMasterKeyWrapFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserMasterKeyWrapFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        findFirst: {
+          args: Prisma.UserMasterKeyWrapFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserMasterKeyWrapFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        findMany: {
+          args: Prisma.UserMasterKeyWrapFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>[]
+        }
+        create: {
+          args: Prisma.UserMasterKeyWrapCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        createMany: {
+          args: Prisma.UserMasterKeyWrapCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserMasterKeyWrapCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>[]
+        }
+        delete: {
+          args: Prisma.UserMasterKeyWrapDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        update: {
+          args: Prisma.UserMasterKeyWrapUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserMasterKeyWrapDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserMasterKeyWrapUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserMasterKeyWrapUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserMasterKeyWrapUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserMasterKeyWrapPayload>
+        }
+        aggregate: {
+          args: Prisma.UserMasterKeyWrapAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserMasterKeyWrap>
+        }
+        groupBy: {
+          args: Prisma.UserMasterKeyWrapGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserMasterKeyWrapGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserMasterKeyWrapCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserMasterKeyWrapCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserDevice: {
+      payload: Prisma.$UserDevicePayload<ExtArgs>
+      fields: Prisma.UserDeviceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserDeviceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserDeviceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        findFirst: {
+          args: Prisma.UserDeviceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserDeviceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        findMany: {
+          args: Prisma.UserDeviceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>[]
+        }
+        create: {
+          args: Prisma.UserDeviceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        createMany: {
+          args: Prisma.UserDeviceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserDeviceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>[]
+        }
+        delete: {
+          args: Prisma.UserDeviceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        update: {
+          args: Prisma.UserDeviceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        deleteMany: {
+          args: Prisma.UserDeviceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserDeviceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserDeviceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>[]
+        }
+        upsert: {
+          args: Prisma.UserDeviceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDevicePayload>
+        }
+        aggregate: {
+          args: Prisma.UserDeviceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserDevice>
+        }
+        groupBy: {
+          args: Prisma.UserDeviceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDeviceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserDeviceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDeviceCountAggregateOutputType> | number
+        }
+      }
+    }
+    MessageEnvelope: {
+      payload: Prisma.$MessageEnvelopePayload<ExtArgs>
+      fields: Prisma.MessageEnvelopeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessageEnvelopeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessageEnvelopeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        findFirst: {
+          args: Prisma.MessageEnvelopeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessageEnvelopeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        findMany: {
+          args: Prisma.MessageEnvelopeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>[]
+        }
+        create: {
+          args: Prisma.MessageEnvelopeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        createMany: {
+          args: Prisma.MessageEnvelopeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessageEnvelopeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>[]
+        }
+        delete: {
+          args: Prisma.MessageEnvelopeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        update: {
+          args: Prisma.MessageEnvelopeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        deleteMany: {
+          args: Prisma.MessageEnvelopeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessageEnvelopeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessageEnvelopeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>[]
+        }
+        upsert: {
+          args: Prisma.MessageEnvelopeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageEnvelopePayload>
+        }
+        aggregate: {
+          args: Prisma.MessageEnvelopeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessageEnvelope>
+        }
+        groupBy: {
+          args: Prisma.MessageEnvelopeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageEnvelopeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessageEnvelopeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageEnvelopeCountAggregateOutputType> | number
         }
       }
     }
@@ -11277,6 +11577,10 @@ export const DirectMessageScalarFieldEnum = {
   clientNonce: 'clientNonce',
   ciphertext: 'ciphertext',
   iv: 'iv',
+  contentIv: 'contentIv',
+  frankingTag: 'frankingTag',
+  serverFrank: 'serverFrank',
+  isE2EE: 'isE2EE',
   deletedAt: 'deletedAt',
   deletedForSender: 'deletedForSender',
   deletedForRecipient: 'deletedForRecipient',
@@ -11328,6 +11632,63 @@ export const UserBlockScalarFieldEnum = {
 } as const
 
 export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
+
+
+export const WebAuthnCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  credentialId: 'credentialId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  transports: 'transports',
+  createdAt: 'createdAt'
+} as const
+
+export type WebAuthnCredentialScalarFieldEnum = (typeof WebAuthnCredentialScalarFieldEnum)[keyof typeof WebAuthnCredentialScalarFieldEnum]
+
+
+export const UserMasterKeyWrapScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  method: 'method',
+  credentialId: 'credentialId',
+  wrappedUMK: 'wrappedUMK',
+  wrapIv: 'wrapIv',
+  kdfSalt: 'kdfSalt',
+  kdfParams: 'kdfParams',
+  label: 'label',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt'
+} as const
+
+export type UserMasterKeyWrapScalarFieldEnum = (typeof UserMasterKeyWrapScalarFieldEnum)[keyof typeof UserMasterKeyWrapScalarFieldEnum]
+
+
+export const UserDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  publicKey: 'publicKey',
+  wrappedPrivKey: 'wrappedPrivKey',
+  wrapIv: 'wrapIv',
+  name: 'name',
+  revoked: 'revoked',
+  createdAt: 'createdAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type UserDeviceScalarFieldEnum = (typeof UserDeviceScalarFieldEnum)[keyof typeof UserDeviceScalarFieldEnum]
+
+
+export const MessageEnvelopeScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  deviceId: 'deviceId',
+  ephemeralPub: 'ephemeralPub',
+  wrappedCK: 'wrappedCK',
+  wrapIv: 'wrapIv'
+} as const
+
+export type MessageEnvelopeScalarFieldEnum = (typeof MessageEnvelopeScalarFieldEnum)[keyof typeof MessageEnvelopeScalarFieldEnum]
 
 
 export const MessageReportScalarFieldEnum = {
@@ -13016,6 +13377,20 @@ export type ListEnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'KeyWrapMethod'
+ */
+export type EnumKeyWrapMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KeyWrapMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'KeyWrapMethod[]'
+ */
+export type ListEnumKeyWrapMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KeyWrapMethod[]'>
+    
+
+
+/**
  * Reference to a field of type 'ActivityKind'
  */
 export type EnumActivityKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityKind'>
@@ -13187,6 +13562,10 @@ export type GlobalOmitConfig = {
   userDeviceKey?: Prisma.UserDeviceKeyOmit
   messageKeyEnvelope?: Prisma.MessageKeyEnvelopeOmit
   userBlock?: Prisma.UserBlockOmit
+  webAuthnCredential?: Prisma.WebAuthnCredentialOmit
+  userMasterKeyWrap?: Prisma.UserMasterKeyWrapOmit
+  userDevice?: Prisma.UserDeviceOmit
+  messageEnvelope?: Prisma.MessageEnvelopeOmit
   messageReport?: Prisma.MessageReportOmit
   activity?: Prisma.ActivityOmit
   activityLike?: Prisma.ActivityLikeOmit

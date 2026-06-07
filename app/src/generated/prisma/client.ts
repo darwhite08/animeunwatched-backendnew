@@ -263,6 +263,26 @@ export type MessageKeyEnvelope = Prisma.MessageKeyEnvelopeModel
  */
 export type UserBlock = Prisma.UserBlockModel
 /**
+ * Model WebAuthnCredential
+ * 
+ */
+export type WebAuthnCredential = Prisma.WebAuthnCredentialModel
+/**
+ * Model UserMasterKeyWrap
+ * 
+ */
+export type UserMasterKeyWrap = Prisma.UserMasterKeyWrapModel
+/**
+ * Model UserDevice
+ * 
+ */
+export type UserDevice = Prisma.UserDeviceModel
+/**
+ * Model MessageEnvelope
+ * 
+ */
+export type MessageEnvelope = Prisma.MessageEnvelopeModel
+/**
  * Model MessageReport
  * 
  */

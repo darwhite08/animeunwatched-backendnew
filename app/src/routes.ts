@@ -7,6 +7,8 @@ import { postsRouter } from "./modules/posts/posts.routes";
 import { shotsRouter } from "./modules/shots/shots.routes";
 import { storiesRouter } from "./modules/stories/stories.routes";
 import { blockRouter, reportsRouter } from "./modules/safety/safety.routes";
+import { e2eeRouter } from "./modules/e2ee/e2ee.routes";
+import { webauthnRouter } from "./modules/e2ee/webauthn.routes";
 import { notificationsRouter } from "./modules/notifications/notifications.routes";
 import { reviewsRouter, reviewsAnimeRouter } from "./modules/reviews/reviews.routes";
 import { blogsRouter } from "./modules/blogs/blogs.routes";
@@ -48,6 +50,8 @@ export const ROUTE_MOUNTS = [
   ["/users",                           blockRouter],
   ["/users",                           usersRouter],
   ["/reports",                         reportsRouter],
+  ["/e2ee",                            e2eeRouter],
+  ["/webauthn",                        webauthnRouter],
   ["/lists",                           listsRouter],
   ["/posts",                           postsRouter],
   ["/shots",                           shotsRouter],

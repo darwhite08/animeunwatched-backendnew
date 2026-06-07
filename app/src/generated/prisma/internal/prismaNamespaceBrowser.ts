@@ -93,6 +93,10 @@ export const ModelName = {
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
   UserBlock: 'UserBlock',
+  WebAuthnCredential: 'WebAuthnCredential',
+  UserMasterKeyWrap: 'UserMasterKeyWrap',
+  UserDevice: 'UserDevice',
+  MessageEnvelope: 'MessageEnvelope',
   MessageReport: 'MessageReport',
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
@@ -758,6 +762,10 @@ export const DirectMessageScalarFieldEnum = {
   clientNonce: 'clientNonce',
   ciphertext: 'ciphertext',
   iv: 'iv',
+  contentIv: 'contentIv',
+  frankingTag: 'frankingTag',
+  serverFrank: 'serverFrank',
+  isE2EE: 'isE2EE',
   deletedAt: 'deletedAt',
   deletedForSender: 'deletedForSender',
   deletedForRecipient: 'deletedForRecipient',
@@ -809,6 +817,63 @@ export const UserBlockScalarFieldEnum = {
 } as const
 
 export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
+
+
+export const WebAuthnCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  credentialId: 'credentialId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  transports: 'transports',
+  createdAt: 'createdAt'
+} as const
+
+export type WebAuthnCredentialScalarFieldEnum = (typeof WebAuthnCredentialScalarFieldEnum)[keyof typeof WebAuthnCredentialScalarFieldEnum]
+
+
+export const UserMasterKeyWrapScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  method: 'method',
+  credentialId: 'credentialId',
+  wrappedUMK: 'wrappedUMK',
+  wrapIv: 'wrapIv',
+  kdfSalt: 'kdfSalt',
+  kdfParams: 'kdfParams',
+  label: 'label',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt'
+} as const
+
+export type UserMasterKeyWrapScalarFieldEnum = (typeof UserMasterKeyWrapScalarFieldEnum)[keyof typeof UserMasterKeyWrapScalarFieldEnum]
+
+
+export const UserDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  publicKey: 'publicKey',
+  wrappedPrivKey: 'wrappedPrivKey',
+  wrapIv: 'wrapIv',
+  name: 'name',
+  revoked: 'revoked',
+  createdAt: 'createdAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type UserDeviceScalarFieldEnum = (typeof UserDeviceScalarFieldEnum)[keyof typeof UserDeviceScalarFieldEnum]
+
+
+export const MessageEnvelopeScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  deviceId: 'deviceId',
+  ephemeralPub: 'ephemeralPub',
+  wrappedCK: 'wrappedCK',
+  wrapIv: 'wrapIv'
+} as const
+
+export type MessageEnvelopeScalarFieldEnum = (typeof MessageEnvelopeScalarFieldEnum)[keyof typeof MessageEnvelopeScalarFieldEnum]
 
 
 export const MessageReportScalarFieldEnum = {

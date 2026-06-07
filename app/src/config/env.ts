@@ -66,6 +66,14 @@ export const env = {
 
   // OpenAI for /ai/ask — optional; falls back to stub responses if not set
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
+
+  // DM E2EE layer (addendum spec). SERVER_FRANK_SECRET signs franking tags so
+  // reported plaintext is non-forgeable. WebAuthn RP id/origin for passkeys.
+  // E2EE_ENABLED is the rollout flag (off → DMs stay server-readable v2).
+  SERVER_FRANK_SECRET: process.env.SERVER_FRANK_SECRET || "",
+  WEBAUTHN_RP_ID:      process.env.WEBAUTHN_RP_ID      || "kaiveron.com",
+  WEBAUTHN_ORIGIN:     process.env.WEBAUTHN_ORIGIN     || "https://kaiveron.com",
+  E2EE_ENABLED:        (process.env.E2EE_ENABLED || "false") === "true",
 };
 
 // ── Production startup guard ─────────────────────────────────────────────────

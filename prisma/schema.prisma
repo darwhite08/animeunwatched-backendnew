@@ -127,6 +127,9 @@ model User {
   // DM safety + privacy (DM v2)
   blocksMade         UserBlock[]        @relation("blocksMade")
   blocksReceived     UserBlock[]        @relation("blocksReceived")
+  // DM E2EE layer
+  e2eDevices         UserDevice[]
+  e2eKeyWraps        UserMasterKeyWrap[]
 }
 
 // One row per registered push-notification device for a user.
@@ -924,9 +927,16 @@ model DirectMessage {
   editedAt       DateTime?
   clientNonce    String?              // client-generated id for optimistic UI dedup
 
-  // Legacy E2E (kept nullable for back-compat with pre-v2 messages).
-  ciphertext     String?    // AES-GCM encrypted content, base64
-  iv             String?    // AES-GCM IV, base64
+  // Encrypted content. DM-v2 plaintext rows leave these null and use `body`;
+  // E2EE rows (isE2EE) set ciphertext/contentIv and leave body null (dual-read).
+  // Stored base64 (repo convention) rather than Prisma Bytes.
+  ciphertext     String?    // AES-GCM(CK, {text,frankingKey}) base64
+  iv             String?    // legacy pairwise IV (pre-v2)
+  contentIv      String?    // AES-GCM content IV for E2EE rows, base64
+  frankingTag    String?    // HMAC-SHA256(frankingKey, plaintext), base64
+  serverFrank    String?    // HMAC(SERVER_FRANK_SECRET, frankingTag‖id‖sender‖ts), base64
+  isE2EE         Boolean    @default(false)
+  envelopesV2    MessageEnvelope[]
 
   // WhatsApp-style deletion model:
   // - deletedAt: "Delete for everyone" (sender, within window); body/media/
@@ -1020,6 +1030,89 @@ model UserBlock {
 
   @@unique([blockerId, blockedId])
   @@index([blockedId])
+}
+
+// ─── DM E2EE layer (WebAuthn-PRF passkeys + per-device envelopes) ────────────
+// Key hierarchy: passkey PRF → KRK → wraps UMK → wraps device privkeys → per
+// message random CK wrapped per recipient device. Server stores only public
+// keys, wrapped material, ciphertext, envelopes, franking tags. All blobs are
+// base64 strings (repo convention), not Prisma Bytes.
+
+enum KeyWrapMethod {
+  PASSKEY_PRF
+  RECOVERY_CODE
+  FALLBACK_PASSPHRASE
+}
+
+// Stored WebAuthn credential (public key + counter) for assertion verification.
+// The passkey's PRF output (client-side) derives the KRK; this row only lets
+// the server verify the ceremony is genuine and anti-replay the challenge.
+model WebAuthnCredential {
+  id           String   @id @default(cuid())
+  userId       String
+  credentialId String   @unique           // base64url
+  publicKey    String                      // base64 COSE public key
+  counter      Int      @default(0)
+  transports   String?                     // CSV
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+}
+
+// One wrapped copy of the User Master Key per unlock method (passkey / recovery
+// code / fallback passphrase). Adding a method = one more wrap; never re-wraps
+// device keys or message history.
+model UserMasterKeyWrap {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  method       KeyWrapMethod
+  credentialId String?       // WebAuthn credential id (PASSKEY_PRF)
+  wrappedUMK   String        // AES-GCM(KRK, UMK) base64
+  wrapIv       String
+  kdfSalt      String?       // RECOVERY_CODE / FALLBACK_PASSPHRASE (Argon2id)
+  kdfParams    Json?
+  label        String?
+  createdAt    DateTime      @default(now())
+  lastUsedAt   DateTime?
+
+  @@unique([userId, credentialId])
+  @@index([userId])
+}
+
+// Per-device ECDH P-256 keypair. Private key stored wrapped under the UMK so a
+// freshly-unlocked device can decrypt history (envelopes target old devices).
+model UserDevice {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  publicKey      String   // ECDH P-256 raw public key, base64
+  wrappedPrivKey String   // AES-GCM(HKDF(UMK,"device-key-wrap"), privKey) base64
+  wrapIv         String
+  name           String
+  revoked        Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  lastSeenAt     DateTime @default(now())
+
+  envelopes      MessageEnvelope[]
+
+  @@index([userId, revoked])
+}
+
+// Per-recipient-device wrapped content key, with the sender's ephemeral ECDH
+// public key for the unwrap.
+model MessageEnvelope {
+  id           String        @id @default(cuid())
+  messageId    String
+  message      DirectMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  deviceId     String
+  device       UserDevice    @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  ephemeralPub String        // sender's ephemeral ECDH public key, base64
+  wrappedCK    String        // AES-GCM(HKDF(ECDH), CK) base64
+  wrapIv       String
+
+  @@unique([messageId, deviceId])
+  @@index([deviceId])
 }
 
 // DM v2 — abuse report for a conversation/message. `details` stores an

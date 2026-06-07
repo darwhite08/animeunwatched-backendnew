@@ -67,6 +67,10 @@ export type DirectMessageMinAggregateOutputType = {
   clientNonce: string | null
   ciphertext: string | null
   iv: string | null
+  contentIv: string | null
+  frankingTag: string | null
+  serverFrank: string | null
+  isE2EE: boolean | null
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
@@ -96,6 +100,10 @@ export type DirectMessageMaxAggregateOutputType = {
   clientNonce: string | null
   ciphertext: string | null
   iv: string | null
+  contentIv: string | null
+  frankingTag: string | null
+  serverFrank: string | null
+  isE2EE: boolean | null
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
@@ -125,6 +133,10 @@ export type DirectMessageCountAggregateOutputType = {
   clientNonce: number
   ciphertext: number
   iv: number
+  contentIv: number
+  frankingTag: number
+  serverFrank: number
+  isE2EE: number
   deletedAt: number
   deletedForSender: number
   deletedForRecipient: number
@@ -174,6 +186,10 @@ export type DirectMessageMinAggregateInputType = {
   clientNonce?: true
   ciphertext?: true
   iv?: true
+  contentIv?: true
+  frankingTag?: true
+  serverFrank?: true
+  isE2EE?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -203,6 +219,10 @@ export type DirectMessageMaxAggregateInputType = {
   clientNonce?: true
   ciphertext?: true
   iv?: true
+  contentIv?: true
+  frankingTag?: true
+  serverFrank?: true
+  isE2EE?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -232,6 +252,10 @@ export type DirectMessageCountAggregateInputType = {
   clientNonce?: true
   ciphertext?: true
   iv?: true
+  contentIv?: true
+  frankingTag?: true
+  serverFrank?: true
+  isE2EE?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -348,6 +372,10 @@ export type DirectMessageGroupByOutputType = {
   clientNonce: string | null
   ciphertext: string | null
   iv: string | null
+  contentIv: string | null
+  frankingTag: string | null
+  serverFrank: string | null
+  isE2EE: boolean
   deletedAt: Date | null
   deletedForSender: boolean
   deletedForRecipient: boolean
@@ -400,12 +428,17 @@ export type DirectMessageWhereInput = {
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  frankingTag?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  serverFrank?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  isE2EE?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
   senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   replyTo?: Prisma.XOR<Prisma.DirectMessageNullableScalarRelationFilter, Prisma.DirectMessageWhereInput> | null
   replies?: Prisma.DirectMessageListRelationFilter
+  envelopesV2?: Prisma.MessageEnvelopeListRelationFilter
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
@@ -436,12 +469,17 @@ export type DirectMessageOrderByWithRelationInput = {
   clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
   ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
   iv?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentIv?: Prisma.SortOrderInput | Prisma.SortOrder
+  frankingTag?: Prisma.SortOrderInput | Prisma.SortOrder
+  serverFrank?: Prisma.SortOrderInput | Prisma.SortOrder
+  isE2EE?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
   senderDeviceKeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   replyTo?: Prisma.DirectMessageOrderByWithRelationInput
   replies?: Prisma.DirectMessageOrderByRelationAggregateInput
+  envelopesV2?: Prisma.MessageEnvelopeOrderByRelationAggregateInput
   conversation?: Prisma.ConversationOrderByWithRelationInput
   sender?: Prisma.UserOrderByWithRelationInput
   senderDeviceKey?: Prisma.UserDeviceKeyOrderByWithRelationInput
@@ -476,12 +514,17 @@ export type DirectMessageWhereUniqueInput = Prisma.AtLeast<{
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  frankingTag?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  serverFrank?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  isE2EE?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
   senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   replyTo?: Prisma.XOR<Prisma.DirectMessageNullableScalarRelationFilter, Prisma.DirectMessageWhereInput> | null
   replies?: Prisma.DirectMessageListRelationFilter
+  envelopesV2?: Prisma.MessageEnvelopeListRelationFilter
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
@@ -512,6 +555,10 @@ export type DirectMessageOrderByWithAggregationInput = {
   clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
   ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
   iv?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentIv?: Prisma.SortOrderInput | Prisma.SortOrder
+  frankingTag?: Prisma.SortOrderInput | Prisma.SortOrder
+  serverFrank?: Prisma.SortOrderInput | Prisma.SortOrder
+  isE2EE?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
@@ -549,6 +596,10 @@ export type DirectMessageScalarWhereWithAggregatesInput = {
   clientNonce?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   ciphertext?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  contentIv?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  frankingTag?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  serverFrank?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  isE2EE?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
@@ -575,11 +626,16 @@ export type DirectMessageCreateInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -610,11 +666,16 @@ export type DirectMessageUncheckedCreateInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -639,11 +700,16 @@ export type DirectMessageUpdateInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -674,11 +740,16 @@ export type DirectMessageUncheckedUpdateInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -706,6 +777,10 @@ export type DirectMessageCreateManyInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -732,6 +807,10 @@ export type DirectMessageUpdateManyMutationInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -760,6 +839,10 @@ export type DirectMessageUncheckedUpdateManyInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -809,6 +892,10 @@ export type DirectMessageCountOrderByAggregateInput = {
   clientNonce?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
+  contentIv?: Prisma.SortOrder
+  frankingTag?: Prisma.SortOrder
+  serverFrank?: Prisma.SortOrder
+  isE2EE?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
@@ -847,6 +934,10 @@ export type DirectMessageMaxOrderByAggregateInput = {
   clientNonce?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
+  contentIv?: Prisma.SortOrder
+  frankingTag?: Prisma.SortOrder
+  serverFrank?: Prisma.SortOrder
+  isE2EE?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
@@ -876,6 +967,10 @@ export type DirectMessageMinOrderByAggregateInput = {
   clientNonce?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
+  contentIv?: Prisma.SortOrder
+  frankingTag?: Prisma.SortOrder
+  serverFrank?: Prisma.SortOrder
+  isE2EE?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
@@ -1112,6 +1207,20 @@ export type DirectMessageUpdateOneRequiredWithoutEnvelopesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DirectMessageUpdateToOneWithWhereWithoutEnvelopesInput, Prisma.DirectMessageUpdateWithoutEnvelopesInput>, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesInput>
 }
 
+export type DirectMessageCreateNestedOneWithoutEnvelopesV2Input = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesV2Input>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutEnvelopesV2Input
+  connect?: Prisma.DirectMessageWhereUniqueInput
+}
+
+export type DirectMessageUpdateOneRequiredWithoutEnvelopesV2NestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesV2Input>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutEnvelopesV2Input
+  upsert?: Prisma.DirectMessageUpsertWithoutEnvelopesV2Input
+  connect?: Prisma.DirectMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DirectMessageUpdateToOneWithWhereWithoutEnvelopesV2Input, Prisma.DirectMessageUpdateWithoutEnvelopesV2Input>, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesV2Input>
+}
+
 export type DirectMessageCreateWithoutSenderInput = {
   id?: string
   createdAt?: Date | string
@@ -1132,11 +1241,16 @@ export type DirectMessageCreateWithoutSenderInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -1165,11 +1279,16 @@ export type DirectMessageUncheckedCreateWithoutSenderInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -1226,6 +1345,10 @@ export type DirectMessageScalarWhereInput = {
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  frankingTag?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  serverFrank?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  isE2EE?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
@@ -1252,11 +1375,16 @@ export type DirectMessageCreateWithoutConversationInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -1285,11 +1413,16 @@ export type DirectMessageUncheckedCreateWithoutConversationInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -1340,10 +1473,15 @@ export type DirectMessageCreateWithoutRepliesInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -1374,10 +1512,15 @@ export type DirectMessageUncheckedCreateWithoutRepliesInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -1407,10 +1550,15 @@ export type DirectMessageCreateWithoutReplyToInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -1440,11 +1588,16 @@ export type DirectMessageUncheckedCreateWithoutReplyToInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -1490,10 +1643,15 @@ export type DirectMessageUpdateWithoutRepliesInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -1524,10 +1682,15 @@ export type DirectMessageUncheckedUpdateWithoutRepliesInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -1568,11 +1731,16 @@ export type DirectMessageCreateWithoutReactionsInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -1602,11 +1770,16 @@ export type DirectMessageUncheckedCreateWithoutReactionsInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
 }
 
@@ -1646,11 +1819,16 @@ export type DirectMessageUpdateWithoutReactionsInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -1680,11 +1858,16 @@ export type DirectMessageUncheckedUpdateWithoutReactionsInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
 }
 
@@ -1708,11 +1891,16 @@ export type DirectMessageCreateWithoutSenderDeviceKeyInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -1742,10 +1930,15 @@ export type DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -1796,11 +1989,16 @@ export type DirectMessageCreateWithoutEnvelopesInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
   replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeCreateNestedManyWithoutMessageInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -1830,11 +2028,16 @@ export type DirectMessageUncheckedCreateWithoutEnvelopesInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
   replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
 
@@ -1874,11 +2077,16 @@ export type DirectMessageUpdateWithoutEnvelopesInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -1908,11 +2116,176 @@ export type DirectMessageUncheckedUpdateWithoutEnvelopesInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageCreateWithoutEnvelopesV2Input = {
+  id?: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageUncheckedCreateWithoutEnvelopesV2Input = {
+  id?: string
+  conversationId: string
+  senderId: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageCreateOrConnectWithoutEnvelopesV2Input = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesV2Input>
+}
+
+export type DirectMessageUpsertWithoutEnvelopesV2Input = {
+  update: Prisma.XOR<Prisma.DirectMessageUpdateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesV2Input>
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedCreateWithoutEnvelopesV2Input>
+  where?: Prisma.DirectMessageWhereInput
+}
+
+export type DirectMessageUpdateToOneWithWhereWithoutEnvelopesV2Input = {
+  where?: Prisma.DirectMessageWhereInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateWithoutEnvelopesV2Input, Prisma.DirectMessageUncheckedUpdateWithoutEnvelopesV2Input>
+}
+
+export type DirectMessageUpdateWithoutEnvelopesV2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateWithoutEnvelopesV2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
 
@@ -1938,6 +2311,10 @@ export type DirectMessageCreateManySenderInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -1964,11 +2341,16 @@ export type DirectMessageUpdateWithoutSenderInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -1997,11 +2379,16 @@ export type DirectMessageUncheckedUpdateWithoutSenderInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -2028,6 +2415,10 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2056,6 +2447,10 @@ export type DirectMessageCreateManyConversationInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -2082,11 +2477,16 @@ export type DirectMessageUpdateWithoutConversationInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -2115,11 +2515,16 @@ export type DirectMessageUncheckedUpdateWithoutConversationInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -2146,6 +2551,10 @@ export type DirectMessageUncheckedUpdateManyWithoutConversationInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2174,6 +2583,10 @@ export type DirectMessageCreateManyReplyToInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -2200,10 +2613,15 @@ export type DirectMessageUpdateWithoutReplyToInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -2233,11 +2651,16 @@ export type DirectMessageUncheckedUpdateWithoutReplyToInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -2264,6 +2687,10 @@ export type DirectMessageUncheckedUpdateManyWithoutReplyToInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2293,6 +2720,10 @@ export type DirectMessageCreateManySenderDeviceKeyInput = {
   clientNonce?: string | null
   ciphertext?: string | null
   iv?: string | null
+  contentIv?: string | null
+  frankingTag?: string | null
+  serverFrank?: string | null
+  isE2EE?: boolean
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -2318,11 +2749,16 @@ export type DirectMessageUpdateWithoutSenderDeviceKeyInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUpdateManyWithoutMessageNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -2352,10 +2788,15 @@ export type DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopesV2?: Prisma.MessageEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -2383,6 +2824,10 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frankingTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverFrank?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2395,12 +2840,14 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
 
 export type DirectMessageCountOutputType = {
   replies: number
+  envelopesV2: number
   envelopes: number
   reactions: number
 }
 
 export type DirectMessageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   replies?: boolean | DirectMessageCountOutputTypeCountRepliesArgs
+  envelopesV2?: boolean | DirectMessageCountOutputTypeCountEnvelopesV2Args
   envelopes?: boolean | DirectMessageCountOutputTypeCountEnvelopesArgs
   reactions?: boolean | DirectMessageCountOutputTypeCountReactionsArgs
 }
@@ -2420,6 +2867,13 @@ export type DirectMessageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
  */
 export type DirectMessageCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DirectMessageWhereInput
+}
+
+/**
+ * DirectMessageCountOutputType without action
+ */
+export type DirectMessageCountOutputTypeCountEnvelopesV2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageEnvelopeWhereInput
 }
 
 /**
@@ -2460,12 +2914,17 @@ export type DirectMessageSelect<ExtArgs extends runtime.Types.Extensions.Interna
   clientNonce?: boolean
   ciphertext?: boolean
   iv?: boolean
+  contentIv?: boolean
+  frankingTag?: boolean
+  serverFrank?: boolean
+  isE2EE?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
   replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   replies?: boolean | Prisma.DirectMessage$repliesArgs<ExtArgs>
+  envelopesV2?: boolean | Prisma.DirectMessage$envelopesV2Args<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -2497,6 +2956,10 @@ export type DirectMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   clientNonce?: boolean
   ciphertext?: boolean
   iv?: boolean
+  contentIv?: boolean
+  frankingTag?: boolean
+  serverFrank?: boolean
+  isE2EE?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -2530,6 +2993,10 @@ export type DirectMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   clientNonce?: boolean
   ciphertext?: boolean
   iv?: boolean
+  contentIv?: boolean
+  frankingTag?: boolean
+  serverFrank?: boolean
+  isE2EE?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -2563,16 +3030,21 @@ export type DirectMessageSelectScalar = {
   clientNonce?: boolean
   ciphertext?: boolean
   iv?: boolean
+  contentIv?: boolean
+  frankingTag?: boolean
+  serverFrank?: boolean
+  isE2EE?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
 }
 
-export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "createdAt" | "readAt" | "deliveredAt" | "type" | "body" | "animeMalId" | "animeEpisode" | "mediaUrl" | "mediaMime" | "mediaSizeBytes" | "mediaWidth" | "mediaHeight" | "mediaDurationS" | "mediaBlurhash" | "replyToId" | "editedAt" | "clientNonce" | "ciphertext" | "iv" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
+export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "createdAt" | "readAt" | "deliveredAt" | "type" | "body" | "animeMalId" | "animeEpisode" | "mediaUrl" | "mediaMime" | "mediaSizeBytes" | "mediaWidth" | "mediaHeight" | "mediaDurationS" | "mediaBlurhash" | "replyToId" | "editedAt" | "clientNonce" | "ciphertext" | "iv" | "contentIv" | "frankingTag" | "serverFrank" | "isE2EE" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
 export type DirectMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   replies?: boolean | Prisma.DirectMessage$repliesArgs<ExtArgs>
+  envelopesV2?: boolean | Prisma.DirectMessage$envelopesV2Args<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -2598,6 +3070,7 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     replyTo: Prisma.$DirectMessagePayload<ExtArgs> | null
     replies: Prisma.$DirectMessagePayload<ExtArgs>[]
+    envelopesV2: Prisma.$MessageEnvelopePayload<ExtArgs>[]
     conversation: Prisma.$ConversationPayload<ExtArgs>
     sender: Prisma.$UserPayload<ExtArgs>
     senderDeviceKey: Prisma.$UserDeviceKeyPayload<ExtArgs> | null
@@ -2627,6 +3100,10 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
     clientNonce: string | null
     ciphertext: string | null
     iv: string | null
+    contentIv: string | null
+    frankingTag: string | null
+    serverFrank: string | null
+    isE2EE: boolean
     deletedAt: Date | null
     deletedForSender: boolean
     deletedForRecipient: boolean
@@ -3027,6 +3504,7 @@ export interface Prisma__DirectMessageClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   replyTo<T extends Prisma.DirectMessage$replyToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$replyToArgs<ExtArgs>>): Prisma.Prisma__DirectMessageClient<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   replies<T extends Prisma.DirectMessage$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  envelopesV2<T extends Prisma.DirectMessage$envelopesV2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$envelopesV2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversation<T extends Prisma.ConversationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ConversationDefaultArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   senderDeviceKey<T extends Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>>): Prisma.Prisma__UserDeviceKeyClient<runtime.Types.Result.GetResult<Prisma.$UserDeviceKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -3083,6 +3561,10 @@ export interface DirectMessageFieldRefs {
   readonly clientNonce: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly ciphertext: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly iv: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly contentIv: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly frankingTag: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly serverFrank: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly isE2EE: Prisma.FieldRef<"DirectMessage", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly deletedForSender: Prisma.FieldRef<"DirectMessage", 'Boolean'>
   readonly deletedForRecipient: Prisma.FieldRef<"DirectMessage", 'Boolean'>
@@ -3523,6 +4005,30 @@ export type DirectMessage$repliesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.DirectMessageScalarFieldEnum | Prisma.DirectMessageScalarFieldEnum[]
+}
+
+/**
+ * DirectMessage.envelopesV2
+ */
+export type DirectMessage$envelopesV2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageEnvelope
+   */
+  select?: Prisma.MessageEnvelopeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageEnvelope
+   */
+  omit?: Prisma.MessageEnvelopeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageEnvelopeInclude<ExtArgs> | null
+  where?: Prisma.MessageEnvelopeWhereInput
+  orderBy?: Prisma.MessageEnvelopeOrderByWithRelationInput | Prisma.MessageEnvelopeOrderByWithRelationInput[]
+  cursor?: Prisma.MessageEnvelopeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageEnvelopeScalarFieldEnum | Prisma.MessageEnvelopeScalarFieldEnum[]
 }
 
 /**
