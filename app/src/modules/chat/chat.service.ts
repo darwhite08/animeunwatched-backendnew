@@ -678,8 +678,11 @@ async function assertParticipantForMessage(messageId: string, userId: string) {
   });
   if (!msg) throw notFound("Message not found");
   if (msg.conversation.participant1 !== userId && msg.conversation.participant2 !== userId) {
-    throw forbidden("Not a participant in this conversation");
+    throw notFound("Message not found"); // IDOR → 404, no existence leak
   }
+  // Block is enforced on reactions too, both directions (security §9.2).
+  const other = msg.conversation.participant1 === userId ? msg.conversation.participant2 : msg.conversation.participant1;
+  if (await isBlockedEitherWay(userId, other)) throw dmRejection();
   return msg;
 }
 
