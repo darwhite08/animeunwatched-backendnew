@@ -11,8 +11,20 @@ import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
 import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
+import { runDmNightlyCleanup, runDmUnreadReconcile } from "./dmMaintenance.job"
 
 export function startJobs() {
+  // DM v2 maintenance (spec §8)
+  registerJob({
+    name: "dmNightlyCleanup",
+    description: "Purge old tombstoned DMs (30d) + stale DECLINED conversations (90d)",
+    intervalMs: 24 * 60 * 60_000, handler: runDmNightlyCleanup,
+  });
+  registerJob({
+    name: "dmUnreadReconcile",
+    description: "Correct drifted DM unread counters for recently-active conversations",
+    intervalMs: 60 * 60_000, handler: runDmUnreadReconcile,
+  });
   // Register jobs in the in-process registry so /admin/jobs shows them.
   registerJob({
     name: "cleanupRefreshTokens", description: "Purge expired refresh tokens",
