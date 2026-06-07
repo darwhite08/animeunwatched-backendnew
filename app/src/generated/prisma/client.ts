@@ -103,6 +103,26 @@ export type AnimeGenre = Prisma.AnimeGenreModel
  */
 export type AnimeStudio = Prisma.AnimeStudioModel
 /**
+ * Model Episode
+ * 
+ */
+export type Episode = Prisma.EpisodeModel
+/**
+ * Model AnimeRelation
+ * 
+ */
+export type AnimeRelation = Prisma.AnimeRelationModel
+/**
+ * Model SyncJob
+ * 
+ */
+export type SyncJob = Prisma.SyncJobModel
+/**
+ * Model SyncJobLog
+ * 
+ */
+export type SyncJobLog = Prisma.SyncJobLogModel
+/**
  * Model ListEntry
  * 
  */
@@ -237,6 +257,16 @@ export type UserDeviceKey = Prisma.UserDeviceKeyModel
  * 
  */
 export type MessageKeyEnvelope = Prisma.MessageKeyEnvelopeModel
+/**
+ * Model UserBlock
+ * 
+ */
+export type UserBlock = Prisma.UserBlockModel
+/**
+ * Model MessageReport
+ * 
+ */
+export type MessageReport = Prisma.MessageReportModel
 /**
  * Model Activity
  * 

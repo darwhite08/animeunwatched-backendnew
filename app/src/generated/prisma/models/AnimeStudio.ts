@@ -27,16 +27,19 @@ export type AggregateAnimeStudio = {
 export type AnimeStudioMinAggregateOutputType = {
   animeId: string | null
   studioId: string | null
+  role: string | null
 }
 
 export type AnimeStudioMaxAggregateOutputType = {
   animeId: string | null
   studioId: string | null
+  role: string | null
 }
 
 export type AnimeStudioCountAggregateOutputType = {
   animeId: number
   studioId: number
+  role: number
   _all: number
 }
 
@@ -44,16 +47,19 @@ export type AnimeStudioCountAggregateOutputType = {
 export type AnimeStudioMinAggregateInputType = {
   animeId?: true
   studioId?: true
+  role?: true
 }
 
 export type AnimeStudioMaxAggregateInputType = {
   animeId?: true
   studioId?: true
+  role?: true
 }
 
 export type AnimeStudioCountAggregateInputType = {
   animeId?: true
   studioId?: true
+  role?: true
   _all?: true
 }
 
@@ -132,6 +138,7 @@ export type AnimeStudioGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type AnimeStudioGroupByOutputType = {
   animeId: string
   studioId: string
+  role: string
   _count: AnimeStudioCountAggregateOutputType | null
   _min: AnimeStudioMinAggregateOutputType | null
   _max: AnimeStudioMaxAggregateOutputType | null
@@ -158,6 +165,7 @@ export type AnimeStudioWhereInput = {
   NOT?: Prisma.AnimeStudioWhereInput | Prisma.AnimeStudioWhereInput[]
   animeId?: Prisma.StringFilter<"AnimeStudio"> | string
   studioId?: Prisma.StringFilter<"AnimeStudio"> | string
+  role?: Prisma.StringFilter<"AnimeStudio"> | string
   anime?: Prisma.XOR<Prisma.AnimeScalarRelationFilter, Prisma.AnimeWhereInput>
   studio?: Prisma.XOR<Prisma.StudioScalarRelationFilter, Prisma.StudioWhereInput>
 }
@@ -165,24 +173,27 @@ export type AnimeStudioWhereInput = {
 export type AnimeStudioOrderByWithRelationInput = {
   animeId?: Prisma.SortOrder
   studioId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   anime?: Prisma.AnimeOrderByWithRelationInput
   studio?: Prisma.StudioOrderByWithRelationInput
 }
 
 export type AnimeStudioWhereUniqueInput = Prisma.AtLeast<{
-  animeId_studioId?: Prisma.AnimeStudioAnimeIdStudioIdCompoundUniqueInput
+  animeId_studioId_role?: Prisma.AnimeStudioAnimeIdStudioIdRoleCompoundUniqueInput
   AND?: Prisma.AnimeStudioWhereInput | Prisma.AnimeStudioWhereInput[]
   OR?: Prisma.AnimeStudioWhereInput[]
   NOT?: Prisma.AnimeStudioWhereInput | Prisma.AnimeStudioWhereInput[]
   animeId?: Prisma.StringFilter<"AnimeStudio"> | string
   studioId?: Prisma.StringFilter<"AnimeStudio"> | string
+  role?: Prisma.StringFilter<"AnimeStudio"> | string
   anime?: Prisma.XOR<Prisma.AnimeScalarRelationFilter, Prisma.AnimeWhereInput>
   studio?: Prisma.XOR<Prisma.StudioScalarRelationFilter, Prisma.StudioWhereInput>
-}, "animeId_studioId">
+}, "animeId_studioId_role">
 
 export type AnimeStudioOrderByWithAggregationInput = {
   animeId?: Prisma.SortOrder
   studioId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   _count?: Prisma.AnimeStudioCountOrderByAggregateInput
   _max?: Prisma.AnimeStudioMaxOrderByAggregateInput
   _min?: Prisma.AnimeStudioMinOrderByAggregateInput
@@ -194,9 +205,11 @@ export type AnimeStudioScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AnimeStudioScalarWhereWithAggregatesInput | Prisma.AnimeStudioScalarWhereWithAggregatesInput[]
   animeId?: Prisma.StringWithAggregatesFilter<"AnimeStudio"> | string
   studioId?: Prisma.StringWithAggregatesFilter<"AnimeStudio"> | string
+  role?: Prisma.StringWithAggregatesFilter<"AnimeStudio"> | string
 }
 
 export type AnimeStudioCreateInput = {
+  role?: string
   anime: Prisma.AnimeCreateNestedOneWithoutStudiosInput
   studio: Prisma.StudioCreateNestedOneWithoutAnimesInput
 }
@@ -204,9 +217,11 @@ export type AnimeStudioCreateInput = {
 export type AnimeStudioUncheckedCreateInput = {
   animeId: string
   studioId: string
+  role?: string
 }
 
 export type AnimeStudioUpdateInput = {
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   anime?: Prisma.AnimeUpdateOneRequiredWithoutStudiosNestedInput
   studio?: Prisma.StudioUpdateOneRequiredWithoutAnimesNestedInput
 }
@@ -214,20 +229,23 @@ export type AnimeStudioUpdateInput = {
 export type AnimeStudioUncheckedUpdateInput = {
   animeId?: Prisma.StringFieldUpdateOperationsInput | string
   studioId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioCreateManyInput = {
   animeId: string
   studioId: string
+  role?: string
 }
 
 export type AnimeStudioUpdateManyMutationInput = {
-
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioUncheckedUpdateManyInput = {
   animeId?: Prisma.StringFieldUpdateOperationsInput | string
   studioId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioListRelationFilter = {
@@ -240,24 +258,28 @@ export type AnimeStudioOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type AnimeStudioAnimeIdStudioIdCompoundUniqueInput = {
+export type AnimeStudioAnimeIdStudioIdRoleCompoundUniqueInput = {
   animeId: string
   studioId: string
+  role: string
 }
 
 export type AnimeStudioCountOrderByAggregateInput = {
   animeId?: Prisma.SortOrder
   studioId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type AnimeStudioMaxOrderByAggregateInput = {
   animeId?: Prisma.SortOrder
   studioId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type AnimeStudioMinOrderByAggregateInput = {
   animeId?: Prisma.SortOrder
   studioId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type AnimeStudioCreateNestedManyWithoutAnimeInput = {
@@ -345,11 +367,13 @@ export type AnimeStudioUncheckedUpdateManyWithoutStudioNestedInput = {
 }
 
 export type AnimeStudioCreateWithoutAnimeInput = {
+  role?: string
   studio: Prisma.StudioCreateNestedOneWithoutAnimesInput
 }
 
 export type AnimeStudioUncheckedCreateWithoutAnimeInput = {
   studioId: string
+  role?: string
 }
 
 export type AnimeStudioCreateOrConnectWithoutAnimeInput = {
@@ -384,14 +408,17 @@ export type AnimeStudioScalarWhereInput = {
   NOT?: Prisma.AnimeStudioScalarWhereInput | Prisma.AnimeStudioScalarWhereInput[]
   animeId?: Prisma.StringFilter<"AnimeStudio"> | string
   studioId?: Prisma.StringFilter<"AnimeStudio"> | string
+  role?: Prisma.StringFilter<"AnimeStudio"> | string
 }
 
 export type AnimeStudioCreateWithoutStudioInput = {
+  role?: string
   anime: Prisma.AnimeCreateNestedOneWithoutStudiosInput
 }
 
 export type AnimeStudioUncheckedCreateWithoutStudioInput = {
   animeId: string
+  role?: string
 }
 
 export type AnimeStudioCreateOrConnectWithoutStudioInput = {
@@ -422,34 +449,42 @@ export type AnimeStudioUpdateManyWithWhereWithoutStudioInput = {
 
 export type AnimeStudioCreateManyAnimeInput = {
   studioId: string
+  role?: string
 }
 
 export type AnimeStudioUpdateWithoutAnimeInput = {
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   studio?: Prisma.StudioUpdateOneRequiredWithoutAnimesNestedInput
 }
 
 export type AnimeStudioUncheckedUpdateWithoutAnimeInput = {
   studioId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioUncheckedUpdateManyWithoutAnimeInput = {
   studioId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioCreateManyStudioInput = {
   animeId: string
+  role?: string
 }
 
 export type AnimeStudioUpdateWithoutStudioInput = {
+  role?: Prisma.StringFieldUpdateOperationsInput | string
   anime?: Prisma.AnimeUpdateOneRequiredWithoutStudiosNestedInput
 }
 
 export type AnimeStudioUncheckedUpdateWithoutStudioInput = {
   animeId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AnimeStudioUncheckedUpdateManyWithoutStudioInput = {
   animeId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -457,6 +492,7 @@ export type AnimeStudioUncheckedUpdateManyWithoutStudioInput = {
 export type AnimeStudioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   animeId?: boolean
   studioId?: boolean
+  role?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
   studio?: boolean | Prisma.StudioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animeStudio"]>
@@ -464,6 +500,7 @@ export type AnimeStudioSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type AnimeStudioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   animeId?: boolean
   studioId?: boolean
+  role?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
   studio?: boolean | Prisma.StudioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animeStudio"]>
@@ -471,6 +508,7 @@ export type AnimeStudioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 export type AnimeStudioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   animeId?: boolean
   studioId?: boolean
+  role?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
   studio?: boolean | Prisma.StudioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animeStudio"]>
@@ -478,9 +516,10 @@ export type AnimeStudioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type AnimeStudioSelectScalar = {
   animeId?: boolean
   studioId?: boolean
+  role?: boolean
 }
 
-export type AnimeStudioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"animeId" | "studioId", ExtArgs["result"]["animeStudio"]>
+export type AnimeStudioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"animeId" | "studioId" | "role", ExtArgs["result"]["animeStudio"]>
 export type AnimeStudioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
   studio?: boolean | Prisma.StudioDefaultArgs<ExtArgs>
@@ -503,6 +542,10 @@ export type $AnimeStudioPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     animeId: string
     studioId: string
+    /**
+     * studio | producer | licensor (Jikan's three company roles)
+     */
+    role: string
   }, ExtArgs["result"]["animeStudio"]>
   composites: {}
 }
@@ -930,6 +973,7 @@ export interface Prisma__AnimeStudioClient<T, Null = never, ExtArgs extends runt
 export interface AnimeStudioFieldRefs {
   readonly animeId: Prisma.FieldRef<"AnimeStudio", 'String'>
   readonly studioId: Prisma.FieldRef<"AnimeStudio", 'String'>
+  readonly role: Prisma.FieldRef<"AnimeStudio", 'String'>
 }
     
 

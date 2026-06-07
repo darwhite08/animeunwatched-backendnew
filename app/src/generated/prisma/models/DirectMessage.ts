@@ -20,18 +20,53 @@ export type DirectMessageModel = runtime.Types.Result.DefaultSelection<Prisma.$D
 
 export type AggregateDirectMessage = {
   _count: DirectMessageCountAggregateOutputType | null
+  _avg: DirectMessageAvgAggregateOutputType | null
+  _sum: DirectMessageSumAggregateOutputType | null
   _min: DirectMessageMinAggregateOutputType | null
   _max: DirectMessageMaxAggregateOutputType | null
+}
+
+export type DirectMessageAvgAggregateOutputType = {
+  animeMalId: number | null
+  animeEpisode: number | null
+  mediaSizeBytes: number | null
+  mediaWidth: number | null
+  mediaHeight: number | null
+  mediaDurationS: number | null
+}
+
+export type DirectMessageSumAggregateOutputType = {
+  animeMalId: number | null
+  animeEpisode: number | null
+  mediaSizeBytes: number | null
+  mediaWidth: number | null
+  mediaHeight: number | null
+  mediaDurationS: number | null
 }
 
 export type DirectMessageMinAggregateOutputType = {
   id: string | null
   conversationId: string | null
   senderId: string | null
-  ciphertext: string | null
-  iv: string | null
   createdAt: Date | null
   readAt: Date | null
+  deliveredAt: Date | null
+  type: $Enums.MessageType | null
+  body: string | null
+  animeMalId: number | null
+  animeEpisode: number | null
+  mediaUrl: string | null
+  mediaMime: string | null
+  mediaSizeBytes: number | null
+  mediaWidth: number | null
+  mediaHeight: number | null
+  mediaDurationS: number | null
+  mediaBlurhash: string | null
+  replyToId: string | null
+  editedAt: Date | null
+  clientNonce: string | null
+  ciphertext: string | null
+  iv: string | null
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
@@ -42,10 +77,25 @@ export type DirectMessageMaxAggregateOutputType = {
   id: string | null
   conversationId: string | null
   senderId: string | null
-  ciphertext: string | null
-  iv: string | null
   createdAt: Date | null
   readAt: Date | null
+  deliveredAt: Date | null
+  type: $Enums.MessageType | null
+  body: string | null
+  animeMalId: number | null
+  animeEpisode: number | null
+  mediaUrl: string | null
+  mediaMime: string | null
+  mediaSizeBytes: number | null
+  mediaWidth: number | null
+  mediaHeight: number | null
+  mediaDurationS: number | null
+  mediaBlurhash: string | null
+  replyToId: string | null
+  editedAt: Date | null
+  clientNonce: string | null
+  ciphertext: string | null
+  iv: string | null
   deletedAt: Date | null
   deletedForSender: boolean | null
   deletedForRecipient: boolean | null
@@ -56,10 +106,25 @@ export type DirectMessageCountAggregateOutputType = {
   id: number
   conversationId: number
   senderId: number
-  ciphertext: number
-  iv: number
   createdAt: number
   readAt: number
+  deliveredAt: number
+  type: number
+  body: number
+  animeMalId: number
+  animeEpisode: number
+  mediaUrl: number
+  mediaMime: number
+  mediaSizeBytes: number
+  mediaWidth: number
+  mediaHeight: number
+  mediaDurationS: number
+  mediaBlurhash: number
+  replyToId: number
+  editedAt: number
+  clientNonce: number
+  ciphertext: number
+  iv: number
   deletedAt: number
   deletedForSender: number
   deletedForRecipient: number
@@ -68,14 +133,47 @@ export type DirectMessageCountAggregateOutputType = {
 }
 
 
+export type DirectMessageAvgAggregateInputType = {
+  animeMalId?: true
+  animeEpisode?: true
+  mediaSizeBytes?: true
+  mediaWidth?: true
+  mediaHeight?: true
+  mediaDurationS?: true
+}
+
+export type DirectMessageSumAggregateInputType = {
+  animeMalId?: true
+  animeEpisode?: true
+  mediaSizeBytes?: true
+  mediaWidth?: true
+  mediaHeight?: true
+  mediaDurationS?: true
+}
+
 export type DirectMessageMinAggregateInputType = {
   id?: true
   conversationId?: true
   senderId?: true
-  ciphertext?: true
-  iv?: true
   createdAt?: true
   readAt?: true
+  deliveredAt?: true
+  type?: true
+  body?: true
+  animeMalId?: true
+  animeEpisode?: true
+  mediaUrl?: true
+  mediaMime?: true
+  mediaSizeBytes?: true
+  mediaWidth?: true
+  mediaHeight?: true
+  mediaDurationS?: true
+  mediaBlurhash?: true
+  replyToId?: true
+  editedAt?: true
+  clientNonce?: true
+  ciphertext?: true
+  iv?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -86,10 +184,25 @@ export type DirectMessageMaxAggregateInputType = {
   id?: true
   conversationId?: true
   senderId?: true
-  ciphertext?: true
-  iv?: true
   createdAt?: true
   readAt?: true
+  deliveredAt?: true
+  type?: true
+  body?: true
+  animeMalId?: true
+  animeEpisode?: true
+  mediaUrl?: true
+  mediaMime?: true
+  mediaSizeBytes?: true
+  mediaWidth?: true
+  mediaHeight?: true
+  mediaDurationS?: true
+  mediaBlurhash?: true
+  replyToId?: true
+  editedAt?: true
+  clientNonce?: true
+  ciphertext?: true
+  iv?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -100,10 +213,25 @@ export type DirectMessageCountAggregateInputType = {
   id?: true
   conversationId?: true
   senderId?: true
-  ciphertext?: true
-  iv?: true
   createdAt?: true
   readAt?: true
+  deliveredAt?: true
+  type?: true
+  body?: true
+  animeMalId?: true
+  animeEpisode?: true
+  mediaUrl?: true
+  mediaMime?: true
+  mediaSizeBytes?: true
+  mediaWidth?: true
+  mediaHeight?: true
+  mediaDurationS?: true
+  mediaBlurhash?: true
+  replyToId?: true
+  editedAt?: true
+  clientNonce?: true
+  ciphertext?: true
+  iv?: true
   deletedAt?: true
   deletedForSender?: true
   deletedForRecipient?: true
@@ -149,6 +277,18 @@ export type DirectMessageAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: DirectMessageAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: DirectMessageSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: DirectMessageMinAggregateInputType
@@ -179,6 +319,8 @@ export type DirectMessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: DirectMessageCountAggregateInputType | true
+  _avg?: DirectMessageAvgAggregateInputType
+  _sum?: DirectMessageSumAggregateInputType
   _min?: DirectMessageMinAggregateInputType
   _max?: DirectMessageMaxAggregateInputType
 }
@@ -187,15 +329,32 @@ export type DirectMessageGroupByOutputType = {
   id: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt: Date
   readAt: Date | null
+  deliveredAt: Date | null
+  type: $Enums.MessageType
+  body: string | null
+  animeMalId: number | null
+  animeEpisode: number | null
+  mediaUrl: string | null
+  mediaMime: string | null
+  mediaSizeBytes: number | null
+  mediaWidth: number | null
+  mediaHeight: number | null
+  mediaDurationS: number | null
+  mediaBlurhash: string | null
+  replyToId: string | null
+  editedAt: Date | null
+  clientNonce: string | null
+  ciphertext: string | null
+  iv: string | null
   deletedAt: Date | null
   deletedForSender: boolean
   deletedForRecipient: boolean
   senderDeviceKeyId: string | null
   _count: DirectMessageCountAggregateOutputType | null
+  _avg: DirectMessageAvgAggregateOutputType | null
+  _sum: DirectMessageSumAggregateOutputType | null
   _min: DirectMessageMinAggregateOutputType | null
   _max: DirectMessageMaxAggregateOutputType | null
 }
@@ -222,14 +381,31 @@ export type DirectMessageWhereInput = {
   id?: Prisma.StringFilter<"DirectMessage"> | string
   conversationId?: Prisma.StringFilter<"DirectMessage"> | string
   senderId?: Prisma.StringFilter<"DirectMessage"> | string
-  ciphertext?: Prisma.StringFilter<"DirectMessage"> | string
-  iv?: Prisma.StringFilter<"DirectMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"DirectMessage"> | Date | string
   readAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  deliveredAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  type?: Prisma.EnumMessageTypeFilter<"DirectMessage"> | $Enums.MessageType
+  body?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  animeMalId?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  animeEpisode?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaUrl?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaMime?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaSizeBytes?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaWidth?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaHeight?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaDurationS?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaBlurhash?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
   senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  replyTo?: Prisma.XOR<Prisma.DirectMessageNullableScalarRelationFilter, Prisma.DirectMessageWhereInput> | null
+  replies?: Prisma.DirectMessageListRelationFilter
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
@@ -241,14 +417,31 @@ export type DirectMessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   conversationId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
-  ciphertext?: Prisma.SortOrder
-  iv?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
+  body?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeMalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaMime?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaBlurhash?: Prisma.SortOrderInput | Prisma.SortOrder
+  replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
+  ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
+  iv?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
   senderDeviceKeyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  replyTo?: Prisma.DirectMessageOrderByWithRelationInput
+  replies?: Prisma.DirectMessageOrderByRelationAggregateInput
   conversation?: Prisma.ConversationOrderByWithRelationInput
   sender?: Prisma.UserOrderByWithRelationInput
   senderDeviceKey?: Prisma.UserDeviceKeyOrderByWithRelationInput
@@ -258,41 +451,76 @@ export type DirectMessageOrderByWithRelationInput = {
 
 export type DirectMessageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  conversationId_clientNonce?: Prisma.DirectMessageConversationIdClientNonceCompoundUniqueInput
   AND?: Prisma.DirectMessageWhereInput | Prisma.DirectMessageWhereInput[]
   OR?: Prisma.DirectMessageWhereInput[]
   NOT?: Prisma.DirectMessageWhereInput | Prisma.DirectMessageWhereInput[]
   conversationId?: Prisma.StringFilter<"DirectMessage"> | string
   senderId?: Prisma.StringFilter<"DirectMessage"> | string
-  ciphertext?: Prisma.StringFilter<"DirectMessage"> | string
-  iv?: Prisma.StringFilter<"DirectMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"DirectMessage"> | Date | string
   readAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  deliveredAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  type?: Prisma.EnumMessageTypeFilter<"DirectMessage"> | $Enums.MessageType
+  body?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  animeMalId?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  animeEpisode?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaUrl?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaMime?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaSizeBytes?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaWidth?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaHeight?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaDurationS?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaBlurhash?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
   senderDeviceKeyId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  replyTo?: Prisma.XOR<Prisma.DirectMessageNullableScalarRelationFilter, Prisma.DirectMessageWhereInput> | null
+  replies?: Prisma.DirectMessageListRelationFilter
   conversation?: Prisma.XOR<Prisma.ConversationScalarRelationFilter, Prisma.ConversationWhereInput>
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   senderDeviceKey?: Prisma.XOR<Prisma.UserDeviceKeyNullableScalarRelationFilter, Prisma.UserDeviceKeyWhereInput> | null
   envelopes?: Prisma.MessageKeyEnvelopeListRelationFilter
   reactions?: Prisma.MessageReactionListRelationFilter
-}, "id">
+}, "id" | "conversationId_clientNonce">
 
 export type DirectMessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   conversationId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
-  ciphertext?: Prisma.SortOrder
-  iv?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
+  body?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeMalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaMime?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaBlurhash?: Prisma.SortOrderInput | Prisma.SortOrder
+  replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
+  ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
+  iv?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
   senderDeviceKeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DirectMessageCountOrderByAggregateInput
+  _avg?: Prisma.DirectMessageAvgOrderByAggregateInput
   _max?: Prisma.DirectMessageMaxOrderByAggregateInput
   _min?: Prisma.DirectMessageMinOrderByAggregateInput
+  _sum?: Prisma.DirectMessageSumOrderByAggregateInput
 }
 
 export type DirectMessageScalarWhereWithAggregatesInput = {
@@ -302,10 +530,25 @@ export type DirectMessageScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DirectMessage"> | string
   conversationId?: Prisma.StringWithAggregatesFilter<"DirectMessage"> | string
   senderId?: Prisma.StringWithAggregatesFilter<"DirectMessage"> | string
-  ciphertext?: Prisma.StringWithAggregatesFilter<"DirectMessage"> | string
-  iv?: Prisma.StringWithAggregatesFilter<"DirectMessage"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DirectMessage"> | Date | string
   readAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
+  deliveredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
+  type?: Prisma.EnumMessageTypeWithAggregatesFilter<"DirectMessage"> | $Enums.MessageType
+  body?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  animeMalId?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  animeEpisode?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  mediaUrl?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  mediaMime?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  mediaSizeBytes?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  mediaWidth?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  mediaHeight?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  mediaDurationS?: Prisma.IntNullableWithAggregatesFilter<"DirectMessage"> | number | null
+  mediaBlurhash?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  replyToId?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  editedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
+  clientNonce?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  ciphertext?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  iv?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolWithAggregatesFilter<"DirectMessage"> | boolean
@@ -314,13 +557,29 @@ export type DirectMessageScalarWhereWithAggregatesInput = {
 
 export type DirectMessageCreateInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -332,27 +591,59 @@ export type DirectMessageUncheckedCreateInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type DirectMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -364,14 +655,30 @@ export type DirectMessageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -380,10 +687,25 @@ export type DirectMessageCreateManyInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -392,10 +714,24 @@ export type DirectMessageCreateManyInput = {
 
 export type DirectMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -405,10 +741,25 @@ export type DirectMessageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -425,28 +776,77 @@ export type DirectMessageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type DirectMessageNullableScalarRelationFilter = {
+  is?: Prisma.DirectMessageWhereInput | null
+  isNot?: Prisma.DirectMessageWhereInput | null
+}
+
+export type DirectMessageConversationIdClientNonceCompoundUniqueInput = {
+  conversationId: string
+  clientNonce: string
+}
+
 export type DirectMessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   conversationId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
-  ciphertext?: Prisma.SortOrder
-  iv?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
+  deliveredAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  body?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  mediaMime?: Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrder
+  mediaBlurhash?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
+  editedAt?: Prisma.SortOrder
+  clientNonce?: Prisma.SortOrder
+  ciphertext?: Prisma.SortOrder
+  iv?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
   senderDeviceKeyId?: Prisma.SortOrder
 }
 
+export type DirectMessageAvgOrderByAggregateInput = {
+  animeMalId?: Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrder
+}
+
 export type DirectMessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   conversationId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
-  ciphertext?: Prisma.SortOrder
-  iv?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
+  deliveredAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  body?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  mediaMime?: Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrder
+  mediaBlurhash?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
+  editedAt?: Prisma.SortOrder
+  clientNonce?: Prisma.SortOrder
+  ciphertext?: Prisma.SortOrder
+  iv?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
@@ -457,14 +857,38 @@ export type DirectMessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   conversationId?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
-  ciphertext?: Prisma.SortOrder
-  iv?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
+  deliveredAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  body?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  mediaMime?: Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrder
+  mediaBlurhash?: Prisma.SortOrder
+  replyToId?: Prisma.SortOrder
+  editedAt?: Prisma.SortOrder
+  clientNonce?: Prisma.SortOrder
+  ciphertext?: Prisma.SortOrder
+  iv?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   deletedForSender?: Prisma.SortOrder
   deletedForRecipient?: Prisma.SortOrder
   senderDeviceKeyId?: Prisma.SortOrder
+}
+
+export type DirectMessageSumOrderByAggregateInput = {
+  animeMalId?: Prisma.SortOrder
+  animeEpisode?: Prisma.SortOrder
+  mediaSizeBytes?: Prisma.SortOrder
+  mediaWidth?: Prisma.SortOrder
+  mediaHeight?: Prisma.SortOrder
+  mediaDurationS?: Prisma.SortOrder
 }
 
 export type DirectMessageScalarRelationFilter = {
@@ -556,6 +980,68 @@ export type DirectMessageUncheckedUpdateManyWithoutConversationNestedInput = {
   deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
 }
 
+export type DirectMessageCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutRepliesInput, Prisma.DirectMessageUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.DirectMessageWhereUniqueInput
+}
+
+export type DirectMessageCreateNestedManyWithoutReplyToInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput> | Prisma.DirectMessageCreateWithoutReplyToInput[] | Prisma.DirectMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutReplyToInput | Prisma.DirectMessageCreateOrConnectWithoutReplyToInput[]
+  createMany?: Prisma.DirectMessageCreateManyReplyToInputEnvelope
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+}
+
+export type DirectMessageUncheckedCreateNestedManyWithoutReplyToInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput> | Prisma.DirectMessageCreateWithoutReplyToInput[] | Prisma.DirectMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutReplyToInput | Prisma.DirectMessageCreateOrConnectWithoutReplyToInput[]
+  createMany?: Prisma.DirectMessageCreateManyReplyToInputEnvelope
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+}
+
+export type EnumMessageTypeFieldUpdateOperationsInput = {
+  set?: $Enums.MessageType
+}
+
+export type DirectMessageUpdateOneWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutRepliesInput, Prisma.DirectMessageUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.DirectMessageUpsertWithoutRepliesInput
+  disconnect?: Prisma.DirectMessageWhereInput | boolean
+  delete?: Prisma.DirectMessageWhereInput | boolean
+  connect?: Prisma.DirectMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DirectMessageUpdateToOneWithWhereWithoutRepliesInput, Prisma.DirectMessageUpdateWithoutRepliesInput>, Prisma.DirectMessageUncheckedUpdateWithoutRepliesInput>
+}
+
+export type DirectMessageUpdateManyWithoutReplyToNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput> | Prisma.DirectMessageCreateWithoutReplyToInput[] | Prisma.DirectMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutReplyToInput | Prisma.DirectMessageCreateOrConnectWithoutReplyToInput[]
+  upsert?: Prisma.DirectMessageUpsertWithWhereUniqueWithoutReplyToInput | Prisma.DirectMessageUpsertWithWhereUniqueWithoutReplyToInput[]
+  createMany?: Prisma.DirectMessageCreateManyReplyToInputEnvelope
+  set?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  disconnect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  delete?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  update?: Prisma.DirectMessageUpdateWithWhereUniqueWithoutReplyToInput | Prisma.DirectMessageUpdateWithWhereUniqueWithoutReplyToInput[]
+  updateMany?: Prisma.DirectMessageUpdateManyWithWhereWithoutReplyToInput | Prisma.DirectMessageUpdateManyWithWhereWithoutReplyToInput[]
+  deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
+}
+
+export type DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput = {
+  create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput> | Prisma.DirectMessageCreateWithoutReplyToInput[] | Prisma.DirectMessageUncheckedCreateWithoutReplyToInput[]
+  connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutReplyToInput | Prisma.DirectMessageCreateOrConnectWithoutReplyToInput[]
+  upsert?: Prisma.DirectMessageUpsertWithWhereUniqueWithoutReplyToInput | Prisma.DirectMessageUpsertWithWhereUniqueWithoutReplyToInput[]
+  createMany?: Prisma.DirectMessageCreateManyReplyToInputEnvelope
+  set?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  disconnect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  delete?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  connect?: Prisma.DirectMessageWhereUniqueInput | Prisma.DirectMessageWhereUniqueInput[]
+  update?: Prisma.DirectMessageUpdateWithWhereUniqueWithoutReplyToInput | Prisma.DirectMessageUpdateWithWhereUniqueWithoutReplyToInput[]
+  updateMany?: Prisma.DirectMessageUpdateManyWithWhereWithoutReplyToInput | Prisma.DirectMessageUpdateManyWithWhereWithoutReplyToInput[]
+  deleteMany?: Prisma.DirectMessageScalarWhereInput | Prisma.DirectMessageScalarWhereInput[]
+}
+
 export type DirectMessageCreateNestedOneWithoutReactionsInput = {
   create?: Prisma.XOR<Prisma.DirectMessageCreateWithoutReactionsInput, Prisma.DirectMessageUncheckedCreateWithoutReactionsInput>
   connectOrCreate?: Prisma.DirectMessageCreateOrConnectWithoutReactionsInput
@@ -628,13 +1114,29 @@ export type DirectMessageUpdateOneRequiredWithoutEnvelopesNestedInput = {
 
 export type DirectMessageCreateWithoutSenderInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -644,14 +1146,30 @@ export type DirectMessageCreateWithoutSenderInput = {
 export type DirectMessageUncheckedCreateWithoutSenderInput = {
   id?: string
   conversationId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -689,10 +1207,25 @@ export type DirectMessageScalarWhereInput = {
   id?: Prisma.StringFilter<"DirectMessage"> | string
   conversationId?: Prisma.StringFilter<"DirectMessage"> | string
   senderId?: Prisma.StringFilter<"DirectMessage"> | string
-  ciphertext?: Prisma.StringFilter<"DirectMessage"> | string
-  iv?: Prisma.StringFilter<"DirectMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"DirectMessage"> | Date | string
   readAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  deliveredAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  type?: Prisma.EnumMessageTypeFilter<"DirectMessage"> | $Enums.MessageType
+  body?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  animeMalId?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  animeEpisode?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaUrl?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaMime?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  mediaSizeBytes?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaWidth?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaHeight?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaDurationS?: Prisma.IntNullableFilter<"DirectMessage"> | number | null
+  mediaBlurhash?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
+  clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   deletedForSender?: Prisma.BoolFilter<"DirectMessage"> | boolean
   deletedForRecipient?: Prisma.BoolFilter<"DirectMessage"> | boolean
@@ -701,13 +1234,29 @@ export type DirectMessageScalarWhereInput = {
 
 export type DirectMessageCreateWithoutConversationInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -717,14 +1266,30 @@ export type DirectMessageCreateWithoutConversationInput = {
 export type DirectMessageUncheckedCreateWithoutConversationInput = {
   id?: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -755,15 +1320,259 @@ export type DirectMessageUpdateManyWithWhereWithoutConversationInput = {
   data: Prisma.XOR<Prisma.DirectMessageUpdateManyMutationInput, Prisma.DirectMessageUncheckedUpdateManyWithoutConversationInput>
 }
 
-export type DirectMessageCreateWithoutReactionsInput = {
+export type DirectMessageCreateWithoutRepliesInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutRepliesInput, Prisma.DirectMessageUncheckedCreateWithoutRepliesInput>
+}
+
+export type DirectMessageCreateWithoutReplyToInput = {
+  id?: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
+  conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+  senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
+  envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageUncheckedCreateWithoutReplyToInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
+  reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
+}
+
+export type DirectMessageCreateOrConnectWithoutReplyToInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput>
+}
+
+export type DirectMessageCreateManyReplyToInputEnvelope = {
+  data: Prisma.DirectMessageCreateManyReplyToInput | Prisma.DirectMessageCreateManyReplyToInput[]
+  skipDuplicates?: boolean
+}
+
+export type DirectMessageUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.DirectMessageUpdateWithoutRepliesInput, Prisma.DirectMessageUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutRepliesInput, Prisma.DirectMessageUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.DirectMessageWhereInput
+}
+
+export type DirectMessageUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.DirectMessageWhereInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateWithoutRepliesInput, Prisma.DirectMessageUncheckedUpdateWithoutRepliesInput>
+}
+
+export type DirectMessageUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUpsertWithWhereUniqueWithoutReplyToInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.DirectMessageUpdateWithoutReplyToInput, Prisma.DirectMessageUncheckedUpdateWithoutReplyToInput>
+  create: Prisma.XOR<Prisma.DirectMessageCreateWithoutReplyToInput, Prisma.DirectMessageUncheckedCreateWithoutReplyToInput>
+}
+
+export type DirectMessageUpdateWithWhereUniqueWithoutReplyToInput = {
+  where: Prisma.DirectMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateWithoutReplyToInput, Prisma.DirectMessageUncheckedUpdateWithoutReplyToInput>
+}
+
+export type DirectMessageUpdateManyWithWhereWithoutReplyToInput = {
+  where: Prisma.DirectMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.DirectMessageUpdateManyMutationInput, Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToInput>
+}
+
+export type DirectMessageCreateWithoutReactionsInput = {
+  id?: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -774,14 +1583,30 @@ export type DirectMessageUncheckedCreateWithoutReactionsInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
 }
 
@@ -803,13 +1628,29 @@ export type DirectMessageUpdateToOneWithWhereWithoutReactionsInput = {
 
 export type DirectMessageUpdateWithoutReactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -820,26 +1661,58 @@ export type DirectMessageUncheckedUpdateWithoutReactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageCreateWithoutSenderDeviceKeyInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   envelopes?: Prisma.MessageKeyEnvelopeCreateNestedManyWithoutMessageInput
@@ -850,13 +1723,29 @@ export type DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedCreateNestedManyWithoutMessageInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
@@ -889,13 +1778,29 @@ export type DirectMessageUpdateManyWithWhereWithoutSenderDeviceKeyInput = {
 
 export type DirectMessageCreateWithoutEnvelopesInput = {
   id?: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
+  replyTo?: Prisma.DirectMessageCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.DirectMessageCreateNestedManyWithoutReplyToInput
   conversation: Prisma.ConversationCreateNestedOneWithoutMessagesInput
   sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
   senderDeviceKey?: Prisma.UserDeviceKeyCreateNestedOneWithoutSentMessagesInput
@@ -906,14 +1811,30 @@ export type DirectMessageUncheckedCreateWithoutEnvelopesInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: string | null
+  replies?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutReplyToInput
   reactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutMessageInput
 }
 
@@ -935,13 +1856,29 @@ export type DirectMessageUpdateToOneWithWhereWithoutEnvelopesInput = {
 
 export type DirectMessageUpdateWithoutEnvelopesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
@@ -952,24 +1889,55 @@ export type DirectMessageUncheckedUpdateWithoutEnvelopesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type DirectMessageCreateManySenderInput = {
   id?: string
   conversationId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -978,13 +1946,29 @@ export type DirectMessageCreateManySenderInput = {
 
 export type DirectMessageUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -994,14 +1978,30 @@ export type DirectMessageUpdateWithoutSenderInput = {
 export type DirectMessageUncheckedUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -1009,10 +2009,25 @@ export type DirectMessageUncheckedUpdateWithoutSenderInput = {
 export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1022,10 +2037,25 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
 export type DirectMessageCreateManyConversationInput = {
   id?: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -1034,13 +2064,29 @@ export type DirectMessageCreateManyConversationInput = {
 
 export type DirectMessageUpdateWithoutConversationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -1050,14 +2096,30 @@ export type DirectMessageUpdateWithoutConversationInput = {
 export type DirectMessageUncheckedUpdateWithoutConversationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -1065,10 +2127,143 @@ export type DirectMessageUncheckedUpdateWithoutConversationInput = {
 export type DirectMessageUncheckedUpdateManyWithoutConversationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type DirectMessageCreateManyReplyToInput = {
+  id?: string
+  conversationId: string
+  senderId: string
+  createdAt?: Date | string
+  readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
+  deletedAt?: Date | string | null
+  deletedForSender?: boolean
+  deletedForRecipient?: boolean
+  senderDeviceKeyId?: string | null
+}
+
+export type DirectMessageUpdateWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
+  conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  senderDeviceKey?: Prisma.UserDeviceKeyUpdateOneWithoutSentMessagesNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  senderDeviceKeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
+  envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
+  reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
+}
+
+export type DirectMessageUncheckedUpdateManyWithoutReplyToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  conversationId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1079,10 +2274,25 @@ export type DirectMessageCreateManySenderDeviceKeyInput = {
   id?: string
   conversationId: string
   senderId: string
-  ciphertext: string
-  iv: string
   createdAt?: Date | string
   readAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  type?: $Enums.MessageType
+  body?: string | null
+  animeMalId?: number | null
+  animeEpisode?: number | null
+  mediaUrl?: string | null
+  mediaMime?: string | null
+  mediaSizeBytes?: number | null
+  mediaWidth?: number | null
+  mediaHeight?: number | null
+  mediaDurationS?: number | null
+  mediaBlurhash?: string | null
+  replyToId?: string | null
+  editedAt?: Date | string | null
+  clientNonce?: string | null
+  ciphertext?: string | null
+  iv?: string | null
   deletedAt?: Date | string | null
   deletedForSender?: boolean
   deletedForRecipient?: boolean
@@ -1090,13 +2300,29 @@ export type DirectMessageCreateManySenderDeviceKeyInput = {
 
 export type DirectMessageUpdateWithoutSenderDeviceKeyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replyTo?: Prisma.DirectMessageUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.DirectMessageUpdateManyWithoutReplyToNestedInput
   conversation?: Prisma.ConversationUpdateOneRequiredWithoutMessagesNestedInput
   sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUpdateManyWithoutMessageNestedInput
@@ -1107,13 +2333,29 @@ export type DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  replies?: Prisma.DirectMessageUncheckedUpdateManyWithoutReplyToNestedInput
   envelopes?: Prisma.MessageKeyEnvelopeUncheckedUpdateManyWithoutMessageNestedInput
   reactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutMessageNestedInput
 }
@@ -1122,10 +2364,25 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   conversationId?: Prisma.StringFieldUpdateOperationsInput | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  ciphertext?: Prisma.StringFieldUpdateOperationsInput | string
-  iv?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeEpisode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaSizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaWidth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaHeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaDurationS?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedForSender?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedForRecipient?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1137,11 +2394,13 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
  */
 
 export type DirectMessageCountOutputType = {
+  replies: number
   envelopes: number
   reactions: number
 }
 
 export type DirectMessageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replies?: boolean | DirectMessageCountOutputTypeCountRepliesArgs
   envelopes?: boolean | DirectMessageCountOutputTypeCountEnvelopesArgs
   reactions?: boolean | DirectMessageCountOutputTypeCountReactionsArgs
 }
@@ -1154,6 +2413,13 @@ export type DirectMessageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
    * Select specific fields to fetch from the DirectMessageCountOutputType
    */
   select?: Prisma.DirectMessageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * DirectMessageCountOutputType without action
+ */
+export type DirectMessageCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DirectMessageWhereInput
 }
 
 /**
@@ -1175,14 +2441,31 @@ export type DirectMessageSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   conversationId?: boolean
   senderId?: boolean
-  ciphertext?: boolean
-  iv?: boolean
   createdAt?: boolean
   readAt?: boolean
+  deliveredAt?: boolean
+  type?: boolean
+  body?: boolean
+  animeMalId?: boolean
+  animeEpisode?: boolean
+  mediaUrl?: boolean
+  mediaMime?: boolean
+  mediaSizeBytes?: boolean
+  mediaWidth?: boolean
+  mediaHeight?: boolean
+  mediaDurationS?: boolean
+  mediaBlurhash?: boolean
+  replyToId?: boolean
+  editedAt?: boolean
+  clientNonce?: boolean
+  ciphertext?: boolean
+  iv?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
+  replies?: boolean | Prisma.DirectMessage$repliesArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -1195,14 +2478,30 @@ export type DirectMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   conversationId?: boolean
   senderId?: boolean
-  ciphertext?: boolean
-  iv?: boolean
   createdAt?: boolean
   readAt?: boolean
+  deliveredAt?: boolean
+  type?: boolean
+  body?: boolean
+  animeMalId?: boolean
+  animeEpisode?: boolean
+  mediaUrl?: boolean
+  mediaMime?: boolean
+  mediaSizeBytes?: boolean
+  mediaWidth?: boolean
+  mediaHeight?: boolean
+  mediaDurationS?: boolean
+  mediaBlurhash?: boolean
+  replyToId?: boolean
+  editedAt?: boolean
+  clientNonce?: boolean
+  ciphertext?: boolean
+  iv?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -1212,14 +2511,30 @@ export type DirectMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   conversationId?: boolean
   senderId?: boolean
-  ciphertext?: boolean
-  iv?: boolean
   createdAt?: boolean
   readAt?: boolean
+  deliveredAt?: boolean
+  type?: boolean
+  body?: boolean
+  animeMalId?: boolean
+  animeEpisode?: boolean
+  mediaUrl?: boolean
+  mediaMime?: boolean
+  mediaSizeBytes?: boolean
+  mediaWidth?: boolean
+  mediaHeight?: boolean
+  mediaDurationS?: boolean
+  mediaBlurhash?: boolean
+  replyToId?: boolean
+  editedAt?: boolean
+  clientNonce?: boolean
+  ciphertext?: boolean
+  iv?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -1229,18 +2544,35 @@ export type DirectMessageSelectScalar = {
   id?: boolean
   conversationId?: boolean
   senderId?: boolean
-  ciphertext?: boolean
-  iv?: boolean
   createdAt?: boolean
   readAt?: boolean
+  deliveredAt?: boolean
+  type?: boolean
+  body?: boolean
+  animeMalId?: boolean
+  animeEpisode?: boolean
+  mediaUrl?: boolean
+  mediaMime?: boolean
+  mediaSizeBytes?: boolean
+  mediaWidth?: boolean
+  mediaHeight?: boolean
+  mediaDurationS?: boolean
+  mediaBlurhash?: boolean
+  replyToId?: boolean
+  editedAt?: boolean
+  clientNonce?: boolean
+  ciphertext?: boolean
+  iv?: boolean
   deletedAt?: boolean
   deletedForSender?: boolean
   deletedForRecipient?: boolean
   senderDeviceKeyId?: boolean
 }
 
-export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "ciphertext" | "iv" | "createdAt" | "readAt" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
+export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "createdAt" | "readAt" | "deliveredAt" | "type" | "body" | "animeMalId" | "animeEpisode" | "mediaUrl" | "mediaMime" | "mediaSizeBytes" | "mediaWidth" | "mediaHeight" | "mediaDurationS" | "mediaBlurhash" | "replyToId" | "editedAt" | "clientNonce" | "ciphertext" | "iv" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
 export type DirectMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
+  replies?: boolean | Prisma.DirectMessage$repliesArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -1249,11 +2581,13 @@ export type DirectMessageInclude<ExtArgs extends runtime.Types.Extensions.Intern
   _count?: boolean | Prisma.DirectMessageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DirectMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
 }
 export type DirectMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   conversation?: boolean | Prisma.ConversationDefaultArgs<ExtArgs>
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   senderDeviceKey?: boolean | Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>
@@ -1262,6 +2596,8 @@ export type DirectMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DirectMessage"
   objects: {
+    replyTo: Prisma.$DirectMessagePayload<ExtArgs> | null
+    replies: Prisma.$DirectMessagePayload<ExtArgs>[]
     conversation: Prisma.$ConversationPayload<ExtArgs>
     sender: Prisma.$UserPayload<ExtArgs>
     senderDeviceKey: Prisma.$UserDeviceKeyPayload<ExtArgs> | null
@@ -1272,10 +2608,25 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     conversationId: string
     senderId: string
-    ciphertext: string
-    iv: string
     createdAt: Date
     readAt: Date | null
+    deliveredAt: Date | null
+    type: $Enums.MessageType
+    body: string | null
+    animeMalId: number | null
+    animeEpisode: number | null
+    mediaUrl: string | null
+    mediaMime: string | null
+    mediaSizeBytes: number | null
+    mediaWidth: number | null
+    mediaHeight: number | null
+    mediaDurationS: number | null
+    mediaBlurhash: string | null
+    replyToId: string | null
+    editedAt: Date | null
+    clientNonce: string | null
+    ciphertext: string | null
+    iv: string | null
     deletedAt: Date | null
     deletedForSender: boolean
     deletedForRecipient: boolean
@@ -1674,6 +3025,8 @@ readonly fields: DirectMessageFieldRefs;
  */
 export interface Prisma__DirectMessageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  replyTo<T extends Prisma.DirectMessage$replyToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$replyToArgs<ExtArgs>>): Prisma.Prisma__DirectMessageClient<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.DirectMessage$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversation<T extends Prisma.ConversationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ConversationDefaultArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   senderDeviceKey<T extends Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DirectMessage$senderDeviceKeyArgs<ExtArgs>>): Prisma.Prisma__UserDeviceKeyClient<runtime.Types.Result.GetResult<Prisma.$UserDeviceKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1711,10 +3064,25 @@ export interface DirectMessageFieldRefs {
   readonly id: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly conversationId: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly senderId: Prisma.FieldRef<"DirectMessage", 'String'>
-  readonly ciphertext: Prisma.FieldRef<"DirectMessage", 'String'>
-  readonly iv: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly createdAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly readAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
+  readonly deliveredAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
+  readonly type: Prisma.FieldRef<"DirectMessage", 'MessageType'>
+  readonly body: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly animeMalId: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly animeEpisode: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly mediaUrl: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly mediaMime: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly mediaSizeBytes: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly mediaWidth: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly mediaHeight: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly mediaDurationS: Prisma.FieldRef<"DirectMessage", 'Int'>
+  readonly mediaBlurhash: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly replyToId: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly editedAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
+  readonly clientNonce: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly ciphertext: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly iv: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly deletedAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly deletedForSender: Prisma.FieldRef<"DirectMessage", 'Boolean'>
   readonly deletedForRecipient: Prisma.FieldRef<"DirectMessage", 'Boolean'>
@@ -2112,6 +3480,49 @@ export type DirectMessageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many DirectMessages to delete.
    */
   limit?: number
+}
+
+/**
+ * DirectMessage.replyTo
+ */
+export type DirectMessage$replyToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectMessage
+   */
+  select?: Prisma.DirectMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectMessage
+   */
+  omit?: Prisma.DirectMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectMessageInclude<ExtArgs> | null
+  where?: Prisma.DirectMessageWhereInput
+}
+
+/**
+ * DirectMessage.replies
+ */
+export type DirectMessage$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DirectMessage
+   */
+  select?: Prisma.DirectMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DirectMessage
+   */
+  omit?: Prisma.DirectMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DirectMessageInclude<ExtArgs> | null
+  where?: Prisma.DirectMessageWhereInput
+  orderBy?: Prisma.DirectMessageOrderByWithRelationInput | Prisma.DirectMessageOrderByWithRelationInput[]
+  cursor?: Prisma.DirectMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DirectMessageScalarFieldEnum | Prisma.DirectMessageScalarFieldEnum[]
 }
 
 /**

@@ -20,40 +20,64 @@ export type StudioModel = runtime.Types.Result.DefaultSelection<Prisma.$StudioPa
 
 export type AggregateStudio = {
   _count: StudioCountAggregateOutputType | null
+  _avg: StudioAvgAggregateOutputType | null
+  _sum: StudioSumAggregateOutputType | null
   _min: StudioMinAggregateOutputType | null
   _max: StudioMaxAggregateOutputType | null
+}
+
+export type StudioAvgAggregateOutputType = {
+  malId: number | null
+}
+
+export type StudioSumAggregateOutputType = {
+  malId: number | null
 }
 
 export type StudioMinAggregateOutputType = {
   id: string | null
   name: string | null
+  malId: number | null
 }
 
 export type StudioMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  malId: number | null
 }
 
 export type StudioCountAggregateOutputType = {
   id: number
   name: number
+  malId: number
   _all: number
 }
 
 
+export type StudioAvgAggregateInputType = {
+  malId?: true
+}
+
+export type StudioSumAggregateInputType = {
+  malId?: true
+}
+
 export type StudioMinAggregateInputType = {
   id?: true
   name?: true
+  malId?: true
 }
 
 export type StudioMaxAggregateInputType = {
   id?: true
   name?: true
+  malId?: true
 }
 
 export type StudioCountAggregateInputType = {
   id?: true
   name?: true
+  malId?: true
   _all?: true
 }
 
@@ -95,6 +119,18 @@ export type StudioAggregateArgs<ExtArgs extends runtime.Types.Extensions.Interna
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: StudioAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: StudioSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: StudioMinAggregateInputType
@@ -125,6 +161,8 @@ export type StudioGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   _count?: StudioCountAggregateInputType | true
+  _avg?: StudioAvgAggregateInputType
+  _sum?: StudioSumAggregateInputType
   _min?: StudioMinAggregateInputType
   _max?: StudioMaxAggregateInputType
 }
@@ -132,7 +170,10 @@ export type StudioGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type StudioGroupByOutputType = {
   id: string
   name: string
+  malId: number | null
   _count: StudioCountAggregateOutputType | null
+  _avg: StudioAvgAggregateOutputType | null
+  _sum: StudioSumAggregateOutputType | null
   _min: StudioMinAggregateOutputType | null
   _max: StudioMaxAggregateOutputType | null
 }
@@ -158,30 +199,36 @@ export type StudioWhereInput = {
   NOT?: Prisma.StudioWhereInput | Prisma.StudioWhereInput[]
   id?: Prisma.StringFilter<"Studio"> | string
   name?: Prisma.StringFilter<"Studio"> | string
+  malId?: Prisma.IntNullableFilter<"Studio"> | number | null
   animes?: Prisma.AnimeStudioListRelationFilter
 }
 
 export type StudioOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  malId?: Prisma.SortOrderInput | Prisma.SortOrder
   animes?: Prisma.AnimeStudioOrderByRelationAggregateInput
 }
 
 export type StudioWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   name?: string
+  malId?: number
   AND?: Prisma.StudioWhereInput | Prisma.StudioWhereInput[]
   OR?: Prisma.StudioWhereInput[]
   NOT?: Prisma.StudioWhereInput | Prisma.StudioWhereInput[]
   animes?: Prisma.AnimeStudioListRelationFilter
-}, "id" | "name">
+}, "id" | "name" | "malId">
 
 export type StudioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  malId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.StudioCountOrderByAggregateInput
+  _avg?: Prisma.StudioAvgOrderByAggregateInput
   _max?: Prisma.StudioMaxOrderByAggregateInput
   _min?: Prisma.StudioMinOrderByAggregateInput
+  _sum?: Prisma.StudioSumOrderByAggregateInput
 }
 
 export type StudioScalarWhereWithAggregatesInput = {
@@ -190,60 +237,79 @@ export type StudioScalarWhereWithAggregatesInput = {
   NOT?: Prisma.StudioScalarWhereWithAggregatesInput | Prisma.StudioScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Studio"> | string
   name?: Prisma.StringWithAggregatesFilter<"Studio"> | string
+  malId?: Prisma.IntNullableWithAggregatesFilter<"Studio"> | number | null
 }
 
 export type StudioCreateInput = {
   id?: string
   name: string
+  malId?: number | null
   animes?: Prisma.AnimeStudioCreateNestedManyWithoutStudioInput
 }
 
 export type StudioUncheckedCreateInput = {
   id?: string
   name: string
+  malId?: number | null
   animes?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutStudioInput
 }
 
 export type StudioUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animes?: Prisma.AnimeStudioUpdateManyWithoutStudioNestedInput
 }
 
 export type StudioUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animes?: Prisma.AnimeStudioUncheckedUpdateManyWithoutStudioNestedInput
 }
 
 export type StudioCreateManyInput = {
   id?: string
   name: string
+  malId?: number | null
 }
 
 export type StudioUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type StudioUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type StudioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  malId?: Prisma.SortOrder
+}
+
+export type StudioAvgOrderByAggregateInput = {
+  malId?: Prisma.SortOrder
 }
 
 export type StudioMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  malId?: Prisma.SortOrder
 }
 
 export type StudioMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  malId?: Prisma.SortOrder
+}
+
+export type StudioSumOrderByAggregateInput = {
+  malId?: Prisma.SortOrder
 }
 
 export type StudioScalarRelationFilter = {
@@ -268,11 +334,13 @@ export type StudioUpdateOneRequiredWithoutAnimesNestedInput = {
 export type StudioCreateWithoutAnimesInput = {
   id?: string
   name: string
+  malId?: number | null
 }
 
 export type StudioUncheckedCreateWithoutAnimesInput = {
   id?: string
   name: string
+  malId?: number | null
 }
 
 export type StudioCreateOrConnectWithoutAnimesInput = {
@@ -294,11 +362,13 @@ export type StudioUpdateToOneWithWhereWithoutAnimesInput = {
 export type StudioUpdateWithoutAnimesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type StudioUncheckedUpdateWithoutAnimesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -335,6 +405,7 @@ export type StudioCountOutputTypeCountAnimesArgs<ExtArgs extends runtime.Types.E
 export type StudioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  malId?: boolean
   animes?: boolean | Prisma.Studio$animesArgs<ExtArgs>
   _count?: boolean | Prisma.StudioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studio"]>
@@ -342,19 +413,22 @@ export type StudioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type StudioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  malId?: boolean
 }, ExtArgs["result"]["studio"]>
 
 export type StudioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  malId?: boolean
 }, ExtArgs["result"]["studio"]>
 
 export type StudioSelectScalar = {
   id?: boolean
   name?: boolean
+  malId?: boolean
 }
 
-export type StudioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["studio"]>
+export type StudioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "malId", ExtArgs["result"]["studio"]>
 export type StudioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animes?: boolean | Prisma.Studio$animesArgs<ExtArgs>
   _count?: boolean | Prisma.StudioCountOutputTypeDefaultArgs<ExtArgs>
@@ -370,6 +444,10 @@ export type $StudioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    /**
+     * Jikan/MAL producer id. Nullable for pre-existing name-only rows.
+     */
+    malId: number | null
   }, ExtArgs["result"]["studio"]>
   composites: {}
 }
@@ -796,6 +874,7 @@ export interface Prisma__StudioClient<T, Null = never, ExtArgs extends runtime.T
 export interface StudioFieldRefs {
   readonly id: Prisma.FieldRef<"Studio", 'String'>
   readonly name: Prisma.FieldRef<"Studio", 'String'>
+  readonly malId: Prisma.FieldRef<"Studio", 'Int'>
 }
     
 

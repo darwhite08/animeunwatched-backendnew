@@ -53,6 +53,9 @@ export type UserMinAggregateOutputType = {
   bannedReason: string | null
   isShadowBanned: boolean | null
   isPrivate: boolean | null
+  dmPrivacy: string | null
+  readReceiptsOn: boolean | null
+  showOnlineStatus: string | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -75,6 +78,9 @@ export type UserMaxAggregateOutputType = {
   bannedReason: string | null
   isShadowBanned: boolean | null
   isPrivate: boolean | null
+  dmPrivacy: string | null
+  readReceiptsOn: boolean | null
+  showOnlineStatus: string | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -97,6 +103,9 @@ export type UserCountAggregateOutputType = {
   bannedReason: number
   isShadowBanned: number
   isPrivate: number
+  dmPrivacy: number
+  readReceiptsOn: number
+  showOnlineStatus: number
   streakDays: number
   lastActiveAt: number
   bestStreak: number
@@ -133,6 +142,9 @@ export type UserMinAggregateInputType = {
   bannedReason?: true
   isShadowBanned?: true
   isPrivate?: true
+  dmPrivacy?: true
+  readReceiptsOn?: true
+  showOnlineStatus?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -155,6 +167,9 @@ export type UserMaxAggregateInputType = {
   bannedReason?: true
   isShadowBanned?: true
   isPrivate?: true
+  dmPrivacy?: true
+  readReceiptsOn?: true
+  showOnlineStatus?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -177,6 +192,9 @@ export type UserCountAggregateInputType = {
   bannedReason?: true
   isShadowBanned?: true
   isPrivate?: true
+  dmPrivacy?: true
+  readReceiptsOn?: true
+  showOnlineStatus?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -286,6 +304,9 @@ export type UserGroupByOutputType = {
   bannedReason: string | null
   isShadowBanned: boolean
   isPrivate: boolean
+  dmPrivacy: string
+  readReceiptsOn: boolean
+  showOnlineStatus: string
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
@@ -331,6 +352,9 @@ export type UserWhereInput = {
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
   isPrivate?: Prisma.BoolFilter<"User"> | boolean
+  dmPrivacy?: Prisma.StringFilter<"User"> | string
+  readReceiptsOn?: Prisma.BoolFilter<"User"> | boolean
+  showOnlineStatus?: Prisma.StringFilter<"User"> | string
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -378,6 +402,8 @@ export type UserWhereInput = {
   activityReposts?: Prisma.ActivityRepostListRelationFilter
   replies?: Prisma.ReplyListRelationFilter
   scimSubject?: Prisma.XOR<Prisma.ScimSubjectNullableScalarRelationFilter, Prisma.ScimSubjectWhereInput> | null
+  blocksMade?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -395,6 +421,9 @@ export type UserOrderByWithRelationInput = {
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
   isPrivate?: Prisma.SortOrder
+  dmPrivacy?: Prisma.SortOrder
+  readReceiptsOn?: Prisma.SortOrder
+  showOnlineStatus?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -442,6 +471,8 @@ export type UserOrderByWithRelationInput = {
   activityReposts?: Prisma.ActivityRepostOrderByRelationAggregateInput
   replies?: Prisma.ReplyOrderByRelationAggregateInput
   scimSubject?: Prisma.ScimSubjectOrderByWithRelationInput
+  blocksMade?: Prisma.UserBlockOrderByRelationAggregateInput
+  blocksReceived?: Prisma.UserBlockOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -462,6 +493,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
   isPrivate?: Prisma.BoolFilter<"User"> | boolean
+  dmPrivacy?: Prisma.StringFilter<"User"> | string
+  readReceiptsOn?: Prisma.BoolFilter<"User"> | boolean
+  showOnlineStatus?: Prisma.StringFilter<"User"> | string
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -509,6 +543,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   activityReposts?: Prisma.ActivityRepostListRelationFilter
   replies?: Prisma.ReplyListRelationFilter
   scimSubject?: Prisma.XOR<Prisma.ScimSubjectNullableScalarRelationFilter, Prisma.ScimSubjectWhereInput> | null
+  blocksMade?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
 }, "id" | "email" | "username" | "slug">
 
 export type UserOrderByWithAggregationInput = {
@@ -526,6 +562,9 @@ export type UserOrderByWithAggregationInput = {
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
   isPrivate?: Prisma.SortOrder
+  dmPrivacy?: Prisma.SortOrder
+  readReceiptsOn?: Prisma.SortOrder
+  showOnlineStatus?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -556,6 +595,9 @@ export type UserScalarWhereWithAggregatesInput = {
   bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isPrivate?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  dmPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
+  readReceiptsOn?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  showOnlineStatus?: Prisma.StringWithAggregatesFilter<"User"> | string
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -578,6 +620,9 @@ export type UserCreateInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -625,6 +670,8 @@ export type UserCreateInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -642,6 +689,9 @@ export type UserUncheckedCreateInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -689,6 +739,8 @@ export type UserUncheckedCreateInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUpdateInput = {
@@ -706,6 +758,9 @@ export type UserUpdateInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -753,6 +808,8 @@ export type UserUpdateInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -770,6 +827,9 @@ export type UserUncheckedUpdateInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -817,6 +877,8 @@ export type UserUncheckedUpdateInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -834,6 +896,9 @@ export type UserCreateManyInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -856,6 +921,9 @@ export type UserUpdateManyMutationInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -878,6 +946,9 @@ export type UserUncheckedUpdateManyInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -900,6 +971,9 @@ export type UserCountOrderByAggregateInput = {
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
   isPrivate?: Prisma.SortOrder
+  dmPrivacy?: Prisma.SortOrder
+  readReceiptsOn?: Prisma.SortOrder
+  showOnlineStatus?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -928,6 +1002,9 @@ export type UserMaxOrderByAggregateInput = {
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
   isPrivate?: Prisma.SortOrder
+  dmPrivacy?: Prisma.SortOrder
+  readReceiptsOn?: Prisma.SortOrder
+  showOnlineStatus?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -950,6 +1027,9 @@ export type UserMinOrderByAggregateInput = {
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
   isPrivate?: Prisma.SortOrder
+  dmPrivacy?: Prisma.SortOrder
+  readReceiptsOn?: Prisma.SortOrder
+  showOnlineStatus?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1469,6 +1549,34 @@ export type UserUpdateOneRequiredWithoutDeviceKeysNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeviceKeysInput, Prisma.UserUpdateWithoutDeviceKeysInput>, Prisma.UserUncheckedUpdateWithoutDeviceKeysInput>
 }
 
+export type UserCreateNestedOneWithoutBlocksMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBlocksReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBlocksMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksMadeInput
+  upsert?: Prisma.UserUpsertWithoutBlocksMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksMadeInput, Prisma.UserUpdateWithoutBlocksMadeInput>, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+}
+
+export type UserUpdateOneRequiredWithoutBlocksReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksReceivedInput, Prisma.UserUpdateWithoutBlocksReceivedInput>, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
 export type UserCreateNestedOneWithoutActivitiesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutActivitiesInput, Prisma.UserUncheckedCreateWithoutActivitiesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivitiesInput
@@ -1610,6 +1718,9 @@ export type UserCreateWithoutDeviceTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1656,6 +1767,8 @@ export type UserCreateWithoutDeviceTokensInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutDeviceTokensInput = {
@@ -1673,6 +1786,9 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1719,6 +1835,8 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutDeviceTokensInput = {
@@ -1752,6 +1870,9 @@ export type UserUpdateWithoutDeviceTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1798,6 +1919,8 @@ export type UserUpdateWithoutDeviceTokensInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceTokensInput = {
@@ -1815,6 +1938,9 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1861,6 +1987,8 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutNativePushTokensInput = {
@@ -1878,6 +2006,9 @@ export type UserCreateWithoutNativePushTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1924,6 +2055,8 @@ export type UserCreateWithoutNativePushTokensInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutNativePushTokensInput = {
@@ -1941,6 +2074,9 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1987,6 +2123,8 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutNativePushTokensInput = {
@@ -2020,6 +2158,9 @@ export type UserUpdateWithoutNativePushTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2066,6 +2207,8 @@ export type UserUpdateWithoutNativePushTokensInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNativePushTokensInput = {
@@ -2083,6 +2226,9 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2129,6 +2275,8 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -2146,6 +2294,9 @@ export type UserCreateWithoutRefreshTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2192,6 +2343,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -2209,6 +2362,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2255,6 +2411,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2288,6 +2446,9 @@ export type UserUpdateWithoutRefreshTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2334,6 +2495,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2351,6 +2514,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2397,6 +2563,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -2414,6 +2582,9 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2460,6 +2631,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -2477,6 +2650,9 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2523,6 +2699,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -2556,6 +2734,9 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2602,6 +2783,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -2619,6 +2802,9 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2665,6 +2851,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutSecurityEventsInput = {
@@ -2682,6 +2870,9 @@ export type UserCreateWithoutSecurityEventsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2728,6 +2919,8 @@ export type UserCreateWithoutSecurityEventsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutSecurityEventsInput = {
@@ -2745,6 +2938,9 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2791,6 +2987,8 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutSecurityEventsInput = {
@@ -2824,6 +3022,9 @@ export type UserUpdateWithoutSecurityEventsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2870,6 +3071,8 @@ export type UserUpdateWithoutSecurityEventsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSecurityEventsInput = {
@@ -2887,6 +3090,9 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2933,6 +3139,8 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -2950,6 +3158,9 @@ export type UserCreateWithoutFollowingInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2996,6 +3207,8 @@ export type UserCreateWithoutFollowingInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -3013,6 +3226,9 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3059,6 +3275,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -3081,6 +3299,9 @@ export type UserCreateWithoutFollowersInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3127,6 +3348,8 @@ export type UserCreateWithoutFollowersInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -3144,6 +3367,9 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3190,6 +3416,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -3223,6 +3451,9 @@ export type UserUpdateWithoutFollowingInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3269,6 +3500,8 @@ export type UserUpdateWithoutFollowingInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -3286,6 +3519,9 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3332,6 +3568,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -3360,6 +3598,9 @@ export type UserUpdateWithoutFollowersInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3406,6 +3647,8 @@ export type UserUpdateWithoutFollowersInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -3423,6 +3666,9 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3469,6 +3715,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutListEntriesInput = {
@@ -3486,6 +3734,9 @@ export type UserCreateWithoutListEntriesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3532,6 +3783,8 @@ export type UserCreateWithoutListEntriesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutListEntriesInput = {
@@ -3549,6 +3802,9 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3595,6 +3851,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutListEntriesInput = {
@@ -3628,6 +3886,9 @@ export type UserUpdateWithoutListEntriesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3674,6 +3935,8 @@ export type UserUpdateWithoutListEntriesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListEntriesInput = {
@@ -3691,6 +3954,9 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3737,6 +4003,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -3754,6 +4022,9 @@ export type UserCreateWithoutPostsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3800,6 +4071,8 @@ export type UserCreateWithoutPostsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -3817,6 +4090,9 @@ export type UserUncheckedCreateWithoutPostsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3863,6 +4139,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -3896,6 +4174,9 @@ export type UserUpdateWithoutPostsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3942,6 +4223,8 @@ export type UserUpdateWithoutPostsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -3959,6 +4242,9 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4005,6 +4291,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPostHidesInput = {
@@ -4022,6 +4310,9 @@ export type UserCreateWithoutPostHidesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4068,6 +4359,8 @@ export type UserCreateWithoutPostHidesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPostHidesInput = {
@@ -4085,6 +4378,9 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4131,6 +4427,8 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPostHidesInput = {
@@ -4164,6 +4462,9 @@ export type UserUpdateWithoutPostHidesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4210,6 +4511,8 @@ export type UserUpdateWithoutPostHidesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostHidesInput = {
@@ -4227,6 +4530,9 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4273,6 +4579,8 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPostLikesInput = {
@@ -4290,6 +4598,9 @@ export type UserCreateWithoutPostLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4336,6 +4647,8 @@ export type UserCreateWithoutPostLikesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPostLikesInput = {
@@ -4353,6 +4666,9 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4399,6 +4715,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPostLikesInput = {
@@ -4432,6 +4750,9 @@ export type UserUpdateWithoutPostLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4478,6 +4799,8 @@ export type UserUpdateWithoutPostLikesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostLikesInput = {
@@ -4495,6 +4818,9 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4541,6 +4867,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -4558,6 +4886,9 @@ export type UserCreateWithoutPostCommentsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4604,6 +4935,8 @@ export type UserCreateWithoutPostCommentsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -4621,6 +4954,9 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4667,6 +5003,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -4700,6 +5038,9 @@ export type UserUpdateWithoutPostCommentsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4746,6 +5087,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -4763,6 +5106,9 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4809,6 +5155,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPostCommentLikesInput = {
@@ -4826,6 +5174,9 @@ export type UserCreateWithoutPostCommentLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4872,6 +5223,8 @@ export type UserCreateWithoutPostCommentLikesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentLikesInput = {
@@ -4889,6 +5242,9 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4935,6 +5291,8 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentLikesInput = {
@@ -4968,6 +5326,9 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5014,6 +5375,8 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
@@ -5031,6 +5394,9 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5077,6 +5443,8 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutOwnedClubsInput = {
@@ -5094,6 +5462,9 @@ export type UserCreateWithoutOwnedClubsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5140,6 +5511,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutOwnedClubsInput = {
@@ -5157,6 +5530,9 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5203,6 +5579,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutOwnedClubsInput = {
@@ -5236,6 +5614,9 @@ export type UserUpdateWithoutOwnedClubsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5282,6 +5663,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedClubsInput = {
@@ -5299,6 +5682,9 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5345,6 +5731,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutClubMembershipsInput = {
@@ -5362,6 +5750,9 @@ export type UserCreateWithoutClubMembershipsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5408,6 +5799,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutClubMembershipsInput = {
@@ -5425,6 +5818,9 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5471,6 +5867,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutClubMembershipsInput = {
@@ -5504,6 +5902,9 @@ export type UserUpdateWithoutClubMembershipsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5550,6 +5951,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubMembershipsInput = {
@@ -5567,6 +5970,9 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5613,6 +6019,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutThreadsInput = {
@@ -5630,6 +6038,9 @@ export type UserCreateWithoutThreadsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5676,6 +6087,8 @@ export type UserCreateWithoutThreadsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutThreadsInput = {
@@ -5693,6 +6106,9 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5739,6 +6155,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutThreadsInput = {
@@ -5772,6 +6190,9 @@ export type UserUpdateWithoutThreadsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5818,6 +6239,8 @@ export type UserUpdateWithoutThreadsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadsInput = {
@@ -5835,6 +6258,9 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5881,6 +6307,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutThreadRepliesInput = {
@@ -5898,6 +6326,9 @@ export type UserCreateWithoutThreadRepliesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5944,6 +6375,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutThreadRepliesInput = {
@@ -5961,6 +6394,9 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6007,6 +6443,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutThreadRepliesInput = {
@@ -6040,6 +6478,9 @@ export type UserUpdateWithoutThreadRepliesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6086,6 +6527,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadRepliesInput = {
@@ -6103,6 +6546,9 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6149,6 +6595,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -6166,6 +6614,9 @@ export type UserCreateWithoutReviewsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6212,6 +6663,8 @@ export type UserCreateWithoutReviewsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -6229,6 +6682,9 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6275,6 +6731,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -6308,6 +6766,9 @@ export type UserUpdateWithoutReviewsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6354,6 +6815,8 @@ export type UserUpdateWithoutReviewsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -6371,6 +6834,9 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6417,6 +6883,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutReviewLikesInput = {
@@ -6434,6 +6902,9 @@ export type UserCreateWithoutReviewLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6480,6 +6951,8 @@ export type UserCreateWithoutReviewLikesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutReviewLikesInput = {
@@ -6497,6 +6970,9 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6543,6 +7019,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutReviewLikesInput = {
@@ -6576,6 +7054,9 @@ export type UserUpdateWithoutReviewLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6622,6 +7103,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewLikesInput = {
@@ -6639,6 +7122,9 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6685,6 +7171,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -6702,6 +7190,9 @@ export type UserCreateWithoutBlogsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6748,6 +7239,8 @@ export type UserCreateWithoutBlogsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -6765,6 +7258,9 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6811,6 +7307,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -6844,6 +7342,9 @@ export type UserUpdateWithoutBlogsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6890,6 +7391,8 @@ export type UserUpdateWithoutBlogsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -6907,6 +7410,9 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6953,6 +7459,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutBlogCommentsInput = {
@@ -6970,6 +7478,9 @@ export type UserCreateWithoutBlogCommentsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7016,6 +7527,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutBlogCommentsInput = {
@@ -7033,6 +7546,9 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7079,6 +7595,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutBlogCommentsInput = {
@@ -7112,6 +7630,9 @@ export type UserUpdateWithoutBlogCommentsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7158,6 +7679,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogCommentsInput = {
@@ -7175,6 +7698,9 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7221,6 +7747,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7238,6 +7766,9 @@ export type UserCreateWithoutNotificationsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7284,6 +7815,8 @@ export type UserCreateWithoutNotificationsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7301,6 +7834,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7347,6 +7883,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7380,6 +7918,9 @@ export type UserUpdateWithoutNotificationsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7426,6 +7967,8 @@ export type UserUpdateWithoutNotificationsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -7443,6 +7986,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7489,6 +8035,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutReportsInput = {
@@ -7506,6 +8054,9 @@ export type UserCreateWithoutReportsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7552,6 +8103,8 @@ export type UserCreateWithoutReportsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutReportsInput = {
@@ -7569,6 +8122,9 @@ export type UserUncheckedCreateWithoutReportsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7615,6 +8171,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutReportsInput = {
@@ -7648,6 +8206,9 @@ export type UserUpdateWithoutReportsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7694,6 +8255,8 @@ export type UserUpdateWithoutReportsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsInput = {
@@ -7711,6 +8274,9 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7757,6 +8323,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutModerationActionsInput = {
@@ -7774,6 +8342,9 @@ export type UserCreateWithoutModerationActionsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7820,6 +8391,8 @@ export type UserCreateWithoutModerationActionsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutModerationActionsInput = {
@@ -7837,6 +8410,9 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7883,6 +8459,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutModerationActionsInput = {
@@ -7916,6 +8494,9 @@ export type UserUpdateWithoutModerationActionsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7962,6 +8543,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModerationActionsInput = {
@@ -7979,6 +8562,9 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8025,6 +8611,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPollsInput = {
@@ -8042,6 +8630,9 @@ export type UserCreateWithoutPollsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8088,6 +8679,8 @@ export type UserCreateWithoutPollsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPollsInput = {
@@ -8105,6 +8698,9 @@ export type UserUncheckedCreateWithoutPollsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8151,6 +8747,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPollsInput = {
@@ -8184,6 +8782,9 @@ export type UserUpdateWithoutPollsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8230,6 +8831,8 @@ export type UserUpdateWithoutPollsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollsInput = {
@@ -8247,6 +8850,9 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8293,6 +8899,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPollVotesInput = {
@@ -8310,6 +8918,9 @@ export type UserCreateWithoutPollVotesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8356,6 +8967,8 @@ export type UserCreateWithoutPollVotesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPollVotesInput = {
@@ -8373,6 +8986,9 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8419,6 +9035,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPollVotesInput = {
@@ -8452,6 +9070,9 @@ export type UserUpdateWithoutPollVotesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8498,6 +9119,8 @@ export type UserUpdateWithoutPollVotesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollVotesInput = {
@@ -8515,6 +9138,9 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8561,6 +9187,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutOauthProvidersInput = {
@@ -8578,6 +9206,9 @@ export type UserCreateWithoutOauthProvidersInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8624,6 +9255,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutOauthProvidersInput = {
@@ -8641,6 +9274,9 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8687,6 +9323,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutOauthProvidersInput = {
@@ -8720,6 +9358,9 @@ export type UserUpdateWithoutOauthProvidersInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8766,6 +9407,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthProvidersInput = {
@@ -8783,6 +9426,9 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8829,6 +9475,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutPublicKeyInput = {
@@ -8846,6 +9494,9 @@ export type UserCreateWithoutPublicKeyInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8892,6 +9543,8 @@ export type UserCreateWithoutPublicKeyInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutPublicKeyInput = {
@@ -8909,6 +9562,9 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8955,6 +9611,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutPublicKeyInput = {
@@ -8988,6 +9646,9 @@ export type UserUpdateWithoutPublicKeyInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9034,6 +9695,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPublicKeyInput = {
@@ -9051,6 +9714,9 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9097,6 +9763,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutConversations1Input = {
@@ -9114,6 +9782,9 @@ export type UserCreateWithoutConversations1Input = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9160,6 +9831,8 @@ export type UserCreateWithoutConversations1Input = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutConversations1Input = {
@@ -9177,6 +9850,9 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9223,6 +9899,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutConversations1Input = {
@@ -9245,6 +9923,9 @@ export type UserCreateWithoutConversations2Input = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9291,6 +9972,8 @@ export type UserCreateWithoutConversations2Input = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutConversations2Input = {
@@ -9308,6 +9991,9 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9354,6 +10040,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutConversations2Input = {
@@ -9387,6 +10075,9 @@ export type UserUpdateWithoutConversations1Input = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9433,6 +10124,8 @@ export type UserUpdateWithoutConversations1Input = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations1Input = {
@@ -9450,6 +10143,9 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9496,6 +10192,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUpsertWithoutConversations2Input = {
@@ -9524,6 +10222,9 @@ export type UserUpdateWithoutConversations2Input = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9570,6 +10271,8 @@ export type UserUpdateWithoutConversations2Input = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations2Input = {
@@ -9587,6 +10290,9 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9633,6 +10339,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -9650,6 +10358,9 @@ export type UserCreateWithoutSentMessagesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9696,6 +10407,8 @@ export type UserCreateWithoutSentMessagesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -9713,6 +10426,9 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9759,6 +10475,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -9792,6 +10510,9 @@ export type UserUpdateWithoutSentMessagesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9838,6 +10559,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -9855,6 +10578,9 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9901,6 +10627,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutMessageReactionsInput = {
@@ -9918,6 +10646,9 @@ export type UserCreateWithoutMessageReactionsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9964,6 +10695,8 @@ export type UserCreateWithoutMessageReactionsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -9981,6 +10714,9 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10027,6 +10763,8 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -10060,6 +10798,9 @@ export type UserUpdateWithoutMessageReactionsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10106,6 +10847,8 @@ export type UserUpdateWithoutMessageReactionsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -10123,6 +10866,9 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10169,6 +10915,8 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutDeviceKeysInput = {
@@ -10186,6 +10934,9 @@ export type UserCreateWithoutDeviceKeysInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10232,6 +10983,8 @@ export type UserCreateWithoutDeviceKeysInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutDeviceKeysInput = {
@@ -10249,6 +11002,9 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10295,6 +11051,8 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutDeviceKeysInput = {
@@ -10328,6 +11086,9 @@ export type UserUpdateWithoutDeviceKeysInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10374,6 +11135,8 @@ export type UserUpdateWithoutDeviceKeysInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceKeysInput = {
@@ -10391,6 +11154,9 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10437,6 +11203,584 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserCreateWithoutBlocksMadeInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+}
+
+export type UserUncheckedCreateWithoutBlocksMadeInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+}
+
+export type UserCreateOrConnectWithoutBlocksMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+}
+
+export type UserCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+}
+
+export type UserUncheckedCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+}
+
+export type UserCreateOrConnectWithoutBlocksReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+}
+
+export type UserUpsertWithoutBlocksMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksMadeInput, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksMadeInput, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+}
+
+export type UserUpdateWithoutBlocksMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserUpsertWithoutBlocksReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
 }
 
 export type UserCreateWithoutActivitiesInput = {
@@ -10454,6 +11798,9 @@ export type UserCreateWithoutActivitiesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10500,6 +11847,8 @@ export type UserCreateWithoutActivitiesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -10517,6 +11866,9 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10563,6 +11915,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -10596,6 +11950,9 @@ export type UserUpdateWithoutActivitiesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10642,6 +11999,8 @@ export type UserUpdateWithoutActivitiesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -10659,6 +12018,9 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10705,6 +12067,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutActivityLikesInput = {
@@ -10722,6 +12086,9 @@ export type UserCreateWithoutActivityLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10768,6 +12135,8 @@ export type UserCreateWithoutActivityLikesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutActivityLikesInput = {
@@ -10785,6 +12154,9 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10831,6 +12203,8 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutActivityLikesInput = {
@@ -10864,6 +12238,9 @@ export type UserUpdateWithoutActivityLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10910,6 +12287,8 @@ export type UserUpdateWithoutActivityLikesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLikesInput = {
@@ -10927,6 +12306,9 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10973,6 +12355,8 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutActivityRepostsInput = {
@@ -10990,6 +12374,9 @@ export type UserCreateWithoutActivityRepostsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11036,6 +12423,8 @@ export type UserCreateWithoutActivityRepostsInput = {
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutActivityRepostsInput = {
@@ -11053,6 +12442,9 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11099,6 +12491,8 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutActivityRepostsInput = {
@@ -11132,6 +12526,9 @@ export type UserUpdateWithoutActivityRepostsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11178,6 +12575,8 @@ export type UserUpdateWithoutActivityRepostsInput = {
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityRepostsInput = {
@@ -11195,6 +12594,9 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11241,6 +12643,8 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutRepliesInput = {
@@ -11258,6 +12662,9 @@ export type UserCreateWithoutRepliesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11304,6 +12711,8 @@ export type UserCreateWithoutRepliesInput = {
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutRepliesInput = {
@@ -11321,6 +12730,9 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11367,6 +12779,8 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutRepliesInput = {
@@ -11400,6 +12814,9 @@ export type UserUpdateWithoutRepliesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11446,6 +12863,8 @@ export type UserUpdateWithoutRepliesInput = {
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepliesInput = {
@@ -11463,6 +12882,9 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11509,6 +12931,8 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutScimSubjectInput = {
@@ -11526,6 +12950,9 @@ export type UserCreateWithoutScimSubjectInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11572,6 +12999,8 @@ export type UserCreateWithoutScimSubjectInput = {
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutScimSubjectInput = {
@@ -11589,6 +13018,9 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11635,6 +13067,8 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutScimSubjectInput = {
@@ -11668,6 +13102,9 @@ export type UserUpdateWithoutScimSubjectInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11714,6 +13151,8 @@ export type UserUpdateWithoutScimSubjectInput = {
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScimSubjectInput = {
@@ -11731,6 +13170,9 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11777,6 +13219,8 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutShotsInput = {
@@ -11794,6 +13238,9 @@ export type UserCreateWithoutShotsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11840,6 +13287,8 @@ export type UserCreateWithoutShotsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutShotsInput = {
@@ -11857,6 +13306,9 @@ export type UserUncheckedCreateWithoutShotsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11903,6 +13355,8 @@ export type UserUncheckedCreateWithoutShotsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutShotsInput = {
@@ -11936,6 +13390,9 @@ export type UserUpdateWithoutShotsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11982,6 +13439,8 @@ export type UserUpdateWithoutShotsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotsInput = {
@@ -11999,6 +13458,9 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12045,6 +13507,8 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutShotLikesInput = {
@@ -12062,6 +13526,9 @@ export type UserCreateWithoutShotLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12108,6 +13575,8 @@ export type UserCreateWithoutShotLikesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutShotLikesInput = {
@@ -12125,6 +13594,9 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12171,6 +13643,8 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutShotLikesInput = {
@@ -12204,6 +13678,9 @@ export type UserUpdateWithoutShotLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12250,6 +13727,8 @@ export type UserUpdateWithoutShotLikesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotLikesInput = {
@@ -12267,6 +13746,9 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12313,6 +13795,8 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutStoriesInput = {
@@ -12330,6 +13814,9 @@ export type UserCreateWithoutStoriesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12376,6 +13863,8 @@ export type UserCreateWithoutStoriesInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutStoriesInput = {
@@ -12393,6 +13882,9 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12439,6 +13931,8 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutStoriesInput = {
@@ -12472,6 +13966,9 @@ export type UserUpdateWithoutStoriesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12518,6 +14015,8 @@ export type UserUpdateWithoutStoriesInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -12535,6 +14034,9 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12581,6 +14083,8 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutStoryViewsInput = {
@@ -12598,6 +14102,9 @@ export type UserCreateWithoutStoryViewsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12644,6 +14151,8 @@ export type UserCreateWithoutStoryViewsInput = {
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
 }
 
 export type UserUncheckedCreateWithoutStoryViewsInput = {
@@ -12661,6 +14170,9 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   bannedReason?: string | null
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12707,6 +14219,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
   replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
   scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
 }
 
 export type UserCreateOrConnectWithoutStoryViewsInput = {
@@ -12740,6 +14254,9 @@ export type UserUpdateWithoutStoryViewsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12786,6 +14303,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoryViewsInput = {
@@ -12803,6 +14322,9 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12849,6 +14371,8 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
   replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
   scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 
@@ -12897,6 +14421,8 @@ export type UserCountOutputType = {
   activityLikes: number
   activityReposts: number
   replies: number
+  blocksMade: number
+  blocksReceived: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -12940,6 +14466,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   activityLikes?: boolean | UserCountOutputTypeCountActivityLikesArgs
   activityReposts?: boolean | UserCountOutputTypeCountActivityRepostsArgs
   replies?: boolean | UserCountOutputTypeCountRepliesArgs
+  blocksMade?: boolean | UserCountOutputTypeCountBlocksMadeArgs
+  blocksReceived?: boolean | UserCountOutputTypeCountBlocksReceivedArgs
 }
 
 /**
@@ -13232,6 +14760,20 @@ export type UserCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.ReplyWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -13248,6 +14790,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   bannedReason?: boolean
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: boolean
+  readReceiptsOn?: boolean
+  showOnlineStatus?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -13295,6 +14840,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   activityReposts?: boolean | Prisma.User$activityRepostsArgs<ExtArgs>
   replies?: boolean | Prisma.User$repliesArgs<ExtArgs>
   scimSubject?: boolean | Prisma.User$scimSubjectArgs<ExtArgs>
+  blocksMade?: boolean | Prisma.User$blocksMadeArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -13313,6 +14860,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   bannedReason?: boolean
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: boolean
+  readReceiptsOn?: boolean
+  showOnlineStatus?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -13335,6 +14885,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   bannedReason?: boolean
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: boolean
+  readReceiptsOn?: boolean
+  showOnlineStatus?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -13357,6 +14910,9 @@ export type UserSelectScalar = {
   bannedReason?: boolean
   isShadowBanned?: boolean
   isPrivate?: boolean
+  dmPrivacy?: boolean
+  readReceiptsOn?: boolean
+  showOnlineStatus?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -13364,7 +14920,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -13408,6 +14964,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   activityReposts?: boolean | Prisma.User$activityRepostsArgs<ExtArgs>
   replies?: boolean | Prisma.User$repliesArgs<ExtArgs>
   scimSubject?: boolean | Prisma.User$scimSubjectArgs<ExtArgs>
+  blocksMade?: boolean | Prisma.User$blocksMadeArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -13458,6 +15016,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     activityReposts: Prisma.$ActivityRepostPayload<ExtArgs>[]
     replies: Prisma.$ReplyPayload<ExtArgs>[]
     scimSubject: Prisma.$ScimSubjectPayload<ExtArgs> | null
+    blocksMade: Prisma.$UserBlockPayload<ExtArgs>[]
+    blocksReceived: Prisma.$UserBlockPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -13479,6 +15039,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     bannedReason: string | null
     isShadowBanned: boolean
     isPrivate: boolean
+    dmPrivacy: string
+    readReceiptsOn: boolean
+    showOnlineStatus: string
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
@@ -13920,6 +15483,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   activityReposts<T extends Prisma.User$activityRepostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityRepostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityRepostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   replies<T extends Prisma.User$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scimSubject<T extends Prisma.User$scimSubjectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$scimSubjectArgs<ExtArgs>>): Prisma.Prisma__ScimSubjectClient<runtime.Types.Result.GetResult<Prisma.$ScimSubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  blocksMade<T extends Prisma.User$blocksMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksReceived<T extends Prisma.User$blocksReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13963,6 +15528,9 @@ export interface UserFieldRefs {
   readonly bannedReason: Prisma.FieldRef<"User", 'String'>
   readonly isShadowBanned: Prisma.FieldRef<"User", 'Boolean'>
   readonly isPrivate: Prisma.FieldRef<"User", 'Boolean'>
+  readonly dmPrivacy: Prisma.FieldRef<"User", 'String'>
+  readonly readReceiptsOn: Prisma.FieldRef<"User", 'Boolean'>
+  readonly showOnlineStatus: Prisma.FieldRef<"User", 'String'>
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>
@@ -15351,6 +16919,54 @@ export type User$scimSubjectArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.ScimSubjectInclude<ExtArgs> | null
   where?: Prisma.ScimSubjectWhereInput
+}
+
+/**
+ * User.blocksMade
+ */
+export type User$blocksMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
+}
+
+/**
+ * User.blocksReceived
+ */
+export type User$blocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
 }
 
 /**

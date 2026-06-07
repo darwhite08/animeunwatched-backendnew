@@ -402,6 +402,10 @@ export const ModelName = {
   Studio: 'Studio',
   AnimeGenre: 'AnimeGenre',
   AnimeStudio: 'AnimeStudio',
+  Episode: 'Episode',
+  AnimeRelation: 'AnimeRelation',
+  SyncJob: 'SyncJob',
+  SyncJobLog: 'SyncJobLog',
   ListEntry: 'ListEntry',
   Post: 'Post',
   PostHide: 'PostHide',
@@ -429,6 +433,8 @@ export const ModelName = {
   MessageReaction: 'MessageReaction',
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
+  UserBlock: 'UserBlock',
+  MessageReport: 'MessageReport',
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
   ActivityRepost: 'ActivityRepost',
@@ -536,7 +542,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
+    modelProps: "user" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1425,6 +1431,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AnimeStudioCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AnimeStudioCountAggregateOutputType> | number
+        }
+      }
+    }
+    Episode: {
+      payload: Prisma.$EpisodePayload<ExtArgs>
+      fields: Prisma.EpisodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EpisodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EpisodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        findFirst: {
+          args: Prisma.EpisodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EpisodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        findMany: {
+          args: Prisma.EpisodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+        }
+        create: {
+          args: Prisma.EpisodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        createMany: {
+          args: Prisma.EpisodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EpisodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+        }
+        delete: {
+          args: Prisma.EpisodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        update: {
+          args: Prisma.EpisodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        deleteMany: {
+          args: Prisma.EpisodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EpisodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EpisodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+        }
+        upsert: {
+          args: Prisma.EpisodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EpisodePayload>
+        }
+        aggregate: {
+          args: Prisma.EpisodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEpisode>
+        }
+        groupBy: {
+          args: Prisma.EpisodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EpisodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EpisodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EpisodeCountAggregateOutputType> | number
+        }
+      }
+    }
+    AnimeRelation: {
+      payload: Prisma.$AnimeRelationPayload<ExtArgs>
+      fields: Prisma.AnimeRelationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnimeRelationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnimeRelationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        findFirst: {
+          args: Prisma.AnimeRelationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnimeRelationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        findMany: {
+          args: Prisma.AnimeRelationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>[]
+        }
+        create: {
+          args: Prisma.AnimeRelationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        createMany: {
+          args: Prisma.AnimeRelationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AnimeRelationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>[]
+        }
+        delete: {
+          args: Prisma.AnimeRelationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        update: {
+          args: Prisma.AnimeRelationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        deleteMany: {
+          args: Prisma.AnimeRelationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnimeRelationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AnimeRelationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>[]
+        }
+        upsert: {
+          args: Prisma.AnimeRelationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeRelationPayload>
+        }
+        aggregate: {
+          args: Prisma.AnimeRelationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnimeRelation>
+        }
+        groupBy: {
+          args: Prisma.AnimeRelationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnimeRelationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnimeRelationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnimeRelationCountAggregateOutputType> | number
+        }
+      }
+    }
+    SyncJob: {
+      payload: Prisma.$SyncJobPayload<ExtArgs>
+      fields: Prisma.SyncJobFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SyncJobFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SyncJobFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        findFirst: {
+          args: Prisma.SyncJobFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SyncJobFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        findMany: {
+          args: Prisma.SyncJobFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>[]
+        }
+        create: {
+          args: Prisma.SyncJobCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        createMany: {
+          args: Prisma.SyncJobCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SyncJobCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>[]
+        }
+        delete: {
+          args: Prisma.SyncJobDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        update: {
+          args: Prisma.SyncJobUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        deleteMany: {
+          args: Prisma.SyncJobDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SyncJobUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SyncJobUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>[]
+        }
+        upsert: {
+          args: Prisma.SyncJobUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobPayload>
+        }
+        aggregate: {
+          args: Prisma.SyncJobAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSyncJob>
+        }
+        groupBy: {
+          args: Prisma.SyncJobGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyncJobGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SyncJobCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyncJobCountAggregateOutputType> | number
+        }
+      }
+    }
+    SyncJobLog: {
+      payload: Prisma.$SyncJobLogPayload<ExtArgs>
+      fields: Prisma.SyncJobLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SyncJobLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SyncJobLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        findFirst: {
+          args: Prisma.SyncJobLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SyncJobLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        findMany: {
+          args: Prisma.SyncJobLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>[]
+        }
+        create: {
+          args: Prisma.SyncJobLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        createMany: {
+          args: Prisma.SyncJobLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SyncJobLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>[]
+        }
+        delete: {
+          args: Prisma.SyncJobLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        update: {
+          args: Prisma.SyncJobLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.SyncJobLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SyncJobLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SyncJobLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.SyncJobLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SyncJobLogPayload>
+        }
+        aggregate: {
+          args: Prisma.SyncJobLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSyncJobLog>
+        }
+        groupBy: {
+          args: Prisma.SyncJobLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyncJobLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SyncJobLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SyncJobLogCountAggregateOutputType> | number
         }
       }
     }
@@ -3423,6 +3725,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MessageKeyEnvelopeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MessageKeyEnvelopeCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserBlock: {
+      payload: Prisma.$UserBlockPayload<ExtArgs>
+      fields: Prisma.UserBlockFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserBlockFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserBlockFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        findFirst: {
+          args: Prisma.UserBlockFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserBlockFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        findMany: {
+          args: Prisma.UserBlockFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>[]
+        }
+        create: {
+          args: Prisma.UserBlockCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        createMany: {
+          args: Prisma.UserBlockCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserBlockCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>[]
+        }
+        delete: {
+          args: Prisma.UserBlockDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        update: {
+          args: Prisma.UserBlockUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserBlockDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserBlockUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserBlockUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserBlockUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserBlockPayload>
+        }
+        aggregate: {
+          args: Prisma.UserBlockAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserBlock>
+        }
+        groupBy: {
+          args: Prisma.UserBlockGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserBlockGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserBlockCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserBlockCountAggregateOutputType> | number
+        }
+      }
+    }
+    MessageReport: {
+      payload: Prisma.$MessageReportPayload<ExtArgs>
+      fields: Prisma.MessageReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessageReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessageReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        findFirst: {
+          args: Prisma.MessageReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessageReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        findMany: {
+          args: Prisma.MessageReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>[]
+        }
+        create: {
+          args: Prisma.MessageReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        createMany: {
+          args: Prisma.MessageReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessageReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>[]
+        }
+        delete: {
+          args: Prisma.MessageReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        update: {
+          args: Prisma.MessageReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.MessageReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessageReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessageReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.MessageReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessageReportPayload>
+        }
+        aggregate: {
+          args: Prisma.MessageReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessageReport>
+        }
+        groupBy: {
+          args: Prisma.MessageReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessageReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessageReportCountAggregateOutputType> | number
         }
       }
     }
@@ -10288,6 +10738,9 @@ export const UserScalarFieldEnum = {
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',
   isPrivate: 'isPrivate',
+  dmPrivacy: 'dmPrivacy',
+  readReceiptsOn: 'readReceiptsOn',
+  showOnlineStatus: 'showOnlineStatus',
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',
@@ -10375,22 +10828,47 @@ export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof 
 export const AnimeScalarFieldEnum = {
   id: 'id',
   malId: 'malId',
+  slug: 'slug',
   title: 'title',
   titleEnglish: 'titleEnglish',
   titleJapanese: 'titleJapanese',
+  titleSynonyms: 'titleSynonyms',
   synopsis: 'synopsis',
+  background: 'background',
   type: 'type',
   episodes: 'episodes',
   status: 'status',
+  airing: 'airing',
   airedFrom: 'airedFrom',
   airedTo: 'airedTo',
+  duration: 'duration',
   season: 'season',
   year: 'year',
   rating: 'rating',
   score: 'score',
+  scoredBy: 'scoredBy',
+  rank: 'rank',
+  popularity: 'popularity',
+  membersCount: 'membersCount',
+  favoritesCount: 'favoritesCount',
   imageUrl: 'imageUrl',
+  imageSmallUrl: 'imageSmallUrl',
+  imageWebpUrl: 'imageWebpUrl',
+  localImagePath: 'localImagePath',
   trailerUrl: 'trailerUrl',
+  trailerYoutubeId: 'trailerYoutubeId',
+  broadcastDay: 'broadcastDay',
+  broadcastTime: 'broadcastTime',
+  broadcastTz: 'broadcastTz',
   source: 'source',
+  lastSyncedAt: 'lastSyncedAt',
+  syncPriority: 'syncPriority',
+  syncFailCount: 'syncFailCount',
+  isStub: 'isStub',
+  kaiveronTags: 'kaiveronTags',
+  waieScore: 'waieScore',
+  isFeatured: 'isFeatured',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -10399,7 +10877,9 @@ export type AnimeScalarFieldEnum = (typeof AnimeScalarFieldEnum)[keyof typeof An
 
 export const GenreScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  malId: 'malId',
+  type: 'type'
 } as const
 
 export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof GenreScalarFieldEnum]
@@ -10407,7 +10887,8 @@ export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof Ge
 
 export const StudioScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  malId: 'malId'
 } as const
 
 export type StudioScalarFieldEnum = (typeof StudioScalarFieldEnum)[keyof typeof StudioScalarFieldEnum]
@@ -10423,10 +10904,71 @@ export type AnimeGenreScalarFieldEnum = (typeof AnimeGenreScalarFieldEnum)[keyof
 
 export const AnimeStudioScalarFieldEnum = {
   animeId: 'animeId',
-  studioId: 'studioId'
+  studioId: 'studioId',
+  role: 'role'
 } as const
 
 export type AnimeStudioScalarFieldEnum = (typeof AnimeStudioScalarFieldEnum)[keyof typeof AnimeStudioScalarFieldEnum]
+
+
+export const EpisodeScalarFieldEnum = {
+  id: 'id',
+  animeId: 'animeId',
+  malEpisodeId: 'malEpisodeId',
+  title: 'title',
+  titleJapanese: 'titleJapanese',
+  titleRomaji: 'titleRomaji',
+  aired: 'aired',
+  score: 'score',
+  filler: 'filler',
+  recap: 'recap',
+  synopsis: 'synopsis'
+} as const
+
+export type EpisodeScalarFieldEnum = (typeof EpisodeScalarFieldEnum)[keyof typeof EpisodeScalarFieldEnum]
+
+
+export const AnimeRelationScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetMalId: 'targetMalId',
+  targetId: 'targetId',
+  relationType: 'relationType'
+} as const
+
+export type AnimeRelationScalarFieldEnum = (typeof AnimeRelationScalarFieldEnum)[keyof typeof AnimeRelationScalarFieldEnum]
+
+
+export const SyncJobScalarFieldEnum = {
+  id: 'id',
+  jobType: 'jobType',
+  payload: 'payload',
+  dedupeKey: 'dedupeKey',
+  status: 'status',
+  priority: 'priority',
+  attempts: 'attempts',
+  maxAttempts: 'maxAttempts',
+  runAt: 'runAt',
+  lockedAt: 'lockedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SyncJobScalarFieldEnum = (typeof SyncJobScalarFieldEnum)[keyof typeof SyncJobScalarFieldEnum]
+
+
+export const SyncJobLogScalarFieldEnum = {
+  id: 'id',
+  jobType: 'jobType',
+  malId: 'malId',
+  status: 'status',
+  error: 'error',
+  durationMs: 'durationMs',
+  createdAt: 'createdAt'
+} as const
+
+export type SyncJobLogScalarFieldEnum = (typeof SyncJobLogScalarFieldEnum)[keyof typeof SyncJobLogScalarFieldEnum]
 
 
 export const ListEntryScalarFieldEnum = {
@@ -10694,7 +11236,18 @@ export const ConversationScalarFieldEnum = {
   participant1: 'participant1',
   participant2: 'participant2',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status',
+  initiatorId: 'initiatorId',
+  lastMessageAt: 'lastMessageAt',
+  p1UnreadCount: 'p1UnreadCount',
+  p2UnreadCount: 'p2UnreadCount',
+  p1MutedUntil: 'p1MutedUntil',
+  p2MutedUntil: 'p2MutedUntil',
+  p1DeletedAt: 'p1DeletedAt',
+  p2DeletedAt: 'p2DeletedAt',
+  p1LastReadAt: 'p1LastReadAt',
+  p2LastReadAt: 'p2LastReadAt'
 } as const
 
 export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
@@ -10704,10 +11257,25 @@ export const DirectMessageScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   senderId: 'senderId',
-  ciphertext: 'ciphertext',
-  iv: 'iv',
   createdAt: 'createdAt',
   readAt: 'readAt',
+  deliveredAt: 'deliveredAt',
+  type: 'type',
+  body: 'body',
+  animeMalId: 'animeMalId',
+  animeEpisode: 'animeEpisode',
+  mediaUrl: 'mediaUrl',
+  mediaMime: 'mediaMime',
+  mediaSizeBytes: 'mediaSizeBytes',
+  mediaWidth: 'mediaWidth',
+  mediaHeight: 'mediaHeight',
+  mediaDurationS: 'mediaDurationS',
+  mediaBlurhash: 'mediaBlurhash',
+  replyToId: 'replyToId',
+  editedAt: 'editedAt',
+  clientNonce: 'clientNonce',
+  ciphertext: 'ciphertext',
+  iv: 'iv',
   deletedAt: 'deletedAt',
   deletedForSender: 'deletedForSender',
   deletedForRecipient: 'deletedForRecipient',
@@ -10749,6 +11317,31 @@ export const MessageKeyEnvelopeScalarFieldEnum = {
 } as const
 
 export type MessageKeyEnvelopeScalarFieldEnum = (typeof MessageKeyEnvelopeScalarFieldEnum)[keyof typeof MessageKeyEnvelopeScalarFieldEnum]
+
+
+export const UserBlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedId: 'blockedId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
+
+
+export const MessageReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  reportedUserId: 'reportedUserId',
+  conversationId: 'conversationId',
+  messageId: 'messageId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReportScalarFieldEnum = (typeof MessageReportScalarFieldEnum)[keyof typeof MessageReportScalarFieldEnum]
 
 
 export const ActivityScalarFieldEnum = {
@@ -12338,6 +12931,20 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
+ * Reference to a field of type 'SyncPriority'
+ */
+export type EnumSyncPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SyncPriority'>
+    
+
+
+/**
+ * Reference to a field of type 'SyncPriority[]'
+ */
+export type ListEnumSyncPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SyncPriority[]'>
+    
+
+
+/**
  * Reference to a field of type 'WatchStatus'
  */
 export type EnumWatchStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WatchStatus'>
@@ -12376,6 +12983,34 @@ export type EnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'ReportStatus[]'
  */
 export type ListEnumReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReportStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ConversationStatus'
+ */
+export type EnumConversationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConversationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ConversationStatus[]'
+ */
+export type ListEnumConversationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConversationStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageType'
+ */
+export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageType[]'
+ */
+export type ListEnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType[]'>
     
 
 
@@ -12519,6 +13154,10 @@ export type GlobalOmitConfig = {
   studio?: Prisma.StudioOmit
   animeGenre?: Prisma.AnimeGenreOmit
   animeStudio?: Prisma.AnimeStudioOmit
+  episode?: Prisma.EpisodeOmit
+  animeRelation?: Prisma.AnimeRelationOmit
+  syncJob?: Prisma.SyncJobOmit
+  syncJobLog?: Prisma.SyncJobLogOmit
   listEntry?: Prisma.ListEntryOmit
   post?: Prisma.PostOmit
   postHide?: Prisma.PostHideOmit
@@ -12546,6 +13185,8 @@ export type GlobalOmitConfig = {
   messageReaction?: Prisma.MessageReactionOmit
   userDeviceKey?: Prisma.UserDeviceKeyOmit
   messageKeyEnvelope?: Prisma.MessageKeyEnvelopeOmit
+  userBlock?: Prisma.UserBlockOmit
+  messageReport?: Prisma.MessageReportOmit
   activity?: Prisma.ActivityOmit
   activityLike?: Prisma.ActivityLikeOmit
   activityRepost?: Prisma.ActivityRepostOmit

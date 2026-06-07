@@ -61,6 +61,10 @@ export const ModelName = {
   Studio: 'Studio',
   AnimeGenre: 'AnimeGenre',
   AnimeStudio: 'AnimeStudio',
+  Episode: 'Episode',
+  AnimeRelation: 'AnimeRelation',
+  SyncJob: 'SyncJob',
+  SyncJobLog: 'SyncJobLog',
   ListEntry: 'ListEntry',
   Post: 'Post',
   PostHide: 'PostHide',
@@ -88,6 +92,8 @@ export const ModelName = {
   MessageReaction: 'MessageReaction',
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
+  UserBlock: 'UserBlock',
+  MessageReport: 'MessageReport',
   Activity: 'Activity',
   ActivityLike: 'ActivityLike',
   ActivityRepost: 'ActivityRepost',
@@ -213,6 +219,9 @@ export const UserScalarFieldEnum = {
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',
   isPrivate: 'isPrivate',
+  dmPrivacy: 'dmPrivacy',
+  readReceiptsOn: 'readReceiptsOn',
+  showOnlineStatus: 'showOnlineStatus',
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',
@@ -300,22 +309,47 @@ export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof 
 export const AnimeScalarFieldEnum = {
   id: 'id',
   malId: 'malId',
+  slug: 'slug',
   title: 'title',
   titleEnglish: 'titleEnglish',
   titleJapanese: 'titleJapanese',
+  titleSynonyms: 'titleSynonyms',
   synopsis: 'synopsis',
+  background: 'background',
   type: 'type',
   episodes: 'episodes',
   status: 'status',
+  airing: 'airing',
   airedFrom: 'airedFrom',
   airedTo: 'airedTo',
+  duration: 'duration',
   season: 'season',
   year: 'year',
   rating: 'rating',
   score: 'score',
+  scoredBy: 'scoredBy',
+  rank: 'rank',
+  popularity: 'popularity',
+  membersCount: 'membersCount',
+  favoritesCount: 'favoritesCount',
   imageUrl: 'imageUrl',
+  imageSmallUrl: 'imageSmallUrl',
+  imageWebpUrl: 'imageWebpUrl',
+  localImagePath: 'localImagePath',
   trailerUrl: 'trailerUrl',
+  trailerYoutubeId: 'trailerYoutubeId',
+  broadcastDay: 'broadcastDay',
+  broadcastTime: 'broadcastTime',
+  broadcastTz: 'broadcastTz',
   source: 'source',
+  lastSyncedAt: 'lastSyncedAt',
+  syncPriority: 'syncPriority',
+  syncFailCount: 'syncFailCount',
+  isStub: 'isStub',
+  kaiveronTags: 'kaiveronTags',
+  waieScore: 'waieScore',
+  isFeatured: 'isFeatured',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -324,7 +358,9 @@ export type AnimeScalarFieldEnum = (typeof AnimeScalarFieldEnum)[keyof typeof An
 
 export const GenreScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  malId: 'malId',
+  type: 'type'
 } as const
 
 export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof GenreScalarFieldEnum]
@@ -332,7 +368,8 @@ export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof Ge
 
 export const StudioScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  malId: 'malId'
 } as const
 
 export type StudioScalarFieldEnum = (typeof StudioScalarFieldEnum)[keyof typeof StudioScalarFieldEnum]
@@ -348,10 +385,71 @@ export type AnimeGenreScalarFieldEnum = (typeof AnimeGenreScalarFieldEnum)[keyof
 
 export const AnimeStudioScalarFieldEnum = {
   animeId: 'animeId',
-  studioId: 'studioId'
+  studioId: 'studioId',
+  role: 'role'
 } as const
 
 export type AnimeStudioScalarFieldEnum = (typeof AnimeStudioScalarFieldEnum)[keyof typeof AnimeStudioScalarFieldEnum]
+
+
+export const EpisodeScalarFieldEnum = {
+  id: 'id',
+  animeId: 'animeId',
+  malEpisodeId: 'malEpisodeId',
+  title: 'title',
+  titleJapanese: 'titleJapanese',
+  titleRomaji: 'titleRomaji',
+  aired: 'aired',
+  score: 'score',
+  filler: 'filler',
+  recap: 'recap',
+  synopsis: 'synopsis'
+} as const
+
+export type EpisodeScalarFieldEnum = (typeof EpisodeScalarFieldEnum)[keyof typeof EpisodeScalarFieldEnum]
+
+
+export const AnimeRelationScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetMalId: 'targetMalId',
+  targetId: 'targetId',
+  relationType: 'relationType'
+} as const
+
+export type AnimeRelationScalarFieldEnum = (typeof AnimeRelationScalarFieldEnum)[keyof typeof AnimeRelationScalarFieldEnum]
+
+
+export const SyncJobScalarFieldEnum = {
+  id: 'id',
+  jobType: 'jobType',
+  payload: 'payload',
+  dedupeKey: 'dedupeKey',
+  status: 'status',
+  priority: 'priority',
+  attempts: 'attempts',
+  maxAttempts: 'maxAttempts',
+  runAt: 'runAt',
+  lockedAt: 'lockedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SyncJobScalarFieldEnum = (typeof SyncJobScalarFieldEnum)[keyof typeof SyncJobScalarFieldEnum]
+
+
+export const SyncJobLogScalarFieldEnum = {
+  id: 'id',
+  jobType: 'jobType',
+  malId: 'malId',
+  status: 'status',
+  error: 'error',
+  durationMs: 'durationMs',
+  createdAt: 'createdAt'
+} as const
+
+export type SyncJobLogScalarFieldEnum = (typeof SyncJobLogScalarFieldEnum)[keyof typeof SyncJobLogScalarFieldEnum]
 
 
 export const ListEntryScalarFieldEnum = {
@@ -619,7 +717,18 @@ export const ConversationScalarFieldEnum = {
   participant1: 'participant1',
   participant2: 'participant2',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status',
+  initiatorId: 'initiatorId',
+  lastMessageAt: 'lastMessageAt',
+  p1UnreadCount: 'p1UnreadCount',
+  p2UnreadCount: 'p2UnreadCount',
+  p1MutedUntil: 'p1MutedUntil',
+  p2MutedUntil: 'p2MutedUntil',
+  p1DeletedAt: 'p1DeletedAt',
+  p2DeletedAt: 'p2DeletedAt',
+  p1LastReadAt: 'p1LastReadAt',
+  p2LastReadAt: 'p2LastReadAt'
 } as const
 
 export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
@@ -629,10 +738,25 @@ export const DirectMessageScalarFieldEnum = {
   id: 'id',
   conversationId: 'conversationId',
   senderId: 'senderId',
-  ciphertext: 'ciphertext',
-  iv: 'iv',
   createdAt: 'createdAt',
   readAt: 'readAt',
+  deliveredAt: 'deliveredAt',
+  type: 'type',
+  body: 'body',
+  animeMalId: 'animeMalId',
+  animeEpisode: 'animeEpisode',
+  mediaUrl: 'mediaUrl',
+  mediaMime: 'mediaMime',
+  mediaSizeBytes: 'mediaSizeBytes',
+  mediaWidth: 'mediaWidth',
+  mediaHeight: 'mediaHeight',
+  mediaDurationS: 'mediaDurationS',
+  mediaBlurhash: 'mediaBlurhash',
+  replyToId: 'replyToId',
+  editedAt: 'editedAt',
+  clientNonce: 'clientNonce',
+  ciphertext: 'ciphertext',
+  iv: 'iv',
   deletedAt: 'deletedAt',
   deletedForSender: 'deletedForSender',
   deletedForRecipient: 'deletedForRecipient',
@@ -674,6 +798,31 @@ export const MessageKeyEnvelopeScalarFieldEnum = {
 } as const
 
 export type MessageKeyEnvelopeScalarFieldEnum = (typeof MessageKeyEnvelopeScalarFieldEnum)[keyof typeof MessageKeyEnvelopeScalarFieldEnum]
+
+
+export const UserBlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedId: 'blockedId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
+
+
+export const MessageReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  reportedUserId: 'reportedUserId',
+  conversationId: 'conversationId',
+  messageId: 'messageId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReportScalarFieldEnum = (typeof MessageReportScalarFieldEnum)[keyof typeof MessageReportScalarFieldEnum]
 
 
 export const ActivityScalarFieldEnum = {

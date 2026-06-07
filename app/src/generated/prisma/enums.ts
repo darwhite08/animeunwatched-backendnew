@@ -55,6 +55,35 @@ export const FollowStatus = {
 export type FollowStatus = (typeof FollowStatus)[keyof typeof FollowStatus]
 
 
+export const SyncPriority = {
+  HOT: 'HOT',
+  NORMAL: 'NORMAL',
+  COLD: 'COLD'
+} as const
+
+export type SyncPriority = (typeof SyncPriority)[keyof typeof SyncPriority]
+
+
+export const ConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  PENDING: 'PENDING',
+  DECLINED: 'DECLINED'
+} as const
+
+export type ConversationStatus = (typeof ConversationStatus)[keyof typeof ConversationStatus]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  VOICE: 'VOICE',
+  ANIME_CARD: 'ANIME_CARD',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
 export const ActivityKind = {
   TEXT: 'TEXT',
   LIST_UPDATE: 'LIST_UPDATE',

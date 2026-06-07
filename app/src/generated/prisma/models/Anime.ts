@@ -31,6 +31,13 @@ export type AnimeAvgAggregateOutputType = {
   episodes: number | null
   year: number | null
   score: number | null
+  scoredBy: number | null
+  rank: number | null
+  popularity: number | null
+  membersCount: number | null
+  favoritesCount: number | null
+  syncFailCount: number | null
+  waieScore: number | null
 }
 
 export type AnimeSumAggregateOutputType = {
@@ -38,71 +45,149 @@ export type AnimeSumAggregateOutputType = {
   episodes: number | null
   year: number | null
   score: number | null
+  scoredBy: number | null
+  rank: number | null
+  popularity: number | null
+  membersCount: number | null
+  favoritesCount: number | null
+  syncFailCount: number | null
+  waieScore: number | null
 }
 
 export type AnimeMinAggregateOutputType = {
   id: string | null
   malId: number | null
+  slug: string | null
   title: string | null
   titleEnglish: string | null
   titleJapanese: string | null
   synopsis: string | null
+  background: string | null
   type: string | null
   episodes: number | null
   status: string | null
+  airing: boolean | null
   airedFrom: Date | null
   airedTo: Date | null
+  duration: string | null
   season: string | null
   year: number | null
   rating: string | null
   score: number | null
+  scoredBy: number | null
+  rank: number | null
+  popularity: number | null
+  membersCount: number | null
+  favoritesCount: number | null
   imageUrl: string | null
+  imageSmallUrl: string | null
+  imageWebpUrl: string | null
+  localImagePath: string | null
   trailerUrl: string | null
+  trailerYoutubeId: string | null
+  broadcastDay: string | null
+  broadcastTime: string | null
+  broadcastTz: string | null
   source: string | null
+  lastSyncedAt: Date | null
+  syncPriority: $Enums.SyncPriority | null
+  syncFailCount: number | null
+  isStub: boolean | null
+  waieScore: number | null
+  isFeatured: boolean | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type AnimeMaxAggregateOutputType = {
   id: string | null
   malId: number | null
+  slug: string | null
   title: string | null
   titleEnglish: string | null
   titleJapanese: string | null
   synopsis: string | null
+  background: string | null
   type: string | null
   episodes: number | null
   status: string | null
+  airing: boolean | null
   airedFrom: Date | null
   airedTo: Date | null
+  duration: string | null
   season: string | null
   year: number | null
   rating: string | null
   score: number | null
+  scoredBy: number | null
+  rank: number | null
+  popularity: number | null
+  membersCount: number | null
+  favoritesCount: number | null
   imageUrl: string | null
+  imageSmallUrl: string | null
+  imageWebpUrl: string | null
+  localImagePath: string | null
   trailerUrl: string | null
+  trailerYoutubeId: string | null
+  broadcastDay: string | null
+  broadcastTime: string | null
+  broadcastTz: string | null
   source: string | null
+  lastSyncedAt: Date | null
+  syncPriority: $Enums.SyncPriority | null
+  syncFailCount: number | null
+  isStub: boolean | null
+  waieScore: number | null
+  isFeatured: boolean | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type AnimeCountAggregateOutputType = {
   id: number
   malId: number
+  slug: number
   title: number
   titleEnglish: number
   titleJapanese: number
+  titleSynonyms: number
   synopsis: number
+  background: number
   type: number
   episodes: number
   status: number
+  airing: number
   airedFrom: number
   airedTo: number
+  duration: number
   season: number
   year: number
   rating: number
   score: number
+  scoredBy: number
+  rank: number
+  popularity: number
+  membersCount: number
+  favoritesCount: number
   imageUrl: number
+  imageSmallUrl: number
+  imageWebpUrl: number
+  localImagePath: number
   trailerUrl: number
+  trailerYoutubeId: number
+  broadcastDay: number
+  broadcastTime: number
+  broadcastTz: number
   source: number
+  lastSyncedAt: number
+  syncPriority: number
+  syncFailCount: number
+  isStub: number
+  kaiveronTags: number
+  waieScore: number
+  isFeatured: number
+  createdAt: number
   updatedAt: number
   _all: number
 }
@@ -113,6 +198,13 @@ export type AnimeAvgAggregateInputType = {
   episodes?: true
   year?: true
   score?: true
+  scoredBy?: true
+  rank?: true
+  popularity?: true
+  membersCount?: true
+  favoritesCount?: true
+  syncFailCount?: true
+  waieScore?: true
 }
 
 export type AnimeSumAggregateInputType = {
@@ -120,71 +212,149 @@ export type AnimeSumAggregateInputType = {
   episodes?: true
   year?: true
   score?: true
+  scoredBy?: true
+  rank?: true
+  popularity?: true
+  membersCount?: true
+  favoritesCount?: true
+  syncFailCount?: true
+  waieScore?: true
 }
 
 export type AnimeMinAggregateInputType = {
   id?: true
   malId?: true
+  slug?: true
   title?: true
   titleEnglish?: true
   titleJapanese?: true
   synopsis?: true
+  background?: true
   type?: true
   episodes?: true
   status?: true
+  airing?: true
   airedFrom?: true
   airedTo?: true
+  duration?: true
   season?: true
   year?: true
   rating?: true
   score?: true
+  scoredBy?: true
+  rank?: true
+  popularity?: true
+  membersCount?: true
+  favoritesCount?: true
   imageUrl?: true
+  imageSmallUrl?: true
+  imageWebpUrl?: true
+  localImagePath?: true
   trailerUrl?: true
+  trailerYoutubeId?: true
+  broadcastDay?: true
+  broadcastTime?: true
+  broadcastTz?: true
   source?: true
+  lastSyncedAt?: true
+  syncPriority?: true
+  syncFailCount?: true
+  isStub?: true
+  waieScore?: true
+  isFeatured?: true
+  createdAt?: true
   updatedAt?: true
 }
 
 export type AnimeMaxAggregateInputType = {
   id?: true
   malId?: true
+  slug?: true
   title?: true
   titleEnglish?: true
   titleJapanese?: true
   synopsis?: true
+  background?: true
   type?: true
   episodes?: true
   status?: true
+  airing?: true
   airedFrom?: true
   airedTo?: true
+  duration?: true
   season?: true
   year?: true
   rating?: true
   score?: true
+  scoredBy?: true
+  rank?: true
+  popularity?: true
+  membersCount?: true
+  favoritesCount?: true
   imageUrl?: true
+  imageSmallUrl?: true
+  imageWebpUrl?: true
+  localImagePath?: true
   trailerUrl?: true
+  trailerYoutubeId?: true
+  broadcastDay?: true
+  broadcastTime?: true
+  broadcastTz?: true
   source?: true
+  lastSyncedAt?: true
+  syncPriority?: true
+  syncFailCount?: true
+  isStub?: true
+  waieScore?: true
+  isFeatured?: true
+  createdAt?: true
   updatedAt?: true
 }
 
 export type AnimeCountAggregateInputType = {
   id?: true
   malId?: true
+  slug?: true
   title?: true
   titleEnglish?: true
   titleJapanese?: true
+  titleSynonyms?: true
   synopsis?: true
+  background?: true
   type?: true
   episodes?: true
   status?: true
+  airing?: true
   airedFrom?: true
   airedTo?: true
+  duration?: true
   season?: true
   year?: true
   rating?: true
   score?: true
+  scoredBy?: true
+  rank?: true
+  popularity?: true
+  membersCount?: true
+  favoritesCount?: true
   imageUrl?: true
+  imageSmallUrl?: true
+  imageWebpUrl?: true
+  localImagePath?: true
   trailerUrl?: true
+  trailerYoutubeId?: true
+  broadcastDay?: true
+  broadcastTime?: true
+  broadcastTz?: true
   source?: true
+  lastSyncedAt?: true
+  syncPriority?: true
+  syncFailCount?: true
+  isStub?: true
+  kaiveronTags?: true
+  waieScore?: true
+  isFeatured?: true
+  createdAt?: true
   updatedAt?: true
   _all?: true
 }
@@ -278,22 +448,47 @@ export type AnimeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type AnimeGroupByOutputType = {
   id: string
   malId: number
+  slug: string | null
   title: string
   titleEnglish: string | null
   titleJapanese: string | null
+  titleSynonyms: string[]
   synopsis: string | null
+  background: string | null
   type: string | null
   episodes: number | null
   status: string | null
+  airing: boolean
   airedFrom: Date | null
   airedTo: Date | null
+  duration: string | null
   season: string | null
   year: number | null
   rating: string | null
   score: number | null
+  scoredBy: number | null
+  rank: number | null
+  popularity: number | null
+  membersCount: number | null
+  favoritesCount: number | null
   imageUrl: string | null
+  imageSmallUrl: string | null
+  imageWebpUrl: string | null
+  localImagePath: string | null
   trailerUrl: string | null
+  trailerYoutubeId: string | null
+  broadcastDay: string | null
+  broadcastTime: string | null
+  broadcastTz: string | null
   source: string | null
+  lastSyncedAt: Date | null
+  syncPriority: $Enums.SyncPriority
+  syncFailCount: number
+  isStub: boolean
+  kaiveronTags: string[]
+  waieScore: number | null
+  isFeatured: boolean
+  createdAt: Date
   updatedAt: Date
   _count: AnimeCountAggregateOutputType | null
   _avg: AnimeAvgAggregateOutputType | null
@@ -323,25 +518,53 @@ export type AnimeWhereInput = {
   NOT?: Prisma.AnimeWhereInput | Prisma.AnimeWhereInput[]
   id?: Prisma.StringFilter<"Anime"> | string
   malId?: Prisma.IntFilter<"Anime"> | number
+  slug?: Prisma.StringNullableFilter<"Anime"> | string | null
   title?: Prisma.StringFilter<"Anime"> | string
   titleEnglish?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableFilter<"Anime"> | string | null
+  titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
   synopsis?: Prisma.StringNullableFilter<"Anime"> | string | null
+  background?: Prisma.StringNullableFilter<"Anime"> | string | null
   type?: Prisma.StringNullableFilter<"Anime"> | string | null
   episodes?: Prisma.IntNullableFilter<"Anime"> | number | null
   status?: Prisma.StringNullableFilter<"Anime"> | string | null
+  airing?: Prisma.BoolFilter<"Anime"> | boolean
   airedFrom?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
   airedTo?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
+  duration?: Prisma.StringNullableFilter<"Anime"> | string | null
   season?: Prisma.StringNullableFilter<"Anime"> | string | null
   year?: Prisma.IntNullableFilter<"Anime"> | number | null
   rating?: Prisma.StringNullableFilter<"Anime"> | string | null
   score?: Prisma.FloatNullableFilter<"Anime"> | number | null
+  scoredBy?: Prisma.IntNullableFilter<"Anime"> | number | null
+  rank?: Prisma.IntNullableFilter<"Anime"> | number | null
+  popularity?: Prisma.IntNullableFilter<"Anime"> | number | null
+  membersCount?: Prisma.IntNullableFilter<"Anime"> | number | null
+  favoritesCount?: Prisma.IntNullableFilter<"Anime"> | number | null
   imageUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  imageSmallUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  imageWebpUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  localImagePath?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  trailerYoutubeId?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastDay?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastTime?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastTz?: Prisma.StringNullableFilter<"Anime"> | string | null
   source?: Prisma.StringNullableFilter<"Anime"> | string | null
+  lastSyncedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFilter<"Anime"> | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFilter<"Anime"> | number
+  isStub?: Prisma.BoolFilter<"Anime"> | boolean
+  kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
+  waieScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
+  isFeatured?: Prisma.BoolFilter<"Anime"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   genres?: Prisma.AnimeGenreListRelationFilter
   studios?: Prisma.AnimeStudioListRelationFilter
+  episodeList?: Prisma.EpisodeListRelationFilter
+  relations?: Prisma.AnimeRelationListRelationFilter
+  relatedTo?: Prisma.AnimeRelationListRelationFilter
   listEntries?: Prisma.ListEntryListRelationFilter
   posts?: Prisma.PostListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
@@ -353,25 +576,53 @@ export type AnimeWhereInput = {
 export type AnimeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   malId?: Prisma.SortOrder
+  slug?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   titleJapanese?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleSynonyms?: Prisma.SortOrder
   synopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  background?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   episodes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
+  airing?: Prisma.SortOrder
   airedFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   airedTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  duration?: Prisma.SortOrderInput | Prisma.SortOrder
   season?: Prisma.SortOrderInput | Prisma.SortOrder
   year?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
+  scoredBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rank?: Prisma.SortOrderInput | Prisma.SortOrder
+  popularity?: Prisma.SortOrderInput | Prisma.SortOrder
+  membersCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageSmallUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageWebpUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  localImagePath?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  trailerYoutubeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastTz?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  syncPriority?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  isStub?: Prisma.SortOrder
+  kaiveronTags?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   genres?: Prisma.AnimeGenreOrderByRelationAggregateInput
   studios?: Prisma.AnimeStudioOrderByRelationAggregateInput
+  episodeList?: Prisma.EpisodeOrderByRelationAggregateInput
+  relations?: Prisma.AnimeRelationOrderByRelationAggregateInput
+  relatedTo?: Prisma.AnimeRelationOrderByRelationAggregateInput
   listEntries?: Prisma.ListEntryOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
@@ -383,55 +634,108 @@ export type AnimeOrderByWithRelationInput = {
 export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   malId?: number
+  slug?: string
   AND?: Prisma.AnimeWhereInput | Prisma.AnimeWhereInput[]
   OR?: Prisma.AnimeWhereInput[]
   NOT?: Prisma.AnimeWhereInput | Prisma.AnimeWhereInput[]
   title?: Prisma.StringFilter<"Anime"> | string
   titleEnglish?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableFilter<"Anime"> | string | null
+  titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
   synopsis?: Prisma.StringNullableFilter<"Anime"> | string | null
+  background?: Prisma.StringNullableFilter<"Anime"> | string | null
   type?: Prisma.StringNullableFilter<"Anime"> | string | null
   episodes?: Prisma.IntNullableFilter<"Anime"> | number | null
   status?: Prisma.StringNullableFilter<"Anime"> | string | null
+  airing?: Prisma.BoolFilter<"Anime"> | boolean
   airedFrom?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
   airedTo?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
+  duration?: Prisma.StringNullableFilter<"Anime"> | string | null
   season?: Prisma.StringNullableFilter<"Anime"> | string | null
   year?: Prisma.IntNullableFilter<"Anime"> | number | null
   rating?: Prisma.StringNullableFilter<"Anime"> | string | null
   score?: Prisma.FloatNullableFilter<"Anime"> | number | null
+  scoredBy?: Prisma.IntNullableFilter<"Anime"> | number | null
+  rank?: Prisma.IntNullableFilter<"Anime"> | number | null
+  popularity?: Prisma.IntNullableFilter<"Anime"> | number | null
+  membersCount?: Prisma.IntNullableFilter<"Anime"> | number | null
+  favoritesCount?: Prisma.IntNullableFilter<"Anime"> | number | null
   imageUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  imageSmallUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  imageWebpUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  localImagePath?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
+  trailerYoutubeId?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastDay?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastTime?: Prisma.StringNullableFilter<"Anime"> | string | null
+  broadcastTz?: Prisma.StringNullableFilter<"Anime"> | string | null
   source?: Prisma.StringNullableFilter<"Anime"> | string | null
+  lastSyncedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFilter<"Anime"> | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFilter<"Anime"> | number
+  isStub?: Prisma.BoolFilter<"Anime"> | boolean
+  kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
+  waieScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
+  isFeatured?: Prisma.BoolFilter<"Anime"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   genres?: Prisma.AnimeGenreListRelationFilter
   studios?: Prisma.AnimeStudioListRelationFilter
+  episodeList?: Prisma.EpisodeListRelationFilter
+  relations?: Prisma.AnimeRelationListRelationFilter
+  relatedTo?: Prisma.AnimeRelationListRelationFilter
   listEntries?: Prisma.ListEntryListRelationFilter
   posts?: Prisma.PostListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   shots?: Prisma.ShotListRelationFilter
-}, "id" | "malId">
+}, "id" | "malId" | "slug">
 
 export type AnimeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   malId?: Prisma.SortOrder
+  slug?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   titleJapanese?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleSynonyms?: Prisma.SortOrder
   synopsis?: Prisma.SortOrderInput | Prisma.SortOrder
+  background?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   episodes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
+  airing?: Prisma.SortOrder
   airedFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   airedTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  duration?: Prisma.SortOrderInput | Prisma.SortOrder
   season?: Prisma.SortOrderInput | Prisma.SortOrder
   year?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
+  scoredBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rank?: Prisma.SortOrderInput | Prisma.SortOrder
+  popularity?: Prisma.SortOrderInput | Prisma.SortOrder
+  membersCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageSmallUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageWebpUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  localImagePath?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  trailerYoutubeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  broadcastTz?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  syncPriority?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  isStub?: Prisma.SortOrder
+  kaiveronTags?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AnimeCountOrderByAggregateInput
   _avg?: Prisma.AnimeAvgOrderByAggregateInput
@@ -446,47 +750,100 @@ export type AnimeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AnimeScalarWhereWithAggregatesInput | Prisma.AnimeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Anime"> | string
   malId?: Prisma.IntWithAggregatesFilter<"Anime"> | number
+  slug?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Anime"> | string
   titleEnglish?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
   synopsis?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  background?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   type?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   episodes?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
   status?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  airing?: Prisma.BoolWithAggregatesFilter<"Anime"> | boolean
   airedFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"Anime"> | Date | string | null
   airedTo?: Prisma.DateTimeNullableWithAggregatesFilter<"Anime"> | Date | string | null
+  duration?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   season?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   year?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
   rating?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   score?: Prisma.FloatNullableWithAggregatesFilter<"Anime"> | number | null
+  scoredBy?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
+  rank?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
+  popularity?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
+  membersCount?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
+  favoritesCount?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  imageSmallUrl?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  imageWebpUrl?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  localImagePath?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  trailerYoutubeId?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  broadcastDay?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  broadcastTime?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  broadcastTz?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   source?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  lastSyncedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Anime"> | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityWithAggregatesFilter<"Anime"> | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntWithAggregatesFilter<"Anime"> | number
+  isStub?: Prisma.BoolWithAggregatesFilter<"Anime"> | boolean
+  kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
+  waieScore?: Prisma.FloatNullableWithAggregatesFilter<"Anime"> | number | null
+  isFeatured?: Prisma.BoolWithAggregatesFilter<"Anime"> | boolean
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Anime"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Anime"> | Date | string
 }
 
 export type AnimeCreateInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -498,25 +855,53 @@ export type AnimeCreateInput = {
 export type AnimeUncheckedCreateInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -528,25 +913,53 @@ export type AnimeUncheckedCreateInput = {
 export type AnimeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -558,25 +971,53 @@ export type AnimeUpdateInput = {
 export type AnimeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -588,88 +1029,196 @@ export type AnimeUncheckedUpdateInput = {
 export type AnimeCreateManyInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AnimeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AnimeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type AnimeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   malId?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
+  titleSynonyms?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
+  background?: Prisma.SortOrder
   type?: Prisma.SortOrder
   episodes?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  airing?: Prisma.SortOrder
   airedFrom?: Prisma.SortOrder
   airedTo?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   season?: Prisma.SortOrder
   year?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  scoredBy?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  popularity?: Prisma.SortOrder
+  membersCount?: Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  imageSmallUrl?: Prisma.SortOrder
+  imageWebpUrl?: Prisma.SortOrder
+  localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
+  trailerYoutubeId?: Prisma.SortOrder
+  broadcastDay?: Prisma.SortOrder
+  broadcastTime?: Prisma.SortOrder
+  broadcastTz?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  lastSyncedAt?: Prisma.SortOrder
+  syncPriority?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  isStub?: Prisma.SortOrder
+  kaiveronTags?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -678,49 +1227,102 @@ export type AnimeAvgOrderByAggregateInput = {
   episodes?: Prisma.SortOrder
   year?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  scoredBy?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  popularity?: Prisma.SortOrder
+  membersCount?: Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrder
 }
 
 export type AnimeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   malId?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
+  background?: Prisma.SortOrder
   type?: Prisma.SortOrder
   episodes?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  airing?: Prisma.SortOrder
   airedFrom?: Prisma.SortOrder
   airedTo?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   season?: Prisma.SortOrder
   year?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  scoredBy?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  popularity?: Prisma.SortOrder
+  membersCount?: Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  imageSmallUrl?: Prisma.SortOrder
+  imageWebpUrl?: Prisma.SortOrder
+  localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
+  trailerYoutubeId?: Prisma.SortOrder
+  broadcastDay?: Prisma.SortOrder
+  broadcastTime?: Prisma.SortOrder
+  broadcastTz?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  lastSyncedAt?: Prisma.SortOrder
+  syncPriority?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  isStub?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type AnimeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   malId?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
+  background?: Prisma.SortOrder
   type?: Prisma.SortOrder
   episodes?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  airing?: Prisma.SortOrder
   airedFrom?: Prisma.SortOrder
   airedTo?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   season?: Prisma.SortOrder
   year?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  scoredBy?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  popularity?: Prisma.SortOrder
+  membersCount?: Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  imageSmallUrl?: Prisma.SortOrder
+  imageWebpUrl?: Prisma.SortOrder
+  localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
+  trailerYoutubeId?: Prisma.SortOrder
+  broadcastDay?: Prisma.SortOrder
+  broadcastTime?: Prisma.SortOrder
+  broadcastTz?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  lastSyncedAt?: Prisma.SortOrder
+  syncPriority?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  isStub?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -729,6 +1331,13 @@ export type AnimeSumOrderByAggregateInput = {
   episodes?: Prisma.SortOrder
   year?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  scoredBy?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  popularity?: Prisma.SortOrder
+  membersCount?: Prisma.SortOrder
+  favoritesCount?: Prisma.SortOrder
+  syncFailCount?: Prisma.SortOrder
+  waieScore?: Prisma.SortOrder
 }
 
 export type AnimeScalarRelationFilter = {
@@ -739,6 +1348,19 @@ export type AnimeScalarRelationFilter = {
 export type AnimeNullableScalarRelationFilter = {
   is?: Prisma.AnimeWhereInput | null
   isNot?: Prisma.AnimeWhereInput | null
+}
+
+export type AnimeCreatetitleSynonymsInput = {
+  set: string[]
+}
+
+export type AnimeCreatekaiveronTagsInput = {
+  set: string[]
+}
+
+export type AnimeUpdatetitleSynonymsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -755,6 +1377,15 @@ export type NullableFloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumSyncPriorityFieldUpdateOperationsInput = {
+  set?: $Enums.SyncPriority
+}
+
+export type AnimeUpdatekaiveronTagsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type AnimeCreateNestedOneWithoutGenresInput = {
@@ -783,6 +1414,50 @@ export type AnimeUpdateOneRequiredWithoutStudiosNestedInput = {
   upsert?: Prisma.AnimeUpsertWithoutStudiosInput
   connect?: Prisma.AnimeWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutStudiosInput, Prisma.AnimeUpdateWithoutStudiosInput>, Prisma.AnimeUncheckedUpdateWithoutStudiosInput>
+}
+
+export type AnimeCreateNestedOneWithoutEpisodeListInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutEpisodeListInput, Prisma.AnimeUncheckedCreateWithoutEpisodeListInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutEpisodeListInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeUpdateOneRequiredWithoutEpisodeListNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutEpisodeListInput, Prisma.AnimeUncheckedCreateWithoutEpisodeListInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutEpisodeListInput
+  upsert?: Prisma.AnimeUpsertWithoutEpisodeListInput
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutEpisodeListInput, Prisma.AnimeUpdateWithoutEpisodeListInput>, Prisma.AnimeUncheckedUpdateWithoutEpisodeListInput>
+}
+
+export type AnimeCreateNestedOneWithoutRelationsInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRelationsInput, Prisma.AnimeUncheckedCreateWithoutRelationsInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRelationsInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeCreateNestedOneWithoutRelatedToInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRelatedToInput, Prisma.AnimeUncheckedCreateWithoutRelatedToInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRelatedToInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeUpdateOneRequiredWithoutRelationsNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRelationsInput, Prisma.AnimeUncheckedCreateWithoutRelationsInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRelationsInput
+  upsert?: Prisma.AnimeUpsertWithoutRelationsInput
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutRelationsInput, Prisma.AnimeUpdateWithoutRelationsInput>, Prisma.AnimeUncheckedUpdateWithoutRelationsInput>
+}
+
+export type AnimeUpdateOneWithoutRelatedToNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRelatedToInput, Prisma.AnimeUncheckedCreateWithoutRelatedToInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRelatedToInput
+  upsert?: Prisma.AnimeUpsertWithoutRelatedToInput
+  disconnect?: Prisma.AnimeWhereInput | boolean
+  delete?: Prisma.AnimeWhereInput | boolean
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutRelatedToInput, Prisma.AnimeUpdateWithoutRelatedToInput>, Prisma.AnimeUncheckedUpdateWithoutRelatedToInput>
 }
 
 export type AnimeCreateNestedOneWithoutListEntriesInput = {
@@ -880,24 +1555,52 @@ export type AnimeUpdateOneWithoutShotsNestedInput = {
 export type AnimeCreateWithoutGenresInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -909,24 +1612,52 @@ export type AnimeCreateWithoutGenresInput = {
 export type AnimeUncheckedCreateWithoutGenresInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -954,24 +1685,52 @@ export type AnimeUpdateToOneWithWhereWithoutGenresInput = {
 export type AnimeUpdateWithoutGenresInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -983,24 +1742,52 @@ export type AnimeUpdateWithoutGenresInput = {
 export type AnimeUncheckedUpdateWithoutGenresInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1012,24 +1799,52 @@ export type AnimeUncheckedUpdateWithoutGenresInput = {
 export type AnimeCreateWithoutStudiosInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -1041,24 +1856,52 @@ export type AnimeCreateWithoutStudiosInput = {
 export type AnimeUncheckedCreateWithoutStudiosInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -1086,24 +1929,52 @@ export type AnimeUpdateToOneWithWhereWithoutStudiosInput = {
 export type AnimeUpdateWithoutStudiosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -1115,24 +1986,784 @@ export type AnimeUpdateWithoutStudiosInput = {
 export type AnimeUncheckedUpdateWithoutStudiosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeCreateWithoutEpisodeListInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutEpisodeListInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutEpisodeListInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutEpisodeListInput, Prisma.AnimeUncheckedCreateWithoutEpisodeListInput>
+}
+
+export type AnimeUpsertWithoutEpisodeListInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutEpisodeListInput, Prisma.AnimeUncheckedUpdateWithoutEpisodeListInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutEpisodeListInput, Prisma.AnimeUncheckedCreateWithoutEpisodeListInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutEpisodeListInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutEpisodeListInput, Prisma.AnimeUncheckedUpdateWithoutEpisodeListInput>
+}
+
+export type AnimeUpdateWithoutEpisodeListInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutEpisodeListInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeCreateWithoutRelationsInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutRelationsInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutRelationsInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRelationsInput, Prisma.AnimeUncheckedCreateWithoutRelationsInput>
+}
+
+export type AnimeCreateWithoutRelatedToInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutRelatedToInput = {
+  id?: string
+  malId: number
+  slug?: string | null
+  title: string
+  titleEnglish?: string | null
+  titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  synopsis?: string | null
+  background?: string | null
+  type?: string | null
+  episodes?: number | null
+  status?: string | null
+  airing?: boolean
+  airedFrom?: Date | string | null
+  airedTo?: Date | string | null
+  duration?: string | null
+  season?: string | null
+  year?: number | null
+  rating?: string | null
+  score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
+  imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
+  trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
+  source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
+  studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLinkedAnimeInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutRelatedToInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRelatedToInput, Prisma.AnimeUncheckedCreateWithoutRelatedToInput>
+}
+
+export type AnimeUpsertWithoutRelationsInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutRelationsInput, Prisma.AnimeUncheckedUpdateWithoutRelationsInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRelationsInput, Prisma.AnimeUncheckedCreateWithoutRelationsInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutRelationsInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutRelationsInput, Prisma.AnimeUncheckedUpdateWithoutRelationsInput>
+}
+
+export type AnimeUpdateWithoutRelationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutRelationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeUpsertWithoutRelatedToInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutRelatedToInput, Prisma.AnimeUncheckedUpdateWithoutRelatedToInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRelatedToInput, Prisma.AnimeUncheckedCreateWithoutRelatedToInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutRelatedToInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutRelatedToInput, Prisma.AnimeUncheckedUpdateWithoutRelatedToInput>
+}
+
+export type AnimeUpdateWithoutRelatedToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLinkedAnimeNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutRelatedToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
+  studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1144,25 +2775,53 @@ export type AnimeUncheckedUpdateWithoutStudiosInput = {
 export type AnimeCreateWithoutListEntriesInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
@@ -1173,25 +2832,53 @@ export type AnimeCreateWithoutListEntriesInput = {
 export type AnimeUncheckedCreateWithoutListEntriesInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
@@ -1218,25 +2905,53 @@ export type AnimeUpdateToOneWithWhereWithoutListEntriesInput = {
 export type AnimeUpdateWithoutListEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
@@ -1247,25 +2962,53 @@ export type AnimeUpdateWithoutListEntriesInput = {
 export type AnimeUncheckedUpdateWithoutListEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1276,25 +3019,53 @@ export type AnimeUncheckedUpdateWithoutListEntriesInput = {
 export type AnimeCreateWithoutPostsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
@@ -1305,25 +3076,53 @@ export type AnimeCreateWithoutPostsInput = {
 export type AnimeUncheckedCreateWithoutPostsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
@@ -1350,25 +3149,53 @@ export type AnimeUpdateToOneWithWhereWithoutPostsInput = {
 export type AnimeUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
@@ -1379,25 +3206,53 @@ export type AnimeUpdateWithoutPostsInput = {
 export type AnimeUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1408,25 +3263,53 @@ export type AnimeUncheckedUpdateWithoutPostsInput = {
 export type AnimeCreateWithoutThreadsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAnimeInput
@@ -1437,25 +3320,53 @@ export type AnimeCreateWithoutThreadsInput = {
 export type AnimeUncheckedCreateWithoutThreadsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAnimeInput
@@ -1482,25 +3393,53 @@ export type AnimeUpdateToOneWithWhereWithoutThreadsInput = {
 export type AnimeUpdateWithoutThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAnimeNestedInput
@@ -1511,25 +3450,53 @@ export type AnimeUpdateWithoutThreadsInput = {
 export type AnimeUncheckedUpdateWithoutThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1540,25 +3507,53 @@ export type AnimeUncheckedUpdateWithoutThreadsInput = {
 export type AnimeCreateWithoutReviewsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -1569,25 +3564,53 @@ export type AnimeCreateWithoutReviewsInput = {
 export type AnimeUncheckedCreateWithoutReviewsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -1614,25 +3637,53 @@ export type AnimeUpdateToOneWithWhereWithoutReviewsInput = {
 export type AnimeUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -1643,25 +3694,53 @@ export type AnimeUpdateWithoutReviewsInput = {
 export type AnimeUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1672,25 +3751,53 @@ export type AnimeUncheckedUpdateWithoutReviewsInput = {
 export type AnimeCreateWithoutActivitiesInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -1701,25 +3808,53 @@ export type AnimeCreateWithoutActivitiesInput = {
 export type AnimeUncheckedCreateWithoutActivitiesInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -1746,25 +3881,53 @@ export type AnimeUpdateToOneWithWhereWithoutActivitiesInput = {
 export type AnimeUpdateWithoutActivitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -1775,25 +3938,53 @@ export type AnimeUpdateWithoutActivitiesInput = {
 export type AnimeUncheckedUpdateWithoutActivitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1804,25 +3995,53 @@ export type AnimeUncheckedUpdateWithoutActivitiesInput = {
 export type AnimeCreateWithoutShotsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAnimeInput
@@ -1833,25 +4052,53 @@ export type AnimeCreateWithoutShotsInput = {
 export type AnimeUncheckedCreateWithoutShotsInput = {
   id?: string
   malId: number
+  slug?: string | null
   title: string
   titleEnglish?: string | null
   titleJapanese?: string | null
+  titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
   synopsis?: string | null
+  background?: string | null
   type?: string | null
   episodes?: number | null
   status?: string | null
+  airing?: boolean
   airedFrom?: Date | string | null
   airedTo?: Date | string | null
+  duration?: string | null
   season?: string | null
   year?: number | null
   rating?: string | null
   score?: number | null
+  scoredBy?: number | null
+  rank?: number | null
+  popularity?: number | null
+  membersCount?: number | null
+  favoritesCount?: number | null
   imageUrl?: string | null
+  imageSmallUrl?: string | null
+  imageWebpUrl?: string | null
+  localImagePath?: string | null
   trailerUrl?: string | null
+  trailerYoutubeId?: string | null
+  broadcastDay?: string | null
+  broadcastTime?: string | null
+  broadcastTz?: string | null
   source?: string | null
+  lastSyncedAt?: Date | string | null
+  syncPriority?: $Enums.SyncPriority
+  syncFailCount?: number
+  isStub?: boolean
+  kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
+  waieScore?: number | null
+  isFeatured?: boolean
+  createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutAnimeInput
   studios?: Prisma.AnimeStudioUncheckedCreateNestedManyWithoutAnimeInput
+  episodeList?: Prisma.EpisodeUncheckedCreateNestedManyWithoutAnimeInput
+  relations?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutSourceInput
+  relatedTo?: Prisma.AnimeRelationUncheckedCreateNestedManyWithoutTargetInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutAnimeInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAnimeInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAnimeInput
@@ -1878,25 +4125,53 @@ export type AnimeUpdateToOneWithWhereWithoutShotsInput = {
 export type AnimeUpdateWithoutShotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAnimeNestedInput
@@ -1907,25 +4182,53 @@ export type AnimeUpdateWithoutShotsInput = {
 export type AnimeUncheckedUpdateWithoutShotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   episodes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  airing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   airedFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   airedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rating?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  scoredBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  membersCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  favoritesCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageSmallUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageWebpUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  syncPriority?: Prisma.EnumSyncPriorityFieldUpdateOperationsInput | $Enums.SyncPriority
+  syncFailCount?: Prisma.IntFieldUpdateOperationsInput | number
+  isStub?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
+  waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.AnimeGenreUncheckedUpdateManyWithoutAnimeNestedInput
   studios?: Prisma.AnimeStudioUncheckedUpdateManyWithoutAnimeNestedInput
+  episodeList?: Prisma.EpisodeUncheckedUpdateManyWithoutAnimeNestedInput
+  relations?: Prisma.AnimeRelationUncheckedUpdateManyWithoutSourceNestedInput
+  relatedTo?: Prisma.AnimeRelationUncheckedUpdateManyWithoutTargetNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutAnimeNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAnimeNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAnimeNestedInput
@@ -1941,6 +4244,9 @@ export type AnimeUncheckedUpdateWithoutShotsInput = {
 export type AnimeCountOutputType = {
   genres: number
   studios: number
+  episodeList: number
+  relations: number
+  relatedTo: number
   listEntries: number
   posts: number
   threads: number
@@ -1952,6 +4258,9 @@ export type AnimeCountOutputType = {
 export type AnimeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | AnimeCountOutputTypeCountGenresArgs
   studios?: boolean | AnimeCountOutputTypeCountStudiosArgs
+  episodeList?: boolean | AnimeCountOutputTypeCountEpisodeListArgs
+  relations?: boolean | AnimeCountOutputTypeCountRelationsArgs
+  relatedTo?: boolean | AnimeCountOutputTypeCountRelatedToArgs
   listEntries?: boolean | AnimeCountOutputTypeCountListEntriesArgs
   posts?: boolean | AnimeCountOutputTypeCountPostsArgs
   threads?: boolean | AnimeCountOutputTypeCountThreadsArgs
@@ -1982,6 +4291,27 @@ export type AnimeCountOutputTypeCountGenresArgs<ExtArgs extends runtime.Types.Ex
  */
 export type AnimeCountOutputTypeCountStudiosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AnimeStudioWhereInput
+}
+
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountEpisodeListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EpisodeWhereInput
+}
+
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountRelationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnimeRelationWhereInput
+}
+
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountRelatedToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnimeRelationWhereInput
 }
 
 /**
@@ -2030,25 +4360,53 @@ export type AnimeCountOutputTypeCountShotsArgs<ExtArgs extends runtime.Types.Ext
 export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   malId?: boolean
+  slug?: boolean
   title?: boolean
   titleEnglish?: boolean
   titleJapanese?: boolean
+  titleSynonyms?: boolean
   synopsis?: boolean
+  background?: boolean
   type?: boolean
   episodes?: boolean
   status?: boolean
+  airing?: boolean
   airedFrom?: boolean
   airedTo?: boolean
+  duration?: boolean
   season?: boolean
   year?: boolean
   rating?: boolean
   score?: boolean
+  scoredBy?: boolean
+  rank?: boolean
+  popularity?: boolean
+  membersCount?: boolean
+  favoritesCount?: boolean
   imageUrl?: boolean
+  imageSmallUrl?: boolean
+  imageWebpUrl?: boolean
+  localImagePath?: boolean
   trailerUrl?: boolean
+  trailerYoutubeId?: boolean
+  broadcastDay?: boolean
+  broadcastTime?: boolean
+  broadcastTz?: boolean
   source?: boolean
+  lastSyncedAt?: boolean
+  syncPriority?: boolean
+  syncFailCount?: boolean
+  isStub?: boolean
+  kaiveronTags?: boolean
+  waieScore?: boolean
+  isFeatured?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
   genres?: boolean | Prisma.Anime$genresArgs<ExtArgs>
   studios?: boolean | Prisma.Anime$studiosArgs<ExtArgs>
+  episodeList?: boolean | Prisma.Anime$episodeListArgs<ExtArgs>
+  relations?: boolean | Prisma.Anime$relationsArgs<ExtArgs>
+  relatedTo?: boolean | Prisma.Anime$relatedToArgs<ExtArgs>
   listEntries?: boolean | Prisma.Anime$listEntriesArgs<ExtArgs>
   posts?: boolean | Prisma.Anime$postsArgs<ExtArgs>
   threads?: boolean | Prisma.Anime$threadsArgs<ExtArgs>
@@ -2061,73 +4419,151 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type AnimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   malId?: boolean
+  slug?: boolean
   title?: boolean
   titleEnglish?: boolean
   titleJapanese?: boolean
+  titleSynonyms?: boolean
   synopsis?: boolean
+  background?: boolean
   type?: boolean
   episodes?: boolean
   status?: boolean
+  airing?: boolean
   airedFrom?: boolean
   airedTo?: boolean
+  duration?: boolean
   season?: boolean
   year?: boolean
   rating?: boolean
   score?: boolean
+  scoredBy?: boolean
+  rank?: boolean
+  popularity?: boolean
+  membersCount?: boolean
+  favoritesCount?: boolean
   imageUrl?: boolean
+  imageSmallUrl?: boolean
+  imageWebpUrl?: boolean
+  localImagePath?: boolean
   trailerUrl?: boolean
+  trailerYoutubeId?: boolean
+  broadcastDay?: boolean
+  broadcastTime?: boolean
+  broadcastTz?: boolean
   source?: boolean
+  lastSyncedAt?: boolean
+  syncPriority?: boolean
+  syncFailCount?: boolean
+  isStub?: boolean
+  kaiveronTags?: boolean
+  waieScore?: boolean
+  isFeatured?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["anime"]>
 
 export type AnimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   malId?: boolean
+  slug?: boolean
   title?: boolean
   titleEnglish?: boolean
   titleJapanese?: boolean
+  titleSynonyms?: boolean
   synopsis?: boolean
+  background?: boolean
   type?: boolean
   episodes?: boolean
   status?: boolean
+  airing?: boolean
   airedFrom?: boolean
   airedTo?: boolean
+  duration?: boolean
   season?: boolean
   year?: boolean
   rating?: boolean
   score?: boolean
+  scoredBy?: boolean
+  rank?: boolean
+  popularity?: boolean
+  membersCount?: boolean
+  favoritesCount?: boolean
   imageUrl?: boolean
+  imageSmallUrl?: boolean
+  imageWebpUrl?: boolean
+  localImagePath?: boolean
   trailerUrl?: boolean
+  trailerYoutubeId?: boolean
+  broadcastDay?: boolean
+  broadcastTime?: boolean
+  broadcastTz?: boolean
   source?: boolean
+  lastSyncedAt?: boolean
+  syncPriority?: boolean
+  syncFailCount?: boolean
+  isStub?: boolean
+  kaiveronTags?: boolean
+  waieScore?: boolean
+  isFeatured?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["anime"]>
 
 export type AnimeSelectScalar = {
   id?: boolean
   malId?: boolean
+  slug?: boolean
   title?: boolean
   titleEnglish?: boolean
   titleJapanese?: boolean
+  titleSynonyms?: boolean
   synopsis?: boolean
+  background?: boolean
   type?: boolean
   episodes?: boolean
   status?: boolean
+  airing?: boolean
   airedFrom?: boolean
   airedTo?: boolean
+  duration?: boolean
   season?: boolean
   year?: boolean
   rating?: boolean
   score?: boolean
+  scoredBy?: boolean
+  rank?: boolean
+  popularity?: boolean
+  membersCount?: boolean
+  favoritesCount?: boolean
   imageUrl?: boolean
+  imageSmallUrl?: boolean
+  imageWebpUrl?: boolean
+  localImagePath?: boolean
   trailerUrl?: boolean
+  trailerYoutubeId?: boolean
+  broadcastDay?: boolean
+  broadcastTime?: boolean
+  broadcastTz?: boolean
   source?: boolean
+  lastSyncedAt?: boolean
+  syncPriority?: boolean
+  syncFailCount?: boolean
+  isStub?: boolean
+  kaiveronTags?: boolean
+  waieScore?: boolean
+  isFeatured?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "title" | "titleEnglish" | "titleJapanese" | "synopsis" | "type" | "episodes" | "status" | "airedFrom" | "airedTo" | "season" | "year" | "rating" | "score" | "imageUrl" | "trailerUrl" | "source" | "updatedAt", ExtArgs["result"]["anime"]>
+export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
 export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Anime$genresArgs<ExtArgs>
   studios?: boolean | Prisma.Anime$studiosArgs<ExtArgs>
+  episodeList?: boolean | Prisma.Anime$episodeListArgs<ExtArgs>
+  relations?: boolean | Prisma.Anime$relationsArgs<ExtArgs>
+  relatedTo?: boolean | Prisma.Anime$relatedToArgs<ExtArgs>
   listEntries?: boolean | Prisma.Anime$listEntriesArgs<ExtArgs>
   posts?: boolean | Prisma.Anime$postsArgs<ExtArgs>
   threads?: boolean | Prisma.Anime$threadsArgs<ExtArgs>
@@ -2144,6 +4580,9 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     genres: Prisma.$AnimeGenrePayload<ExtArgs>[]
     studios: Prisma.$AnimeStudioPayload<ExtArgs>[]
+    episodeList: Prisma.$EpisodePayload<ExtArgs>[]
+    relations: Prisma.$AnimeRelationPayload<ExtArgs>[]
+    relatedTo: Prisma.$AnimeRelationPayload<ExtArgs>[]
     listEntries: Prisma.$ListEntryPayload<ExtArgs>[]
     posts: Prisma.$PostPayload<ExtArgs>[]
     threads: Prisma.$ThreadPayload<ExtArgs>[]
@@ -2154,22 +4593,63 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     malId: number
+    /**
+     * SEO-friendly slug ("fullmetal-alchemist-brotherhood"). Set ONCE on first
+     * full sync and never changed (stable URLs). Nullable so pre-existing rows
+     * can be backfilled lazily — same pattern as User.slug.
+     */
+    slug: string | null
     title: string
     titleEnglish: string | null
     titleJapanese: string | null
+    titleSynonyms: string[]
     synopsis: string | null
+    background: string | null
     type: string | null
     episodes: number | null
     status: string | null
+    airing: boolean
     airedFrom: Date | null
     airedTo: Date | null
+    duration: string | null
     season: string | null
     year: number | null
     rating: string | null
     score: number | null
+    scoredBy: number | null
+    rank: number | null
+    popularity: number | null
+    membersCount: number | null
+    favoritesCount: number | null
     imageUrl: string | null
+    imageSmallUrl: string | null
+    imageWebpUrl: string | null
+    /**
+     * Reserved for a future CDN-mirroring phase. Never written by sync.
+     */
+    localImagePath: string | null
     trailerUrl: string | null
+    trailerYoutubeId: string | null
+    broadcastDay: string | null
+    broadcastTime: string | null
+    broadcastTz: string | null
     source: string | null
+    /**
+     * Null = never fully synced from /anime/{id}/full (row came from a list/
+     * search payload or predates the sync worker).
+     */
+    lastSyncedAt: Date | null
+    syncPriority: $Enums.SyncPriority
+    syncFailCount: number
+    /**
+     * True when the row was created from a search/list payload and the full
+     * detail fetch hasn't happened yet.
+     */
+    isStub: boolean
+    kaiveronTags: string[]
+    waieScore: number | null
+    isFeatured: boolean
+    createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["anime"]>
   composites: {}
@@ -2567,6 +5047,9 @@ export interface Prisma__AnimeClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   genres<T extends Prisma.Anime$genresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$genresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimeGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   studios<T extends Prisma.Anime$studiosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$studiosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimeStudioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  episodeList<T extends Prisma.Anime$episodeListArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$episodeListArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  relations<T extends Prisma.Anime$relationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$relationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimeRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  relatedTo<T extends Prisma.Anime$relatedToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$relatedToArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimeRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   listEntries<T extends Prisma.Anime$listEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$listEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts<T extends Prisma.Anime$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threads<T extends Prisma.Anime$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2604,22 +5087,47 @@ export interface Prisma__AnimeClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface AnimeFieldRefs {
   readonly id: Prisma.FieldRef<"Anime", 'String'>
   readonly malId: Prisma.FieldRef<"Anime", 'Int'>
+  readonly slug: Prisma.FieldRef<"Anime", 'String'>
   readonly title: Prisma.FieldRef<"Anime", 'String'>
   readonly titleEnglish: Prisma.FieldRef<"Anime", 'String'>
   readonly titleJapanese: Prisma.FieldRef<"Anime", 'String'>
+  readonly titleSynonyms: Prisma.FieldRef<"Anime", 'String[]'>
   readonly synopsis: Prisma.FieldRef<"Anime", 'String'>
+  readonly background: Prisma.FieldRef<"Anime", 'String'>
   readonly type: Prisma.FieldRef<"Anime", 'String'>
   readonly episodes: Prisma.FieldRef<"Anime", 'Int'>
   readonly status: Prisma.FieldRef<"Anime", 'String'>
+  readonly airing: Prisma.FieldRef<"Anime", 'Boolean'>
   readonly airedFrom: Prisma.FieldRef<"Anime", 'DateTime'>
   readonly airedTo: Prisma.FieldRef<"Anime", 'DateTime'>
+  readonly duration: Prisma.FieldRef<"Anime", 'String'>
   readonly season: Prisma.FieldRef<"Anime", 'String'>
   readonly year: Prisma.FieldRef<"Anime", 'Int'>
   readonly rating: Prisma.FieldRef<"Anime", 'String'>
   readonly score: Prisma.FieldRef<"Anime", 'Float'>
+  readonly scoredBy: Prisma.FieldRef<"Anime", 'Int'>
+  readonly rank: Prisma.FieldRef<"Anime", 'Int'>
+  readonly popularity: Prisma.FieldRef<"Anime", 'Int'>
+  readonly membersCount: Prisma.FieldRef<"Anime", 'Int'>
+  readonly favoritesCount: Prisma.FieldRef<"Anime", 'Int'>
   readonly imageUrl: Prisma.FieldRef<"Anime", 'String'>
+  readonly imageSmallUrl: Prisma.FieldRef<"Anime", 'String'>
+  readonly imageWebpUrl: Prisma.FieldRef<"Anime", 'String'>
+  readonly localImagePath: Prisma.FieldRef<"Anime", 'String'>
   readonly trailerUrl: Prisma.FieldRef<"Anime", 'String'>
+  readonly trailerYoutubeId: Prisma.FieldRef<"Anime", 'String'>
+  readonly broadcastDay: Prisma.FieldRef<"Anime", 'String'>
+  readonly broadcastTime: Prisma.FieldRef<"Anime", 'String'>
+  readonly broadcastTz: Prisma.FieldRef<"Anime", 'String'>
   readonly source: Prisma.FieldRef<"Anime", 'String'>
+  readonly lastSyncedAt: Prisma.FieldRef<"Anime", 'DateTime'>
+  readonly syncPriority: Prisma.FieldRef<"Anime", 'SyncPriority'>
+  readonly syncFailCount: Prisma.FieldRef<"Anime", 'Int'>
+  readonly isStub: Prisma.FieldRef<"Anime", 'Boolean'>
+  readonly kaiveronTags: Prisma.FieldRef<"Anime", 'String[]'>
+  readonly waieScore: Prisma.FieldRef<"Anime", 'Float'>
+  readonly isFeatured: Prisma.FieldRef<"Anime", 'Boolean'>
+  readonly createdAt: Prisma.FieldRef<"Anime", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Anime", 'DateTime'>
 }
     
@@ -3054,6 +5562,78 @@ export type Anime$studiosArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AnimeStudioScalarFieldEnum | Prisma.AnimeStudioScalarFieldEnum[]
+}
+
+/**
+ * Anime.episodeList
+ */
+export type Anime$episodeListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Episode
+   */
+  select?: Prisma.EpisodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Episode
+   */
+  omit?: Prisma.EpisodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EpisodeInclude<ExtArgs> | null
+  where?: Prisma.EpisodeWhereInput
+  orderBy?: Prisma.EpisodeOrderByWithRelationInput | Prisma.EpisodeOrderByWithRelationInput[]
+  cursor?: Prisma.EpisodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EpisodeScalarFieldEnum | Prisma.EpisodeScalarFieldEnum[]
+}
+
+/**
+ * Anime.relations
+ */
+export type Anime$relationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnimeRelation
+   */
+  select?: Prisma.AnimeRelationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnimeRelation
+   */
+  omit?: Prisma.AnimeRelationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnimeRelationInclude<ExtArgs> | null
+  where?: Prisma.AnimeRelationWhereInput
+  orderBy?: Prisma.AnimeRelationOrderByWithRelationInput | Prisma.AnimeRelationOrderByWithRelationInput[]
+  cursor?: Prisma.AnimeRelationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnimeRelationScalarFieldEnum | Prisma.AnimeRelationScalarFieldEnum[]
+}
+
+/**
+ * Anime.relatedTo
+ */
+export type Anime$relatedToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnimeRelation
+   */
+  select?: Prisma.AnimeRelationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnimeRelation
+   */
+  omit?: Prisma.AnimeRelationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnimeRelationInclude<ExtArgs> | null
+  where?: Prisma.AnimeRelationWhereInput
+  orderBy?: Prisma.AnimeRelationOrderByWithRelationInput | Prisma.AnimeRelationOrderByWithRelationInput[]
+  cursor?: Prisma.AnimeRelationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnimeRelationScalarFieldEnum | Prisma.AnimeRelationScalarFieldEnum[]
 }
 
 /**

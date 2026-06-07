@@ -60,6 +60,11 @@ model User {
   bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
   isShadowBanned Boolean @default(false)  // soft moderation: user can post but content is hidden from others
   isPrivate    Boolean  @default(false)   // private account (Instagram-style): followers need approval
+  // DM privacy (DM v2). Who may start a DM, whether read receipts are sent,
+  // and who may see online/last-seen status. Enforced server-side.
+  dmPrivacy        String  @default("everyone")   // everyone | followers | nobody
+  readReceiptsOn   Boolean @default(true)
+  showOnlineStatus String  @default("everyone")   // everyone | followers | nobody
   // Streak tracking — real database-backed (not rep estimate)
   streakDays   Int      @default(0)
   lastActiveAt DateTime?
@@ -118,6 +123,9 @@ model User {
   replies            Reply[]
   // SCIM 2.0 provisioning mapping (optional — only populated if an IdP provisioned this user)
   scimSubject        ScimSubject?
+  // DM safety + privacy (DM v2)
+  blocksMade         UserBlock[]        @relation("blocksMade")
+  blocksReceived     UserBlock[]        @relation("blocksReceived")
 }
 
 // One row per registered push-notification device for a user.
@@ -229,29 +237,80 @@ model Follow {
 // Anime catalog
 // ---------------------------------------------------------------------------
 
+// How aggressively the sync worker refreshes an anime from Jikan.
+//   HOT    — currently airing / airing within 60 days (refresh every ~6h)
+//   NORMAL — everything else (refresh every ~7 days)
+//   COLD   — finished 2+ years ago, or repeatedly failing (refresh every ~30 days)
+enum SyncPriority {
+  HOT
+  NORMAL
+  COLD
+}
+
 model Anime {
   id             String    @id @default(cuid())
   malId          Int       @unique
+  /// SEO-friendly slug ("fullmetal-alchemist-brotherhood"). Set ONCE on first
+  /// full sync and never changed (stable URLs). Nullable so pre-existing rows
+  /// can be backfilled lazily — same pattern as User.slug.
+  slug           String?   @unique
   title          String
   titleEnglish   String?
   titleJapanese  String?
+  titleSynonyms  String[]  @default([])
   synopsis       String?
+  background     String?
   type           String?
-  episodes       Int?
+  episodes       Int?      // total episode count from Jikan (null = unknown/ongoing)
   status         String?
+  airing         Boolean   @default(false)
   airedFrom      DateTime?
   airedTo        DateTime?
+  duration       String?
   season         String?
   year           Int?
   rating         String?
   score          Float?
-  imageUrl       String?
+  scoredBy       Int?
+  rank           Int?
+  popularity     Int?
+  membersCount   Int?
+  favoritesCount Int?
+  imageUrl       String?   // large JPG — kept as the canonical field the frontend reads
+  imageSmallUrl  String?
+  imageWebpUrl   String?
+  /// Reserved for a future CDN-mirroring phase. Never written by sync.
+  localImagePath String?
   trailerUrl     String?
+  trailerYoutubeId String?
+  broadcastDay   String?
+  broadcastTime  String?
+  broadcastTz    String?
   source         String?
+
+  // ── Sync bookkeeping ──
+  /// Null = never fully synced from /anime/{id}/full (row came from a list/
+  /// search payload or predates the sync worker).
+  lastSyncedAt   DateTime?
+  syncPriority   SyncPriority @default(NORMAL)
+  syncFailCount  Int       @default(0)
+  /// True when the row was created from a search/list payload and the full
+  /// detail fetch hasn't happened yet.
+  isStub         Boolean   @default(false)
+
+  // ── Kaiveron-native enrichment — NEVER overwritten by sync ──
+  kaiveronTags   String[]  @default([])
+  waieScore      Float?
+  isFeatured     Boolean   @default(false)
+
+  createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
   genres      AnimeGenre[]
   studios     AnimeStudio[]
+  episodeList Episode[]
+  relations   AnimeRelation[] @relation("RelationSource")
+  relatedTo   AnimeRelation[] @relation("RelationTarget")
   listEntries ListEntry[]
   posts       Post[]
   threads     Thread[]
@@ -260,19 +319,32 @@ model Anime {
   shots       Shot[]
 
   @@index([malId])
+  @@index([slug])
   @@index([score])
+  @@index([popularity])
+  @@index([season, year])
+  @@index([status, syncPriority])
+  @@index([syncPriority, lastSyncedAt])
+  @@index([title])
 }
 
 model Genre {
-  id   String @id @default(cuid())
-  name String @unique
+  id    String @id @default(cuid())
+  name  String @unique
+  /// Jikan/MAL genre id. Nullable: pre-existing rows were keyed by name only
+  /// and are backfilled as full syncs run.
+  malId Int?   @unique
+  /// genre | explicit_genre | theme | demographic (Jikan's four genre buckets)
+  type  String @default("genre")
 
   animes AnimeGenre[]
 }
 
 model Studio {
-  id   String @id @default(cuid())
-  name String @unique
+  id    String @id @default(cuid())
+  name  String @unique
+  /// Jikan/MAL producer id. Nullable for pre-existing name-only rows.
+  malId Int?   @unique
 
   animes AnimeStudio[]
 }
@@ -290,11 +362,89 @@ model AnimeGenre {
 model AnimeStudio {
   animeId  String
   studioId String
+  /// studio | producer | licensor (Jikan's three company roles)
+  role     String @default("studio")
 
   anime  Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   studio Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
 
-  @@id([animeId, studioId])
+  @@id([animeId, studioId, role])
+}
+
+model Episode {
+  id            String    @id @default(cuid())
+  animeId       String
+  malEpisodeId  Int       // episode number on MAL
+  title         String?
+  titleJapanese String?
+  titleRomaji   String?
+  aired         DateTime?
+  score         Float?
+  filler        Boolean   @default(false)
+  recap         Boolean   @default(false)
+  synopsis      String?
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@unique([animeId, malEpisodeId])
+  @@index([animeId])
+}
+
+model AnimeRelation {
+  id           String  @id @default(cuid())
+  sourceId     String
+  targetMalId  Int     // target may not exist locally yet
+  targetId     String? // resolved local id when available
+  relationType String  // Sequel, Prequel, Adaptation, Side story...
+
+  source Anime  @relation("RelationSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target Anime? @relation("RelationTarget", fields: [targetId], references: [id], onDelete: SetNull)
+
+  @@unique([sourceId, targetMalId, relationType])
+  @@index([targetMalId])
+}
+
+// ---------------------------------------------------------------------------
+// Anime sync — Postgres-backed job queue + audit log
+// The repo deliberately has no Redis/BullMQ (see lib/jobRegistry.ts); pending
+// sync work is durable rows here, drained by an in-process worker loop that
+// shares the global Jikan rate limiter.
+// ---------------------------------------------------------------------------
+
+model SyncJob {
+  id          String    @id @default(cuid())
+  /// sync-anime-full | sync-episodes | seed-top | seed-season |
+  /// refresh-hot | refresh-normal | refresh-cold
+  jobType     String
+  payload     Json
+  /// Dedupe anchor, e.g. "sync-anime-full:5114". Cleared when the job
+  /// finishes so the same work can be re-enqueued later.
+  dedupeKey   String?   @unique
+  status      String    @default("PENDING") // PENDING | RUNNING | DONE | FAILED
+  priority    Int       @default(0)         // higher runs first
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3)
+  runAt       DateTime  @default(now())     // not claimable before this
+  lockedAt    DateTime?
+  lastError   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status, runAt, priority])
+  @@index([jobType, status])
+}
+
+model SyncJobLog {
+  id         String   @id @default(cuid())
+  jobType    String
+  malId      Int?
+  status     String   // success | failed | skipped
+  error      String?
+  durationMs Int?
+  createdAt  DateTime @default(now())
+
+  @@index([jobType, createdAt])
+  @@index([status, createdAt])
 }
 
 // ---------------------------------------------------------------------------
@@ -703,13 +853,39 @@ model Conversation {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  // DM v2 — message-request state. A conversation starts PENDING when the
+  // initiator isn't followed back by the recipient (privacy-dependent), else
+  // ACTIVE. DECLINED conversations reject further messages from the initiator.
+  status        ConversationStatus @default(ACTIVE)
+  initiatorId   String?                              // who sent the first message
+  // Denormalized sort/cursor key for the inbox (cheaper than joining messages).
+  lastMessageAt DateTime @default(now())
+
+  // Per-participant state (denormalized for cheap inbox queries). p1/p2 map to
+  // participant1/participant2 (canonical lexicographic order).
+  p1UnreadCount Int      @default(0)
+  p2UnreadCount Int      @default(0)
+  p1MutedUntil  DateTime?
+  p2MutedUntil  DateTime?
+  p1DeletedAt   DateTime?            // "delete conversation for me" — hide messages before this
+  p2DeletedAt   DateTime?
+  p1LastReadAt  DateTime?
+  p2LastReadAt  DateTime?
+
   user1    User            @relation("ConvParticipant1", fields: [participant1], references: [id], onDelete: Cascade)
   user2    User            @relation("ConvParticipant2", fields: [participant2], references: [id], onDelete: Cascade)
   messages DirectMessage[]
 
   @@unique([participant1, participant2])
-  @@index([participant1])
-  @@index([participant2])
+  @@index([participant1, lastMessageAt])
+  @@index([participant2, lastMessageAt])
+  @@index([status])
+}
+
+enum ConversationStatus {
+  ACTIVE
+  PENDING
+  DECLINED
 }
 
 // A single encrypted message. The server stores ciphertext only — it cannot
@@ -718,24 +894,48 @@ model DirectMessage {
   id             String    @id @default(cuid())
   conversationId String
   senderId       String
-  ciphertext     String    // AES-GCM encrypted content, base64
-  iv             String    // AES-GCM IV, base64
   createdAt      DateTime  @default(now())
   readAt         DateTime?
+  deliveredAt    DateTime?            // set when recipient's socket is connected
+
+  // DM v2 — server-readable content (TLS in transit). `body` holds text or a
+  // media caption. Legacy E2E rows keep ciphertext/iv and leave body null.
+  type           MessageType @default(TEXT)
+  body           String?     @db.Text
+  // Spoiler segments (||spoiler||) are parsed client-side. animeRef enables
+  // progress-aware gating for ANIME_CARD and tagged messages.
+  animeMalId     Int?
+  animeEpisode   Int?                 // recipient client blurs when their progress < episode
+
+  // Media (IMAGE / VOICE)
+  mediaUrl       String?
+  mediaMime      String?
+  mediaSizeBytes Int?
+  mediaWidth     Int?
+  mediaHeight    Int?
+  mediaDurationS Int?                 // voice notes
+  mediaBlurhash  String?              // blurred image placeholder
+
+  replyToId      String?
+  replyTo        DirectMessage?  @relation("DMReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies        DirectMessage[] @relation("DMReplies")
+
+  editedAt       DateTime?
+  clientNonce    String?              // client-generated id for optimistic UI dedup
+
+  // Legacy E2E (kept nullable for back-compat with pre-v2 messages).
+  ciphertext     String?    // AES-GCM encrypted content, base64
+  iv             String?    // AES-GCM IV, base64
 
   // WhatsApp-style deletion model:
-  // - deletedAt: set when sender uses "Delete for everyone" (within 24h);
-  //   ciphertext is cleared and clients render a tombstone for both users.
-  // - deletedForSender / deletedForRecipient: "Delete for me" — message is
-  //   hidden from that side's view but the other side still sees it.
+  // - deletedAt: "Delete for everyone" (sender, within window); body/media/
+  //   ciphertext cleared, clients render a tombstone for both users.
+  // - deletedForSender / deletedForRecipient: "Delete for me".
   deletedAt             DateTime?
   deletedForSender      Boolean   @default(false)
   deletedForRecipient   Boolean   @default(false)
 
-  // Multi-device E2E (Phase 1, additive & nullable for back-compat). When set,
-  // the message key is wrapped per-device in MessageKeyEnvelope and `ciphertext`
-  // is encrypted with a random per-message key (not the pairwise ECDH secret).
-  // Legacy messages leave these null and use the old single-key path.
+  // Multi-device E2E (legacy Phase 1, additive). Unused by v2 server-readable.
   senderDeviceKeyId String?
 
   conversation    Conversation        @relation(fields: [conversationId], references: [id], onDelete: Cascade)
@@ -744,8 +944,17 @@ model DirectMessage {
   envelopes       MessageKeyEnvelope[]
   reactions       MessageReaction[]
 
+  @@unique([conversationId, clientNonce])
   @@index([conversationId, createdAt])
   @@index([senderId])
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  VOICE
+  ANIME_CARD
+  SYSTEM
 }
 
 // Emoji reactions on a direct message. One row per (message, user, emoji).
@@ -796,6 +1005,38 @@ model MessageKeyEnvelope {
 
   @@unique([messageId, recipientDeviceKeyId])
   @@index([recipientDeviceKeyId])
+}
+
+// DM v2 — one-directional user block. Enforced server-side on every DM path
+// (send, typing, presence, read receipts, reactions), both directions.
+model UserBlock {
+  id        String   @id @default(cuid())
+  blockerId String
+  blockedId String
+  blocker   User     @relation("blocksMade",     fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked   User     @relation("blocksReceived", fields: [blockedId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([blockerId, blockedId])
+  @@index([blockedId])
+}
+
+// DM v2 — abuse report for a conversation/message. `details` stores an
+// immutable JSON snapshot of the last 50 messages so moderators can review
+// even after deletion. Distinct from the posts-domain Report model.
+model MessageReport {
+  id             String   @id @default(cuid())
+  reporterId     String
+  reportedUserId String
+  conversationId String
+  messageId      String?
+  reason         String                       // spam | harassment | nsfw | other
+  details        String?  @db.Text            // JSON snapshot (immutable)
+  status         String   @default("open")    // open | reviewed | actioned | dismissed
+  createdAt      DateTime @default(now())
+
+  @@index([status, createdAt])
+  @@index([reportedUserId])
 }
 
 // ---------------------------------------------------------------------------
