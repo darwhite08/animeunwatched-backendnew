@@ -56,6 +56,7 @@ export type UserMinAggregateOutputType = {
   dmPrivacy: string | null
   readReceiptsOn: boolean | null
   showOnlineStatus: string | null
+  dmLastSeenAt: Date | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -81,6 +82,7 @@ export type UserMaxAggregateOutputType = {
   dmPrivacy: string | null
   readReceiptsOn: boolean | null
   showOnlineStatus: string | null
+  dmLastSeenAt: Date | null
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
@@ -106,6 +108,7 @@ export type UserCountAggregateOutputType = {
   dmPrivacy: number
   readReceiptsOn: number
   showOnlineStatus: number
+  dmLastSeenAt: number
   streakDays: number
   lastActiveAt: number
   bestStreak: number
@@ -145,6 +148,7 @@ export type UserMinAggregateInputType = {
   dmPrivacy?: true
   readReceiptsOn?: true
   showOnlineStatus?: true
+  dmLastSeenAt?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -170,6 +174,7 @@ export type UserMaxAggregateInputType = {
   dmPrivacy?: true
   readReceiptsOn?: true
   showOnlineStatus?: true
+  dmLastSeenAt?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -195,6 +200,7 @@ export type UserCountAggregateInputType = {
   dmPrivacy?: true
   readReceiptsOn?: true
   showOnlineStatus?: true
+  dmLastSeenAt?: true
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
@@ -307,6 +313,7 @@ export type UserGroupByOutputType = {
   dmPrivacy: string
   readReceiptsOn: boolean
   showOnlineStatus: string
+  dmLastSeenAt: Date | null
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
@@ -355,6 +362,7 @@ export type UserWhereInput = {
   dmPrivacy?: Prisma.StringFilter<"User"> | string
   readReceiptsOn?: Prisma.BoolFilter<"User"> | boolean
   showOnlineStatus?: Prisma.StringFilter<"User"> | string
+  dmLastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -424,6 +432,7 @@ export type UserOrderByWithRelationInput = {
   dmPrivacy?: Prisma.SortOrder
   readReceiptsOn?: Prisma.SortOrder
   showOnlineStatus?: Prisma.SortOrder
+  dmLastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -496,6 +505,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   dmPrivacy?: Prisma.StringFilter<"User"> | string
   readReceiptsOn?: Prisma.BoolFilter<"User"> | boolean
   showOnlineStatus?: Prisma.StringFilter<"User"> | string
+  dmLastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
@@ -565,6 +575,7 @@ export type UserOrderByWithAggregationInput = {
   dmPrivacy?: Prisma.SortOrder
   readReceiptsOn?: Prisma.SortOrder
   showOnlineStatus?: Prisma.SortOrder
+  dmLastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -598,6 +609,7 @@ export type UserScalarWhereWithAggregatesInput = {
   dmPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
   readReceiptsOn?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   showOnlineStatus?: Prisma.StringWithAggregatesFilter<"User"> | string
+  dmLastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -623,6 +635,7 @@ export type UserCreateInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -692,6 +705,7 @@ export type UserUncheckedCreateInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -761,6 +775,7 @@ export type UserUpdateInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -830,6 +845,7 @@ export type UserUncheckedUpdateInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -899,6 +915,7 @@ export type UserCreateManyInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -924,6 +941,7 @@ export type UserUpdateManyMutationInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -949,6 +967,7 @@ export type UserUncheckedUpdateManyInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -974,6 +993,7 @@ export type UserCountOrderByAggregateInput = {
   dmPrivacy?: Prisma.SortOrder
   readReceiptsOn?: Prisma.SortOrder
   showOnlineStatus?: Prisma.SortOrder
+  dmLastSeenAt?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1005,6 +1025,7 @@ export type UserMaxOrderByAggregateInput = {
   dmPrivacy?: Prisma.SortOrder
   readReceiptsOn?: Prisma.SortOrder
   showOnlineStatus?: Prisma.SortOrder
+  dmLastSeenAt?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1030,6 +1051,7 @@ export type UserMinOrderByAggregateInput = {
   dmPrivacy?: Prisma.SortOrder
   readReceiptsOn?: Prisma.SortOrder
   showOnlineStatus?: Prisma.SortOrder
+  dmLastSeenAt?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
@@ -1721,6 +1743,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1789,6 +1812,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -1873,6 +1897,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1941,6 +1966,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2009,6 +2035,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2077,6 +2104,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2161,6 +2189,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2229,6 +2258,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2297,6 +2327,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2365,6 +2396,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2449,6 +2481,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2517,6 +2550,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2585,6 +2619,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2653,6 +2688,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2737,6 +2773,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2805,6 +2842,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2873,6 +2911,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -2941,6 +2980,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3025,6 +3065,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3093,6 +3134,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3161,6 +3203,7 @@ export type UserCreateWithoutFollowingInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3229,6 +3272,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3302,6 +3346,7 @@ export type UserCreateWithoutFollowersInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3370,6 +3415,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3454,6 +3500,7 @@ export type UserUpdateWithoutFollowingInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3522,6 +3569,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3601,6 +3649,7 @@ export type UserUpdateWithoutFollowersInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3669,6 +3718,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3737,6 +3787,7 @@ export type UserCreateWithoutListEntriesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3805,6 +3856,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -3889,6 +3941,7 @@ export type UserUpdateWithoutListEntriesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3957,6 +4010,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4025,6 +4079,7 @@ export type UserCreateWithoutPostsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4093,6 +4148,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4177,6 +4233,7 @@ export type UserUpdateWithoutPostsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4245,6 +4302,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4313,6 +4371,7 @@ export type UserCreateWithoutPostHidesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4381,6 +4440,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4465,6 +4525,7 @@ export type UserUpdateWithoutPostHidesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4533,6 +4594,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4601,6 +4663,7 @@ export type UserCreateWithoutPostLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4669,6 +4732,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4753,6 +4817,7 @@ export type UserUpdateWithoutPostLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4821,6 +4886,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4889,6 +4955,7 @@ export type UserCreateWithoutPostCommentsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -4957,6 +5024,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5041,6 +5109,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5109,6 +5178,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5177,6 +5247,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5245,6 +5316,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5329,6 +5401,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5397,6 +5470,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5465,6 +5539,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5533,6 +5608,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5617,6 +5693,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5685,6 +5762,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5753,6 +5831,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5821,6 +5900,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -5905,6 +5985,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5973,6 +6054,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6041,6 +6123,7 @@ export type UserCreateWithoutThreadsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6109,6 +6192,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6193,6 +6277,7 @@ export type UserUpdateWithoutThreadsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6261,6 +6346,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6329,6 +6415,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6397,6 +6484,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6481,6 +6569,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6549,6 +6638,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6617,6 +6707,7 @@ export type UserCreateWithoutReviewsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6685,6 +6776,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6769,6 +6861,7 @@ export type UserUpdateWithoutReviewsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6837,6 +6930,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6905,6 +6999,7 @@ export type UserCreateWithoutReviewLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -6973,6 +7068,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7057,6 +7153,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7125,6 +7222,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7193,6 +7291,7 @@ export type UserCreateWithoutBlogsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7261,6 +7360,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7345,6 +7445,7 @@ export type UserUpdateWithoutBlogsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7413,6 +7514,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7481,6 +7583,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7549,6 +7652,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7633,6 +7737,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7701,6 +7806,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7769,6 +7875,7 @@ export type UserCreateWithoutNotificationsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7837,6 +7944,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -7921,6 +8029,7 @@ export type UserUpdateWithoutNotificationsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7989,6 +8098,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8057,6 +8167,7 @@ export type UserCreateWithoutReportsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8125,6 +8236,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8209,6 +8321,7 @@ export type UserUpdateWithoutReportsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8277,6 +8390,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8345,6 +8459,7 @@ export type UserCreateWithoutModerationActionsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8413,6 +8528,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8497,6 +8613,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8565,6 +8682,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8633,6 +8751,7 @@ export type UserCreateWithoutPollsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8701,6 +8820,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8785,6 +8905,7 @@ export type UserUpdateWithoutPollsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8853,6 +8974,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8921,6 +9043,7 @@ export type UserCreateWithoutPollVotesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -8989,6 +9112,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9073,6 +9197,7 @@ export type UserUpdateWithoutPollVotesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9141,6 +9266,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9209,6 +9335,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9277,6 +9404,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9361,6 +9489,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9429,6 +9558,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9497,6 +9627,7 @@ export type UserCreateWithoutPublicKeyInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9565,6 +9696,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9649,6 +9781,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9717,6 +9850,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9785,6 +9919,7 @@ export type UserCreateWithoutConversations1Input = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9853,6 +9988,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9926,6 +10062,7 @@ export type UserCreateWithoutConversations2Input = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -9994,6 +10131,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10078,6 +10216,7 @@ export type UserUpdateWithoutConversations1Input = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10146,6 +10285,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10225,6 +10365,7 @@ export type UserUpdateWithoutConversations2Input = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10293,6 +10434,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10361,6 +10503,7 @@ export type UserCreateWithoutSentMessagesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10429,6 +10572,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10513,6 +10657,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10581,6 +10726,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10649,6 +10795,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10717,6 +10864,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -10801,6 +10949,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10869,6 +11018,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10937,6 +11087,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11005,6 +11156,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11089,6 +11241,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11157,6 +11310,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11225,6 +11379,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11293,6 +11448,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11366,6 +11522,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11434,6 +11591,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11518,6 +11676,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11586,6 +11745,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11665,6 +11825,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11733,6 +11894,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11801,6 +11963,7 @@ export type UserCreateWithoutActivitiesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11869,6 +12032,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -11953,6 +12117,7 @@ export type UserUpdateWithoutActivitiesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12021,6 +12186,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12089,6 +12255,7 @@ export type UserCreateWithoutActivityLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12157,6 +12324,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12241,6 +12409,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12309,6 +12478,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12377,6 +12547,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12445,6 +12616,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12529,6 +12701,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12597,6 +12770,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12665,6 +12839,7 @@ export type UserCreateWithoutRepliesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12733,6 +12908,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -12817,6 +12993,7 @@ export type UserUpdateWithoutRepliesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12885,6 +13062,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12953,6 +13131,7 @@ export type UserCreateWithoutScimSubjectInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13021,6 +13200,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13105,6 +13285,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13173,6 +13354,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13241,6 +13423,7 @@ export type UserCreateWithoutShotsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13309,6 +13492,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13393,6 +13577,7 @@ export type UserUpdateWithoutShotsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13461,6 +13646,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13529,6 +13715,7 @@ export type UserCreateWithoutShotLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13597,6 +13784,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13681,6 +13869,7 @@ export type UserUpdateWithoutShotLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13749,6 +13938,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13817,6 +14007,7 @@ export type UserCreateWithoutStoriesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13885,6 +14076,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -13969,6 +14161,7 @@ export type UserUpdateWithoutStoriesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14037,6 +14230,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14105,6 +14299,7 @@ export type UserCreateWithoutStoryViewsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -14173,6 +14368,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   dmPrivacy?: string
   readReceiptsOn?: boolean
   showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
@@ -14257,6 +14453,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14325,6 +14522,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14793,6 +14991,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   dmPrivacy?: boolean
   readReceiptsOn?: boolean
   showOnlineStatus?: boolean
+  dmLastSeenAt?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -14863,6 +15062,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   dmPrivacy?: boolean
   readReceiptsOn?: boolean
   showOnlineStatus?: boolean
+  dmLastSeenAt?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -14888,6 +15088,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   dmPrivacy?: boolean
   readReceiptsOn?: boolean
   showOnlineStatus?: boolean
+  dmLastSeenAt?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -14913,6 +15114,7 @@ export type UserSelectScalar = {
   dmPrivacy?: boolean
   readReceiptsOn?: boolean
   showOnlineStatus?: boolean
+  dmLastSeenAt?: boolean
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
@@ -14920,7 +15122,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -15042,6 +15244,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     dmPrivacy: string
     readReceiptsOn: boolean
     showOnlineStatus: string
+    dmLastSeenAt: Date | null
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
@@ -15531,6 +15734,7 @@ export interface UserFieldRefs {
   readonly dmPrivacy: Prisma.FieldRef<"User", 'String'>
   readonly readReceiptsOn: Prisma.FieldRef<"User", 'Boolean'>
   readonly showOnlineStatus: Prisma.FieldRef<"User", 'String'>
+  readonly dmLastSeenAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>

@@ -121,6 +121,15 @@ export async function unreadCount(req: Request, res: Response, next: NextFunctio
   }
 }
 
+export async function getPresence(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.getPresence(res.locals.user.id as string, req.params.userId as string);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function editMessage(req: Request, res: Response, next: NextFunction) {
   try {
     const { params, body } = editMessageSchema.parse({ params: req.params, body: req.body });

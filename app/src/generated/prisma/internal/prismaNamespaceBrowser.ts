@@ -222,6 +222,7 @@ export const UserScalarFieldEnum = {
   dmPrivacy: 'dmPrivacy',
   readReceiptsOn: 'readReceiptsOn',
   showOnlineStatus: 'showOnlineStatus',
+  dmLastSeenAt: 'dmLastSeenAt',
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',

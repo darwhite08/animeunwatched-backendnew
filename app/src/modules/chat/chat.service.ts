@@ -5,6 +5,7 @@ import { notFound, forbidden, badReq, conflict } from "../../lib/errors";
 import { env } from "../../config/env";
 import { pushToUser } from "../../lib/push";
 import { isOnline, isViewing } from "../../realtime/presence";
+import { canSeeActivity } from "../../realtime/activityGuard";
 
 // ─── DM v2 helpers ──────────────────────────────────────────────────────────
 
@@ -211,6 +212,44 @@ export async function unreadCount(userId: string): Promise<number> {
     select: { participant1: true, p1UnreadCount: true, p2UnreadCount: true },
   });
   return rows.reduce((sum, c) => sum + (c.participant1 === userId ? c.p1UnreadCount : c.p2UnreadCount), 0);
+}
+
+/** Online + last-seen for a user, filtered by their showOnlineStatus + blocks. */
+export async function getPresence(viewerId: string, targetId: string) {
+  if (!(await canSeeActivity(viewerId, targetId, "showOnlineStatus"))) {
+    return { userId: targetId, online: false, lastSeenAt: null, visible: false };
+  }
+  const u = await prisma.user.findUnique({ where: { id: targetId }, select: { dmLastSeenAt: true } });
+  return { userId: targetId, online: isOnline(targetId), lastSeenAt: u?.dmLastSeenAt ?? null, visible: true };
+}
+
+/**
+ * On socket connect: mark every message TO this user that wasn't yet delivered
+ * as delivered now, and return the per-sender receipts so the socket layer can
+ * notify each sender (chat.delivered). Idempotent.
+ */
+export async function deliverUndelivered(userId: string) {
+  const pending = await prisma.directMessage.findMany({
+    where: {
+      deliveredAt: null,
+      senderId: { not: userId },
+      conversation: { OR: [{ participant1: userId }, { participant2: userId }] },
+    },
+    select: { id: true, senderId: true, conversationId: true },
+    take: 500,
+  });
+  if (pending.length === 0) return [];
+  const now = new Date();
+  await prisma.directMessage.updateMany({
+    where: { id: { in: pending.map((m) => m.id) } },
+    data: { deliveredAt: now },
+  });
+  return pending.map((m) => ({ ...m, deliveredAt: now }));
+}
+
+/** Persist presence last-seen (caller throttles via presence.shouldPersistLastSeen). */
+export async function persistLastSeen(userId: string) {
+  await prisma.user.update({ where: { id: userId }, data: { dmLastSeenAt: new Date() } }).catch(() => {});
 }
 
 /** Mute/unmute for the calling participant. `until=null` clears the mute. */

@@ -3,6 +3,9 @@ import { Server as HttpServer } from "http";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
 import { prisma } from "../config/prisma";
+import { addSocket, removeSocket, setFocus, shouldPersistLastSeen } from "./presence";
+import { canSeeActivity } from "./activityGuard";
+import { deliverUndelivered, persistLastSeen, markConversationRead } from "../modules/chat/chat.service";
 
 export function initSocket(httpServer: HttpServer) {
   const io = new SocketServer(httpServer, {
@@ -84,6 +87,18 @@ export function initSocket(httpServer: HttpServer) {
     // Join the global feed channel so server can broadcast posts/reviews
     socket.join("feed");
     setOnline(userId);
+    // DM v2 presence (per-socket online + focus tracking for the chat service).
+    addSocket(userId, socket.id);
+
+    // Batch-deliver any messages that arrived while this user was offline, then
+    // emit a delivery receipt to each sender (spec §4 connect behavior).
+    void deliverUndelivered(userId).then((receipts) => {
+      for (const r of receipts) {
+        io.to(`user:${r.senderId}`).emit("chat.delivered", {
+          conversationId: r.conversationId, messageId: r.id, deliveredAt: r.deliveredAt,
+        });
+      }
+    }).catch(() => {});
 
     // ── Admin room ──────────────────────────────────────────────────────────
     // ADMIN-role users auto-join `admin` so they get live updates of signups,
@@ -109,7 +124,27 @@ export function initSocket(httpServer: HttpServer) {
     socket.on("room:join",  (room: string) => { if (typeof room === "string" && room.length < 64) socket.join(room) });
     socket.on("room:leave", (room: string) => { if (typeof room === "string" && room.length < 64) socket.leave(room) });
 
-    socket.on("disconnect", () => { setOffline(userId) });
+    socket.on("disconnect", () => {
+      setOffline(userId);
+      removeSocket(userId, socket.id);
+      // Persist last-seen at most once/min/user (spec §4).
+      if (shouldPersistLastSeen(userId)) void persistLastSeen(userId).catch(() => {});
+    });
+
+    // ── DM focus: which conversation this socket is actively viewing ───────────
+    // Suppresses unread increments and auto-reads incoming messages (spec §4).
+    socket.on("chat.focus", (data: { conversationId: string | null }) => {
+      const cid = typeof data?.conversationId === "string" ? data.conversationId : null;
+      setFocus(socket.id, cid);
+      if (cid) void markConversationRead(cid, userId).catch(() => {});
+    });
+
+    // ── DM read receipt via socket (mirrors PATCH .../read) ───────────────────
+    socket.on("chat.read", (data: { conversationId: string }) => {
+      if (typeof data?.conversationId === "string") {
+        void markConversationRead(data.conversationId, userId).catch(() => {});
+      }
+    });
 
     // ── WebRTC call signaling ────────────────────────────────────────────────
     // The server is a pure relay — it never inspects SDP or ICE data.
@@ -157,13 +192,22 @@ export function initSocket(httpServer: HttpServer) {
     });
 
     // ── Typing indicators ────────────────────────────────────────────────────
-    socket.on("typing:start", (data: { conversationId: string; to: string }) => {
-      io.to(`user:${data.to}`).emit("typing:start", { from: userId, conversationId: data.conversationId });
-    });
-
-    socket.on("typing:stop", (data: { conversationId: string; to: string }) => {
-      io.to(`user:${data.to}`).emit("typing:stop", { from: userId, conversationId: data.conversationId });
-    });
+    // Relayed only when the recipient may see the sender's activity (block +
+    // privacy via canSeeActivity), and throttled to ≤1 emit/sec/conversation.
+    const typingThrottle = new Map<string, number>();
+    function relayTyping(kind: "typing:start" | "typing:stop", data: { conversationId: string; to: string }) {
+      if (!data?.to || typeof data.conversationId !== "string") return;
+      const now = Date.now();
+      const last = typingThrottle.get(data.conversationId) ?? 0;
+      if (kind === "typing:start" && now - last < 1000) return;
+      typingThrottle.set(data.conversationId, now);
+      // recipient (data.to) is the viewer; sender (userId) is the target.
+      void canSeeActivity(data.to, userId, "showOnlineStatus").then((ok) => {
+        if (ok) io.to(`user:${data.to}`).emit(kind, { from: userId, conversationId: data.conversationId });
+      }).catch(() => {});
+    }
+    socket.on("typing:start", (data: { conversationId: string; to: string }) => relayTyping("typing:start", data));
+    socket.on("typing:stop",  (data: { conversationId: string; to: string }) => relayTyping("typing:stop", data));
   });
 
   return io;

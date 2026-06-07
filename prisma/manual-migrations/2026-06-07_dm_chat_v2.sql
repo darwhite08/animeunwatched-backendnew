@@ -23,7 +23,8 @@ EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 ALTER TABLE "User"
   ADD COLUMN IF NOT EXISTS "dmPrivacy"        TEXT    NOT NULL DEFAULT 'everyone',
   ADD COLUMN IF NOT EXISTS "readReceiptsOn"   BOOLEAN NOT NULL DEFAULT true,
-  ADD COLUMN IF NOT EXISTS "showOnlineStatus" TEXT    NOT NULL DEFAULT 'everyone';
+  ADD COLUMN IF NOT EXISTS "showOnlineStatus" TEXT    NOT NULL DEFAULT 'everyone',
+  ADD COLUMN IF NOT EXISTS "dmLastSeenAt"     TIMESTAMP(3);
 
 -- 3) Conversation — request state + denormalized per-participant inbox state
 ALTER TABLE "Conversation"

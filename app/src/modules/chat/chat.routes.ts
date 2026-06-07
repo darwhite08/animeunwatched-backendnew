@@ -23,6 +23,7 @@ chatRouter.get( "/conversations", requireAuth, ctrl.listConversations);
 // New-conversation anti-spam: the single most important limit (spec §3).
 chatRouter.post("/conversations", requireAuth, limitNewConvHr, limitNewConvDy, ctrl.startConversation);
 chatRouter.get( "/unread-count",  requireAuth, ctrl.unreadCount);
+chatRouter.get( "/presence/:userId", requireAuth, ctrl.getPresence);
 chatRouter.get( "/conversations/:conversationId", requireAuth, ctrl.getConversation);
 chatRouter.post("/conversations/:conversationId/accept",  requireAuth, ctrl.acceptRequest);
 chatRouter.post("/conversations/:conversationId/decline", requireAuth, ctrl.declineRequest);
