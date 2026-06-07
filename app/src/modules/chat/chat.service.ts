@@ -252,10 +252,27 @@ async function notifyRecipientPush(senderId: string, recipientId: string, conver
     env.JWT_ACCESS_SECRET,
     { expiresIn: "24h" },
   );
+  // Unread tallies ride along so the notification can show real numbers
+  // (launcher badge + "N new messages" body).
+  const [totalUnread, convUnread] = await Promise.all([
+    prisma.directMessage.count({
+      where: {
+        senderId: { not: recipientId },
+        readAt: null,
+        conversation: { OR: [{ participant1: recipientId }, { participant2: recipientId }] },
+      },
+    }),
+    prisma.directMessage.count({
+      where: { conversationId, senderId: { not: recipientId }, readAt: null },
+    }),
+  ]);
   await pushToUser(recipientId, {
     title: senderName,
-    body: "Sent you a secure message",
-    data: { type: "dm", conversationId, senderName, replyToken },
+    body: convUnread > 1 ? `${convUnread} new messages` : "Sent you a secure message",
+    data: {
+      type: "dm", conversationId, senderName, replyToken,
+      badge: String(totalUnread), convUnread: String(convUnread),
+    },
   });
 }
 
