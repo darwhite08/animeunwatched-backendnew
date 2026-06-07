@@ -109,6 +109,19 @@ export async function listConversations(userId: string) {
     },
   });
 
+  // Per-conversation unread counts (messages to me that I haven't read) —
+  // one grouped query for the whole list, not N+1.
+  const unread = await prisma.directMessage.groupBy({
+    by: ["conversationId"],
+    where: {
+      conversationId: { in: conversations.map((c) => c.id) },
+      senderId: { not: userId },
+      readAt: null,
+    },
+    _count: { _all: true },
+  });
+  const unreadMap = new Map(unread.map((u) => [u.conversationId, u._count._all]));
+
   return conversations.map((conv) => {
     const otherUser = conv.participant1 === userId ? conv.user2 : conv.user1;
     const lastMessage = conv.messages[0] ?? null;
@@ -118,6 +131,7 @@ export async function listConversations(userId: string) {
       otherUser,
       lastMessage,
       updatedAt:   conv.updatedAt,
+      unreadCount: unreadMap.get(conv.id) ?? 0,
     };
   });
 }
