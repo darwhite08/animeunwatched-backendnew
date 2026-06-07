@@ -83,7 +83,7 @@ export type UploadIntent = {
  * Caller must PUT the bytes to uploadUrl with the same Content-Type header
  * within `expiresIn` seconds, then save `publicUrl` to their model.
  */
-function makeKey(opts: { scope: "avatar" | "post" | "club" | "voice" | "shot" | "story"; userId: string; ext: string }): string {
+function makeKey(opts: { scope: "avatar" | "post" | "club" | "voice" | "shot" | "story" | "dm"; userId: string; ext: string }): string {
   const rand = randomBytes(8).toString("hex")
   const safeExt = (opts.ext || "jpg").replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 5)
   return `${opts.scope}/${opts.userId}/${Date.now()}-${rand}.${safeExt}`
@@ -96,7 +96,7 @@ function makeKey(opts: { scope: "avatar" | "post" | "club" | "voice" | "shot" | 
  */
 export async function uploadImageBuffer(opts: {
   userId:      string
-  scope:       "avatar" | "post" | "club" | "voice" | "shot" | "story"
+  scope:       "avatar" | "post" | "club" | "voice" | "shot" | "story" | "dm"
   contentType: string
   ext:         string
   body:        Buffer
@@ -115,7 +115,7 @@ export async function uploadImageBuffer(opts: {
 
 export async function presignImageUpload(opts: {
   userId:      string
-  scope:       "avatar" | "post" | "club" | "voice" | "shot" | "story"
+  scope:       "avatar" | "post" | "club" | "voice" | "shot" | "story" | "dm"
   contentType: string
   ext:         string
 }): Promise<UploadIntent> {

@@ -88,6 +88,28 @@ export async function postImage(req: Request, res: Response, next: NextFunction)
   }
 }
 
+/**
+ * DM media: server-side processed upload (multer memory → magic-byte validate →
+ * EXIF strip + resize + webp + blurhash for images; size/mime check for voice →
+ * S3/R2). Returns the media fields the client attaches to a dm send.
+ */
+export async function dmMedia(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const file = (req as Request & { file?: { buffer: Buffer } }).file;
+    if (!file?.buffer?.length) throw badRequest("No file uploaded");
+    const { processDmMedia } = await import("./dmMedia.service");
+    const durationRaw = Number(req.body?.durationS);
+    const result = await processDmMedia({
+      userId, buffer: file.buffer,
+      durationS: Number.isFinite(durationRaw) ? durationRaw : undefined,
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function shotVideo(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
