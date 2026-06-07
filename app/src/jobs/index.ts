@@ -10,6 +10,7 @@ import { runSyntheticMonitors } from "./syntheticMonitor.job"
 import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
+import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
 
 export function startJobs() {
   // Register jobs in the in-process registry so /admin/jobs shows them.
@@ -61,6 +62,14 @@ export function startJobs() {
     name: "exportRunner", description: "Process pending ExportJob rows; lands files in S3 (every 30s)",
     intervalMs: 30_000, handler: async () => runExportJobs(3),
   })
+  registerJob({
+    name: "animeSyncWorker", description: "Drain the SyncJob queue (Jikan full syncs, episodes, seeds) at the global rate limit",
+    intervalMs: 15_000, handler: drainSyncQueue,
+  })
+  registerJob({
+    name: "animeSyncMaintenance", description: "Requeue stale RUNNING sync jobs + purge finished rows (hourly)",
+    intervalMs: 60 * 60_000, handler: syncQueueMaintenance,
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -108,6 +117,17 @@ export function startJobs() {
   // Async export runner — every 30s pick up to 3 pending ExportJobs
   const exp = instrument("exportRunner", () => runExportJobs(3))
   setInterval(exp, 30_000)
+
+  // Anime sync worker — drain tick every 15s (the loop runs until the queue
+  // is empty, so the tick only matters when the queue was idle) + hourly
+  // crash-recovery/purge + repeatable refresh/seed schedules.
+  const animeDrain = instrument("animeSyncWorker", drainSyncQueue)
+  setInterval(animeDrain, 15_000)
+  animeDrain().catch(console.error)
+  const animeMaint = instrument("animeSyncMaintenance", syncQueueMaintenance)
+  setInterval(animeMaint, 60 * 60_000)
+  animeMaint().catch(console.error)
+  startAnimeSyncSchedules()
 
   console.log("[Jobs] Background jobs started")
 }

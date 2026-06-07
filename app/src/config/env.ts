@@ -10,6 +10,13 @@ export const env = {
   JWT_ACCESS_EXPIRY:  process.env.JWT_ACCESS_EXPIRY  || "15m",
   JWT_REFRESH_EXPIRY: process.env.JWT_REFRESH_EXPIRY || "7d",
   JIKAN_BASE_URL:     process.env.JIKAN_BASE_URL     || "https://api.jikan.moe/v4",
+  // Sustained Jikan request rate (token bucket, burst 3). Jikan allows 3/sec;
+  // we stay conservative at 1/sec.
+  JIKAN_RATE_PER_SEC: Number(process.env.JIKAN_RATE_PER_SEC) || 1,
+  // Anime sync refresh windows (see jobs/animeSync.worker.ts)
+  ANIME_SYNC_HOT_INTERVAL_HOURS: Number(process.env.ANIME_SYNC_HOT_INTERVAL_HOURS) || 6,
+  ANIME_SYNC_NORMAL_DAYS:        Number(process.env.ANIME_SYNC_NORMAL_DAYS)        || 7,
+  ANIME_SYNC_COLD_DAYS:          Number(process.env.ANIME_SYNC_COLD_DAYS)          || 30,
   CATALOG_PROVIDER:   (process.env.CATALOG_PROVIDER  || "jikan") as "jikan" | "mal" | "anilist",
   CORS_ORIGIN:        process.env.CORS_ORIGIN        || "http://localhost:3000",
   FRONTEND_URL:       process.env.FRONTEND_URL       || "http://localhost:3000",

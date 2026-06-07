@@ -17,6 +17,7 @@ import * as webhooks   from "./webhooks.controller";
 import * as ann        from "./announcements.controller";
 import * as settings   from "./settings.controller";
 import * as jobs       from "./jobs.controller";
+import * as sync       from "./sync.controller";
 import * as deps       from "./dependencies.controller";
 import * as security   from "./security.controller";
 import * as templates  from "./templates.controller";
@@ -210,6 +211,11 @@ adminRouter.delete("/settings/:key",                  requirePermission("setting
 adminRouter.get(   "/jobs",                           requirePermission("settings","read"), jobs.getJobs);
 adminRouter.post(  "/jobs/:name/retry",               requirePermission("settings","write"), jobs.retryJob);
 adminRouter.get(   "/health/dependencies",            requirePermission("settings","read"), deps.getDependencies);
+
+// Anime data sync — queue observability + manual triggers
+adminRouter.get(   "/sync/status",                    requirePermission("settings","read"),  sync.getSyncStatus);
+adminRouter.post(  "/sync/anime/:malId",              requirePermission("settings","write"), sync.forceSyncAnime);
+adminRouter.post(  "/sync/seed",                      requirePermission("settings","write"), sync.seedTop);
 
 // M10 — security policies + events
 adminRouter.get(   "/security/policies",              requirePermission("security","read"),  security.getPolicies);

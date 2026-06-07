@@ -8,6 +8,7 @@ import { HttpError } from "../app/src/lib/errors";
 // Mock service so no DB is needed
 vi.mock("../app/src/modules/anime/anime.service", () => ({
   getById: vi.fn().mockResolvedValue({ anime: { malId: 1, title: "Test" } }),
+  getBySlug: vi.fn().mockResolvedValue({ anime: { malId: 1, title: "Test" } }),
   browse: vi.fn().mockResolvedValue({ data: [], meta: { total: 0, page: 1, limit: 20, pages: 0 } }),
   searchWithFallback: vi.fn().mockResolvedValue([]),
   getSeasonal: vi.fn().mockResolvedValue({ data: [], meta: {} }),
@@ -39,10 +40,13 @@ describe("anime controller — malId validation", () => {
     ctrl = await import("../app/src/modules/anime/anime.controller");
   });
 
-  it("getById: throws 400 for non-numeric malId", async () => {
+  it("getById: routes non-numeric param to slug lookup", async () => {
     const next = vi.fn();
-    await ctrl.getById(makeReq({ malId: "abc" }), makeRes(), next);
-    expect(next).toHaveBeenCalledWith(expect.objectContaining({ status: 400 }));
+    const service = await import("../app/src/modules/anime/anime.service");
+    await ctrl.getById(makeReq({ malId: "fullmetal-alchemist-brotherhood" }), makeRes(), next);
+    expect(next).not.toHaveBeenCalled();
+    expect(service.getBySlug).toHaveBeenCalledWith("fullmetal-alchemist-brotherhood", undefined);
+    expect(service.getById).not.toHaveBeenCalled();
   });
 
   it("getById: throws 400 for 0", async () => {

@@ -87,7 +87,14 @@ Query: `q?, year?, season?, genre?, type?, status?, page?, limit?`
 
 #### GET /anime/:id
 Auth: optional
-200: `{ anime, listEntry? }` — `listEntry` present only when authenticated
+`:id` accepts a numeric malId (canonical) OR an SEO slug (e.g. `fullmetal-alchemist-brotherhood`).
+200: `{ anime, listEntry? }` — `listEntry` present only when authenticated; `anime.slug` included.
+Served from local Postgres. Unknown malId → one read-through Jikan fetch, persisted, then served locally. Slug misses are a plain 404 (no upstream fallback).
+
+#### Admin — anime sync (settings permission)
+- `GET  /admin/sync/status` — catalog counts (total/stubs/by priority), queue depth, last-24h job stats
+- `POST /admin/sync/anime/:malId` — force-enqueue a full sync
+- `POST /admin/sync/seed` — body `{ fromPage, toPage }` — enqueue a top-anime seed sweep
 
 #### GET /anime/season/:year/:season
 Auth: optional

@@ -18,5 +18,5 @@ animeRouter.get("/:malId/characters",  optionalAuth, ctrl.getCharacters);
 animeRouter.get("/:malId/staff",       optionalAuth, ctrl.getStaff);
 animeRouter.get("/:malId/episodes",    optionalAuth, ctrl.getEpisodes);
 animeRouter.get("/:malId/franchise",   optionalAuth, ctrl.getFranchise);
-animeRouter.get("/:malId",             optionalAuth, ctrl.getById);
+animeRouter.get("/:malId",             optionalAuth, ctrl.getById); // numeric malId OR seo slug
 animeRouter.get("/", optionalAuth, ctrl.browse);

@@ -1,9 +1,12 @@
 import { prisma } from "../../config/prisma";
-import { catalog } from "../../lib/catalog";
 import type { CatalogAnime } from "../../lib/catalog/types";
 import { notFound } from "../../lib/errors";
 import { cache } from "../../lib/cache";
 import { jaccard, overlapCoeff, linearProximity, capPerGroup, logNormalize } from "../../lib/ranking";
+import { browseAnime, getAnimeFull, getRaw, searchAnimePage } from "../../lib/catalog/jikanClient";
+import { mapJikanToCatalog } from "../../lib/catalog/jikan.mapper";
+import { logSyncJob, upsertAnimeFromJikan, upsertStubFromSearchResult } from "./animeSync.service";
+import { enqueueAnimeFullSync, enqueueEpisodeSync } from "./syncQueue.service";
 import type { BrowseQuery } from "./anime.schema";
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -139,39 +142,9 @@ export async function upsertFromCatalog(data: CatalogAnime) {
 }
 
 // ─── browse ───────────────────────────────────────────────────────────────────
-// When no filters are applied → fetch directly from Jikan (all 25000+ anime, paginated)
-// and cache results into our DB for future use.
-// When filters are applied → query our local DB which has synced data.
-
-type JikanAnimeRaw = Record<string, unknown>;
-
-function mapJikanRaw(a: JikanAnimeRaw) {
-  const aired = (a.aired as Record<string, unknown>)?.from as string | null;
-  return {
-    malId:         a.mal_id as number,
-    title:         a.title as string,
-    titleEnglish:  (a.title_english as string) || null,
-    titleJapanese: (a.title_japanese as string) || null,
-    synopsis:      (a.synopsis as string) || null,
-    type:          (a.type as string) || null,
-    episodes:      (a.episodes as number) || null,
-    status:        (a.status as string) || null,
-    airedFrom:     aired ? new Date(aired) : null,
-    airedTo:       null,
-    season:        (a.season as string) || null,
-    year:          (a.year as number) || null,
-    rating:        (a.rating as string) || null,
-    score:         (a.score as number) || null,
-    imageUrl:      ((a.images as Record<string, Record<string, string>>)?.jpg?.large_image_url)
-                   || ((a.images as Record<string, Record<string, string>>)?.jpg?.image_url) || null,
-    trailerUrl:    ((a.trailer as Record<string, string>)?.url) || null,
-    source:        (a.source as string) || null,
-    genres:        ((a.genres as Array<Record<string, string>>) ?? []).map(g => g.name),
-    studios:       ((a.studios as Array<Record<string, string>>) ?? []).map(s => s.name),
-  };
-}
-
-const JIKAN_BASE = process.env.JIKAN_BASE_URL ?? "https://api.jikan.moe/v4";
+// Postgres-first. The Jikan fallback only fires while the local DB is still
+// sparse (pre-seed); every fallback hit stub-upserts rows + enqueues full
+// syncs, so the DB grows organically and the fallback stops triggering.
 
 async function browseJikan(page: number, limit: number, filters: {
   q?: string; year?: number; season?: string; type?: string; status?: string;
@@ -188,18 +161,16 @@ async function browseJikan(page: number, limit: number, filters: {
   qs.set("order_by", "score");
   qs.set("sort", "desc");
 
-  const url = `${JIKAN_BASE}/anime?${qs.toString()}`;
-  const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-  if (!res.ok) throw new Error(`Jikan browse returned ${res.status}`);
+  const json = await browseAnime(qs.toString());
 
-  const json = await res.json() as {
-    data: JikanAnimeRaw[];
-    pagination: { items: { count: number; total: number; per_page: number }; last_visible_page: number; has_next_page: boolean };
-  };
-
-  // Background-cache fetched anime into our DB (fire-and-forget)
+  // Background-persist fetched anime as stubs + queue their full syncs
+  // (fire-and-forget — never blocks the response)
   void Promise.all(
-    (json.data ?? []).map(a => upsertFromCatalog(mapJikanRaw(a)).catch(() => {}))
+    (json.data ?? []).map(a =>
+      upsertStubFromSearchResult(a)
+        .then(() => enqueueAnimeFullSync(a.mal_id))
+        .catch(() => {}),
+    ),
   );
 
   const perPage = json.pagination?.items?.per_page ?? limit;
@@ -207,7 +178,7 @@ async function browseJikan(page: number, limit: number, filters: {
   const pages   = json.pagination?.last_visible_page ?? Math.ceil(total / perPage);
 
   return {
-    data: (json.data ?? []).map(mapJikanRaw),
+    data: (json.data ?? []).map(a => mapJikanToCatalog(a as unknown as Record<string, unknown>)),
     meta: { total, page, limit: perPage, pages },
   };
 }
@@ -302,41 +273,49 @@ export async function browse(query: BrowseQuery) {
   return result;
 }
 
-// ─── getById ──────────────────────────────────────────────────────────────────
+// ─── getById / getBySlug — canonical read-through path ───────────────────────
+//
+//   1. cache hit                            → serve
+//   2. Postgres hit, fully synced & fresh   → serve
+//   3. Postgres hit but stub / never-synced / stale
+//                                           → serve immediately + ENQUEUE full
+//                                             sync (never blocks the request)
+//   4. Postgres miss (malId path only)      → ONE blocking Jikan fetch through
+//                                             the rate-limited client, persist,
+//                                             serve; clean 404 on failure.
+//   The DB grows organically from misses; listing endpoints never do step 4.
 
 const STALE_AFTER_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-export async function getById(malId: number, userId?: string) {
-  // Only cache for unauthenticated requests (no userId) since listEntry is user-specific
-  const cacheKey = `anime:${malId}`;
-  if (!userId) {
-    const cached = cache.get<{ anime: ReturnType<typeof flattenAnime>; listEntry: null }>(cacheKey);
-    if (cached) return cached;
+type AnimeRow = AnimeWithRelations & {
+  slug: string | null;
+  isStub: boolean;
+  lastSyncedAt: Date | null;
+};
+
+/** Steps 2–3: serve the local row and queue background work if it's not a
+ *  fully-synced fresh row. Returns null when there is no local row at all. */
+async function serveLocalAnime(
+  where: { malId: number } | { slug: string },
+  userId?: string,
+  cacheKey?: string,
+) {
+  const anime = (await prisma.anime.findUnique({ where: where as { malId: number }, include: animeInclude })) as
+    | AnimeRow
+    | null;
+  if (!anime) return null;
+
+  const needsSync =
+    anime.isStub ||
+    !anime.lastSyncedAt ||
+    Date.now() - anime.lastSyncedAt.getTime() > STALE_AFTER_MS;
+  if (needsSync) {
+    // Serve what we have NOW; freshness arrives via the worker. (Dedupe +
+    // the 7-day freshness check inside enqueueAnimeFullSync keep this cheap.)
+    void enqueueAnimeFullSync(anime.malId).catch(() => {});
   }
 
-  let anime = await prisma.anime.findUnique({
-    where: { malId },
-    include: animeInclude,
-  });
-
-  const isStale = !anime || Date.now() - anime.updatedAt.getTime() > STALE_AFTER_MS;
-
-  if (isStale) {
-    const catalogData = await catalog.getAnimeByMalId(malId);
-    if (!catalogData) {
-      if (!anime) throw notFound("Anime not found");
-    } else {
-      await upsertFromCatalog(catalogData);
-      anime = await prisma.anime.findUnique({
-        where: { malId },
-        include: animeInclude,
-      });
-    }
-  }
-
-  if (!anime) throw notFound("Anime not found");
-
-  const flat = flattenAnime(anime as AnimeWithRelations);
+  const flat = flattenAnime(anime);
 
   let listEntry = null;
   if (userId) {
@@ -346,12 +325,55 @@ export async function getById(malId: number, userId?: string) {
   }
 
   const result = { anime: flat, listEntry };
+  if (!userId && cacheKey) cache.set(cacheKey, result, 60 * 60_000); // 1h
+  return result;
+}
 
+export async function getById(malId: number, userId?: string) {
+  // Only cache for unauthenticated requests (no userId) since listEntry is user-specific
+  const cacheKey = `anime:${malId}`;
   if (!userId) {
-    cache.set(cacheKey, result, 7 * 24 * 60 * 60_000); // 7 days
+    const cached = cache.get<{ anime: ReturnType<typeof flattenAnime>; listEntry: null }>(cacheKey);
+    if (cached) return cached;
   }
 
-  return result;
+  const local = await serveLocalAnime({ malId }, userId, cacheKey);
+  if (local) return local;
+
+  // Read-through fallback: unknown malId → fetch once, persist, serve.
+  const started = Date.now();
+  try {
+    const full = await getAnimeFull(malId, { timeoutMs: 8_000 });
+    await upsertAnimeFromJikan(full);
+    void logSyncJob({ jobType: "on_demand", malId, status: "success", durationMs: Date.now() - started });
+  } catch (err) {
+    void logSyncJob({
+      jobType: "on_demand",
+      malId,
+      status: "failed",
+      error: (err as Error).message,
+      durationMs: Date.now() - started,
+    });
+    throw notFound("Anime not found");
+  }
+
+  const persisted = await serveLocalAnime({ malId }, userId, cacheKey);
+  if (!persisted) throw notFound("Anime not found");
+  return persisted;
+}
+
+export async function getBySlug(slug: string, userId?: string) {
+  const cacheKey = `anime:slug:${slug}`;
+  if (!userId) {
+    const cached = cache.get<{ anime: ReturnType<typeof flattenAnime>; listEntry: null }>(cacheKey);
+    if (cached) return cached;
+  }
+
+  // Slugs are minted locally — a miss can't be resolved upstream, so no
+  // Jikan fallback on this path.
+  const local = await serveLocalAnime({ slug }, userId, cacheKey);
+  if (!local) throw notFound("Anime not found");
+  return local;
 }
 
 // ─── getSeasonal ─────────────────────────────────────────────────────────────
@@ -367,9 +389,17 @@ export async function getSeasonal(
   const existing = await prisma.anime.count({ where: { year, season } });
 
   if (existing === 0) {
-    const items = await catalog.getSeasonal(year, season);
-    if (items.length > 0) {
-      await Promise.all(items.map((item) => upsertFromCatalog(item)));
+    // Cold season: one synchronous page so the response isn't empty, then the
+    // worker fills in full detail.
+    try {
+      const { getSeasonPage } = await import("../../lib/catalog/jikanClient");
+      const res = await getSeasonPage(year, season, 1);
+      for (const item of res.data ?? []) {
+        await upsertStubFromSearchResult(item);
+        void enqueueAnimeFullSync(item.mal_id).catch(() => {});
+      }
+    } catch {
+      // Jikan unavailable → serve whatever the DB has.
     }
   }
 
@@ -408,24 +438,30 @@ export async function searchWithFallback(q: string): Promise<AnimeWithRelations[
     orderBy: { score: { sort: "desc", nulls: "last" } },
   })
 
-  if (local.length >= 1) {
+  // Local DB satisfies the query → done. Threshold of 5 (spec §5): fewer hits
+  // than that and we top up from Jikan so sparse-DB searches still work.
+  if (local.length >= 5) {
     cache.set(cacheKey, local, 10 * 60_000) // 10 min
     return local
   }
 
-  // Upstream fallback
+  // Upstream top-up: stub-upsert Jikan results (full detail arrives via the
+  // worker queue), then merge with the local hits.
   try {
-    const upstream = await catalog.searchAnime(q, { limit: 10 })
-    for (const a of upstream) {
-      await upsertFromCatalog(a)
+    const upstream = await searchAnimePage(q, { limit: 10 })
+    for (const a of upstream.data ?? []) {
+      await upsertStubFromSearchResult(a)
+      void enqueueAnimeFullSync(a.mal_id).catch(() => {})
     }
+    const seen = new Set(local.map(a => a.malId))
     const refreshed = await prisma.anime.findMany({
-      where: { title: { contains: q, mode: "insensitive" } },
+      where: { malId: { in: (upstream.data ?? []).map(a => a.mal_id).filter(id => !seen.has(id)) } },
       include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
       take: 20,
     })
-    cache.set(cacheKey, refreshed, 10 * 60_000)
-    return refreshed
+    const merged = [...local, ...refreshed].slice(0, 20)
+    cache.set(cacheKey, merged, 10 * 60_000)
+    return merged
   } catch {
     cache.set(cacheKey, local, 5 * 60_000)
     return local
@@ -693,14 +729,19 @@ export async function getSimilar(malId: number, limit = 12, userId?: string) {
 }
 
 // ─── getCharacters ───────────────────────────────────────────────────────────
+// Characters/staff aren't persisted locally (out of scope for the data layer)
+// — passthrough via the rate-limited client so they share the global limiter.
 
 export async function getCharacters(malId: number) {
   const key = `anime:characters:${malId}`
   const cached = cache.get<unknown>(key)
   if (cached) return cached
-  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/characters`)
-  if (!res.ok) return { data: [] }
-  const data = await res.json()
+  let data: unknown
+  try {
+    data = await getRaw(`/anime/${malId}/characters`)
+  } catch {
+    return { data: [] }
+  }
   cache.set(key, data, 60 * 60_000) // 1 hour
   return data
 }
@@ -711,35 +752,93 @@ export async function getStaff(malId: number) {
   const key = `anime:staff:${malId}`
   const cached = cache.get<unknown>(key)
   if (cached) return cached
-  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/staff`)
-  if (!res.ok) return { data: [] }
-  const data = await res.json()
+  let data: unknown
+  try {
+    data = await getRaw(`/anime/${malId}/staff`)
+  } catch {
+    return { data: [] }
+  }
   cache.set(key, data, 60 * 60_000)
   return data
 }
 
 // ─── getEpisodes ──────────────────────────────────────────────────────────────
+// Postgres-first (Episode table, synced by the worker). Falls back to a
+// rate-limited Jikan passthrough only while the local list is still empty,
+// enqueueing a sync so the next request is served locally. The response keeps
+// Jikan's wire shape so the frontend needs no changes.
+
+const EPISODES_PER_PAGE = 100 // matches Jikan's page size
 
 export async function getEpisodes(malId: number, page = 1) {
   const key = `anime:episodes:${malId}:${page}`
   const cached = cache.get<unknown>(key)
   if (cached) return cached
-  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/episodes?page=${page}`)
-  if (!res.ok) return { data: [], pagination: { last_visible_page: 1, has_next_page: false } }
-  const data = await res.json()
-  cache.set(key, data, 30 * 60_000) // 30 min
+
+  const anime = await prisma.anime.findUnique({
+    where: { malId },
+    select: { id: true, episodes: true },
+  })
+
+  if (anime) {
+    const [rows, total] = await prisma.$transaction([
+      prisma.episode.findMany({
+        where: { animeId: anime.id },
+        orderBy: { malEpisodeId: "asc" },
+        skip: (page - 1) * EPISODES_PER_PAGE,
+        take: EPISODES_PER_PAGE,
+      }),
+      prisma.episode.count({ where: { animeId: anime.id } }),
+    ])
+
+    if (total > 0) {
+      const lastPage = Math.max(1, Math.ceil(total / EPISODES_PER_PAGE))
+      const data = {
+        data: rows.map(e => ({
+          mal_id: e.malEpisodeId,
+          title: e.title,
+          title_japanese: e.titleJapanese,
+          title_romanji: e.titleRomaji,
+          aired: e.aired?.toISOString() ?? null,
+          score: e.score,
+          filler: e.filler,
+          recap: e.recap,
+        })),
+        pagination: { last_visible_page: lastPage, has_next_page: page < lastPage },
+      }
+      cache.set(key, data, 30 * 60_000) // 30 min
+      return data
+    }
+
+    // Local list empty but the show has episodes → queue a sync for next time.
+    if ((anime.episodes ?? 0) > 0) void enqueueEpisodeSync(malId).catch(() => {})
+  }
+
+  // Fallback while unsynced: rate-limited passthrough (previous behaviour).
+  let data: unknown
+  try {
+    data = await getRaw(`/anime/${malId}/episodes?page=${page}`)
+  } catch {
+    return { data: [], pagination: { last_visible_page: 1, has_next_page: false } }
+  }
+  cache.set(key, data, 30 * 60_000)
   return data
 }
 
 // ─── getFranchise ────────────────────────────────────────────────────────────
+// Relations are persisted (AnimeRelation) but the frontend consumes Jikan's
+// /relations wire shape incl. manga entries — keep the passthrough for now.
 
 export async function getFranchise(malId: number) {
   const key = `anime:franchise:${malId}`
   const cached = cache.get<unknown>(key)
   if (cached) return cached
-  const res = await fetch(`${JIKAN_BASE}/anime/${malId}/relations`)
-  if (!res.ok) return { data: [] }
-  const data = await res.json()
+  let data: unknown
+  try {
+    data = await getRaw(`/anime/${malId}/relations`)
+  } catch {
+    return { data: [] }
+  }
   cache.set(key, data, 60 * 60_000)
   return data
 }
@@ -782,8 +881,13 @@ export async function search(q: string, page = 1, limit = 20) {
   ]);
 
   if (localData.length === 0) {
-    const items = await catalog.searchAnime(q, { limit: 10 });
-    await Promise.all(items.map((item) => upsertFromCatalog(item)));
+    const upstream = await searchAnimePage(q, { limit: 10 }).catch(() => ({ data: [] }));
+    await Promise.all(
+      (upstream.data ?? []).map(async (item) => {
+        await upsertStubFromSearchResult(item);
+        void enqueueAnimeFullSync(item.mal_id).catch(() => {});
+      }),
+    );
     const [fresh, freshTotal] = await prisma.$transaction([
       prisma.anime.findMany({ where, skip, take, include: animeInclude }),
       prisma.anime.count({ where }),

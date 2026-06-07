@@ -35,9 +35,13 @@ export async function getAnimeUserStats(req: Request, res: Response, next: NextF
 
 export async function getById(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const malId = parseMalId(req.params.malId);
+    const raw = Array.isArray(req.params.malId) ? req.params.malId[0] : req.params.malId;
     const userId: string | undefined = res.locals.user?.id;
-    const result = await service.getById(malId, userId);
+    // Numeric → malId (canonical, used by all existing clients); anything
+    // else → SEO slug ("fullmetal-alchemist-brotherhood").
+    const result = /^\d+$/.test(raw)
+      ? await service.getById(parseMalId(raw), userId)
+      : await service.getBySlug(raw, userId);
     res.status(200).json(result);
   } catch (err) {
     next(err);
