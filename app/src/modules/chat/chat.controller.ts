@@ -7,6 +7,11 @@ import {
   sendMessageSchema,
   getMessagesSchema,
   reactionSchema,
+  listConversationsSchema,
+  editMessageSchema,
+  putReactionSchema,
+  muteSchema,
+  searchConversationSchema,
 } from "./chat.schema";
 
 export async function addReaction(req: Request, res: Response, next: NextFunction) {
@@ -96,9 +101,95 @@ export async function startConversation(req: Request, res: Response, next: NextF
 
 export async function listConversations(req: Request, res: Response, next: NextFunction) {
   try {
+    const { query } = listConversationsSchema.parse({ query: req.query });
     const userId = res.locals.user.id as string;
-    const result = await chatService.listConversations(userId);
-    res.json({ conversations: result });
+    const result = await chatService.listConversations(userId, query);
+    // `conversations` kept for back-compat with the current mobile client;
+    // `data`/`meta` is the cursor-paginated shape.
+    res.json({ conversations: result.data, data: result.data, meta: result.meta });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function unreadCount(req: Request, res: Response, next: NextFunction) {
+  try {
+    const count = await chatService.unreadCount(res.locals.user.id as string);
+    res.json({ count });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function editMessage(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, body } = editMessageSchema.parse({ params: req.params, body: req.body });
+    const result = await chatService.editMessage(res.locals.user.id as string, params.id, body.body);
+    res.json({ message: result });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function putReaction(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, body } = putReactionSchema.parse({ params: req.params, body: req.body });
+    const userId = res.locals.user.id as string;
+    if (body.emoji === null) {
+      // Clear whatever reaction this user has on the message.
+      await chatService.clearReaction(userId, params.id);
+    } else {
+      await chatService.addReaction(userId, params.id, body.emoji);
+    }
+    res.json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function acceptRequest(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.acceptRequest(res.locals.user.id as string, req.params.conversationId as string);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function declineRequest(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.declineRequest(res.locals.user.id as string, req.params.conversationId as string);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function muteConversation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, body } = muteSchema.parse({ params: req.params, body: req.body });
+    const until = body.until === null ? null : body.until === "forever" ? new Date("9999-12-31") : new Date(body.until);
+    const result = await chatService.muteConversation(res.locals.user.id as string, params.conversationId, until);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteConversation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.deleteConversationForMe(res.locals.user.id as string, req.params.conversationId as string);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function searchConversation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { params, query } = searchConversationSchema.parse({ params: req.params, query: req.query });
+    const result = await chatService.searchConversation(res.locals.user.id as string, params.conversationId, query.q);
+    res.json(result);
   } catch (err) {
     next(err);
   }
@@ -130,6 +221,13 @@ export async function sendMessage(req: Request, res: Response, next: NextFunctio
     const message  = await chatService.sendMessage({
       conversationId: params.conversationId,
       senderId,
+      type:        body.type,
+      body:        body.body,
+      replyToId:   body.replyToId,
+      animeMalId:  body.animeMalId,
+      animeEpisode: body.animeEpisode,
+      clientNonce: body.clientNonce,
+      media:       body.media,
       ciphertext: body.ciphertext,
       iv:         body.iv,
       senderDeviceKeyId: body.senderDeviceKeyId,

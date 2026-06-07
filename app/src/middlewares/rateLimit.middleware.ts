@@ -2,9 +2,21 @@ import { Request, Response, NextFunction } from "express"
 
 const store = new Map<string, { count: number; resetAt: number }>()
 
-export function rateLimit(limit: number, windowMs: number) {
+type RateLimitOpts = {
+  // Key the bucket by the authenticated user instead of IP (DM write paths).
+  // Falls back to IP when no user is present.
+  perUser?: boolean
+  // Namespace so multiple limiters on the same user don't share a bucket.
+  bucket?: string
+}
+
+export function rateLimit(limit: number, windowMs: number, opts: RateLimitOpts = {}) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const key = req.ip ?? "unknown"
+    const ns = opts.bucket ? `${opts.bucket}:` : ""
+    const ident = opts.perUser
+      ? (res.locals?.user?.id ? `u:${res.locals.user.id}` : `ip:${req.ip ?? "unknown"}`)
+      : (req.ip ?? "unknown")
+    const key = `${ns}${ident}`
     const now = Date.now()
     const entry = store.get(key)
 

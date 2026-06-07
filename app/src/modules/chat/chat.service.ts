@@ -141,55 +141,120 @@ export async function getOrCreateConversation(callerId: string, recipientId: str
   };
 }
 
-export async function listConversations(userId: string) {
+function previewOf(m: { type: string; body: string | null; ciphertext: string | null; iv: string | null; deletedAt: Date | null } | null): string | null {
+  if (!m) return null;
+  if (m.deletedAt) return "🚫 This message was deleted";
+  if (m.type === "IMAGE") return "📷 Photo";
+  if (m.type === "VOICE") return "🎤 Voice message";
+  if (m.type === "ANIME_CARD") return "📺 Anime";
+  if (m.body != null) return m.body.slice(0, 120);
+  // Legacy plaintext-marker rows decode from base64; true E2E stays opaque.
+  if (m.iv === "PLAIN_NO_E2E" && m.ciphertext) {
+    try { return Buffer.from(m.ciphertext, "base64").toString("utf8").slice(0, 120); } catch { /* noop */ }
+  }
+  return "🔒 Encrypted message";
+}
+
+export async function listConversations(userId: string, opts: { cursor?: string; limit?: number; filter?: "active" | "requests" } = {}) {
+  const limit = Math.min(50, Math.max(1, opts.limit ?? 20));
+  const filter = opts.filter ?? "active";
+
   const conversations = await prisma.conversation.findMany({
     where: {
       OR: [{ participant1: userId }, { participant2: userId }],
+      // Active tab = ACTIVE convs; Requests tab = PENDING convs where I'm the recipient.
+      ...(filter === "requests"
+        ? { status: "PENDING", NOT: { initiatorId: userId } }
+        : { status: "ACTIVE" }),
+      ...(opts.cursor ? { lastMessageAt: { lt: new Date(opts.cursor) } } : {}),
     },
-    orderBy: { updatedAt: "desc" },
+    orderBy: { lastMessageAt: "desc" },
+    take: limit + 1,
     include: {
       user1: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
       user2: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
       messages: {
         orderBy: { createdAt: "desc" },
         take: 1,
-        select: {
-          id: true,
-          senderId: true,
-          ciphertext: true,
-          iv: true,
-          createdAt: true,
-          readAt: true,
-        },
+        select: { id: true, senderId: true, type: true, body: true, ciphertext: true, iv: true, createdAt: true, readAt: true, deletedAt: true },
       },
     },
   });
 
-  // Per-conversation unread counts (messages to me that I haven't read) —
-  // one grouped query for the whole list, not N+1.
-  const unread = await prisma.directMessage.groupBy({
-    by: ["conversationId"],
-    where: {
-      conversationId: { in: conversations.map((c) => c.id) },
-      senderId: { not: userId },
-      readAt: null,
-    },
-    _count: { _all: true },
-  });
-  const unreadMap = new Map(unread.map((u) => [u.conversationId, u._count._all]));
+  const hasMore = conversations.length > limit;
+  const page = hasMore ? conversations.slice(0, limit) : conversations;
 
-  return conversations.map((conv) => {
-    const otherUser = conv.participant1 === userId ? conv.user2 : conv.user1;
-    const lastMessage = conv.messages[0] ?? null;
-
+  const data = page.map((conv) => {
+    const meIsP1 = conv.participant1 === userId;
+    const otherUser = meIsP1 ? conv.user2 : conv.user1;
+    const last = conv.messages[0] ?? null;
     return {
-      id:          conv.id,
+      id: conv.id,
       otherUser,
-      lastMessage,
-      updatedAt:   conv.updatedAt,
-      unreadCount: unreadMap.get(conv.id) ?? 0,
+      lastMessage: last,
+      lastMessagePreview: previewOf(last),
+      lastMessageMine: last ? last.senderId === userId : false,
+      updatedAt: conv.lastMessageAt,
+      unreadCount: meIsP1 ? conv.p1UnreadCount : conv.p2UnreadCount,
+      mutedUntil: meIsP1 ? conv.p1MutedUntil : conv.p2MutedUntil,
+      status: conv.status,
     };
   });
+
+  return { data, meta: { nextCursor: hasMore ? page[page.length - 1].lastMessageAt.toISOString() : null } };
+}
+
+/** Total unread across all of a user's conversations (navbar badge). */
+export async function unreadCount(userId: string): Promise<number> {
+  const rows = await prisma.conversation.findMany({
+    where: { OR: [{ participant1: userId }, { participant2: userId }], status: "ACTIVE" },
+    select: { participant1: true, p1UnreadCount: true, p2UnreadCount: true },
+  });
+  return rows.reduce((sum, c) => sum + (c.participant1 === userId ? c.p1UnreadCount : c.p2UnreadCount), 0);
+}
+
+/** Mute/unmute for the calling participant. `until=null` clears the mute. */
+export async function muteConversation(userId: string, conversationId: string, until: Date | null) {
+  const conv = await prisma.conversation.findUnique({
+    where: { id: conversationId }, select: { id: true, participant1: true, participant2: true },
+  });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  const data = isP1(conv, userId) ? { p1MutedUntil: until } : { p2MutedUntil: until };
+  await prisma.conversation.update({ where: { id: conversationId }, data });
+  return { conversationId, mutedUntil: until };
+}
+
+/** "Delete conversation for me" — hide messages before now for this side. */
+export async function deleteConversationForMe(userId: string, conversationId: string) {
+  const conv = await prisma.conversation.findUnique({
+    where: { id: conversationId }, select: { id: true, participant1: true, participant2: true },
+  });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  const now = new Date();
+  const data = isP1(conv, userId) ? { p1DeletedAt: now, p1UnreadCount: 0 } : { p2DeletedAt: now, p2UnreadCount: 0 };
+  await prisma.conversation.update({ where: { id: conversationId }, data });
+  return { ok: true };
+}
+
+/** Case-insensitive search within one conversation (body only, non-deleted). */
+export async function searchConversation(userId: string, conversationId: string, q: string) {
+  const conv = await prisma.conversation.findUnique({
+    where: { id: conversationId }, select: { id: true, participant1: true, participant2: true, p1DeletedAt: true, p2DeletedAt: true },
+  });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  const term = q.trim();
+  if (term.length < 1) return { data: [] };
+  const since = isP1(conv, userId) ? conv.p1DeletedAt : conv.p2DeletedAt;
+  const messages = await prisma.directMessage.findMany({
+    where: {
+      conversationId, deletedAt: null, body: { contains: term, mode: "insensitive" },
+      ...(since ? { createdAt: { gt: since } } : {}),
+      ...(isP1(conv, userId) ? { deletedForSender: false } : { deletedForRecipient: false }),
+    },
+    orderBy: { createdAt: "desc" }, take: 50,
+    select: { id: true, senderId: true, body: true, createdAt: true },
+  });
+  return { data: messages };
 }
 
 export async function getConversationById(conversationId: string, userId: string) {
@@ -484,11 +549,15 @@ export async function getMessages(opts: {
 }) {
   const conversation = await prisma.conversation.findUnique({
     where: { id: opts.conversationId },
+    select: { id: true, participant1: true, participant2: true, p1DeletedAt: true, p2DeletedAt: true },
   });
-  if (!conversation) throw notFound("Conversation not found");
-  if (conversation.participant1 !== opts.userId && conversation.participant2 !== opts.userId) {
-    throw forbidden("Not a participant in this conversation");
+  // IDOR → 404 (no existence leak).
+  if (!conversation ||
+      (conversation.participant1 !== opts.userId && conversation.participant2 !== opts.userId)) {
+    throw notFound("Conversation not found");
   }
+  // "Delete conversation for me" hides everything before that cutoff for this side.
+  const clearedAt = isP1(conversation, opts.userId) ? conversation.p1DeletedAt : conversation.p2DeletedAt;
 
   // The requester's device key ids — used to return only the envelopes wrapped
   // for THIS user's devices (the client picks the one for its current device).
@@ -505,6 +574,7 @@ export async function getMessages(opts: {
     where: {
       conversationId: opts.conversationId,
       ...(opts.cursor ? { createdAt: { lt: new Date(opts.cursor) } } : {}),
+      ...(clearedAt ? { createdAt: { gt: clearedAt } } : {}),
       OR: [
         { senderId: opts.userId,           deletedForSender:    false },
         { senderId: { not: opts.userId },  deletedForRecipient: false },
@@ -515,12 +585,19 @@ export async function getMessages(opts: {
     select:  {
       id:        true,
       senderId:  true,
+      type:      true,
+      body:      true,
+      mediaUrl: true, mediaMime: true, mediaSizeBytes: true, mediaWidth: true,
+      mediaHeight: true, mediaDurationS: true, mediaBlurhash: true,
+      animeMalId: true, animeEpisode: true, replyToId: true, editedAt: true,
       ciphertext: true,
       iv:        true,
       createdAt: true,
       readAt:    true,
+      deliveredAt: true,
       deletedAt: true,
       senderDeviceKeyId: true,
+      replyTo: { select: { id: true, senderId: true, type: true, body: true, deletedAt: true } },
       // Only the envelopes addressed to this user's device(s) (empty for legacy).
       envelopes: {
         where:  { recipientDeviceKeyId: { in: myKeyIds } },
@@ -605,6 +682,16 @@ export async function removeReaction(userId: string, messageId: string, emoji: s
   const msg = await assertParticipantForMessage(messageId, userId);
   await prisma.messageReaction.deleteMany({ where: { messageId, userId, emoji } });
   emitReaction(msg, { messageId, userId, emoji, op: "remove" });
+  return { ok: true };
+}
+
+/** Remove whatever reaction the user has on a message (PUT { emoji: null }). */
+export async function clearReaction(userId: string, messageId: string) {
+  const msg = await assertParticipantForMessage(messageId, userId);
+  const existing = await prisma.messageReaction.findFirst({ where: { messageId, userId }, select: { emoji: true } });
+  if (!existing) return { ok: true };
+  await prisma.messageReaction.deleteMany({ where: { messageId, userId } });
+  emitReaction(msg, { messageId, userId, emoji: existing.emoji, op: "remove" });
   return { ok: true };
 }
 

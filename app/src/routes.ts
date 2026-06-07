@@ -6,6 +6,7 @@ import { listsRouter } from "./modules/lists/lists.routes";
 import { postsRouter } from "./modules/posts/posts.routes";
 import { shotsRouter } from "./modules/shots/shots.routes";
 import { storiesRouter } from "./modules/stories/stories.routes";
+import { blockRouter, reportsRouter } from "./modules/safety/safety.routes";
 import { notificationsRouter } from "./modules/notifications/notifications.routes";
 import { reviewsRouter, reviewsAnimeRouter } from "./modules/reviews/reviews.routes";
 import { blogsRouter } from "./modules/blogs/blogs.routes";
@@ -42,7 +43,11 @@ export const ROUTE_MOUNTS = [
   ["/anime",                           animeRouter],
   ["/anime/:animeId/reviews",          reviewsAnimeRouter],
   ["/anime/:malId/threads",            animeThreadsRouter],
+  // Block routes mount on /users BEFORE usersRouter so /users/blocked and
+  // /users/:id/block resolve before usersRouter's /:username catch-all.
+  ["/users",                           blockRouter],
   ["/users",                           usersRouter],
+  ["/reports",                         reportsRouter],
   ["/lists",                           listsRouter],
   ["/posts",                           postsRouter],
   ["/shots",                           shotsRouter],
