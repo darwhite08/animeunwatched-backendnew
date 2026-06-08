@@ -230,7 +230,21 @@ export async function jikanFetch<T>(path: string, opts?: { timeoutMs?: number })
 // ─── Endpoint helpers ────────────────────────────────────────────────────────
 
 export async function getAnimeFull(malId: number, opts?: { timeoutMs?: number }): Promise<JikanAnime> {
-  const res = await jikanFetch<{ data: JikanAnime }>(`/anime/${malId}/full`, opts);
+  const res = await jikanFetch<{ data?: JikanAnime; status?: number; message?: string }>(
+    `/anime/${malId}/full`,
+    opts,
+  );
+  // Jikan sometimes serves an error envelope with HTTP 200 (e.g. a cached
+  // UpstreamException: {"status":500,...} and no `data`). Surface it as a
+  // JikanError so the queue retries it instead of crashing on undefined —
+  // and so a body-level 404 still counts as not-found (skip, don't retry).
+  if (!res.data) {
+    throw new JikanError(
+      res.message ?? "Jikan returned an empty data envelope",
+      typeof res.status === "number" ? res.status : null,
+      `/anime/${malId}/full`,
+    );
+  }
   return res.data;
 }
 

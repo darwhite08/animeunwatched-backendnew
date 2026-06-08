@@ -155,7 +155,58 @@ async function handleJob(job: SyncJobRow): Promise<void> {
 
 // ─── Drain loop ──────────────────────────────────────────────────────────────
 
+/**
+ * Concurrent job processors. This does NOT raise the Jikan request rate —
+ * every fetch still goes through the shared token bucket (60/min hard cap).
+ * It only keeps the bucket fully drained: with a single processor the
+ * limiter idles during each job's DB writes (~10% lost throughput).
+ */
+const WORKER_CONCURRENCY = 3;
+
 let draining = false;
+
+async function processOneJob(job: SyncJobRow): Promise<void> {
+  const started = Date.now();
+  const malId = (job.payload as { malId?: number }).malId ?? null;
+
+  try {
+    await handleJob(job);
+    await completeJob(job.id);
+    await logSyncJob({
+      jobType: job.jobType,
+      malId,
+      status: "success",
+      durationMs: Date.now() - started,
+    });
+  } catch (err) {
+    const message = (err as Error).message ?? "unknown error";
+
+    if (err instanceof JikanError && err.isNotFound) {
+      // malId doesn't exist upstream — retrying will never help.
+      await completeJob(job.id);
+      await logSyncJob({
+        jobType: job.jobType,
+        malId,
+        status: "skipped",
+        error: "404 from Jikan",
+        durationMs: Date.now() - started,
+      });
+    } else {
+      await failJob(job, message);
+      if (job.jobType === SYNC_JOB.ANIME_FULL && malId) {
+        await recordSyncFailure(malId);
+      }
+      await logSyncJob({
+        jobType: job.jobType,
+        malId,
+        status: "failed",
+        error: message,
+        durationMs: Date.now() - started,
+      });
+      console.warn(`[animeSync] ${job.jobType} failed (attempt ${job.attempts}/${job.maxAttempts}): ${message}`);
+    }
+  }
+}
 
 export async function drainSyncQueue(): Promise<{ processed: number }> {
   if (draining) return { processed: 0 };
@@ -163,52 +214,18 @@ export async function drainSyncQueue(): Promise<{ processed: number }> {
   let processed = 0;
 
   try {
-    for (;;) {
-      const job = await claimNextJob();
-      if (!job) break;
-
-      const started = Date.now();
-      const malId = (job.payload as { malId?: number }).malId ?? null;
-
-      try {
-        await handleJob(job);
-        await completeJob(job.id);
-        await logSyncJob({
-          jobType: job.jobType,
-          malId,
-          status: "success",
-          durationMs: Date.now() - started,
-        });
-      } catch (err) {
-        const message = (err as Error).message ?? "unknown error";
-
-        if (err instanceof JikanError && err.isNotFound) {
-          // malId doesn't exist upstream — retrying will never help.
-          await completeJob(job.id);
-          await logSyncJob({
-            jobType: job.jobType,
-            malId,
-            status: "skipped",
-            error: "404 from Jikan",
-            durationMs: Date.now() - started,
-          });
-        } else {
-          await failJob(job, message);
-          if (job.jobType === SYNC_JOB.ANIME_FULL && malId) {
-            await recordSyncFailure(malId);
-          }
-          await logSyncJob({
-            jobType: job.jobType,
-            malId,
-            status: "failed",
-            error: message,
-            durationMs: Date.now() - started,
-          });
-          console.warn(`[animeSync] ${job.jobType} failed (attempt ${job.attempts}/${job.maxAttempts}): ${message}`);
+    // N independent claim→process loops; claimNextJob's atomic updateMany
+    // guarantees each job is handed to exactly one of them.
+    await Promise.all(
+      Array.from({ length: WORKER_CONCURRENCY }, async () => {
+        for (;;) {
+          const job = await claimNextJob();
+          if (!job) break;
+          await processOneJob(job);
+          processed++;
         }
-      }
-      processed++;
-    }
+      }),
+    );
   } finally {
     draining = false;
   }
@@ -262,10 +279,13 @@ export function enqueueCurrentSeasonSeed(): Promise<{ id: string } | null> {
   );
 }
 
-export async function syncQueueMaintenance(): Promise<{ requeued: number; purged: number }> {
+export async function syncQueueMaintenance(): Promise<{ requeued: number; retriedTransient: number; purged: number }> {
+  const { requeueTransientFailures } = await import("../modules/anime/syncQueue.service");
   const requeued = await requeueStaleJobs();
+  const retriedTransient = await requeueTransientFailures();
   const purged = await purgeFinishedJobs();
-  return { requeued, purged };
+  if (retriedTransient > 0) console.log(`[animeSync] maintenance: requeued ${retriedTransient} transient failures`);
+  return { requeued, retriedTransient, purged };
 }
 
 /**

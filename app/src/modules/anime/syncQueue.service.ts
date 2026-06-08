@@ -101,17 +101,21 @@ export function enqueueEpisodeSync(malId: number): Promise<{ id: string } | null
   return enqueueSyncJob(
     SYNC_JOB.EPISODES,
     { malId },
-    { dedupeKey: `${SYNC_JOB.EPISODES}:${malId}` },
+    // priority -1: episode lists are ~half of all Jikan requests; running
+    // them BELOW catalog sweeps/full syncs means every anime's core data
+    // lands first and episodes backfill afterwards.
+    { dedupeKey: `${SYNC_JOB.EPISODES}:${malId}`, priority: -1 },
   );
 }
 
 // ─── Claim / complete / fail ─────────────────────────────────────────────────
 
-/** Atomically claim the next runnable job (highest priority, oldest first). */
+/** Atomically claim the next runnable job (highest priority, oldest first).
+ *  Returns null only when no runnable job exists. Concurrent claimers race
+ *  on updateMany; losing a race means another worker took that job, so we
+ *  simply pick the next candidate — global progress is guaranteed. */
 export async function claimNextJob(): Promise<SyncJobRow | null> {
-  // Single-process worker, but claim atomically anyway so a second instance
-  // (or an admin "run now") can never double-process a job.
-  for (let i = 0; i < 3; i++) {
+  for (;;) {
     const candidate = await prisma.syncJob.findFirst({
       where: { status: "PENDING", runAt: { lte: new Date() } },
       orderBy: [{ priority: "desc" }, { runAt: "asc" }],
@@ -125,7 +129,6 @@ export async function claimNextJob(): Promise<SyncJobRow | null> {
     });
     if (count === 1) return { ...candidate, attempts: candidate.attempts + 1 };
   }
-  return null;
 }
 
 export async function completeJob(id: string): Promise<void> {
@@ -195,6 +198,31 @@ export async function requeueStaleJobs(): Promise<number> {
   const { count } = await prisma.syncJob.updateMany({
     where: { status: "RUNNING", lockedAt: { lt: new Date(Date.now() - STALE_LOCK_MS) } },
     data: { status: "PENDING", lockedAt: null },
+  });
+  return count;
+}
+
+/**
+ * Auto-requeue FAILED jobs whose error signature is a transient upstream
+ * blip (MAL down/refusing, Jikan 5xx, empty envelope). Permanent failures
+ * (bad payloads, unknown job types) stay FAILED for human review.
+ * dedupeKey is left null — the freshness check + idempotent upserts make an
+ * accidental duplicate harmless.
+ */
+export async function requeueTransientFailures(): Promise<number> {
+  const { count } = await prisma.syncJob.updateMany({
+    where: {
+      status: "FAILED",
+      OR: [
+        { lastError: { contains: "MyAnimeList" } },
+        { lastError: { contains: "Jikan returned 5" } },
+        { lastError: { contains: "Jikan returned 429" } },
+        { lastError: { contains: "empty data envelope" } },
+        { lastError: { contains: "network-error" } },
+        { lastError: { contains: "timeout" } },
+      ],
+    },
+    data: { status: "PENDING", attempts: 0, runAt: new Date(), lastError: null },
   });
   return count;
 }
