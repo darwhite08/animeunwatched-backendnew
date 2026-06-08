@@ -130,7 +130,10 @@ export async function getRevenueSummary(creatorId: string, range = "28d") {
 
   const [windowAgg, lifetimeAgg, available, pending, activeMembers, tiers, tipsAgg, recent] = await Promise.all([
     prisma.creatorEarning.aggregate({
-      where: { creatorId, createdAt: { gte: since } },
+      // Exclude refunded earnings (e.g. revoked admin grants) so the period
+      // revenue funnel drops when a grant is clawed back — matching the
+      // lifetime/available aggregates below.
+      where: { creatorId, createdAt: { gte: since }, status: { not: "refunded" } },
       _sum: { grossCents: true, platformFeeCents: true, processorFeeCents: true, netCents: true },
     }),
     prisma.creatorEarning.aggregate({ where: { creatorId, status: { not: "refunded" } }, _sum: { netCents: true } }),
@@ -300,6 +303,73 @@ export async function getRetention(creatorId: string) {
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([month, c]) => ({ month, joined: c.total, retained: c.retained, retentionPct: c.total ? (c.retained / c.total) * 100 : 0 })),
   };
+}
+
+/** Supporters list (Patreon-style Membership Insights) + headline counts. */
+export async function getMembers(creatorId: string) {
+  const monthAgo = new Date(Date.now() - 30 * 86_400_000);
+  const memberships = await prisma.creatorMembership.findMany({
+    where: { creatorId },
+    orderBy: { createdAt: "desc" },
+    take: 200,
+    select: {
+      id: true, status: true, createdAt: true, canceledAt: true,
+      fan: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
+      tier: { select: { id: true, name: true, priceCents: true } },
+    },
+  });
+
+  const active = memberships.filter((m) => m.status === "active");
+  const counts = {
+    active: active.length,
+    new30d: memberships.filter((m) => m.createdAt >= monthAgo).length,
+    canceled30d: memberships.filter((m) => m.status === "canceled" && m.canceledAt && m.canceledAt >= monthAgo).length,
+    total: memberships.length,
+    mrrCents: active.reduce((s, m) => s + (m.tier?.priceCents ?? 0), 0),
+  };
+
+  return {
+    counts,
+    members: memberships.map((m) => ({
+      id: m.id,
+      status: m.status,
+      since: m.createdAt.toISOString(),
+      canceledAt: m.canceledAt?.toISOString() ?? null,
+      fan: m.fan,
+      tier: m.tier ? { id: m.tier.id, name: m.tier.name, priceCents: m.tier.priceCents } : null,
+    })),
+  };
+}
+
+/** Daily net-earnings time series (split membership vs tip) for the Revenue chart. */
+export async function getRevenueSeries(creatorId: string, range = "28d") {
+  const days = Math.min(365, Math.max(1, Number(/^(\d+)d$/.exec(range)?.[1] ?? 28)));
+  const since = new Date(Date.now() - days * 86_400_000);
+
+  const rows = await prisma.$queryRaw<Array<{ day: Date; source: string; net: number }>>`
+    SELECT date_trunc('day', "createdAt")::date AS day, source, SUM("netCents")::int AS net
+      FROM "CreatorEarning"
+     WHERE "creatorId" = ${creatorId} AND "createdAt" >= ${since} AND status <> 'refunded'
+     GROUP BY 1, 2 ORDER BY 1
+  `;
+
+  const byDay = new Map<string, { membership: number; tip: number; unlock: number }>();
+  for (const r of rows) {
+    const k = r.day.toISOString().slice(0, 10);
+    const e = byDay.get(k) ?? { membership: 0, tip: 0, unlock: 0 };
+    if (r.source === "membership") e.membership += r.net;
+    else if (r.source === "tip") e.tip += r.net;
+    else e.unlock += r.net;
+    byDay.set(k, e);
+  }
+
+  const series: { date: string; membership: number; tip: number; total: number }[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+    const e = byDay.get(d) ?? { membership: 0, tip: 0, unlock: 0 };
+    series.push({ date: d, membership: e.membership, tip: e.tip, total: e.membership + e.tip + e.unlock });
+  }
+  return { series };
 }
 
 export async function getPayouts(creatorId: string) {
