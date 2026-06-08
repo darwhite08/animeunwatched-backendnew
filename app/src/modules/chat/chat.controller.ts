@@ -114,8 +114,8 @@ export async function listConversations(req: Request, res: Response, next: NextF
 
 export async function unreadCount(req: Request, res: Response, next: NextFunction) {
   try {
-    const count = await chatService.unreadCount(res.locals.user.id as string);
-    res.json({ count });
+    const { count, requests } = await chatService.unreadCount(res.locals.user.id as string);
+    res.json({ count, requests });
   } catch (err) {
     next(err);
   }

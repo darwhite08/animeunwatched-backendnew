@@ -206,13 +206,30 @@ export async function listConversations(userId: string, opts: { cursor?: string;
   return { data, meta: { nextCursor: hasMore ? page[page.length - 1].lastMessageAt.toISOString() : null } };
 }
 
-/** Total unread across all of a user's conversations (navbar badge). */
-export async function unreadCount(userId: string): Promise<number> {
+/**
+ * Unread summary for the navbar/tab badge. Counts ACTIVE conversations' unread
+ * PLUS pending message-requests addressed to the user (so a first message from
+ * someone they don't follow still shows up instead of silently sitting in the
+ * Requests tab). Returns both the total and the pending-request count.
+ */
+export async function unreadCount(userId: string): Promise<{ count: number; requests: number }> {
   const rows = await prisma.conversation.findMany({
-    where: { OR: [{ participant1: userId }, { participant2: userId }], status: "ACTIVE" },
-    select: { participant1: true, p1UnreadCount: true, p2UnreadCount: true },
+    where: {
+      AND: [
+        { OR: [{ participant1: userId }, { participant2: userId }] },
+        { OR: [{ status: "ACTIVE" }, { AND: [{ status: "PENDING" }, { NOT: { initiatorId: userId } }] }] },
+      ],
+    },
+    select: { participant1: true, status: true, initiatorId: true, p1UnreadCount: true, p2UnreadCount: true },
   });
-  return rows.reduce((sum, c) => sum + (c.participant1 === userId ? c.p1UnreadCount : c.p2UnreadCount), 0);
+  let count = 0;
+  let requests = 0;
+  for (const c of rows) {
+    const unread = c.participant1 === userId ? c.p1UnreadCount : c.p2UnreadCount;
+    count += unread;
+    if (c.status === "PENDING" && c.initiatorId !== userId) requests += 1;
+  }
+  return { count, requests };
 }
 
 /** Online + last-seen for a user, filtered by their showOnlineStatus + blocks. */
