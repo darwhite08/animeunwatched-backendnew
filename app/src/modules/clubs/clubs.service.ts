@@ -54,18 +54,26 @@ export async function list(page = 1, limit = 20, q?: string) {
 
 // ─── getBySlug ────────────────────────────────────────────────────────────────
 
-export async function getBySlug(slug: string) {
+export async function getBySlug(slug: string, userId?: string) {
   const club = await prisma.club.findUnique({
     where: { slug },
     include: {
       owner: { select: authorSelect },
       _count: { select: { members: true, threads: true } },
+      chatGroup: { select: { id: true } },
     },
   });
 
   if (!club) throw notFound("Club not found");
 
-  return { club };
+  let isMember = false;
+  let myRole: "USER" | "MOD" | "ADMIN" | null = null;
+  if (userId) {
+    const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { role: true } });
+    if (m) { isMember = true; myRole = m.role; }
+  }
+  const { chatGroup, ...rest } = club;
+  return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup } };
 }
 
 // ─── create ───────────────────────────────────────────────────────────────────
@@ -128,7 +136,7 @@ export async function join(userId: string, slug: string) {
 // ─── leave ────────────────────────────────────────────────────────────────────
 
 export async function leave(userId: string, slug: string) {
-  const club = await prisma.club.findUnique({ where: { slug } });
+  const club = await prisma.club.findUnique({ where: { slug }, include: { chatGroup: { select: { id: true } } } });
   if (!club) throw notFound("Club not found");
 
   if (club.ownerId === userId) {
@@ -138,6 +146,65 @@ export async function leave(userId: string, slug: string) {
   await prisma.clubMember.deleteMany({
     where: { userId, clubId: club.id },
   });
+  // Drop them from the club chat room too (soft-leave so history stays attributed).
+  if (club.chatGroup) {
+    await prisma.groupMember.updateMany({
+      where: { groupId: club.chatGroup.id, userId, leftAt: null },
+      data: { leftAt: new Date() },
+    });
+  }
+}
+
+// ─── club chat (realtime group room backed by ClubMember) ──────────────────────
+
+function clubRoleToGroupRole(clubRole: string, isOwner: boolean): "OWNER" | "ADMIN" | "MEMBER" {
+  if (isOwner) return "OWNER";
+  if (clubRole === "ADMIN" || clubRole === "MOD") return "ADMIN";
+  return "MEMBER";
+}
+
+/**
+ * Resolve (and lazily create) the club's chat room. The room is a GroupConversation
+ * with clubId set; its membership mirrors ClubMember — the caller is auto-added as a
+ * GroupMember on first open (handles all existing club members without bulk sync).
+ * Returns the groupId the client opens via the normal group thread.
+ */
+export async function getOrCreateClubChat(userId: string, slug: string) {
+  const club = await prisma.club.findUnique({
+    where: { slug },
+    include: { chatGroup: { select: { id: true } } },
+  });
+  if (!club) throw notFound("Club not found");
+
+  const membership = await prisma.clubMember.findUnique({
+    where: { userId_clubId: { userId, clubId: club.id } },
+  });
+  if (!membership) throw forbidden("Join the club to access its chat");
+
+  // Create the backing group on first access.
+  let groupId = club.chatGroup?.id;
+  if (!groupId) {
+    const created = await prisma.groupConversation.create({
+      data: {
+        title: club.name, ownerId: club.ownerId, clubId: club.id, isE2EE: false,
+        members: { create: { userId, role: clubRoleToGroupRole(membership.role, club.ownerId === userId), addedBy: userId } },
+      },
+      select: { id: true },
+    });
+    groupId = created.id;
+    // Seed a system message.
+    await prisma.groupMessage.create({ data: { groupId, senderId: null, type: "SYSTEM", body: "Club chat created" } });
+    return { groupId };
+  }
+
+  // Ensure the caller is an active member of the room (lazy join / rejoin).
+  const gm = await prisma.groupMember.findUnique({ where: { groupId_userId: { groupId, userId } }, select: { leftAt: true } });
+  if (!gm) {
+    await prisma.groupMember.create({ data: { groupId, userId, role: clubRoleToGroupRole(membership.role, club.ownerId === userId), addedBy: userId } });
+  } else if (gm.leftAt) {
+    await prisma.groupMember.update({ where: { groupId_userId: { groupId, userId } }, data: { leftAt: null } });
+  }
+  return { groupId };
 }
 
 // ─── setMemberRole ────────────────────────────────────────────────────────────

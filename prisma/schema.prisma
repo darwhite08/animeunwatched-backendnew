@@ -592,6 +592,8 @@ model Club {
   owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
   members ClubMember[]
   threads Thread[]
+  // Optional realtime chat room for the club (a club-backed GroupConversation).
+  chatGroup GroupConversation? @relation("ClubChat")
 
   @@index([slug])
   @@index([createdAt])
@@ -1014,10 +1016,13 @@ model GroupConversation {
   disappearingSeconds Int?
   // When true, members send opaque ciphertext + per-device envelopes.
   isE2EE        Boolean  @default(false)
+  // If set, this group is the chat room for a Club; membership mirrors ClubMember.
+  clubId        String?  @unique
 
   owner    User           @relation("GroupOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   members  GroupMember[]
   messages GroupMessage[]
+  club     Club?          @relation("ClubChat", fields: [clubId], references: [id], onDelete: Cascade)
 
   @@index([lastMessageAt])
   @@index([ownerId])

@@ -18,6 +18,8 @@ clubsRouter.post("/:slug/join", requireAuth, ctrl.joinClub);
 clubsRouter.delete("/:slug/membership", requireAuth, ctrl.leaveClub);
 clubsRouter.get("/:slug/members", optionalAuth, ctrl.getClubMembers);
 clubsRouter.patch("/:slug/members/:userId", requireAuth, ctrl.setMemberRole);
+// Realtime club chat room (lazily created; membership mirrors ClubMember).
+clubsRouter.get("/:slug/chat", requireAuth, ctrl.clubChat);
 
 // Club threads: POST /clubs/:slug/threads
 clubsRouter.use("/:slug/threads", clubThreadsRouter);

@@ -235,6 +235,7 @@ export type ClubWhereInput = {
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
+  chatGroup?: Prisma.XOR<Prisma.GroupConversationNullableScalarRelationFilter, Prisma.GroupConversationWhereInput> | null
 }
 
 export type ClubOrderByWithRelationInput = {
@@ -248,6 +249,7 @@ export type ClubOrderByWithRelationInput = {
   owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.ClubMemberOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
+  chatGroup?: Prisma.GroupConversationOrderByWithRelationInput
 }
 
 export type ClubWhereUniqueInput = Prisma.AtLeast<{
@@ -264,6 +266,7 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
+  chatGroup?: Prisma.XOR<Prisma.GroupConversationNullableScalarRelationFilter, Prisma.GroupConversationWhereInput> | null
 }, "id" | "slug">
 
 export type ClubOrderByWithAggregationInput = {
@@ -304,6 +307,7 @@ export type ClubCreateInput = {
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
 export type ClubUncheckedCreateInput = {
@@ -316,6 +320,7 @@ export type ClubUncheckedCreateInput = {
   createdAt?: Date | string
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
 export type ClubUpdateInput = {
@@ -328,6 +333,7 @@ export type ClubUpdateInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateInput = {
@@ -340,6 +346,7 @@ export type ClubUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
 export type ClubCreateManyInput = {
@@ -501,6 +508,22 @@ export type ClubUpdateOneWithoutThreadsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutThreadsInput, Prisma.ClubUpdateWithoutThreadsInput>, Prisma.ClubUncheckedUpdateWithoutThreadsInput>
 }
 
+export type ClubCreateNestedOneWithoutChatGroupInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutChatGroupInput, Prisma.ClubUncheckedCreateWithoutChatGroupInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutChatGroupInput
+  connect?: Prisma.ClubWhereUniqueInput
+}
+
+export type ClubUpdateOneWithoutChatGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutChatGroupInput, Prisma.ClubUncheckedCreateWithoutChatGroupInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutChatGroupInput
+  upsert?: Prisma.ClubUpsertWithoutChatGroupInput
+  disconnect?: Prisma.ClubWhereInput | boolean
+  delete?: Prisma.ClubWhereInput | boolean
+  connect?: Prisma.ClubWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutChatGroupInput, Prisma.ClubUpdateWithoutChatGroupInput>, Prisma.ClubUncheckedUpdateWithoutChatGroupInput>
+}
+
 export type ClubCreateWithoutOwnerInput = {
   id?: string
   slug: string
@@ -510,6 +533,7 @@ export type ClubCreateWithoutOwnerInput = {
   createdAt?: Date | string
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
 export type ClubUncheckedCreateWithoutOwnerInput = {
@@ -521,6 +545,7 @@ export type ClubUncheckedCreateWithoutOwnerInput = {
   createdAt?: Date | string
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutOwnerInput = {
@@ -571,6 +596,7 @@ export type ClubCreateWithoutMembersInput = {
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
 export type ClubUncheckedCreateWithoutMembersInput = {
@@ -582,6 +608,7 @@ export type ClubUncheckedCreateWithoutMembersInput = {
   reputation?: number
   createdAt?: Date | string
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutMembersInput = {
@@ -609,6 +636,7 @@ export type ClubUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateWithoutMembersInput = {
@@ -620,6 +648,7 @@ export type ClubUncheckedUpdateWithoutMembersInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
 export type ClubCreateWithoutThreadsInput = {
@@ -631,6 +660,7 @@ export type ClubCreateWithoutThreadsInput = {
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
 export type ClubUncheckedCreateWithoutThreadsInput = {
@@ -642,6 +672,7 @@ export type ClubUncheckedCreateWithoutThreadsInput = {
   reputation?: number
   createdAt?: Date | string
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutThreadsInput = {
@@ -669,6 +700,7 @@ export type ClubUpdateWithoutThreadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateWithoutThreadsInput = {
@@ -680,6 +712,71 @@ export type ClubUncheckedUpdateWithoutThreadsInput = {
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
+}
+
+export type ClubCreateWithoutChatGroupInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  reputation?: number
+  createdAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
+  members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+}
+
+export type ClubUncheckedCreateWithoutChatGroupInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  ownerId: string
+  reputation?: number
+  createdAt?: Date | string
+  members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+}
+
+export type ClubCreateOrConnectWithoutChatGroupInput = {
+  where: Prisma.ClubWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClubCreateWithoutChatGroupInput, Prisma.ClubUncheckedCreateWithoutChatGroupInput>
+}
+
+export type ClubUpsertWithoutChatGroupInput = {
+  update: Prisma.XOR<Prisma.ClubUpdateWithoutChatGroupInput, Prisma.ClubUncheckedUpdateWithoutChatGroupInput>
+  create: Prisma.XOR<Prisma.ClubCreateWithoutChatGroupInput, Prisma.ClubUncheckedCreateWithoutChatGroupInput>
+  where?: Prisma.ClubWhereInput
+}
+
+export type ClubUpdateToOneWithWhereWithoutChatGroupInput = {
+  where?: Prisma.ClubWhereInput
+  data: Prisma.XOR<Prisma.ClubUpdateWithoutChatGroupInput, Prisma.ClubUncheckedUpdateWithoutChatGroupInput>
+}
+
+export type ClubUpdateWithoutChatGroupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
+  members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+}
+
+export type ClubUncheckedUpdateWithoutChatGroupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateManyOwnerInput = {
@@ -700,6 +797,7 @@ export type ClubUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateWithoutOwnerInput = {
@@ -711,6 +809,7 @@ export type ClubUncheckedUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateManyWithoutOwnerInput = {
@@ -773,6 +872,7 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
   threads?: boolean | Prisma.Club$threadsArgs<ExtArgs>
+  chatGroup?: boolean | Prisma.Club$chatGroupArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
 
@@ -813,6 +913,7 @@ export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
   threads?: boolean | Prisma.Club$threadsArgs<ExtArgs>
+  chatGroup?: boolean | Prisma.Club$chatGroupArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClubIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -828,6 +929,7 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     owner: Prisma.$UserPayload<ExtArgs>
     members: Prisma.$ClubMemberPayload<ExtArgs>[]
     threads: Prisma.$ThreadPayload<ExtArgs>[]
+    chatGroup: Prisma.$GroupConversationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1234,6 +1336,7 @@ export interface Prisma__ClubClient<T, Null = never, ExtArgs extends runtime.Typ
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Club$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threads<T extends Prisma.Club$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatGroup<T extends Prisma.Club$chatGroupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$chatGroupArgs<ExtArgs>>): Prisma.Prisma__GroupConversationClient<runtime.Types.Result.GetResult<Prisma.$GroupConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1711,6 +1814,25 @@ export type Club$threadsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ThreadScalarFieldEnum | Prisma.ThreadScalarFieldEnum[]
+}
+
+/**
+ * Club.chatGroup
+ */
+export type Club$chatGroupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GroupConversation
+   */
+  select?: Prisma.GroupConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GroupConversation
+   */
+  omit?: Prisma.GroupConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupConversationInclude<ExtArgs> | null
+  where?: Prisma.GroupConversationWhereInput
 }
 
 /**

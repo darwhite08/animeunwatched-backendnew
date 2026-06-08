@@ -85,7 +85,8 @@ export async function createGroup(ownerId: string, dto: { title: string; avatarU
 /** Inbox list — the caller's group memberships with last-message preview + unread. */
 export async function listGroups(userId: string, opts: { cursor?: string; limit: number; filter: "active" | "archived" }) {
   const memberships = await prisma.groupMember.findMany({
-    where: { userId, leftAt: null, archived: opts.filter === "archived" },
+    // Club-backed rooms are surfaced under the club, not the standalone group inbox.
+    where: { userId, leftAt: null, archived: opts.filter === "archived", group: { clubId: null } },
     select: {
       role: true, unreadCount: true, mutedUntil: true, pinned: true, archived: true, lastReadAt: true,
       group: {
@@ -138,7 +139,8 @@ export async function getGroup(userId: string, groupId: string) {
     where: { id: groupId },
     select: {
       id: true, title: true, avatarUrl: true, ownerId: true, isE2EE: true,
-      disappearingSeconds: true, createdAt: true, lastMessageAt: true,
+      disappearingSeconds: true, createdAt: true, lastMessageAt: true, clubId: true,
+      club: { select: { slug: true } },
       members: {
         where: { leftAt: null },
         select: { userId: true, role: true, joinedAt: true, user: { select: USER_LITE } },
@@ -151,6 +153,7 @@ export async function getGroup(userId: string, groupId: string) {
   return {
     group: {
       ...g,
+      clubSlug: g.club?.slug ?? null,
       memberCount: g.members.length,
       myRole: me?.role ?? "MEMBER",
       members: g.members.map((m) => ({ ...m.user, role: m.role, joinedAt: m.joinedAt })),

@@ -44,6 +44,7 @@ export type GroupConversationMinAggregateOutputType = {
   lastMessageAt: Date | null
   disappearingSeconds: number | null
   isE2EE: boolean | null
+  clubId: string | null
 }
 
 export type GroupConversationMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type GroupConversationMaxAggregateOutputType = {
   lastMessageAt: Date | null
   disappearingSeconds: number | null
   isE2EE: boolean | null
+  clubId: string | null
 }
 
 export type GroupConversationCountAggregateOutputType = {
@@ -68,6 +70,7 @@ export type GroupConversationCountAggregateOutputType = {
   lastMessageAt: number
   disappearingSeconds: number
   isE2EE: number
+  clubId: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type GroupConversationMinAggregateInputType = {
   lastMessageAt?: true
   disappearingSeconds?: true
   isE2EE?: true
+  clubId?: true
 }
 
 export type GroupConversationMaxAggregateInputType = {
@@ -102,6 +106,7 @@ export type GroupConversationMaxAggregateInputType = {
   lastMessageAt?: true
   disappearingSeconds?: true
   isE2EE?: true
+  clubId?: true
 }
 
 export type GroupConversationCountAggregateInputType = {
@@ -114,6 +119,7 @@ export type GroupConversationCountAggregateInputType = {
   lastMessageAt?: true
   disappearingSeconds?: true
   isE2EE?: true
+  clubId?: true
   _all?: true
 }
 
@@ -213,6 +219,7 @@ export type GroupConversationGroupByOutputType = {
   lastMessageAt: Date
   disappearingSeconds: number | null
   isE2EE: boolean
+  clubId: string | null
   _count: GroupConversationCountAggregateOutputType | null
   _avg: GroupConversationAvgAggregateOutputType | null
   _sum: GroupConversationSumAggregateOutputType | null
@@ -248,9 +255,11 @@ export type GroupConversationWhereInput = {
   lastMessageAt?: Prisma.DateTimeFilter<"GroupConversation"> | Date | string
   disappearingSeconds?: Prisma.IntNullableFilter<"GroupConversation"> | number | null
   isE2EE?: Prisma.BoolFilter<"GroupConversation"> | boolean
+  clubId?: Prisma.StringNullableFilter<"GroupConversation"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.GroupMemberListRelationFilter
   messages?: Prisma.GroupMessageListRelationFilter
+  club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
 }
 
 export type GroupConversationOrderByWithRelationInput = {
@@ -263,13 +272,16 @@ export type GroupConversationOrderByWithRelationInput = {
   lastMessageAt?: Prisma.SortOrder
   disappearingSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   isE2EE?: Prisma.SortOrder
+  clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.GroupMemberOrderByRelationAggregateInput
   messages?: Prisma.GroupMessageOrderByRelationAggregateInput
+  club?: Prisma.ClubOrderByWithRelationInput
 }
 
 export type GroupConversationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  clubId?: string
   AND?: Prisma.GroupConversationWhereInput | Prisma.GroupConversationWhereInput[]
   OR?: Prisma.GroupConversationWhereInput[]
   NOT?: Prisma.GroupConversationWhereInput | Prisma.GroupConversationWhereInput[]
@@ -284,7 +296,8 @@ export type GroupConversationWhereUniqueInput = Prisma.AtLeast<{
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.GroupMemberListRelationFilter
   messages?: Prisma.GroupMessageListRelationFilter
-}, "id">
+  club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
+}, "id" | "clubId">
 
 export type GroupConversationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -296,6 +309,7 @@ export type GroupConversationOrderByWithAggregationInput = {
   lastMessageAt?: Prisma.SortOrder
   disappearingSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   isE2EE?: Prisma.SortOrder
+  clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GroupConversationCountOrderByAggregateInput
   _avg?: Prisma.GroupConversationAvgOrderByAggregateInput
   _max?: Prisma.GroupConversationMaxOrderByAggregateInput
@@ -316,6 +330,7 @@ export type GroupConversationScalarWhereWithAggregatesInput = {
   lastMessageAt?: Prisma.DateTimeWithAggregatesFilter<"GroupConversation"> | Date | string
   disappearingSeconds?: Prisma.IntNullableWithAggregatesFilter<"GroupConversation"> | number | null
   isE2EE?: Prisma.BoolWithAggregatesFilter<"GroupConversation"> | boolean
+  clubId?: Prisma.StringNullableWithAggregatesFilter<"GroupConversation"> | string | null
 }
 
 export type GroupConversationCreateInput = {
@@ -330,6 +345,7 @@ export type GroupConversationCreateInput = {
   owner: Prisma.UserCreateNestedOneWithoutGroupsOwnedInput
   members?: Prisma.GroupMemberCreateNestedManyWithoutGroupInput
   messages?: Prisma.GroupMessageCreateNestedManyWithoutGroupInput
+  club?: Prisma.ClubCreateNestedOneWithoutChatGroupInput
 }
 
 export type GroupConversationUncheckedCreateInput = {
@@ -342,6 +358,7 @@ export type GroupConversationUncheckedCreateInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
   members?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutGroupInput
   messages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutGroupInput
 }
@@ -358,6 +375,7 @@ export type GroupConversationUpdateInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutGroupsOwnedNestedInput
   members?: Prisma.GroupMemberUpdateManyWithoutGroupNestedInput
   messages?: Prisma.GroupMessageUpdateManyWithoutGroupNestedInput
+  club?: Prisma.ClubUpdateOneWithoutChatGroupNestedInput
 }
 
 export type GroupConversationUncheckedUpdateInput = {
@@ -370,6 +388,7 @@ export type GroupConversationUncheckedUpdateInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   members?: Prisma.GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
   messages?: Prisma.GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
 }
@@ -384,6 +403,7 @@ export type GroupConversationCreateManyInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
 }
 
 export type GroupConversationUpdateManyMutationInput = {
@@ -407,6 +427,7 @@ export type GroupConversationUncheckedUpdateManyInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GroupConversationListRelationFilter = {
@@ -419,6 +440,11 @@ export type GroupConversationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type GroupConversationNullableScalarRelationFilter = {
+  is?: Prisma.GroupConversationWhereInput | null
+  isNot?: Prisma.GroupConversationWhereInput | null
+}
+
 export type GroupConversationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -429,6 +455,7 @@ export type GroupConversationCountOrderByAggregateInput = {
   lastMessageAt?: Prisma.SortOrder
   disappearingSeconds?: Prisma.SortOrder
   isE2EE?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
 }
 
 export type GroupConversationAvgOrderByAggregateInput = {
@@ -445,6 +472,7 @@ export type GroupConversationMaxOrderByAggregateInput = {
   lastMessageAt?: Prisma.SortOrder
   disappearingSeconds?: Prisma.SortOrder
   isE2EE?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
 }
 
 export type GroupConversationMinOrderByAggregateInput = {
@@ -457,6 +485,7 @@ export type GroupConversationMinOrderByAggregateInput = {
   lastMessageAt?: Prisma.SortOrder
   disappearingSeconds?: Prisma.SortOrder
   isE2EE?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
 }
 
 export type GroupConversationSumOrderByAggregateInput = {
@@ -510,6 +539,38 @@ export type GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.GroupConversationScalarWhereInput | Prisma.GroupConversationScalarWhereInput[]
 }
 
+export type GroupConversationCreateNestedOneWithoutClubInput = {
+  create?: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+  connectOrCreate?: Prisma.GroupConversationCreateOrConnectWithoutClubInput
+  connect?: Prisma.GroupConversationWhereUniqueInput
+}
+
+export type GroupConversationUncheckedCreateNestedOneWithoutClubInput = {
+  create?: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+  connectOrCreate?: Prisma.GroupConversationCreateOrConnectWithoutClubInput
+  connect?: Prisma.GroupConversationWhereUniqueInput
+}
+
+export type GroupConversationUpdateOneWithoutClubNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+  connectOrCreate?: Prisma.GroupConversationCreateOrConnectWithoutClubInput
+  upsert?: Prisma.GroupConversationUpsertWithoutClubInput
+  disconnect?: Prisma.GroupConversationWhereInput | boolean
+  delete?: Prisma.GroupConversationWhereInput | boolean
+  connect?: Prisma.GroupConversationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupConversationUpdateToOneWithWhereWithoutClubInput, Prisma.GroupConversationUpdateWithoutClubInput>, Prisma.GroupConversationUncheckedUpdateWithoutClubInput>
+}
+
+export type GroupConversationUncheckedUpdateOneWithoutClubNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+  connectOrCreate?: Prisma.GroupConversationCreateOrConnectWithoutClubInput
+  upsert?: Prisma.GroupConversationUpsertWithoutClubInput
+  disconnect?: Prisma.GroupConversationWhereInput | boolean
+  delete?: Prisma.GroupConversationWhereInput | boolean
+  connect?: Prisma.GroupConversationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupConversationUpdateToOneWithWhereWithoutClubInput, Prisma.GroupConversationUpdateWithoutClubInput>, Prisma.GroupConversationUncheckedUpdateWithoutClubInput>
+}
+
 export type GroupConversationCreateNestedOneWithoutMembersInput = {
   create?: Prisma.XOR<Prisma.GroupConversationCreateWithoutMembersInput, Prisma.GroupConversationUncheckedCreateWithoutMembersInput>
   connectOrCreate?: Prisma.GroupConversationCreateOrConnectWithoutMembersInput
@@ -549,6 +610,7 @@ export type GroupConversationCreateWithoutOwnerInput = {
   isE2EE?: boolean
   members?: Prisma.GroupMemberCreateNestedManyWithoutGroupInput
   messages?: Prisma.GroupMessageCreateNestedManyWithoutGroupInput
+  club?: Prisma.ClubCreateNestedOneWithoutChatGroupInput
 }
 
 export type GroupConversationUncheckedCreateWithoutOwnerInput = {
@@ -560,6 +622,7 @@ export type GroupConversationUncheckedCreateWithoutOwnerInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
   members?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutGroupInput
   messages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutGroupInput
 }
@@ -603,6 +666,79 @@ export type GroupConversationScalarWhereInput = {
   lastMessageAt?: Prisma.DateTimeFilter<"GroupConversation"> | Date | string
   disappearingSeconds?: Prisma.IntNullableFilter<"GroupConversation"> | number | null
   isE2EE?: Prisma.BoolFilter<"GroupConversation"> | boolean
+  clubId?: Prisma.StringNullableFilter<"GroupConversation"> | string | null
+}
+
+export type GroupConversationCreateWithoutClubInput = {
+  id?: string
+  title: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastMessageAt?: Date | string
+  disappearingSeconds?: number | null
+  isE2EE?: boolean
+  owner: Prisma.UserCreateNestedOneWithoutGroupsOwnedInput
+  members?: Prisma.GroupMemberCreateNestedManyWithoutGroupInput
+  messages?: Prisma.GroupMessageCreateNestedManyWithoutGroupInput
+}
+
+export type GroupConversationUncheckedCreateWithoutClubInput = {
+  id?: string
+  title: string
+  avatarUrl?: string | null
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastMessageAt?: Date | string
+  disappearingSeconds?: number | null
+  isE2EE?: boolean
+  members?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutGroupInput
+  messages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type GroupConversationCreateOrConnectWithoutClubInput = {
+  where: Prisma.GroupConversationWhereUniqueInput
+  create: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+}
+
+export type GroupConversationUpsertWithoutClubInput = {
+  update: Prisma.XOR<Prisma.GroupConversationUpdateWithoutClubInput, Prisma.GroupConversationUncheckedUpdateWithoutClubInput>
+  create: Prisma.XOR<Prisma.GroupConversationCreateWithoutClubInput, Prisma.GroupConversationUncheckedCreateWithoutClubInput>
+  where?: Prisma.GroupConversationWhereInput
+}
+
+export type GroupConversationUpdateToOneWithWhereWithoutClubInput = {
+  where?: Prisma.GroupConversationWhereInput
+  data: Prisma.XOR<Prisma.GroupConversationUpdateWithoutClubInput, Prisma.GroupConversationUncheckedUpdateWithoutClubInput>
+}
+
+export type GroupConversationUpdateWithoutClubInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  owner?: Prisma.UserUpdateOneRequiredWithoutGroupsOwnedNestedInput
+  members?: Prisma.GroupMemberUpdateManyWithoutGroupNestedInput
+  messages?: Prisma.GroupMessageUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupConversationUncheckedUpdateWithoutClubInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  members?: Prisma.GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+  messages?: Prisma.GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupConversationCreateWithoutMembersInput = {
@@ -616,6 +752,7 @@ export type GroupConversationCreateWithoutMembersInput = {
   isE2EE?: boolean
   owner: Prisma.UserCreateNestedOneWithoutGroupsOwnedInput
   messages?: Prisma.GroupMessageCreateNestedManyWithoutGroupInput
+  club?: Prisma.ClubCreateNestedOneWithoutChatGroupInput
 }
 
 export type GroupConversationUncheckedCreateWithoutMembersInput = {
@@ -628,6 +765,7 @@ export type GroupConversationUncheckedCreateWithoutMembersInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
   messages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutGroupInput
 }
 
@@ -658,6 +796,7 @@ export type GroupConversationUpdateWithoutMembersInput = {
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   owner?: Prisma.UserUpdateOneRequiredWithoutGroupsOwnedNestedInput
   messages?: Prisma.GroupMessageUpdateManyWithoutGroupNestedInput
+  club?: Prisma.ClubUpdateOneWithoutChatGroupNestedInput
 }
 
 export type GroupConversationUncheckedUpdateWithoutMembersInput = {
@@ -670,6 +809,7 @@ export type GroupConversationUncheckedUpdateWithoutMembersInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   messages?: Prisma.GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
 }
 
@@ -684,6 +824,7 @@ export type GroupConversationCreateWithoutMessagesInput = {
   isE2EE?: boolean
   owner: Prisma.UserCreateNestedOneWithoutGroupsOwnedInput
   members?: Prisma.GroupMemberCreateNestedManyWithoutGroupInput
+  club?: Prisma.ClubCreateNestedOneWithoutChatGroupInput
 }
 
 export type GroupConversationUncheckedCreateWithoutMessagesInput = {
@@ -696,6 +837,7 @@ export type GroupConversationUncheckedCreateWithoutMessagesInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
   members?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutGroupInput
 }
 
@@ -726,6 +868,7 @@ export type GroupConversationUpdateWithoutMessagesInput = {
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   owner?: Prisma.UserUpdateOneRequiredWithoutGroupsOwnedNestedInput
   members?: Prisma.GroupMemberUpdateManyWithoutGroupNestedInput
+  club?: Prisma.ClubUpdateOneWithoutChatGroupNestedInput
 }
 
 export type GroupConversationUncheckedUpdateWithoutMessagesInput = {
@@ -738,6 +881,7 @@ export type GroupConversationUncheckedUpdateWithoutMessagesInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   members?: Prisma.GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
 }
 
@@ -750,6 +894,7 @@ export type GroupConversationCreateManyOwnerInput = {
   lastMessageAt?: Date | string
   disappearingSeconds?: number | null
   isE2EE?: boolean
+  clubId?: string | null
 }
 
 export type GroupConversationUpdateWithoutOwnerInput = {
@@ -763,6 +908,7 @@ export type GroupConversationUpdateWithoutOwnerInput = {
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
   members?: Prisma.GroupMemberUpdateManyWithoutGroupNestedInput
   messages?: Prisma.GroupMessageUpdateManyWithoutGroupNestedInput
+  club?: Prisma.ClubUpdateOneWithoutChatGroupNestedInput
 }
 
 export type GroupConversationUncheckedUpdateWithoutOwnerInput = {
@@ -774,6 +920,7 @@ export type GroupConversationUncheckedUpdateWithoutOwnerInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   members?: Prisma.GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
   messages?: Prisma.GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
 }
@@ -787,6 +934,7 @@ export type GroupConversationUncheckedUpdateManyWithoutOwnerInput = {
   lastMessageAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isE2EE?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -839,9 +987,11 @@ export type GroupConversationSelect<ExtArgs extends runtime.Types.Extensions.Int
   lastMessageAt?: boolean
   disappearingSeconds?: boolean
   isE2EE?: boolean
+  clubId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.GroupConversation$membersArgs<ExtArgs>
   messages?: boolean | Prisma.GroupConversation$messagesArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
   _count?: boolean | Prisma.GroupConversationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["groupConversation"]>
 
@@ -855,7 +1005,9 @@ export type GroupConversationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   lastMessageAt?: boolean
   disappearingSeconds?: boolean
   isE2EE?: boolean
+  clubId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
 }, ExtArgs["result"]["groupConversation"]>
 
 export type GroupConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -868,7 +1020,9 @@ export type GroupConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   lastMessageAt?: boolean
   disappearingSeconds?: boolean
   isE2EE?: boolean
+  clubId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
 }, ExtArgs["result"]["groupConversation"]>
 
 export type GroupConversationSelectScalar = {
@@ -881,20 +1035,24 @@ export type GroupConversationSelectScalar = {
   lastMessageAt?: boolean
   disappearingSeconds?: boolean
   isE2EE?: boolean
+  clubId?: boolean
 }
 
-export type GroupConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "avatarUrl" | "ownerId" | "createdAt" | "updatedAt" | "lastMessageAt" | "disappearingSeconds" | "isE2EE", ExtArgs["result"]["groupConversation"]>
+export type GroupConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "avatarUrl" | "ownerId" | "createdAt" | "updatedAt" | "lastMessageAt" | "disappearingSeconds" | "isE2EE" | "clubId", ExtArgs["result"]["groupConversation"]>
 export type GroupConversationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.GroupConversation$membersArgs<ExtArgs>
   messages?: boolean | Prisma.GroupConversation$messagesArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
   _count?: boolean | Prisma.GroupConversationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GroupConversationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
 }
 export type GroupConversationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.GroupConversation$clubArgs<ExtArgs>
 }
 
 export type $GroupConversationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -903,6 +1061,7 @@ export type $GroupConversationPayload<ExtArgs extends runtime.Types.Extensions.I
     owner: Prisma.$UserPayload<ExtArgs>
     members: Prisma.$GroupMemberPayload<ExtArgs>[]
     messages: Prisma.$GroupMessagePayload<ExtArgs>[]
+    club: Prisma.$ClubPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -914,6 +1073,7 @@ export type $GroupConversationPayload<ExtArgs extends runtime.Types.Extensions.I
     lastMessageAt: Date
     disappearingSeconds: number | null
     isE2EE: boolean
+    clubId: string | null
   }, ExtArgs["result"]["groupConversation"]>
   composites: {}
 }
@@ -1311,6 +1471,7 @@ export interface Prisma__GroupConversationClient<T, Null = never, ExtArgs extend
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.GroupConversation$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupConversation$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.GroupConversation$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupConversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  club<T extends Prisma.GroupConversation$clubArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupConversation$clubArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1349,6 +1510,7 @@ export interface GroupConversationFieldRefs {
   readonly lastMessageAt: Prisma.FieldRef<"GroupConversation", 'DateTime'>
   readonly disappearingSeconds: Prisma.FieldRef<"GroupConversation", 'Int'>
   readonly isE2EE: Prisma.FieldRef<"GroupConversation", 'Boolean'>
+  readonly clubId: Prisma.FieldRef<"GroupConversation", 'String'>
 }
     
 
@@ -1790,6 +1952,25 @@ export type GroupConversation$messagesArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.GroupMessageScalarFieldEnum | Prisma.GroupMessageScalarFieldEnum[]
+}
+
+/**
+ * GroupConversation.club
+ */
+export type GroupConversation$clubArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Club
+   */
+  select?: Prisma.ClubSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Club
+   */
+  omit?: Prisma.ClubOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubInclude<ExtArgs> | null
+  where?: Prisma.ClubWhereInput
 }
 
 /**

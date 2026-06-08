@@ -807,7 +807,8 @@ export const GroupConversationScalarFieldEnum = {
   updatedAt: 'updatedAt',
   lastMessageAt: 'lastMessageAt',
   disappearingSeconds: 'disappearingSeconds',
-  isE2EE: 'isE2EE'
+  isE2EE: 'isE2EE',
+  clubId: 'clubId'
 } as const
 
 export type GroupConversationScalarFieldEnum = (typeof GroupConversationScalarFieldEnum)[keyof typeof GroupConversationScalarFieldEnum]

@@ -23,7 +23,7 @@ export async function getClubBySlug(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const result = await service.getBySlug(req.params.slug as string);
+    const result = await service.getBySlug(req.params.slug as string, res.locals.user?.id);
     res.status(200).json(result);
   } catch (err) {
     next(err);
@@ -100,6 +100,16 @@ export async function getClubMembers(
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
     const result = await service.getClubMembers(req.params.slug as string, page, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function clubChat(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.getOrCreateClubChat(userId, req.params.slug as string);
     res.status(200).json(result);
   } catch (err) {
     next(err);
