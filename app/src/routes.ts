@@ -21,6 +21,7 @@ import { pollsRouter } from "./modules/polls/polls.routes";
 import { analyticsRouter } from "./modules/analytics/analytics.routes";
 import { webhooksRouter } from "./modules/webhooks/webhooks.routes";
 import { chatRouter } from "./modules/chat/chat.routes";
+import { groupsRouter } from "./modules/groups/groups.routes";
 import { pushRouter } from "./modules/push/push.routes";
 import { uploadsRouter } from "./modules/uploads/uploads.routes";
 import { discoveryRouter } from "./modules/discovery/discovery.routes";
@@ -70,6 +71,7 @@ export const ROUTE_MOUNTS = [
   ["/analytics",                       analyticsRouter],
   ["/webhooks",                        webhooksRouter],
   ["/chat",                            chatRouter],
+  ["/groups",                          groupsRouter],
   ["/push",                            pushRouter],
   ["/uploads",                         uploadsRouter],
   ["/discovery",                       discoveryRouter],

@@ -130,6 +130,11 @@ model User {
   // DM E2EE layer
   e2eDevices         UserDevice[]
   e2eKeyWraps        UserMasterKeyWrap[]
+  // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
+  groupsOwned        GroupConversation[] @relation("GroupOwner")
+  groupMemberships   GroupMember[]
+  groupMessages      GroupMessage[]      @relation("GroupMessageSender")
+  groupReactions     GroupMessageReaction[]
 }
 
 // One row per registered push-notification device for a user.
@@ -989,6 +994,152 @@ model MessageReaction {
 
   @@unique([messageId, userId, emoji])
   @@index([messageId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GROUP CHAT (parallel to the 1:1 DM system). Separate tables on purpose — the
+// direct-message realtime/unread path is LOCKED and must not change. N members,
+// per-member denormalized unread/read/mute/archive state, optional E2EE via the
+// SAME per-device key infrastructure (UserDevice + per-message envelopes).
+// ─────────────────────────────────────────────────────────────────────────────
+model GroupConversation {
+  id            String   @id @default(cuid())
+  title         String
+  avatarUrl     String?
+  ownerId       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  lastMessageAt DateTime @default(now())
+  // Disappearing messages — group-wide TTL in seconds (null = off).
+  disappearingSeconds Int?
+  // When true, members send opaque ciphertext + per-device envelopes.
+  isE2EE        Boolean  @default(false)
+
+  owner    User           @relation("GroupOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members  GroupMember[]
+  messages GroupMessage[]
+
+  @@index([lastMessageAt])
+  @@index([ownerId])
+}
+
+enum GroupMemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model GroupMember {
+  id          String          @id @default(cuid())
+  groupId     String
+  userId      String
+  role        GroupMemberRole @default(MEMBER)
+  joinedAt    DateTime        @default(now())
+  addedBy     String?
+  // Per-member denormalized inbox state (mirrors the p1/p2 columns on 1:1).
+  unreadCount Int             @default(0)
+  lastReadAt  DateTime?
+  mutedUntil  DateTime?
+  archived    Boolean         @default(false)
+  pinned      Boolean         @default(false)
+  // "Left the group" — soft so history/attribution survives. Active members have null.
+  leftAt      DateTime?
+
+  group GroupConversation @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@index([userId, archived])
+  @@index([groupId])
+}
+
+model GroupMessage {
+  id          String      @id @default(cuid())
+  groupId     String
+  senderId    String?     // null for SYSTEM events (joined/left/renamed)
+  createdAt   DateTime    @default(now())
+
+  type        MessageType @default(TEXT)
+  body        String?     @db.Text
+  animeMalId  Int?
+  animeEpisode Int?
+
+  // Media (IMAGE / VOICE) — clear URL + dims for plaintext, opaque blob for E2EE.
+  mediaUrl       String?
+  mediaMime      String?
+  mediaSizeBytes Int?
+  mediaWidth     Int?
+  mediaHeight    Int?
+  mediaDurationS Int?
+  mediaBlurhash  String?
+
+  replyToId   String?
+  replyTo     GroupMessage?  @relation("GroupReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies     GroupMessage[] @relation("GroupReplies")
+
+  editedAt    DateTime?
+  clientNonce String?
+  expiresAt   DateTime?
+
+  // E2EE (optional) — opaque ciphertext + franking; body stays null when set.
+  ciphertext  String?
+  contentIv   String?
+  frankingTag String?
+  serverFrank String?
+  isE2EE      Boolean   @default(false)
+
+  // "Delete for everyone" tombstone. Per-member "delete for me" lives in the
+  // GroupMessageHide table (cheaper than a boolean column per member).
+  deletedAt   DateTime?
+
+  group     GroupConversation      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sender    User?                  @relation("GroupMessageSender", fields: [senderId], references: [id], onDelete: SetNull)
+  envelopes GroupMessageEnvelope[]
+  reactions GroupMessageReaction[]
+  hides     GroupMessageHide[]
+
+  @@unique([groupId, clientNonce])
+  @@index([groupId, createdAt])
+  @@index([senderId])
+  @@index([expiresAt])
+}
+
+// Per-recipient-device wrapped CK for E2EE group messages (mirrors MessageEnvelope).
+model GroupMessageEnvelope {
+  id           String       @id @default(cuid())
+  messageId    String
+  message      GroupMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  deviceId     String       // references UserDevice.id (no FK to keep groups self-contained)
+  ephemeralPub String
+  wrappedCK    String
+  wrapIv       String
+
+  @@unique([messageId, deviceId])
+  @@index([deviceId])
+}
+
+model GroupMessageReaction {
+  id        String       @id @default(cuid())
+  messageId String
+  userId    String
+  emoji     String
+  createdAt DateTime     @default(now())
+
+  message GroupMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId, emoji])
+  @@index([messageId])
+}
+
+// "Delete for me" on a group message — one row per (message, user).
+model GroupMessageHide {
+  messageId String
+  userId    String
+  message   GroupMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, userId])
+  @@index([userId])
 }
 
 // Multi-device E2E (Phase 1). Each device registers its own ECDH P-256 public

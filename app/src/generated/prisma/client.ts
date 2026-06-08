@@ -248,6 +248,36 @@ export type DirectMessage = Prisma.DirectMessageModel
  */
 export type MessageReaction = Prisma.MessageReactionModel
 /**
+ * Model GroupConversation
+ * 
+ */
+export type GroupConversation = Prisma.GroupConversationModel
+/**
+ * Model GroupMember
+ * 
+ */
+export type GroupMember = Prisma.GroupMemberModel
+/**
+ * Model GroupMessage
+ * 
+ */
+export type GroupMessage = Prisma.GroupMessageModel
+/**
+ * Model GroupMessageEnvelope
+ * 
+ */
+export type GroupMessageEnvelope = Prisma.GroupMessageEnvelopeModel
+/**
+ * Model GroupMessageReaction
+ * 
+ */
+export type GroupMessageReaction = Prisma.GroupMessageReactionModel
+/**
+ * Model GroupMessageHide
+ * 
+ */
+export type GroupMessageHide = Prisma.GroupMessageHideModel
+/**
  * Model UserDeviceKey
  * 
  */

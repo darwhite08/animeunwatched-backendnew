@@ -84,6 +84,15 @@ export const MessageType = {
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
+export const GroupMemberRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+} as const
+
+export type GroupMemberRole = (typeof GroupMemberRole)[keyof typeof GroupMemberRole]
+
+
 export const KeyWrapMethod = {
   PASSKEY_PRF: 'PASSKEY_PRF',
   RECOVERY_CODE: 'RECOVERY_CODE',

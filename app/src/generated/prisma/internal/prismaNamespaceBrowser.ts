@@ -90,6 +90,12 @@ export const ModelName = {
   Conversation: 'Conversation',
   DirectMessage: 'DirectMessage',
   MessageReaction: 'MessageReaction',
+  GroupConversation: 'GroupConversation',
+  GroupMember: 'GroupMember',
+  GroupMessage: 'GroupMessage',
+  GroupMessageEnvelope: 'GroupMessageEnvelope',
+  GroupMessageReaction: 'GroupMessageReaction',
+  GroupMessageHide: 'GroupMessageHide',
   UserDeviceKey: 'UserDeviceKey',
   MessageKeyEnvelope: 'MessageKeyEnvelope',
   UserBlock: 'UserBlock',
@@ -790,6 +796,101 @@ export const MessageReactionScalarFieldEnum = {
 } as const
 
 export type MessageReactionScalarFieldEnum = (typeof MessageReactionScalarFieldEnum)[keyof typeof MessageReactionScalarFieldEnum]
+
+
+export const GroupConversationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  avatarUrl: 'avatarUrl',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastMessageAt: 'lastMessageAt',
+  disappearingSeconds: 'disappearingSeconds',
+  isE2EE: 'isE2EE'
+} as const
+
+export type GroupConversationScalarFieldEnum = (typeof GroupConversationScalarFieldEnum)[keyof typeof GroupConversationScalarFieldEnum]
+
+
+export const GroupMemberScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  userId: 'userId',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  addedBy: 'addedBy',
+  unreadCount: 'unreadCount',
+  lastReadAt: 'lastReadAt',
+  mutedUntil: 'mutedUntil',
+  archived: 'archived',
+  pinned: 'pinned',
+  leftAt: 'leftAt'
+} as const
+
+export type GroupMemberScalarFieldEnum = (typeof GroupMemberScalarFieldEnum)[keyof typeof GroupMemberScalarFieldEnum]
+
+
+export const GroupMessageScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  senderId: 'senderId',
+  createdAt: 'createdAt',
+  type: 'type',
+  body: 'body',
+  animeMalId: 'animeMalId',
+  animeEpisode: 'animeEpisode',
+  mediaUrl: 'mediaUrl',
+  mediaMime: 'mediaMime',
+  mediaSizeBytes: 'mediaSizeBytes',
+  mediaWidth: 'mediaWidth',
+  mediaHeight: 'mediaHeight',
+  mediaDurationS: 'mediaDurationS',
+  mediaBlurhash: 'mediaBlurhash',
+  replyToId: 'replyToId',
+  editedAt: 'editedAt',
+  clientNonce: 'clientNonce',
+  expiresAt: 'expiresAt',
+  ciphertext: 'ciphertext',
+  contentIv: 'contentIv',
+  frankingTag: 'frankingTag',
+  serverFrank: 'serverFrank',
+  isE2EE: 'isE2EE',
+  deletedAt: 'deletedAt'
+} as const
+
+export type GroupMessageScalarFieldEnum = (typeof GroupMessageScalarFieldEnum)[keyof typeof GroupMessageScalarFieldEnum]
+
+
+export const GroupMessageEnvelopeScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  deviceId: 'deviceId',
+  ephemeralPub: 'ephemeralPub',
+  wrappedCK: 'wrappedCK',
+  wrapIv: 'wrapIv'
+} as const
+
+export type GroupMessageEnvelopeScalarFieldEnum = (typeof GroupMessageEnvelopeScalarFieldEnum)[keyof typeof GroupMessageEnvelopeScalarFieldEnum]
+
+
+export const GroupMessageReactionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type GroupMessageReactionScalarFieldEnum = (typeof GroupMessageReactionScalarFieldEnum)[keyof typeof GroupMessageReactionScalarFieldEnum]
+
+
+export const GroupMessageHideScalarFieldEnum = {
+  messageId: 'messageId',
+  userId: 'userId'
+} as const
+
+export type GroupMessageHideScalarFieldEnum = (typeof GroupMessageHideScalarFieldEnum)[keyof typeof GroupMessageHideScalarFieldEnum]
 
 
 export const UserDeviceKeyScalarFieldEnum = {

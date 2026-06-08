@@ -191,12 +191,9 @@ export async function browse(query: BrowseQuery) {
   const { q, year, season, type, status, studio, start_date, end_date, page, limit, genre } = query as typeof query & { genre?: string };
   const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date || genre);
 
-  // ── No filters: prefer local DB (fast, ~50ms) when it has enough rows
-  // for this page; only fall through to Jikan when the DB is sparse. Jikan
-  // round-trips run 5-8s end-to-end from us-east-1, so the previous "always
-  // Jikan on the cold path" cost every 3rd-minute visitor a multi-second
-  // page wait. Local DB serves immediately and the topAnime catalog seed
-  // keeps it warm.
+  // ── No filters: Postgres ONLY (spec §5: "Listing endpoints query Postgres
+  // only — never Jikan at request time"). The catalog is fully seeded, so the
+  // DB is the source of truth; a partial last page just returns fewer rows.
   if (!hasFilters) {
     const { skip, take } = paginate(page, limit);
     const [localData, localTotal] = await prisma.$transaction([
@@ -207,30 +204,12 @@ export async function browse(query: BrowseQuery) {
       prisma.anime.count(),
     ]);
 
-    if (localData.length === take) {
-      const result = {
-        data: (localData as AnimeWithRelations[]).map((a) => flattenAnime(a)),
-        meta: buildMeta(localTotal, page, limit),
-      };
-      cache.set(cacheKey, result, 15 * 60_000); // 15 min — local data is stable
-      return result;
-    }
-
-    // DB doesn't have a full page → fall back to Jikan and cache aggressively.
-    // Jikan's top-list is stable so a longer TTL is safe.
-    try {
-      const result = await browseJikan(page, limit, {});
-      cache.set(cacheKey, result, 30 * 60_000); // 30 min (was 3 min)
-      return result;
-    } catch {
-      // Jikan unavailable → serve whatever DB has rather than 500.
-      const result = {
-        data: (localData as AnimeWithRelations[]).map((a) => flattenAnime(a)),
-        meta: buildMeta(localTotal, page, limit),
-      };
-      cache.set(cacheKey, result, 60_000); // short cache on degraded path
-      return result;
-    }
+    const result = {
+      data: (localData as AnimeWithRelations[]).map((a) => flattenAnime(a)),
+      meta: buildMeta(localTotal, page, limit),
+    };
+    cache.set(cacheKey, result, 15 * 60_000); // 15 min — local data is stable
+    return result;
   }
 
   // ── Filters applied OR Jikan failed: use local DB ──
@@ -255,16 +234,8 @@ export async function browse(query: BrowseQuery) {
     prisma.anime.count({ where }),
   ]);
 
-  // If DB has no results for a filtered query → try Jikan as fallback
-  if (total === 0 && hasFilters) {
-    try {
-      // studio filter uses local DB only — Jikan has no studio text-search param
-      const jikanResult = await browseJikan(page, limit, { q: q ?? studio, year, season, type, status, start_date, end_date });
-      cache.set(cacheKey, jikanResult, 3 * 60_000);
-      return jikanResult;
-    } catch { /* ignore */ }
-  }
-
+  // Postgres only — a filter with no local matches returns an empty page
+  // rather than calling Jikan at request time (spec §5).
   const result = {
     data: (data as AnimeWithRelations[]).map((a: AnimeWithRelations) => flattenAnime(a)),
     meta: buildMeta(total, page, limit),

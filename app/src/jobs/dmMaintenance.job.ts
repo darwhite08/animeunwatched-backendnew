@@ -25,7 +25,9 @@ export async function runDmNightlyCleanup(): Promise<void> {
  */
 /** Purge disappeared messages whose TTL has elapsed (runs hourly w/ reconcile). */
 export async function runDmExpiry(): Promise<void> {
-  await prisma.directMessage.deleteMany({ where: { expiresAt: { lt: new Date() } } });
+  const now = new Date();
+  await prisma.directMessage.deleteMany({ where: { expiresAt: { lt: now } } });
+  await prisma.groupMessage.deleteMany({ where: { expiresAt: { lt: now } } });
 }
 
 export async function runDmUnreadReconcile(): Promise<void> {
