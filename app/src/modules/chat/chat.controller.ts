@@ -121,6 +121,22 @@ export async function unreadCount(req: Request, res: Response, next: NextFunctio
   }
 }
 
+export async function linkPreview(req: Request, res: Response, next: NextFunction) {
+  try {
+    const url = String(req.query.url ?? "");
+    if (!url) { res.status(400).json({ error: { code: "BAD_REQUEST", message: "url required" } }); return; }
+    const { linkPreview } = await import("./chatExtras.service");
+    res.json(await linkPreview(url));
+  } catch (err) { next(err); }
+}
+
+export async function gifs(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { searchGifs } = await import("./chatExtras.service");
+    res.json(await searchGifs(String(req.query.q ?? "")));
+  } catch (err) { next(err); }
+}
+
 export async function getPresence(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await chatService.getPresence(res.locals.user.id as string, req.params.userId as string);

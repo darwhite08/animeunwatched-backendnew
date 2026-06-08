@@ -24,6 +24,8 @@ chatRouter.get( "/conversations", requireAuth, ctrl.listConversations);
 chatRouter.post("/conversations", requireAuth, limitNewConvHr, limitNewConvDy, ctrl.startConversation);
 chatRouter.get( "/unread-count",  requireAuth, ctrl.unreadCount);
 chatRouter.get( "/presence/:userId", requireAuth, ctrl.getPresence);
+chatRouter.get( "/link-preview", requireAuth, rateLimit(60, 60_000, { perUser: true, bucket: "dm-linkpreview" }), ctrl.linkPreview);
+chatRouter.get( "/gifs",         requireAuth, rateLimit(60, 60_000, { perUser: true, bucket: "dm-gifs" }), ctrl.gifs);
 chatRouter.get( "/conversations/:conversationId", requireAuth, ctrl.getConversation);
 chatRouter.post("/conversations/:conversationId/accept",  requireAuth, ctrl.acceptRequest);
 chatRouter.post("/conversations/:conversationId/decline", requireAuth, ctrl.declineRequest);

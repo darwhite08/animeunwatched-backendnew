@@ -74,6 +74,9 @@ export const env = {
   WEBAUTHN_RP_ID:      process.env.WEBAUTHN_RP_ID      || "kaiveron.com",
   WEBAUTHN_ORIGIN:     process.env.WEBAUTHN_ORIGIN     || "https://kaiveron.com",
   E2EE_ENABLED:        (process.env.E2EE_ENABLED || "false") === "true",
+
+  // GIF search proxy (Tenor). Picker degrades to empty when unset.
+  TENOR_API_KEY:       process.env.TENOR_API_KEY || "",
 };
 
 // ── Production startup guard ─────────────────────────────────────────────────
