@@ -15,6 +15,8 @@ import { env } from "../../config/env";
 const REST = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user";
 const DECAY_HALF_LIFE_DAYS = 3; // recent days dominate (buzz = rising interest)
 const WINDOW_DAYS = 10;
+const FETCH_TIMEOUT_MS = 6_000; // keep the hourly job bounded even on slow responses
+const MAX_CANDIDATES = 120; // cap external calls so the job can't overrun its hourly window
 
 function ymd(d: Date): string {
   return d.toISOString().slice(0, 10).replace(/-/g, "");
@@ -40,9 +42,9 @@ async function fetchArticleDecayedViews(article: string, start: string, end: str
   const url = `${REST}/${article}/daily/${start}/${end}`;
   let res: Response;
   try {
-    res = await fetch(url, { headers: { "User-Agent": env.TRENDING_USER_AGENT }, signal: AbortSignal.timeout(10_000) });
+    res = await fetch(url, { headers: { "User-Agent": env.TRENDING_USER_AGENT }, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   } catch {
-    return null;
+    return null; // timeout / network — best-effort miss
   }
   if (res.status === 404) return null; // no such article — best-effort miss
   if (res.status === 429) { await sleep(2000); return null; }
@@ -75,8 +77,12 @@ export async function fetchPageviewBuzz(candidates: WikiCandidate[]): Promise<Ma
   const end = ymd(new Date(Date.now() - 86_400_000)); // yesterday (today is partial)
   const start = ymd(new Date(Date.now() - WINDOW_DAYS * 86_400_000));
 
+  // Cap the number of titles we probe so a slow Wikimedia run can't overrun the
+  // hourly window. Callers pass candidates already ordered by importance.
+  const bounded = candidates.slice(0, MAX_CANDIDATES);
+
   const raw = new Map<number, number>();
-  for (const c of candidates) {
+  for (const c of bounded) {
     let best: number | null = null;
     for (const art of articleCandidates(c.titles)) {
       const v = await fetchArticleDecayedViews(art, start, end);

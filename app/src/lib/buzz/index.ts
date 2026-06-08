@@ -40,13 +40,14 @@ export async function collectBuzz(now = new Date()): Promise<{
     select: { id: true, malId: true, title: true, titleEnglish: true, titleJapanese: true },
   });
 
-  // ── 3. Wikipedia pageviews for the same candidate set (general interest) ──
+  // ── 3. Wikipedia pageviews for the candidate set (general interest) ──
+  // Order by AniList buzz so the per-run cap (MAX_CANDIDATES) keeps the
+  // highest-signal titles; airing-only titles (buzz 0) come after.
   let wikipedia = new Map<number, number>();
   if (env.TRENDING_WIKIPEDIA_ENABLED) {
-    const wikiInput: WikiCandidate[] = candidates.map((c) => ({
-      malId: c.malId,
-      titles: [c.titleEnglish, c.title].filter((t): t is string => !!t),
-    }));
+    const wikiInput: WikiCandidate[] = candidates
+      .map((c) => ({ malId: c.malId, titles: [c.titleEnglish, c.title].filter((t): t is string => !!t) }))
+      .sort((a, b) => (anilist.get(b.malId) ?? 0) - (anilist.get(a.malId) ?? 0));
     wikipedia = await fetchPageviewBuzz(wikiInput).catch(() => new Map<number, number>());
   }
 
