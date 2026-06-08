@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createClubSchema, updateClubSchema } from "./clubs.schema";
+import { createClubSchema, updateClubSchema, createInviteSchema } from "./clubs.schema";
 import * as service from "./clubs.service";
 import { badReq } from "../../lib/errors";
 
@@ -45,11 +45,49 @@ export async function createClub(req: Request, res: Response, next: NextFunction
 export async function joinClub(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
-    const result = await service.join(userId, req.params.slug as string);
+    const message = typeof req.body?.message === "string" ? req.body.message : undefined;
+    const result = await service.join(userId, req.params.slug as string, message);
     res.status(201).json(result);
   } catch (err) {
     next(err);
   }
+}
+
+export async function createInvite(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    const dto = createInviteSchema.parse(req.body ?? {});
+    res.status(201).json(await service.createInvite(actorId, req.params.slug as string, dto));
+  } catch (err) { next(err); }
+}
+
+export async function inviteInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.getInviteInfo(req.params.code as string));
+  } catch (err) { next(err); }
+}
+
+export async function joinViaInvite(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(201).json(await service.joinViaInvite(userId, req.params.code as string));
+  } catch (err) { next(err); }
+}
+
+export async function listJoinRequests(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    res.status(200).json(await service.listJoinRequests(actorId, req.params.slug as string));
+  } catch (err) { next(err); }
+}
+
+export async function decideJoinRequest(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    const { slug, userId: targetUserId } = req.params as { slug: string; userId: string };
+    const approve = req.body?.approve === true || req.body?.approve === "true";
+    res.status(200).json(await service.decideJoinRequest(actorId, slug, targetUserId, approve));
+  } catch (err) { next(err); }
 }
 
 export async function leaveClub(req: Request, res: Response, next: NextFunction): Promise<void> {

@@ -12,6 +12,10 @@ clubsRouter.get("/", optionalAuth, ctrl.listClubs);
 // Create a club (auth required)
 clubsRouter.post("/", requireAuth, ctrl.createClub);
 
+// Invite links (2-segment paths — no collision with GET /:slug)
+clubsRouter.get("/invite/:code", optionalAuth, ctrl.inviteInfo);
+clubsRouter.post("/invite/:code/join", requireAuth, ctrl.joinViaInvite);
+
 // Specific slug routes
 clubsRouter.get("/:slug", optionalAuth, ctrl.getClubBySlug);
 clubsRouter.patch("/:slug", requireAuth, ctrl.updateClub);
@@ -30,6 +34,10 @@ clubsRouter.post("/:slug/polls", requireAuth, ctrl.createClubPoll);
 // Moderation (mod/admin)
 clubsRouter.post("/:slug/members/:userId/mute",   requireAuth, ctrl.muteMember);
 clubsRouter.post("/:slug/members/:userId/remove", requireAuth, ctrl.removeMember);
+// Private clubs: invite creation + join-request queue (mod/admin)
+clubsRouter.post("/:slug/invites", requireAuth, ctrl.createInvite);
+clubsRouter.get("/:slug/requests", requireAuth, ctrl.listJoinRequests);
+clubsRouter.post("/:slug/requests/:userId/decide", requireAuth, ctrl.decideJoinRequest);
 
 // Club threads: POST /clubs/:slug/threads
 clubsRouter.use("/:slug/threads", clubThreadsRouter);

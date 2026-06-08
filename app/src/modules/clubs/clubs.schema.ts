@@ -5,6 +5,7 @@ export const createClubSchema = z.object({
   slug:        z.string().min(3).max(30).regex(/^[a-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
   description: z.string().max(1000).optional(),
   category:    z.string().max(40).optional(),
+  visibility:  z.enum(["PUBLIC", "PRIVATE"]).optional(),
 });
 
 export const updateClubSchema = createClubSchema.partial().extend({
@@ -14,5 +15,11 @@ export const updateClubSchema = createClubSchema.partial().extend({
   avatarUrl:      z.string().url().max(500).nullable().optional(),
 });
 
+export const createInviteSchema = z.object({
+  expiresInDays: z.number().int().min(1).max(90).nullable().optional(),
+  maxUses:       z.number().int().min(1).max(1000).nullable().optional(),
+});
+
 export type CreateClubDto = z.infer<typeof createClubSchema>;
 export type UpdateClubDto = z.infer<typeof updateClubSchema>;
+export type CreateInviteDto = z.infer<typeof createInviteSchema>;

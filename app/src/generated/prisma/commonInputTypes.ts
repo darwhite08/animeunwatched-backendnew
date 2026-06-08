@@ -426,6 +426,40 @@ export type EnumWatchStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumWatchStatusFilter<$PrismaModel>
 }
 
+export type EnumClubVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubVisibility | Prisma.EnumClubVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel> | $Enums.ClubVisibility
+}
+
+export type EnumClubVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubVisibility | Prisma.EnumClubVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ClubVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel>
+}
+
+export type EnumJoinRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JoinRequestStatus | Prisma.EnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel> | $Enums.JoinRequestStatus
+}
+
+export type EnumJoinRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JoinRequestStatus | Prisma.EnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJoinRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.JoinRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel>
+}
+
 export type EnumClubEventKindFilter<$PrismaModel = never> = {
   equals?: $Enums.ClubEventKind | Prisma.EnumClubEventKindFieldRefInput<$PrismaModel>
   in?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
@@ -987,6 +1021,40 @@ export type NestedEnumWatchStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumWatchStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumWatchStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumClubVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubVisibility | Prisma.EnumClubVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel> | $Enums.ClubVisibility
+}
+
+export type NestedEnumClubVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubVisibility | Prisma.EnumClubVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubVisibility[] | Prisma.ListEnumClubVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ClubVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClubVisibilityFilter<$PrismaModel>
+}
+
+export type NestedEnumJoinRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JoinRequestStatus | Prisma.EnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel> | $Enums.JoinRequestStatus
+}
+
+export type NestedEnumJoinRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JoinRequestStatus | Prisma.EnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JoinRequestStatus[] | Prisma.ListEnumJoinRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJoinRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.JoinRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJoinRequestStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumClubEventKindFilter<$PrismaModel = never> = {

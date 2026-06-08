@@ -260,10 +260,16 @@ export async function getAnimeThreads(malId: number, page = 1, limit = 20) {
 
 // ─── getClubThreads ───────────────────────────────────────────────────────────
 
-export async function getClubThreads(slug: string, page = 1, limit = 20) {
+export async function getClubThreads(slug: string, page = 1, limit = 20, userId?: string) {
   const skip = (page - 1) * limit;
-  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, visibility: true } });
   if (!club) return { data: [], meta: { total: 0, page, limit, pages: 0 } };
+
+  // Private clubs only expose their threads to members.
+  if (club.visibility === "PRIVATE") {
+    const member = userId ? await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { userId: true } }) : null;
+    if (!member) return { data: [], meta: { total: 0, page, limit, pages: 0 } };
+  }
 
   const [data, total] = await prisma.$transaction([
     prisma.thread.findMany({

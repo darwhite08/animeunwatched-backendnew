@@ -129,7 +129,7 @@ export async function awardClubXp(clubId: string, userId: string, amount: number
  * in the club changed so open club screens can refetch (threads / members /
  * events / leaderboard / club meta). No push — purely for live cache refresh.
  */
-export async function emitClubUpdate(clubId: string, kind: "thread" | "reply" | "member" | "event" | "club" | "announcement" | "poll") {
+export async function emitClubUpdate(clubId: string, kind: "thread" | "reply" | "member" | "event" | "club" | "announcement" | "poll" | "request") {
   try {
     const io = getIo();
     if (!io) return;

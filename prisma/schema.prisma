@@ -147,6 +147,9 @@ model User {
   clubEventsCreated  ClubEvent[]         @relation("ClubEventCreator")
   threadReactions    ThreadReaction[]
   clubEventRsvps     ClubEventRSVP[]
+  // Private clubs — invites + join requests
+  clubInvitesCreated ClubInvite[]        @relation("ClubInviteCreator")
+  clubJoinRequests   ClubJoinRequest[]   @relation("ClubJoinRequestUser")
   // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
   groupsOwned        GroupConversation[] @relation("GroupOwner")
   groupMemberships   GroupMember[]
@@ -815,18 +818,70 @@ model Club {
   avatarUrl      String?
   rules          String?  @db.Text
   welcomeMessage String?  @db.Text
+  // Private clubs — gate joins behind invite/approval
+  visibility     ClubVisibility @default(PUBLIC)
 
   owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
   members ClubMember[]
   threads Thread[]
   events  ClubEvent[]
   polls   Poll[]
+  invites      ClubInvite[]
+  joinRequests ClubJoinRequest[]
   // Optional realtime chat room for the club (a club-backed GroupConversation).
   chatGroup GroupConversation? @relation("ClubChat")
 
   @@index([slug])
   @@index([createdAt])
   @@index([reputation, createdAt])
+}
+
+enum ClubVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum JoinRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Shareable invite link for a (typically private) club. Joining via a valid
+// invite bypasses the approval queue.
+model ClubInvite {
+  id          String    @id @default(cuid())
+  clubId      String
+  code        String    @unique
+  createdById String
+  expiresAt   DateTime?
+  maxUses     Int?
+  uses        Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  club      Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  createdBy User @relation("ClubInviteCreator", fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([clubId])
+  @@index([code])
+}
+
+// Pending membership request for a private club (one open request per user/club).
+model ClubJoinRequest {
+  id          String            @id @default(cuid())
+  clubId      String
+  userId      String
+  status      JoinRequestStatus @default(PENDING)
+  message     String?           @db.Text
+  createdAt   DateTime          @default(now())
+  decidedAt   DateTime?
+  decidedById String?
+
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user User @relation("ClubJoinRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, userId])
+  @@index([clubId, status])
 }
 
 enum ClubEventKind {

@@ -47,6 +47,7 @@ export type ClubMinAggregateOutputType = {
   avatarUrl: string | null
   rules: string | null
   welcomeMessage: string | null
+  visibility: $Enums.ClubVisibility | null
 }
 
 export type ClubMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type ClubMaxAggregateOutputType = {
   avatarUrl: string | null
   rules: string | null
   welcomeMessage: string | null
+  visibility: $Enums.ClubVisibility | null
 }
 
 export type ClubCountAggregateOutputType = {
@@ -77,6 +79,7 @@ export type ClubCountAggregateOutputType = {
   avatarUrl: number
   rules: number
   welcomeMessage: number
+  visibility: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type ClubMinAggregateInputType = {
   avatarUrl?: true
   rules?: true
   welcomeMessage?: true
+  visibility?: true
 }
 
 export type ClubMaxAggregateInputType = {
@@ -117,6 +121,7 @@ export type ClubMaxAggregateInputType = {
   avatarUrl?: true
   rules?: true
   welcomeMessage?: true
+  visibility?: true
 }
 
 export type ClubCountAggregateInputType = {
@@ -132,6 +137,7 @@ export type ClubCountAggregateInputType = {
   avatarUrl?: true
   rules?: true
   welcomeMessage?: true
+  visibility?: true
   _all?: true
 }
 
@@ -234,6 +240,7 @@ export type ClubGroupByOutputType = {
   avatarUrl: string | null
   rules: string | null
   welcomeMessage: string | null
+  visibility: $Enums.ClubVisibility
   _count: ClubCountAggregateOutputType | null
   _avg: ClubAvgAggregateOutputType | null
   _sum: ClubSumAggregateOutputType | null
@@ -272,11 +279,14 @@ export type ClubWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"Club"> | string | null
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
+  visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
   events?: Prisma.ClubEventListRelationFilter
   polls?: Prisma.PollListRelationFilter
+  invites?: Prisma.ClubInviteListRelationFilter
+  joinRequests?: Prisma.ClubJoinRequestListRelationFilter
   chatGroup?: Prisma.XOR<Prisma.GroupConversationNullableScalarRelationFilter, Prisma.GroupConversationWhereInput> | null
 }
 
@@ -293,11 +303,14 @@ export type ClubOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  visibility?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.ClubMemberOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
   events?: Prisma.ClubEventOrderByRelationAggregateInput
   polls?: Prisma.PollOrderByRelationAggregateInput
+  invites?: Prisma.ClubInviteOrderByRelationAggregateInput
+  joinRequests?: Prisma.ClubJoinRequestOrderByRelationAggregateInput
   chatGroup?: Prisma.GroupConversationOrderByWithRelationInput
 }
 
@@ -317,11 +330,14 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"Club"> | string | null
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
+  visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
   events?: Prisma.ClubEventListRelationFilter
   polls?: Prisma.PollListRelationFilter
+  invites?: Prisma.ClubInviteListRelationFilter
+  joinRequests?: Prisma.ClubJoinRequestListRelationFilter
   chatGroup?: Prisma.XOR<Prisma.GroupConversationNullableScalarRelationFilter, Prisma.GroupConversationWhereInput> | null
 }, "id" | "slug">
 
@@ -338,6 +354,7 @@ export type ClubOrderByWithAggregationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  visibility?: Prisma.SortOrder
   _count?: Prisma.ClubCountOrderByAggregateInput
   _avg?: Prisma.ClubAvgOrderByAggregateInput
   _max?: Prisma.ClubMaxOrderByAggregateInput
@@ -361,6 +378,7 @@ export type ClubScalarWhereWithAggregatesInput = {
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   rules?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
+  visibility?: Prisma.EnumClubVisibilityWithAggregatesFilter<"Club"> | $Enums.ClubVisibility
 }
 
 export type ClubCreateInput = {
@@ -375,11 +393,14 @@ export type ClubCreateInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -396,10 +417,13 @@ export type ClubUncheckedCreateInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -415,11 +439,14 @@ export type ClubUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -436,10 +463,13 @@ export type ClubUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -456,6 +486,7 @@ export type ClubCreateManyInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
 }
 
 export type ClubUpdateManyMutationInput = {
@@ -470,6 +501,7 @@ export type ClubUpdateManyMutationInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
 }
 
 export type ClubUncheckedUpdateManyInput = {
@@ -485,6 +517,7 @@ export type ClubUncheckedUpdateManyInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
 }
 
 export type ClubListRelationFilter = {
@@ -510,6 +543,7 @@ export type ClubCountOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type ClubAvgOrderByAggregateInput = {
@@ -529,6 +563,7 @@ export type ClubMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type ClubMinOrderByAggregateInput = {
@@ -544,6 +579,7 @@ export type ClubMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type ClubSumOrderByAggregateInput = {
@@ -600,6 +636,38 @@ export type ClubUncheckedUpdateManyWithoutOwnerNestedInput = {
   update?: Prisma.ClubUpdateWithWhereUniqueWithoutOwnerInput | Prisma.ClubUpdateWithWhereUniqueWithoutOwnerInput[]
   updateMany?: Prisma.ClubUpdateManyWithWhereWithoutOwnerInput | Prisma.ClubUpdateManyWithWhereWithoutOwnerInput[]
   deleteMany?: Prisma.ClubScalarWhereInput | Prisma.ClubScalarWhereInput[]
+}
+
+export type EnumClubVisibilityFieldUpdateOperationsInput = {
+  set?: $Enums.ClubVisibility
+}
+
+export type ClubCreateNestedOneWithoutInvitesInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutInvitesInput, Prisma.ClubUncheckedCreateWithoutInvitesInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutInvitesInput
+  connect?: Prisma.ClubWhereUniqueInput
+}
+
+export type ClubUpdateOneRequiredWithoutInvitesNestedInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutInvitesInput, Prisma.ClubUncheckedCreateWithoutInvitesInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutInvitesInput
+  upsert?: Prisma.ClubUpsertWithoutInvitesInput
+  connect?: Prisma.ClubWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutInvitesInput, Prisma.ClubUpdateWithoutInvitesInput>, Prisma.ClubUncheckedUpdateWithoutInvitesInput>
+}
+
+export type ClubCreateNestedOneWithoutJoinRequestsInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutJoinRequestsInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutJoinRequestsInput
+  connect?: Prisma.ClubWhereUniqueInput
+}
+
+export type ClubUpdateOneRequiredWithoutJoinRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClubCreateWithoutJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutJoinRequestsInput>
+  connectOrCreate?: Prisma.ClubCreateOrConnectWithoutJoinRequestsInput
+  upsert?: Prisma.ClubUpsertWithoutJoinRequestsInput
+  connect?: Prisma.ClubWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClubUpdateToOneWithWhereWithoutJoinRequestsInput, Prisma.ClubUpdateWithoutJoinRequestsInput>, Prisma.ClubUncheckedUpdateWithoutJoinRequestsInput>
 }
 
 export type ClubCreateNestedOneWithoutEventsInput = {
@@ -690,10 +758,13 @@ export type ClubCreateWithoutOwnerInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -709,10 +780,13 @@ export type ClubUncheckedCreateWithoutOwnerInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -758,6 +832,215 @@ export type ClubScalarWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"Club"> | string | null
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
+  visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
+}
+
+export type ClubCreateWithoutInvitesInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  category?: string | null
+  reputation?: number
+  createdAt?: Date | string
+  bannerUrl?: string | null
+  avatarUrl?: string | null
+  rules?: string | null
+  welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
+  owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
+  members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+  events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
+  polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
+}
+
+export type ClubUncheckedCreateWithoutInvitesInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  category?: string | null
+  ownerId: string
+  reputation?: number
+  createdAt?: Date | string
+  bannerUrl?: string | null
+  avatarUrl?: string | null
+  rules?: string | null
+  welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
+  members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+  events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
+}
+
+export type ClubCreateOrConnectWithoutInvitesInput = {
+  where: Prisma.ClubWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClubCreateWithoutInvitesInput, Prisma.ClubUncheckedCreateWithoutInvitesInput>
+}
+
+export type ClubUpsertWithoutInvitesInput = {
+  update: Prisma.XOR<Prisma.ClubUpdateWithoutInvitesInput, Prisma.ClubUncheckedUpdateWithoutInvitesInput>
+  create: Prisma.XOR<Prisma.ClubCreateWithoutInvitesInput, Prisma.ClubUncheckedCreateWithoutInvitesInput>
+  where?: Prisma.ClubWhereInput
+}
+
+export type ClubUpdateToOneWithWhereWithoutInvitesInput = {
+  where?: Prisma.ClubWhereInput
+  data: Prisma.XOR<Prisma.ClubUpdateWithoutInvitesInput, Prisma.ClubUncheckedUpdateWithoutInvitesInput>
+}
+
+export type ClubUpdateWithoutInvitesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
+  members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+  events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
+  polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
+}
+
+export type ClubUncheckedUpdateWithoutInvitesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
+  events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
+}
+
+export type ClubCreateWithoutJoinRequestsInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  category?: string | null
+  reputation?: number
+  createdAt?: Date | string
+  bannerUrl?: string | null
+  avatarUrl?: string | null
+  rules?: string | null
+  welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
+  owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
+  members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
+  events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
+  polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
+}
+
+export type ClubUncheckedCreateWithoutJoinRequestsInput = {
+  id?: string
+  slug: string
+  name: string
+  description?: string | null
+  category?: string | null
+  ownerId: string
+  reputation?: number
+  createdAt?: Date | string
+  bannerUrl?: string | null
+  avatarUrl?: string | null
+  rules?: string | null
+  welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
+  members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
+  events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
+}
+
+export type ClubCreateOrConnectWithoutJoinRequestsInput = {
+  where: Prisma.ClubWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClubCreateWithoutJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutJoinRequestsInput>
+}
+
+export type ClubUpsertWithoutJoinRequestsInput = {
+  update: Prisma.XOR<Prisma.ClubUpdateWithoutJoinRequestsInput, Prisma.ClubUncheckedUpdateWithoutJoinRequestsInput>
+  create: Prisma.XOR<Prisma.ClubCreateWithoutJoinRequestsInput, Prisma.ClubUncheckedCreateWithoutJoinRequestsInput>
+  where?: Prisma.ClubWhereInput
+}
+
+export type ClubUpdateToOneWithWhereWithoutJoinRequestsInput = {
+  where?: Prisma.ClubWhereInput
+  data: Prisma.XOR<Prisma.ClubUpdateWithoutJoinRequestsInput, Prisma.ClubUncheckedUpdateWithoutJoinRequestsInput>
+}
+
+export type ClubUpdateWithoutJoinRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
+  members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
+  events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
+  polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
+}
+
+export type ClubUncheckedUpdateWithoutJoinRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
+  events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
 export type ClubCreateWithoutEventsInput = {
@@ -772,10 +1055,13 @@ export type ClubCreateWithoutEventsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -792,9 +1078,12 @@ export type ClubUncheckedCreateWithoutEventsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -826,10 +1115,13 @@ export type ClubUpdateWithoutEventsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -846,9 +1138,12 @@ export type ClubUncheckedUpdateWithoutEventsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -864,10 +1159,13 @@ export type ClubCreateWithoutMembersInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -884,9 +1182,12 @@ export type ClubUncheckedCreateWithoutMembersInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -918,10 +1219,13 @@ export type ClubUpdateWithoutMembersInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -938,9 +1242,12 @@ export type ClubUncheckedUpdateWithoutMembersInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -956,10 +1263,13 @@ export type ClubCreateWithoutThreadsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -976,9 +1286,12 @@ export type ClubUncheckedCreateWithoutThreadsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -1010,10 +1323,13 @@ export type ClubUpdateWithoutThreadsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -1030,9 +1346,12 @@ export type ClubUncheckedUpdateWithoutThreadsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -1048,10 +1367,13 @@ export type ClubCreateWithoutPollsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationCreateNestedOneWithoutClubInput
 }
 
@@ -1068,9 +1390,12 @@ export type ClubUncheckedCreateWithoutPollsInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
   chatGroup?: Prisma.GroupConversationUncheckedCreateNestedOneWithoutClubInput
 }
 
@@ -1102,10 +1427,13 @@ export type ClubUpdateWithoutPollsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -1122,9 +1450,12 @@ export type ClubUncheckedUpdateWithoutPollsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -1140,11 +1471,14 @@ export type ClubCreateWithoutChatGroupInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
   polls?: Prisma.PollCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutClubInput
 }
 
 export type ClubUncheckedCreateWithoutChatGroupInput = {
@@ -1160,10 +1494,13 @@ export type ClubUncheckedCreateWithoutChatGroupInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
+  invites?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutClubInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutClubInput
 }
 
 export type ClubCreateOrConnectWithoutChatGroupInput = {
@@ -1194,11 +1531,14 @@ export type ClubUpdateWithoutChatGroupInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
 }
 
 export type ClubUncheckedUpdateWithoutChatGroupInput = {
@@ -1214,10 +1554,13 @@ export type ClubUncheckedUpdateWithoutChatGroupInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
 }
 
 export type ClubCreateManyOwnerInput = {
@@ -1232,6 +1575,7 @@ export type ClubCreateManyOwnerInput = {
   avatarUrl?: string | null
   rules?: string | null
   welcomeMessage?: string | null
+  visibility?: $Enums.ClubVisibility
 }
 
 export type ClubUpdateWithoutOwnerInput = {
@@ -1246,10 +1590,13 @@ export type ClubUpdateWithoutOwnerInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUpdateOneWithoutClubNestedInput
 }
 
@@ -1265,10 +1612,13 @@ export type ClubUncheckedUpdateWithoutOwnerInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
+  invites?: Prisma.ClubInviteUncheckedUpdateManyWithoutClubNestedInput
+  joinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutClubNestedInput
   chatGroup?: Prisma.GroupConversationUncheckedUpdateOneWithoutClubNestedInput
 }
 
@@ -1284,6 +1634,7 @@ export type ClubUncheckedUpdateManyWithoutOwnerInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
 }
 
 
@@ -1296,6 +1647,8 @@ export type ClubCountOutputType = {
   threads: number
   events: number
   polls: number
+  invites: number
+  joinRequests: number
 }
 
 export type ClubCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1303,6 +1656,8 @@ export type ClubCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   threads?: boolean | ClubCountOutputTypeCountThreadsArgs
   events?: boolean | ClubCountOutputTypeCountEventsArgs
   polls?: boolean | ClubCountOutputTypeCountPollsArgs
+  invites?: boolean | ClubCountOutputTypeCountInvitesArgs
+  joinRequests?: boolean | ClubCountOutputTypeCountJoinRequestsArgs
 }
 
 /**
@@ -1343,6 +1698,20 @@ export type ClubCountOutputTypeCountPollsArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.PollWhereInput
 }
 
+/**
+ * ClubCountOutputType without action
+ */
+export type ClubCountOutputTypeCountInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClubInviteWhereInput
+}
+
+/**
+ * ClubCountOutputType without action
+ */
+export type ClubCountOutputTypeCountJoinRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClubJoinRequestWhereInput
+}
+
 
 export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1357,11 +1726,14 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   rules?: boolean
   welcomeMessage?: boolean
+  visibility?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
   threads?: boolean | Prisma.Club$threadsArgs<ExtArgs>
   events?: boolean | Prisma.Club$eventsArgs<ExtArgs>
   polls?: boolean | Prisma.Club$pollsArgs<ExtArgs>
+  invites?: boolean | Prisma.Club$invitesArgs<ExtArgs>
+  joinRequests?: boolean | Prisma.Club$joinRequestsArgs<ExtArgs>
   chatGroup?: boolean | Prisma.Club$chatGroupArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
@@ -1379,6 +1751,7 @@ export type ClubSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   rules?: boolean
   welcomeMessage?: boolean
+  visibility?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
 
@@ -1395,6 +1768,7 @@ export type ClubSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   rules?: boolean
   welcomeMessage?: boolean
+  visibility?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
 
@@ -1411,15 +1785,18 @@ export type ClubSelectScalar = {
   avatarUrl?: boolean
   rules?: boolean
   welcomeMessage?: boolean
+  visibility?: boolean
 }
 
-export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "category" | "ownerId" | "reputation" | "createdAt" | "bannerUrl" | "avatarUrl" | "rules" | "welcomeMessage", ExtArgs["result"]["club"]>
+export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "category" | "ownerId" | "reputation" | "createdAt" | "bannerUrl" | "avatarUrl" | "rules" | "welcomeMessage" | "visibility", ExtArgs["result"]["club"]>
 export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
   threads?: boolean | Prisma.Club$threadsArgs<ExtArgs>
   events?: boolean | Prisma.Club$eventsArgs<ExtArgs>
   polls?: boolean | Prisma.Club$pollsArgs<ExtArgs>
+  invites?: boolean | Prisma.Club$invitesArgs<ExtArgs>
+  joinRequests?: boolean | Prisma.Club$joinRequestsArgs<ExtArgs>
   chatGroup?: boolean | Prisma.Club$chatGroupArgs<ExtArgs>
   _count?: boolean | Prisma.ClubCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1438,6 +1815,8 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     threads: Prisma.$ThreadPayload<ExtArgs>[]
     events: Prisma.$ClubEventPayload<ExtArgs>[]
     polls: Prisma.$PollPayload<ExtArgs>[]
+    invites: Prisma.$ClubInvitePayload<ExtArgs>[]
+    joinRequests: Prisma.$ClubJoinRequestPayload<ExtArgs>[]
     chatGroup: Prisma.$GroupConversationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1453,6 +1832,7 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarUrl: string | null
     rules: string | null
     welcomeMessage: string | null
+    visibility: $Enums.ClubVisibility
   }, ExtArgs["result"]["club"]>
   composites: {}
 }
@@ -1852,6 +2232,8 @@ export interface Prisma__ClubClient<T, Null = never, ExtArgs extends runtime.Typ
   threads<T extends Prisma.Club$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.Club$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   polls<T extends Prisma.Club$pollsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$pollsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  invites<T extends Prisma.Club$invitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$invitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  joinRequests<T extends Prisma.Club$joinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$joinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubJoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatGroup<T extends Prisma.Club$chatGroupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Club$chatGroupArgs<ExtArgs>>): Prisma.Prisma__GroupConversationClient<runtime.Types.Result.GetResult<Prisma.$GroupConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1894,6 +2276,7 @@ export interface ClubFieldRefs {
   readonly avatarUrl: Prisma.FieldRef<"Club", 'String'>
   readonly rules: Prisma.FieldRef<"Club", 'String'>
   readonly welcomeMessage: Prisma.FieldRef<"Club", 'String'>
+  readonly visibility: Prisma.FieldRef<"Club", 'ClubVisibility'>
 }
     
 
@@ -2383,6 +2766,54 @@ export type Club$pollsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.PollScalarFieldEnum | Prisma.PollScalarFieldEnum[]
+}
+
+/**
+ * Club.invites
+ */
+export type Club$invitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClubInvite
+   */
+  select?: Prisma.ClubInviteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClubInvite
+   */
+  omit?: Prisma.ClubInviteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubInviteInclude<ExtArgs> | null
+  where?: Prisma.ClubInviteWhereInput
+  orderBy?: Prisma.ClubInviteOrderByWithRelationInput | Prisma.ClubInviteOrderByWithRelationInput[]
+  cursor?: Prisma.ClubInviteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClubInviteScalarFieldEnum | Prisma.ClubInviteScalarFieldEnum[]
+}
+
+/**
+ * Club.joinRequests
+ */
+export type Club$joinRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClubJoinRequest
+   */
+  select?: Prisma.ClubJoinRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClubJoinRequest
+   */
+  omit?: Prisma.ClubJoinRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubJoinRequestInclude<ExtArgs> | null
+  where?: Prisma.ClubJoinRequestWhereInput
+  orderBy?: Prisma.ClubJoinRequestOrderByWithRelationInput | Prisma.ClubJoinRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ClubJoinRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClubJoinRequestScalarFieldEnum | Prisma.ClubJoinRequestScalarFieldEnum[]
 }
 
 /**

@@ -64,6 +64,23 @@ export const SyncPriority = {
 export type SyncPriority = (typeof SyncPriority)[keyof typeof SyncPriority]
 
 
+export const ClubVisibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type ClubVisibility = (typeof ClubVisibility)[keyof typeof ClubVisibility]
+
+
+export const JoinRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type JoinRequestStatus = (typeof JoinRequestStatus)[keyof typeof JoinRequestStatus]
+
+
 export const ClubEventKind = {
   WATCH_PARTY: 'WATCH_PARTY',
   AMA: 'AMA',

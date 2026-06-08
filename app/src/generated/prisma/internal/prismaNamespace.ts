@@ -422,6 +422,8 @@ export const ModelName = {
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
   Club: 'Club',
+  ClubInvite: 'ClubInvite',
+  ClubJoinRequest: 'ClubJoinRequest',
   ClubEvent: 'ClubEvent',
   ClubEventRSVP: 'ClubEventRSVP',
   ClubMember: 'ClubMember',
@@ -564,7 +566,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2933,6 +2935,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ClubCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ClubCountAggregateOutputType> | number
+        }
+      }
+    }
+    ClubInvite: {
+      payload: Prisma.$ClubInvitePayload<ExtArgs>
+      fields: Prisma.ClubInviteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClubInviteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClubInviteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        findFirst: {
+          args: Prisma.ClubInviteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClubInviteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        findMany: {
+          args: Prisma.ClubInviteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>[]
+        }
+        create: {
+          args: Prisma.ClubInviteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        createMany: {
+          args: Prisma.ClubInviteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClubInviteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>[]
+        }
+        delete: {
+          args: Prisma.ClubInviteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        update: {
+          args: Prisma.ClubInviteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        deleteMany: {
+          args: Prisma.ClubInviteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClubInviteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClubInviteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>[]
+        }
+        upsert: {
+          args: Prisma.ClubInviteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubInvitePayload>
+        }
+        aggregate: {
+          args: Prisma.ClubInviteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClubInvite>
+        }
+        groupBy: {
+          args: Prisma.ClubInviteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubInviteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClubInviteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubInviteCountAggregateOutputType> | number
+        }
+      }
+    }
+    ClubJoinRequest: {
+      payload: Prisma.$ClubJoinRequestPayload<ExtArgs>
+      fields: Prisma.ClubJoinRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClubJoinRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClubJoinRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.ClubJoinRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClubJoinRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        findMany: {
+          args: Prisma.ClubJoinRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        create: {
+          args: Prisma.ClubJoinRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        createMany: {
+          args: Prisma.ClubJoinRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClubJoinRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.ClubJoinRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        update: {
+          args: Prisma.ClubJoinRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.ClubJoinRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClubJoinRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClubJoinRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.ClubJoinRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubJoinRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.ClubJoinRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClubJoinRequest>
+        }
+        groupBy: {
+          args: Prisma.ClubJoinRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubJoinRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClubJoinRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubJoinRequestCountAggregateOutputType> | number
         }
       }
     }
@@ -12865,10 +13015,39 @@ export const ClubScalarFieldEnum = {
   bannerUrl: 'bannerUrl',
   avatarUrl: 'avatarUrl',
   rules: 'rules',
-  welcomeMessage: 'welcomeMessage'
+  welcomeMessage: 'welcomeMessage',
+  visibility: 'visibility'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
+
+
+export const ClubInviteScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  code: 'code',
+  createdById: 'createdById',
+  expiresAt: 'expiresAt',
+  maxUses: 'maxUses',
+  uses: 'uses',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubInviteScalarFieldEnum = (typeof ClubInviteScalarFieldEnum)[keyof typeof ClubInviteScalarFieldEnum]
+
+
+export const ClubJoinRequestScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  userId: 'userId',
+  status: 'status',
+  message: 'message',
+  createdAt: 'createdAt',
+  decidedAt: 'decidedAt',
+  decidedById: 'decidedById'
+} as const
+
+export type ClubJoinRequestScalarFieldEnum = (typeof ClubJoinRequestScalarFieldEnum)[keyof typeof ClubJoinRequestScalarFieldEnum]
 
 
 export const ClubEventScalarFieldEnum = {
@@ -14988,6 +15167,34 @@ export type ListEnumWatchStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'ClubVisibility'
+ */
+export type EnumClubVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClubVisibility'>
+    
+
+
+/**
+ * Reference to a field of type 'ClubVisibility[]'
+ */
+export type ListEnumClubVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClubVisibility[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JoinRequestStatus'
+ */
+export type EnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JoinRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JoinRequestStatus[]'
+ */
+export type ListEnumJoinRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JoinRequestStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ClubEventKind'
  */
 export type EnumClubEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClubEventKind'>
@@ -15273,6 +15480,8 @@ export type GlobalOmitConfig = {
   postComment?: Prisma.PostCommentOmit
   postCommentLike?: Prisma.PostCommentLikeOmit
   club?: Prisma.ClubOmit
+  clubInvite?: Prisma.ClubInviteOmit
+  clubJoinRequest?: Prisma.ClubJoinRequestOmit
   clubEvent?: Prisma.ClubEventOmit
   clubEventRSVP?: Prisma.ClubEventRSVPOmit
   clubMember?: Prisma.ClubMemberOmit

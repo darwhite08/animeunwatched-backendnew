@@ -1,8 +1,9 @@
+import { randomBytes } from "node:crypto";
 import { prisma } from "../../config/prisma";
-import { notFound, forbidden, conflict } from "../../lib/errors";
+import { notFound, forbidden, conflict, badReq } from "../../lib/errors";
 import { auditMod } from "../../lib/audit";
 import { awardClubXp, emitClubUpdate } from "../events/events.service";
-import type { CreateClubDto, UpdateClubDto } from "./clubs.schema";
+import type { CreateClubDto, UpdateClubDto, CreateInviteDto } from "./clubs.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
 
@@ -69,12 +70,25 @@ export async function getBySlug(slug: string, userId?: string) {
   let isMember = false;
   let myRole: "USER" | "MOD" | "ADMIN" | null = null;
   let needsOnboarding = false;
+  let myJoinRequest: "PENDING" | "REJECTED" | null = null;
+  let pendingRequests = 0;
   if (userId) {
     const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { role: true, agreedRulesAt: true } });
     if (m) { isMember = true; myRole = m.role; needsOnboarding = !m.agreedRulesAt; }
+    else {
+      const req = await prisma.clubJoinRequest.findUnique({ where: { clubId_userId: { clubId: club.id, userId } }, select: { status: true } });
+      if (req && req.status !== "APPROVED") myJoinRequest = req.status;
+    }
   }
+  // Mods/admins see the pending-request count so they can action the queue.
+  if (myRole === "ADMIN" || myRole === "MOD") {
+    pendingRequests = await prisma.clubJoinRequest.count({ where: { clubId: club.id, status: "PENDING" } });
+  }
+
   const { chatGroup, ...rest } = club;
-  return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup, needsOnboarding } };
+  // Private clubs hide their content from non-members; the client shows a lock screen.
+  const locked = club.visibility === "PRIVATE" && !isMember;
+  return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup, needsOnboarding, locked, myJoinRequest, pendingRequests } };
 }
 
 // ─── create ───────────────────────────────────────────────────────────────────
@@ -93,6 +107,7 @@ export async function create(ownerId: string, dto: CreateClubDto) {
       slug: dto.slug,
       description: dto.description,
       category: dto.category,
+      visibility: dto.visibility ?? "PUBLIC",
       ownerId,
     },
     include: {
@@ -115,14 +130,26 @@ export async function create(ownerId: string, dto: CreateClubDto) {
 
 // ─── join ─────────────────────────────────────────────────────────────────────
 
-export async function join(userId: string, slug: string) {
-  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, rules: true, welcomeMessage: true } });
+export async function join(userId: string, slug: string, message?: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, rules: true, welcomeMessage: true, visibility: true } });
   if (!club) throw notFound("Club not found");
 
   const existing = await prisma.clubMember.findUnique({
     where: { userId_clubId: { userId, clubId: club.id } },
   });
   if (existing) throw conflict("Already a member of this club");
+
+  // Private clubs: queue a join request for a mod/admin to approve (idempotent).
+  if (club.visibility === "PRIVATE") {
+    const req = await prisma.clubJoinRequest.upsert({
+      where: { clubId_userId: { clubId: club.id, userId } },
+      update: { status: "PENDING", message: message?.slice(0, 500) ?? null, decidedAt: null, decidedById: null },
+      create: { clubId: club.id, userId, message: message?.slice(0, 500) ?? null },
+      select: { id: true, status: true },
+    });
+    void emitClubUpdate(club.id, "request");
+    return { pending: true, request: req };
+  }
 
   const membership = await prisma.clubMember.create({
     data: {
@@ -134,6 +161,93 @@ export async function join(userId: string, slug: string) {
 
   void emitClubUpdate(club.id, "member");
   return { membership, requiresOnboarding: true, rules: club.rules ?? null, welcomeMessage: club.welcomeMessage ?? null };
+}
+
+// ─── private clubs: invites + join-request queue ───────────────────────────────
+
+function inviteCode(): string {
+  // URL-safe, ~8 chars, no ambiguous characters.
+  return randomBytes(6).toString("base64url").replace(/[-_]/g, "").slice(0, 8);
+}
+
+/** Create a shareable invite link for a club (mod/admin). */
+export async function createInvite(actorId: string, slug: string, dto: CreateInviteDto) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  await assertModerator(actorId, club.id);
+  const expiresAt = dto.expiresInDays ? new Date(Date.now() + dto.expiresInDays * 86_400_000) : null;
+  const invite = await prisma.clubInvite.create({
+    data: { clubId: club.id, code: inviteCode(), createdById: actorId, expiresAt, maxUses: dto.maxUses ?? null },
+    select: { code: true, expiresAt: true, maxUses: true, uses: true },
+  });
+  return { invite };
+}
+
+/** Public preview of the club behind an invite code (for the join landing). */
+export async function getInviteInfo(code: string) {
+  const invite = await prisma.clubInvite.findUnique({
+    where: { code },
+    select: { expiresAt: true, maxUses: true, uses: true, club: { select: { slug: true, name: true, description: true, avatarUrl: true, bannerUrl: true, _count: { select: { members: true } } } } },
+  });
+  if (!invite) throw notFound("Invite not found");
+  const expired = !!(invite.expiresAt && invite.expiresAt < new Date());
+  const used = invite.maxUses != null && invite.uses >= invite.maxUses;
+  return { valid: !expired && !used, expired, used, club: invite.club };
+}
+
+/** Join a club via a valid invite code, bypassing approval. */
+export async function joinViaInvite(userId: string, code: string) {
+  const invite = await prisma.clubInvite.findUnique({ where: { code }, include: { club: { select: { id: true, rules: true, welcomeMessage: true } } } });
+  if (!invite) throw notFound("Invite not found");
+  if (invite.expiresAt && invite.expiresAt < new Date()) throw forbidden("This invite has expired");
+  if (invite.maxUses != null && invite.uses >= invite.maxUses) throw forbidden("This invite has reached its limit");
+
+  const existing = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: invite.club.id } } });
+  if (existing) throw conflict("Already a member of this club");
+
+  const [membership] = await prisma.$transaction([
+    prisma.clubMember.create({ data: { userId, clubId: invite.club.id, role: "USER" } }),
+    prisma.clubInvite.update({ where: { code }, data: { uses: { increment: 1 } } }),
+    // If they had a pending request, mark it resolved.
+    prisma.clubJoinRequest.updateMany({ where: { clubId: invite.club.id, userId, status: "PENDING" }, data: { status: "APPROVED", decidedAt: new Date() } }),
+  ]);
+  void emitClubUpdate(invite.club.id, "member");
+  return { membership, requiresOnboarding: true, rules: invite.club.rules ?? null, welcomeMessage: invite.club.welcomeMessage ?? null };
+}
+
+/** List pending join requests for a club (mod/admin). */
+export async function listJoinRequests(actorId: string, slug: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  await assertModerator(actorId, club.id);
+  const requests = await prisma.clubJoinRequest.findMany({
+    where: { clubId: club.id, status: "PENDING" },
+    orderBy: { createdAt: "asc" },
+    select: { id: true, message: true, createdAt: true, user: { select: authorSelect } },
+  });
+  return { requests };
+}
+
+/** Approve or reject a pending join request (mod/admin). */
+export async function decideJoinRequest(actorId: string, slug: string, targetUserId: string, approve: boolean) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  await assertModerator(actorId, club.id);
+  const req = await prisma.clubJoinRequest.findUnique({ where: { clubId_userId: { clubId: club.id, userId: targetUserId } }, select: { status: true } });
+  if (!req) throw notFound("Join request not found");
+  if (req.status !== "PENDING") throw badReq("This request has already been decided");
+
+  if (approve) {
+    const already = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: targetUserId, clubId: club.id } }, select: { userId: true } });
+    if (!already) await prisma.clubMember.create({ data: { userId: targetUserId, clubId: club.id, role: "USER" } });
+  }
+  await prisma.clubJoinRequest.update({
+    where: { clubId_userId: { clubId: club.id, userId: targetUserId } },
+    data: { status: approve ? "APPROVED" : "REJECTED", decidedAt: new Date(), decidedById: actorId },
+  });
+  auditMod("mod_action_applied", { actorId, targetUserId, targetType: "Club", targetId: club.id, action: approve ? "club_request_approved" : "club_request_rejected" });
+  void emitClubUpdate(club.id, approve ? "member" : "request");
+  return { ok: true, approved: approve };
 }
 
 // Mark onboarding complete (rules agreed) + post a system "joined" message.

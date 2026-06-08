@@ -81,6 +81,8 @@ export const ModelName = {
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
   Club: 'Club',
+  ClubInvite: 'ClubInvite',
+  ClubJoinRequest: 'ClubJoinRequest',
   ClubEvent: 'ClubEvent',
   ClubEventRSVP: 'ClubEventRSVP',
   ClubMember: 'ClubMember',
@@ -718,10 +720,39 @@ export const ClubScalarFieldEnum = {
   bannerUrl: 'bannerUrl',
   avatarUrl: 'avatarUrl',
   rules: 'rules',
-  welcomeMessage: 'welcomeMessage'
+  welcomeMessage: 'welcomeMessage',
+  visibility: 'visibility'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
+
+
+export const ClubInviteScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  code: 'code',
+  createdById: 'createdById',
+  expiresAt: 'expiresAt',
+  maxUses: 'maxUses',
+  uses: 'uses',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubInviteScalarFieldEnum = (typeof ClubInviteScalarFieldEnum)[keyof typeof ClubInviteScalarFieldEnum]
+
+
+export const ClubJoinRequestScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  userId: 'userId',
+  status: 'status',
+  message: 'message',
+  createdAt: 'createdAt',
+  decidedAt: 'decidedAt',
+  decidedById: 'decidedById'
+} as const
+
+export type ClubJoinRequestScalarFieldEnum = (typeof ClubJoinRequestScalarFieldEnum)[keyof typeof ClubJoinRequestScalarFieldEnum]
 
 
 export const ClubEventScalarFieldEnum = {
