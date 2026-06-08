@@ -1,0 +1,96 @@
+/**
+ * Wikimedia pageviews collector — off-platform general-public interest. People
+ * read a show's Wikipedia article when it's hot, so recent pageview velocity is
+ * a strong free buzz proxy.
+ *
+ * Verified constraints (deep research): Wikimedia REST allows 200 req/min with a
+ * User-Agent (no key); the earlier "anonymous 500/hr" figure was refuted. We
+ * pace ~3 req/sec and only query the bounded candidate set on an hourly cadence.
+ *
+ * Title resolution is best-effort (English then romaji, underscored); a 404 just
+ * means "no confident article" → that title contributes no Wikipedia signal.
+ */
+import { env } from "../../config/env";
+
+const REST = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user";
+const DECAY_HALF_LIFE_DAYS = 3; // recent days dominate (buzz = rising interest)
+const WINDOW_DAYS = 10;
+
+function ymd(d: Date): string {
+  return d.toISOString().slice(0, 10).replace(/-/g, "");
+}
+function sleep(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
+function articleCandidates(titles: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const t of titles) {
+    const a = t?.trim();
+    if (!a) continue;
+    const enc = encodeURIComponent(a.replace(/\s+/g, "_"));
+    if (!seen.has(enc)) { seen.add(enc); out.push(enc); }
+  }
+  return out;
+}
+
+interface PageviewItem { timestamp: string; views: number }
+
+async function fetchArticleDecayedViews(article: string, start: string, end: string): Promise<number | null> {
+  const url = `${REST}/${article}/daily/${start}/${end}`;
+  let res: Response;
+  try {
+    res = await fetch(url, { headers: { "User-Agent": env.TRENDING_USER_AGENT }, signal: AbortSignal.timeout(10_000) });
+  } catch {
+    return null;
+  }
+  if (res.status === 404) return null; // no such article — best-effort miss
+  if (res.status === 429) { await sleep(2000); return null; }
+  if (!res.ok) return null;
+
+  const json = (await res.json()) as { items?: PageviewItem[] };
+  const items = json.items ?? [];
+  if (items.length === 0) return null;
+
+  // Decayed-weight daily views so a recent surge outranks a flat-but-popular page.
+  const lambda = Math.LN2 / DECAY_HALF_LIFE_DAYS;
+  const today = Date.now();
+  let decayed = 0;
+  for (const it of items) {
+    // timestamp is YYYYMMDD00
+    const y = +it.timestamp.slice(0, 4), m = +it.timestamp.slice(4, 6), d = +it.timestamp.slice(6, 8);
+    const ageDays = Math.max(0, (today - Date.UTC(y, m - 1, d)) / 86_400_000);
+    decayed += it.views * Math.exp(-lambda * ageDays);
+  }
+  return decayed;
+}
+
+export interface WikiCandidate { malId: number; titles: string[] }
+
+/**
+ * For each candidate, returns a normalized decayed-pageview value in [0,1]
+ * (relative to the batch p95). Titles with no resolvable article are absent.
+ */
+export async function fetchPageviewBuzz(candidates: WikiCandidate[]): Promise<Map<number, number>> {
+  const end = ymd(new Date(Date.now() - 86_400_000)); // yesterday (today is partial)
+  const start = ymd(new Date(Date.now() - WINDOW_DAYS * 86_400_000));
+
+  const raw = new Map<number, number>();
+  for (const c of candidates) {
+    let best: number | null = null;
+    for (const art of articleCandidates(c.titles)) {
+      const v = await fetchArticleDecayedViews(art, start, end);
+      await sleep(320); // ~3 req/sec, under the 200/min limit
+      if (v != null) { best = v; break; } // first confident article wins
+    }
+    if (best != null) raw.set(c.malId, best);
+  }
+
+  // Normalize by batch p95 → 0..1 (so one mega-page doesn't crush the rest).
+  const vals = [...raw.values()].sort((a, b) => a - b);
+  if (vals.length === 0) return raw;
+  const p95 = vals[Math.min(vals.length - 1, Math.ceil(0.95 * vals.length) - 1)] || 1;
+  const out = new Map<number, number>();
+  for (const [malId, v] of raw) out.set(malId, Math.min(1, v / p95));
+  return out;
+}

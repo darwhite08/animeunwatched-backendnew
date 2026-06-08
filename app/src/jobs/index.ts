@@ -12,6 +12,7 @@ import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
 import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
 import { computeTrending } from "../lib/trending/trending.service"
+import { collectBuzz } from "../lib/buzz"
 import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
 
 export function startJobs() {
@@ -92,6 +93,10 @@ export function startJobs() {
     name: "computeTrending", description: "Recompute 'Trending Now' (deseasonalized robust-z + NEWMA) from first-party activity (every 20 min)",
     intervalMs: 20 * 60_000, handler: () => computeTrending(),
   })
+  registerJob({
+    name: "collectBuzz", description: "Gather off-platform web buzz (AniList trending + Wikimedia pageviews) into trending (hourly)",
+    intervalMs: 60 * 60_000, handler: () => collectBuzz(),
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -156,6 +161,12 @@ export function startJobs() {
   const trending = instrument("computeTrending", () => computeTrending())
   setInterval(trending, 20 * 60_000)
   trending().catch(console.error)
+
+  // Off-platform web buzz (AniList trending + Wikimedia pageviews) — hourly,
+  // candidate-gated. Runs ~30s after boot so the catalog/states exist first.
+  const buzz = instrument("collectBuzz", () => collectBuzz())
+  setInterval(buzz, 60 * 60_000)
+  setTimeout(() => { buzz().catch(console.error) }, 30_000)
 
   console.log("[Jobs] Background jobs started")
 }

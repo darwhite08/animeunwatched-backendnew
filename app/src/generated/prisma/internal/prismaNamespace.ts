@@ -11864,6 +11864,8 @@ export const TrendingStateScalarFieldEnum = {
   lastVel: 'lastVel',
   prevScore: 'prevScore',
   samples: 'samples',
+  externalBuzz: 'externalBuzz',
+  buzzAt: 'buzzAt',
   updatedAt: 'updatedAt'
 } as const
 

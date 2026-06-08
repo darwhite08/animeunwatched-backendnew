@@ -365,6 +365,11 @@ model TrendingState {
   lastVel    Float    @default(0)   // last raw decayed velocity (debug/inspect)
   prevScore  Float    @default(0)   // last smoothed trendingScore
   samples    Int      @default(0)   // updates seen (cold-start warmup)
+  // Off-platform web buzz (AniList trending + Wikimedia pageviews), normalized
+  // 0..1, refreshed by the compute-buzz tick. Lets a title trend on web activity
+  // even with no on-platform engagement yet.
+  externalBuzz Float   @default(0)
+  buzzAt     DateTime?
   updatedAt  DateTime @updatedAt
 
   anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)

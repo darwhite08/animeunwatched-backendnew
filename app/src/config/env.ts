@@ -17,6 +17,14 @@ export const env = {
   ANIME_SYNC_HOT_INTERVAL_HOURS: Number(process.env.ANIME_SYNC_HOT_INTERVAL_HOURS) || 6,
   ANIME_SYNC_NORMAL_DAYS:        Number(process.env.ANIME_SYNC_NORMAL_DAYS)        || 7,
   ANIME_SYNC_COLD_DAYS:          Number(process.env.ANIME_SYNC_COLD_DAYS)          || 30,
+
+  // ── Trending: off-platform web buzz signals (docs/trending-algorithm.md §11b) ──
+  // AniList TRENDING_DESC feed (real-time community activity) + Wikimedia pageviews
+  // (general public interest). Both free; disable either by flag. UA required by Wikimedia.
+  TRENDING_ANILIST_ENABLED:   (process.env.TRENDING_ANILIST_ENABLED   ?? "true") === "true",
+  TRENDING_WIKIPEDIA_ENABLED: (process.env.TRENDING_WIKIPEDIA_ENABLED ?? "true") === "true",
+  TRENDING_USER_AGENT:        process.env.TRENDING_USER_AGENT || "KaiveronBot/1.0 (https://kaiveron.com; info@athavita.com)",
+
   CATALOG_PROVIDER:   (process.env.CATALOG_PROVIDER  || "jikan") as "jikan" | "mal" | "anilist",
   CORS_ORIGIN:        process.env.CORS_ORIGIN        || "http://localhost:3000",
   FRONTEND_URL:       process.env.FRONTEND_URL       || "http://localhost:3000",

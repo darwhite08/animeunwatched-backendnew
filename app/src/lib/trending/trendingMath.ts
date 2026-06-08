@@ -21,10 +21,12 @@ export const TREND = {
   SMOOTH_BETA: 0.5, // anti-flicker: score ← β·raw + (1-β)·prev
   Z_MAX: 8, // robust-z clamp
   WARMUP_SAMPLES: 6, // below this many updates, damp burst (cold-start)
-  MIN_UNIQUE_USERS: 2, // anti-gaming eligibility floor
-  W_BURST: 0.55, // weight: acceleration (robust-z)
-  W_NEWMA: 0.2, // weight: NEWMA spike confirmation
-  W_MAG: 0.25, // weight: magnitude (unique-user reach)
+  MIN_UNIQUE_USERS: 2, // anti-gaming eligibility floor (on-platform)
+  MIN_EXTERNAL_BUZZ: 0.05, // a title can qualify on web buzz alone above this
+  W_BURST: 0.4, // weight: on-platform acceleration (robust-z)
+  W_NEWMA: 0.15, // weight: NEWMA spike confirmation
+  W_MAG: 0.15, // weight: on-platform magnitude (unique-user reach)
+  W_EXT: 0.3, // weight: off-platform web buzz (AniList + Wikipedia)
 } as const;
 
 /** Decay constant λ = ln2 / half-life. */
@@ -46,10 +48,11 @@ export interface TrendingStateLike {
 }
 
 export interface TrendingInput {
-  velocity: number; // decayed event velocity this tick
+  velocity: number; // decayed event velocity this tick (on-platform)
   uniqueUsers: number; // distinct users behind it (anti-gaming)
   weekday: number; // 0..6
   velocityP95: number; // p95 of velocity across the candidate set (for magnitude norm)
+  externalBuzz?: number; // off-platform web buzz, normalized 0..1 (AniList + Wikipedia)
   airing?: boolean;
   episodePulse?: boolean; // an episode aired within the decay window
 }
@@ -99,11 +102,15 @@ export function stepTrending(state: TrendingStateLike, input: TrendingInput): Tr
   const magnitude = input.velocityP95 > EPS ? Math.min(1, v / input.velocityP95) : 0;
 
   // ── 5. Blend → boosts → cold-start damp → EWMA smoothing ────────────────
+  // On-platform burst/magnitude are warmup-damped (need history); the external
+  // web-buzz signal is trustworthy immediately, so it's NOT damped.
   const warmup = Math.min(1, state.samples / TREND.WARMUP_SAMPLES); // 0..1, damps burst early
+  const externalBuzz = Math.max(0, Math.min(1, input.externalBuzz ?? 0));
   let raw =
     TREND.W_BURST * (z / TREND.Z_MAX) * warmup +
     TREND.W_NEWMA * Math.min(1, newmaBurst) * warmup +
-    TREND.W_MAG * magnitude;
+    TREND.W_MAG * magnitude +
+    TREND.W_EXT * externalBuzz;
 
   if (input.airing) raw *= 1.25;
   if (input.episodePulse) raw *= 1.2;

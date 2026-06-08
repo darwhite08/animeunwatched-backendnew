@@ -99,14 +99,25 @@ async function getBoostFlags(animeIds: string[]): Promise<Map<string, { airing: 
 export async function computeTrending(now = new Date()): Promise<{ scored: number; durationMs: number }> {
   const started = Date.now();
   const velocities = await gatherVelocities();
+  const velocityByAnime = new Map(velocities.map((v) => [v.animeId, v]));
 
-  // Anti-gaming floor: a title needs ≥ N distinct users to be eligible.
-  const active = velocities.filter((v) => v.uniqueUsers >= TREND.MIN_UNIQUE_USERS);
-  if (active.length === 0) return { scored: 0, durationMs: Date.now() - started };
+  // Candidate set = on-platform-active titles ∪ titles with off-platform web
+  // buzz (so a show trending on AniList/Wikipedia surfaces even with no local
+  // posts yet). Eligibility: enough distinct users OR enough web buzz.
+  const buzzStates = await prisma.trendingState.findMany({
+    where: { externalBuzz: { gte: TREND.MIN_EXTERNAL_BUZZ } },
+    select: { animeId: true, externalBuzz: true },
+  });
+  const buzzById = new Map(buzzStates.map((b) => [b.animeId, b.externalBuzz]));
 
-  const velocityP95 = percentile(active.map((v) => v.velocity), 95);
+  const candidateIds = new Set<string>();
+  for (const v of velocities) if (v.uniqueUsers >= TREND.MIN_UNIQUE_USERS) candidateIds.add(v.animeId);
+  for (const b of buzzStates) candidateIds.add(b.animeId);
+  if (candidateIds.size === 0) return { scored: 0, durationMs: Date.now() - started };
+
+  const velocityP95 = percentile(velocities.map((v) => v.velocity), 95) || 1;
   const weekday = now.getUTCDay(); // 0=Sun..6=Sat
-  const ids = active.map((v) => v.animeId);
+  const ids = [...candidateIds];
 
   const [states, boosts] = await Promise.all([
     prisma.trendingState.findMany({ where: { animeId: { in: ids } } }),
@@ -114,13 +125,14 @@ export async function computeTrending(now = new Date()): Promise<{ scored: numbe
   ]);
   const stateById = new Map(states.map((s) => [s.animeId, s]));
 
-  // Compute + persist each title's step. Writes are batched per title (state +
-  // score); the set is bounded by "active titles this tick", not the catalog.
+  // Compute + persist each candidate's step. Writes are batched per title;
+  // the set is bounded by "candidates this tick", not the catalog.
   let scored = 0;
   const scoreByAnime = new Map<string, number>();
 
-  for (const v of active) {
-    const existing = stateById.get(v.animeId);
+  for (const animeId of ids) {
+    const v = velocityByAnime.get(animeId);
+    const existing = stateById.get(animeId);
     const prevState: TrendingStateLike = existing
       ? {
           ewmaMean: existing.ewmaMean,
@@ -133,25 +145,27 @@ export async function computeTrending(now = new Date()): Promise<{ scored: numbe
         }
       : initialTrendingState();
 
-    const boost = boosts.get(v.animeId) ?? { airing: false, episodePulse: false };
+    const boost = boosts.get(animeId) ?? { airing: false, episodePulse: false };
+    const velocity = v?.velocity ?? 0;
     const { score, next } = stepTrending(prevState, {
-      velocity: v.velocity,
-      uniqueUsers: v.uniqueUsers,
+      velocity,
+      uniqueUsers: v?.uniqueUsers ?? 0,
       weekday,
       velocityP95,
+      externalBuzz: buzzById.get(animeId) ?? existing?.externalBuzz ?? 0,
       airing: boost.airing,
       episodePulse: boost.episodePulse,
     });
 
-    scoreByAnime.set(v.animeId, score);
+    scoreByAnime.set(animeId, score);
     await prisma.$transaction([
       prisma.trendingState.upsert({
-        where: { animeId: v.animeId },
-        create: { animeId: v.animeId, ...next, lastVel: v.velocity },
-        update: { ...next, lastVel: v.velocity },
+        where: { animeId },
+        create: { animeId, ...next, lastVel: velocity },
+        update: { ...next, lastVel: velocity },
       }),
       prisma.anime.update({
-        where: { id: v.animeId },
+        where: { id: animeId },
         data: { trendingScore: score, trendingUpdatedAt: now },
       }),
     ]);

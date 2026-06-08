@@ -34,6 +34,7 @@ export type TrendingStateAvgAggregateOutputType = {
   lastVel: number | null
   prevScore: number | null
   samples: number | null
+  externalBuzz: number | null
 }
 
 export type TrendingStateSumAggregateOutputType = {
@@ -44,6 +45,7 @@ export type TrendingStateSumAggregateOutputType = {
   lastVel: number | null
   prevScore: number | null
   samples: number | null
+  externalBuzz: number | null
 }
 
 export type TrendingStateMinAggregateOutputType = {
@@ -55,6 +57,8 @@ export type TrendingStateMinAggregateOutputType = {
   lastVel: number | null
   prevScore: number | null
   samples: number | null
+  externalBuzz: number | null
+  buzzAt: Date | null
   updatedAt: Date | null
 }
 
@@ -67,6 +71,8 @@ export type TrendingStateMaxAggregateOutputType = {
   lastVel: number | null
   prevScore: number | null
   samples: number | null
+  externalBuzz: number | null
+  buzzAt: Date | null
   updatedAt: Date | null
 }
 
@@ -80,6 +86,8 @@ export type TrendingStateCountAggregateOutputType = {
   lastVel: number
   prevScore: number
   samples: number
+  externalBuzz: number
+  buzzAt: number
   updatedAt: number
   _all: number
 }
@@ -93,6 +101,7 @@ export type TrendingStateAvgAggregateInputType = {
   lastVel?: true
   prevScore?: true
   samples?: true
+  externalBuzz?: true
 }
 
 export type TrendingStateSumAggregateInputType = {
@@ -103,6 +112,7 @@ export type TrendingStateSumAggregateInputType = {
   lastVel?: true
   prevScore?: true
   samples?: true
+  externalBuzz?: true
 }
 
 export type TrendingStateMinAggregateInputType = {
@@ -114,6 +124,8 @@ export type TrendingStateMinAggregateInputType = {
   lastVel?: true
   prevScore?: true
   samples?: true
+  externalBuzz?: true
+  buzzAt?: true
   updatedAt?: true
 }
 
@@ -126,6 +138,8 @@ export type TrendingStateMaxAggregateInputType = {
   lastVel?: true
   prevScore?: true
   samples?: true
+  externalBuzz?: true
+  buzzAt?: true
   updatedAt?: true
 }
 
@@ -139,6 +153,8 @@ export type TrendingStateCountAggregateInputType = {
   lastVel?: true
   prevScore?: true
   samples?: true
+  externalBuzz?: true
+  buzzAt?: true
   updatedAt?: true
   _all?: true
 }
@@ -239,6 +255,8 @@ export type TrendingStateGroupByOutputType = {
   lastVel: number
   prevScore: number
   samples: number
+  externalBuzz: number
+  buzzAt: Date | null
   updatedAt: Date
   _count: TrendingStateCountAggregateOutputType | null
   _avg: TrendingStateAvgAggregateOutputType | null
@@ -275,6 +293,8 @@ export type TrendingStateWhereInput = {
   lastVel?: Prisma.FloatFilter<"TrendingState"> | number
   prevScore?: Prisma.FloatFilter<"TrendingState"> | number
   samples?: Prisma.IntFilter<"TrendingState"> | number
+  externalBuzz?: Prisma.FloatFilter<"TrendingState"> | number
+  buzzAt?: Prisma.DateTimeNullableFilter<"TrendingState"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"TrendingState"> | Date | string
   anime?: Prisma.XOR<Prisma.AnimeScalarRelationFilter, Prisma.AnimeWhereInput>
 }
@@ -289,6 +309,8 @@ export type TrendingStateOrderByWithRelationInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
+  buzzAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   anime?: Prisma.AnimeOrderByWithRelationInput
 }
@@ -306,6 +328,8 @@ export type TrendingStateWhereUniqueInput = Prisma.AtLeast<{
   lastVel?: Prisma.FloatFilter<"TrendingState"> | number
   prevScore?: Prisma.FloatFilter<"TrendingState"> | number
   samples?: Prisma.IntFilter<"TrendingState"> | number
+  externalBuzz?: Prisma.FloatFilter<"TrendingState"> | number
+  buzzAt?: Prisma.DateTimeNullableFilter<"TrendingState"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"TrendingState"> | Date | string
   anime?: Prisma.XOR<Prisma.AnimeScalarRelationFilter, Prisma.AnimeWhereInput>
 }, "animeId">
@@ -320,6 +344,8 @@ export type TrendingStateOrderByWithAggregationInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
+  buzzAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TrendingStateCountOrderByAggregateInput
   _avg?: Prisma.TrendingStateAvgOrderByAggregateInput
@@ -341,6 +367,8 @@ export type TrendingStateScalarWhereWithAggregatesInput = {
   lastVel?: Prisma.FloatWithAggregatesFilter<"TrendingState"> | number
   prevScore?: Prisma.FloatWithAggregatesFilter<"TrendingState"> | number
   samples?: Prisma.IntWithAggregatesFilter<"TrendingState"> | number
+  externalBuzz?: Prisma.FloatWithAggregatesFilter<"TrendingState"> | number
+  buzzAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrendingState"> | Date | string | null
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TrendingState"> | Date | string
 }
 
@@ -353,6 +381,8 @@ export type TrendingStateCreateInput = {
   lastVel?: number
   prevScore?: number
   samples?: number
+  externalBuzz?: number
+  buzzAt?: Date | string | null
   updatedAt?: Date | string
   anime: Prisma.AnimeCreateNestedOneWithoutTrendingStateInput
 }
@@ -367,6 +397,8 @@ export type TrendingStateUncheckedCreateInput = {
   lastVel?: number
   prevScore?: number
   samples?: number
+  externalBuzz?: number
+  buzzAt?: Date | string | null
   updatedAt?: Date | string
 }
 
@@ -379,6 +411,8 @@ export type TrendingStateUpdateInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   anime?: Prisma.AnimeUpdateOneRequiredWithoutTrendingStateNestedInput
 }
@@ -393,6 +427,8 @@ export type TrendingStateUncheckedUpdateInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -406,6 +442,8 @@ export type TrendingStateCreateManyInput = {
   lastVel?: number
   prevScore?: number
   samples?: number
+  externalBuzz?: number
+  buzzAt?: Date | string | null
   updatedAt?: Date | string
 }
 
@@ -418,6 +456,8 @@ export type TrendingStateUpdateManyMutationInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -431,6 +471,8 @@ export type TrendingStateUncheckedUpdateManyInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -449,6 +491,8 @@ export type TrendingStateCountOrderByAggregateInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
+  buzzAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -460,6 +504,7 @@ export type TrendingStateAvgOrderByAggregateInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
 }
 
 export type TrendingStateMaxOrderByAggregateInput = {
@@ -471,6 +516,8 @@ export type TrendingStateMaxOrderByAggregateInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
+  buzzAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -483,6 +530,8 @@ export type TrendingStateMinOrderByAggregateInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
+  buzzAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -494,6 +543,7 @@ export type TrendingStateSumOrderByAggregateInput = {
   lastVel?: Prisma.SortOrder
   prevScore?: Prisma.SortOrder
   samples?: Prisma.SortOrder
+  externalBuzz?: Prisma.SortOrder
 }
 
 export type TrendingStateCreateNestedOneWithoutAnimeInput = {
@@ -545,6 +595,8 @@ export type TrendingStateCreateWithoutAnimeInput = {
   lastVel?: number
   prevScore?: number
   samples?: number
+  externalBuzz?: number
+  buzzAt?: Date | string | null
   updatedAt?: Date | string
 }
 
@@ -557,6 +609,8 @@ export type TrendingStateUncheckedCreateWithoutAnimeInput = {
   lastVel?: number
   prevScore?: number
   samples?: number
+  externalBuzz?: number
+  buzzAt?: Date | string | null
   updatedAt?: Date | string
 }
 
@@ -585,6 +639,8 @@ export type TrendingStateUpdateWithoutAnimeInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -597,6 +653,8 @@ export type TrendingStateUncheckedUpdateWithoutAnimeInput = {
   lastVel?: Prisma.FloatFieldUpdateOperationsInput | number
   prevScore?: Prisma.FloatFieldUpdateOperationsInput | number
   samples?: Prisma.IntFieldUpdateOperationsInput | number
+  externalBuzz?: Prisma.FloatFieldUpdateOperationsInput | number
+  buzzAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -612,6 +670,8 @@ export type TrendingStateSelect<ExtArgs extends runtime.Types.Extensions.Interna
   lastVel?: boolean
   prevScore?: boolean
   samples?: boolean
+  externalBuzz?: boolean
+  buzzAt?: boolean
   updatedAt?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trendingState"]>
@@ -626,6 +686,8 @@ export type TrendingStateSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   lastVel?: boolean
   prevScore?: boolean
   samples?: boolean
+  externalBuzz?: boolean
+  buzzAt?: boolean
   updatedAt?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trendingState"]>
@@ -640,6 +702,8 @@ export type TrendingStateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   lastVel?: boolean
   prevScore?: boolean
   samples?: boolean
+  externalBuzz?: boolean
+  buzzAt?: boolean
   updatedAt?: boolean
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trendingState"]>
@@ -654,10 +718,12 @@ export type TrendingStateSelectScalar = {
   lastVel?: boolean
   prevScore?: boolean
   samples?: boolean
+  externalBuzz?: boolean
+  buzzAt?: boolean
   updatedAt?: boolean
 }
 
-export type TrendingStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"animeId" | "ewmaMean" | "ewmaDev" | "newmaFast" | "newmaSlow" | "seasonal" | "lastVel" | "prevScore" | "samples" | "updatedAt", ExtArgs["result"]["trendingState"]>
+export type TrendingStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"animeId" | "ewmaMean" | "ewmaDev" | "newmaFast" | "newmaSlow" | "seasonal" | "lastVel" | "prevScore" | "samples" | "externalBuzz" | "buzzAt" | "updatedAt", ExtArgs["result"]["trendingState"]>
 export type TrendingStateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   anime?: boolean | Prisma.AnimeDefaultArgs<ExtArgs>
 }
@@ -683,6 +749,8 @@ export type $TrendingStatePayload<ExtArgs extends runtime.Types.Extensions.Inter
     lastVel: number
     prevScore: number
     samples: number
+    externalBuzz: number
+    buzzAt: Date | null
     updatedAt: Date
   }, ExtArgs["result"]["trendingState"]>
   composites: {}
@@ -1117,6 +1185,8 @@ export interface TrendingStateFieldRefs {
   readonly lastVel: Prisma.FieldRef<"TrendingState", 'Float'>
   readonly prevScore: Prisma.FieldRef<"TrendingState", 'Float'>
   readonly samples: Prisma.FieldRef<"TrendingState", 'Int'>
+  readonly externalBuzz: Prisma.FieldRef<"TrendingState", 'Float'>
+  readonly buzzAt: Prisma.FieldRef<"TrendingState", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TrendingState", 'DateTime'>
 }
     
