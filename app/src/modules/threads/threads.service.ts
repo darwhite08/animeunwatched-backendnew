@@ -15,7 +15,7 @@ const authorSelect = {
 
 // ─── getById ──────────────────────────────────────────────────────────────────
 
-export async function getById(id: string) {
+export async function getById(id: string, userId?: string) {
   const thread = await prisma.thread.findUnique({
     where: { id },
     include: {
@@ -26,7 +26,17 @@ export async function getById(id: string) {
 
   if (!thread) throw notFound("Thread not found");
 
-  return { thread };
+  const reactions = (await reactionsFor([id], userId)).get(id) ?? [];
+  // If this is a club thread, surface whether the viewer can moderate it.
+  let canModerate = false;
+  if (userId && thread.clubId) {
+    if (thread.authorId === userId) canModerate = true;
+    else {
+      const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: thread.clubId } }, select: { role: true } });
+      canModerate = m?.role === "ADMIN" || m?.role === "MOD";
+    }
+  }
+  return { thread: { ...thread, reactions, canModerate } };
 }
 
 // ─── createClubThread ─────────────────────────────────────────────────────────
@@ -43,6 +53,7 @@ export async function createClubThread(
     where: { userId_clubId: { userId: authorId, clubId: club.id } },
   });
   if (!membership) throw forbidden("You must be a member of this club to post a thread");
+  if (membership.mutedUntil && membership.mutedUntil > new Date()) throw forbidden("You're muted in this club");
 
   // Announcements are mod/admin-only.
   let kind = dto.kind ?? (dto.title.startsWith("[CHALLENGE]") ? "CHALLENGE" : "DISCUSSION");
@@ -151,7 +162,7 @@ export async function deleteThread(id: string, userId: string, role: string) {
 
 // ─── getReplies ───────────────────────────────────────────────────────────────
 
-export async function getReplies(threadId: string, page = 1, limit = 50) {
+export async function getReplies(threadId: string, page = 1, limit = 50, userId?: string) {
   const thread = await prisma.thread.findUnique({ where: { id: threadId } });
   if (!thread) throw notFound("Thread not found");
 
@@ -169,7 +180,9 @@ export async function getReplies(threadId: string, page = 1, limit = 50) {
     prisma.threadReply.count({ where: { threadId } }),
   ]);
 
-  return { data: replies, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+  const rmap = await reactionsFor(replies.map((r) => r.id), userId);
+  const data = replies.map((r) => ({ ...r, reactions: rmap.get(r.id) ?? [] }));
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
 }
 
 // ─── createReply ──────────────────────────────────────────────────────────────
@@ -183,6 +196,12 @@ export async function createReply(
   if (!thread) throw notFound("Thread not found");
 
   if (thread.isLocked) throw forbidden("This thread is locked");
+
+  // Muted club members can't reply in that club.
+  if (thread.clubId) {
+    const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: authorId, clubId: thread.clubId } }, select: { mutedUntil: true } });
+    if (m?.mutedUntil && m.mutedUntil > new Date()) throw forbidden("You're muted in this club");
+  }
 
   // Validate parentId belongs to the same thread
   if (dto.parentId) {
@@ -257,4 +276,56 @@ export async function getClubThreads(slug: string, page = 1, limit = 20) {
   ]);
 
   return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}
+
+// ─── reactions ──────────────────────────────────────────────────────────────
+type ReactionSummary = { emoji: string; count: number; reactedByMe: boolean };
+
+/** Fetch reaction summaries for a set of targets, keyed by targetId. */
+export async function reactionsFor(targetIds: string[], userId?: string): Promise<Map<string, ReactionSummary[]>> {
+  const out = new Map<string, ReactionSummary[]>();
+  if (!targetIds.length) return out;
+  const rows = await prisma.threadReaction.findMany({
+    where: { targetId: { in: targetIds } },
+    select: { targetId: true, emoji: true, userId: true },
+  });
+  const byTarget = new Map<string, Map<string, ReactionSummary>>();
+  for (const r of rows) {
+    const m = byTarget.get(r.targetId) ?? new Map<string, ReactionSummary>();
+    const e = m.get(r.emoji) ?? { emoji: r.emoji, count: 0, reactedByMe: false };
+    e.count += 1;
+    if (userId && r.userId === userId) e.reactedByMe = true;
+    m.set(r.emoji, e);
+    byTarget.set(r.targetId, m);
+  }
+  for (const [tid, m] of byTarget) out.set(tid, [...m.values()]);
+  return out;
+}
+
+/** Toggle a reaction on a thread or reply. Returns the target's reaction summary. */
+export async function setReaction(targetId: string, targetType: "thread" | "reply", userId: string, emoji: string) {
+  const exists = targetType === "thread"
+    ? await prisma.thread.findUnique({ where: { id: targetId }, select: { id: true } })
+    : await prisma.threadReply.findUnique({ where: { id: targetId }, select: { id: true } });
+  if (!exists) throw notFound("Not found");
+
+  const existing = await prisma.threadReaction.findUnique({ where: { targetId_userId_emoji: { targetId, userId, emoji } } });
+  if (existing) await prisma.threadReaction.delete({ where: { id: existing.id } });
+  else await prisma.threadReaction.create({ data: { targetId, targetType, userId, emoji } });
+  const map = await reactionsFor([targetId], userId);
+  return { reactions: map.get(targetId) ?? [] };
+}
+
+// ─── thread lock (author or club mod/admin) ───────────────────────────────────
+export async function setThreadLock(userId: string, threadId: string, locked: boolean) {
+  const thread = await prisma.thread.findUnique({ where: { id: threadId }, select: { id: true, clubId: true, authorId: true } });
+  if (!thread) throw notFound("Thread not found");
+  let allowed = thread.authorId === userId;
+  if (!allowed && thread.clubId) {
+    const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: thread.clubId } }, select: { role: true } });
+    allowed = m?.role === "ADMIN" || m?.role === "MOD";
+  }
+  if (!allowed) throw forbidden("Only the author or a club mod can lock this thread");
+  const updated = await prisma.thread.update({ where: { id: threadId }, data: { isLocked: locked }, select: { id: true, isLocked: true } });
+  return { thread: updated };
 }

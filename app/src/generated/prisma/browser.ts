@@ -193,6 +193,11 @@ export type ClubEventRSVP = Prisma.ClubEventRSVPModel
  */
 export type ClubMember = Prisma.ClubMemberModel
 /**
+ * Model ThreadReaction
+ * 
+ */
+export type ThreadReaction = Prisma.ThreadReactionModel
+/**
  * Model Thread
  * 
  */

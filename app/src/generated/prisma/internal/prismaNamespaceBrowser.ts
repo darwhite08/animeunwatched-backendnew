@@ -84,6 +84,7 @@ export const ModelName = {
   ClubEvent: 'ClubEvent',
   ClubEventRSVP: 'ClubEventRSVP',
   ClubMember: 'ClubMember',
+  ThreadReaction: 'ThreadReaction',
   Thread: 'Thread',
   ThreadReply: 'ThreadReply',
   Review: 'Review',
@@ -760,10 +761,24 @@ export const ClubMemberScalarFieldEnum = {
   agreedRulesAt: 'agreedRulesAt',
   onboardedAt: 'onboardedAt',
   xp: 'xp',
-  lastXpAt: 'lastXpAt'
+  lastXpAt: 'lastXpAt',
+  mutedUntil: 'mutedUntil',
+  strikes: 'strikes'
 } as const
 
 export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
+
+
+export const ThreadReactionScalarFieldEnum = {
+  id: 'id',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadReactionScalarFieldEnum = (typeof ThreadReactionScalarFieldEnum)[keyof typeof ThreadReactionScalarFieldEnum]
 
 
 export const ThreadScalarFieldEnum = {

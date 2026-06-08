@@ -27,6 +27,9 @@ clubsRouter.get("/:slug/leaderboard", optionalAuth, ctrl.leaderboard);
 // Club polls (vote via the existing POST /polls/:id/vote)
 clubsRouter.get("/:slug/polls",  optionalAuth, ctrl.listClubPolls);
 clubsRouter.post("/:slug/polls", requireAuth, ctrl.createClubPoll);
+// Moderation (mod/admin)
+clubsRouter.post("/:slug/members/:userId/mute",   requireAuth, ctrl.muteMember);
+clubsRouter.post("/:slug/members/:userId/remove", requireAuth, ctrl.removeMember);
 
 // Club threads: POST /clubs/:slug/threads
 clubsRouter.use("/:slug/threads", clubThreadsRouter);

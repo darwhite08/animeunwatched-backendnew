@@ -479,6 +479,7 @@ export type UserWhereInput = {
   e2eDevices?: Prisma.UserDeviceListRelationFilter
   e2eKeyWraps?: Prisma.UserMasterKeyWrapListRelationFilter
   clubEventsCreated?: Prisma.ClubEventListRelationFilter
+  threadReactions?: Prisma.ThreadReactionListRelationFilter
   clubEventRsvps?: Prisma.ClubEventRSVPListRelationFilter
   groupsOwned?: Prisma.GroupConversationListRelationFilter
   groupMemberships?: Prisma.GroupMemberListRelationFilter
@@ -574,6 +575,7 @@ export type UserOrderByWithRelationInput = {
   e2eDevices?: Prisma.UserDeviceOrderByRelationAggregateInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapOrderByRelationAggregateInput
   clubEventsCreated?: Prisma.ClubEventOrderByRelationAggregateInput
+  threadReactions?: Prisma.ThreadReactionOrderByRelationAggregateInput
   clubEventRsvps?: Prisma.ClubEventRSVPOrderByRelationAggregateInput
   groupsOwned?: Prisma.GroupConversationOrderByRelationAggregateInput
   groupMemberships?: Prisma.GroupMemberOrderByRelationAggregateInput
@@ -672,6 +674,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   e2eDevices?: Prisma.UserDeviceListRelationFilter
   e2eKeyWraps?: Prisma.UserMasterKeyWrapListRelationFilter
   clubEventsCreated?: Prisma.ClubEventListRelationFilter
+  threadReactions?: Prisma.ThreadReactionListRelationFilter
   clubEventRsvps?: Prisma.ClubEventRSVPListRelationFilter
   groupsOwned?: Prisma.GroupConversationListRelationFilter
   groupMemberships?: Prisma.GroupMemberListRelationFilter
@@ -841,6 +844,7 @@ export type UserCreateInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -936,6 +940,7 @@ export type UserUncheckedCreateInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -1031,6 +1036,7 @@ export type UserUpdateInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -1126,6 +1132,7 @@ export type UserUncheckedUpdateInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -1779,6 +1786,20 @@ export type UserUpdateOneRequiredWithoutClubMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClubMembershipsInput, Prisma.UserUpdateWithoutClubMembershipsInput>, Prisma.UserUncheckedUpdateWithoutClubMembershipsInput>
 }
 
+export type UserCreateNestedOneWithoutThreadReactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadReactionsInput, Prisma.UserUncheckedCreateWithoutThreadReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutThreadReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutThreadReactionsInput, Prisma.UserUncheckedCreateWithoutThreadReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadReactionsInput
+  upsert?: Prisma.UserUpsertWithoutThreadReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutThreadReactionsInput, Prisma.UserUpdateWithoutThreadReactionsInput>, Prisma.UserUncheckedUpdateWithoutThreadReactionsInput>
+}
+
 export type UserCreateNestedOneWithoutThreadsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutThreadsInput, Prisma.UserUncheckedCreateWithoutThreadsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutThreadsInput
@@ -2349,6 +2370,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -2443,6 +2465,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -2553,6 +2576,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -2647,6 +2671,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -2741,6 +2766,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -2835,6 +2861,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -2945,6 +2972,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -3039,6 +3067,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -3133,6 +3162,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -3227,6 +3257,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -3326,6 +3357,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -3420,6 +3452,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -3530,6 +3563,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -3624,6 +3658,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -3729,6 +3764,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -3823,6 +3859,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -3917,6 +3954,7 @@ export type UserCreateWithoutTipsSentInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -4011,6 +4049,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -4110,6 +4149,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -4204,6 +4244,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -4314,6 +4355,7 @@ export type UserUpdateWithoutTipsSentInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -4408,6 +4450,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -4513,6 +4556,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -4607,6 +4651,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -4701,6 +4746,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -4795,6 +4841,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -4905,6 +4952,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -4999,6 +5047,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -5093,6 +5142,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -5187,6 +5237,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -5297,6 +5348,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -5391,6 +5443,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -5485,6 +5538,7 @@ export type UserCreateWithoutPayoutsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -5579,6 +5633,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -5689,6 +5744,7 @@ export type UserUpdateWithoutPayoutsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -5783,6 +5839,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -5877,6 +5934,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -5971,6 +6029,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -6081,6 +6140,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -6175,6 +6235,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -6268,6 +6329,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -6362,6 +6424,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -6472,6 +6535,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -6566,6 +6630,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -6660,6 +6725,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -6754,6 +6820,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -6864,6 +6931,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -6958,6 +7026,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -7052,6 +7121,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -7146,6 +7216,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -7256,6 +7327,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -7350,6 +7422,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -7444,6 +7517,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -7538,6 +7612,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -7648,6 +7723,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -7742,6 +7818,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -7836,6 +7913,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -7930,6 +8008,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8040,6 +8119,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -8134,6 +8214,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -8228,6 +8309,7 @@ export type UserCreateWithoutFollowingInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -8322,6 +8404,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8421,6 +8504,7 @@ export type UserCreateWithoutFollowersInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -8515,6 +8599,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8625,6 +8710,7 @@ export type UserUpdateWithoutFollowingInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -8719,6 +8805,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -8824,6 +8911,7 @@ export type UserUpdateWithoutFollowersInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -8918,6 +9006,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -9012,6 +9101,7 @@ export type UserCreateWithoutListEntriesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -9106,6 +9196,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -9216,6 +9307,7 @@ export type UserUpdateWithoutListEntriesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -9310,6 +9402,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -9404,6 +9497,7 @@ export type UserCreateWithoutPostsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -9498,6 +9592,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -9608,6 +9703,7 @@ export type UserUpdateWithoutPostsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -9702,6 +9798,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -9796,6 +9893,7 @@ export type UserCreateWithoutPostHidesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -9890,6 +9988,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -10000,6 +10099,7 @@ export type UserUpdateWithoutPostHidesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -10094,6 +10194,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -10188,6 +10289,7 @@ export type UserCreateWithoutPostLikesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -10282,6 +10384,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -10392,6 +10495,7 @@ export type UserUpdateWithoutPostLikesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -10486,6 +10590,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -10580,6 +10685,7 @@ export type UserCreateWithoutPostCommentsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -10674,6 +10780,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -10784,6 +10891,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -10878,6 +10986,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -10972,6 +11081,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -11066,6 +11176,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -11176,6 +11287,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -11270,6 +11382,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -11364,6 +11477,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -11458,6 +11572,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -11568,6 +11683,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -11662,6 +11778,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -11756,6 +11873,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -11850,6 +11968,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -11960,6 +12079,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -12054,6 +12174,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -12149,6 +12270,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -12243,6 +12365,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12353,6 +12476,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -12447,6 +12571,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -12540,6 +12665,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -12634,6 +12760,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -12744,6 +12871,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -12802,6 +12930,403 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
   ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserCreateWithoutThreadReactionsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+}
+
+export type UserUncheckedCreateWithoutThreadReactionsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutThreadReactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadReactionsInput, Prisma.UserUncheckedCreateWithoutThreadReactionsInput>
+}
+
+export type UserUpsertWithoutThreadReactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutThreadReactionsInput, Prisma.UserUncheckedUpdateWithoutThreadReactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutThreadReactionsInput, Prisma.UserUncheckedCreateWithoutThreadReactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutThreadReactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutThreadReactionsInput, Prisma.UserUncheckedUpdateWithoutThreadReactionsInput>
+}
+
+export type UserUpdateWithoutThreadReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutThreadReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
@@ -12932,6 +13457,7 @@ export type UserCreateWithoutThreadsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -13026,6 +13552,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -13136,6 +13663,7 @@ export type UserUpdateWithoutThreadsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -13230,6 +13758,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -13324,6 +13853,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -13418,6 +13948,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -13528,6 +14059,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -13622,6 +14154,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -13716,6 +14249,7 @@ export type UserCreateWithoutReviewsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -13810,6 +14344,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -13920,6 +14455,7 @@ export type UserUpdateWithoutReviewsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -14014,6 +14550,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -14108,6 +14645,7 @@ export type UserCreateWithoutReviewLikesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -14202,6 +14740,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -14312,6 +14851,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -14406,6 +14946,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -14500,6 +15041,7 @@ export type UserCreateWithoutBlogsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -14594,6 +15136,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -14704,6 +15247,7 @@ export type UserUpdateWithoutBlogsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -14798,6 +15342,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -14892,6 +15437,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -14986,6 +15532,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -15096,6 +15643,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -15190,6 +15738,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -15284,6 +15833,7 @@ export type UserCreateWithoutNotificationsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -15378,6 +15928,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -15488,6 +16039,7 @@ export type UserUpdateWithoutNotificationsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -15582,6 +16134,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -15676,6 +16229,7 @@ export type UserCreateWithoutReportsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -15770,6 +16324,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -15880,6 +16435,7 @@ export type UserUpdateWithoutReportsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -15974,6 +16530,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -16068,6 +16625,7 @@ export type UserCreateWithoutModerationActionsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -16162,6 +16720,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -16272,6 +16831,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -16366,6 +16926,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -16460,6 +17021,7 @@ export type UserCreateWithoutPollsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -16554,6 +17116,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -16664,6 +17227,7 @@ export type UserUpdateWithoutPollsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -16758,6 +17322,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -16852,6 +17417,7 @@ export type UserCreateWithoutPollVotesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -16946,6 +17512,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -17056,6 +17623,7 @@ export type UserUpdateWithoutPollVotesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -17150,6 +17718,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -17244,6 +17813,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -17338,6 +17908,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -17448,6 +18019,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -17542,6 +18114,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -17636,6 +18209,7 @@ export type UserCreateWithoutPublicKeyInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -17730,6 +18304,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -17840,6 +18415,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -17934,6 +18510,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -18028,6 +18605,7 @@ export type UserCreateWithoutConversations1Input = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -18122,6 +18700,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -18221,6 +18800,7 @@ export type UserCreateWithoutConversations2Input = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -18315,6 +18895,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -18425,6 +19006,7 @@ export type UserUpdateWithoutConversations1Input = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -18519,6 +19101,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -18624,6 +19207,7 @@ export type UserUpdateWithoutConversations2Input = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -18718,6 +19302,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -18812,6 +19397,7 @@ export type UserCreateWithoutSentMessagesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -18906,6 +19492,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -19016,6 +19603,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -19110,6 +19698,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -19204,6 +19793,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -19298,6 +19888,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -19408,6 +19999,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -19502,6 +20094,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -19597,6 +20190,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -19691,6 +20285,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -19801,6 +20396,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -19895,6 +20491,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19989,6 +20586,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -20083,6 +20681,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20193,6 +20792,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -20287,6 +20887,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20381,6 +20982,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -20475,6 +21077,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -20585,6 +21188,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -20679,6 +21283,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -20773,6 +21378,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -20867,6 +21473,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -20977,6 +21584,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -21071,6 +21679,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -21164,6 +21773,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -21258,6 +21868,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -21368,6 +21979,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -21462,6 +22074,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -21556,6 +22169,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -21650,6 +22264,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -21749,6 +22364,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -21843,6 +22459,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -21953,6 +22570,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -22047,6 +22665,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -22152,6 +22771,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -22246,6 +22866,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -22340,6 +22961,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -22434,6 +23056,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -22544,6 +23167,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -22638,6 +23262,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -22732,6 +23357,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -22826,6 +23452,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -22936,6 +23563,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -23030,6 +23658,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -23124,6 +23753,7 @@ export type UserCreateWithoutActivitiesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -23218,6 +23848,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -23328,6 +23959,7 @@ export type UserUpdateWithoutActivitiesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -23422,6 +24054,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -23516,6 +24149,7 @@ export type UserCreateWithoutActivityLikesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -23610,6 +24244,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -23720,6 +24355,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -23814,6 +24450,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -23908,6 +24545,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -24002,6 +24640,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -24112,6 +24751,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -24206,6 +24846,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -24300,6 +24941,7 @@ export type UserCreateWithoutRepliesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -24394,6 +25036,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -24504,6 +25147,7 @@ export type UserUpdateWithoutRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -24598,6 +25242,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -24692,6 +25337,7 @@ export type UserCreateWithoutScimSubjectInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -24786,6 +25432,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -24896,6 +25543,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -24990,6 +25638,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -25084,6 +25733,7 @@ export type UserCreateWithoutShotsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -25178,6 +25828,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -25288,6 +25939,7 @@ export type UserUpdateWithoutShotsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -25382,6 +26034,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -25476,6 +26129,7 @@ export type UserCreateWithoutShotLikesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -25570,6 +26224,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -25680,6 +26335,7 @@ export type UserUpdateWithoutShotLikesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -25774,6 +26430,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -25868,6 +26525,7 @@ export type UserCreateWithoutStoriesInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -25962,6 +26620,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -26072,6 +26731,7 @@ export type UserUpdateWithoutStoriesInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -26166,6 +26826,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -26260,6 +26921,7 @@ export type UserCreateWithoutStoryViewsInput = {
   e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
@@ -26354,6 +27016,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
   clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -26464,6 +27127,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
@@ -26558,6 +27222,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
   clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -26626,6 +27291,7 @@ export type UserCountOutputType = {
   e2eDevices: number
   e2eKeyWraps: number
   clubEventsCreated: number
+  threadReactions: number
   clubEventRsvps: number
   groupsOwned: number
   groupMemberships: number
@@ -26687,6 +27353,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   e2eDevices?: boolean | UserCountOutputTypeCountE2eDevicesArgs
   e2eKeyWraps?: boolean | UserCountOutputTypeCountE2eKeyWrapsArgs
   clubEventsCreated?: boolean | UserCountOutputTypeCountClubEventsCreatedArgs
+  threadReactions?: boolean | UserCountOutputTypeCountThreadReactionsArgs
   clubEventRsvps?: boolean | UserCountOutputTypeCountClubEventRsvpsArgs
   groupsOwned?: boolean | UserCountOutputTypeCountGroupsOwnedArgs
   groupMemberships?: boolean | UserCountOutputTypeCountGroupMembershipsArgs
@@ -27030,6 +27697,13 @@ export type UserCountOutputTypeCountClubEventsCreatedArgs<ExtArgs extends runtim
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountThreadReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadReactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountClubEventRsvpsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ClubEventRSVPWhereInput
 }
@@ -27197,6 +27871,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   e2eDevices?: boolean | Prisma.User$e2eDevicesArgs<ExtArgs>
   e2eKeyWraps?: boolean | Prisma.User$e2eKeyWrapsArgs<ExtArgs>
   clubEventsCreated?: boolean | Prisma.User$clubEventsCreatedArgs<ExtArgs>
+  threadReactions?: boolean | Prisma.User$threadReactionsArgs<ExtArgs>
   clubEventRsvps?: boolean | Prisma.User$clubEventRsvpsArgs<ExtArgs>
   groupsOwned?: boolean | Prisma.User$groupsOwnedArgs<ExtArgs>
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
@@ -27363,6 +28038,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   e2eDevices?: boolean | Prisma.User$e2eDevicesArgs<ExtArgs>
   e2eKeyWraps?: boolean | Prisma.User$e2eKeyWrapsArgs<ExtArgs>
   clubEventsCreated?: boolean | Prisma.User$clubEventsCreatedArgs<ExtArgs>
+  threadReactions?: boolean | Prisma.User$threadReactionsArgs<ExtArgs>
   clubEventRsvps?: boolean | Prisma.User$clubEventRsvpsArgs<ExtArgs>
   groupsOwned?: boolean | Prisma.User$groupsOwnedArgs<ExtArgs>
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
@@ -27433,6 +28109,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     e2eDevices: Prisma.$UserDevicePayload<ExtArgs>[]
     e2eKeyWraps: Prisma.$UserMasterKeyWrapPayload<ExtArgs>[]
     clubEventsCreated: Prisma.$ClubEventPayload<ExtArgs>[]
+    threadReactions: Prisma.$ThreadReactionPayload<ExtArgs>[]
     clubEventRsvps: Prisma.$ClubEventRSVPPayload<ExtArgs>[]
     groupsOwned: Prisma.$GroupConversationPayload<ExtArgs>[]
     groupMemberships: Prisma.$GroupMemberPayload<ExtArgs>[]
@@ -27936,6 +28613,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   e2eDevices<T extends Prisma.User$e2eDevicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$e2eDevicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   e2eKeyWraps<T extends Prisma.User$e2eKeyWrapsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$e2eKeyWrapsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMasterKeyWrapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubEventsCreated<T extends Prisma.User$clubEventsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubEventsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  threadReactions<T extends Prisma.User$threadReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubEventRsvps<T extends Prisma.User$clubEventRsvpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubEventRsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventRSVPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupsOwned<T extends Prisma.User$groupsOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupsOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupMemberships<T extends Prisma.User$groupMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -29513,6 +30191,30 @@ export type User$clubEventsCreatedArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ClubEventScalarFieldEnum | Prisma.ClubEventScalarFieldEnum[]
+}
+
+/**
+ * User.threadReactions
+ */
+export type User$threadReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadReaction
+   */
+  select?: Prisma.ThreadReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadReaction
+   */
+  omit?: Prisma.ThreadReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadReactionInclude<ExtArgs> | null
+  where?: Prisma.ThreadReactionWhereInput
+  orderBy?: Prisma.ThreadReactionOrderByWithRelationInput | Prisma.ThreadReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadReactionScalarFieldEnum | Prisma.ThreadReactionScalarFieldEnum[]
 }
 
 /**

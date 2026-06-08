@@ -8,11 +8,37 @@ export async function getThreadById(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const result = await service.getById(req.params.id as string);
+    const result = await service.getById(req.params.id as string, res.locals.user?.id);
     res.status(200).json(result);
   } catch (err) {
     next(err);
   }
+}
+
+export async function reactThread(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const emoji = String((req.body ?? {}).emoji ?? "").slice(0, 32);
+    if (!emoji) throw (await import("../../lib/errors")).badReq("emoji required");
+    res.status(200).json(await service.setReaction(req.params.id as string, "thread", userId, emoji));
+  } catch (err) { next(err); }
+}
+
+export async function reactReply(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const emoji = String((req.body ?? {}).emoji ?? "").slice(0, 32);
+    if (!emoji) throw (await import("../../lib/errors")).badReq("emoji required");
+    res.status(200).json(await service.setReaction(req.params.replyId as string, "reply", userId, emoji));
+  } catch (err) { next(err); }
+}
+
+export async function lockThread(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const locked = (req.body ?? {}).locked !== false; // default lock=true
+    res.status(200).json(await service.setThreadLock(userId, req.params.id as string, locked));
+  } catch (err) { next(err); }
 }
 
 export async function createClubThread(
@@ -85,7 +111,7 @@ export async function getReplies(
   try {
     const page  = Math.max(1, Number(req.query.page) || 1);
     const limit = Math.min(200, Number(req.query.limit) || 50);
-    const result = await service.getReplies(req.params.id as string, page, limit);
+    const result = await service.getReplies(req.params.id as string, page, limit, res.locals.user?.id);
     res.status(200).json(result);
   } catch (err) {
     next(err);

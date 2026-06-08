@@ -425,6 +425,7 @@ export const ModelName = {
   ClubEvent: 'ClubEvent',
   ClubEventRSVP: 'ClubEventRSVP',
   ClubMember: 'ClubMember',
+  ThreadReaction: 'ThreadReaction',
   Thread: 'Thread',
   ThreadReply: 'ThreadReply',
   Review: 'Review',
@@ -563,7 +564,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubEvent" | "clubEventRSVP" | "clubMember" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3154,6 +3155,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ClubMemberCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ClubMemberCountAggregateOutputType> | number
+        }
+      }
+    }
+    ThreadReaction: {
+      payload: Prisma.$ThreadReactionPayload<ExtArgs>
+      fields: Prisma.ThreadReactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ThreadReactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ThreadReactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        findFirst: {
+          args: Prisma.ThreadReactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ThreadReactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        findMany: {
+          args: Prisma.ThreadReactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>[]
+        }
+        create: {
+          args: Prisma.ThreadReactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        createMany: {
+          args: Prisma.ThreadReactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ThreadReactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>[]
+        }
+        delete: {
+          args: Prisma.ThreadReactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        update: {
+          args: Prisma.ThreadReactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ThreadReactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ThreadReactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ThreadReactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ThreadReactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ThreadReactionPayload>
+        }
+        aggregate: {
+          args: Prisma.ThreadReactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateThreadReaction>
+        }
+        groupBy: {
+          args: Prisma.ThreadReactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadReactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ThreadReactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ThreadReactionCountAggregateOutputType> | number
         }
       }
     }
@@ -12833,10 +12908,24 @@ export const ClubMemberScalarFieldEnum = {
   agreedRulesAt: 'agreedRulesAt',
   onboardedAt: 'onboardedAt',
   xp: 'xp',
-  lastXpAt: 'lastXpAt'
+  lastXpAt: 'lastXpAt',
+  mutedUntil: 'mutedUntil',
+  strikes: 'strikes'
 } as const
 
 export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
+
+
+export const ThreadReactionScalarFieldEnum = {
+  id: 'id',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadReactionScalarFieldEnum = (typeof ThreadReactionScalarFieldEnum)[keyof typeof ThreadReactionScalarFieldEnum]
 
 
 export const ThreadScalarFieldEnum = {
@@ -15187,6 +15276,7 @@ export type GlobalOmitConfig = {
   clubEvent?: Prisma.ClubEventOmit
   clubEventRSVP?: Prisma.ClubEventRSVPOmit
   clubMember?: Prisma.ClubMemberOmit
+  threadReaction?: Prisma.ThreadReactionOmit
   thread?: Prisma.ThreadOmit
   threadReply?: Prisma.ThreadReplyOmit
   review?: Prisma.ReviewOmit

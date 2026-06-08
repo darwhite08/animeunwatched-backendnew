@@ -9,9 +9,14 @@ threadsRouter.get("/:id", optionalAuth, ctrl.getThreadById);
 threadsRouter.patch("/:id", requireAuth, ctrl.updateThread);
 threadsRouter.delete("/:id", requireAuth, ctrl.deleteThread);
 
+// Reactions (reply path before /:id patterns to avoid capture) + lock
+threadsRouter.put("/replies/:replyId/reaction", requireAuth, ctrl.reactReply);
+
 // Replies
 threadsRouter.get("/:id/replies", optionalAuth, ctrl.getReplies);
 threadsRouter.post("/:id/replies", requireAuth, ctrl.createReply);
+threadsRouter.put("/:id/reaction", requireAuth, ctrl.reactThread);
+threadsRouter.post("/:id/lock", requireAuth, ctrl.lockThread);
 
 // ─── Club thread sub-router (mounted at /clubs/:slug in routes.ts) ─────────
 // Exported separately so it can be mounted under clubsRouter

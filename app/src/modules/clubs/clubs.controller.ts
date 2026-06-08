@@ -131,6 +131,23 @@ export async function leaderboard(req: Request, res: Response, next: NextFunctio
   } catch (err) { next(err); }
 }
 
+export async function muteMember(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    const { slug, userId: targetId } = req.params as { slug: string; userId: string };
+    const minutes = Number((req.body ?? {}).minutes) || 0;
+    res.status(200).json(await service.muteMember(actorId, slug, targetId, minutes));
+  } catch (err) { next(err); }
+}
+
+export async function removeMember(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    const { slug, userId: targetId } = req.params as { slug: string; userId: string };
+    res.status(200).json(await service.removeClubMember(actorId, slug, targetId));
+  } catch (err) { next(err); }
+}
+
 export async function listClubPolls(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     res.status(200).json(await service.listClubPolls(req.params.slug as string, res.locals.user?.id));

@@ -28,10 +28,12 @@ export type AggregateClubMember = {
 
 export type ClubMemberAvgAggregateOutputType = {
   xp: number | null
+  strikes: number | null
 }
 
 export type ClubMemberSumAggregateOutputType = {
   xp: number | null
+  strikes: number | null
 }
 
 export type ClubMemberMinAggregateOutputType = {
@@ -43,6 +45,8 @@ export type ClubMemberMinAggregateOutputType = {
   onboardedAt: Date | null
   xp: number | null
   lastXpAt: Date | null
+  mutedUntil: Date | null
+  strikes: number | null
 }
 
 export type ClubMemberMaxAggregateOutputType = {
@@ -54,6 +58,8 @@ export type ClubMemberMaxAggregateOutputType = {
   onboardedAt: Date | null
   xp: number | null
   lastXpAt: Date | null
+  mutedUntil: Date | null
+  strikes: number | null
 }
 
 export type ClubMemberCountAggregateOutputType = {
@@ -65,16 +71,20 @@ export type ClubMemberCountAggregateOutputType = {
   onboardedAt: number
   xp: number
   lastXpAt: number
+  mutedUntil: number
+  strikes: number
   _all: number
 }
 
 
 export type ClubMemberAvgAggregateInputType = {
   xp?: true
+  strikes?: true
 }
 
 export type ClubMemberSumAggregateInputType = {
   xp?: true
+  strikes?: true
 }
 
 export type ClubMemberMinAggregateInputType = {
@@ -86,6 +96,8 @@ export type ClubMemberMinAggregateInputType = {
   onboardedAt?: true
   xp?: true
   lastXpAt?: true
+  mutedUntil?: true
+  strikes?: true
 }
 
 export type ClubMemberMaxAggregateInputType = {
@@ -97,6 +109,8 @@ export type ClubMemberMaxAggregateInputType = {
   onboardedAt?: true
   xp?: true
   lastXpAt?: true
+  mutedUntil?: true
+  strikes?: true
 }
 
 export type ClubMemberCountAggregateInputType = {
@@ -108,6 +122,8 @@ export type ClubMemberCountAggregateInputType = {
   onboardedAt?: true
   xp?: true
   lastXpAt?: true
+  mutedUntil?: true
+  strikes?: true
   _all?: true
 }
 
@@ -206,6 +222,8 @@ export type ClubMemberGroupByOutputType = {
   onboardedAt: Date | null
   xp: number
   lastXpAt: Date | null
+  mutedUntil: Date | null
+  strikes: number
   _count: ClubMemberCountAggregateOutputType | null
   _avg: ClubMemberAvgAggregateOutputType | null
   _sum: ClubMemberSumAggregateOutputType | null
@@ -240,6 +258,8 @@ export type ClubMemberWhereInput = {
   onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
   xp?: Prisma.IntFilter<"ClubMember"> | number
   lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  mutedUntil?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  strikes?: Prisma.IntFilter<"ClubMember"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
 }
@@ -253,6 +273,8 @@ export type ClubMemberOrderByWithRelationInput = {
   onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   lastXpAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  mutedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  strikes?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   club?: Prisma.ClubOrderByWithRelationInput
 }
@@ -270,6 +292,8 @@ export type ClubMemberWhereUniqueInput = Prisma.AtLeast<{
   onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
   xp?: Prisma.IntFilter<"ClubMember"> | number
   lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  mutedUntil?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  strikes?: Prisma.IntFilter<"ClubMember"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
 }, "userId_clubId">
@@ -283,6 +307,8 @@ export type ClubMemberOrderByWithAggregationInput = {
   onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   lastXpAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  mutedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  strikes?: Prisma.SortOrder
   _count?: Prisma.ClubMemberCountOrderByAggregateInput
   _avg?: Prisma.ClubMemberAvgOrderByAggregateInput
   _max?: Prisma.ClubMemberMaxOrderByAggregateInput
@@ -302,6 +328,8 @@ export type ClubMemberScalarWhereWithAggregatesInput = {
   onboardedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
   xp?: Prisma.IntWithAggregatesFilter<"ClubMember"> | number
   lastXpAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
+  mutedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
+  strikes?: Prisma.IntWithAggregatesFilter<"ClubMember"> | number
 }
 
 export type ClubMemberCreateInput = {
@@ -311,6 +339,8 @@ export type ClubMemberCreateInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
   user: Prisma.UserCreateNestedOneWithoutClubMembershipsInput
   club: Prisma.ClubCreateNestedOneWithoutMembersInput
 }
@@ -324,6 +354,8 @@ export type ClubMemberUncheckedCreateInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberUpdateInput = {
@@ -333,6 +365,8 @@ export type ClubMemberUpdateInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutClubMembershipsNestedInput
   club?: Prisma.ClubUpdateOneRequiredWithoutMembersNestedInput
 }
@@ -346,6 +380,8 @@ export type ClubMemberUncheckedUpdateInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberCreateManyInput = {
@@ -357,6 +393,8 @@ export type ClubMemberCreateManyInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberUpdateManyMutationInput = {
@@ -366,6 +404,8 @@ export type ClubMemberUpdateManyMutationInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberUncheckedUpdateManyInput = {
@@ -377,6 +417,8 @@ export type ClubMemberUncheckedUpdateManyInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberListRelationFilter = {
@@ -403,10 +445,13 @@ export type ClubMemberCountOrderByAggregateInput = {
   onboardedAt?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   lastXpAt?: Prisma.SortOrder
+  mutedUntil?: Prisma.SortOrder
+  strikes?: Prisma.SortOrder
 }
 
 export type ClubMemberAvgOrderByAggregateInput = {
   xp?: Prisma.SortOrder
+  strikes?: Prisma.SortOrder
 }
 
 export type ClubMemberMaxOrderByAggregateInput = {
@@ -418,6 +463,8 @@ export type ClubMemberMaxOrderByAggregateInput = {
   onboardedAt?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   lastXpAt?: Prisma.SortOrder
+  mutedUntil?: Prisma.SortOrder
+  strikes?: Prisma.SortOrder
 }
 
 export type ClubMemberMinOrderByAggregateInput = {
@@ -429,10 +476,13 @@ export type ClubMemberMinOrderByAggregateInput = {
   onboardedAt?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   lastXpAt?: Prisma.SortOrder
+  mutedUntil?: Prisma.SortOrder
+  strikes?: Prisma.SortOrder
 }
 
 export type ClubMemberSumOrderByAggregateInput = {
   xp?: Prisma.SortOrder
+  strikes?: Prisma.SortOrder
 }
 
 export type ClubMemberCreateNestedManyWithoutUserInput = {
@@ -526,6 +576,8 @@ export type ClubMemberCreateWithoutUserInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
   club: Prisma.ClubCreateNestedOneWithoutMembersInput
 }
 
@@ -537,6 +589,8 @@ export type ClubMemberUncheckedCreateWithoutUserInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberCreateOrConnectWithoutUserInput = {
@@ -577,6 +631,8 @@ export type ClubMemberScalarWhereInput = {
   onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
   xp?: Prisma.IntFilter<"ClubMember"> | number
   lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  mutedUntil?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  strikes?: Prisma.IntFilter<"ClubMember"> | number
 }
 
 export type ClubMemberCreateWithoutClubInput = {
@@ -586,6 +642,8 @@ export type ClubMemberCreateWithoutClubInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
   user: Prisma.UserCreateNestedOneWithoutClubMembershipsInput
 }
 
@@ -597,6 +655,8 @@ export type ClubMemberUncheckedCreateWithoutClubInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberCreateOrConnectWithoutClubInput = {
@@ -633,6 +693,8 @@ export type ClubMemberCreateManyUserInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberUpdateWithoutUserInput = {
@@ -642,6 +704,8 @@ export type ClubMemberUpdateWithoutUserInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
   club?: Prisma.ClubUpdateOneRequiredWithoutMembersNestedInput
 }
 
@@ -653,6 +717,8 @@ export type ClubMemberUncheckedUpdateWithoutUserInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberUncheckedUpdateManyWithoutUserInput = {
@@ -663,6 +729,8 @@ export type ClubMemberUncheckedUpdateManyWithoutUserInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberCreateManyClubInput = {
@@ -673,6 +741,8 @@ export type ClubMemberCreateManyClubInput = {
   onboardedAt?: Date | string | null
   xp?: number
   lastXpAt?: Date | string | null
+  mutedUntil?: Date | string | null
+  strikes?: number
 }
 
 export type ClubMemberUpdateWithoutClubInput = {
@@ -682,6 +752,8 @@ export type ClubMemberUpdateWithoutClubInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutClubMembershipsNestedInput
 }
 
@@ -693,6 +765,8 @@ export type ClubMemberUncheckedUpdateWithoutClubInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ClubMemberUncheckedUpdateManyWithoutClubInput = {
@@ -703,6 +777,8 @@ export type ClubMemberUncheckedUpdateManyWithoutClubInput = {
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mutedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strikes?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -716,6 +792,8 @@ export type ClubMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   onboardedAt?: boolean
   xp?: boolean
   lastXpAt?: boolean
+  mutedUntil?: boolean
+  strikes?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -729,6 +807,8 @@ export type ClubMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   onboardedAt?: boolean
   xp?: boolean
   lastXpAt?: boolean
+  mutedUntil?: boolean
+  strikes?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -742,6 +822,8 @@ export type ClubMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   onboardedAt?: boolean
   xp?: boolean
   lastXpAt?: boolean
+  mutedUntil?: boolean
+  strikes?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -755,9 +837,11 @@ export type ClubMemberSelectScalar = {
   onboardedAt?: boolean
   xp?: boolean
   lastXpAt?: boolean
+  mutedUntil?: boolean
+  strikes?: boolean
 }
 
-export type ClubMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "clubId" | "role" | "joinedAt" | "agreedRulesAt" | "onboardedAt" | "xp" | "lastXpAt", ExtArgs["result"]["clubMember"]>
+export type ClubMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "clubId" | "role" | "joinedAt" | "agreedRulesAt" | "onboardedAt" | "xp" | "lastXpAt" | "mutedUntil" | "strikes", ExtArgs["result"]["clubMember"]>
 export type ClubMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
@@ -786,6 +870,8 @@ export type $ClubMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     onboardedAt: Date | null
     xp: number
     lastXpAt: Date | null
+    mutedUntil: Date | null
+    strikes: number
   }, ExtArgs["result"]["clubMember"]>
   composites: {}
 }
@@ -1219,6 +1305,8 @@ export interface ClubMemberFieldRefs {
   readonly onboardedAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
   readonly xp: Prisma.FieldRef<"ClubMember", 'Int'>
   readonly lastXpAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
+  readonly mutedUntil: Prisma.FieldRef<"ClubMember", 'DateTime'>
+  readonly strikes: Prisma.FieldRef<"ClubMember", 'Int'>
 }
     
 

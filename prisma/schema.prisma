@@ -145,6 +145,7 @@ model User {
   e2eKeyWraps        UserMasterKeyWrap[]
   // Club 2.0 — events
   clubEventsCreated  ClubEvent[]         @relation("ClubEventCreator")
+  threadReactions    ThreadReaction[]
   clubEventRsvps     ClubEventRSVP[]
   // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
   groupsOwned        GroupConversation[] @relation("GroupOwner")
@@ -888,6 +889,9 @@ model ClubMember {
   onboardedAt   DateTime?
   xp            Int       @default(0)
   lastXpAt      DateTime?
+  // Moderation
+  mutedUntil    DateTime?
+  strikes       Int       @default(0)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
@@ -895,6 +899,21 @@ model ClubMember {
   @@id([userId, clubId])
   @@index([clubId])
   @@index([clubId, xp])
+}
+
+// Emoji reactions on a Thread or a ThreadReply (polymorphic targetId).
+model ThreadReaction {
+  id         String   @id @default(cuid())
+  targetId   String   // Thread.id or ThreadReply.id
+  targetType String   // "thread" | "reply"
+  userId     String
+  emoji      String
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([targetId, userId, emoji])
+  @@index([targetId])
 }
 
 // ---------------------------------------------------------------------------

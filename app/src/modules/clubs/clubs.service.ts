@@ -155,6 +155,50 @@ export async function onboard(userId: string, slug: string) {
   return { ok: true };
 }
 
+// ─── moderation (mod/admin) ──────────────────────────────────────────────────
+async function assertModerator(actorId: string, clubId: string) {
+  const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: actorId, clubId } }, select: { role: true } });
+  if (!m || (m.role !== "ADMIN" && m.role !== "MOD")) throw forbidden("Moderators only");
+  return m;
+}
+
+/** Mute (minutes > 0) or unmute (minutes = 0/undefined) a member. Muting adds a strike. */
+export async function muteMember(actorId: string, slug: string, targetId: string, minutes?: number) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, ownerId: true } });
+  if (!club) throw notFound("Club not found");
+  await assertModerator(actorId, club.id);
+  if (targetId === club.ownerId) throw forbidden("Can't mute the owner");
+  const target = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: targetId, clubId: club.id } }, select: { role: true } });
+  if (!target) throw notFound("Member not found");
+  if (target.role === "ADMIN") throw forbidden("Can't mute an admin");
+  const mutedUntil = minutes && minutes > 0 ? new Date(Date.now() + minutes * 60_000) : null;
+  await prisma.clubMember.update({
+    where: { userId_clubId: { userId: targetId, clubId: club.id } },
+    data: { mutedUntil, ...(mutedUntil ? { strikes: { increment: 1 } } : {}) },
+  });
+  auditMod("mod_action_applied", { actorId, targetUserId: targetId, targetType: "Club", targetId: club.id, action: mutedUntil ? `club_mute:${minutes}m` : "club_unmute" });
+  void emitClubUpdate(club.id, "member");
+  return { ok: true, mutedUntil };
+}
+
+/** Remove (kick) a member from the club + its chat room. Mod/admin only. */
+export async function removeClubMember(actorId: string, slug: string, targetId: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, ownerId: true, chatGroup: { select: { id: true } } } });
+  if (!club) throw notFound("Club not found");
+  const actor = await assertModerator(actorId, club.id);
+  if (targetId === club.ownerId) throw forbidden("Can't remove the owner");
+  const target = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: targetId, clubId: club.id } }, select: { role: true } });
+  if (!target) throw notFound("Member not found");
+  if (target.role === "ADMIN" && actor.role !== "ADMIN") throw forbidden("Only an admin can remove an admin");
+  await prisma.clubMember.delete({ where: { userId_clubId: { userId: targetId, clubId: club.id } } });
+  if (club.chatGroup) {
+    await prisma.groupMember.updateMany({ where: { groupId: club.chatGroup.id, userId: targetId, leftAt: null }, data: { leftAt: new Date() } });
+  }
+  auditMod("mod_action_applied", { actorId, targetUserId: targetId, targetType: "Club", targetId: club.id, action: "club_remove" });
+  void emitClubUpdate(club.id, "member");
+  return { ok: true };
+}
+
 // ─── club polls ────────────────────────────────────────────────────────────
 export async function listClubPolls(slug: string, userId?: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
