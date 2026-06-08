@@ -4,7 +4,8 @@ import * as ctrl from "./social.controller";
 
 export const socialRouter = Router();
 
-// Public — Instagram redirects the browser here (no auth header; state-verified).
+// Public — config health check (boolean only) + Instagram OAuth redirect target.
+socialRouter.get("/health", ctrl.health);
 socialRouter.get("/instagram/callback", ctrl.instagramCallback);
 
 // Everything else is the authenticated creator managing their own connections.

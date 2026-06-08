@@ -3,6 +3,14 @@ import { z } from "zod";
 import { env } from "../../config/env";
 import * as service from "./social.service";
 
+/** Public — confirms whether Instagram is configured on the server (no secrets). */
+export async function health(_req: Request, res: Response): Promise<void> {
+  res.status(200).json({
+    instagram: { configured: service.instagramAvailable() },
+    redirectConfigured: Boolean(env.INSTAGRAM_REDIRECT_URI || env.OAUTH_CALLBACK_BASE),
+  });
+}
+
 export async function getConnections(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.listConnections(res.locals.user.id)); } catch (err) { next(err); }
 }
