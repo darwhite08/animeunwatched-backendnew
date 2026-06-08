@@ -297,7 +297,8 @@ export async function getMessages(userId: string, groupId: string, opts: { curso
     where: {
       groupId,
       ...(opts.cursor ? { createdAt: { lt: new Date(opts.cursor) } } : {}),
-      NOT: { expiresAt: { lt: new Date() } },
+      // Null-safe expiry filter (a plain NOT { lt } drops every non-expiring message).
+      OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
       hides: { none: { userId } }, // "delete for me"
     },
     orderBy: { createdAt: "desc" },

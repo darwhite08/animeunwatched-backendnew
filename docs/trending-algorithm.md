@@ -1,205 +1,157 @@
-# Kaiveron — "Trending Now" Algorithm
+# Kaiveron — "Trending Now" Algorithm (research-backed, low-strain)
 
-> Goal: rank the anime **being talked about the most right now**, blending our
-> own first-party engagement velocity with off-platform web buzz (Google
-> Trends, Reddit, news). Computed by a background worker, stored on the row,
-> read instantly by the `/bestanimelist` "Trending Now" tab.
+> Rank the anime **being talked about most right now**, at **minimal server
+> cost**, on our exact stack (Postgres + one in-process worker, **no Redis/
+> Kafka/stream processor**). This version is grounded in a verified deep-research
+> pass (23 primary-source claims confirmed 3-0; 2 refuted — noted in §11).
 
-This is grounded in how production systems do it:
-- **Kleinberg burst detection** — a topic is "trending" when it is *uncharacteristically frequent* vs its own normal, then decays.
-- **Velocity / acceleration** — maintain two time windows, measure the *rate of change*, not the raw count.
-- **Hacker News gravity** — `score = (P−1)/(T+2)^1.8`: time-decay so nothing stays hot forever.
-- **Reddit hot** — `log10(votes) + t/45000`: log-dampened magnitude + additive time.
-- **AniList trending** — rolling-window recent activity volume.
+## TL;DR — the design the evidence converges on
 
-The core idea Kaiveron adopts: **trending = baseline-normalized, time-decayed acceleration across multiple signals.** Raw popularity (One Piece always has volume) is explicitly *not* trending; a sudden spike relative to a title's own baseline *is*.
+A **three-layer** detector, each layer O(1)-per-update with **no history rescan**:
+
+1. **Base signal — time-decayed velocity** via exponential/forward decay. The decayed count `D(t)=Σ exp(−λ(t−tᵢ))` advances by a single scalar multiply (`D ← D·e^(−λΔt) + new`) — "this result is virtually folklore" and runs at "similar space and time costs to non-decayed computation." This is the cheapest accurate base layer.
+2. **Burst layer — O(1) recursive baselines.** Per-title **EWMA** mean/deviation + **robust-z** (and optional one-sided **CUSUM**) convert raw velocity into "is this *uncharacteristically* high for *this* title right now." Both are single-pass O(1)-state recursions — **no 28-day rescan.**
+3. **Off-platform buzz (secondary)** — gathered only from **aggregate trending feeds + 1-unit list reads**, never per-title (external quotas forbid 30k per-title polls). Blended in for the candidate set.
+
+Final ranking = smoothed blend, deseasonalized for the weekly airing pulse. Read path is one indexed `ORDER BY trendingScore` — zero external calls at request time.
 
 ---
 
-## 1. Signals
+## 1. Why this is the low-strain winner (verified)
 
-For each anime we gather event counts in two windows:
-- **Now window** `W` = last **48h** (the "is it hot right now" window).
-- **Baseline window** `B` = the **28 days before W** (the title's normal rate).
-
-### 1a. First-party signals (free, real-time — already in our Postgres)
-These need zero external APIs and update the instant a user acts.
-
-| Signal | Source table | What it captures |
+| Technique | Cost | Verified source |
 |---|---|---|
-| `s_list`   | `ListEntry` (createdAt/updatedAt) | watchlist adds + status changes |
-| `s_post`   | `Post` / `Activity` where `animeId`/`linkedAnimeId` | feed mentions |
-| `s_review` | `Review` (createdAt)              | new reviews |
-| `s_thread` | `Thread` + `ThreadReply` where `animeId` | discussion volume |
-| `s_engage` | `PostLike` / `ActivityLike` / `ActivityRepost` on the above | downstream engagement |
+| Exponential decayed count | O(1)/event, no rescan; same cost as undecayed | Cormode/Korn/Tirthapura, *Exponentially Decayed Aggregates* (ICDE'09) |
+| **Forward decay** (fixed per-event weight, normalize at read) | weights never recomputed as time passes; "same space/time bounds as undecayed… no system changes" | Cormode et al., *Forward Decay* (ICDE'09) |
+| EWMA `zₜ=λxₜ+(1−λ)zₜ₋₁` + one-sided CUSUM `gₜ=[gₜ₋₁+Zₜ]₊` | O(1) time, O(1) state, single pass | Carvalho et al. (EWMA/CUSUM control charts) |
+| Sketches (Count-Min/FDCMSS/HyperLogLog) | O(ln 1/δ)/item, memory independent of catalog size | FDCMSS (arXiv 1601.03892), Hokusai (arXiv 1210.4891) |
 
-### 1b. Web-buzz signals (the "deep search" — off-platform, what people talk about elsewhere)
-Fetched by a **rate-limited collector** (reuse the `jikanClient` token-bucket pattern) only for a **bounded candidate set** (see §5), so we never call these for all 30k titles.
-
-| Signal | Source | Access notes |
-|---|---|---|
-| `g_trends` | **Google Trends API** (alpha, 2025) — search interest 0–100 + Δ vs prior period | request alpha access; fallback: unofficial `serpapi`/`hasdata` providers, or skip |
-| `r_reddit` | **Reddit API** — mention/comment velocity in r/anime + the show's own subreddit | OAuth app, ~60 req/min; search `?q=title&sort=new&t=week` |
-| `n_news`   | News/RSS mention count (optional) — e.g. ANN, Crunchyroll news | RSS, cheap |
-| `y_youtube`| YouTube Data API — recent upload/comment velocity for the title (optional) | quota-limited |
-
-Each web signal is stored with a fetch timestamp and TTL-cached (6–12h) so a refresh cycle reuses recent pulls.
+**Decision for 30k titles:** exact decayed counters/aggregates in Postgres are already cheap, so we do **not** need probabilistic sketches for the base counts — the research explicitly says sketches "may be overkill for a 30k-title catalog where exact decayed counters are already cheap; their value is specifically unique-user dedup and very high event volumes." We reserve **HyperLogLog only for unique-user dedup if `COUNT(DISTINCT user)` ever gets hot.**
 
 ---
 
-## 2. Per-signal trend score (burst + magnitude)
+## 2. Signals (what feeds the score)
 
-For each signal `i`, compute two things from the windows.
+**First-party (free, already in our Postgres — the dominant signal):** events that already carry `createdAt`:
+`ListEntry` (adds/progress), `Post`/`Activity` (`animeId`/`linkedAnimeId`), `Review`, `Thread`+`ThreadReply` (`animeId`), likes/reposts.
 
-**Time-decayed counts.** Instead of a flat count in `W`, weight each event by recency so a spike in the last 6h beats one 40h ago (exponential decay, cleaner than HN's polynomial for event streams):
-
-```
-half_life   = 18h
-λ           = ln(2) / half_life
-decayedCount(W) = Σ_events exp(−λ · age_hours(event))
-```
-
-**Baseline rate + spread** from `B`:
-```
-μ_i = mean daily decayedCount over B
-σ_i = stddev of daily decayedCount over B
-```
-
-**Burst (Kleinberg / z-score)** — how abnormal is right-now vs this title's own normal:
-```
-rate_now_i = decayedCount(W) / (W in days)        # = per-day rate in the now-window
-z_i        = (rate_now_i − μ_i) / (σ_i + ε)       # ε avoids div-by-zero for quiet titles
-burst_i    = clamp(z_i, 0, Z_MAX)                 # Z_MAX ≈ 8; negatives aren't "trending"
-```
-
-**Magnitude (Reddit-style log dampening)** — so a brand-new mega-hit with no baseline still ranks, and so absolute size matters a little:
-```
-mag_i = log10(1 + decayedCount(W))
-```
-
-**Per-signal score** blends acceleration and size, favoring acceleration (that's what "now" means):
-```
-α        = 0.65                                   # acceleration weight
-signal_i = α · (burst_i / Z_MAX) + (1 − α) · normalize(mag_i)
-```
-(`normalize` maps mag into 0..1 against a rolling p95 so one signal can't dwarf the rest.)
+**Off-platform buzz (secondary, candidate-only):** AniList `TRENDING_DESC` feed, Reddit r/anime hot JSON, optionally Google Trends (alpha, batch ≤5 terms) and YouTube **list** reads. See §6 for the hard quota math.
 
 ---
 
-## 3. Weighted blend across signals
+## 3. The engine — exact math
 
+### 3a. Decayed velocity (base), computed without rescanning history
+Half-life `h` (start at **h = 24h** → λ = ln2/h ≈ 0.0289/h) gives a "right-now" feel that fades a Sunday episode pulse by midweek. Two equivalent implementations — pick by event volume:
+
+- **Default (low volume / simplest): windowed decayed aggregate on a cadence.** Decay is negligible beyond ~10·h, so only scan the last `W = 10·h ≈ 10 days`:
+  ```sql
+  SELECT "animeId",
+         SUM(exp(-:lambda * EXTRACT(EPOCH FROM (now()-"createdAt"))/3600)) AS vel,
+         COUNT(DISTINCT "userId")                                          AS uniq
+  FROM "<signal>"
+  WHERE "createdAt" > now() - interval '10 days'
+  GROUP BY "animeId";
+  ```
+  One indexed range-aggregate per signal table. **No full-history scan** — bounded by a 10-day window.
+
+- **Upgrade (high volume): incremental decayed counter.** One row per `(animeId, signal)` holding `{D, lastEventAt}`; per (batched) event: `D ← D·exp(−λ·Δt) + Σweights; lastEventAt ← t`. O(1), overflow-safe (backward-incremental form). Batch via the in-memory cache, flush every 60s — turns per-event DB writes into one bulk upsert.
+
+Per-title velocity = weighted sum of its signals' `vel` (with unique-user dedup, §5).
+
+### 3b. Burst — O(1) recursive baseline (replaces any baseline rescan)
+Per title, store a tiny `TrendingState` (a handful of floats) updated **once per refresh**:
 ```
-weights w_i (trust × off-platform reach):
-  s_list   0.22    # strong intent signal
-  s_post   0.15
-  s_review 0.10
-  s_thread 0.13
-  s_engage 0.10
-  g_trends 0.18    # broad real-world interest
-  r_reddit 0.10
-  n_news   0.02
-
-blend = Σ_i w_i · signal_i          # weights sum to 1
+μ   ← (1−α)·μ   + α·v                 # EWMA mean of velocity     (α≈0.1)
+dev ← (1−α)·dev + α·|v − μ|           # EWMA mean abs deviation
+z   = (v − μ) / (1.4826·dev + ε)      # robust-z (MAD-scaled): Kleinberg "uncharacteristically frequent"
+S   ← max(0, S + (z − k))             # one-sided CUSUM (k≈0.5), flags sustained buzz
+burst = clamp(z, 0, Z_MAX) / Z_MAX    # 0..1   (Z_MAX≈8)
 ```
+This is the crux of "least strain": the baseline is **never recomputed from history** — it's a 3-float recursion. (Optional upgrade: *budgeted online changepoint detection*, arXiv 2201.03710, "storage and per-observation compute independent of the number of previous observations" — only if ranking stability proves inadequate.)
 
----
-
-## 4. Boosts, smoothing, anti-gaming
-
+### 3c. Deseasonalize the weekly airing pulse (the "open question" the research flagged)
+Without this, **every Saturday-airing show trends every Saturday.** Fix: divide velocity by a **global day-of-week seasonal index** before the burst test, so "it's Saturday, everything's up" is removed and only *title-specific* spikes survive:
 ```
-# Airing & new-episode pulse — what people discuss "now" skews to current shows
-airingBoost   = 1.25 if status airing else 1.0
-episodePulse  = 1.20 if an Episode.aired falls inside W else 1.0
-
-raw = blend · airingBoost · episodePulse
-
-# Anti-gaming: cap any single user's contribution per signal (brigade-proofing),
-# and require a minimum total event volume so noise can't top the chart.
-if totalEvents(W) < MIN_VOLUME (e.g. 5):  raw = 0
-
-# Temporal smoothing (EWMA) so the list doesn't flicker between refreshes:
-trendingScore_t = β · raw + (1 − β) · trendingScore_{t−1}      # β = 0.5
+seasonIdx[d] = EWMA( mean velocity across ALL titles on weekday d ) / globalMean   # 7 floats, platform-wide
+v_deseason   = v / seasonIdx[ weekday(now) ]
 ```
+Run the burst test (3b) on `v_deseason`. Cost: 7 platform-wide floats, O(1).
 
-`trendingScore` is the final value the tab orders by. A `trendingRank` and the
-component breakdown are stored too (for the UI's "why is this trending" and for
-debugging).
-
----
-
-## 5. Bounding external API cost (the practical crux)
-
-We cannot hit Google Trends / Reddit for 30k anime hourly. So the collector is
-**candidate-gated**:
-
-1. **Cheap pass (all anime):** compute first-party `blend` from pure SQL — fast, free.
-2. **Candidate set:** take `top ~300 by first-party blend` ∪ `all currently-airing` ∪ `titles with an episode aired in W`.
-3. **Expensive pass (candidates only):** fetch `g_trends` / `r_reddit` for that bounded set, respecting each API's rate limit (token bucket).
-4. Blend, smooth, store. Everything outside the candidate set keeps first-party-only scores (decayed toward 0).
-
-This focuses web research exactly where there's already momentum, and keeps external calls in the low hundreds per cycle.
-
----
-
-## 6. Where it runs (fits Kaiveron's existing stack)
-
-No new infra — mirror the anime-sync design:
-
-- **Schema:** add to `Anime`: `trendingScore Float? @default(0)`, `trendingRank Int?`, `trendingUpdatedAt DateTime?`. Add a `TrendingSnapshot` table `(animeId, score, components Json, window, createdAt)` for history + the "why trending" UI.
-- **Job:** `compute-trending` enqueued on the existing Postgres `SyncJob` queue, run **every 30–60 min** by the in-process worker (register in `jobs/index.ts` like `animeSyncWorker`). Two stages: SQL first-party pass → candidate-gated web-buzz pass.
-- **Collector:** `lib/buzz/` with one rate-limited client per source (token bucket like `jikanClient`), TTL-cached results, failures logged to `SyncJobLog` (`jobType: "trending"`). Each source is independently disableable via env (`TRENDING_GOOGLE_ENABLED`, `TRENDING_REDDIT_ENABLED`) so we degrade gracefully to first-party-only when an API key is missing.
-- **API:** repoint the existing `GET /anime/trending` (`getTrending`) to `ORDER BY trendingScore DESC NULLS LAST` instead of `score`. The "Trending Now" tab already calls it.
-- **Read path:** entirely from our DB (one indexed `ORDER BY trendingScore` query) — no external call at request time, consistent with the listing being Postgres-only.
-
----
-
-## 7. Reference pseudocode
-
-```ts
-async function computeTrending() {
-  const W = hours(48), B = days(28), now = Date.now()
-  const decay = (t: Date) => Math.exp(-Math.LN2 / 18 * (now - t.getTime()) / 3.6e6)
-
-  // 1. First-party pass — SQL aggregations per anime over W and B.
-  //    (events carry timestamps so we can apply `decay` in JS or a SQL
-  //    exp() expression.)
-  const firstParty = await aggregateFirstPartySignals(W, B)   // Map<animeId, {signal_i}>
-
-  // 2. Candidate gate
-  const candidates = pickCandidates(firstParty, {
-    topN: 300, includeAiring: true, includeEpisodeAiredIn: W,
-  })
-
-  // 3. Web-buzz pass — bounded, rate-limited, cached
-  const buzz = await collectWebBuzz(candidates)   // Map<animeId, {g_trends, r_reddit, n_news}>
-
-  // 4. Blend + boost + smooth + persist
-  for (const animeId of allScoredIds(firstParty, buzz)) {
-    const sig   = perSignalScores(firstParty.get(animeId), buzz.get(animeId)) // §2
-    const blend = weightedBlend(sig, WEIGHTS)                                  // §3
-    const raw   = applyBoostsAndFloor(blend, animeId, W)                       // §4
-    const prev  = await getPrevTrendingScore(animeId)
-    const score = 0.5 * raw + 0.5 * (prev ?? 0)                                // EWMA
-    await upsertTrendingScore(animeId, score, sig)                             // Anime + snapshot
-  }
-  await recomputeTrendingRanks()   // dense rank by score desc
-}
+### 3d. Final score
 ```
+raw   = w_b·burst + w_v·norm(v_deseason) + w_e·norm(externalBuzz)      # weights below
+score = raw · airingBoost · episodePulse
+trendingScore ← β·score + (1−β)·prevScore     # EWMA smoothing, β≈0.5 → anti-flicker
+
+weights:  w_b 0.55 (acceleration = "now")   w_v 0.25 (magnitude)   w_e 0.20 (off-platform)
+boosts:   airingBoost 1.25 if airing        episodePulse 1.20 if an Episode.aired within h
+norm():   p95-scaled to 0..1 so one signal can't dominate
+```
+`norm()` against a rolling p95 (one cheap percentile per refresh; t-digest if ever needed). **Relative** z-scoring already prevents perennial giants (One Piece) from permanently occupying the list — the research's Netflix lesson (normalize so big titles "don't get an advantage") is satisfied structurally, not by a runtime divisor.
 
 ---
 
-## 8. Why this is correct for "talked about most *right now*"
-
-- **Acceleration over volume** (z-score baseline) surfaces the show that *just* spiked, not the eternal top-100.
-- **Time decay** (18h half-life) means a Sunday episode drop fades by midweek unless buzz sustains.
-- **Multi-signal blend** means a title trends whether the spike is on *our* feed (list adds, threads) or *off-platform* (Google searches, Reddit) — catching trailers, controversies, finales that haven't hit our feed yet.
-- **EWMA smoothing + volume floor** keep it stable and noise-resistant.
-- **Candidate gating** makes the web "deep search" affordable at 30k-title scale.
+## 4. Anti-gaming & cold-start (verified patterns)
+- **Unique-user dedup:** score on `COUNT(DISTINCT userId)`, not raw events (one user can't spike a title). HyperLogLog only if that count gets expensive.
+- **Per-user/day contribution cap** + ignore self-likes/no-op views (qualifying actions only).
+- **Cold-start (new titles, no baseline):** until `dev` stabilizes, fall back to a **Wilson lower-bound / Bayesian-smoothed** velocity (shrink toward 0 with a prior) so a 2-event title can't top the chart on noise. (clux/decay ships Wilson + Reddit-Hot + HN-Hot ready-made for Express if we want a reference impl.)
 
 ---
 
-## 9. Rollout phases
+## 5. Bounding the off-platform "deep search" (hard quota reality)
+External APIs **cannot** be polled per-title at 30k scale (verified):
+- **YouTube Data API:** 10,000 units/day; `search.list` = **100 units** (~100 calls/day) → per-title search would take ~300 days. `videos.list`/`channels.list`/`activities.list` = **1 unit**. → use **list reads only**, on candidates.
+- **AniList GraphQL:** currently **30 req/min** (degraded; 90 normal). → one `Page(sort:TRENDING_DESC)` returns ~50 trending titles per call; a couple calls/hour is plenty.
 
-1. **Phase 1 (ship first, zero external deps):** first-party signals only. Already enough to beat the current `ORDER BY score`. Add schema + `compute-trending` job + repoint `/anime/trending`.
-2. **Phase 2:** add Google Trends collector (biggest off-platform signal) behind a flag.
-3. **Phase 3:** add Reddit (+ optional news/YouTube), the "why trending" component breakdown in the UI, and per-region trending.
+So the collector is **candidate-gated + feed-based**:
+1. Cheap first-party pass scores **all** titles (§3a SQL).
+2. Candidates = top ~300 by first-party score ∪ currently-airing ∪ episode-aired-in-window.
+3. Pull **aggregate trending feeds** (AniList trending, Reddit r/anime hot, optional Google Trends batch ≤5 terms) and map results onto candidate titles. Cache 1–12h.
+External buzz is a **secondary blended signal**, never a per-title probe, never in the request path.
+
+---
+
+## 6. Where it runs (fits the stack, no new infra)
+- **Schema:** `Anime.trendingScore Float? @default(0)`, `trendingRank Int?`, `trendingUpdatedAt`. New `TrendingState(animeId PK, ewmaMean, ewmaDev, cusum, prevScore, updatedAt)` (a few floats/title) + `TrendingSnapshot(animeId, score, components Json, createdAt)` for history + the "why trending" UI.
+- **Job:** `compute-trending` on the existing **Postgres `SyncJob` queue**, drained by the in-process worker (register in `jobs/index.ts` beside `animeSyncWorker`). **Cadence: every 15–30 min** for first-party; **hourly** for the external candidate pass.
+- **Collector:** `lib/buzz/` — one rate-limited client per source (reuse the `jikanClient` token-bucket), TTL-cached, failures → `SyncJobLog (jobType:"trending")`, each source behind an env flag (`TRENDING_ANILIST_ENABLED`, …) so it degrades to first-party-only when a key is missing.
+- **API:** repoint the existing `GET /anime/trending` to `ORDER BY "trendingScore" DESC NULLS LAST` (indexed). The "Trending Now" tab already calls it. **100% from our DB at request time.**
+
+---
+
+## 7. Cost budget per refresh (why it's near-free)
+- First-party: ~5 indexed windowed aggregates (bounded to last 10 days) → tens of ms.
+- Burst/season: O(candidates) float recursions on a few floats each → microseconds.
+- External: ≤ a handful of cached feed calls/hour, off the request path.
+- Read: a single indexed `ORDER BY` — no compute at request time.
+No per-event writes (default mode), no Redis, no history rescan, no per-title external calls. This is the minimum-strain point that still produces accurate, *relative*, deseasonalized, anti-gamed rankings.
+
+---
+
+## 8. Accuracy-per-compute ranking (from the research)
+1. **Exponential/forward-decay velocity** — best base layer; accurate, essentially free vs undecayed.
+2. **EWMA + robust-z (MAD)** — cheapest accurate burst flag; O(1) state.
+3. **One-sided CUSUM** — adds sustained-shift sensitivity for ~free.
+4. **Budgeted online changepoint (BOCPD-on-a-budget)** — highest stability, still constant per-obs; optional upgrade (authors' self-reported accuracy, not independently replicated — adopt only if needed).
+5. **FDCMSS / Hokusai / Count-Min / HyperLogLog** — only for unique-user dedup or very high volume; overkill for 30k exact counts.
+6. **EDCoW / Kleinberg full burst model** — for discovering *unknown* topics from raw text; heavier, unnecessary for ranking known catalog titles.
+
+---
+
+## 9. Rollout
+1. **Phase 1 (ship first, zero external deps):** schema + `compute-trending` job with §3a decayed velocity + §3b EWMA/robust-z + §3c deseasonalization + unique-user dedup; repoint `/anime/trending`. Already beats `ORDER BY score`.
+2. **Phase 2:** AniList trending + Reddit feeds as the blended `externalBuzz` (candidate-gated, cached).
+3. **Phase 3:** CUSUM/BOCPD upgrade, "why trending" component breakdown in the UI, per-region trending, incremental-counter mode if event volume demands it.
+
+---
+
+## 10. Tuning defaults (start here, then measure)
+`h=24h (λ=ln2/24)` · window `10 days` · EWMA `α=0.1` · smoothing `β=0.5` · `Z_MAX=8` · CUSUM `k=0.5` · weights `w_b .55 / w_v .25 / w_e .20` · refresh `20 min` / external `60 min`.
+
+---
+
+## 11. Honesty: what the research refuted / couldn't confirm
+- **Refuted (not used here):** Reddit-Hot's "45,000s half-life" specific (0-3) and Netflix's "single-signal, Tue-publish" characterization (0-3). The design relies on neither.
+- **Not independently verified:** the BOCPD-on-a-budget accuracy claim (authors' own benchmark) — treated as an *optional* upgrade, not the default.
+- **No primary evidence gathered on:** exact Google Trends (alpha 2025) / Reddit / X costs, Kleinberg/BurstSketch/Page-Hinkley/t-digest specifics, and Spotify/Crunchyroll/Twitter internals — so external-buzz weighting is conservative and feed-based, and those signals are behind flags until measured.

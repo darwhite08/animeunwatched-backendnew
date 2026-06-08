@@ -715,7 +715,9 @@ export async function getMessages(opts: {
       conversationId: opts.conversationId,
       ...(opts.cursor ? { createdAt: { lt: new Date(opts.cursor) } } : {}),
       ...(clearedAt ? { createdAt: { gt: clearedAt } } : {}),
-      NOT: { expiresAt: { lt: new Date() } }, // hide disappeared messages
+      // Hide disappeared messages — null-safe (a plain NOT { lt } drops every
+      // message whose expiresAt IS NULL, i.e. all non-disappearing messages).
+      AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }],
       OR: [
         { senderId: opts.userId,           deletedForSender:    false },
         { senderId: { not: opts.userId },  deletedForRecipient: false },
