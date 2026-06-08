@@ -227,6 +227,7 @@ export async function createComment(userId: string, shotId: string, body: string
         actorUsername: comment.author.username,
         actorDisplayName: comment.author.displayName,
         actorAvatarUrl: comment.author.avatarUrl ?? null,
+        preview: text.slice(0, 120),
       },
     }).catch(() => {});
   }
