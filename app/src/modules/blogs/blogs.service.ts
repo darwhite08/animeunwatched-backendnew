@@ -65,7 +65,8 @@ export async function getBySlug(slug: string, userId?: string) {
   const blog = await prisma.blog.findUnique({ where: { slug }, include: blogInclude });
 
   if (!blog) throw notFound("Blog not found");
-  if (blog.status === "DRAFT" && blog.authorId !== userId) {
+  // Drafts AND scheduled (not-yet-published) blogs are visible only to the author.
+  if (blog.status !== "PUBLISHED" && blog.authorId !== userId) {
     throw notFound("Blog not found");
   }
 
@@ -76,7 +77,10 @@ export async function getBySlug(slug: string, userId?: string) {
 
 export async function create(authorId: string, dto: CreateBlogDto) {
   const slug = toSlug(dto.title);
-  const isPublished = dto.status === "PUBLISHED";
+  const scheduledAt = dto.scheduledAt ? new Date(dto.scheduledAt) : null;
+  // A future scheduledAt forces SCHEDULED; only publish now if explicitly PUBLISHED.
+  const isScheduled = dto.status === "SCHEDULED" && scheduledAt && scheduledAt.getTime() > Date.now();
+  const isPublished = dto.status === "PUBLISHED" && !isScheduled;
 
   const blog = await prisma.blog.create({
     data: {
@@ -84,7 +88,8 @@ export async function create(authorId: string, dto: CreateBlogDto) {
       title: dto.title,
       body: dto.body,
       slug,
-      status: dto.status ?? "DRAFT",
+      status: isScheduled ? "SCHEDULED" : isPublished ? "PUBLISHED" : "DRAFT",
+      ...(isScheduled ? { scheduledAt } : {}),
       ...(isPublished ? { publishedAt: new Date() } : {}),
     },
     include: blogInclude,
@@ -102,21 +107,42 @@ export async function update(slug: string, userId: string, dto: UpdateBlogDto) {
   if (blog.authorId !== userId) throw forbidden("Not allowed to edit this blog");
 
   const newSlug = dto.title ? toSlug(dto.title) : undefined;
-  const isPublishing = dto.status === "PUBLISHED" && blog.status !== "PUBLISHED";
+  const scheduledAt = dto.scheduledAt ? new Date(dto.scheduledAt) : undefined;
+  const isScheduling = dto.status === "SCHEDULED" && scheduledAt && scheduledAt.getTime() > Date.now();
+  const isPublishing = dto.status === "PUBLISHED" && blog.status !== "PUBLISHED" && !isScheduling;
 
   const updated = await prisma.blog.update({
     where: { slug },
     data: {
       ...(dto.title !== undefined ? { title: dto.title } : {}),
       ...(dto.body !== undefined ? { body: dto.body } : {}),
-      ...(dto.status !== undefined ? { status: dto.status } : {}),
+      ...(dto.status !== undefined ? { status: isScheduling ? "SCHEDULED" : dto.status } : {}),
       ...(newSlug ? { slug: newSlug } : {}),
-      ...(isPublishing ? { publishedAt: new Date() } : {}),
+      ...(isScheduling ? { scheduledAt } : {}),
+      ...(dto.scheduledAt === null ? { scheduledAt: null } : {}),
+      ...(isPublishing ? { publishedAt: new Date(), scheduledAt: null } : {}),
     },
     include: blogInclude,
   });
 
   return { blog: updated };
+}
+
+// ─── publish due scheduled blogs (background job, every minute) ───────────────
+
+/** Publishes any SCHEDULED blogs whose scheduledAt has passed. */
+export async function publishDueScheduled(): Promise<number> {
+  const due = await prisma.blog.findMany({
+    where: { status: "SCHEDULED", scheduledAt: { lte: new Date() } },
+    select: { id: true, authorId: true },
+  });
+  if (due.length === 0) return 0;
+  await prisma.blog.updateMany({
+    where: { id: { in: due.map((b) => b.id) } },
+    data: { status: "PUBLISHED", publishedAt: new Date(), scheduledAt: null },
+  });
+  for (const b of due) addReputation(b.authorId, "blog_published").catch(console.error);
+  return due.length;
 }
 
 // ─── getComments ─────────────────────────────────────────────────────────────

@@ -104,6 +104,13 @@ export function startJobs() {
       return { released: await releaseHeldEarnings() }
     },
   })
+  registerJob({
+    name: "publishScheduledBlogs", description: "Auto-publish SCHEDULED blogs whose scheduledAt has passed (every minute)",
+    intervalMs: 60_000, handler: async () => {
+      const { publishDueScheduled } = await import("../modules/blogs/blogs.service")
+      return { published: await publishDueScheduled() }
+    },
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -181,6 +188,13 @@ export function startJobs() {
     return { released: await releaseHeldEarnings() }
   })
   setInterval(releaseEarnings, 60 * 60_000)
+
+  // Auto-publish scheduled blogs — check every minute.
+  const publishScheduled = instrument("publishScheduledBlogs", async () => {
+    const { publishDueScheduled } = await import("../modules/blogs/blogs.service")
+    return { published: await publishDueScheduled() }
+  })
+  setInterval(publishScheduled, 60_000)
 
   console.log("[Jobs] Background jobs started")
 }

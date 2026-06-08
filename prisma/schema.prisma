@@ -29,6 +29,7 @@ enum WatchStatus {
 
 enum BlogStatus {
   DRAFT
+  SCHEDULED
   PUBLISHED
 }
 
@@ -1075,6 +1076,7 @@ model Blog {
   body        String
   status      BlogStatus @default(DRAFT)
   publishedAt DateTime?
+  scheduledAt DateTime?                      // when a SCHEDULED blog should auto-publish
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 

@@ -171,6 +171,74 @@ export async function getContentAnalytics(userId: string, range = "28d") {
   return { items };
 }
 
+// ─── Real-time card (YouTube-Studio-style "last 48h") ───────────────────────────
+
+/** Live pulse: engagements in the last 60 min + 24h + an hourly 48h sparkline. */
+export async function getRealtime(userId: string) {
+  const since = new Date(Date.now() - 48 * 3_600_000);
+  const rows = await prisma.$queryRaw<Array<{ hour: Date; n: number }>>`
+    WITH ev AS (
+      SELECT pl."createdAt" AS ts FROM "PostLike" pl JOIN "Post" p ON p.id = pl."postId" WHERE p."authorId" = ${userId} AND pl."createdAt" >= ${since}
+      UNION ALL SELECT pc."createdAt" FROM "PostComment" pc JOIN "Post" p ON p.id = pc."postId" WHERE p."authorId" = ${userId} AND pc."createdAt" >= ${since}
+      UNION ALL SELECT al."createdAt" FROM "ActivityLike" al JOIN "Activity" a ON a.id = al."activityId" WHERE a."authorId" = ${userId} AND al."createdAt" >= ${since}
+      UNION ALL SELECT r."createdAt" FROM "Reply" r JOIN "Activity" a ON a.id = r."activityId" WHERE a."authorId" = ${userId} AND r."createdAt" >= ${since}
+      UNION ALL SELECT bc."createdAt" FROM "BlogComment" bc JOIN "Blog" b ON b.id = bc."blogId" WHERE b."authorId" = ${userId} AND bc."createdAt" >= ${since}
+    )
+    SELECT date_trunc('hour', ts) AS hour, COUNT(*)::int AS n FROM ev GROUP BY 1 ORDER BY 1
+  `;
+  const map = new Map(rows.map((r) => [new Date(r.hour).toISOString().slice(0, 13), r.n]));
+  const series: { hour: string; count: number }[] = [];
+  for (let i = 47; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 3_600_000);
+    series.push({ hour: d.toISOString(), count: map.get(d.toISOString().slice(0, 13)) ?? 0 });
+  }
+  const last24h = series.slice(24).reduce((s, x) => s + x.count, 0);
+
+  const last60Row = await prisma.$queryRaw<Array<{ n: number }>>`
+    WITH ev AS (
+      SELECT pl."createdAt" AS ts FROM "PostLike" pl JOIN "Post" p ON p.id = pl."postId" WHERE p."authorId" = ${userId} AND pl."createdAt" >= NOW() - INTERVAL '60 minutes'
+      UNION ALL SELECT pc."createdAt" FROM "PostComment" pc JOIN "Post" p ON p.id = pc."postId" WHERE p."authorId" = ${userId} AND pc."createdAt" >= NOW() - INTERVAL '60 minutes'
+      UNION ALL SELECT al."createdAt" FROM "ActivityLike" al JOIN "Activity" a ON a.id = al."activityId" WHERE a."authorId" = ${userId} AND al."createdAt" >= NOW() - INTERVAL '60 minutes'
+      UNION ALL SELECT r."createdAt" FROM "Reply" r JOIN "Activity" a ON a.id = r."activityId" WHERE a."authorId" = ${userId} AND r."createdAt" >= NOW() - INTERVAL '60 minutes'
+      UNION ALL SELECT bc."createdAt" FROM "BlogComment" bc JOIN "Blog" b ON b.id = bc."blogId" WHERE b."authorId" = ${userId} AND bc."createdAt" >= NOW() - INTERVAL '60 minutes'
+    )
+    SELECT COUNT(*)::int AS n FROM ev
+  `;
+
+  return { last60min: last60Row[0]?.n ?? 0, last24h, series };
+}
+
+// ─── Inspiration — content ideas from our own anime trending engine ─────────────
+
+/** Trending anime + ready-made blog angles, so creators always have ideas.
+ *  This is our edge: anime-native trend intelligence none of the big suites have. */
+export async function getContentIdeas() {
+  const trending = await prisma.anime.findMany({
+    where: { trendingScore: { gt: 0 } },
+    orderBy: { trendingScore: "desc" },
+    take: 12,
+    select: { malId: true, title: true, titleEnglish: true, imageUrl: true, score: true, trendingScore: true },
+  });
+
+  const angle = (t: string) => [
+    `Why ${t} is blowing up right now`,
+    `${t}: a spoiler-free review`,
+    `Hot takes on ${t} — what fans are arguing about`,
+    `Is ${t} worth your time? An honest breakdown`,
+  ];
+
+  return {
+    trending: trending.map((a) => ({
+      malId: a.malId,
+      title: a.titleEnglish || a.title,
+      imageUrl: a.imageUrl,
+      score: a.score,
+      trendingScore: a.trendingScore,
+      angles: angle(a.titleEnglish || a.title),
+    })),
+  };
+}
+
 // ─── Insights — advanced, real, single-pass derived metrics ─────────────────────
 
 /**

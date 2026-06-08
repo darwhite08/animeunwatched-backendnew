@@ -20,3 +20,5 @@ creatorRouter.get("/analytics/overview", ctrl.getAnalyticsOverview);
 creatorRouter.get("/analytics/content",  ctrl.getAnalyticsContent);
 creatorRouter.get("/analytics/audience", ctrl.getAnalyticsAudience);
 creatorRouter.get("/analytics/insights", ctrl.getAnalyticsInsights);
+creatorRouter.get("/analytics/realtime", ctrl.getAnalyticsRealtime);
+creatorRouter.get("/ideas",              ctrl.getContentIdeas);  // inspiration from trending engine

@@ -31,6 +31,14 @@ export async function getAnalyticsInsights(req: Request, res: Response, next: Ne
   } catch (err) { next(err); }
 }
 
+export async function getAnalyticsRealtime(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await analytics.getRealtime(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+export async function getContentIdeas(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await analytics.getContentIdeas()); } catch (err) { next(err); }
+}
+
 export async function getCreatorStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
