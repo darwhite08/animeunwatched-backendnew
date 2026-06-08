@@ -14,6 +14,7 @@ monetizationRouter.get("/revenue",        ctrl.getRevenue);
 monetizationRouter.get("/revenue/series", ctrl.getRevenueSeries);
 monetizationRouter.get("/retention",      ctrl.getRetention);
 monetizationRouter.get("/members",        ctrl.getMembers);
+monetizationRouter.get("/creator/:username", ctrl.getPublicCreator);  // fan-facing tiers + status
 monetizationRouter.get("/payouts",        ctrl.getPayouts);
 
 // Payments (Phase 2 — 503 "payments not configured" until Stripe keys are set)

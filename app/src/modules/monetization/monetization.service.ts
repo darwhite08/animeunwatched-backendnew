@@ -305,6 +305,37 @@ export async function getRetention(creatorId: string) {
   };
 }
 
+/** Public-facing creator monetization: tiers + whether they accept support.
+ *  Used by the consumer profile to show Subscribe / Tip. Looked up by username. */
+export async function getPublicCreator(username: string, viewerId?: string) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: { id: true, username: true, displayName: true, avatarUrl: true },
+  });
+  if (!user) throw notFound("Creator not found");
+
+  const [profile, tiers, membership] = await Promise.all([
+    prisma.creatorProfile.findUnique({ where: { userId: user.id }, select: { status: true, isEligible: true } }),
+    prisma.creatorTier.findMany({
+      where: { creatorId: user.id, active: true },
+      orderBy: { priceCents: "asc" },
+      select: { id: true, name: true, description: true, priceCents: true, currency: true, perks: true },
+    }),
+    viewerId ? prisma.creatorMembership.findUnique({ where: { fanId_creatorId: { fanId: viewerId, creatorId: user.id } }, select: { tierId: true, status: true } }) : Promise.resolve(null),
+  ]);
+
+  const isMonetized = !!profile && (profile.status === "active" || profile.status === "eligible" || profile.isEligible);
+  return {
+    creatorId: user.id,
+    username: user.username,
+    displayName: user.displayName,
+    isMonetized,
+    isSelf: viewerId === user.id,
+    myTierId: membership?.status === "active" ? membership.tierId : null,
+    tiers,
+  };
+}
+
 /** Supporters list (Patreon-style Membership Insights) + headline counts. */
 export async function getMembers(creatorId: string) {
   const monthAgo = new Date(Date.now() - 30 * 86_400_000);
