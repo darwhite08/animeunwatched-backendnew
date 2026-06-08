@@ -121,6 +121,7 @@ model User {
   shots              Shot[]
   shotLikes          ShotLike[]
   shotComments       ShotComment[]
+  shotSaves          ShotSave[]
   // Peeak (24h stories)
   stories            Story[]
   storyViews         StoryView[]
@@ -3401,6 +3402,7 @@ model Shot {
   anime    Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
   likes    ShotLike[]
   comments ShotComment[]
+  saves    ShotSave[]
 
   @@index([createdAt])
   @@index([authorId, createdAt])
@@ -3415,6 +3417,19 @@ model ShotLike {
   shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
 
   @@id([userId, shotId])
+}
+
+// Bookmark a shot to a personal collection.
+model ShotSave {
+  userId    String
+  shotId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
+
+  @@id([userId, shotId])
+  @@index([userId, createdAt])
 }
 
 // Flat comments on a shot (reels-style — no nesting for v1).

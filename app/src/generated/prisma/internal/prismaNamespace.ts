@@ -549,6 +549,7 @@ export const ModelName = {
   SamlLoginEvent: 'SamlLoginEvent',
   Shot: 'Shot',
   ShotLike: 'ShotLike',
+  ShotSave: 'ShotSave',
   ShotComment: 'ShotComment',
   SocialConnection: 'SocialConnection',
   ImportedMedia: 'ImportedMedia',
@@ -569,7 +570,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotSave" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -12339,6 +12340,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShotSave: {
+      payload: Prisma.$ShotSavePayload<ExtArgs>
+      fields: Prisma.ShotSaveFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShotSaveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShotSaveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        findFirst: {
+          args: Prisma.ShotSaveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShotSaveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        findMany: {
+          args: Prisma.ShotSaveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>[]
+        }
+        create: {
+          args: Prisma.ShotSaveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        createMany: {
+          args: Prisma.ShotSaveCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShotSaveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>[]
+        }
+        delete: {
+          args: Prisma.ShotSaveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        update: {
+          args: Prisma.ShotSaveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        deleteMany: {
+          args: Prisma.ShotSaveDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShotSaveUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShotSaveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>[]
+        }
+        upsert: {
+          args: Prisma.ShotSaveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotSavePayload>
+        }
+        aggregate: {
+          args: Prisma.ShotSaveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShotSave>
+        }
+        groupBy: {
+          args: Prisma.ShotSaveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotSaveGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShotSaveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotSaveCountAggregateOutputType> | number
+        }
+      }
+    }
     ShotComment: {
       payload: Prisma.$ShotCommentPayload<ExtArgs>
       fields: Prisma.ShotCommentFieldRefs
@@ -15181,6 +15256,15 @@ export const ShotLikeScalarFieldEnum = {
 export type ShotLikeScalarFieldEnum = (typeof ShotLikeScalarFieldEnum)[keyof typeof ShotLikeScalarFieldEnum]
 
 
+export const ShotSaveScalarFieldEnum = {
+  userId: 'userId',
+  shotId: 'shotId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShotSaveScalarFieldEnum = (typeof ShotSaveScalarFieldEnum)[keyof typeof ShotSaveScalarFieldEnum]
+
+
 export const ShotCommentScalarFieldEnum = {
   id: 'id',
   shotId: 'shotId',
@@ -15873,6 +15957,7 @@ export type GlobalOmitConfig = {
   samlLoginEvent?: Prisma.SamlLoginEventOmit
   shot?: Prisma.ShotOmit
   shotLike?: Prisma.ShotLikeOmit
+  shotSave?: Prisma.ShotSaveOmit
   shotComment?: Prisma.ShotCommentOmit
   socialConnection?: Prisma.SocialConnectionOmit
   importedMedia?: Prisma.ImportedMediaOmit

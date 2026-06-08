@@ -462,6 +462,7 @@ export type UserWhereInput = {
   shots?: Prisma.ShotListRelationFilter
   shotLikes?: Prisma.ShotLikeListRelationFilter
   shotComments?: Prisma.ShotCommentListRelationFilter
+  shotSaves?: Prisma.ShotSaveListRelationFilter
   stories?: Prisma.StoryListRelationFilter
   storyViews?: Prisma.StoryViewListRelationFilter
   sentMessages?: Prisma.DirectMessageListRelationFilter
@@ -563,6 +564,7 @@ export type UserOrderByWithRelationInput = {
   shots?: Prisma.ShotOrderByRelationAggregateInput
   shotLikes?: Prisma.ShotLikeOrderByRelationAggregateInput
   shotComments?: Prisma.ShotCommentOrderByRelationAggregateInput
+  shotSaves?: Prisma.ShotSaveOrderByRelationAggregateInput
   stories?: Prisma.StoryOrderByRelationAggregateInput
   storyViews?: Prisma.StoryViewOrderByRelationAggregateInput
   sentMessages?: Prisma.DirectMessageOrderByRelationAggregateInput
@@ -667,6 +669,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   shots?: Prisma.ShotListRelationFilter
   shotLikes?: Prisma.ShotLikeListRelationFilter
   shotComments?: Prisma.ShotCommentListRelationFilter
+  shotSaves?: Prisma.ShotSaveListRelationFilter
   stories?: Prisma.StoryListRelationFilter
   storyViews?: Prisma.StoryViewListRelationFilter
   sentMessages?: Prisma.DirectMessageListRelationFilter
@@ -842,6 +845,7 @@ export type UserCreateInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -943,6 +947,7 @@ export type UserUncheckedCreateInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1044,6 +1049,7 @@ export type UserUpdateInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -1145,6 +1151,7 @@ export type UserUncheckedUpdateInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2327,6 +2334,20 @@ export type UserUpdateOneRequiredWithoutShotLikesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotLikesInput, Prisma.UserUpdateWithoutShotLikesInput>, Prisma.UserUncheckedUpdateWithoutShotLikesInput>
 }
 
+export type UserCreateNestedOneWithoutShotSavesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotSavesInput, Prisma.UserUncheckedCreateWithoutShotSavesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotSavesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShotSavesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotSavesInput, Prisma.UserUncheckedCreateWithoutShotSavesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotSavesInput
+  upsert?: Prisma.UserUpsertWithoutShotSavesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotSavesInput, Prisma.UserUpdateWithoutShotSavesInput>, Prisma.UserUncheckedUpdateWithoutShotSavesInput>
+}
+
 export type UserCreateNestedOneWithoutShotCommentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutShotCommentsInput, Prisma.UserUncheckedCreateWithoutShotCommentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotCommentsInput
@@ -2458,6 +2479,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -2558,6 +2580,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2674,6 +2697,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -2774,6 +2798,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2874,6 +2899,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -2974,6 +3000,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3090,6 +3117,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -3190,6 +3218,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3290,6 +3319,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -3390,6 +3420,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3495,6 +3526,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -3595,6 +3627,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3711,6 +3744,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -3811,6 +3845,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3922,6 +3957,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -4022,6 +4058,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4122,6 +4159,7 @@ export type UserCreateWithoutTipsSentInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -4222,6 +4260,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -4327,6 +4366,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -4427,6 +4467,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -4543,6 +4584,7 @@ export type UserUpdateWithoutTipsSentInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -4643,6 +4685,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4754,6 +4797,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -4854,6 +4898,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4954,6 +4999,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -5054,6 +5100,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -5170,6 +5217,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -5270,6 +5318,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -5370,6 +5419,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -5470,6 +5520,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -5586,6 +5637,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -5686,6 +5738,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -5786,6 +5839,7 @@ export type UserCreateWithoutPayoutsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -5886,6 +5940,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6002,6 +6057,7 @@ export type UserUpdateWithoutPayoutsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -6102,6 +6158,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -6202,6 +6259,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -6302,6 +6360,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6418,6 +6477,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -6518,6 +6578,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -6618,6 +6679,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -6718,6 +6780,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6834,6 +6897,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -6934,6 +6998,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -7034,6 +7099,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -7134,6 +7200,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -7250,6 +7317,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -7350,6 +7418,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -7449,6 +7518,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -7549,6 +7619,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -7665,6 +7736,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -7765,6 +7837,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -7865,6 +7938,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -7965,6 +8039,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -8081,6 +8156,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -8181,6 +8257,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -8281,6 +8358,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -8381,6 +8459,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -8497,6 +8576,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -8597,6 +8677,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -8697,6 +8778,7 @@ export type UserCreateWithoutFollowingInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -8797,6 +8879,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -8902,6 +8985,7 @@ export type UserCreateWithoutFollowersInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -9002,6 +9086,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9118,6 +9203,7 @@ export type UserUpdateWithoutFollowingInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -9218,6 +9304,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9329,6 +9416,7 @@ export type UserUpdateWithoutFollowersInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -9429,6 +9517,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9529,6 +9618,7 @@ export type UserCreateWithoutListEntriesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -9629,6 +9719,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9745,6 +9836,7 @@ export type UserUpdateWithoutListEntriesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -9845,6 +9937,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9945,6 +10038,7 @@ export type UserCreateWithoutPostsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -10045,6 +10139,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -10161,6 +10256,7 @@ export type UserUpdateWithoutPostsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -10261,6 +10357,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -10361,6 +10458,7 @@ export type UserCreateWithoutPostHidesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -10461,6 +10559,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -10577,6 +10676,7 @@ export type UserUpdateWithoutPostHidesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -10677,6 +10777,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -10777,6 +10878,7 @@ export type UserCreateWithoutPostLikesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -10877,6 +10979,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -10993,6 +11096,7 @@ export type UserUpdateWithoutPostLikesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -11093,6 +11197,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -11193,6 +11298,7 @@ export type UserCreateWithoutPostCommentsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -11293,6 +11399,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -11409,6 +11516,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -11509,6 +11617,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -11609,6 +11718,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -11709,6 +11819,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -11825,6 +11936,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -11925,6 +12037,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -12025,6 +12138,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -12125,6 +12239,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12241,6 +12356,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -12341,6 +12457,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -12442,6 +12559,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -12542,6 +12660,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12658,6 +12777,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -12758,6 +12878,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -12858,6 +12979,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -12958,6 +13080,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -13074,6 +13197,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -13174,6 +13298,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -13274,6 +13399,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -13374,6 +13500,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -13490,6 +13617,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -13590,6 +13718,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -13690,6 +13819,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -13790,6 +13920,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -13906,6 +14037,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -14006,6 +14138,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14105,6 +14238,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -14205,6 +14339,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -14321,6 +14456,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -14421,6 +14557,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14522,6 +14659,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -14622,6 +14760,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -14738,6 +14877,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -14838,6 +14978,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14937,6 +15078,7 @@ export type UserCreateWithoutThreadsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -15037,6 +15179,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15153,6 +15296,7 @@ export type UserUpdateWithoutThreadsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -15253,6 +15397,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -15353,6 +15498,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -15453,6 +15599,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15569,6 +15716,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -15669,6 +15817,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -15769,6 +15918,7 @@ export type UserCreateWithoutReviewsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -15869,6 +16019,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15985,6 +16136,7 @@ export type UserUpdateWithoutReviewsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -16085,6 +16237,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -16185,6 +16338,7 @@ export type UserCreateWithoutReviewLikesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -16285,6 +16439,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -16401,6 +16556,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -16501,6 +16657,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -16601,6 +16758,7 @@ export type UserCreateWithoutBlogsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -16701,6 +16859,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -16817,6 +16976,7 @@ export type UserUpdateWithoutBlogsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -16917,6 +17077,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17017,6 +17178,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -17117,6 +17279,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -17233,6 +17396,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -17333,6 +17497,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17433,6 +17598,7 @@ export type UserCreateWithoutNotificationsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -17533,6 +17699,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -17649,6 +17816,7 @@ export type UserUpdateWithoutNotificationsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -17749,6 +17917,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17849,6 +18018,7 @@ export type UserCreateWithoutReportsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -17949,6 +18119,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18065,6 +18236,7 @@ export type UserUpdateWithoutReportsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -18165,6 +18337,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -18265,6 +18438,7 @@ export type UserCreateWithoutModerationActionsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -18365,6 +18539,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18481,6 +18656,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -18581,6 +18757,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -18681,6 +18858,7 @@ export type UserCreateWithoutPollsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -18781,6 +18959,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18897,6 +19076,7 @@ export type UserUpdateWithoutPollsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -18997,6 +19177,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19097,6 +19278,7 @@ export type UserCreateWithoutPollVotesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -19197,6 +19379,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -19313,6 +19496,7 @@ export type UserUpdateWithoutPollVotesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -19413,6 +19597,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19513,6 +19698,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -19613,6 +19799,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -19729,6 +19916,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -19829,6 +20017,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19929,6 +20118,7 @@ export type UserCreateWithoutPublicKeyInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -20029,6 +20219,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20145,6 +20336,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -20245,6 +20437,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20346,6 +20539,7 @@ export type UserCreateWithoutConversations1Input = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -20446,6 +20640,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20551,6 +20746,7 @@ export type UserCreateWithoutConversations2Input = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -20651,6 +20847,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20767,6 +20964,7 @@ export type UserUpdateWithoutConversations1Input = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -20867,6 +21065,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20978,6 +21177,7 @@ export type UserUpdateWithoutConversations2Input = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -21078,6 +21278,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -21178,6 +21379,7 @@ export type UserCreateWithoutSentMessagesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -21278,6 +21480,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -21394,6 +21597,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -21494,6 +21698,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -21594,6 +21799,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -21694,6 +21900,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21810,6 +22017,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -21910,6 +22118,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22010,6 +22219,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -22110,6 +22320,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22226,6 +22437,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -22326,6 +22538,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22426,6 +22639,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -22526,6 +22740,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22642,6 +22857,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -22742,6 +22958,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22842,6 +23059,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -22942,6 +23160,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23058,6 +23277,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -23158,6 +23378,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23258,6 +23479,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -23358,6 +23580,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23474,6 +23697,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -23574,6 +23798,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23673,6 +23898,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -23773,6 +23999,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23889,6 +24116,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -23989,6 +24217,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -24090,6 +24319,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -24190,6 +24420,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -24295,6 +24526,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -24395,6 +24627,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -24511,6 +24744,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -24611,6 +24845,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -24722,6 +24957,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -24822,6 +25058,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -24922,6 +25159,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -25022,6 +25260,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -25138,6 +25377,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -25238,6 +25478,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -25338,6 +25579,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -25438,6 +25680,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -25554,6 +25797,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -25654,6 +25898,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -25754,6 +25999,7 @@ export type UserCreateWithoutActivitiesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -25854,6 +26100,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -25970,6 +26217,7 @@ export type UserUpdateWithoutActivitiesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -26070,6 +26318,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -26170,6 +26419,7 @@ export type UserCreateWithoutActivityLikesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -26270,6 +26520,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -26386,6 +26637,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -26486,6 +26738,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -26586,6 +26839,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -26686,6 +26940,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -26802,6 +27057,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -26902,6 +27158,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -27002,6 +27259,7 @@ export type UserCreateWithoutRepliesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -27102,6 +27360,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -27218,6 +27477,7 @@ export type UserUpdateWithoutRepliesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -27318,6 +27578,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -27418,6 +27679,7 @@ export type UserCreateWithoutScimSubjectInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -27518,6 +27780,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -27634,6 +27897,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -27734,6 +27998,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -27833,6 +28098,7 @@ export type UserCreateWithoutShotsInput = {
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -27933,6 +28199,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -28049,6 +28316,7 @@ export type UserUpdateWithoutShotsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -28149,6 +28417,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -28249,6 +28518,7 @@ export type UserCreateWithoutShotLikesInput = {
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -28349,6 +28619,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -28465,6 +28736,7 @@ export type UserUpdateWithoutShotLikesInput = {
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -28564,6 +28836,427 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutShotSavesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShotSavesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShotSavesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotSavesInput, Prisma.UserUncheckedCreateWithoutShotSavesInput>
+}
+
+export type UserUpsertWithoutShotSavesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShotSavesInput, Prisma.UserUncheckedUpdateWithoutShotSavesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotSavesInput, Prisma.UserUncheckedCreateWithoutShotSavesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShotSavesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShotSavesInput, Prisma.UserUncheckedUpdateWithoutShotSavesInput>
+}
+
+export type UserUpdateWithoutShotSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShotSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
@@ -28665,6 +29358,7 @@ export type UserCreateWithoutShotCommentsInput = {
   deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -28765,6 +29459,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -28881,6 +29576,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -28981,6 +29677,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29082,6 +29779,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -29182,6 +29880,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -29298,6 +29997,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -29398,6 +30098,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29498,6 +30199,7 @@ export type UserCreateWithoutImportedMediaInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
@@ -29598,6 +30300,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -29714,6 +30417,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
@@ -29814,6 +30518,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29914,6 +30619,7 @@ export type UserCreateWithoutStoriesInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -30014,6 +30720,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -30130,6 +30837,7 @@ export type UserUpdateWithoutStoriesInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -30230,6 +30938,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -30330,6 +31039,7 @@ export type UserCreateWithoutStoryViewsInput = {
   shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
   sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
@@ -30430,6 +31140,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
   shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
   shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
   stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
   sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
@@ -30546,6 +31257,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
   sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
@@ -30646,6 +31358,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
   shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
@@ -30720,6 +31433,7 @@ export type UserCountOutputType = {
   shots: number
   shotLikes: number
   shotComments: number
+  shotSaves: number
   stories: number
   storyViews: number
   sentMessages: number
@@ -30787,6 +31501,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   shots?: boolean | UserCountOutputTypeCountShotsArgs
   shotLikes?: boolean | UserCountOutputTypeCountShotLikesArgs
   shotComments?: boolean | UserCountOutputTypeCountShotCommentsArgs
+  shotSaves?: boolean | UserCountOutputTypeCountShotSavesArgs
   stories?: boolean | UserCountOutputTypeCountStoriesArgs
   storyViews?: boolean | UserCountOutputTypeCountStoryViewsArgs
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
@@ -31035,6 +31750,13 @@ export type UserCountOutputTypeCountShotLikesArgs<ExtArgs extends runtime.Types.
  */
 export type UserCountOutputTypeCountShotCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ShotCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShotSavesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotSaveWhereInput
 }
 
 /**
@@ -31344,6 +32066,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   shots?: boolean | Prisma.User$shotsArgs<ExtArgs>
   shotLikes?: boolean | Prisma.User$shotLikesArgs<ExtArgs>
   shotComments?: boolean | Prisma.User$shotCommentsArgs<ExtArgs>
+  shotSaves?: boolean | Prisma.User$shotSavesArgs<ExtArgs>
   stories?: boolean | Prisma.User$storiesArgs<ExtArgs>
   storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
@@ -31516,6 +32239,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   shots?: boolean | Prisma.User$shotsArgs<ExtArgs>
   shotLikes?: boolean | Prisma.User$shotLikesArgs<ExtArgs>
   shotComments?: boolean | Prisma.User$shotCommentsArgs<ExtArgs>
+  shotSaves?: boolean | Prisma.User$shotSavesArgs<ExtArgs>
   stories?: boolean | Prisma.User$storiesArgs<ExtArgs>
   storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
@@ -31592,6 +32316,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     shots: Prisma.$ShotPayload<ExtArgs>[]
     shotLikes: Prisma.$ShotLikePayload<ExtArgs>[]
     shotComments: Prisma.$ShotCommentPayload<ExtArgs>[]
+    shotSaves: Prisma.$ShotSavePayload<ExtArgs>[]
     stories: Prisma.$StoryPayload<ExtArgs>[]
     storyViews: Prisma.$StoryViewPayload<ExtArgs>[]
     sentMessages: Prisma.$DirectMessagePayload<ExtArgs>[]
@@ -32101,6 +32826,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   shots<T extends Prisma.User$shotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shotLikes<T extends Prisma.User$shotLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shotComments<T extends Prisma.User$shotCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shotSaves<T extends Prisma.User$shotSavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotSavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stories<T extends Prisma.User$storiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storyViews<T extends Prisma.User$storyViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storyViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DirectMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -33298,6 +34024,30 @@ export type User$shotCommentsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ShotCommentScalarFieldEnum | Prisma.ShotCommentScalarFieldEnum[]
+}
+
+/**
+ * User.shotSaves
+ */
+export type User$shotSavesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotSave
+   */
+  select?: Prisma.ShotSaveSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotSave
+   */
+  omit?: Prisma.ShotSaveOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotSaveInclude<ExtArgs> | null
+  where?: Prisma.ShotSaveWhereInput
+  orderBy?: Prisma.ShotSaveOrderByWithRelationInput | Prisma.ShotSaveOrderByWithRelationInput[]
+  cursor?: Prisma.ShotSaveWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotSaveScalarFieldEnum | Prisma.ShotSaveScalarFieldEnum[]
 }
 
 /**

@@ -813,6 +813,11 @@ export type Shot = Prisma.ShotModel
  */
 export type ShotLike = Prisma.ShotLikeModel
 /**
+ * Model ShotSave
+ * 
+ */
+export type ShotSave = Prisma.ShotSaveModel
+/**
  * Model ShotComment
  * 
  */

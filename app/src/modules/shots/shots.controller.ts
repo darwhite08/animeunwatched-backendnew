@@ -8,8 +8,38 @@ export async function getFeed(req: Request, res: Response, next: NextFunction): 
     const userId: string | undefined = res.locals.user?.id;
     const cursor = req.query.cursor as string | undefined;
     const limit = Math.min(30, Math.max(1, Number(req.query.limit) || 10));
-    const result = await service.getFeed(userId, cursor, limit);
+    const filter = req.query.filter === "following" ? "following" : undefined;
+    const result = await service.getFeed(userId, cursor, limit, filter);
     res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSaved(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const cursor = req.query.cursor as string | undefined;
+    const limit = Math.min(30, Math.max(1, Number(req.query.limit) || 12));
+    res.status(200).json(await service.getSaved(userId, cursor, limit));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function saveShot(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.saveShot(userId, req.params.id as string));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function unsaveShot(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.unsaveShot(userId, req.params.id as string));
   } catch (err) {
     next(err);
   }
