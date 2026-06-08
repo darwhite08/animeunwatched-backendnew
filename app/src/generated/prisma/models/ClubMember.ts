@@ -20,8 +20,18 @@ export type ClubMemberModel = runtime.Types.Result.DefaultSelection<Prisma.$Club
 
 export type AggregateClubMember = {
   _count: ClubMemberCountAggregateOutputType | null
+  _avg: ClubMemberAvgAggregateOutputType | null
+  _sum: ClubMemberSumAggregateOutputType | null
   _min: ClubMemberMinAggregateOutputType | null
   _max: ClubMemberMaxAggregateOutputType | null
+}
+
+export type ClubMemberAvgAggregateOutputType = {
+  xp: number | null
+}
+
+export type ClubMemberSumAggregateOutputType = {
+  xp: number | null
 }
 
 export type ClubMemberMinAggregateOutputType = {
@@ -29,6 +39,10 @@ export type ClubMemberMinAggregateOutputType = {
   clubId: string | null
   role: $Enums.Role | null
   joinedAt: Date | null
+  agreedRulesAt: Date | null
+  onboardedAt: Date | null
+  xp: number | null
+  lastXpAt: Date | null
 }
 
 export type ClubMemberMaxAggregateOutputType = {
@@ -36,6 +50,10 @@ export type ClubMemberMaxAggregateOutputType = {
   clubId: string | null
   role: $Enums.Role | null
   joinedAt: Date | null
+  agreedRulesAt: Date | null
+  onboardedAt: Date | null
+  xp: number | null
+  lastXpAt: Date | null
 }
 
 export type ClubMemberCountAggregateOutputType = {
@@ -43,15 +61,31 @@ export type ClubMemberCountAggregateOutputType = {
   clubId: number
   role: number
   joinedAt: number
+  agreedRulesAt: number
+  onboardedAt: number
+  xp: number
+  lastXpAt: number
   _all: number
 }
 
+
+export type ClubMemberAvgAggregateInputType = {
+  xp?: true
+}
+
+export type ClubMemberSumAggregateInputType = {
+  xp?: true
+}
 
 export type ClubMemberMinAggregateInputType = {
   userId?: true
   clubId?: true
   role?: true
   joinedAt?: true
+  agreedRulesAt?: true
+  onboardedAt?: true
+  xp?: true
+  lastXpAt?: true
 }
 
 export type ClubMemberMaxAggregateInputType = {
@@ -59,6 +93,10 @@ export type ClubMemberMaxAggregateInputType = {
   clubId?: true
   role?: true
   joinedAt?: true
+  agreedRulesAt?: true
+  onboardedAt?: true
+  xp?: true
+  lastXpAt?: true
 }
 
 export type ClubMemberCountAggregateInputType = {
@@ -66,6 +104,10 @@ export type ClubMemberCountAggregateInputType = {
   clubId?: true
   role?: true
   joinedAt?: true
+  agreedRulesAt?: true
+  onboardedAt?: true
+  xp?: true
+  lastXpAt?: true
   _all?: true
 }
 
@@ -107,6 +149,18 @@ export type ClubMemberAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ClubMemberAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ClubMemberSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ClubMemberMinAggregateInputType
@@ -137,6 +191,8 @@ export type ClubMemberGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: ClubMemberCountAggregateInputType | true
+  _avg?: ClubMemberAvgAggregateInputType
+  _sum?: ClubMemberSumAggregateInputType
   _min?: ClubMemberMinAggregateInputType
   _max?: ClubMemberMaxAggregateInputType
 }
@@ -146,7 +202,13 @@ export type ClubMemberGroupByOutputType = {
   clubId: string
   role: $Enums.Role
   joinedAt: Date
+  agreedRulesAt: Date | null
+  onboardedAt: Date | null
+  xp: number
+  lastXpAt: Date | null
   _count: ClubMemberCountAggregateOutputType | null
+  _avg: ClubMemberAvgAggregateOutputType | null
+  _sum: ClubMemberSumAggregateOutputType | null
   _min: ClubMemberMinAggregateOutputType | null
   _max: ClubMemberMaxAggregateOutputType | null
 }
@@ -174,6 +236,10 @@ export type ClubMemberWhereInput = {
   clubId?: Prisma.StringFilter<"ClubMember"> | string
   role?: Prisma.EnumRoleFilter<"ClubMember"> | $Enums.Role
   joinedAt?: Prisma.DateTimeFilter<"ClubMember"> | Date | string
+  agreedRulesAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  xp?: Prisma.IntFilter<"ClubMember"> | number
+  lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
 }
@@ -183,6 +249,10 @@ export type ClubMemberOrderByWithRelationInput = {
   clubId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  agreedRulesAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  lastXpAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   club?: Prisma.ClubOrderByWithRelationInput
 }
@@ -196,6 +266,10 @@ export type ClubMemberWhereUniqueInput = Prisma.AtLeast<{
   clubId?: Prisma.StringFilter<"ClubMember"> | string
   role?: Prisma.EnumRoleFilter<"ClubMember"> | $Enums.Role
   joinedAt?: Prisma.DateTimeFilter<"ClubMember"> | Date | string
+  agreedRulesAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  xp?: Prisma.IntFilter<"ClubMember"> | number
+  lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
 }, "userId_clubId">
@@ -205,9 +279,15 @@ export type ClubMemberOrderByWithAggregationInput = {
   clubId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  agreedRulesAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  lastXpAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClubMemberCountOrderByAggregateInput
+  _avg?: Prisma.ClubMemberAvgOrderByAggregateInput
   _max?: Prisma.ClubMemberMaxOrderByAggregateInput
   _min?: Prisma.ClubMemberMinOrderByAggregateInput
+  _sum?: Prisma.ClubMemberSumOrderByAggregateInput
 }
 
 export type ClubMemberScalarWhereWithAggregatesInput = {
@@ -218,11 +298,19 @@ export type ClubMemberScalarWhereWithAggregatesInput = {
   clubId?: Prisma.StringWithAggregatesFilter<"ClubMember"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"ClubMember"> | $Enums.Role
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"ClubMember"> | Date | string
+  agreedRulesAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
+  onboardedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
+  xp?: Prisma.IntWithAggregatesFilter<"ClubMember"> | number
+  lastXpAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClubMember"> | Date | string | null
 }
 
 export type ClubMemberCreateInput = {
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutClubMembershipsInput
   club: Prisma.ClubCreateNestedOneWithoutMembersInput
 }
@@ -232,11 +320,19 @@ export type ClubMemberUncheckedCreateInput = {
   clubId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutClubMembershipsNestedInput
   club?: Prisma.ClubUpdateOneRequiredWithoutMembersNestedInput
 }
@@ -246,6 +342,10 @@ export type ClubMemberUncheckedUpdateInput = {
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberCreateManyInput = {
@@ -253,11 +353,19 @@ export type ClubMemberCreateManyInput = {
   clubId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberUncheckedUpdateManyInput = {
@@ -265,6 +373,10 @@ export type ClubMemberUncheckedUpdateManyInput = {
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberListRelationFilter = {
@@ -287,6 +399,14 @@ export type ClubMemberCountOrderByAggregateInput = {
   clubId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  agreedRulesAt?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  lastXpAt?: Prisma.SortOrder
+}
+
+export type ClubMemberAvgOrderByAggregateInput = {
+  xp?: Prisma.SortOrder
 }
 
 export type ClubMemberMaxOrderByAggregateInput = {
@@ -294,6 +414,10 @@ export type ClubMemberMaxOrderByAggregateInput = {
   clubId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  agreedRulesAt?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  lastXpAt?: Prisma.SortOrder
 }
 
 export type ClubMemberMinOrderByAggregateInput = {
@@ -301,6 +425,14 @@ export type ClubMemberMinOrderByAggregateInput = {
   clubId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  agreedRulesAt?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  lastXpAt?: Prisma.SortOrder
+}
+
+export type ClubMemberSumOrderByAggregateInput = {
+  xp?: Prisma.SortOrder
 }
 
 export type ClubMemberCreateNestedManyWithoutUserInput = {
@@ -390,6 +522,10 @@ export type ClubMemberUncheckedUpdateManyWithoutClubNestedInput = {
 export type ClubMemberCreateWithoutUserInput = {
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
   club: Prisma.ClubCreateNestedOneWithoutMembersInput
 }
 
@@ -397,6 +533,10 @@ export type ClubMemberUncheckedCreateWithoutUserInput = {
   clubId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberCreateOrConnectWithoutUserInput = {
@@ -433,11 +573,19 @@ export type ClubMemberScalarWhereInput = {
   clubId?: Prisma.StringFilter<"ClubMember"> | string
   role?: Prisma.EnumRoleFilter<"ClubMember"> | $Enums.Role
   joinedAt?: Prisma.DateTimeFilter<"ClubMember"> | Date | string
+  agreedRulesAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  onboardedAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
+  xp?: Prisma.IntFilter<"ClubMember"> | number
+  lastXpAt?: Prisma.DateTimeNullableFilter<"ClubMember"> | Date | string | null
 }
 
 export type ClubMemberCreateWithoutClubInput = {
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutClubMembershipsInput
 }
 
@@ -445,6 +593,10 @@ export type ClubMemberUncheckedCreateWithoutClubInput = {
   userId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberCreateOrConnectWithoutClubInput = {
@@ -477,11 +629,19 @@ export type ClubMemberCreateManyUserInput = {
   clubId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberUpdateWithoutUserInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   club?: Prisma.ClubUpdateOneRequiredWithoutMembersNestedInput
 }
 
@@ -489,23 +649,39 @@ export type ClubMemberUncheckedUpdateWithoutUserInput = {
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberUncheckedUpdateManyWithoutUserInput = {
   clubId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberCreateManyClubInput = {
   userId: string
   role?: $Enums.Role
   joinedAt?: Date | string
+  agreedRulesAt?: Date | string | null
+  onboardedAt?: Date | string | null
+  xp?: number
+  lastXpAt?: Date | string | null
 }
 
 export type ClubMemberUpdateWithoutClubInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutClubMembershipsNestedInput
 }
 
@@ -513,12 +689,20 @@ export type ClubMemberUncheckedUpdateWithoutClubInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubMemberUncheckedUpdateManyWithoutClubInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agreedRulesAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  lastXpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -528,6 +712,10 @@ export type ClubMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   clubId?: boolean
   role?: boolean
   joinedAt?: boolean
+  agreedRulesAt?: boolean
+  onboardedAt?: boolean
+  xp?: boolean
+  lastXpAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -537,6 +725,10 @@ export type ClubMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   clubId?: boolean
   role?: boolean
   joinedAt?: boolean
+  agreedRulesAt?: boolean
+  onboardedAt?: boolean
+  xp?: boolean
+  lastXpAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -546,6 +738,10 @@ export type ClubMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   clubId?: boolean
   role?: boolean
   joinedAt?: boolean
+  agreedRulesAt?: boolean
+  onboardedAt?: boolean
+  xp?: boolean
+  lastXpAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clubMember"]>
@@ -555,9 +751,13 @@ export type ClubMemberSelectScalar = {
   clubId?: boolean
   role?: boolean
   joinedAt?: boolean
+  agreedRulesAt?: boolean
+  onboardedAt?: boolean
+  xp?: boolean
+  lastXpAt?: boolean
 }
 
-export type ClubMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "clubId" | "role" | "joinedAt", ExtArgs["result"]["clubMember"]>
+export type ClubMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "clubId" | "role" | "joinedAt" | "agreedRulesAt" | "onboardedAt" | "xp" | "lastXpAt", ExtArgs["result"]["clubMember"]>
 export type ClubMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
@@ -582,6 +782,10 @@ export type $ClubMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     clubId: string
     role: $Enums.Role
     joinedAt: Date
+    agreedRulesAt: Date | null
+    onboardedAt: Date | null
+    xp: number
+    lastXpAt: Date | null
   }, ExtArgs["result"]["clubMember"]>
   composites: {}
 }
@@ -1011,6 +1215,10 @@ export interface ClubMemberFieldRefs {
   readonly clubId: Prisma.FieldRef<"ClubMember", 'String'>
   readonly role: Prisma.FieldRef<"ClubMember", 'Role'>
   readonly joinedAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
+  readonly agreedRulesAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
+  readonly onboardedAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
+  readonly xp: Prisma.FieldRef<"ClubMember", 'Int'>
+  readonly lastXpAt: Prisma.FieldRef<"ClubMember", 'DateTime'>
 }
     
 

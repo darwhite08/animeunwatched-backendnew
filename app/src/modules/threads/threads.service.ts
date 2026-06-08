@@ -44,18 +44,33 @@ export async function createClubThread(
   });
   if (!membership) throw forbidden("You must be a member of this club to post a thread");
 
+  // Announcements are mod/admin-only.
+  let kind = dto.kind ?? (dto.title.startsWith("[CHALLENGE]") ? "CHALLENGE" : "DISCUSSION");
+  if (kind === "ANNOUNCEMENT" && membership.role !== "ADMIN" && membership.role !== "MOD") {
+    throw forbidden("Only admins can post announcements");
+  }
+
   const thread = await prisma.thread.create({
     data: {
       title: dto.title,
       content: dto.content,
       authorId,
       clubId: club.id,
+      kind: kind as "DISCUSSION" | "ANNOUNCEMENT" | "CHALLENGE" | "EPISODE",
+      ...(kind === "ANNOUNCEMENT" ? { isPinned: true } : {}),
     },
     include: {
       author: { select: authorSelect },
       _count: { select: { replies: true } },
     },
   });
+
+  // Club XP for posting (+5).
+  try {
+    const { awardClubXp, notifyClub } = await import("../events/events.service");
+    await awardClubXp(club.id, authorId, 5);
+    if (kind === "ANNOUNCEMENT") void notifyClub(club.id, authorId, { title: club.name, body: `📢 ${dto.title}`, data: { type: "club_announcement", slug: clubSlug, threadId: thread.id } });
+  } catch { /* best-effort */ }
 
   return { thread };
 }
@@ -188,6 +203,11 @@ export async function createReply(
       author: { select: authorSelect },
     },
   });
+
+  // Club XP for replying (+2).
+  if (thread.clubId) {
+    try { const { awardClubXp } = await import("../events/events.service"); await awardClubXp(thread.clubId, authorId, 2); } catch { /* best-effort */ }
+  }
 
   // Realtime: anyone watching this thread sees the new reply instantly
   broadcastThreadReply(threadId, reply);

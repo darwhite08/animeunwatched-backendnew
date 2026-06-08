@@ -7,7 +7,12 @@ export const createClubSchema = z.object({
   category:    z.string().max(40).optional(),
 });
 
-export const updateClubSchema = createClubSchema.partial();
+export const updateClubSchema = createClubSchema.partial().extend({
+  rules:          z.string().max(5000).optional(),
+  welcomeMessage: z.string().max(2000).optional(),
+  bannerUrl:      z.string().url().max(500).nullable().optional(),
+  avatarUrl:      z.string().url().max(500).nullable().optional(),
+});
 
 export type CreateClubDto = z.infer<typeof createClubSchema>;
 export type UpdateClubDto = z.infer<typeof updateClubSchema>;

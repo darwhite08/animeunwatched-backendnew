@@ -64,6 +64,35 @@ export const SyncPriority = {
 export type SyncPriority = (typeof SyncPriority)[keyof typeof SyncPriority]
 
 
+export const ClubEventKind = {
+  WATCH_PARTY: 'WATCH_PARTY',
+  AMA: 'AMA',
+  GAME_NIGHT: 'GAME_NIGHT',
+  GENERAL: 'GENERAL'
+} as const
+
+export type ClubEventKind = (typeof ClubEventKind)[keyof typeof ClubEventKind]
+
+
+export const RSVPStatus = {
+  GOING: 'GOING',
+  MAYBE: 'MAYBE',
+  NOT_GOING: 'NOT_GOING'
+} as const
+
+export type RSVPStatus = (typeof RSVPStatus)[keyof typeof RSVPStatus]
+
+
+export const ThreadKind = {
+  DISCUSSION: 'DISCUSSION',
+  ANNOUNCEMENT: 'ANNOUNCEMENT',
+  CHALLENGE: 'CHALLENGE',
+  EPISODE: 'EPISODE'
+} as const
+
+export type ThreadKind = (typeof ThreadKind)[keyof typeof ThreadKind]
+
+
 export const ConversationStatus = {
   ACTIVE: 'ACTIVE',
   PENDING: 'PENDING',

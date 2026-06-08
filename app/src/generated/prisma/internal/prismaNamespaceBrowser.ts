@@ -72,6 +72,8 @@ export const ModelName = {
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
   Club: 'Club',
+  ClubEvent: 'ClubEvent',
+  ClubEventRSVP: 'ClubEventRSVP',
   ClubMember: 'ClubMember',
   Thread: 'Thread',
   ThreadReply: 'ThreadReply',
@@ -544,17 +546,54 @@ export const ClubScalarFieldEnum = {
   category: 'category',
   ownerId: 'ownerId',
   reputation: 'reputation',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  bannerUrl: 'bannerUrl',
+  avatarUrl: 'avatarUrl',
+  rules: 'rules',
+  welcomeMessage: 'welcomeMessage'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
+
+
+export const ClubEventScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  creatorId: 'creatorId',
+  title: 'title',
+  description: 'description',
+  kind: 'kind',
+  animeMalId: 'animeMalId',
+  episodeNumber: 'episodeNumber',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  location: 'location',
+  remindedAt: 'remindedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubEventScalarFieldEnum = (typeof ClubEventScalarFieldEnum)[keyof typeof ClubEventScalarFieldEnum]
+
+
+export const ClubEventRSVPScalarFieldEnum = {
+  eventId: 'eventId',
+  userId: 'userId',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubEventRSVPScalarFieldEnum = (typeof ClubEventRSVPScalarFieldEnum)[keyof typeof ClubEventRSVPScalarFieldEnum]
 
 
 export const ClubMemberScalarFieldEnum = {
   userId: 'userId',
   clubId: 'clubId',
   role: 'role',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  agreedRulesAt: 'agreedRulesAt',
+  onboardedAt: 'onboardedAt',
+  xp: 'xp',
+  lastXpAt: 'lastXpAt'
 } as const
 
 export type ClubMemberScalarFieldEnum = (typeof ClubMemberScalarFieldEnum)[keyof typeof ClubMemberScalarFieldEnum]
@@ -569,6 +608,9 @@ export const ThreadScalarFieldEnum = {
   animeId: 'animeId',
   isPinned: 'isPinned',
   isLocked: 'isLocked',
+  kind: 'kind',
+  pinnedUntil: 'pinnedUntil',
+  episodeNumber: 'episodeNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -133,6 +133,16 @@ export type PostCommentLike = Prisma.PostCommentLikeModel
  */
 export type Club = Prisma.ClubModel
 /**
+ * Model ClubEvent
+ * 
+ */
+export type ClubEvent = Prisma.ClubEventModel
+/**
+ * Model ClubEventRSVP
+ * 
+ */
+export type ClubEventRSVP = Prisma.ClubEventRSVPModel
+/**
  * Model ClubMember
  * 
  */

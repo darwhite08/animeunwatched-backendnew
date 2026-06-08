@@ -130,6 +130,9 @@ model User {
   // DM E2EE layer
   e2eDevices         UserDevice[]
   e2eKeyWraps        UserMasterKeyWrap[]
+  // Club 2.0 — events
+  clubEventsCreated  ClubEvent[]         @relation("ClubEventCreator")
+  clubEventRsvps     ClubEventRSVP[]
   // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
   groupsOwned        GroupConversation[] @relation("GroupOwner")
   groupMemberships   GroupMember[]
@@ -589,10 +592,16 @@ model Club {
   ownerId     String
   reputation  Int      @default(0)
   createdAt   DateTime @default(now())
+  // Club 2.0 — identity + onboarding
+  bannerUrl      String?
+  avatarUrl      String?
+  rules          String?  @db.Text
+  welcomeMessage String?  @db.Text
 
   owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
   members ClubMember[]
   threads Thread[]
+  events  ClubEvent[]
   // Optional realtime chat room for the club (a club-backed GroupConversation).
   chatGroup GroupConversation? @relation("ClubChat")
 
@@ -601,22 +610,85 @@ model Club {
   @@index([reputation, createdAt])
 }
 
+enum ClubEventKind {
+  WATCH_PARTY
+  AMA
+  GAME_NIGHT
+  GENERAL
+}
+
+enum RSVPStatus {
+  GOING
+  MAYBE
+  NOT_GOING
+}
+
+// Scheduled club event (watch-party / AMA / game night). The headline P0 feature.
+model ClubEvent {
+  id            String        @id @default(cuid())
+  clubId        String
+  creatorId     String
+  title         String
+  description   String?       @db.Text
+  kind          ClubEventKind @default(WATCH_PARTY)
+  animeMalId    Int?
+  episodeNumber Int?
+  startsAt      DateTime
+  endsAt        DateTime?
+  location      String?       // "club chat" | external URL
+  remindedAt    DateTime?     // last reminder dispatch (cron)
+  createdAt     DateTime      @default(now())
+
+  club    Club             @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  creator User             @relation("ClubEventCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  rsvps   ClubEventRSVP[]
+
+  @@index([clubId, startsAt])
+  @@index([startsAt])
+}
+
+model ClubEventRSVP {
+  eventId   String
+  userId    String
+  status    RSVPStatus @default(GOING)
+  createdAt DateTime   @default(now())
+
+  event ClubEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, userId])
+  @@index([userId])
+}
+
 model ClubMember {
   userId   String
   clubId   String
   role     Role     @default(USER)
   joinedAt DateTime @default(now())
+  // Club 2.0 — onboarding + gamification
+  agreedRulesAt DateTime?
+  onboardedAt   DateTime?
+  xp            Int       @default(0)
+  lastXpAt      DateTime?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
 
   @@id([userId, clubId])
   @@index([clubId])
+  @@index([clubId, xp])
 }
 
 // ---------------------------------------------------------------------------
 // Threads (Reddit-style discussion)
 // ---------------------------------------------------------------------------
+
+enum ThreadKind {
+  DISCUSSION
+  ANNOUNCEMENT
+  CHALLENGE
+  EPISODE
+}
 
 model Thread {
   id        String   @id @default(cuid())
@@ -627,6 +699,9 @@ model Thread {
   animeId   String?
   isPinned  Boolean  @default(false)
   isLocked  Boolean  @default(false)
+  kind          ThreadKind @default(DISCUSSION)
+  pinnedUntil   DateTime?
+  episodeNumber Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

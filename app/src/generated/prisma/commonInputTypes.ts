@@ -426,6 +426,57 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type EnumClubEventKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubEventKind | Prisma.EnumClubEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel> | $Enums.ClubEventKind
+}
+
+export type EnumClubEventKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubEventKind | Prisma.EnumClubEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubEventKindWithAggregatesFilter<$PrismaModel> | $Enums.ClubEventKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel>
+}
+
+export type EnumRSVPStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.RSVPStatus | Prisma.EnumRSVPStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel> | $Enums.RSVPStatus
+}
+
+export type EnumRSVPStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RSVPStatus | Prisma.EnumRSVPStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRSVPStatusWithAggregatesFilter<$PrismaModel> | $Enums.RSVPStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel>
+}
+
+export type EnumThreadKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadKind | Prisma.EnumThreadKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadKindFilter<$PrismaModel> | $Enums.ThreadKind
+}
+
+export type EnumThreadKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadKind | Prisma.EnumThreadKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadKindWithAggregatesFilter<$PrismaModel> | $Enums.ThreadKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadKindFilter<$PrismaModel>
+}
+
 export type EnumBlogStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.BlogStatus | Prisma.EnumBlogStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BlogStatus[] | Prisma.ListEnumBlogStatusFieldRefInput<$PrismaModel>
@@ -936,6 +987,57 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumClubEventKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubEventKind | Prisma.EnumClubEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel> | $Enums.ClubEventKind
+}
+
+export type NestedEnumClubEventKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClubEventKind | Prisma.EnumClubEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClubEventKind[] | Prisma.ListEnumClubEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClubEventKindWithAggregatesFilter<$PrismaModel> | $Enums.ClubEventKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClubEventKindFilter<$PrismaModel>
+}
+
+export type NestedEnumRSVPStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.RSVPStatus | Prisma.EnumRSVPStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel> | $Enums.RSVPStatus
+}
+
+export type NestedEnumRSVPStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RSVPStatus | Prisma.EnumRSVPStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RSVPStatus[] | Prisma.ListEnumRSVPStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRSVPStatusWithAggregatesFilter<$PrismaModel> | $Enums.RSVPStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRSVPStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumThreadKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadKind | Prisma.EnumThreadKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadKindFilter<$PrismaModel> | $Enums.ThreadKind
+}
+
+export type NestedEnumThreadKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ThreadKind | Prisma.EnumThreadKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ThreadKind[] | Prisma.ListEnumThreadKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumThreadKindWithAggregatesFilter<$PrismaModel> | $Enums.ThreadKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumThreadKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumThreadKindFilter<$PrismaModel>
 }
 
 export type NestedEnumBlogStatusFilter<$PrismaModel = never> = {

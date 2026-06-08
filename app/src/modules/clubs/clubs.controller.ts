@@ -116,3 +116,17 @@ export async function clubChat(req: Request, res: Response, next: NextFunction):
     next(err);
   }
 }
+
+export async function onboard(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.onboard(userId, req.params.slug as string));
+  } catch (err) { next(err); }
+}
+
+export async function leaderboard(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const period = req.query.period === "week" ? "week" : "all";
+    res.status(200).json(await service.leaderboard(req.params.slug as string, period));
+  } catch (err) { next(err); }
+}

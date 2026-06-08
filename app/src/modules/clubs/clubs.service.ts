@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
 import { auditMod } from "../../lib/audit";
+import { awardClubXp } from "../events/events.service";
 import type { CreateClubDto, UpdateClubDto } from "./clubs.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -67,12 +68,13 @@ export async function getBySlug(slug: string, userId?: string) {
 
   let isMember = false;
   let myRole: "USER" | "MOD" | "ADMIN" | null = null;
+  let needsOnboarding = false;
   if (userId) {
-    const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { role: true } });
-    if (m) { isMember = true; myRole = m.role; }
+    const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { role: true, agreedRulesAt: true } });
+    if (m) { isMember = true; myRole = m.role; needsOnboarding = !m.agreedRulesAt; }
   }
   const { chatGroup, ...rest } = club;
-  return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup } };
+  return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup, needsOnboarding } };
 }
 
 // ─── create ───────────────────────────────────────────────────────────────────
@@ -114,7 +116,7 @@ export async function create(ownerId: string, dto: CreateClubDto) {
 // ─── join ─────────────────────────────────────────────────────────────────────
 
 export async function join(userId: string, slug: string) {
-  const club = await prisma.club.findUnique({ where: { slug } });
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, rules: true, welcomeMessage: true } });
   if (!club) throw notFound("Club not found");
 
   const existing = await prisma.clubMember.findUnique({
@@ -130,7 +132,38 @@ export async function join(userId: string, slug: string) {
     },
   });
 
-  return { membership };
+  return { membership, requiresOnboarding: true, rules: club.rules ?? null, welcomeMessage: club.welcomeMessage ?? null };
+}
+
+// Mark onboarding complete (rules agreed) + post a system "joined" message.
+export async function onboard(userId: string, slug: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, chatGroup: { select: { id: true } } } });
+  if (!club) throw notFound("Club not found");
+  const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { onboardedAt: true } });
+  if (!m) throw forbidden("Join the club first");
+  const now = new Date();
+  await prisma.clubMember.update({ where: { userId_clubId: { userId, clubId: club.id } }, data: { agreedRulesAt: now, onboardedAt: m.onboardedAt ?? now } });
+  if (!m.onboardedAt) {
+    await awardClubXp(club.id, userId, 3);
+    if (club.chatGroup) {
+      const user = await prisma.user.findUnique({ where: { id: userId }, select: { displayName: true, username: true } });
+      await prisma.groupMessage.create({ data: { groupId: club.chatGroup.id, senderId: null, type: "SYSTEM", body: `${user?.displayName ?? user?.username ?? "Someone"} joined the club` } });
+    }
+  }
+  return { ok: true };
+}
+
+export async function leaderboard(slug: string, period: "week" | "all") {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const where = period === "week"
+    ? { clubId: club.id, lastXpAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60_000) } }
+    : { clubId: club.id };
+  const rows = await prisma.clubMember.findMany({
+    where, orderBy: { xp: "desc" }, take: 50,
+    select: { xp: true, role: true, user: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+  });
+  return { leaderboard: rows.map((r, i) => ({ rank: i + 1, xp: r.xp, role: r.role, user: r.user })) };
 }
 
 // ─── leave ────────────────────────────────────────────────────────────────────
