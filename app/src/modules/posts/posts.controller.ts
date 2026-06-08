@@ -22,7 +22,7 @@ export async function getDiscover(
   try {
     const cursor = req.query.cursor as string | undefined;
     const limit  = Number(req.query.limit) || 20;
-    const userId = (req as any).user?.id as string | undefined; // set by optionalAuth
+    const userId = res.locals.user?.id as string | undefined; // optionalAuth sets res.locals.user
     const result = await service.getDiscover(userId, cursor, limit);
     res.status(200).json(result);
   } catch (err) {
