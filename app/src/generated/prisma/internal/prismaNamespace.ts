@@ -549,6 +549,8 @@ export const ModelName = {
   SamlLoginEvent: 'SamlLoginEvent',
   Shot: 'Shot',
   ShotLike: 'ShotLike',
+  SocialConnection: 'SocialConnection',
+  ImportedMedia: 'ImportedMedia',
   Story: 'Story',
   StoryView: 'StoryView'
 } as const
@@ -566,7 +568,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "socialConnection" | "importedMedia" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -12336,6 +12338,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SocialConnection: {
+      payload: Prisma.$SocialConnectionPayload<ExtArgs>
+      fields: Prisma.SocialConnectionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SocialConnectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SocialConnectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        findFirst: {
+          args: Prisma.SocialConnectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SocialConnectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        findMany: {
+          args: Prisma.SocialConnectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>[]
+        }
+        create: {
+          args: Prisma.SocialConnectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        createMany: {
+          args: Prisma.SocialConnectionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SocialConnectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>[]
+        }
+        delete: {
+          args: Prisma.SocialConnectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        update: {
+          args: Prisma.SocialConnectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SocialConnectionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SocialConnectionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SocialConnectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SocialConnectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialConnectionPayload>
+        }
+        aggregate: {
+          args: Prisma.SocialConnectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSocialConnection>
+        }
+        groupBy: {
+          args: Prisma.SocialConnectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SocialConnectionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SocialConnectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SocialConnectionCountAggregateOutputType> | number
+        }
+      }
+    }
+    ImportedMedia: {
+      payload: Prisma.$ImportedMediaPayload<ExtArgs>
+      fields: Prisma.ImportedMediaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ImportedMediaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ImportedMediaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        findFirst: {
+          args: Prisma.ImportedMediaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ImportedMediaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        findMany: {
+          args: Prisma.ImportedMediaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>[]
+        }
+        create: {
+          args: Prisma.ImportedMediaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        createMany: {
+          args: Prisma.ImportedMediaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ImportedMediaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>[]
+        }
+        delete: {
+          args: Prisma.ImportedMediaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        update: {
+          args: Prisma.ImportedMediaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        deleteMany: {
+          args: Prisma.ImportedMediaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ImportedMediaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ImportedMediaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>[]
+        }
+        upsert: {
+          args: Prisma.ImportedMediaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImportedMediaPayload>
+        }
+        aggregate: {
+          args: Prisma.ImportedMediaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateImportedMedia>
+        }
+        groupBy: {
+          args: Prisma.ImportedMediaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ImportedMediaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ImportedMediaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ImportedMediaCountAggregateOutputType> | number
+        }
+      }
+    }
     Story: {
       payload: Prisma.$StoryPayload<ExtArgs>
       fields: Prisma.StoryFieldRefs
@@ -14956,6 +15106,35 @@ export const ShotLikeScalarFieldEnum = {
 export type ShotLikeScalarFieldEnum = (typeof ShotLikeScalarFieldEnum)[keyof typeof ShotLikeScalarFieldEnum]
 
 
+export const SocialConnectionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerUserId: 'providerUserId',
+  username: 'username',
+  accessToken: 'accessToken',
+  tokenExpiresAt: 'tokenExpiresAt',
+  scopes: 'scopes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SocialConnectionScalarFieldEnum = (typeof SocialConnectionScalarFieldEnum)[keyof typeof SocialConnectionScalarFieldEnum]
+
+
+export const ImportedMediaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  externalId: 'externalId',
+  shotId: 'shotId',
+  permalink: 'permalink',
+  createdAt: 'createdAt'
+} as const
+
+export type ImportedMediaScalarFieldEnum = (typeof ImportedMediaScalarFieldEnum)[keyof typeof ImportedMediaScalarFieldEnum]
+
+
 export const StoryScalarFieldEnum = {
   id: 'id',
   authorId: 'authorId',
@@ -15607,6 +15786,8 @@ export type GlobalOmitConfig = {
   samlLoginEvent?: Prisma.SamlLoginEventOmit
   shot?: Prisma.ShotOmit
   shotLike?: Prisma.ShotLikeOmit
+  socialConnection?: Prisma.SocialConnectionOmit
+  importedMedia?: Prisma.ImportedMediaOmit
   story?: Prisma.StoryOmit
   storyView?: Prisma.StoryViewOmit
 }

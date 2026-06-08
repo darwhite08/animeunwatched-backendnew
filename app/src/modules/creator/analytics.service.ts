@@ -171,6 +171,115 @@ export async function getContentAnalytics(userId: string, range = "28d") {
   return { items };
 }
 
+// ─── Insights — advanced, real, single-pass derived metrics ─────────────────────
+
+/**
+ * Deep creator insights derived from the engagement event stream in ONE pass:
+ *  - engagement broken down by type (likes / comments / replies / votes / …)
+ *  - best time to post: hour-of-day (UTC) and weekday engagement histograms
+ *  - top fans: the users who engage most with this creator
+ *  - content cadence + engagement rate
+ * Server-cheap: the 7-way union is materialised once and every aggregate reads
+ * from it. All sources are indexed by authorId/createdAt.
+ */
+export async function getInsights(userId: string, range = "28d") {
+  const days = rangeDays(range);
+  const since = new Date(Date.now() - days * 86_400_000);
+
+  const rows = await prisma.$queryRaw<Array<{
+    by_type: { kind: string; n: number }[] | null;
+    by_hour: { h: number; n: number }[] | null;
+    by_weekday: { d: number; n: number }[] | null;
+    top_fans: { uid: string; n: number }[] | null;
+    total: bigint;
+    reach: bigint;
+  }>>`
+    WITH ev AS (
+      SELECT pl."createdAt" AS ts, pl."userId" AS uid, 'post_like' AS kind
+        FROM "PostLike" pl JOIN "Post" p ON p.id = pl."postId"
+        WHERE p."authorId" = ${userId} AND pl."createdAt" >= ${since}
+      UNION ALL SELECT pc."createdAt", pc."authorId", 'post_comment'
+        FROM "PostComment" pc JOIN "Post" p ON p.id = pc."postId" WHERE p."authorId" = ${userId} AND pc."createdAt" >= ${since}
+      UNION ALL SELECT al."createdAt", al."userId", 'activity_like'
+        FROM "ActivityLike" al JOIN "Activity" a ON a.id = al."activityId" WHERE a."authorId" = ${userId} AND al."createdAt" >= ${since}
+      UNION ALL SELECT r."createdAt", r."authorId", 'activity_reply'
+        FROM "Reply" r JOIN "Activity" a ON a.id = r."activityId" WHERE a."authorId" = ${userId} AND r."createdAt" >= ${since}
+      UNION ALL SELECT bc."createdAt", bc."authorId", 'blog_comment'
+        FROM "BlogComment" bc JOIN "Blog" b ON b.id = bc."blogId" WHERE b."authorId" = ${userId} AND bc."createdAt" >= ${since}
+      UNION ALL SELECT rl."createdAt", rl."userId", 'review_like'
+        FROM "ReviewLike" rl JOIN "Review" rv ON rv.id = rl."reviewId" WHERE rv."authorId" = ${userId} AND rl."createdAt" >= ${since}
+    )
+    SELECT
+      (SELECT json_agg(t) FROM (SELECT kind, COUNT(*)::int n FROM ev GROUP BY kind) t)                                  AS by_type,
+      (SELECT json_agg(t) FROM (SELECT EXTRACT(hour FROM ts)::int h, COUNT(*)::int n FROM ev GROUP BY 1) t)             AS by_hour,
+      (SELECT json_agg(t) FROM (SELECT EXTRACT(dow  FROM ts)::int d, COUNT(*)::int n FROM ev GROUP BY 1) t)             AS by_weekday,
+      (SELECT json_agg(t) FROM (SELECT uid, COUNT(*)::int n FROM ev GROUP BY uid ORDER BY n DESC LIMIT 8) t)            AS top_fans,
+      (SELECT COUNT(*) FROM ev)                AS total,
+      (SELECT COUNT(DISTINCT uid) FROM ev)     AS reach
+  `;
+
+  const row = rows[0];
+  const byType = row?.by_type ?? [];
+  const byHourRaw = row?.by_hour ?? [];
+  const byWeekdayRaw = row?.by_weekday ?? [];
+  const topFansRaw = row?.top_fans ?? [];
+  const total = Number(row?.total ?? 0);
+  const reach = Number(row?.reach ?? 0);
+
+  // Dense 24-hour and 7-day arrays (fill gaps with 0) for a clean heatmap.
+  const hours = Array.from({ length: 24 }, (_, h) => ({ hour: h, count: byHourRaw.find((x) => x.h === h)?.n ?? 0 }));
+  const weekdays = Array.from({ length: 7 }, (_, d) => ({ weekday: d, count: byWeekdayRaw.find((x) => x.d === d)?.n ?? 0 }));
+  const bestHour = hours.reduce((a, b) => (b.count > a.count ? b : a), hours[0]);
+  const bestWeekday = weekdays.reduce((a, b) => (b.count > a.count ? b : a), weekdays[0]);
+
+  // Hydrate top fans with profile info + their total engagement contribution.
+  const fanIds = topFansRaw.map((f) => f.uid);
+  const fanUsers = fanIds.length
+    ? await prisma.user.findMany({
+        where: { id: { in: fanIds } },
+        select: { id: true, username: true, displayName: true, avatarUrl: true },
+      })
+    : [];
+  const topFans = topFansRaw
+    .map((f) => {
+      const u = fanUsers.find((x) => x.id === f.uid);
+      return u ? { id: u.id, username: u.username, displayName: u.displayName, avatarUrl: u.avatarUrl, engagements: f.n } : null;
+    })
+    .filter(Boolean);
+
+  // Content cadence in window.
+  const [posts, blogs, polls, shots, followers] = await prisma.$transaction([
+    prisma.post.count({ where: { authorId: userId, deletedAt: null, createdAt: { gte: since } } }),
+    prisma.blog.count({ where: { authorId: userId, status: "PUBLISHED", publishedAt: { gte: since } } }),
+    prisma.poll.count({ where: { authorId: userId, createdAt: { gte: since } } }),
+    prisma.shot.count({ where: { authorId: userId, deletedAt: null, createdAt: { gte: since } } }),
+    prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED" } }),
+  ]);
+  const contentCount = posts + blogs + polls + shots;
+
+  const friendly: Record<string, string> = {
+    post_like: "Post likes", post_comment: "Post comments", activity_like: "Activity likes",
+    activity_reply: "Replies", blog_comment: "Blog comments", review_like: "Review likes",
+  };
+
+  return {
+    range,
+    totalEngagements: total,
+    reach,
+    engagementRate: followers > 0 ? total / followers : 0,
+    engagementByType: byType
+      .map((t) => ({ type: t.kind, label: friendly[t.kind] ?? t.kind, count: t.n }))
+      .sort((a, b) => b.count - a.count),
+    hours,
+    weekdays,
+    bestHourUtc: bestHour.count > 0 ? bestHour.hour : null,
+    bestWeekday: bestWeekday.count > 0 ? bestWeekday.weekday : null,
+    topFans,
+    content: { posts, blogs, polls, shots, total: contentCount, perWeek: contentCount / Math.max(1, days / 7) },
+    avgEngagementPerContent: contentCount > 0 ? total / contentCount : 0,
+  };
+}
+
 // ─── Audience ─────────────────────────────────────────────────────────────────
 
 export async function getAudience(userId: string, range = "28d") {

@@ -813,6 +813,16 @@ export type Shot = Prisma.ShotModel
  */
 export type ShotLike = Prisma.ShotLikeModel
 /**
+ * Model SocialConnection
+ * 
+ */
+export type SocialConnection = Prisma.SocialConnectionModel
+/**
+ * Model ImportedMedia
+ * 
+ */
+export type ImportedMedia = Prisma.ImportedMediaModel
+/**
  * Model Story
  * 
  */

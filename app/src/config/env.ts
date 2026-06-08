@@ -37,6 +37,15 @@ export const env = {
   // then set this to the ngrok URL, e.g. https://abc123.ngrok-free.app
   OAUTH_CALLBACK_BASE:  process.env.OAUTH_CALLBACK_BASE  || "",
 
+  // Instagram (Meta) — connect creator IG accounts + import Reels into Shots.
+  // Create a Meta app → Instagram API; needs a Business/Creator IG account.
+  // Inert until APP_ID + APP_SECRET are set. Redirect URI defaults to the API host.
+  INSTAGRAM_APP_ID:      process.env.INSTAGRAM_APP_ID      || "",
+  INSTAGRAM_APP_SECRET:  process.env.INSTAGRAM_APP_SECRET  || "",
+  INSTAGRAM_REDIRECT_URI: process.env.INSTAGRAM_REDIRECT_URI || "",
+  // Where to bounce the creator back to after connecting (the studio).
+  CREATOR_STUDIO_URL:    process.env.CREATOR_STUDIO_URL    || "https://creator-studio.kaiveron.com",
+
   // Apple Sign In — https://developer.apple.com/
   APPLE_CLIENT_ID:   process.env.APPLE_CLIENT_ID   || "",
   APPLE_TEAM_ID:     process.env.APPLE_TEAM_ID     || "",

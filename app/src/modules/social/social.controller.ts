@@ -1,0 +1,43 @@
+import { Request, Response, NextFunction } from "express";
+import { z } from "zod";
+import { env } from "../../config/env";
+import * as service from "./social.service";
+
+export async function getConnections(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.listConnections(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+export async function startInstagram(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(service.startInstagramConnect(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+/** Public — Instagram redirects the browser here after the user authorizes. */
+export async function instagramCallback(req: Request, res: Response): Promise<void> {
+  const studio = env.CREATOR_STUDIO_URL.replace(/\/$/, "");
+  try {
+    const code = String(req.query.code ?? "");
+    const state = String(req.query.state ?? "");
+    if (req.query.error || !code) { res.redirect(`${studio}/shots?ig=denied`); return; }
+    await service.handleInstagramCallback(code, state);
+    res.redirect(`${studio}/shots?ig=connected`);
+  } catch {
+    res.redirect(`${studio}/shots?ig=error`);
+  }
+}
+
+export async function getReels(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.listInstagramReels(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+const importSchema = z.object({ mediaIds: z.array(z.string()).min(1).max(25) });
+
+export async function importReels(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { mediaIds } = importSchema.parse(req.body);
+    res.status(200).json(await service.importInstagramReels(res.locals.user.id, mediaIds));
+  } catch (err) { next(err); }
+}
+
+export async function disconnectInstagram(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.disconnectInstagram(res.locals.user.id)); } catch (err) { next(err); }
+}

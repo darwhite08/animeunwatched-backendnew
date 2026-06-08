@@ -497,6 +497,8 @@ export type UserWhereInput = {
   creatorEarnings?: Prisma.CreatorEarningListRelationFilter
   payoutAccount?: Prisma.XOR<Prisma.PayoutAccountNullableScalarRelationFilter, Prisma.PayoutAccountWhereInput> | null
   payouts?: Prisma.PayoutListRelationFilter
+  socialConnections?: Prisma.SocialConnectionListRelationFilter
+  importedMedia?: Prisma.ImportedMediaListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -595,6 +597,8 @@ export type UserOrderByWithRelationInput = {
   creatorEarnings?: Prisma.CreatorEarningOrderByRelationAggregateInput
   payoutAccount?: Prisma.PayoutAccountOrderByWithRelationInput
   payouts?: Prisma.PayoutOrderByRelationAggregateInput
+  socialConnections?: Prisma.SocialConnectionOrderByRelationAggregateInput
+  importedMedia?: Prisma.ImportedMediaOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -696,6 +700,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   creatorEarnings?: Prisma.CreatorEarningListRelationFilter
   payoutAccount?: Prisma.XOR<Prisma.PayoutAccountNullableScalarRelationFilter, Prisma.PayoutAccountWhereInput> | null
   payouts?: Prisma.PayoutListRelationFilter
+  socialConnections?: Prisma.SocialConnectionListRelationFilter
+  importedMedia?: Prisma.ImportedMediaListRelationFilter
 }, "id" | "email" | "username" | "slug">
 
 export type UserOrderByWithAggregationInput = {
@@ -868,6 +874,8 @@ export type UserCreateInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -966,6 +974,8 @@ export type UserUncheckedCreateInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -1064,6 +1074,8 @@ export type UserUpdateInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1162,6 +1174,8 @@ export type UserUncheckedUpdateInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -2306,6 +2320,34 @@ export type UserUpdateOneRequiredWithoutShotLikesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotLikesInput, Prisma.UserUpdateWithoutShotLikesInput>, Prisma.UserUncheckedUpdateWithoutShotLikesInput>
 }
 
+export type UserCreateNestedOneWithoutSocialConnectionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSocialConnectionsInput, Prisma.UserUncheckedCreateWithoutSocialConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSocialConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSocialConnectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSocialConnectionsInput, Prisma.UserUncheckedCreateWithoutSocialConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSocialConnectionsInput
+  upsert?: Prisma.UserUpsertWithoutSocialConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSocialConnectionsInput, Prisma.UserUpdateWithoutSocialConnectionsInput>, Prisma.UserUncheckedUpdateWithoutSocialConnectionsInput>
+}
+
+export type UserCreateNestedOneWithoutImportedMediaInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutImportedMediaInput, Prisma.UserUncheckedCreateWithoutImportedMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutImportedMediaInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutImportedMediaNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutImportedMediaInput, Prisma.UserUncheckedCreateWithoutImportedMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutImportedMediaInput
+  upsert?: Prisma.UserUpsertWithoutImportedMediaInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutImportedMediaInput, Prisma.UserUpdateWithoutImportedMediaInput>, Prisma.UserUncheckedUpdateWithoutImportedMediaInput>
+}
+
 export type UserCreateNestedOneWithoutStoriesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutStoriesInput, Prisma.UserUncheckedCreateWithoutStoriesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoriesInput
@@ -2429,6 +2471,8 @@ export type UserCreateWithoutCreatorProfileInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatorProfileInput = {
@@ -2526,6 +2570,8 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatorProfileInput = {
@@ -2639,6 +2685,8 @@ export type UserUpdateWithoutCreatorProfileInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatorProfileInput = {
@@ -2736,6 +2784,8 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatorTiersInput = {
@@ -2833,6 +2883,8 @@ export type UserCreateWithoutCreatorTiersInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatorTiersInput = {
@@ -2930,6 +2982,8 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatorTiersInput = {
@@ -3043,6 +3097,8 @@ export type UserUpdateWithoutCreatorTiersInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatorTiersInput = {
@@ -3140,6 +3196,8 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsAsFanInput = {
@@ -3237,6 +3295,8 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
@@ -3334,6 +3394,8 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsAsFanInput = {
@@ -3436,6 +3498,8 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
@@ -3533,6 +3597,8 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsAsCreatorInput = {
@@ -3646,6 +3712,8 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
@@ -3743,6 +3811,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutMembershipsAsCreatorInput = {
@@ -3851,6 +3921,8 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
@@ -3948,6 +4020,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTipsSentInput = {
@@ -4045,6 +4119,8 @@ export type UserCreateWithoutTipsSentInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTipsSentInput = {
@@ -4142,6 +4218,8 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTipsSentInput = {
@@ -4244,6 +4322,8 @@ export type UserCreateWithoutTipsReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTipsReceivedInput = {
@@ -4341,6 +4421,8 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTipsReceivedInput = {
@@ -4454,6 +4536,8 @@ export type UserUpdateWithoutTipsSentInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTipsSentInput = {
@@ -4551,6 +4635,8 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTipsReceivedInput = {
@@ -4659,6 +4745,8 @@ export type UserUpdateWithoutTipsReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTipsReceivedInput = {
@@ -4756,6 +4844,8 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatorEarningsInput = {
@@ -4853,6 +4943,8 @@ export type UserCreateWithoutCreatorEarningsInput = {
   tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatorEarningsInput = {
@@ -4950,6 +5042,8 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatorEarningsInput = {
@@ -5063,6 +5157,8 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
@@ -5160,6 +5256,8 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPayoutAccountInput = {
@@ -5257,6 +5355,8 @@ export type UserCreateWithoutPayoutAccountInput = {
   tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPayoutAccountInput = {
@@ -5354,6 +5454,8 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPayoutAccountInput = {
@@ -5467,6 +5569,8 @@ export type UserUpdateWithoutPayoutAccountInput = {
   tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPayoutAccountInput = {
@@ -5564,6 +5668,8 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPayoutsInput = {
@@ -5661,6 +5767,8 @@ export type UserCreateWithoutPayoutsInput = {
   tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPayoutsInput = {
@@ -5758,6 +5866,8 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPayoutsInput = {
@@ -5871,6 +5981,8 @@ export type UserUpdateWithoutPayoutsInput = {
   tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPayoutsInput = {
@@ -5968,6 +6080,8 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStreakDaysLogInput = {
@@ -6065,6 +6179,8 @@ export type UserCreateWithoutStreakDaysLogInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStreakDaysLogInput = {
@@ -6162,6 +6278,8 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStreakDaysLogInput = {
@@ -6275,6 +6393,8 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
@@ -6372,6 +6492,8 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDeviceTokensInput = {
@@ -6469,6 +6591,8 @@ export type UserCreateWithoutDeviceTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeviceTokensInput = {
@@ -6566,6 +6690,8 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeviceTokensInput = {
@@ -6679,6 +6805,8 @@ export type UserUpdateWithoutDeviceTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceTokensInput = {
@@ -6776,6 +6904,8 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNativePushTokensInput = {
@@ -6873,6 +7003,8 @@ export type UserCreateWithoutNativePushTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNativePushTokensInput = {
@@ -6970,6 +7102,8 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNativePushTokensInput = {
@@ -7083,6 +7217,8 @@ export type UserUpdateWithoutNativePushTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNativePushTokensInput = {
@@ -7180,6 +7316,8 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -7277,6 +7415,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -7374,6 +7514,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -7487,6 +7629,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -7584,6 +7728,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -7681,6 +7827,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -7778,6 +7926,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -7891,6 +8041,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -7988,6 +8140,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSecurityEventsInput = {
@@ -8085,6 +8239,8 @@ export type UserCreateWithoutSecurityEventsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSecurityEventsInput = {
@@ -8182,6 +8338,8 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSecurityEventsInput = {
@@ -8295,6 +8453,8 @@ export type UserUpdateWithoutSecurityEventsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSecurityEventsInput = {
@@ -8392,6 +8552,8 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -8489,6 +8651,8 @@ export type UserCreateWithoutFollowingInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -8586,6 +8750,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -8688,6 +8854,8 @@ export type UserCreateWithoutFollowersInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -8785,6 +8953,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -8898,6 +9068,8 @@ export type UserUpdateWithoutFollowingInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -8995,6 +9167,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -9103,6 +9277,8 @@ export type UserUpdateWithoutFollowersInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -9200,6 +9376,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListEntriesInput = {
@@ -9297,6 +9475,8 @@ export type UserCreateWithoutListEntriesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListEntriesInput = {
@@ -9394,6 +9574,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListEntriesInput = {
@@ -9507,6 +9689,8 @@ export type UserUpdateWithoutListEntriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListEntriesInput = {
@@ -9604,6 +9788,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -9701,6 +9887,8 @@ export type UserCreateWithoutPostsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -9798,6 +9986,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -9911,6 +10101,8 @@ export type UserUpdateWithoutPostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -10008,6 +10200,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostHidesInput = {
@@ -10105,6 +10299,8 @@ export type UserCreateWithoutPostHidesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostHidesInput = {
@@ -10202,6 +10398,8 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostHidesInput = {
@@ -10315,6 +10513,8 @@ export type UserUpdateWithoutPostHidesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostHidesInput = {
@@ -10412,6 +10612,8 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostLikesInput = {
@@ -10509,6 +10711,8 @@ export type UserCreateWithoutPostLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostLikesInput = {
@@ -10606,6 +10810,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostLikesInput = {
@@ -10719,6 +10925,8 @@ export type UserUpdateWithoutPostLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostLikesInput = {
@@ -10816,6 +11024,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -10913,6 +11123,8 @@ export type UserCreateWithoutPostCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -11010,6 +11222,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -11123,6 +11337,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -11220,6 +11436,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostCommentLikesInput = {
@@ -11317,6 +11535,8 @@ export type UserCreateWithoutPostCommentLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentLikesInput = {
@@ -11414,6 +11634,8 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentLikesInput = {
@@ -11527,6 +11749,8 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
@@ -11624,6 +11848,8 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedClubsInput = {
@@ -11721,6 +11947,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedClubsInput = {
@@ -11818,6 +12046,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedClubsInput = {
@@ -11931,6 +12161,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedClubsInput = {
@@ -12028,6 +12260,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubInvitesCreatedInput = {
@@ -12125,6 +12359,8 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
@@ -12222,6 +12458,8 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubInvitesCreatedInput = {
@@ -12335,6 +12573,8 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
@@ -12432,6 +12672,8 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubJoinRequestsInput = {
@@ -12529,6 +12771,8 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
@@ -12626,6 +12870,8 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubJoinRequestsInput = {
@@ -12739,6 +12985,8 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
@@ -12836,6 +13084,8 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubEventsCreatedInput = {
@@ -12933,6 +13183,8 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
@@ -13030,6 +13282,8 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubEventsCreatedInput = {
@@ -13143,6 +13397,8 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
@@ -13240,6 +13496,8 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubEventRsvpsInput = {
@@ -13337,6 +13595,8 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
@@ -13434,6 +13694,8 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubEventRsvpsInput = {
@@ -13547,6 +13809,8 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
@@ -13644,6 +13908,8 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubMembershipsInput = {
@@ -13741,6 +14007,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubMembershipsInput = {
@@ -13838,6 +14106,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubMembershipsInput = {
@@ -13951,6 +14221,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubMembershipsInput = {
@@ -14048,6 +14320,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutThreadReactionsInput = {
@@ -14145,6 +14419,8 @@ export type UserCreateWithoutThreadReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutThreadReactionsInput = {
@@ -14242,6 +14518,8 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutThreadReactionsInput = {
@@ -14355,6 +14633,8 @@ export type UserUpdateWithoutThreadReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadReactionsInput = {
@@ -14452,6 +14732,8 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutThreadsInput = {
@@ -14549,6 +14831,8 @@ export type UserCreateWithoutThreadsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutThreadsInput = {
@@ -14646,6 +14930,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutThreadsInput = {
@@ -14759,6 +15045,8 @@ export type UserUpdateWithoutThreadsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadsInput = {
@@ -14856,6 +15144,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutThreadRepliesInput = {
@@ -14953,6 +15243,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutThreadRepliesInput = {
@@ -15050,6 +15342,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutThreadRepliesInput = {
@@ -15163,6 +15457,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadRepliesInput = {
@@ -15260,6 +15556,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -15357,6 +15655,8 @@ export type UserCreateWithoutReviewsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -15454,6 +15754,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -15567,6 +15869,8 @@ export type UserUpdateWithoutReviewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -15664,6 +15968,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewLikesInput = {
@@ -15761,6 +16067,8 @@ export type UserCreateWithoutReviewLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewLikesInput = {
@@ -15858,6 +16166,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewLikesInput = {
@@ -15971,6 +16281,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewLikesInput = {
@@ -16068,6 +16380,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -16165,6 +16479,8 @@ export type UserCreateWithoutBlogsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -16262,6 +16578,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -16375,6 +16693,8 @@ export type UserUpdateWithoutBlogsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -16472,6 +16792,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogCommentsInput = {
@@ -16569,6 +16891,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogCommentsInput = {
@@ -16666,6 +16990,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogCommentsInput = {
@@ -16779,6 +17105,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogCommentsInput = {
@@ -16876,6 +17204,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -16973,6 +17303,8 @@ export type UserCreateWithoutNotificationsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -17070,6 +17402,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -17183,6 +17517,8 @@ export type UserUpdateWithoutNotificationsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -17280,6 +17616,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportsInput = {
@@ -17377,6 +17715,8 @@ export type UserCreateWithoutReportsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsInput = {
@@ -17474,6 +17814,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsInput = {
@@ -17587,6 +17929,8 @@ export type UserUpdateWithoutReportsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsInput = {
@@ -17684,6 +18028,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModerationActionsInput = {
@@ -17781,6 +18127,8 @@ export type UserCreateWithoutModerationActionsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModerationActionsInput = {
@@ -17878,6 +18226,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModerationActionsInput = {
@@ -17991,6 +18341,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModerationActionsInput = {
@@ -18088,6 +18440,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPollsInput = {
@@ -18185,6 +18539,8 @@ export type UserCreateWithoutPollsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPollsInput = {
@@ -18282,6 +18638,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPollsInput = {
@@ -18395,6 +18753,8 @@ export type UserUpdateWithoutPollsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollsInput = {
@@ -18492,6 +18852,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPollVotesInput = {
@@ -18589,6 +18951,8 @@ export type UserCreateWithoutPollVotesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPollVotesInput = {
@@ -18686,6 +19050,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPollVotesInput = {
@@ -18799,6 +19165,8 @@ export type UserUpdateWithoutPollVotesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollVotesInput = {
@@ -18896,6 +19264,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthProvidersInput = {
@@ -18993,6 +19363,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthProvidersInput = {
@@ -19090,6 +19462,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthProvidersInput = {
@@ -19203,6 +19577,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthProvidersInput = {
@@ -19300,6 +19676,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPublicKeyInput = {
@@ -19397,6 +19775,8 @@ export type UserCreateWithoutPublicKeyInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPublicKeyInput = {
@@ -19494,6 +19874,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPublicKeyInput = {
@@ -19607,6 +19989,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPublicKeyInput = {
@@ -19704,6 +20088,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutConversations1Input = {
@@ -19801,6 +20187,8 @@ export type UserCreateWithoutConversations1Input = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversations1Input = {
@@ -19898,6 +20286,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversations1Input = {
@@ -20000,6 +20390,8 @@ export type UserCreateWithoutConversations2Input = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversations2Input = {
@@ -20097,6 +20489,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversations2Input = {
@@ -20210,6 +20604,8 @@ export type UserUpdateWithoutConversations1Input = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations1Input = {
@@ -20307,6 +20703,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConversations2Input = {
@@ -20415,6 +20813,8 @@ export type UserUpdateWithoutConversations2Input = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations2Input = {
@@ -20512,6 +20912,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -20609,6 +21011,8 @@ export type UserCreateWithoutSentMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -20706,6 +21110,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -20819,6 +21225,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -20916,6 +21324,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessageReactionsInput = {
@@ -21013,6 +21423,8 @@ export type UserCreateWithoutMessageReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -21110,6 +21522,8 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -21223,6 +21637,8 @@ export type UserUpdateWithoutMessageReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -21320,6 +21736,8 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsOwnedInput = {
@@ -21417,6 +21835,8 @@ export type UserCreateWithoutGroupsOwnedInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsOwnedInput = {
@@ -21514,6 +21934,8 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsOwnedInput = {
@@ -21627,6 +22049,8 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
@@ -21724,6 +22148,8 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMembershipsInput = {
@@ -21821,6 +22247,8 @@ export type UserCreateWithoutGroupMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMembershipsInput = {
@@ -21918,6 +22346,8 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMembershipsInput = {
@@ -22031,6 +22461,8 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
@@ -22128,6 +22560,8 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMessagesInput = {
@@ -22225,6 +22659,8 @@ export type UserCreateWithoutGroupMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMessagesInput = {
@@ -22322,6 +22758,8 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMessagesInput = {
@@ -22435,6 +22873,8 @@ export type UserUpdateWithoutGroupMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMessagesInput = {
@@ -22532,6 +22972,8 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupReactionsInput = {
@@ -22629,6 +23071,8 @@ export type UserCreateWithoutGroupReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupReactionsInput = {
@@ -22726,6 +23170,8 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupReactionsInput = {
@@ -22839,6 +23285,8 @@ export type UserUpdateWithoutGroupReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupReactionsInput = {
@@ -22936,6 +23384,8 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDeviceKeysInput = {
@@ -23033,6 +23483,8 @@ export type UserCreateWithoutDeviceKeysInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeviceKeysInput = {
@@ -23130,6 +23582,8 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeviceKeysInput = {
@@ -23243,6 +23697,8 @@ export type UserUpdateWithoutDeviceKeysInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceKeysInput = {
@@ -23340,6 +23796,8 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlocksMadeInput = {
@@ -23437,6 +23895,8 @@ export type UserCreateWithoutBlocksMadeInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlocksMadeInput = {
@@ -23534,6 +23994,8 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlocksMadeInput = {
@@ -23636,6 +24098,8 @@ export type UserCreateWithoutBlocksReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlocksReceivedInput = {
@@ -23733,6 +24197,8 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlocksReceivedInput = {
@@ -23846,6 +24312,8 @@ export type UserUpdateWithoutBlocksMadeInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksMadeInput = {
@@ -23943,6 +24411,8 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutBlocksReceivedInput = {
@@ -24051,6 +24521,8 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
@@ -24148,6 +24620,8 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutE2eKeyWrapsInput = {
@@ -24245,6 +24719,8 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
@@ -24342,6 +24818,8 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutE2eKeyWrapsInput = {
@@ -24455,6 +24933,8 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
@@ -24552,6 +25032,8 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutE2eDevicesInput = {
@@ -24649,6 +25131,8 @@ export type UserCreateWithoutE2eDevicesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutE2eDevicesInput = {
@@ -24746,6 +25230,8 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutE2eDevicesInput = {
@@ -24859,6 +25345,8 @@ export type UserUpdateWithoutE2eDevicesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutE2eDevicesInput = {
@@ -24956,6 +25444,8 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivitiesInput = {
@@ -25053,6 +25543,8 @@ export type UserCreateWithoutActivitiesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -25150,6 +25642,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -25263,6 +25757,8 @@ export type UserUpdateWithoutActivitiesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -25360,6 +25856,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityLikesInput = {
@@ -25457,6 +25955,8 @@ export type UserCreateWithoutActivityLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityLikesInput = {
@@ -25554,6 +26054,8 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityLikesInput = {
@@ -25667,6 +26169,8 @@ export type UserUpdateWithoutActivityLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLikesInput = {
@@ -25764,6 +26268,8 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityRepostsInput = {
@@ -25861,6 +26367,8 @@ export type UserCreateWithoutActivityRepostsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityRepostsInput = {
@@ -25958,6 +26466,8 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityRepostsInput = {
@@ -26071,6 +26581,8 @@ export type UserUpdateWithoutActivityRepostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityRepostsInput = {
@@ -26168,6 +26680,8 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRepliesInput = {
@@ -26265,6 +26779,8 @@ export type UserCreateWithoutRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRepliesInput = {
@@ -26362,6 +26878,8 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRepliesInput = {
@@ -26475,6 +26993,8 @@ export type UserUpdateWithoutRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepliesInput = {
@@ -26572,6 +27092,8 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScimSubjectInput = {
@@ -26669,6 +27191,8 @@ export type UserCreateWithoutScimSubjectInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScimSubjectInput = {
@@ -26766,6 +27290,8 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScimSubjectInput = {
@@ -26879,6 +27405,8 @@ export type UserUpdateWithoutScimSubjectInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScimSubjectInput = {
@@ -26976,6 +27504,8 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShotsInput = {
@@ -27073,6 +27603,8 @@ export type UserCreateWithoutShotsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShotsInput = {
@@ -27170,6 +27702,8 @@ export type UserUncheckedCreateWithoutShotsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShotsInput = {
@@ -27283,6 +27817,8 @@ export type UserUpdateWithoutShotsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotsInput = {
@@ -27380,6 +27916,8 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShotLikesInput = {
@@ -27477,6 +28015,8 @@ export type UserCreateWithoutShotLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShotLikesInput = {
@@ -27574,6 +28114,8 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShotLikesInput = {
@@ -27687,6 +28229,8 @@ export type UserUpdateWithoutShotLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotLikesInput = {
@@ -27784,6 +28328,832 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSocialConnectionsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSocialConnectionsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSocialConnectionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSocialConnectionsInput, Prisma.UserUncheckedCreateWithoutSocialConnectionsInput>
+}
+
+export type UserUpsertWithoutSocialConnectionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSocialConnectionsInput, Prisma.UserUncheckedUpdateWithoutSocialConnectionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSocialConnectionsInput, Prisma.UserUncheckedCreateWithoutSocialConnectionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSocialConnectionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSocialConnectionsInput, Prisma.UserUncheckedUpdateWithoutSocialConnectionsInput>
+}
+
+export type UserUpdateWithoutSocialConnectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutImportedMediaInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutImportedMediaInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutImportedMediaInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutImportedMediaInput, Prisma.UserUncheckedCreateWithoutImportedMediaInput>
+}
+
+export type UserUpsertWithoutImportedMediaInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutImportedMediaInput, Prisma.UserUncheckedUpdateWithoutImportedMediaInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutImportedMediaInput, Prisma.UserUncheckedCreateWithoutImportedMediaInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutImportedMediaInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutImportedMediaInput, Prisma.UserUncheckedUpdateWithoutImportedMediaInput>
+}
+
+export type UserUpdateWithoutImportedMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutImportedMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoriesInput = {
@@ -27881,6 +29251,8 @@ export type UserCreateWithoutStoriesInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoriesInput = {
@@ -27978,6 +29350,8 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoriesInput = {
@@ -28091,6 +29465,8 @@ export type UserUpdateWithoutStoriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -28188,6 +29564,8 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoryViewsInput = {
@@ -28285,6 +29663,8 @@ export type UserCreateWithoutStoryViewsInput = {
   creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoryViewsInput = {
@@ -28382,6 +29762,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
   payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
   payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoryViewsInput = {
@@ -28495,6 +29877,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoryViewsInput = {
@@ -28592,6 +29976,8 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
   payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
   payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -28661,6 +30047,8 @@ export type UserCountOutputType = {
   tipsReceived: number
   creatorEarnings: number
   payouts: number
+  socialConnections: number
+  importedMedia: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -28725,6 +30113,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   tipsReceived?: boolean | UserCountOutputTypeCountTipsReceivedArgs
   creatorEarnings?: boolean | UserCountOutputTypeCountCreatorEarningsArgs
   payouts?: boolean | UserCountOutputTypeCountPayoutsArgs
+  socialConnections?: boolean | UserCountOutputTypeCountSocialConnectionsArgs
+  importedMedia?: boolean | UserCountOutputTypeCountImportedMediaArgs
 }
 
 /**
@@ -29164,6 +30554,20 @@ export type UserCountOutputTypeCountPayoutsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.PayoutWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSocialConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SocialConnectionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountImportedMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ImportedMediaWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -29261,6 +30665,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   creatorEarnings?: boolean | Prisma.User$creatorEarningsArgs<ExtArgs>
   payoutAccount?: boolean | Prisma.User$payoutAccountArgs<ExtArgs>
   payouts?: boolean | Prisma.User$payoutsArgs<ExtArgs>
+  socialConnections?: boolean | Prisma.User$socialConnectionsArgs<ExtArgs>
+  importedMedia?: boolean | Prisma.User$importedMediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -29430,6 +30836,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   creatorEarnings?: boolean | Prisma.User$creatorEarningsArgs<ExtArgs>
   payoutAccount?: boolean | Prisma.User$payoutAccountArgs<ExtArgs>
   payouts?: boolean | Prisma.User$payoutsArgs<ExtArgs>
+  socialConnections?: boolean | Prisma.User$socialConnectionsArgs<ExtArgs>
+  importedMedia?: boolean | Prisma.User$importedMediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -29503,6 +30911,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     creatorEarnings: Prisma.$CreatorEarningPayload<ExtArgs>[]
     payoutAccount: Prisma.$PayoutAccountPayload<ExtArgs> | null
     payouts: Prisma.$PayoutPayload<ExtArgs>[]
+    socialConnections: Prisma.$SocialConnectionPayload<ExtArgs>[]
+    importedMedia: Prisma.$ImportedMediaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -30009,6 +31419,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   creatorEarnings<T extends Prisma.User$creatorEarningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creatorEarningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreatorEarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payoutAccount<T extends Prisma.User$payoutAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$payoutAccountArgs<ExtArgs>>): Prisma.Prisma__PayoutAccountClient<runtime.Types.Result.GetResult<Prisma.$PayoutAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payouts<T extends Prisma.User$payoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  socialConnections<T extends Prisma.User$socialConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$socialConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SocialConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  importedMedia<T extends Prisma.User$importedMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$importedMediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImportedMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31993,6 +33405,54 @@ export type User$payoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.PayoutScalarFieldEnum | Prisma.PayoutScalarFieldEnum[]
+}
+
+/**
+ * User.socialConnections
+ */
+export type User$socialConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SocialConnection
+   */
+  select?: Prisma.SocialConnectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SocialConnection
+   */
+  omit?: Prisma.SocialConnectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SocialConnectionInclude<ExtArgs> | null
+  where?: Prisma.SocialConnectionWhereInput
+  orderBy?: Prisma.SocialConnectionOrderByWithRelationInput | Prisma.SocialConnectionOrderByWithRelationInput[]
+  cursor?: Prisma.SocialConnectionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SocialConnectionScalarFieldEnum | Prisma.SocialConnectionScalarFieldEnum[]
+}
+
+/**
+ * User.importedMedia
+ */
+export type User$importedMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ImportedMedia
+   */
+  select?: Prisma.ImportedMediaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ImportedMedia
+   */
+  omit?: Prisma.ImportedMediaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImportedMediaInclude<ExtArgs> | null
+  where?: Prisma.ImportedMediaWhereInput
+  orderBy?: Prisma.ImportedMediaOrderByWithRelationInput | Prisma.ImportedMediaOrderByWithRelationInput[]
+  cursor?: Prisma.ImportedMediaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ImportedMediaScalarFieldEnum | Prisma.ImportedMediaScalarFieldEnum[]
 }
 
 /**

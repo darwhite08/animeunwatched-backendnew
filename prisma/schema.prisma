@@ -166,6 +166,9 @@ model User {
   creatorEarnings    CreatorEarning[]
   payoutAccount      PayoutAccount?
   payouts            Payout[]
+  // Connected external accounts (Instagram, …) + imported media dedup
+  socialConnections  SocialConnection[]
+  importedMedia      ImportedMedia[]
 }
 
 // ---------------------------------------------------------------------------
@@ -3410,6 +3413,46 @@ model ShotLike {
   shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
 
   @@id([userId, shotId])
+}
+
+// ─── Social connections — link external accounts (Instagram) ────────────────
+// Lets creators connect Instagram and import Reels straight into Shots. The
+// access token is long-lived; refresh it before expiry. One row per provider.
+
+model SocialConnection {
+  id             String    @id @default(cuid())
+  userId         String
+  provider       String    // "instagram"
+  providerUserId String    // external account id (IG user id)
+  username       String?   // external handle, for display
+  accessToken    String    // long-lived token (treat as a secret)
+  tokenExpiresAt DateTime?
+  scopes         String[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+  @@index([userId])
+}
+
+// One row per imported external media item, so re-importing is idempotent and
+// the UI can show "already imported". Links to the resulting Shot when created.
+
+model ImportedMedia {
+  id         String   @id @default(cuid())
+  userId     String
+  provider   String   // "instagram"
+  externalId String   // provider media id
+  shotId     String?  // resulting Shot, if imported
+  permalink  String?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider, externalId])
+  @@index([userId])
 }
 
 

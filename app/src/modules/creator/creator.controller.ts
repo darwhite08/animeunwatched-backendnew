@@ -25,6 +25,12 @@ export async function getAnalyticsAudience(req: Request, res: Response, next: Ne
   } catch (err) { next(err); }
 }
 
+export async function getAnalyticsInsights(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await analytics.getInsights(res.locals.user.id, range(req)));
+  } catch (err) { next(err); }
+}
+
 export async function getCreatorStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
