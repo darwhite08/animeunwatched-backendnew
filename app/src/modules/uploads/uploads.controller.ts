@@ -110,6 +110,28 @@ export async function dmMedia(req: Request, res: Response, next: NextFunction): 
   }
 }
 
+/**
+ * E2EE DM media: the client uploads an ALREADY-ENCRYPTED opaque blob (ciphertext
+ * with a prepended IV). The server does NO processing or magic-byte validation
+ * (it can't — it's ciphertext) and just stores the bytes. Blurhash/dims are
+ * computed client-side before encryption and travel as clear metadata.
+ */
+export async function dmEncryptedMedia(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const file = (req as Request & { file?: { buffer: Buffer } }).file;
+    if (!file?.buffer?.length) throw badRequest("No file uploaded");
+    if (file.buffer.length > 30 * 1024 * 1024) throw badRequest("Encrypted media too large");
+    const { uploadImageBuffer } = await import("../../lib/storage");
+    const { publicUrl } = await uploadImageBuffer({
+      userId, scope: "dm", contentType: "application/octet-stream", ext: "enc", body: file.buffer,
+    });
+    res.status(200).json({ mediaUrl: publicUrl });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function shotVideo(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;
