@@ -117,6 +117,18 @@ export async function likePost(req: Request, res: Response, next: NextFunction):
   }
 }
 
+export async function reactPost(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const emoji = String((req.body ?? {}).emoji ?? "").trim().slice(0, 8);
+    if (!emoji) { res.status(400).json({ error: { code: "BAD_REQUEST", message: "emoji required" } }); return; }
+    const result = await service.reactToPost((req.params.id as string), userId, emoji);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function unlikePost(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

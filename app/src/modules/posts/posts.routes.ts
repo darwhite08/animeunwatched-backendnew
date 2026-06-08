@@ -21,6 +21,7 @@ postsRouter.post("/", requireAuth, turnstile(), ctrl.createPost);
 postsRouter.delete("/:id", requireAuth, ctrl.deletePost);
 postsRouter.post("/:id/like", requireAuth, ctrl.likePost);
 postsRouter.delete("/:id/like", requireAuth, ctrl.unlikePost);
+postsRouter.put("/:id/reaction", requireAuth, ctrl.reactPost);
 postsRouter.get("/:id/comments", optionalAuth, ctrl.getComments);
 postsRouter.post("/:id/comments", requireAuth, turnstile(), ctrl.createComment);
 

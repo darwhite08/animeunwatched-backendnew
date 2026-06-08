@@ -531,7 +531,37 @@ export async function getPost(id: string, userId?: string) {
     liked = like !== null;
   }
 
-  return { post, liked };
+  const reactions = await postReactions(id, userId);
+  return { post: { ...post, reactions }, liked };
+}
+
+// ─── reactions (emoji, reusing the polymorphic ThreadReaction table) ──────────
+
+type PostReactionSummary = { emoji: string; count: number; reactedByMe: boolean };
+
+async function postReactions(postId: string, userId?: string): Promise<PostReactionSummary[]> {
+  const rows = await prisma.threadReaction.findMany({
+    where: { targetId: postId },
+    select: { emoji: true, userId: true },
+  });
+  const m = new Map<string, PostReactionSummary>();
+  for (const r of rows) {
+    const e = m.get(r.emoji) ?? { emoji: r.emoji, count: 0, reactedByMe: false };
+    e.count += 1;
+    if (userId && r.userId === userId) e.reactedByMe = true;
+    m.set(r.emoji, e);
+  }
+  return [...m.values()];
+}
+
+/** Toggle an emoji reaction on a post. */
+export async function reactToPost(postId: string, userId: string, emoji: string) {
+  const post = await prisma.post.findUnique({ where: { id: postId }, select: { id: true, deletedAt: true } });
+  if (!post || post.deletedAt) throw notFound("Post not found");
+  const existing = await prisma.threadReaction.findUnique({ where: { targetId_userId_emoji: { targetId: postId, userId, emoji } } });
+  if (existing) await prisma.threadReaction.delete({ where: { id: existing.id } });
+  else await prisma.threadReaction.create({ data: { targetId: postId, targetType: "post", userId, emoji } });
+  return { reactions: await postReactions(postId, userId) };
 }
 
 // ─── createPost ───────────────────────────────────────────────────────────────
