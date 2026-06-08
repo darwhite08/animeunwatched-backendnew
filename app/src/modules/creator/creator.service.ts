@@ -23,6 +23,29 @@ export async function getMyBlogs(userId: string) {
   };
 }
 
+/** A creator's own feed posts (newest first) with engagement counts. The feed
+ *  itself is open to all users; this is the creator's management view. */
+export async function getMyPosts(userId: string) {
+  const posts = await prisma.post.findMany({
+    where: { authorId: userId, deletedAt: null },
+    orderBy: { createdAt: "desc" },
+    take: 50,
+    select: {
+      id: true, content: true, imageUrl: true, createdAt: true,
+      anime: { select: { title: true, malId: true } },
+      _count: { select: { likes: true, comments: true } },
+    },
+  });
+  return {
+    items: posts.map((p) => ({
+      id: p.id, content: p.content, imageUrl: p.imageUrl,
+      createdAt: p.createdAt.toISOString(),
+      anime: p.anime ? { title: p.anime.title, malId: p.anime.malId } : null,
+      likes: p._count.likes, comments: p._count.comments,
+    })),
+  };
+}
+
 /** All of a creator's polls with option vote tallies. */
 export async function getMyPolls(userId: string) {
   const polls = await prisma.poll.findMany({

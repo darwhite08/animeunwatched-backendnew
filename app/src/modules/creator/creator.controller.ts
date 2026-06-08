@@ -64,6 +64,10 @@ export async function getMyBlogs(_req: Request, res: Response, next: NextFunctio
   try { res.status(200).json(await service.getMyBlogs(res.locals.user.id)); } catch (err) { next(err); }
 }
 
+export async function getMyPosts(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMyPosts(res.locals.user.id)); } catch (err) { next(err); }
+}
+
 export async function getMyPolls(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getMyPolls(res.locals.user.id)); } catch (err) { next(err); }
 }
