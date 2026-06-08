@@ -107,7 +107,7 @@ export async function getEngagementInbox(userId: string) {
     prisma.reply.findMany({
       where: { activity: { authorId: userId }, authorId: { not: userId } },
       orderBy: { createdAt: "desc" }, take: 25,
-      select: { id: true, body: true, createdAt: true, author: { select: sel }, activity: { select: { body: true } } },
+      select: { id: true, body: true, createdAt: true, author: { select: sel }, activity: { select: { id: true, body: true } } },
     }),
     prisma.follow.findMany({
       where: { followingId: userId, status: "ACCEPTED" }, orderBy: { createdAt: "desc" }, take: 25,
@@ -115,11 +115,12 @@ export async function getEngagementInbox(userId: string) {
     }),
   ]);
 
+  type ReplyTo = { kind: "post" | "blog" | "activity"; id: string } | null;
   const items = [
-    ...postC.map((c) => ({ id: c.id, type: "comment" as const, surface: "post", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: "your post", snippet: c.post?.content?.slice(0, 90) ?? null, href: null as string | null } })),
-    ...blogC.map((c) => ({ id: c.id, type: "comment" as const, surface: "blog", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: c.blog?.title ?? "your blog", snippet: null, href: c.blog ? `/blog/${c.blog.slug}` : null } })),
-    ...replies.map((r) => ({ id: r.id, type: "comment" as const, surface: "activity", text: r.body, createdAt: r.createdAt.toISOString(), author: r.author, target: { label: "your activity", snippet: r.activity?.body?.slice(0, 90) ?? null, href: null } })),
-    ...follows.map((f) => ({ id: `follow-${f.followerId}`, type: "follow" as const, surface: "follow", text: "started following you", createdAt: f.createdAt.toISOString(), author: f.follower, target: { label: "", snippet: null, href: null } })),
+    ...postC.map((c) => ({ id: c.id, type: "comment" as const, surface: "post", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: "your post", snippet: c.post?.content?.slice(0, 90) ?? null, href: null as string | null }, replyTo: (c.post ? { kind: "post", id: c.post.id } : null) as ReplyTo })),
+    ...blogC.map((c) => ({ id: c.id, type: "comment" as const, surface: "blog", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: c.blog?.title ?? "your blog", snippet: null, href: c.blog ? `/blog/${c.blog.slug}` : null }, replyTo: (c.blog ? { kind: "blog", id: c.blog.slug } : null) as ReplyTo })),
+    ...replies.map((r) => ({ id: r.id, type: "comment" as const, surface: "activity", text: r.body, createdAt: r.createdAt.toISOString(), author: r.author, target: { label: "your activity", snippet: r.activity?.body?.slice(0, 90) ?? null, href: null }, replyTo: (r.activity ? { kind: "activity", id: r.activity.id } : null) as ReplyTo })),
+    ...follows.map((f) => ({ id: `follow-${f.followerId}`, type: "follow" as const, surface: "follow", text: "started following you", createdAt: f.createdAt.toISOString(), author: f.follower, target: { label: "", snippet: null, href: null }, replyTo: null as ReplyTo })),
   ].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 40);
 
   return { items, commentCount: postC.length + blogC.length + replies.length };
