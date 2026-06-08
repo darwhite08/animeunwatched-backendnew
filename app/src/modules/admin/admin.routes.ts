@@ -322,6 +322,8 @@ adminRouter.post(  "/incidents",                       requirePermission("settin
 adminRouter.patch( "/incidents/:id",                   requirePermission("settings","write"), incidents.patchIncident);
 adminRouter.post(  "/incidents/:id/updates",           requirePermission("settings","write"), incidents.appendUpdate);
 adminRouter.post(  "/incidents/bulk-resolve",          requirePermission("settings","write"), incidents.bulkResolve);
+adminRouter.post(  "/incidents/from-alert/:alertId",   requirePermission("settings","write"), incidents.declareFromAlert);
+adminRouter.get(   "/incidents/:id/recap",             requirePermission("settings","read"),  incidents.getIncidentRecap);
 
 // Maintenance windows
 adminRouter.get(   "/maintenance",                     requirePermission("settings","read"),  maint.listMaintenance);
