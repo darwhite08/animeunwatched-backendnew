@@ -270,6 +270,12 @@ export function getSeasonNowPage(page = 1): Promise<JikanListResponse<JikanAnime
   return jikanFetch<JikanListResponse<JikanAnime>>(`/seasons/now?page=${page}`);
 }
 
+export function getSchedulesPage(
+  day: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday",
+): Promise<JikanListResponse<JikanAnime>> {
+  return jikanFetch<JikanListResponse<JikanAnime>>(`/schedules?filter=${day}&sfw=true&limit=25`);
+}
+
 export function searchAnimePage(
   query: string,
   opts?: { page?: number; limit?: number },

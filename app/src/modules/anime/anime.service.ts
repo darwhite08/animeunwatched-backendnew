@@ -309,6 +309,28 @@ export async function getBySlug(slug: string, userId?: string) {
   return local;
 }
 
+// ─── getSchedule (weekly airing, via the catalog/Jikan client) ───────────────
+
+export async function getSchedule(
+  day: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday",
+) {
+  const { getSchedulesPage } = await import("../../lib/catalog/jikanClient");
+  const res = await getSchedulesPage(day);
+  const seen = new Set<number>();
+  const data = (res.data ?? [])
+    .map((a: any) => ({
+      malId: a.mal_id,
+      title: a.title_english || a.title,
+      imageUrl: a.images?.jpg?.image_url ?? a.images?.jpg?.large_image_url ?? null,
+      broadcastTime: a.broadcast?.string && a.broadcast.string !== "Unknown" ? a.broadcast.string : (a.broadcast?.time ?? null),
+      episodes: a.episodes ?? null,
+      score: a.score ?? null,
+      type: a.type ?? null,
+    }))
+    .filter((a: { malId: number }) => a.malId && !seen.has(a.malId) && seen.add(a.malId));
+  return { data };
+}
+
 // ─── getSeasonal ─────────────────────────────────────────────────────────────
 
 export async function getSeasonal(

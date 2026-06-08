@@ -12,6 +12,7 @@ animeRouter.get("/top", ctrl.getTrending);        // alias: GET /anime/top?limit
 animeRouter.get("/genres",  ctrl.listGenres);     // distinct catalog genres
 animeRouter.get("/studios", ctrl.listStudios);    // distinct catalog studios
 animeRouter.get("/season/:year/:season", optionalAuth, ctrl.getSeasonal);
+animeRouter.get("/schedule/:day", optionalAuth, ctrl.getSchedule);
 animeRouter.get("/:malId/similar",     optionalAuth, ctrl.getSimilar);
 animeRouter.get("/:malId/user-stats",  optionalAuth, ctrl.getAnimeUserStats);
 animeRouter.get("/:malId/characters",  optionalAuth, ctrl.getCharacters);

@@ -28,4 +28,5 @@ export interface CatalogProvider {
     season: "winter" | "spring" | "summer" | "fall",
   ): Promise<CatalogAnime[]>;
   getTopAnime(opts?: { type?: string; limit?: number }): Promise<CatalogAnime[]>;
+  getSchedule?(day: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"): Promise<CatalogAnime[]>;
 }

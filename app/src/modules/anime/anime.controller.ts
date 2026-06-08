@@ -6,6 +6,17 @@ import { badReq } from "../../lib/errors";
 const VALID_SEASONS = ["winter", "spring", "summer", "fall"] as const;
 type Season = typeof VALID_SEASONS[number];
 
+const VALID_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
+export async function getSchedule(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const day = String(req.params.day ?? "").toLowerCase();
+    if (!VALID_DAYS.includes(day as typeof VALID_DAYS[number])) throw badReq("day must be a weekday name");
+    res.status(200).json(await service.getSchedule(day as typeof VALID_DAYS[number]));
+  } catch (err) {
+    next(err);
+  }
+}
+
 function parseMalId(raw: string | string[]): number {
   const str = Array.isArray(raw) ? raw[0] : raw;
   const id = parseInt(str, 10);

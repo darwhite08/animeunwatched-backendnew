@@ -1,5 +1,5 @@
 import type { CatalogAnime, CatalogProvider } from "./types";
-import { getAnimeFull, getSeasonPage, getTopAnimePage, searchAnimePage, type JikanAnime } from "./jikanClient";
+import { getAnimeFull, getSeasonPage, getTopAnimePage, searchAnimePage, getSchedulesPage, type JikanAnime } from "./jikanClient";
 import { mapJikanToCatalog } from "./jikan.mapper";
 
 // ─── JikanProvider ────────────────────────────────────────────────────────────
@@ -45,6 +45,18 @@ export class JikanProvider implements CatalogProvider {
       let items = res.data ?? [];
       if (opts?.type) items = items.filter((a) => a.type?.toLowerCase() === opts.type?.toLowerCase());
       return items.slice(0, limit).map((a: JikanAnime) => mapJikanToCatalog(a as unknown as Record<string, unknown>));
+    } catch {
+      return [];
+    }
+  }
+
+  async getSchedule(day: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"): Promise<CatalogAnime[]> {
+    try {
+      const res = await getSchedulesPage(day);
+      const seen = new Set<number>();
+      return (res.data ?? [])
+        .map((a: JikanAnime) => mapJikanToCatalog(a as unknown as Record<string, unknown>))
+        .filter((a: CatalogAnime) => a.malId && !seen.has(a.malId) && seen.add(a.malId));
     } catch {
       return [];
     }
