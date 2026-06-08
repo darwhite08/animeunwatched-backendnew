@@ -875,6 +875,10 @@ model Conversation {
   p2DeletedAt   DateTime?
   p1LastReadAt  DateTime?
   p2LastReadAt  DateTime?
+  p1Pinned      Boolean  @default(false)
+  p2Pinned      Boolean  @default(false)
+  p1Archived    Boolean  @default(false)
+  p2Archived    Boolean  @default(false)
 
   user1    User            @relation("ConvParticipant1", fields: [participant1], references: [id], onDelete: Cascade)
   user2    User            @relation("ConvParticipant2", fields: [participant2], references: [id], onDelete: Cascade)

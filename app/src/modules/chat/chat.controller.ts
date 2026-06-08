@@ -201,6 +201,20 @@ export async function muteConversation(req: Request, res: Response, next: NextFu
   }
 }
 
+export async function pinConversation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.pinConversation(res.locals.user.id as string, req.params.conversationId as string, req.body?.pinned !== false);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
+export async function archiveConversation(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await chatService.archiveConversation(res.locals.user.id as string, req.params.conversationId as string, req.body?.archived !== false);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
 export async function deleteConversation(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await chatService.deleteConversationForMe(res.locals.user.id as string, req.params.conversationId as string);

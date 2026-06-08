@@ -30,6 +30,8 @@ chatRouter.get( "/conversations/:conversationId", requireAuth, ctrl.getConversat
 chatRouter.post("/conversations/:conversationId/accept",  requireAuth, ctrl.acceptRequest);
 chatRouter.post("/conversations/:conversationId/decline", requireAuth, ctrl.declineRequest);
 chatRouter.post("/conversations/:conversationId/mute",    requireAuth, ctrl.muteConversation);
+chatRouter.post("/conversations/:conversationId/pin",     requireAuth, ctrl.pinConversation);
+chatRouter.post("/conversations/:conversationId/archive", requireAuth, ctrl.archiveConversation);
 chatRouter.delete("/conversations/:conversationId",       requireAuth, ctrl.deleteConversation);
 chatRouter.get( "/conversations/:conversationId/search",  requireAuth, ctrl.searchConversation);
 

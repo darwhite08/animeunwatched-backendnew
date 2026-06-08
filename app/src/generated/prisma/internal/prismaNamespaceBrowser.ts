@@ -733,7 +733,11 @@ export const ConversationScalarFieldEnum = {
   p1DeletedAt: 'p1DeletedAt',
   p2DeletedAt: 'p2DeletedAt',
   p1LastReadAt: 'p1LastReadAt',
-  p2LastReadAt: 'p2LastReadAt'
+  p2LastReadAt: 'p2LastReadAt',
+  p1Pinned: 'p1Pinned',
+  p2Pinned: 'p2Pinned',
+  p1Archived: 'p1Archived',
+  p2Archived: 'p2Archived'
 } as const
 
 export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]

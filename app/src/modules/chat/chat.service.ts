@@ -161,19 +161,23 @@ function previewOf(m: { type: string; body: string | null; ciphertext: string | 
   return "🔒 Encrypted message";
 }
 
-export async function listConversations(userId: string, opts: { cursor?: string; limit?: number; filter?: "active" | "requests" } = {}) {
+export async function listConversations(userId: string, opts: { cursor?: string; limit?: number; filter?: "active" | "requests" | "archived" } = {}) {
   const limit = Math.min(50, Math.max(1, opts.limit ?? 20));
   const filter = opts.filter ?? "active";
 
+  // Per-participant archived flag: active hides archived, the Archived tab shows
+  // only archived; requests ignores archiving.
+  const mineActive = [{ participant1: userId, p1Archived: false }, { participant2: userId, p2Archived: false }];
+  const mineArchived = [{ participant1: userId, p1Archived: true }, { participant2: userId, p2Archived: true }];
+  const where =
+    filter === "requests"
+      ? { OR: [{ participant1: userId }, { participant2: userId }], status: "PENDING" as const, NOT: { initiatorId: userId } }
+      : filter === "archived"
+        ? { OR: mineArchived, status: "ACTIVE" as const }
+        : { OR: mineActive, status: "ACTIVE" as const };
+
   const conversations = await prisma.conversation.findMany({
-    where: {
-      OR: [{ participant1: userId }, { participant2: userId }],
-      // Active tab = ACTIVE convs; Requests tab = PENDING convs where I'm the recipient.
-      ...(filter === "requests"
-        ? { status: "PENDING", NOT: { initiatorId: userId } }
-        : { status: "ACTIVE" }),
-      ...(opts.cursor ? { lastMessageAt: { lt: new Date(opts.cursor) } } : {}),
-    },
+    where: { ...where, ...(opts.cursor ? { lastMessageAt: { lt: new Date(opts.cursor) } } : {}) },
     orderBy: { lastMessageAt: "desc" },
     take: limit + 1,
     include: {
@@ -203,9 +207,13 @@ export async function listConversations(userId: string, opts: { cursor?: string;
       updatedAt: conv.lastMessageAt,
       unreadCount: meIsP1 ? conv.p1UnreadCount : conv.p2UnreadCount,
       mutedUntil: meIsP1 ? conv.p1MutedUntil : conv.p2MutedUntil,
+      pinned: meIsP1 ? conv.p1Pinned : conv.p2Pinned,
+      archived: meIsP1 ? conv.p1Archived : conv.p2Archived,
       status: conv.status,
     };
   });
+  // Pinned float to the top (within the page).
+  data.sort((a, b) => (a.pinned === b.pinned ? 0 : a.pinned ? -1 : 1));
 
   return { data, meta: { nextCursor: hasMore ? page[page.length - 1].lastMessageAt.toISOString() : null } };
 }
@@ -272,6 +280,22 @@ export async function deliverUndelivered(userId: string) {
 /** Persist presence last-seen (caller throttles via presence.shouldPersistLastSeen). */
 export async function persistLastSeen(userId: string) {
   await prisma.user.update({ where: { id: userId }, data: { dmLastSeenAt: new Date() } }).catch(() => {});
+}
+
+/** Pin/unpin for the calling participant (sorts to the top of the inbox). */
+export async function pinConversation(userId: string, conversationId: string, pinned: boolean) {
+  const conv = await prisma.conversation.findUnique({ where: { id: conversationId }, select: { id: true, participant1: true, participant2: true } });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  await prisma.conversation.update({ where: { id: conversationId }, data: isP1(conv, userId) ? { p1Pinned: pinned } : { p2Pinned: pinned } });
+  return { conversationId, pinned };
+}
+
+/** Archive/unarchive for the calling participant (hidden from the active inbox). */
+export async function archiveConversation(userId: string, conversationId: string, archived: boolean) {
+  const conv = await prisma.conversation.findUnique({ where: { id: conversationId }, select: { id: true, participant1: true, participant2: true } });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  await prisma.conversation.update({ where: { id: conversationId }, data: isP1(conv, userId) ? { p1Archived: archived } : { p2Archived: archived } });
+  return { conversationId, archived };
 }
 
 /** Mute/unmute for the calling participant. `until=null` clears the mute. */
