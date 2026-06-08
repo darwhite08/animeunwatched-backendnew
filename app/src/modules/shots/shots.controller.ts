@@ -68,3 +68,35 @@ export async function unlikeShot(req: Request, res: Response, next: NextFunction
     next(err);
   }
 }
+
+export async function listComments(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const cursor = req.query.cursor as string | undefined;
+    const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 20));
+    const result = await service.listComments(req.params.id as string, cursor, limit);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function createComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const body = typeof req.body?.body === "string" ? req.body.body : "";
+    const result = await service.createComment(userId, req.params.id as string, body);
+    res.status(201).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    await service.deleteComment(userId, req.params.commentId as string);
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+}

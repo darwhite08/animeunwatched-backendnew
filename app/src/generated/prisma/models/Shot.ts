@@ -259,6 +259,7 @@ export type ShotWhereInput = {
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   anime?: Prisma.XOR<Prisma.AnimeNullableScalarRelationFilter, Prisma.AnimeWhereInput> | null
   likes?: Prisma.ShotLikeListRelationFilter
+  comments?: Prisma.ShotCommentListRelationFilter
 }
 
 export type ShotOrderByWithRelationInput = {
@@ -275,6 +276,7 @@ export type ShotOrderByWithRelationInput = {
   author?: Prisma.UserOrderByWithRelationInput
   anime?: Prisma.AnimeOrderByWithRelationInput
   likes?: Prisma.ShotLikeOrderByRelationAggregateInput
+  comments?: Prisma.ShotCommentOrderByRelationAggregateInput
 }
 
 export type ShotWhereUniqueInput = Prisma.AtLeast<{
@@ -294,6 +296,7 @@ export type ShotWhereUniqueInput = Prisma.AtLeast<{
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   anime?: Prisma.XOR<Prisma.AnimeNullableScalarRelationFilter, Prisma.AnimeWhereInput> | null
   likes?: Prisma.ShotLikeListRelationFilter
+  comments?: Prisma.ShotCommentListRelationFilter
 }, "id">
 
 export type ShotOrderByWithAggregationInput = {
@@ -342,6 +345,7 @@ export type ShotCreateInput = {
   author: Prisma.UserCreateNestedOneWithoutShotsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutShotsInput
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateInput = {
@@ -356,6 +360,7 @@ export type ShotUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotUpdateInput = {
@@ -370,6 +375,7 @@ export type ShotUpdateInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutShotsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutShotsNestedInput
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateInput = {
@@ -384,6 +390,7 @@ export type ShotUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateManyInput = {
@@ -583,6 +590,20 @@ export type ShotUpdateOneRequiredWithoutLikesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShotUpdateToOneWithWhereWithoutLikesInput, Prisma.ShotUpdateWithoutLikesInput>, Prisma.ShotUncheckedUpdateWithoutLikesInput>
 }
 
+export type ShotCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.ShotCreateWithoutCommentsInput, Prisma.ShotUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.ShotCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.ShotWhereUniqueInput
+}
+
+export type ShotUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCreateWithoutCommentsInput, Prisma.ShotUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.ShotCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.ShotUpsertWithoutCommentsInput
+  connect?: Prisma.ShotWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShotUpdateToOneWithWhereWithoutCommentsInput, Prisma.ShotUpdateWithoutCommentsInput>, Prisma.ShotUncheckedUpdateWithoutCommentsInput>
+}
+
 export type ShotCreateWithoutAuthorInput = {
   id?: string
   caption?: string | null
@@ -594,6 +615,7 @@ export type ShotCreateWithoutAuthorInput = {
   deletedAt?: Date | string | null
   anime?: Prisma.AnimeCreateNestedOneWithoutShotsInput
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutAuthorInput = {
@@ -607,6 +629,7 @@ export type ShotUncheckedCreateWithoutAuthorInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutAuthorInput = {
@@ -662,6 +685,7 @@ export type ShotCreateWithoutAnimeInput = {
   deletedAt?: Date | string | null
   author: Prisma.UserCreateNestedOneWithoutShotsInput
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutAnimeInput = {
@@ -675,6 +699,7 @@ export type ShotUncheckedCreateWithoutAnimeInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutAnimeInput = {
@@ -714,6 +739,7 @@ export type ShotCreateWithoutLikesInput = {
   deletedAt?: Date | string | null
   author: Prisma.UserCreateNestedOneWithoutShotsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutShotsInput
+  comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutLikesInput = {
@@ -727,6 +753,7 @@ export type ShotUncheckedCreateWithoutLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutLikesInput = {
@@ -756,6 +783,7 @@ export type ShotUpdateWithoutLikesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   author?: Prisma.UserUpdateOneRequiredWithoutShotsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutShotsNestedInput
+  comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutLikesInput = {
@@ -769,6 +797,79 @@ export type ShotUncheckedUpdateWithoutLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
+}
+
+export type ShotCreateWithoutCommentsInput = {
+  id?: string
+  caption?: string | null
+  videoUrl: string
+  thumbnailUrl?: string | null
+  durationMs?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  author: Prisma.UserCreateNestedOneWithoutShotsInput
+  anime?: Prisma.AnimeCreateNestedOneWithoutShotsInput
+  likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
+}
+
+export type ShotUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  authorId: string
+  caption?: string | null
+  videoUrl: string
+  thumbnailUrl?: string | null
+  durationMs?: number | null
+  animeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
+}
+
+export type ShotCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.ShotWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShotCreateWithoutCommentsInput, Prisma.ShotUncheckedCreateWithoutCommentsInput>
+}
+
+export type ShotUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.ShotUpdateWithoutCommentsInput, Prisma.ShotUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.ShotCreateWithoutCommentsInput, Prisma.ShotUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.ShotWhereInput
+}
+
+export type ShotUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.ShotWhereInput
+  data: Prisma.XOR<Prisma.ShotUpdateWithoutCommentsInput, Prisma.ShotUncheckedUpdateWithoutCommentsInput>
+}
+
+export type ShotUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  author?: Prisma.UserUpdateOneRequiredWithoutShotsNestedInput
+  anime?: Prisma.AnimeUpdateOneWithoutShotsNestedInput
+  likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
+}
+
+export type ShotUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateManyAuthorInput = {
@@ -794,6 +895,7 @@ export type ShotUpdateWithoutAuthorInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   anime?: Prisma.AnimeUpdateOneWithoutShotsNestedInput
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutAuthorInput = {
@@ -807,6 +909,7 @@ export type ShotUncheckedUpdateWithoutAuthorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateManyWithoutAuthorInput = {
@@ -844,6 +947,7 @@ export type ShotUpdateWithoutAnimeInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   author?: Prisma.UserUpdateOneRequiredWithoutShotsNestedInput
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutAnimeInput = {
@@ -857,6 +961,7 @@ export type ShotUncheckedUpdateWithoutAnimeInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateManyWithoutAnimeInput = {
@@ -878,10 +983,12 @@ export type ShotUncheckedUpdateManyWithoutAnimeInput = {
 
 export type ShotCountOutputType = {
   likes: number
+  comments: number
 }
 
 export type ShotCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   likes?: boolean | ShotCountOutputTypeCountLikesArgs
+  comments?: boolean | ShotCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -901,6 +1008,13 @@ export type ShotCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.ShotLikeWhereInput
 }
 
+/**
+ * ShotCountOutputType without action
+ */
+export type ShotCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotCommentWhereInput
+}
+
 
 export type ShotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -916,6 +1030,7 @@ export type ShotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   anime?: boolean | Prisma.Shot$animeArgs<ExtArgs>
   likes?: boolean | Prisma.Shot$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Shot$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.ShotCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shot"]>
 
@@ -967,6 +1082,7 @@ export type ShotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   anime?: boolean | Prisma.Shot$animeArgs<ExtArgs>
   likes?: boolean | Prisma.Shot$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Shot$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.ShotCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -984,6 +1100,7 @@ export type $ShotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     author: Prisma.$UserPayload<ExtArgs>
     anime: Prisma.$AnimePayload<ExtArgs> | null
     likes: Prisma.$ShotLikePayload<ExtArgs>[]
+    comments: Prisma.$ShotCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1393,6 +1510,7 @@ export interface Prisma__ShotClient<T, Null = never, ExtArgs extends runtime.Typ
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   anime<T extends Prisma.Shot$animeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$animeArgs<ExtArgs>>): Prisma.Prisma__AnimeClient<runtime.Types.Result.GetResult<Prisma.$AnimePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   likes<T extends Prisma.Shot$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Shot$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1868,6 +1986,30 @@ export type Shot$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.ShotLikeScalarFieldEnum | Prisma.ShotLikeScalarFieldEnum[]
+}
+
+/**
+ * Shot.comments
+ */
+export type Shot$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotComment
+   */
+  select?: Prisma.ShotCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotComment
+   */
+  omit?: Prisma.ShotCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotCommentInclude<ExtArgs> | null
+  where?: Prisma.ShotCommentWhereInput
+  orderBy?: Prisma.ShotCommentOrderByWithRelationInput | Prisma.ShotCommentOrderByWithRelationInput[]
+  cursor?: Prisma.ShotCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotCommentScalarFieldEnum | Prisma.ShotCommentScalarFieldEnum[]
 }
 
 /**

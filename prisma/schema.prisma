@@ -120,6 +120,7 @@ model User {
   // Shots (short vertical videos)
   shots              Shot[]
   shotLikes          ShotLike[]
+  shotComments       ShotComment[]
   // Peeak (24h stories)
   stories            Story[]
   storyViews         StoryView[]
@@ -3396,9 +3397,10 @@ model Shot {
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?
 
-  author User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  anime  Anime?     @relation(fields: [animeId], references: [id], onDelete: SetNull)
-  likes  ShotLike[]
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  anime    Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
+  likes    ShotLike[]
+  comments ShotComment[]
 
   @@index([createdAt])
   @@index([authorId, createdAt])
@@ -3413,6 +3415,21 @@ model ShotLike {
   shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
 
   @@id([userId, shotId])
+}
+
+// Flat comments on a shot (reels-style — no nesting for v1).
+model ShotComment {
+  id        String    @id @default(cuid())
+  shotId    String
+  authorId  String
+  body      String    @db.Text
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  shot   Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([shotId, createdAt])
 }
 
 // ─── Social connections — link external accounts (Instagram) ────────────────

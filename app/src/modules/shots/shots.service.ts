@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
-import { notFound, forbidden } from "../../lib/errors";
+import { notFound, forbidden, badRequest } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
+import { createNotification, NotificationType } from "../../lib/notify";
 import type { CreateShotDto } from "./shots.schema";
 
 // ─── Shared include ───────────────────────────────────────────────────────────
@@ -23,7 +24,7 @@ const shotInclude = {
     },
   },
   _count: {
-    select: { likes: true },
+    select: { likes: true, comments: { where: { deletedAt: null } } },
   },
 } as const;
 
@@ -128,4 +129,63 @@ export async function unlikeShot(userId: string, shotId: string) {
   await prisma.shotLike.deleteMany({ where: { userId, shotId } });
   const likes = await prisma.shotLike.count({ where: { shotId } });
   return { likes };
+}
+
+// ─── comments ─────────────────────────────────────────────────────────────────
+
+const commentInclude = {
+  author: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
+} as const;
+
+export async function listComments(shotId: string, cursor?: string, limit = 20) {
+  const comments = await prisma.shotComment.findMany({
+    where: {
+      shotId,
+      deletedAt: null,
+      ...(cursor ? { createdAt: { lt: new Date(cursor) } } : {}),
+    },
+    take: limit + 1,
+    orderBy: { createdAt: "desc" },
+    include: commentInclude,
+  });
+  const hasMore = comments.length > limit;
+  const data = hasMore ? comments.slice(0, limit) : comments;
+  const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
+  return { data, meta: { nextCursor } };
+}
+
+export async function createComment(userId: string, shotId: string, body: string) {
+  const text = body.trim();
+  if (!text) throw badRequest("Comment can't be empty");
+  if (text.length > 1000) throw badRequest("Comment too long");
+  const shot = await prisma.shot.findUnique({ where: { id: shotId }, select: { id: true, authorId: true, deletedAt: true } });
+  if (!shot || shot.deletedAt) throw notFound("Shot not found");
+
+  const comment = await prisma.shotComment.create({
+    data: { shotId, authorId: userId, body: text },
+    include: commentInclude,
+  });
+
+  // Notify the shot author (not on self-comment).
+  if (shot.authorId !== userId) {
+    createNotification({
+      recipientId: shot.authorId,
+      type: NotificationType.SYSTEM,
+      payload: { message: `${comment.author.displayName ?? comment.author.username} commented on your shot`, link: `/shots`, shotId },
+    }).catch(() => {});
+  }
+  return { comment };
+}
+
+export async function deleteComment(userId: string, commentId: string) {
+  const comment = await prisma.shotComment.findUnique({
+    where: { id: commentId },
+    select: { id: true, authorId: true, deletedAt: true, shot: { select: { authorId: true } } },
+  });
+  if (!comment || comment.deletedAt) throw notFound("Comment not found");
+  // Comment author OR the shot owner can delete.
+  if (comment.authorId !== userId && comment.shot.authorId !== userId) {
+    throw forbidden("You can't delete this comment");
+  }
+  await prisma.shotComment.update({ where: { id: commentId }, data: { deletedAt: new Date() } });
 }

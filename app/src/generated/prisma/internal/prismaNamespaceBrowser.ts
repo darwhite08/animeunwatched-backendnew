@@ -208,6 +208,7 @@ export const ModelName = {
   SamlLoginEvent: 'SamlLoginEvent',
   Shot: 'Shot',
   ShotLike: 'ShotLike',
+  ShotComment: 'ShotComment',
   SocialConnection: 'SocialConnection',
   ImportedMedia: 'ImportedMedia',
   Story: 'Story',
@@ -2661,6 +2662,18 @@ export const ShotLikeScalarFieldEnum = {
 } as const
 
 export type ShotLikeScalarFieldEnum = (typeof ShotLikeScalarFieldEnum)[keyof typeof ShotLikeScalarFieldEnum]
+
+
+export const ShotCommentScalarFieldEnum = {
+  id: 'id',
+  shotId: 'shotId',
+  authorId: 'authorId',
+  body: 'body',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ShotCommentScalarFieldEnum = (typeof ShotCommentScalarFieldEnum)[keyof typeof ShotCommentScalarFieldEnum]
 
 
 export const SocialConnectionScalarFieldEnum = {

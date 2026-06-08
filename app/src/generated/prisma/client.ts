@@ -838,6 +838,11 @@ export type Shot = Prisma.ShotModel
  */
 export type ShotLike = Prisma.ShotLikeModel
 /**
+ * Model ShotComment
+ * 
+ */
+export type ShotComment = Prisma.ShotCommentModel
+/**
  * Model SocialConnection
  * 
  */
