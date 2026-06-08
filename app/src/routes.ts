@@ -17,6 +17,7 @@ import { clubsRouter } from "./modules/clubs/clubs.routes";
 import { threadsRouter, animeThreadsRouter } from "./modules/threads/threads.routes";
 import { adminRouter } from "./modules/admin/admin.routes";
 import { creatorRouter } from "./modules/creator/creator.routes";
+import { monetizationRouter } from "./modules/monetization/monetization.routes";
 import { pollsRouter } from "./modules/polls/polls.routes";
 import { analyticsRouter } from "./modules/analytics/analytics.routes";
 import { webhooksRouter } from "./modules/webhooks/webhooks.routes";
@@ -68,6 +69,7 @@ export const ROUTE_MOUNTS = [
   ["/threads",                         threadsRouter],
   ["/admin",                           adminRouter],
   ["/creator",                         creatorRouter],
+  ["/monetization",                    monetizationRouter],
   ["/polls",                           pollsRouter],
   ["/analytics",                       analyticsRouter],
   ["/webhooks",                        webhooksRouter],

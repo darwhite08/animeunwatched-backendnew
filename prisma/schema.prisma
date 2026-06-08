@@ -152,6 +152,151 @@ model User {
   groupMessages      GroupMessage[]      @relation("GroupMessageSender")
   groupReactions     GroupMessageReaction[]
   streakDaysLog      StreakDay[]
+  // Creator monetization (docs/monetization-system.md)
+  creatorProfile     CreatorProfile?
+  creatorTiers       CreatorTier[]
+  membershipsAsFan     CreatorMembership[] @relation("FanMemberships")
+  membershipsAsCreator CreatorMembership[] @relation("CreatorMemberships")
+  tipsSent           Tip[]              @relation("TipsSent")
+  tipsReceived       Tip[]              @relation("TipsReceived")
+  creatorEarnings    CreatorEarning[]
+  payoutAccount      PayoutAccount?
+  payouts            Payout[]
+}
+
+// ---------------------------------------------------------------------------
+// Creator monetization — fan-funding (memberships + tips + paid unlocks),
+// 90/10 split. docs/monetization-system.md. Money is always integer cents.
+// ---------------------------------------------------------------------------
+
+model CreatorProfile {
+  userId         String   @id
+  status         String   @default("none")   // none | pending | eligible | active | suspended
+  isEligible     Boolean  @default(false)
+  eligibleAt     DateTime?
+  payoutCountry  String?                       // ISO-2; routes to Stripe vs PayPal rail
+  defaultCurrency String  @default("USD")
+  // Cached eligibility snapshot (recomputed on demand)
+  followersAtCheck Int    @default(0)
+  reputationAtCheck Int   @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CreatorTier {
+  id          String   @id @default(cuid())
+  creatorId   String
+  name        String
+  description String?
+  priceCents  Int                              // monthly price
+  currency    String   @default("USD")
+  perks       String[] @default([])
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator     User                @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  memberships CreatorMembership[]
+
+  @@index([creatorId, active])
+}
+
+model CreatorMembership {
+  id               String   @id @default(cuid())
+  fanId            String
+  creatorId        String
+  tierId           String
+  status           String   @default("active") // active | canceled | past_due
+  currentPeriodEnd DateTime?
+  provider         String   @default("stripe")  // stripe | paypal | simulated
+  providerSubId    String?
+  createdAt        DateTime @default(now())
+  canceledAt       DateTime?
+
+  fan     User        @relation("FanMemberships",     fields: [fanId],     references: [id], onDelete: Cascade)
+  creator User        @relation("CreatorMemberships", fields: [creatorId], references: [id], onDelete: Cascade)
+  tier    CreatorTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
+
+  @@unique([fanId, creatorId])   // one active membership per fan→creator
+  @@index([creatorId, status])
+}
+
+model Tip {
+  id          String   @id @default(cuid())
+  fromUserId  String
+  toCreatorId String
+  amountCents Int
+  currency    String   @default("USD")
+  message     String?
+  targetType  String?                          // "blog" | "activity" | "profile"
+  targetId    String?
+  provider    String   @default("stripe")
+  providerRef String?
+  createdAt   DateTime @default(now())
+
+  fromUser  User @relation("TipsSent",     fields: [fromUserId],  references: [id], onDelete: Cascade)
+  toCreator User @relation("TipsReceived", fields: [toCreatorId], references: [id], onDelete: Cascade)
+
+  @@index([toCreatorId, createdAt])
+}
+
+// Append-only earnings ledger — the single source of truth for the Patreon-style
+// funnel: gross → processorFee → platformFee(10%) → net.
+model CreatorEarning {
+  id            String   @id @default(cuid())
+  creatorId     String
+  source        String                          // membership | tip | unlock
+  sourceId      String?                          // membership/tip/unlock id
+  grossCents    Int
+  processorFeeCents Int   @default(0)
+  platformFeeCents  Int                          // 10% of gross
+  netCents      Int                              // gross − processorFee − platformFee
+  currency      String   @default("USD")
+  status        String   @default("pending")     // pending(hold) | available | paid | refunded
+  availableAt   DateTime                         // when it leaves the 7-day hold
+  payoutId      String?
+  createdAt     DateTime @default(now())
+
+  creator User    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  payout  Payout? @relation(fields: [payoutId], references: [id], onDelete: SetNull)
+
+  @@index([creatorId, status])
+  @@index([creatorId, createdAt])
+}
+
+model PayoutAccount {
+  userId        String   @id
+  provider      String                           // stripe | paypal
+  providerAcctId String?
+  onboarded     Boolean  @default(false)
+  taxFormStatus String   @default("missing")     // missing | submitted
+  payoutsEnabled Boolean @default(false)
+  country       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Payout {
+  id          String   @id @default(cuid())
+  creatorId   String
+  amountCents Int
+  currency    String   @default("USD")
+  provider    String                             // stripe | paypal
+  status      String   @default("requested")     // requested | processing | paid | failed
+  providerRef String?
+  periodStart DateTime?
+  periodEnd   DateTime?
+  createdAt   DateTime @default(now())
+  paidAt      DateTime?
+
+  creator  User             @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  earnings CreatorEarning[]
+
+  @@index([creatorId, createdAt])
 }
 
 // One row per user per active local day. Powers the streak "Consistency Map"

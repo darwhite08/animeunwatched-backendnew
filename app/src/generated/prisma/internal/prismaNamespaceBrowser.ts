@@ -50,6 +50,13 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   User: 'User',
+  CreatorProfile: 'CreatorProfile',
+  CreatorTier: 'CreatorTier',
+  CreatorMembership: 'CreatorMembership',
+  Tip: 'Tip',
+  CreatorEarning: 'CreatorEarning',
+  PayoutAccount: 'PayoutAccount',
+  Payout: 'Payout',
   StreakDay: 'StreakDay',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
@@ -252,6 +259,122 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CreatorProfileScalarFieldEnum = {
+  userId: 'userId',
+  status: 'status',
+  isEligible: 'isEligible',
+  eligibleAt: 'eligibleAt',
+  payoutCountry: 'payoutCountry',
+  defaultCurrency: 'defaultCurrency',
+  followersAtCheck: 'followersAtCheck',
+  reputationAtCheck: 'reputationAtCheck',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CreatorProfileScalarFieldEnum = (typeof CreatorProfileScalarFieldEnum)[keyof typeof CreatorProfileScalarFieldEnum]
+
+
+export const CreatorTierScalarFieldEnum = {
+  id: 'id',
+  creatorId: 'creatorId',
+  name: 'name',
+  description: 'description',
+  priceCents: 'priceCents',
+  currency: 'currency',
+  perks: 'perks',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CreatorTierScalarFieldEnum = (typeof CreatorTierScalarFieldEnum)[keyof typeof CreatorTierScalarFieldEnum]
+
+
+export const CreatorMembershipScalarFieldEnum = {
+  id: 'id',
+  fanId: 'fanId',
+  creatorId: 'creatorId',
+  tierId: 'tierId',
+  status: 'status',
+  currentPeriodEnd: 'currentPeriodEnd',
+  provider: 'provider',
+  providerSubId: 'providerSubId',
+  createdAt: 'createdAt',
+  canceledAt: 'canceledAt'
+} as const
+
+export type CreatorMembershipScalarFieldEnum = (typeof CreatorMembershipScalarFieldEnum)[keyof typeof CreatorMembershipScalarFieldEnum]
+
+
+export const TipScalarFieldEnum = {
+  id: 'id',
+  fromUserId: 'fromUserId',
+  toCreatorId: 'toCreatorId',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  message: 'message',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  provider: 'provider',
+  providerRef: 'providerRef',
+  createdAt: 'createdAt'
+} as const
+
+export type TipScalarFieldEnum = (typeof TipScalarFieldEnum)[keyof typeof TipScalarFieldEnum]
+
+
+export const CreatorEarningScalarFieldEnum = {
+  id: 'id',
+  creatorId: 'creatorId',
+  source: 'source',
+  sourceId: 'sourceId',
+  grossCents: 'grossCents',
+  processorFeeCents: 'processorFeeCents',
+  platformFeeCents: 'platformFeeCents',
+  netCents: 'netCents',
+  currency: 'currency',
+  status: 'status',
+  availableAt: 'availableAt',
+  payoutId: 'payoutId',
+  createdAt: 'createdAt'
+} as const
+
+export type CreatorEarningScalarFieldEnum = (typeof CreatorEarningScalarFieldEnum)[keyof typeof CreatorEarningScalarFieldEnum]
+
+
+export const PayoutAccountScalarFieldEnum = {
+  userId: 'userId',
+  provider: 'provider',
+  providerAcctId: 'providerAcctId',
+  onboarded: 'onboarded',
+  taxFormStatus: 'taxFormStatus',
+  payoutsEnabled: 'payoutsEnabled',
+  country: 'country',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PayoutAccountScalarFieldEnum = (typeof PayoutAccountScalarFieldEnum)[keyof typeof PayoutAccountScalarFieldEnum]
+
+
+export const PayoutScalarFieldEnum = {
+  id: 'id',
+  creatorId: 'creatorId',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  provider: 'provider',
+  status: 'status',
+  providerRef: 'providerRef',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  createdAt: 'createdAt',
+  paidAt: 'paidAt'
+} as const
+
+export type PayoutScalarFieldEnum = (typeof PayoutScalarFieldEnum)[keyof typeof PayoutScalarFieldEnum]
 
 
 export const StreakDayScalarFieldEnum = {

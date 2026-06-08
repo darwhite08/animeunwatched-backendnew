@@ -97,6 +97,13 @@ export function startJobs() {
     name: "collectBuzz", description: "Gather off-platform web buzz (AniList trending + Wikimedia pageviews) into trending (hourly)",
     intervalMs: 60 * 60_000, handler: () => collectBuzz(),
   })
+  registerJob({
+    name: "releaseHeldEarnings", description: "Move creator earnings past their 7-day hold to 'available' (hourly)",
+    intervalMs: 60 * 60_000, handler: async () => {
+      const { releaseHeldEarnings } = await import("../modules/monetization/monetization.service")
+      return { released: await releaseHeldEarnings() }
+    },
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -167,6 +174,13 @@ export function startJobs() {
   const buzz = instrument("collectBuzz", () => collectBuzz())
   setInterval(buzz, 60 * 60_000)
   setTimeout(() => { buzz().catch(console.error) }, 30_000)
+
+  // Release creator earnings past their 7-day hold (hourly).
+  const releaseEarnings = instrument("releaseHeldEarnings", async () => {
+    const { releaseHeldEarnings } = await import("../modules/monetization/monetization.service")
+    return { released: await releaseHeldEarnings() }
+  })
+  setInterval(releaseEarnings, 60 * 60_000)
 
   console.log("[Jobs] Background jobs started")
 }

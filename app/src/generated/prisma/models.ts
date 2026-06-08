@@ -9,6 +9,13 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/CreatorProfile'
+export type * from './models/CreatorTier'
+export type * from './models/CreatorMembership'
+export type * from './models/Tip'
+export type * from './models/CreatorEarning'
+export type * from './models/PayoutAccount'
+export type * from './models/Payout'
 export type * from './models/StreakDay'
 export type * from './models/DeviceToken'
 export type * from './models/NativePushToken'

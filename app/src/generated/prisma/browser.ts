@@ -23,6 +23,41 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model CreatorProfile
+ * 
+ */
+export type CreatorProfile = Prisma.CreatorProfileModel
+/**
+ * Model CreatorTier
+ * 
+ */
+export type CreatorTier = Prisma.CreatorTierModel
+/**
+ * Model CreatorMembership
+ * 
+ */
+export type CreatorMembership = Prisma.CreatorMembershipModel
+/**
+ * Model Tip
+ * 
+ */
+export type Tip = Prisma.TipModel
+/**
+ * Model CreatorEarning
+ * 
+ */
+export type CreatorEarning = Prisma.CreatorEarningModel
+/**
+ * Model PayoutAccount
+ * 
+ */
+export type PayoutAccount = Prisma.PayoutAccountModel
+/**
+ * Model Payout
+ * 
+ */
+export type Payout = Prisma.PayoutModel
+/**
  * Model StreakDay
  * 
  */
