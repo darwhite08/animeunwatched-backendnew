@@ -1,5 +1,7 @@
 import crypto from "node:crypto";
+import type { Request, Response, NextFunction } from "express";
 import { prisma } from "../config/prisma";
+import { forbidden, unauth } from "./errors";
 
 /**
  * Short-lived "step-up" credential. Issued after the user re-authenticates
@@ -47,6 +49,29 @@ export async function consumeStepUpToken(
     data:  { consumedAt: new Date() },
   });
   return true;
+}
+
+/**
+ * Route guard: require a valid, single-use step-up token (X-StepUp-Token header)
+ * for `purpose`. Use after requireAuth (+ requireAdmin) on the highest-risk
+ * actions that aren't already permission+step-up gated.
+ */
+export function requireStepUp(purpose: string) {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const userId = res.locals.user?.id as string | undefined;
+    if (!userId) return next(unauth("Authentication required"));
+    const token = req.header("x-stepup-token");
+    if (!token) return next(forbidden("STEPUP_REQUIRED"));
+    // Validate WITHOUT consuming, so one re-auth covers a short burst (e.g. a
+    // bulk verify) within the 5-min token lifetime. Suited to badge-level
+    // actions; money actions keep the single-use consume path above.
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+    const row = await prisma.stepUpToken.findUnique({ where: { tokenHash } });
+    if (!row || row.userId !== userId || row.purpose !== purpose || row.expiresAt < new Date()) {
+      return next(forbidden("STEPUP_INVALID"));
+    }
+    next();
+  };
 }
 
 /** Best-effort cleanup; safe to call from a cron or on app boot. */

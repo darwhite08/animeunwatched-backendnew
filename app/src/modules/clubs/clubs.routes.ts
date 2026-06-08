@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
 import { requireAdmin } from "../../middlewares/requireAdmin";
+import { requireStepUp } from "../../lib/stepup";
 import * as ctrl from "./clubs.controller";
 import { clubThreadsRouter } from "../threads/threads.routes";
 import { clubEventsRouter } from "../events/events.routes";
@@ -14,7 +15,7 @@ clubsRouter.get("/", optionalAuth, ctrl.listClubs);
 clubsRouter.post("/", requireAuth, ctrl.createClub);
 
 // Verified badge — admin only
-clubsRouter.patch("/:slug/verify", requireAuth, requireAdmin, ctrl.setVerified);
+clubsRouter.patch("/:slug/verify", requireAuth, requireAdmin, requireStepUp("verify"), ctrl.setVerified);
 
 // Invite links (2-segment paths — no collision with GET /:slug)
 clubsRouter.get("/invite/:code", optionalAuth, ctrl.inviteInfo);

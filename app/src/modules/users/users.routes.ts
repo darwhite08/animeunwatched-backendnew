@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
 import { requireAdmin } from "../../middlewares/requireAdmin";
+import { requireStepUp } from "../../lib/stepup";
 import * as ctrl from "./users.controller";
 
 export const usersRouter = Router();
@@ -26,7 +27,7 @@ usersRouter.post("/me/follow-requests/:requesterId/accept", requireAuth, ctrl.ac
 usersRouter.post("/me/follow-requests/:requesterId/reject", requireAuth, ctrl.rejectFollowRequest);
 
 // Verified badge — admin only
-usersRouter.patch("/:username/verify",     requireAuth, requireAdmin, ctrl.setVerification);
+usersRouter.patch("/:username/verify",     requireAuth, requireAdmin, requireStepUp("verify"), ctrl.setVerification);
 
 // ── Dynamic routes ────────────────────────────────────────────────────────────
 usersRouter.get("/:username",              optionalAuth, ctrl.getProfile);
