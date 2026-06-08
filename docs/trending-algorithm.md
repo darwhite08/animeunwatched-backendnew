@@ -151,6 +151,68 @@ No per-event writes (default mode), no Redis, no history rescan, no per-title ex
 
 ---
 
+## 11b. STATE OF THE ART — round-2 verified upgrades (supersedes §3 where they conflict)
+
+A second deep-research pass (103 agents, 24/25 claims confirmed 3-0) pinned the
+SOTA and corrected two things. Verified headline: **"SOTA-cheap trending is a
+robust deseasonalized streaming-z — NOT the Kleinberg burst DP."**
+
+**What to SKIP (verified too heavy):**
+- **Kleinberg burst automaton** — optimal state sequence via Viterbi DP costs **O(n·k²)** (n samples, k automaton states). Overkill for ranking known titles.
+- **BOCPD** (Bayesian online changepoint) — exact, but **O(t) per step** (cost grows with run-length unless pruned). Skip.
+
+**The SOTA pipeline (per title, per tick) — robust deseasonalized streaming-z:**
+
+```
+# 1. velocity v_t  = decayed event velocity (§3a, unchanged)
+
+# 2. DESEASONALIZE — S-H-ESD (Twitter's production AnomalyDetection), robust:
+#    remove the weekly pulse with a MEDIAN-based seasonal term, not mean.
+seasonal_p = median over same weekday-phase samples      # robust STL-style, period = 7d
+R_t        = v_t − seasonal_p − median(v)                # residual
+
+# 3. ROBUST SCALE — MAD, not stdev (robust to the spikes themselves):
+σ̂ = 1.4826 · MAD(R)          # cheaply tracked as σ̂ ≈ 1.4826·EWMA(|R − med|)
+z_t = R_t / (σ̂ + ε)          # robust-z burst score
+
+# 4. SPIKE CONFIRMATION — pick one, all O(1):
+#    (a) NEWMA  (default): keep fast & slow EWMA of v_t; burst = |EWMA_fast − EWMA_slow|
+#        above adaptive threshold. O(1), 2 floats, no distributional prior, anti-flicker.
+#    (b) DSPOT  (principled): fit a Generalized Pareto to peaks-over-threshold of R;
+#        risk q DIRECTLY bounds the false-positive rate (EVT). Use when you want a
+#        statistically-tunable alert rate. (DSPOT's moving average only laggingly
+#        cancels strict weekly periodicity, so ALWAYS pair it with the S-H-ESD
+#        seasonal subtraction in step 2.)
+#    (c) BurstSketch — O(1)/event, decrease-aware, if you ever need per-event at scale.
+
+# 5. final score = smoothed blend (as §3d), now using the deseasonalized robust-z
+```
+
+Why SOTA + cheap: S-H-ESD is literally Twitter's shipped detector; **median + MAD
+are robust to the bursts you're ranking** (mean + stdev get inflated by them).
+NEWMA/DSPOT are O(1)/step with no growing state — unlike Kleinberg O(n·k²) or
+BOCPD O(t). This is the accuracy-per-compute frontier for a 1-worker stack.
+
+**Best FREE external buzz proxy — Wikimedia pageviews (verified, replaces §5's first choice):**
+- **Wikimedia REST pageviews**: **200 req/min with just a `User-Agent`** (no key);
+  **5000/hr with a token**; plus **bulk daily/hourly dumps** (zero API calls). The
+  earlier "anonymous = 500/hr" figure was **refuted (0-3)** — it's 200/min, more generous.
+- Map each anime → its Wikipedia article (EN + JA); per-article **pageview velocity**
+  is an excellent free anime-buzz signal (people read Wikipedia when a show is hot),
+  z-scored identically (steps 2–3) and blended as `externalBuzz`.
+- Beats the alternatives on yield/cost: **Google Trends API** is alpha + gated since
+  2025-07-24 (don't depend on it); **X/Twitter API** is expensive (2026); **Reddit**
+  is workable but rate-limited. Use Wikimedia first, AniList `TRENDING_DESC` second.
+- **DDSketch** (fully-mergeable, relative-error quantile sketch) is the SOTA pick over
+  t-digest **if** you ever need mergeable streaming percentiles for `norm()`.
+
+**Still unproven (honest):** exact decay half-lives / weights for anime weekly pulses,
+Page-Hinkley & ADWIN exact recursions, and precision@k / time-to-detection vs
+false-positive ROC on anime data — so treat the tuning defaults in §10 as starting
+points to measure, not gospel. The accuracy-per-compute ranking is qualitative.
+
+---
+
 ## 11. Honesty: what the research refuted / couldn't confirm
 - **Refuted (not used here):** Reddit-Hot's "45,000s half-life" specific (0-3) and Netflix's "single-signal, Tue-publish" characterization (0-3). The design relies on neither.
 - **Not independently verified:** the BOCPD-on-a-budget accuracy claim (authors' own benchmark) — treated as an *optional* upgrade, not the default.

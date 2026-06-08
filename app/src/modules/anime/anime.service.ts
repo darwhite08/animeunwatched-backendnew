@@ -407,12 +407,26 @@ export async function getTrending(limit = 20) {
   const cacheKey = `anime:trending`
   const cached = cache.get<unknown[]>(cacheKey)
   if (cached) return cached
-  const result = await prisma.anime.findMany({
-    where: { score: { not: null } },
-    orderBy: [{ status: "asc" }, { score: { sort: "desc", nulls: "last" } }], // airing first, then by score
+
+  // "Trending Now" — served from the precomputed trendingScore (compute-trending
+  // worker, docs/trending-algorithm.md). Single indexed ORDER BY, no request-time
+  // compute. Falls back to score when no title has been scored yet (cold platform).
+  const trending = await prisma.anime.findMany({
+    where: { trendingScore: { gt: 0 } },
+    orderBy: { trendingScore: "desc" },
     take: limit,
     include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
   })
+
+  const result = trending.length > 0
+    ? trending
+    : await prisma.anime.findMany({
+        where: { score: { not: null } },
+        orderBy: [{ status: "asc" }, { score: { sort: "desc", nulls: "last" } }],
+        take: limit,
+        include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+      })
+
   cache.set(cacheKey, result, 15 * 60_000) // 15 min
   return result
 }

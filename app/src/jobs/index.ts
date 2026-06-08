@@ -11,6 +11,7 @@ import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
 import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
+import { computeTrending } from "../lib/trending/trending.service"
 import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
 
 export function startJobs() {
@@ -87,6 +88,10 @@ export function startJobs() {
     name: "animeSyncMaintenance", description: "Requeue stale RUNNING sync jobs + purge finished rows (hourly)",
     intervalMs: 60 * 60_000, handler: syncQueueMaintenance,
   })
+  registerJob({
+    name: "computeTrending", description: "Recompute 'Trending Now' (deseasonalized robust-z + NEWMA) from first-party activity (every 20 min)",
+    intervalMs: 20 * 60_000, handler: () => computeTrending(),
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -145,6 +150,12 @@ export function startJobs() {
   setInterval(animeMaint, 60 * 60_000)
   animeMaint().catch(console.error)
   startAnimeSyncSchedules()
+
+  // Trending Now — recompute every 20 min from first-party activity (O(1) per
+  // active title, no history rescan). One run on boot to warm trendingScore.
+  const trending = instrument("computeTrending", () => computeTrending())
+  setInterval(trending, 20 * 60_000)
+  trending().catch(console.error)
 
   console.log("[Jobs] Background jobs started")
 }

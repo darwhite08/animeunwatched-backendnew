@@ -315,6 +315,12 @@ model Anime {
   waieScore      Float?
   isFeatured     Boolean   @default(false)
 
+  // ── "Trending Now" — computed by the compute-trending worker (docs/trending-algorithm.md).
+  // Read path is a single indexed ORDER BY trendingScore; never recomputed at request time.
+  trendingScore     Float?    @default(0)
+  trendingRank      Int?
+  trendingUpdatedAt DateTime?
+
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -329,6 +335,7 @@ model Anime {
   reviews     Review[]
   activities  Activity[]
   shots       Shot[]
+  trendingState TrendingState?
 
   @@index([malId])
   @@index([slug])
@@ -338,6 +345,29 @@ model Anime {
   @@index([status, syncPriority])
   @@index([syncPriority, lastSyncedAt])
   @@index([title])
+  @@index([trendingScore])
+}
+
+// Per-title streaming state for the trending detector. Holds only O(1)-sized
+// recursive statistics (a handful of floats) so each refresh updates in
+// constant time with NO history rescan (see docs/trending-algorithm.md §11b):
+//   - ewmaMean/ewmaDev  → robust-z baseline (MAD ≈ 1.4826·ewmaDev)
+//   - newmaFast/newmaSlow → NEWMA spike detector (two-EWMA comparison)
+//   - seasonal[7]       → S-H-ESD weekly deseasonalization (per-weekday EWMA)
+//   - prevScore         → EWMA smoothing across ticks (anti-flicker)
+model TrendingState {
+  animeId    String   @id
+  ewmaMean   Float    @default(0)   // EWMA mean of deseasonalized velocity residual
+  ewmaDev    Float    @default(0)   // EWMA mean-abs-deviation → robust scale
+  newmaFast  Float    @default(0)   // fast EWMA of velocity
+  newmaSlow  Float    @default(0)   // slow EWMA of velocity
+  seasonal   Json     @default("[0,0,0,0,0,0,0]")  // per-weekday seasonal EWMA (Sun..Sat)
+  lastVel    Float    @default(0)   // last raw decayed velocity (debug/inspect)
+  prevScore  Float    @default(0)   // last smoothed trendingScore
+  samples    Int      @default(0)   // updates seen (cold-start warmup)
+  updatedAt  DateTime @updatedAt
+
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
 }
 
 model Genre {
