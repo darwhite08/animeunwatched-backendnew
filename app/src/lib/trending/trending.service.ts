@@ -159,7 +159,7 @@ export async function computeTrending(now = new Date()): Promise<{ scored: numbe
 
     const boost = boosts.get(animeId) ?? { airing: false, episodePulse: false };
     const velocity = v?.velocity ?? 0;
-    const { score, next } = stepTrending(prevState, {
+    const { score, next, components } = stepTrending(prevState, {
       velocity,
       uniqueUsers: v?.uniqueUsers ?? 0,
       weekday,
@@ -170,11 +170,17 @@ export async function computeTrending(now = new Date()): Promise<{ scored: numbe
     });
 
     scoreByAnime.set(animeId, score);
+    const componentsJson = {
+      ...components,
+      onPlatform: components.burst + components.magnitude + components.newma,
+      uniqueUsers: v?.uniqueUsers ?? 0,
+      airing: boost.airing,
+    };
     await prisma.$transaction([
       prisma.trendingState.upsert({
         where: { animeId },
-        create: { animeId, ...next, lastVel: velocity },
-        update: { ...next, lastVel: velocity },
+        create: { animeId, ...next, lastVel: velocity, components: componentsJson },
+        update: { ...next, lastVel: velocity, components: componentsJson },
       }),
       prisma.anime.update({
         where: { id: animeId },

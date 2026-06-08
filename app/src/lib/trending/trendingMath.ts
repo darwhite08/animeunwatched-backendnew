@@ -61,10 +61,20 @@ export interface TrendingInput {
   episodePulse?: boolean; // an episode aired within the decay window
 }
 
+/** Weighted contributions to the pre-smoothing score (for "why trending" UI). */
+export interface TrendingComponents {
+  burst: number; // on-platform acceleration (robust-z)
+  magnitude: number; // on-platform reach
+  newma: number; // spike confirmation
+  web: number; // off-platform buzz (AniList + Wikipedia combined)
+  confidence: number; // unique-user confidence applied to on-platform terms
+}
+
 export interface TrendingResult {
   score: number; // final smoothed trendingScore
   z: number; // robust-z burst (deseasonalized)
   newmaBurst: number; // NEWMA spike component
+  components: TrendingComponents;
   next: TrendingStateLike; // updated state to persist
 }
 
@@ -114,11 +124,12 @@ export function stepTrending(state: TrendingStateLike, input: TrendingInput): Tr
   const confidence = input.uniqueUsers / (input.uniqueUsers + TREND.CONFIDENCE_K); // 0..1
   const onPlatformDamp = warmup * confidence;
   const externalBuzz = Math.max(0, Math.min(1, input.externalBuzz ?? 0));
-  let raw =
-    TREND.W_BURST * (z / TREND.Z_MAX) * onPlatformDamp +
-    TREND.W_NEWMA * Math.min(1, newmaBurst) * onPlatformDamp +
-    TREND.W_MAG * magnitude +
-    TREND.W_EXT * externalBuzz;
+
+  const cBurst = TREND.W_BURST * (z / TREND.Z_MAX) * onPlatformDamp;
+  const cNewma = TREND.W_NEWMA * Math.min(1, newmaBurst) * onPlatformDamp;
+  const cMag = TREND.W_MAG * magnitude;
+  const cWeb = TREND.W_EXT * externalBuzz;
+  let raw = cBurst + cNewma + cMag + cWeb;
 
   if (input.airing) raw *= 1.25;
   if (input.episodePulse) raw *= 1.2;
@@ -129,6 +140,7 @@ export function stepTrending(state: TrendingStateLike, input: TrendingInput): Tr
     score,
     z,
     newmaBurst,
+    components: { burst: cBurst, magnitude: cMag, newma: cNewma, web: cWeb, confidence },
     next: {
       ewmaMean: nextMean,
       ewmaDev: nextDev,

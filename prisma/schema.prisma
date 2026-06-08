@@ -374,6 +374,9 @@ model TrendingState {
   // even with no on-platform engagement yet.
   externalBuzz Float   @default(0)
   buzzAt     DateTime?
+  // Score component breakdown for "why is this trending" UI + tuning/debug:
+  // { burst, magnitude, newma, web, anilist, wikipedia } weighted contributions.
+  components Json?
   updatedAt  DateTime @updatedAt
 
   anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)

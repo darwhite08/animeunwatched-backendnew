@@ -128,4 +128,13 @@ describe("stepTrending", () => {
     expect(score).toBeGreaterThan(0);
     expect(score).toBeCloseTo(TREND.SMOOTH_BETA * TREND.W_EXT * 0.9, 5);
   });
+
+  it("returns a component breakdown that explains the score (why-trending)", () => {
+    const { components } = stepTrending(initialTrendingState(), baseInput(0, { uniqueUsers: 0, externalBuzz: 0.8 }));
+    // A web-only title: all the explanation should be in the `web` component.
+    expect(components.web).toBeGreaterThan(0);
+    expect(components.burst).toBe(0);
+    expect(components.magnitude).toBe(0);
+    expect(components).toHaveProperty("confidence");
+  });
 });
