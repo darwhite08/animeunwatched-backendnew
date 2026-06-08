@@ -9,6 +9,7 @@ const authorSelect = {
   username: true,
   displayName: true,
   avatarUrl: true,
+  verifiedKind: true,
 } as const;
 
 // ─── getFeed — active stories from me + people I follow, grouped by author ────

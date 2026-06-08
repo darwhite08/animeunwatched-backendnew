@@ -12,6 +12,7 @@ const authorSelect = {
   username: true,
   displayName: true,
   avatarUrl: true,
+  verifiedKind: true,
 } as const;
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -89,6 +90,16 @@ export async function getBySlug(slug: string, userId?: string) {
   // Private clubs hide their content from non-members; the client shows a lock screen.
   const locked = club.visibility === "PRIVATE" && !isMember;
   return { club: { ...rest, isMember, myRole, hasChat: !!chatGroup, needsOnboarding, locked, myJoinRequest, pendingRequests } };
+}
+
+// ─── verified badge (admin) ─────────────────────────────────────────────────────
+
+export async function setClubVerified(slug: string, verified: boolean) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  await prisma.club.update({ where: { id: club.id }, data: { verified, verifiedAt: verified ? new Date() : null } });
+  void emitClubUpdate(club.id, "club");
+  return { ok: true, verified };
 }
 
 // ─── create ───────────────────────────────────────────────────────────────────

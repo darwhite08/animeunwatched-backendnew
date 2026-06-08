@@ -53,6 +53,8 @@ export type UserMinAggregateOutputType = {
   passwordHash: string | null
   role: $Enums.Role | null
   reputation: number | null
+  verifiedKind: $Enums.VerificationKind | null
+  verifiedAt: Date | null
   isBanned: boolean | null
   bannedReason: string | null
   isShadowBanned: boolean | null
@@ -86,6 +88,8 @@ export type UserMaxAggregateOutputType = {
   passwordHash: string | null
   role: $Enums.Role | null
   reputation: number | null
+  verifiedKind: $Enums.VerificationKind | null
+  verifiedAt: Date | null
   isBanned: boolean | null
   bannedReason: string | null
   isShadowBanned: boolean | null
@@ -119,6 +123,8 @@ export type UserCountAggregateOutputType = {
   passwordHash: number
   role: number
   reputation: number
+  verifiedKind: number
+  verifiedAt: number
   isBanned: number
   bannedReason: number
   isShadowBanned: number
@@ -170,6 +176,8 @@ export type UserMinAggregateInputType = {
   passwordHash?: true
   role?: true
   reputation?: true
+  verifiedKind?: true
+  verifiedAt?: true
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
@@ -203,6 +211,8 @@ export type UserMaxAggregateInputType = {
   passwordHash?: true
   role?: true
   reputation?: true
+  verifiedKind?: true
+  verifiedAt?: true
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
@@ -236,6 +246,8 @@ export type UserCountAggregateInputType = {
   passwordHash?: true
   role?: true
   reputation?: true
+  verifiedKind?: true
+  verifiedAt?: true
   isBanned?: true
   bannedReason?: true
   isShadowBanned?: true
@@ -356,6 +368,8 @@ export type UserGroupByOutputType = {
   passwordHash: string
   role: $Enums.Role
   reputation: number
+  verifiedKind: $Enums.VerificationKind | null
+  verifiedAt: Date | null
   isBanned: boolean
   bannedReason: string | null
   isShadowBanned: boolean
@@ -412,6 +426,8 @@ export type UserWhereInput = {
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
+  verifiedKind?: Prisma.EnumVerificationKindNullableFilter<"User"> | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
@@ -514,6 +530,8 @@ export type UserOrderByWithRelationInput = {
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+  verifiedKind?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
@@ -619,6 +637,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
+  verifiedKind?: Prisma.EnumVerificationKindNullableFilter<"User"> | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isBanned?: Prisma.BoolFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolFilter<"User"> | boolean
@@ -721,6 +741,8 @@ export type UserOrderByWithAggregationInput = {
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+  verifiedKind?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
@@ -762,6 +784,8 @@ export type UserScalarWhereWithAggregatesInput = {
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntWithAggregatesFilter<"User"> | number
+  verifiedKind?: Prisma.EnumVerificationKindNullableWithAggregatesFilter<"User"> | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   bannedReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isShadowBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -795,6 +819,8 @@ export type UserCreateInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -897,6 +923,8 @@ export type UserUncheckedCreateInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -999,6 +1027,8 @@ export type UserUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1101,6 +1131,8 @@ export type UserUncheckedUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1203,6 +1235,8 @@ export type UserCreateManyInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -1236,6 +1270,8 @@ export type UserUpdateManyMutationInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1269,6 +1305,8 @@ export type UserUncheckedUpdateManyInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1302,6 +1340,8 @@ export type UserCountOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+  verifiedKind?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
@@ -1343,6 +1383,8 @@ export type UserMaxOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+  verifiedKind?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
@@ -1376,6 +1418,8 @@ export type UserMinOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+  verifiedKind?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
   bannedReason?: Prisma.SortOrder
   isShadowBanned?: Prisma.SortOrder
@@ -1436,12 +1480,16 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type NullableEnumVerificationKindFieldUpdateOperationsInput = {
+  set?: $Enums.VerificationKind | null
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -2429,6 +2477,8 @@ export type UserCreateWithoutCreatorProfileInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -2530,6 +2580,8 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -2647,6 +2699,8 @@ export type UserUpdateWithoutCreatorProfileInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2748,6 +2802,8 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2849,6 +2905,8 @@ export type UserCreateWithoutCreatorTiersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -2950,6 +3008,8 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -3067,6 +3127,8 @@ export type UserUpdateWithoutCreatorTiersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3168,6 +3230,8 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3269,6 +3333,8 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -3370,6 +3436,8 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -3476,6 +3544,8 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -3577,6 +3647,8 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -3694,6 +3766,8 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3795,6 +3869,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3907,6 +3983,8 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4008,6 +4086,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4109,6 +4189,8 @@ export type UserCreateWithoutTipsSentInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -4210,6 +4292,8 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -4316,6 +4400,8 @@ export type UserCreateWithoutTipsReceivedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -4417,6 +4503,8 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -4534,6 +4622,8 @@ export type UserUpdateWithoutTipsSentInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4635,6 +4725,8 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4747,6 +4839,8 @@ export type UserUpdateWithoutTipsReceivedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4848,6 +4942,8 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4949,6 +5045,8 @@ export type UserCreateWithoutCreatorEarningsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -5050,6 +5148,8 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -5167,6 +5267,8 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5268,6 +5370,8 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5369,6 +5473,8 @@ export type UserCreateWithoutPayoutAccountInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -5470,6 +5576,8 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -5587,6 +5695,8 @@ export type UserUpdateWithoutPayoutAccountInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5688,6 +5798,8 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5789,6 +5901,8 @@ export type UserCreateWithoutPayoutsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -5890,6 +6004,8 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -6007,6 +6123,8 @@ export type UserUpdateWithoutPayoutsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6108,6 +6226,8 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6209,6 +6329,8 @@ export type UserCreateWithoutStreakDaysLogInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -6310,6 +6432,8 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -6427,6 +6551,8 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6528,6 +6654,8 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6629,6 +6757,8 @@ export type UserCreateWithoutDeviceTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -6730,6 +6860,8 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -6847,6 +6979,8 @@ export type UserUpdateWithoutDeviceTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6948,6 +7082,8 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7049,6 +7185,8 @@ export type UserCreateWithoutNativePushTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -7150,6 +7288,8 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -7267,6 +7407,8 @@ export type UserUpdateWithoutNativePushTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7368,6 +7510,8 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7469,6 +7613,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -7570,6 +7716,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -7687,6 +7835,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7788,6 +7938,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7889,6 +8041,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -7990,6 +8144,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -8107,6 +8263,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8208,6 +8366,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8309,6 +8469,8 @@ export type UserCreateWithoutSecurityEventsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -8410,6 +8572,8 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -8527,6 +8691,8 @@ export type UserUpdateWithoutSecurityEventsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8628,6 +8794,8 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8729,6 +8897,8 @@ export type UserCreateWithoutFollowingInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -8830,6 +9000,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -8936,6 +9108,8 @@ export type UserCreateWithoutFollowersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -9037,6 +9211,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -9154,6 +9330,8 @@ export type UserUpdateWithoutFollowingInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9255,6 +9433,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9367,6 +9547,8 @@ export type UserUpdateWithoutFollowersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9468,6 +9650,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9569,6 +9753,8 @@ export type UserCreateWithoutListEntriesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -9670,6 +9856,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -9787,6 +9975,8 @@ export type UserUpdateWithoutListEntriesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9888,6 +10078,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -9989,6 +10181,8 @@ export type UserCreateWithoutPostsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -10090,6 +10284,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -10207,6 +10403,8 @@ export type UserUpdateWithoutPostsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -10308,6 +10506,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -10409,6 +10609,8 @@ export type UserCreateWithoutPostHidesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -10510,6 +10712,8 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -10627,6 +10831,8 @@ export type UserUpdateWithoutPostHidesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -10728,6 +10934,8 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -10829,6 +11037,8 @@ export type UserCreateWithoutPostLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -10930,6 +11140,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -11047,6 +11259,8 @@ export type UserUpdateWithoutPostLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -11148,6 +11362,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -11249,6 +11465,8 @@ export type UserCreateWithoutPostCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -11350,6 +11568,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -11467,6 +11687,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -11568,6 +11790,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -11669,6 +11893,8 @@ export type UserCreateWithoutPostCommentLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -11770,6 +11996,8 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -11887,6 +12115,8 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -11988,6 +12218,8 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -12089,6 +12321,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -12190,6 +12424,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -12307,6 +12543,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -12408,6 +12646,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -12509,6 +12749,8 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -12610,6 +12852,8 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -12727,6 +12971,8 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -12828,6 +13074,8 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -12929,6 +13177,8 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13030,6 +13280,8 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13147,6 +13399,8 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -13248,6 +13502,8 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -13349,6 +13605,8 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13450,6 +13708,8 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13567,6 +13827,8 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -13668,6 +13930,8 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -13769,6 +14033,8 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13870,6 +14136,8 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -13987,6 +14255,8 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -14088,6 +14358,8 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -14189,6 +14461,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -14290,6 +14564,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -14407,6 +14683,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -14508,6 +14786,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -14609,6 +14889,8 @@ export type UserCreateWithoutThreadReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -14710,6 +14992,8 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -14827,6 +15111,8 @@ export type UserUpdateWithoutThreadReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -14928,6 +15214,8 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -15029,6 +15317,8 @@ export type UserCreateWithoutThreadsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -15130,6 +15420,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -15247,6 +15539,8 @@ export type UserUpdateWithoutThreadsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -15348,6 +15642,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -15449,6 +15745,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -15550,6 +15848,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -15667,6 +15967,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -15768,6 +16070,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -15869,6 +16173,8 @@ export type UserCreateWithoutReviewsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -15970,6 +16276,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -16087,6 +16395,8 @@ export type UserUpdateWithoutReviewsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -16188,6 +16498,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -16289,6 +16601,8 @@ export type UserCreateWithoutReviewLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -16390,6 +16704,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -16507,6 +16823,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -16608,6 +16926,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -16709,6 +17029,8 @@ export type UserCreateWithoutBlogsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -16810,6 +17132,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -16927,6 +17251,8 @@ export type UserUpdateWithoutBlogsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17028,6 +17354,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17129,6 +17457,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -17230,6 +17560,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -17347,6 +17679,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17448,6 +17782,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17549,6 +17885,8 @@ export type UserCreateWithoutNotificationsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -17650,6 +17988,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -17767,6 +18107,8 @@ export type UserUpdateWithoutNotificationsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17868,6 +18210,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -17969,6 +18313,8 @@ export type UserCreateWithoutReportsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -18070,6 +18416,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -18187,6 +18535,8 @@ export type UserUpdateWithoutReportsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -18288,6 +18638,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -18389,6 +18741,8 @@ export type UserCreateWithoutModerationActionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -18490,6 +18844,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -18607,6 +18963,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -18708,6 +19066,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -18809,6 +19169,8 @@ export type UserCreateWithoutPollsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -18910,6 +19272,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -19027,6 +19391,8 @@ export type UserUpdateWithoutPollsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -19128,6 +19494,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -19229,6 +19597,8 @@ export type UserCreateWithoutPollVotesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -19330,6 +19700,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -19447,6 +19819,8 @@ export type UserUpdateWithoutPollVotesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -19548,6 +19922,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -19649,6 +20025,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -19750,6 +20128,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -19867,6 +20247,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -19968,6 +20350,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -20069,6 +20453,8 @@ export type UserCreateWithoutPublicKeyInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20170,6 +20556,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20287,6 +20675,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -20388,6 +20778,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -20489,6 +20881,8 @@ export type UserCreateWithoutConversations1Input = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20590,6 +20984,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20696,6 +21092,8 @@ export type UserCreateWithoutConversations2Input = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20797,6 +21195,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -20914,6 +21314,8 @@ export type UserUpdateWithoutConversations1Input = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21015,6 +21417,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21127,6 +21531,8 @@ export type UserUpdateWithoutConversations2Input = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21228,6 +21634,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21329,6 +21737,8 @@ export type UserCreateWithoutSentMessagesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -21430,6 +21840,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -21547,6 +21959,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21648,6 +22062,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -21749,6 +22165,8 @@ export type UserCreateWithoutMessageReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -21850,6 +22268,8 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -21967,6 +22387,8 @@ export type UserUpdateWithoutMessageReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -22068,6 +22490,8 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -22169,6 +22593,8 @@ export type UserCreateWithoutGroupsOwnedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -22270,6 +22696,8 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -22387,6 +22815,8 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -22488,6 +22918,8 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -22589,6 +23021,8 @@ export type UserCreateWithoutGroupMembershipsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -22690,6 +23124,8 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -22807,6 +23243,8 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -22908,6 +23346,8 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -23009,6 +23449,8 @@ export type UserCreateWithoutGroupMessagesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -23110,6 +23552,8 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -23227,6 +23671,8 @@ export type UserUpdateWithoutGroupMessagesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -23328,6 +23774,8 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -23429,6 +23877,8 @@ export type UserCreateWithoutGroupReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -23530,6 +23980,8 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -23647,6 +24099,8 @@ export type UserUpdateWithoutGroupReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -23748,6 +24202,8 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -23849,6 +24305,8 @@ export type UserCreateWithoutDeviceKeysInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -23950,6 +24408,8 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -24067,6 +24527,8 @@ export type UserUpdateWithoutDeviceKeysInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -24168,6 +24630,8 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -24269,6 +24733,8 @@ export type UserCreateWithoutBlocksMadeInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -24370,6 +24836,8 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -24476,6 +24944,8 @@ export type UserCreateWithoutBlocksReceivedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -24577,6 +25047,8 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -24694,6 +25166,8 @@ export type UserUpdateWithoutBlocksMadeInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -24795,6 +25269,8 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -24907,6 +25383,8 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25008,6 +25486,8 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25109,6 +25589,8 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -25210,6 +25692,8 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -25327,6 +25811,8 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25428,6 +25914,8 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25529,6 +26017,8 @@ export type UserCreateWithoutE2eDevicesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -25630,6 +26120,8 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -25747,6 +26239,8 @@ export type UserUpdateWithoutE2eDevicesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25848,6 +26342,8 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -25949,6 +26445,8 @@ export type UserCreateWithoutActivitiesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -26050,6 +26548,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -26167,6 +26667,8 @@ export type UserUpdateWithoutActivitiesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -26268,6 +26770,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -26369,6 +26873,8 @@ export type UserCreateWithoutActivityLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -26470,6 +26976,8 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -26587,6 +27095,8 @@ export type UserUpdateWithoutActivityLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -26688,6 +27198,8 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -26789,6 +27301,8 @@ export type UserCreateWithoutActivityRepostsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -26890,6 +27404,8 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -27007,6 +27523,8 @@ export type UserUpdateWithoutActivityRepostsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -27108,6 +27626,8 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -27209,6 +27729,8 @@ export type UserCreateWithoutRepliesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -27310,6 +27832,8 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -27427,6 +27951,8 @@ export type UserUpdateWithoutRepliesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -27528,6 +28054,8 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -27629,6 +28157,8 @@ export type UserCreateWithoutScimSubjectInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -27730,6 +28260,8 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -27847,6 +28379,8 @@ export type UserUpdateWithoutScimSubjectInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -27948,6 +28482,8 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -28049,6 +28585,8 @@ export type UserCreateWithoutShotsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -28150,6 +28688,8 @@ export type UserUncheckedCreateWithoutShotsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -28267,6 +28807,8 @@ export type UserUpdateWithoutShotsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -28368,6 +28910,8 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -28469,6 +29013,8 @@ export type UserCreateWithoutShotLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -28570,6 +29116,8 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -28687,6 +29235,8 @@ export type UserUpdateWithoutShotLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -28788,6 +29338,8 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -28889,6 +29441,8 @@ export type UserCreateWithoutShotSavesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -28990,6 +29544,8 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -29107,6 +29663,8 @@ export type UserUpdateWithoutShotSavesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -29208,6 +29766,8 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -29309,6 +29869,8 @@ export type UserCreateWithoutShotCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -29410,6 +29972,8 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -29527,6 +30091,8 @@ export type UserUpdateWithoutShotCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -29628,6 +30194,8 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -29729,6 +30297,8 @@ export type UserCreateWithoutSocialConnectionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -29830,6 +30400,8 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -29947,6 +30519,8 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30048,6 +30622,8 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30149,6 +30725,8 @@ export type UserCreateWithoutImportedMediaInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -30250,6 +30828,8 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -30367,6 +30947,8 @@ export type UserUpdateWithoutImportedMediaInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30468,6 +31050,8 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30569,6 +31153,8 @@ export type UserCreateWithoutStoriesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -30670,6 +31256,8 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -30787,6 +31375,8 @@ export type UserUpdateWithoutStoriesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30888,6 +31478,8 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -30989,6 +31581,8 @@ export type UserCreateWithoutStoryViewsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -31090,6 +31684,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
   isBanned?: boolean
   bannedReason?: string | null
   isShadowBanned?: boolean
@@ -31207,6 +31803,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -31308,6 +31906,8 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -32016,6 +32616,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
+  verifiedKind?: boolean
+  verifiedAt?: boolean
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
@@ -32119,6 +32721,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
+  verifiedKind?: boolean
+  verifiedAt?: boolean
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
@@ -32152,6 +32756,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
+  verifiedKind?: boolean
+  verifiedAt?: boolean
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
@@ -32185,6 +32791,8 @@ export type UserSelectScalar = {
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
+  verifiedKind?: boolean
+  verifiedAt?: boolean
   isBanned?: boolean
   bannedReason?: boolean
   isShadowBanned?: boolean
@@ -32207,7 +32815,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -32372,6 +32980,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     passwordHash: string
     role: $Enums.Role
     reputation: number
+    verifiedKind: $Enums.VerificationKind | null
+    verifiedAt: Date | null
     isBanned: boolean
     bannedReason: string | null
     isShadowBanned: boolean
@@ -32904,6 +33514,8 @@ export interface UserFieldRefs {
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly reputation: Prisma.FieldRef<"User", 'Int'>
+  readonly verifiedKind: Prisma.FieldRef<"User", 'VerificationKind'>
+  readonly verifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
   readonly bannedReason: Prisma.FieldRef<"User", 'String'>
   readonly isShadowBanned: Prisma.FieldRef<"User", 'Boolean'>

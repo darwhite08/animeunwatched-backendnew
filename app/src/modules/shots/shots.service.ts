@@ -13,6 +13,7 @@ const shotInclude = {
       username: true,
       displayName: true,
       avatarUrl: true,
+      verifiedKind: true,
     },
   },
   anime: {
@@ -184,7 +185,7 @@ export async function unlikeShot(userId: string, shotId: string) {
 // ─── comments ─────────────────────────────────────────────────────────────────
 
 const commentInclude = {
-  author: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
+  author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true } },
 } as const;
 
 export async function listComments(shotId: string, cursor?: string, limit = 20) {

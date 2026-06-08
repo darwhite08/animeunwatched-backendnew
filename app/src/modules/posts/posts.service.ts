@@ -21,6 +21,7 @@ const postInclude = {
       username: true,
       displayName: true,
       avatarUrl: true,
+      verifiedKind: true,
     },
   },
   anime: {

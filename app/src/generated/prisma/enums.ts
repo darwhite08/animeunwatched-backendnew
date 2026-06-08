@@ -18,6 +18,15 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const VerificationKind = {
+  USER: 'USER',
+  CREATOR: 'CREATOR',
+  STUDIO: 'STUDIO'
+} as const
+
+export type VerificationKind = (typeof VerificationKind)[keyof typeof VerificationKind]
+
+
 export const WatchStatus = {
   PLAN_TO_WATCH: 'PLAN_TO_WATCH',
   WATCHING: 'WATCHING',

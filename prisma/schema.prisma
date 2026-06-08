@@ -18,6 +18,13 @@ enum Role {
   ADMIN
 }
 
+// Admin-granted verified badge tiers (for user accounts).
+enum VerificationKind {
+  USER
+  CREATOR
+  STUDIO
+}
+
 enum WatchStatus {
   PLAN_TO_WATCH
   WATCHING
@@ -57,6 +64,9 @@ model User {
   passwordHash String  @default("")
   role         Role     @default(USER)
   reputation   Int      @default(0)
+  // Verified badge (admin-granted). null = not verified.
+  verifiedKind VerificationKind?
+  verifiedAt   DateTime?
   isBanned     Boolean  @default(false)
   bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
   isShadowBanned Boolean @default(false)  // soft moderation: user can post but content is hidden from others
@@ -826,6 +836,9 @@ model Club {
   welcomeMessage String?  @db.Text
   // Private clubs — gate joins behind invite/approval
   visibility     ClubVisibility @default(PUBLIC)
+  // Verified badge (admin-granted)
+  verified       Boolean @default(false)
+  verifiedAt     DateTime?
 
   owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
   members ClubMember[]

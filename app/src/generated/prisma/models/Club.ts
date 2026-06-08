@@ -48,6 +48,8 @@ export type ClubMinAggregateOutputType = {
   rules: string | null
   welcomeMessage: string | null
   visibility: $Enums.ClubVisibility | null
+  verified: boolean | null
+  verifiedAt: Date | null
 }
 
 export type ClubMaxAggregateOutputType = {
@@ -64,6 +66,8 @@ export type ClubMaxAggregateOutputType = {
   rules: string | null
   welcomeMessage: string | null
   visibility: $Enums.ClubVisibility | null
+  verified: boolean | null
+  verifiedAt: Date | null
 }
 
 export type ClubCountAggregateOutputType = {
@@ -80,6 +84,8 @@ export type ClubCountAggregateOutputType = {
   rules: number
   welcomeMessage: number
   visibility: number
+  verified: number
+  verifiedAt: number
   _all: number
 }
 
@@ -106,6 +112,8 @@ export type ClubMinAggregateInputType = {
   rules?: true
   welcomeMessage?: true
   visibility?: true
+  verified?: true
+  verifiedAt?: true
 }
 
 export type ClubMaxAggregateInputType = {
@@ -122,6 +130,8 @@ export type ClubMaxAggregateInputType = {
   rules?: true
   welcomeMessage?: true
   visibility?: true
+  verified?: true
+  verifiedAt?: true
 }
 
 export type ClubCountAggregateInputType = {
@@ -138,6 +148,8 @@ export type ClubCountAggregateInputType = {
   rules?: true
   welcomeMessage?: true
   visibility?: true
+  verified?: true
+  verifiedAt?: true
   _all?: true
 }
 
@@ -241,6 +253,8 @@ export type ClubGroupByOutputType = {
   rules: string | null
   welcomeMessage: string | null
   visibility: $Enums.ClubVisibility
+  verified: boolean
+  verifiedAt: Date | null
   _count: ClubCountAggregateOutputType | null
   _avg: ClubAvgAggregateOutputType | null
   _sum: ClubSumAggregateOutputType | null
@@ -280,6 +294,8 @@ export type ClubWhereInput = {
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
   visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
+  verified?: Prisma.BoolFilter<"Club"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableFilter<"Club"> | Date | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
@@ -304,6 +320,8 @@ export type ClubOrderByWithRelationInput = {
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.ClubMemberOrderByRelationAggregateInput
   threads?: Prisma.ThreadOrderByRelationAggregateInput
@@ -331,6 +349,8 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
   visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
+  verified?: Prisma.BoolFilter<"Club"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableFilter<"Club"> | Date | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.ClubMemberListRelationFilter
   threads?: Prisma.ThreadListRelationFilter
@@ -355,6 +375,8 @@ export type ClubOrderByWithAggregationInput = {
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClubCountOrderByAggregateInput
   _avg?: Prisma.ClubAvgOrderByAggregateInput
   _max?: Prisma.ClubMaxOrderByAggregateInput
@@ -379,6 +401,8 @@ export type ClubScalarWhereWithAggregatesInput = {
   rules?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   visibility?: Prisma.EnumClubVisibilityWithAggregatesFilter<"Club"> | $Enums.ClubVisibility
+  verified?: Prisma.BoolWithAggregatesFilter<"Club"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Club"> | Date | string | null
 }
 
 export type ClubCreateInput = {
@@ -394,6 +418,8 @@ export type ClubCreateInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -418,6 +444,8 @@ export type ClubUncheckedCreateInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -440,6 +468,8 @@ export type ClubUpdateInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -464,6 +494,8 @@ export type ClubUncheckedUpdateInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -487,6 +519,8 @@ export type ClubCreateManyInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
 }
 
 export type ClubUpdateManyMutationInput = {
@@ -502,6 +536,8 @@ export type ClubUpdateManyMutationInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubUncheckedUpdateManyInput = {
@@ -518,6 +554,8 @@ export type ClubUncheckedUpdateManyInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClubListRelationFilter = {
@@ -544,6 +582,8 @@ export type ClubCountOrderByAggregateInput = {
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
 }
 
 export type ClubAvgOrderByAggregateInput = {
@@ -564,6 +604,8 @@ export type ClubMaxOrderByAggregateInput = {
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
 }
 
 export type ClubMinOrderByAggregateInput = {
@@ -580,6 +622,8 @@ export type ClubMinOrderByAggregateInput = {
   rules?: Prisma.SortOrder
   welcomeMessage?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
+  verifiedAt?: Prisma.SortOrder
 }
 
 export type ClubSumOrderByAggregateInput = {
@@ -759,6 +803,8 @@ export type ClubCreateWithoutOwnerInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
@@ -781,6 +827,8 @@ export type ClubUncheckedCreateWithoutOwnerInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -833,6 +881,8 @@ export type ClubScalarWhereInput = {
   rules?: Prisma.StringNullableFilter<"Club"> | string | null
   welcomeMessage?: Prisma.StringNullableFilter<"Club"> | string | null
   visibility?: Prisma.EnumClubVisibilityFilter<"Club"> | $Enums.ClubVisibility
+  verified?: Prisma.BoolFilter<"Club"> | boolean
+  verifiedAt?: Prisma.DateTimeNullableFilter<"Club"> | Date | string | null
 }
 
 export type ClubCreateWithoutInvitesInput = {
@@ -848,6 +898,8 @@ export type ClubCreateWithoutInvitesInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -871,6 +923,8 @@ export type ClubUncheckedCreateWithoutInvitesInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -908,6 +962,8 @@ export type ClubUpdateWithoutInvitesInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -931,6 +987,8 @@ export type ClubUncheckedUpdateWithoutInvitesInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -952,6 +1010,8 @@ export type ClubCreateWithoutJoinRequestsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -975,6 +1035,8 @@ export type ClubUncheckedCreateWithoutJoinRequestsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -1012,6 +1074,8 @@ export type ClubUpdateWithoutJoinRequestsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -1035,6 +1099,8 @@ export type ClubUncheckedUpdateWithoutJoinRequestsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -1056,6 +1122,8 @@ export type ClubCreateWithoutEventsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -1079,6 +1147,8 @@ export type ClubUncheckedCreateWithoutEventsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
@@ -1116,6 +1186,8 @@ export type ClubUpdateWithoutEventsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -1139,6 +1211,8 @@ export type ClubUncheckedUpdateWithoutEventsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
@@ -1160,6 +1234,8 @@ export type ClubCreateWithoutMembersInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
@@ -1183,6 +1259,8 @@ export type ClubUncheckedCreateWithoutMembersInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
@@ -1220,6 +1298,8 @@ export type ClubUpdateWithoutMembersInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
@@ -1243,6 +1323,8 @@ export type ClubUncheckedUpdateWithoutMembersInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
@@ -1264,6 +1346,8 @@ export type ClubCreateWithoutThreadsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventCreateNestedManyWithoutClubInput
@@ -1287,6 +1371,8 @@ export type ClubUncheckedCreateWithoutThreadsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
   polls?: Prisma.PollUncheckedCreateNestedManyWithoutClubInput
@@ -1324,6 +1410,8 @@ export type ClubUpdateWithoutThreadsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
@@ -1347,6 +1435,8 @@ export type ClubUncheckedUpdateWithoutThreadsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
   polls?: Prisma.PollUncheckedUpdateManyWithoutClubNestedInput
@@ -1368,6 +1458,8 @@ export type ClubCreateWithoutPollsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -1391,6 +1483,8 @@ export type ClubUncheckedCreateWithoutPollsInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -1428,6 +1522,8 @@ export type ClubUpdateWithoutPollsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -1451,6 +1547,8 @@ export type ClubUncheckedUpdateWithoutPollsInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -1472,6 +1570,8 @@ export type ClubCreateWithoutChatGroupInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadCreateNestedManyWithoutClubInput
@@ -1495,6 +1595,8 @@ export type ClubUncheckedCreateWithoutChatGroupInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutClubInput
   events?: Prisma.ClubEventUncheckedCreateNestedManyWithoutClubInput
@@ -1532,6 +1634,8 @@ export type ClubUpdateWithoutChatGroupInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
@@ -1555,6 +1659,8 @@ export type ClubUncheckedUpdateWithoutChatGroupInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -1576,6 +1682,8 @@ export type ClubCreateManyOwnerInput = {
   rules?: string | null
   welcomeMessage?: string | null
   visibility?: $Enums.ClubVisibility
+  verified?: boolean
+  verifiedAt?: Date | string | null
 }
 
 export type ClubUpdateWithoutOwnerInput = {
@@ -1591,6 +1699,8 @@ export type ClubUpdateWithoutOwnerInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUpdateManyWithoutClubNestedInput
@@ -1613,6 +1723,8 @@ export type ClubUncheckedUpdateWithoutOwnerInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutClubNestedInput
   events?: Prisma.ClubEventUncheckedUpdateManyWithoutClubNestedInput
@@ -1635,6 +1747,8 @@ export type ClubUncheckedUpdateManyWithoutOwnerInput = {
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   welcomeMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visibility?: Prisma.EnumClubVisibilityFieldUpdateOperationsInput | $Enums.ClubVisibility
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1727,6 +1841,8 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   rules?: boolean
   welcomeMessage?: boolean
   visibility?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
   threads?: boolean | Prisma.Club$threadsArgs<ExtArgs>
@@ -1752,6 +1868,8 @@ export type ClubSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rules?: boolean
   welcomeMessage?: boolean
   visibility?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
 
@@ -1769,6 +1887,8 @@ export type ClubSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rules?: boolean
   welcomeMessage?: boolean
   visibility?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["club"]>
 
@@ -1786,9 +1906,11 @@ export type ClubSelectScalar = {
   rules?: boolean
   welcomeMessage?: boolean
   visibility?: boolean
+  verified?: boolean
+  verifiedAt?: boolean
 }
 
-export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "category" | "ownerId" | "reputation" | "createdAt" | "bannerUrl" | "avatarUrl" | "rules" | "welcomeMessage" | "visibility", ExtArgs["result"]["club"]>
+export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "category" | "ownerId" | "reputation" | "createdAt" | "bannerUrl" | "avatarUrl" | "rules" | "welcomeMessage" | "visibility" | "verified" | "verifiedAt", ExtArgs["result"]["club"]>
 export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
@@ -1833,6 +1955,8 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     rules: string | null
     welcomeMessage: string | null
     visibility: $Enums.ClubVisibility
+    verified: boolean
+    verifiedAt: Date | null
   }, ExtArgs["result"]["club"]>
   composites: {}
 }
@@ -2277,6 +2401,8 @@ export interface ClubFieldRefs {
   readonly rules: Prisma.FieldRef<"Club", 'String'>
   readonly welcomeMessage: Prisma.FieldRef<"Club", 'String'>
   readonly visibility: Prisma.FieldRef<"Club", 'ClubVisibility'>
+  readonly verified: Prisma.FieldRef<"Club", 'Boolean'>
+  readonly verifiedAt: Prisma.FieldRef<"Club", 'DateTime'>
 }
     
 

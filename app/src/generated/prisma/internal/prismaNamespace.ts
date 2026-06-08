@@ -12834,6 +12834,8 @@ export const UserScalarFieldEnum = {
   passwordHash: 'passwordHash',
   role: 'role',
   reputation: 'reputation',
+  verifiedKind: 'verifiedKind',
+  verifiedAt: 'verifiedAt',
   isBanned: 'isBanned',
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',
@@ -13316,7 +13318,9 @@ export const ClubScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   rules: 'rules',
   welcomeMessage: 'welcomeMessage',
-  visibility: 'visibility'
+  visibility: 'visibility',
+  verified: 'verified',
+  verifiedAt: 'verifiedAt'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
@@ -15427,9 +15431,16 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Boolean'
+ * Reference to a field of type 'VerificationKind'
  */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+export type EnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationKind'>
+    
+
+
+/**
+ * Reference to a field of type 'VerificationKind[]'
+ */
+export type ListEnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationKind[]'>
     
 
 
@@ -15444,6 +15455,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

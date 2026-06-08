@@ -16,8 +16,22 @@ const safeUserSelect = {
   avatarUrl: true,
   role: true,
   reputation: true,
+  verifiedKind: true,
   createdAt: true,
 } as const;
+
+// ─── verified badge (admin) ─────────────────────────────────────────────────────
+
+export async function setVerification(username: string, kind: "USER" | "CREATOR" | "STUDIO" | null) {
+  const user = await prisma.user.findUnique({ where: { username }, select: { id: true } });
+  if (!user) throw notFound("User not found");
+  const updated = await prisma.user.update({
+    where: { id: user.id },
+    data: { verifiedKind: kind, verifiedAt: kind ? new Date() : null },
+    select: safeUserSelect,
+  });
+  return { user: updated };
+}
 
 // ─── getProfile ───────────────────────────────────────────────────────────────
 

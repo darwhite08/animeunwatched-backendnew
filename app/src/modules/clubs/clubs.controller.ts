@@ -53,6 +53,13 @@ export async function joinClub(req: Request, res: Response, next: NextFunction):
   }
 }
 
+export async function setVerified(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const verified = req.body?.verified !== false; // default true
+    res.status(200).json(await service.setClubVerified(req.params.slug as string, verified));
+  } catch (err) { next(err); }
+}
+
 export async function createInvite(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const actorId: string = res.locals.user.id;

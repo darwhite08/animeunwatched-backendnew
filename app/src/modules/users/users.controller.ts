@@ -11,6 +11,22 @@ export async function getProfile(req: Request, res: Response, next: NextFunction
   }
 }
 
+const VERIFY_KINDS = ["USER", "CREATOR", "STUDIO"] as const;
+export async function setVerification(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const raw = (req.body ?? {}).kind;
+    const kind = raw == null || raw === "" || raw === "NONE" ? null : raw;
+    if (kind !== null && !VERIFY_KINDS.includes(kind)) {
+      res.status(400).json({ error: { code: "BAD_REQUEST", message: "kind must be USER, CREATOR, STUDIO or null" } });
+      return;
+    }
+    const result = await service.setVerification(req.params.username as string, kind);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function updateMe(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

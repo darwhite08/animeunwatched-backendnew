@@ -243,6 +243,8 @@ export const UserScalarFieldEnum = {
   passwordHash: 'passwordHash',
   role: 'role',
   reputation: 'reputation',
+  verifiedKind: 'verifiedKind',
+  verifiedAt: 'verifiedAt',
   isBanned: 'isBanned',
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',
@@ -725,7 +727,9 @@ export const ClubScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   rules: 'rules',
   welcomeMessage: 'welcomeMessage',
-  visibility: 'visibility'
+  visibility: 'visibility',
+  verified: 'verified',
+  verifiedAt: 'verifiedAt'
 } as const
 
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
