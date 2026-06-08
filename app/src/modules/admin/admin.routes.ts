@@ -111,7 +111,8 @@ adminRouter.post(  "/users/bulk",                     requirePermission("users",
 adminRouter.get(  "/creators",                       requirePermission("users","read"),   creators.listCreators);
 adminRouter.post( "/creators/:userId/grant",         requirePermission("users","update"), creators.grantCreator);
 adminRouter.post( "/creators/:userId/revoke",        requirePermission("users","update"), creators.revokeCreator);
-adminRouter.post( "/creators/:userId/bonus",         requirePermission("users","update"), creators.grantBonus);
+adminRouter.post( "/creators/:userId/bonus",         requirePermissionWithStepUp("users","update"), creators.grantBonus);
+adminRouter.post( "/creators/:userId/bonus/revoke",  requirePermissionWithStepUp("users","update"), creators.revokeBonus);
 
 // Invites
 adminRouter.get(   "/invites",                        requirePermission("users","read"),   users.listInvites);

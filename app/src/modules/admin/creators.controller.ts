@@ -38,3 +38,12 @@ export async function grantBonus(req: Request, res: Response, next: NextFunction
     res.status(200).json(await service.grantEarlySignupBonus({ actorId, userId, amountCents }));
   } catch (err) { next(err); }
 }
+
+/** POST /admin/creators/:userId/bonus/revoke — claw back an unpaid early-signup grant. */
+export async function revokeBonus(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string;
+    const userId = req.params.userId as string;
+    res.status(200).json(await service.revokeEarlySignupBonus({ actorId, userId }));
+  } catch (err) { next(err); }
+}

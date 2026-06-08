@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, conflict, badRequest } from "../../lib/errors";
 import { auditMod } from "../../lib/audit";
+import { createNotification, NotificationType } from "../../lib/notify";
 
 // Min/max sanity bounds for a manual early-signup grant ($1 – $1,000).
 const GRANT_MIN_CENTS = 100;
@@ -49,7 +50,7 @@ export async function listCreators(opts: { q?: string; status?: string; take?: n
   const grants = ids.length
     ? await prisma.creatorEarning.groupBy({
         by: ["creatorId"],
-        where: { creatorId: { in: ids }, source: "grant" },
+        where: { creatorId: { in: ids }, source: "grant", status: { not: "refunded" } },
         _sum: { grossCents: true },
       })
     : [];
@@ -89,7 +90,7 @@ export async function grantEarlySignupBonus(opts: { actorId: string; userId: str
   if (!user) throw notFound("User not found");
 
   const existing = await prisma.creatorEarning.findFirst({
-    where: { creatorId: opts.userId, source: "grant" },
+    where: { creatorId: opts.userId, source: "grant", status: { not: "refunded" } },
     select: { id: true },
   });
   if (existing) throw conflict("This user already received an early-signup grant");
@@ -119,10 +120,56 @@ export async function grantEarlySignupBonus(opts: { actorId: string; userId: str
     note: `early_signup $${(amountCents / 100).toFixed(2)}`,
   });
 
+  // Celebrate on the creator's side: real-time socket event + stored notification
+  // the Creator Studio renders as an animated bonus banner.
+  const amountUsd = `$${(amountCents / 100).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
+  await createNotification({
+    recipientId: opts.userId,
+    type: NotificationType.SYSTEM,
+    payload: {
+      message: `Kaiveron granted you ${amountUsd} as an early-signup bonus 🎉`,
+      link: "/revenue",
+      kind: "early_signup_bonus",
+      amountCents,
+    },
+  }).catch(() => { /* never fail the grant on a notification hiccup */ });
+
   return {
     user: { id: user.id, username: user.username },
     amountCents: earning.netCents,
   };
+}
+
+/** Revoke an early-signup grant that has NOT yet been paid out. Marks the
+ *  earning `refunded` (kept for audit; drops out of the payable balance and
+ *  frees the user to be granted again). */
+export async function revokeEarlySignupBonus(opts: { actorId: string; userId: string }) {
+  const grant = await prisma.creatorEarning.findFirst({
+    where: { creatorId: opts.userId, source: "grant", status: { not: "refunded" } },
+    orderBy: { createdAt: "desc" },
+    select: { id: true, status: true, netCents: true, payoutId: true },
+  });
+  if (!grant) throw notFound("No active early-signup grant to revoke");
+  if (grant.status === "paid" || grant.payoutId) {
+    throw conflict("This grant was already paid out and can no longer be revoked");
+  }
+
+  const updated = await prisma.creatorEarning.update({
+    where: { id: grant.id },
+    data:  { status: "refunded" },
+    select: { id: true, netCents: true },
+  });
+
+  auditMod("mod_action_applied", {
+    actorId: opts.actorId,
+    targetUserId: opts.userId,
+    targetType: "CreatorEarning",
+    targetId: updated.id,
+    action: "creator_bonus_revoke",
+    note: `early_signup -$${(updated.netCents / 100).toFixed(2)}`,
+  });
+
+  return { userId: opts.userId, revokedCents: updated.netCents };
 }
 
 /** Grant (status="active") or revoke (status="none") manual Creator Studio access. */
