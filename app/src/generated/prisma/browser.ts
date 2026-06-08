@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model StreakDay
+ * 
+ */
+export type StreakDay = Prisma.StreakDayModel
+/**
  * Model DeviceToken
  * 
  */

@@ -66,10 +66,23 @@ model User {
   readReceiptsOn   Boolean @default(true)
   showOnlineStatus String  @default("everyone")   // everyone | followers | nobody
   dmLastSeenAt     DateTime?                       // presence "last seen" (throttled writes)
-  // Streak tracking — real database-backed (not rep estimate)
+  // Streak tracking — real database-backed (not rep estimate). See
+  // docs/streak-algorithm.md: timezone-correct day boundary + grace + freezes +
+  // soft-break + repair (humane, anti-frustration).
   streakDays   Int      @default(0)
   lastActiveAt DateTime?
   bestStreak   Int      @default(0)
+  /// Local-day key "YYYY-MM-DD" (in `timezone`, grace-shifted) the streak was
+  /// last credited — the REAL consecutive-day comparison key (not a UTC ts).
+  lastStreakDate String?
+  /// IANA tz for the user's day boundary (fixes the UTC-midnight churn bug).
+  timezone     String   @default("Asia/Kolkata")
+  /// Auto-consumed freeze tokens that absorb a missed day (Duolingo-style).
+  streakFreezes   Int    @default(0)
+  freezeGrantedAt DateTime?            // weekly earn-cap anchor
+  streakRepairAt  DateTime?            // last free repair (monthly cap)
+  streakBrokenAt  DateTime?            // when the last break happened (48h repair window)
+  prevStreakDays  Int    @default(0)   // streak value just before a break (for repair)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -138,6 +151,22 @@ model User {
   groupMemberships   GroupMember[]
   groupMessages      GroupMessage[]      @relation("GroupMessageSender")
   groupReactions     GroupMessageReaction[]
+  streakDaysLog      StreakDay[]
+}
+
+// One row per user per active local day. Powers the streak "Consistency Map"
+// heatmap and is the audit trail for how each day was credited (docs/streak-algorithm.md).
+model StreakDay {
+  userId        String
+  date          String   // local-day key "YYYY-MM-DD" (user's tz, grace-shifted)
+  activityCount Int      @default(1)
+  source        String   @default("activity") // activity | frozen | grace | repair
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, date])
+  @@index([userId, date])
 }
 
 // One row per registered push-notification device for a user.

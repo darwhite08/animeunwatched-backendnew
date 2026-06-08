@@ -30,12 +30,16 @@ export type UserAvgAggregateOutputType = {
   reputation: number | null
   streakDays: number | null
   bestStreak: number | null
+  streakFreezes: number | null
+  prevStreakDays: number | null
 }
 
 export type UserSumAggregateOutputType = {
   reputation: number | null
   streakDays: number | null
   bestStreak: number | null
+  streakFreezes: number | null
+  prevStreakDays: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -60,6 +64,13 @@ export type UserMinAggregateOutputType = {
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
+  lastStreakDate: string | null
+  timezone: string | null
+  streakFreezes: number | null
+  freezeGrantedAt: Date | null
+  streakRepairAt: Date | null
+  streakBrokenAt: Date | null
+  prevStreakDays: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -86,6 +97,13 @@ export type UserMaxAggregateOutputType = {
   streakDays: number | null
   lastActiveAt: Date | null
   bestStreak: number | null
+  lastStreakDate: string | null
+  timezone: string | null
+  streakFreezes: number | null
+  freezeGrantedAt: Date | null
+  streakRepairAt: Date | null
+  streakBrokenAt: Date | null
+  prevStreakDays: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -112,6 +130,13 @@ export type UserCountAggregateOutputType = {
   streakDays: number
   lastActiveAt: number
   bestStreak: number
+  lastStreakDate: number
+  timezone: number
+  streakFreezes: number
+  freezeGrantedAt: number
+  streakRepairAt: number
+  streakBrokenAt: number
+  prevStreakDays: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -122,12 +147,16 @@ export type UserAvgAggregateInputType = {
   reputation?: true
   streakDays?: true
   bestStreak?: true
+  streakFreezes?: true
+  prevStreakDays?: true
 }
 
 export type UserSumAggregateInputType = {
   reputation?: true
   streakDays?: true
   bestStreak?: true
+  streakFreezes?: true
+  prevStreakDays?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -152,6 +181,13 @@ export type UserMinAggregateInputType = {
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
+  lastStreakDate?: true
+  timezone?: true
+  streakFreezes?: true
+  freezeGrantedAt?: true
+  streakRepairAt?: true
+  streakBrokenAt?: true
+  prevStreakDays?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -178,6 +214,13 @@ export type UserMaxAggregateInputType = {
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
+  lastStreakDate?: true
+  timezone?: true
+  streakFreezes?: true
+  freezeGrantedAt?: true
+  streakRepairAt?: true
+  streakBrokenAt?: true
+  prevStreakDays?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -204,6 +247,13 @@ export type UserCountAggregateInputType = {
   streakDays?: true
   lastActiveAt?: true
   bestStreak?: true
+  lastStreakDate?: true
+  timezone?: true
+  streakFreezes?: true
+  freezeGrantedAt?: true
+  streakRepairAt?: true
+  streakBrokenAt?: true
+  prevStreakDays?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -317,6 +367,13 @@ export type UserGroupByOutputType = {
   streakDays: number
   lastActiveAt: Date | null
   bestStreak: number
+  lastStreakDate: string | null
+  timezone: string
+  streakFreezes: number
+  freezeGrantedAt: Date | null
+  streakRepairAt: Date | null
+  streakBrokenAt: Date | null
+  prevStreakDays: number
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -366,6 +423,13 @@ export type UserWhereInput = {
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
+  lastStreakDate?: Prisma.StringNullableFilter<"User"> | string | null
+  timezone?: Prisma.StringFilter<"User"> | string
+  streakFreezes?: Prisma.IntFilter<"User"> | number
+  freezeGrantedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakRepairAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakBrokenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  prevStreakDays?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
@@ -420,6 +484,7 @@ export type UserWhereInput = {
   groupMemberships?: Prisma.GroupMemberListRelationFilter
   groupMessages?: Prisma.GroupMessageListRelationFilter
   groupReactions?: Prisma.GroupMessageReactionListRelationFilter
+  streakDaysLog?: Prisma.StreakDayListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -444,6 +509,13 @@ export type UserOrderByWithRelationInput = {
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  lastStreakDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  timezone?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  freezeGrantedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakRepairAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakBrokenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
@@ -498,6 +570,7 @@ export type UserOrderByWithRelationInput = {
   groupMemberships?: Prisma.GroupMemberOrderByRelationAggregateInput
   groupMessages?: Prisma.GroupMessageOrderByRelationAggregateInput
   groupReactions?: Prisma.GroupMessageReactionOrderByRelationAggregateInput
+  streakDaysLog?: Prisma.StreakDayOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -525,6 +598,13 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   streakDays?: Prisma.IntFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntFilter<"User"> | number
+  lastStreakDate?: Prisma.StringNullableFilter<"User"> | string | null
+  timezone?: Prisma.StringFilter<"User"> | string
+  streakFreezes?: Prisma.IntFilter<"User"> | number
+  freezeGrantedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakRepairAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakBrokenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  prevStreakDays?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
@@ -579,6 +659,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   groupMemberships?: Prisma.GroupMemberListRelationFilter
   groupMessages?: Prisma.GroupMessageListRelationFilter
   groupReactions?: Prisma.GroupMessageReactionListRelationFilter
+  streakDaysLog?: Prisma.StreakDayListRelationFilter
 }, "id" | "email" | "username" | "slug">
 
 export type UserOrderByWithAggregationInput = {
@@ -603,6 +684,13 @@ export type UserOrderByWithAggregationInput = {
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  lastStreakDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  timezone?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  freezeGrantedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakRepairAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakBrokenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -637,6 +725,13 @@ export type UserScalarWhereWithAggregatesInput = {
   streakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
+  lastStreakDate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  timezone?: Prisma.StringWithAggregatesFilter<"User"> | string
+  streakFreezes?: Prisma.IntWithAggregatesFilter<"User"> | number
+  freezeGrantedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  streakRepairAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  streakBrokenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  prevStreakDays?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -663,6 +758,13 @@ export type UserCreateInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -717,6 +819,7 @@ export type UserCreateInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -741,6 +844,13 @@ export type UserUncheckedCreateInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -795,6 +905,7 @@ export type UserUncheckedCreateInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -819,6 +930,13 @@ export type UserUpdateInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -873,6 +991,7 @@ export type UserUpdateInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -897,6 +1016,13 @@ export type UserUncheckedUpdateInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -951,6 +1077,7 @@ export type UserUncheckedUpdateInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -975,6 +1102,13 @@ export type UserCreateManyInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1001,6 +1135,13 @@ export type UserUpdateManyMutationInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1027,6 +1168,13 @@ export type UserUncheckedUpdateManyInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1053,6 +1201,13 @@ export type UserCountOrderByAggregateInput = {
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  lastStreakDate?: Prisma.SortOrder
+  timezone?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  freezeGrantedAt?: Prisma.SortOrder
+  streakRepairAt?: Prisma.SortOrder
+  streakBrokenAt?: Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1061,6 +1216,8 @@ export type UserAvgOrderByAggregateInput = {
   reputation?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -1085,6 +1242,13 @@ export type UserMaxOrderByAggregateInput = {
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  lastStreakDate?: Prisma.SortOrder
+  timezone?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  freezeGrantedAt?: Prisma.SortOrder
+  streakRepairAt?: Prisma.SortOrder
+  streakBrokenAt?: Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1111,6 +1275,13 @@ export type UserMinOrderByAggregateInput = {
   streakDays?: Prisma.SortOrder
   lastActiveAt?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  lastStreakDate?: Prisma.SortOrder
+  timezone?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  freezeGrantedAt?: Prisma.SortOrder
+  streakRepairAt?: Prisma.SortOrder
+  streakBrokenAt?: Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1119,6 +1290,8 @@ export type UserSumOrderByAggregateInput = {
   reputation?: Prisma.SortOrder
   streakDays?: Prisma.SortOrder
   bestStreak?: Prisma.SortOrder
+  streakFreezes?: Prisma.SortOrder
+  prevStreakDays?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -1161,6 +1334,20 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutStreakDaysLogInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStreakDaysLogInput, Prisma.UserUncheckedCreateWithoutStreakDaysLogInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStreakDaysLogInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStreakDaysLogNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStreakDaysLogInput, Prisma.UserUncheckedCreateWithoutStreakDaysLogInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStreakDaysLogInput
+  upsert?: Prisma.UserUpsertWithoutStreakDaysLogInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStreakDaysLogInput, Prisma.UserUpdateWithoutStreakDaysLogInput>, Prisma.UserUncheckedUpdateWithoutStreakDaysLogInput>
 }
 
 export type UserCreateNestedOneWithoutDeviceTokensInput = {
@@ -1895,6 +2082,362 @@ export type UserUpdateOneRequiredWithoutStoryViewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoryViewsInput, Prisma.UserUpdateWithoutStoryViewsInput>, Prisma.UserUncheckedUpdateWithoutStoryViewsInput>
 }
 
+export type UserCreateWithoutStreakDaysLogInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStreakDaysLogInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStreakDaysLogInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStreakDaysLogInput, Prisma.UserUncheckedCreateWithoutStreakDaysLogInput>
+}
+
+export type UserUpsertWithoutStreakDaysLogInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStreakDaysLogInput, Prisma.UserUncheckedUpdateWithoutStreakDaysLogInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStreakDaysLogInput, Prisma.UserUncheckedCreateWithoutStreakDaysLogInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStreakDaysLogInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStreakDaysLogInput, Prisma.UserUncheckedUpdateWithoutStreakDaysLogInput>
+}
+
+export type UserUpdateWithoutStreakDaysLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutDeviceTokensInput = {
   id?: string
   email: string
@@ -1917,6 +2460,13 @@ export type UserCreateWithoutDeviceTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -1970,6 +2520,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeviceTokensInput = {
@@ -1994,6 +2545,13 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2047,6 +2605,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeviceTokensInput = {
@@ -2087,6 +2646,13 @@ export type UserUpdateWithoutDeviceTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2140,6 +2706,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceTokensInput = {
@@ -2164,6 +2731,13 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2217,6 +2791,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNativePushTokensInput = {
@@ -2241,6 +2816,13 @@ export type UserCreateWithoutNativePushTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2294,6 +2876,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNativePushTokensInput = {
@@ -2318,6 +2901,13 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2371,6 +2961,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNativePushTokensInput = {
@@ -2411,6 +3002,13 @@ export type UserUpdateWithoutNativePushTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2464,6 +3062,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNativePushTokensInput = {
@@ -2488,6 +3087,13 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2541,6 +3147,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -2565,6 +3172,13 @@ export type UserCreateWithoutRefreshTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
@@ -2618,6 +3232,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -2642,6 +3257,13 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -2695,6 +3317,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2735,6 +3358,13 @@ export type UserUpdateWithoutRefreshTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
@@ -2788,6 +3418,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2812,6 +3443,13 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -2865,6 +3503,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -2889,6 +3528,13 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2942,6 +3588,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -2966,6 +3613,13 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3019,6 +3673,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -3059,6 +3714,13 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3112,6 +3774,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -3136,6 +3799,13 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3189,6 +3859,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSecurityEventsInput = {
@@ -3213,6 +3884,13 @@ export type UserCreateWithoutSecurityEventsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3266,6 +3944,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSecurityEventsInput = {
@@ -3290,6 +3969,13 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3343,6 +4029,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSecurityEventsInput = {
@@ -3383,6 +4070,13 @@ export type UserUpdateWithoutSecurityEventsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3436,6 +4130,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSecurityEventsInput = {
@@ -3460,6 +4155,13 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3513,6 +4215,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -3537,6 +4240,13 @@ export type UserCreateWithoutFollowingInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3590,6 +4300,7 @@ export type UserCreateWithoutFollowingInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -3614,6 +4325,13 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3667,6 +4385,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -3696,6 +4415,13 @@ export type UserCreateWithoutFollowersInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3749,6 +4475,7 @@ export type UserCreateWithoutFollowersInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -3773,6 +4500,13 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3826,6 +4560,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -3866,6 +4601,13 @@ export type UserUpdateWithoutFollowingInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3919,6 +4661,7 @@ export type UserUpdateWithoutFollowingInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -3943,6 +4686,13 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3996,6 +4746,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -4031,6 +4782,13 @@ export type UserUpdateWithoutFollowersInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4084,6 +4842,7 @@ export type UserUpdateWithoutFollowersInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -4108,6 +4867,13 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4161,6 +4927,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListEntriesInput = {
@@ -4185,6 +4952,13 @@ export type UserCreateWithoutListEntriesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4238,6 +5012,7 @@ export type UserCreateWithoutListEntriesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListEntriesInput = {
@@ -4262,6 +5037,13 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4315,6 +5097,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListEntriesInput = {
@@ -4355,6 +5138,13 @@ export type UserUpdateWithoutListEntriesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4408,6 +5198,7 @@ export type UserUpdateWithoutListEntriesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListEntriesInput = {
@@ -4432,6 +5223,13 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4485,6 +5283,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -4509,6 +5308,13 @@ export type UserCreateWithoutPostsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4562,6 +5368,7 @@ export type UserCreateWithoutPostsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -4586,6 +5393,13 @@ export type UserUncheckedCreateWithoutPostsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4639,6 +5453,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -4679,6 +5494,13 @@ export type UserUpdateWithoutPostsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4732,6 +5554,7 @@ export type UserUpdateWithoutPostsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -4756,6 +5579,13 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4809,6 +5639,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostHidesInput = {
@@ -4833,6 +5664,13 @@ export type UserCreateWithoutPostHidesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4886,6 +5724,7 @@ export type UserCreateWithoutPostHidesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostHidesInput = {
@@ -4910,6 +5749,13 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4963,6 +5809,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostHidesInput = {
@@ -5003,6 +5850,13 @@ export type UserUpdateWithoutPostHidesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5056,6 +5910,7 @@ export type UserUpdateWithoutPostHidesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostHidesInput = {
@@ -5080,6 +5935,13 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5133,6 +5995,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostLikesInput = {
@@ -5157,6 +6020,13 @@ export type UserCreateWithoutPostLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5210,6 +6080,7 @@ export type UserCreateWithoutPostLikesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostLikesInput = {
@@ -5234,6 +6105,13 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5287,6 +6165,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostLikesInput = {
@@ -5327,6 +6206,13 @@ export type UserUpdateWithoutPostLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5380,6 +6266,7 @@ export type UserUpdateWithoutPostLikesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostLikesInput = {
@@ -5404,6 +6291,13 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5457,6 +6351,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -5481,6 +6376,13 @@ export type UserCreateWithoutPostCommentsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5534,6 +6436,7 @@ export type UserCreateWithoutPostCommentsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -5558,6 +6461,13 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5611,6 +6521,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -5651,6 +6562,13 @@ export type UserUpdateWithoutPostCommentsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5704,6 +6622,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -5728,6 +6647,13 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5781,6 +6707,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostCommentLikesInput = {
@@ -5805,6 +6732,13 @@ export type UserCreateWithoutPostCommentLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5858,6 +6792,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentLikesInput = {
@@ -5882,6 +6817,13 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5935,6 +6877,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentLikesInput = {
@@ -5975,6 +6918,13 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6028,6 +6978,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
@@ -6052,6 +7003,13 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6105,6 +7063,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedClubsInput = {
@@ -6129,6 +7088,13 @@ export type UserCreateWithoutOwnedClubsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6182,6 +7148,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedClubsInput = {
@@ -6206,6 +7173,13 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6259,6 +7233,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedClubsInput = {
@@ -6299,6 +7274,13 @@ export type UserUpdateWithoutOwnedClubsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6352,6 +7334,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedClubsInput = {
@@ -6376,6 +7359,13 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6429,6 +7419,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubEventsCreatedInput = {
@@ -6453,6 +7444,13 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6506,6 +7504,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
@@ -6530,6 +7529,13 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6583,6 +7589,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubEventsCreatedInput = {
@@ -6623,6 +7630,13 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6676,6 +7690,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
@@ -6700,6 +7715,13 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6753,6 +7775,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubEventRsvpsInput = {
@@ -6777,6 +7800,13 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6830,6 +7860,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
@@ -6854,6 +7885,13 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6907,6 +7945,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubEventRsvpsInput = {
@@ -6947,6 +7986,13 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -7000,6 +8046,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
@@ -7024,6 +8071,13 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -7077,6 +8131,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClubMembershipsInput = {
@@ -7101,6 +8156,13 @@ export type UserCreateWithoutClubMembershipsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -7154,6 +8216,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClubMembershipsInput = {
@@ -7178,6 +8241,13 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -7231,6 +8301,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClubMembershipsInput = {
@@ -7271,6 +8342,13 @@ export type UserUpdateWithoutClubMembershipsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -7324,6 +8402,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClubMembershipsInput = {
@@ -7348,6 +8427,13 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -7401,6 +8487,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutThreadsInput = {
@@ -7425,6 +8512,13 @@ export type UserCreateWithoutThreadsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -7478,6 +8572,7 @@ export type UserCreateWithoutThreadsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutThreadsInput = {
@@ -7502,6 +8597,13 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -7555,6 +8657,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutThreadsInput = {
@@ -7595,6 +8698,13 @@ export type UserUpdateWithoutThreadsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -7648,6 +8758,7 @@ export type UserUpdateWithoutThreadsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadsInput = {
@@ -7672,6 +8783,13 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -7725,6 +8843,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutThreadRepliesInput = {
@@ -7749,6 +8868,13 @@ export type UserCreateWithoutThreadRepliesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -7802,6 +8928,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutThreadRepliesInput = {
@@ -7826,6 +8953,13 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -7879,6 +9013,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutThreadRepliesInput = {
@@ -7919,6 +9054,13 @@ export type UserUpdateWithoutThreadRepliesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -7972,6 +9114,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutThreadRepliesInput = {
@@ -7996,6 +9139,13 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -8049,6 +9199,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -8073,6 +9224,13 @@ export type UserCreateWithoutReviewsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -8126,6 +9284,7 @@ export type UserCreateWithoutReviewsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -8150,6 +9309,13 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8203,6 +9369,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -8243,6 +9410,13 @@ export type UserUpdateWithoutReviewsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -8296,6 +9470,7 @@ export type UserUpdateWithoutReviewsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -8320,6 +9495,13 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -8373,6 +9555,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewLikesInput = {
@@ -8397,6 +9580,13 @@ export type UserCreateWithoutReviewLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -8450,6 +9640,7 @@ export type UserCreateWithoutReviewLikesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewLikesInput = {
@@ -8474,6 +9665,13 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8527,6 +9725,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewLikesInput = {
@@ -8567,6 +9766,13 @@ export type UserUpdateWithoutReviewLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -8620,6 +9826,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewLikesInput = {
@@ -8644,6 +9851,13 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -8697,6 +9911,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -8721,6 +9936,13 @@ export type UserCreateWithoutBlogsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -8774,6 +9996,7 @@ export type UserCreateWithoutBlogsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -8798,6 +10021,13 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8851,6 +10081,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -8891,6 +10122,13 @@ export type UserUpdateWithoutBlogsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -8944,6 +10182,7 @@ export type UserUpdateWithoutBlogsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -8968,6 +10207,13 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9021,6 +10267,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogCommentsInput = {
@@ -9045,6 +10292,13 @@ export type UserCreateWithoutBlogCommentsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -9098,6 +10352,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogCommentsInput = {
@@ -9122,6 +10377,13 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -9175,6 +10437,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogCommentsInput = {
@@ -9215,6 +10478,13 @@ export type UserUpdateWithoutBlogCommentsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -9268,6 +10538,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogCommentsInput = {
@@ -9292,6 +10563,13 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9345,6 +10623,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -9369,6 +10648,13 @@ export type UserCreateWithoutNotificationsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -9422,6 +10708,7 @@ export type UserCreateWithoutNotificationsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -9446,6 +10733,13 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -9499,6 +10793,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -9539,6 +10834,13 @@ export type UserUpdateWithoutNotificationsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -9592,6 +10894,7 @@ export type UserUpdateWithoutNotificationsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -9616,6 +10919,13 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9669,6 +10979,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportsInput = {
@@ -9693,6 +11004,13 @@ export type UserCreateWithoutReportsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -9746,6 +11064,7 @@ export type UserCreateWithoutReportsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsInput = {
@@ -9770,6 +11089,13 @@ export type UserUncheckedCreateWithoutReportsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -9823,6 +11149,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsInput = {
@@ -9863,6 +11190,13 @@ export type UserUpdateWithoutReportsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -9916,6 +11250,7 @@ export type UserUpdateWithoutReportsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsInput = {
@@ -9940,6 +11275,13 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -9993,6 +11335,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModerationActionsInput = {
@@ -10017,6 +11360,13 @@ export type UserCreateWithoutModerationActionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -10070,6 +11420,7 @@ export type UserCreateWithoutModerationActionsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModerationActionsInput = {
@@ -10094,6 +11445,13 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -10147,6 +11505,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModerationActionsInput = {
@@ -10187,6 +11546,13 @@ export type UserUpdateWithoutModerationActionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -10240,6 +11606,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModerationActionsInput = {
@@ -10264,6 +11631,13 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -10317,6 +11691,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPollsInput = {
@@ -10341,6 +11716,13 @@ export type UserCreateWithoutPollsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -10394,6 +11776,7 @@ export type UserCreateWithoutPollsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPollsInput = {
@@ -10418,6 +11801,13 @@ export type UserUncheckedCreateWithoutPollsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -10471,6 +11861,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPollsInput = {
@@ -10511,6 +11902,13 @@ export type UserUpdateWithoutPollsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -10564,6 +11962,7 @@ export type UserUpdateWithoutPollsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollsInput = {
@@ -10588,6 +11987,13 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -10641,6 +12047,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPollVotesInput = {
@@ -10665,6 +12072,13 @@ export type UserCreateWithoutPollVotesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -10718,6 +12132,7 @@ export type UserCreateWithoutPollVotesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPollVotesInput = {
@@ -10742,6 +12157,13 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -10795,6 +12217,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPollVotesInput = {
@@ -10835,6 +12258,13 @@ export type UserUpdateWithoutPollVotesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -10888,6 +12318,7 @@ export type UserUpdateWithoutPollVotesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPollVotesInput = {
@@ -10912,6 +12343,13 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -10965,6 +12403,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthProvidersInput = {
@@ -10989,6 +12428,13 @@ export type UserCreateWithoutOauthProvidersInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -11042,6 +12488,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthProvidersInput = {
@@ -11066,6 +12513,13 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11119,6 +12573,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthProvidersInput = {
@@ -11159,6 +12614,13 @@ export type UserUpdateWithoutOauthProvidersInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -11212,6 +12674,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthProvidersInput = {
@@ -11236,6 +12699,13 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -11289,6 +12759,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPublicKeyInput = {
@@ -11313,6 +12784,13 @@ export type UserCreateWithoutPublicKeyInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -11366,6 +12844,7 @@ export type UserCreateWithoutPublicKeyInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPublicKeyInput = {
@@ -11390,6 +12869,13 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11443,6 +12929,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPublicKeyInput = {
@@ -11483,6 +12970,13 @@ export type UserUpdateWithoutPublicKeyInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -11536,6 +13030,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPublicKeyInput = {
@@ -11560,6 +13055,13 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -11613,6 +13115,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutConversations1Input = {
@@ -11637,6 +13140,13 @@ export type UserCreateWithoutConversations1Input = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -11690,6 +13200,7 @@ export type UserCreateWithoutConversations1Input = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversations1Input = {
@@ -11714,6 +13225,13 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11767,6 +13285,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversations1Input = {
@@ -11796,6 +13315,13 @@ export type UserCreateWithoutConversations2Input = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -11849,6 +13375,7 @@ export type UserCreateWithoutConversations2Input = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversations2Input = {
@@ -11873,6 +13400,13 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11926,6 +13460,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversations2Input = {
@@ -11966,6 +13501,13 @@ export type UserUpdateWithoutConversations1Input = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -12019,6 +13561,7 @@ export type UserUpdateWithoutConversations1Input = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations1Input = {
@@ -12043,6 +13586,13 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -12096,6 +13646,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConversations2Input = {
@@ -12131,6 +13682,13 @@ export type UserUpdateWithoutConversations2Input = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -12184,6 +13742,7 @@ export type UserUpdateWithoutConversations2Input = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversations2Input = {
@@ -12208,6 +13767,13 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -12261,6 +13827,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -12285,6 +13852,13 @@ export type UserCreateWithoutSentMessagesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -12338,6 +13912,7 @@ export type UserCreateWithoutSentMessagesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -12362,6 +13937,13 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -12415,6 +13997,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -12455,6 +14038,13 @@ export type UserUpdateWithoutSentMessagesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -12508,6 +14098,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -12532,6 +14123,13 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -12585,6 +14183,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessageReactionsInput = {
@@ -12609,6 +14208,13 @@ export type UserCreateWithoutMessageReactionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -12662,6 +14268,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -12686,6 +14293,13 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -12739,6 +14353,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -12779,6 +14394,13 @@ export type UserUpdateWithoutMessageReactionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -12832,6 +14454,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -12856,6 +14479,13 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -12909,6 +14539,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsOwnedInput = {
@@ -12933,6 +14564,13 @@ export type UserCreateWithoutGroupsOwnedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -12986,6 +14624,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsOwnedInput = {
@@ -13010,6 +14649,13 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -13063,6 +14709,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsOwnedInput = {
@@ -13103,6 +14750,13 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -13156,6 +14810,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
@@ -13180,6 +14835,13 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -13233,6 +14895,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMembershipsInput = {
@@ -13257,6 +14920,13 @@ export type UserCreateWithoutGroupMembershipsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -13310,6 +14980,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMembershipsInput = {
@@ -13334,6 +15005,13 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -13387,6 +15065,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMembershipsInput = {
@@ -13427,6 +15106,13 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -13480,6 +15166,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
@@ -13504,6 +15191,13 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -13557,6 +15251,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMessagesInput = {
@@ -13581,6 +15276,13 @@ export type UserCreateWithoutGroupMessagesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -13634,6 +15336,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMessagesInput = {
@@ -13658,6 +15361,13 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -13711,6 +15421,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMessagesInput = {
@@ -13751,6 +15462,13 @@ export type UserUpdateWithoutGroupMessagesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -13804,6 +15522,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMessagesInput = {
@@ -13828,6 +15547,13 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -13881,6 +15607,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupReactionsInput = {
@@ -13905,6 +15632,13 @@ export type UserCreateWithoutGroupReactionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -13958,6 +15692,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupReactionsInput = {
@@ -13982,6 +15717,13 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -14035,6 +15777,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupReactionsInput = {
@@ -14075,6 +15818,13 @@ export type UserUpdateWithoutGroupReactionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -14128,6 +15878,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupReactionsInput = {
@@ -14152,6 +15903,13 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -14205,6 +15963,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDeviceKeysInput = {
@@ -14229,6 +15988,13 @@ export type UserCreateWithoutDeviceKeysInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -14282,6 +16048,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeviceKeysInput = {
@@ -14306,6 +16073,13 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -14359,6 +16133,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeviceKeysInput = {
@@ -14399,6 +16174,13 @@ export type UserUpdateWithoutDeviceKeysInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -14452,6 +16234,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeviceKeysInput = {
@@ -14476,6 +16259,13 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -14529,6 +16319,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlocksMadeInput = {
@@ -14553,6 +16344,13 @@ export type UserCreateWithoutBlocksMadeInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -14606,6 +16404,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlocksMadeInput = {
@@ -14630,6 +16429,13 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -14683,6 +16489,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlocksMadeInput = {
@@ -14712,6 +16519,13 @@ export type UserCreateWithoutBlocksReceivedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -14765,6 +16579,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlocksReceivedInput = {
@@ -14789,6 +16604,13 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -14842,6 +16664,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlocksReceivedInput = {
@@ -14882,6 +16705,13 @@ export type UserUpdateWithoutBlocksMadeInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -14935,6 +16765,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksMadeInput = {
@@ -14959,6 +16790,13 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -15012,6 +16850,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutBlocksReceivedInput = {
@@ -15047,6 +16886,13 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -15100,6 +16946,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
@@ -15124,6 +16971,13 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -15177,6 +17031,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutE2eKeyWrapsInput = {
@@ -15201,6 +17056,13 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -15254,6 +17116,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
@@ -15278,6 +17141,13 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -15331,6 +17201,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutE2eKeyWrapsInput = {
@@ -15371,6 +17242,13 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -15424,6 +17302,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
@@ -15448,6 +17327,13 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -15501,6 +17387,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutE2eDevicesInput = {
@@ -15525,6 +17412,13 @@ export type UserCreateWithoutE2eDevicesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -15578,6 +17472,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutE2eDevicesInput = {
@@ -15602,6 +17497,13 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -15655,6 +17557,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutE2eDevicesInput = {
@@ -15695,6 +17598,13 @@ export type UserUpdateWithoutE2eDevicesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -15748,6 +17658,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutE2eDevicesInput = {
@@ -15772,6 +17683,13 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -15825,6 +17743,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivitiesInput = {
@@ -15849,6 +17768,13 @@ export type UserCreateWithoutActivitiesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -15902,6 +17828,7 @@ export type UserCreateWithoutActivitiesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -15926,6 +17853,13 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -15979,6 +17913,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -16019,6 +17954,13 @@ export type UserUpdateWithoutActivitiesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -16072,6 +18014,7 @@ export type UserUpdateWithoutActivitiesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -16096,6 +18039,13 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -16149,6 +18099,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityLikesInput = {
@@ -16173,6 +18124,13 @@ export type UserCreateWithoutActivityLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -16226,6 +18184,7 @@ export type UserCreateWithoutActivityLikesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityLikesInput = {
@@ -16250,6 +18209,13 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -16303,6 +18269,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityLikesInput = {
@@ -16343,6 +18310,13 @@ export type UserUpdateWithoutActivityLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -16396,6 +18370,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLikesInput = {
@@ -16420,6 +18395,13 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -16473,6 +18455,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityRepostsInput = {
@@ -16497,6 +18480,13 @@ export type UserCreateWithoutActivityRepostsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -16550,6 +18540,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityRepostsInput = {
@@ -16574,6 +18565,13 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -16627,6 +18625,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityRepostsInput = {
@@ -16667,6 +18666,13 @@ export type UserUpdateWithoutActivityRepostsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -16720,6 +18726,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityRepostsInput = {
@@ -16744,6 +18751,13 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -16797,6 +18811,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRepliesInput = {
@@ -16821,6 +18836,13 @@ export type UserCreateWithoutRepliesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -16874,6 +18896,7 @@ export type UserCreateWithoutRepliesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRepliesInput = {
@@ -16898,6 +18921,13 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -16951,6 +18981,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRepliesInput = {
@@ -16991,6 +19022,13 @@ export type UserUpdateWithoutRepliesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -17044,6 +19082,7 @@ export type UserUpdateWithoutRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepliesInput = {
@@ -17068,6 +19107,13 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -17121,6 +19167,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScimSubjectInput = {
@@ -17145,6 +19192,13 @@ export type UserCreateWithoutScimSubjectInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -17198,6 +19252,7 @@ export type UserCreateWithoutScimSubjectInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScimSubjectInput = {
@@ -17222,6 +19277,13 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -17275,6 +19337,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScimSubjectInput = {
@@ -17315,6 +19378,13 @@ export type UserUpdateWithoutScimSubjectInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -17368,6 +19438,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScimSubjectInput = {
@@ -17392,6 +19463,13 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -17445,6 +19523,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShotsInput = {
@@ -17469,6 +19548,13 @@ export type UserCreateWithoutShotsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -17522,6 +19608,7 @@ export type UserCreateWithoutShotsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShotsInput = {
@@ -17546,6 +19633,13 @@ export type UserUncheckedCreateWithoutShotsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -17599,6 +19693,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShotsInput = {
@@ -17639,6 +19734,13 @@ export type UserUpdateWithoutShotsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -17692,6 +19794,7 @@ export type UserUpdateWithoutShotsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotsInput = {
@@ -17716,6 +19819,13 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -17769,6 +19879,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShotLikesInput = {
@@ -17793,6 +19904,13 @@ export type UserCreateWithoutShotLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -17846,6 +19964,7 @@ export type UserCreateWithoutShotLikesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShotLikesInput = {
@@ -17870,6 +19989,13 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -17923,6 +20049,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShotLikesInput = {
@@ -17963,6 +20090,13 @@ export type UserUpdateWithoutShotLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -18016,6 +20150,7 @@ export type UserUpdateWithoutShotLikesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShotLikesInput = {
@@ -18040,6 +20175,13 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -18093,6 +20235,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoriesInput = {
@@ -18117,6 +20260,13 @@ export type UserCreateWithoutStoriesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -18170,6 +20320,7 @@ export type UserCreateWithoutStoriesInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoriesInput = {
@@ -18194,6 +20345,13 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -18247,6 +20405,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoriesInput = {
@@ -18287,6 +20446,13 @@ export type UserUpdateWithoutStoriesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -18340,6 +20506,7 @@ export type UserUpdateWithoutStoriesInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoriesInput = {
@@ -18364,6 +20531,13 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -18417,6 +20591,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoryViewsInput = {
@@ -18441,6 +20616,13 @@ export type UserCreateWithoutStoryViewsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -18494,6 +20676,7 @@ export type UserCreateWithoutStoryViewsInput = {
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoryViewsInput = {
@@ -18518,6 +20701,13 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   streakDays?: number
   lastActiveAt?: Date | string | null
   bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -18571,6 +20761,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoryViewsInput = {
@@ -18611,6 +20802,13 @@ export type UserUpdateWithoutStoryViewsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -18664,6 +20862,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoryViewsInput = {
@@ -18688,6 +20887,13 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   streakDays?: Prisma.IntFieldUpdateOperationsInput | number
   lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -18741,6 +20947,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -18799,6 +21006,7 @@ export type UserCountOutputType = {
   groupMemberships: number
   groupMessages: number
   groupReactions: number
+  streakDaysLog: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -18852,6 +21060,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   groupMemberships?: boolean | UserCountOutputTypeCountGroupMembershipsArgs
   groupMessages?: boolean | UserCountOutputTypeCountGroupMessagesArgs
   groupReactions?: boolean | UserCountOutputTypeCountGroupReactionsArgs
+  streakDaysLog?: boolean | UserCountOutputTypeCountStreakDaysLogArgs
 }
 
 /**
@@ -19214,6 +21423,13 @@ export type UserCountOutputTypeCountGroupReactionsArgs<ExtArgs extends runtime.T
   where?: Prisma.GroupMessageReactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStreakDaysLogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StreakDayWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -19237,6 +21453,13 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
+  lastStreakDate?: boolean
+  timezone?: boolean
+  streakFreezes?: boolean
+  freezeGrantedAt?: boolean
+  streakRepairAt?: boolean
+  streakBrokenAt?: boolean
+  prevStreakDays?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
@@ -19291,6 +21514,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
   groupMessages?: boolean | Prisma.User$groupMessagesArgs<ExtArgs>
   groupReactions?: boolean | Prisma.User$groupReactionsArgs<ExtArgs>
+  streakDaysLog?: boolean | Prisma.User$streakDaysLogArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -19316,6 +21540,13 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
+  lastStreakDate?: boolean
+  timezone?: boolean
+  streakFreezes?: boolean
+  freezeGrantedAt?: boolean
+  streakRepairAt?: boolean
+  streakBrokenAt?: boolean
+  prevStreakDays?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -19342,6 +21573,13 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
+  lastStreakDate?: boolean
+  timezone?: boolean
+  streakFreezes?: boolean
+  freezeGrantedAt?: boolean
+  streakRepairAt?: boolean
+  streakBrokenAt?: boolean
+  prevStreakDays?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -19368,11 +21606,18 @@ export type UserSelectScalar = {
   streakDays?: boolean
   lastActiveAt?: boolean
   bestStreak?: boolean
+  lastStreakDate?: boolean
+  timezone?: boolean
+  streakFreezes?: boolean
+  freezeGrantedAt?: boolean
+  streakRepairAt?: boolean
+  streakBrokenAt?: boolean
+  prevStreakDays?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -19426,6 +21671,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
   groupMessages?: boolean | Prisma.User$groupMessagesArgs<ExtArgs>
   groupReactions?: boolean | Prisma.User$groupReactionsArgs<ExtArgs>
+  streakDaysLog?: boolean | Prisma.User$streakDaysLogArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -19486,6 +21732,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     groupMemberships: Prisma.$GroupMemberPayload<ExtArgs>[]
     groupMessages: Prisma.$GroupMessagePayload<ExtArgs>[]
     groupReactions: Prisma.$GroupMessageReactionPayload<ExtArgs>[]
+    streakDaysLog: Prisma.$StreakDayPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -19514,6 +21761,23 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     streakDays: number
     lastActiveAt: Date | null
     bestStreak: number
+    /**
+     * Local-day key "YYYY-MM-DD" (in `timezone`, grace-shifted) the streak was
+     * last credited — the REAL consecutive-day comparison key (not a UTC ts).
+     */
+    lastStreakDate: string | null
+    /**
+     * IANA tz for the user's day boundary (fixes the UTC-midnight churn bug).
+     */
+    timezone: string
+    /**
+     * Auto-consumed freeze tokens that absorb a missed day (Duolingo-style).
+     */
+    streakFreezes: number
+    freezeGrantedAt: Date | null
+    streakRepairAt: Date | null
+    streakBrokenAt: Date | null
+    prevStreakDays: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -19962,6 +22226,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   groupMemberships<T extends Prisma.User$groupMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupMessages<T extends Prisma.User$groupMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupReactions<T extends Prisma.User$groupReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  streakDaysLog<T extends Prisma.User$streakDaysLogArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$streakDaysLogArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StreakDayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20012,6 +22277,13 @@ export interface UserFieldRefs {
   readonly streakDays: Prisma.FieldRef<"User", 'Int'>
   readonly lastActiveAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bestStreak: Prisma.FieldRef<"User", 'Int'>
+  readonly lastStreakDate: Prisma.FieldRef<"User", 'String'>
+  readonly timezone: Prisma.FieldRef<"User", 'String'>
+  readonly streakFreezes: Prisma.FieldRef<"User", 'Int'>
+  readonly freezeGrantedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly streakRepairAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly streakBrokenAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly prevStreakDays: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -21637,6 +23909,30 @@ export type User$groupReactionsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.GroupMessageReactionScalarFieldEnum | Prisma.GroupMessageReactionScalarFieldEnum[]
+}
+
+/**
+ * User.streakDaysLog
+ */
+export type User$streakDaysLogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StreakDay
+   */
+  select?: Prisma.StreakDaySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StreakDay
+   */
+  omit?: Prisma.StreakDayOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StreakDayInclude<ExtArgs> | null
+  where?: Prisma.StreakDayWhereInput
+  orderBy?: Prisma.StreakDayOrderByWithRelationInput | Prisma.StreakDayOrderByWithRelationInput[]
+  cursor?: Prisma.StreakDayWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StreakDayScalarFieldEnum | Prisma.StreakDayScalarFieldEnum[]
 }
 
 /**

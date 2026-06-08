@@ -50,6 +50,7 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   User: 'User',
+  StreakDay: 'StreakDay',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
   RefreshToken: 'RefreshToken',
@@ -239,11 +240,29 @@ export const UserScalarFieldEnum = {
   streakDays: 'streakDays',
   lastActiveAt: 'lastActiveAt',
   bestStreak: 'bestStreak',
+  lastStreakDate: 'lastStreakDate',
+  timezone: 'timezone',
+  streakFreezes: 'streakFreezes',
+  freezeGrantedAt: 'freezeGrantedAt',
+  streakRepairAt: 'streakRepairAt',
+  streakBrokenAt: 'streakBrokenAt',
+  prevStreakDays: 'prevStreakDays',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const StreakDayScalarFieldEnum = {
+  userId: 'userId',
+  date: 'date',
+  activityCount: 'activityCount',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type StreakDayScalarFieldEnum = (typeof StreakDayScalarFieldEnum)[keyof typeof StreakDayScalarFieldEnum]
 
 
 export const DeviceTokenScalarFieldEnum = {

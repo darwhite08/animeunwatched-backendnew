@@ -48,6 +48,11 @@ path.join(process.cwd(), "app/src/generated/prisma/libquery_engine-darwin-arm64.
  */
 export type User = Prisma.UserModel
 /**
+ * Model StreakDay
+ * 
+ */
+export type StreakDay = Prisma.StreakDayModel
+/**
  * Model DeviceToken
  * 
  */
