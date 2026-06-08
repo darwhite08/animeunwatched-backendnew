@@ -86,6 +86,14 @@ export async function getEngagementInbox(_req: Request, res: Response, next: Nex
   try { res.status(200).json(await service.getEngagementInbox(res.locals.user.id)); } catch (err) { next(err); }
 }
 
+export async function getMyReviews(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMyReviews(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+export async function getMyClubs(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMyClubs(res.locals.user.id)); } catch (err) { next(err); }
+}
+
 export async function getMyPolls(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getMyPolls(res.locals.user.id)); } catch (err) { next(err); }
 }

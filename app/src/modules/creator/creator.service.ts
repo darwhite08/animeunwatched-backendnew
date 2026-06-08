@@ -47,6 +47,47 @@ export async function getMyPosts(userId: string) {
   };
 }
 
+/** A creator's own anime reviews — newest first, with anime + engagement. */
+export async function getMyReviews(userId: string) {
+  const reviews = await prisma.review.findMany({
+    where: { authorId: userId },
+    orderBy: { createdAt: "desc" },
+    take: 60,
+    select: {
+      id: true, score: true, body: true, createdAt: true,
+      anime: { select: { malId: true, title: true, imageUrl: true } },
+      _count: { select: { likes: true } },
+    },
+  });
+  return {
+    items: reviews.map((r) => ({
+      id: r.id, score: r.score,
+      snippet: r.body.slice(0, 200),
+      createdAt: r.createdAt.toISOString(),
+      likes: r._count.likes,
+      anime: r.anime ? { malId: r.anime.malId, title: r.anime.title, imageUrl: r.anime.imageUrl } : null,
+    })),
+  };
+}
+
+/** Clubs the creator owns, with member counts — community management overview. */
+export async function getMyClubs(userId: string) {
+  const clubs = await prisma.club.findMany({
+    where: { ownerId: userId },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true, slug: true, name: true, description: true, category: true, createdAt: true,
+      _count: { select: { members: true } },
+    },
+  });
+  return {
+    items: clubs.map((c) => ({
+      id: c.id, slug: c.slug, name: c.name, description: c.description, category: c.category,
+      members: c._count.members, createdAt: c.createdAt.toISOString(),
+    })),
+  };
+}
+
 /** Community inbox: recent comments/replies from others on the creator's content
  *  (posts, blogs, activities) — a YouTube-Studio-style engagement queue. */
 export async function getEngagementInbox(userId: string) {

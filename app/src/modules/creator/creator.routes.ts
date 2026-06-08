@@ -10,6 +10,8 @@ creatorRouter.get("/access",  ctrl.getAccess);   // can this user enter the Crea
 creatorRouter.get("/blogs",   ctrl.getMyBlogs);  // my blogs incl. drafts (studio)
 creatorRouter.get("/posts",   ctrl.getMyPosts);  // my feed posts + engagement (studio)
 creatorRouter.get("/inbox",   ctrl.getEngagementInbox); // community: comments/replies/follows
+creatorRouter.get("/reviews", ctrl.getMyReviews);  // my anime reviews (studio)
+creatorRouter.get("/clubs",   ctrl.getMyClubs);    // clubs I own (studio)
 creatorRouter.get("/polls",   ctrl.getMyPolls);  // my polls incl. tallies (studio)
 creatorRouter.get("/stats",   ctrl.getCreatorStats);
 creatorRouter.get("/content", ctrl.getContentPerformance);
