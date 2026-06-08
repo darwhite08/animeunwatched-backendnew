@@ -28,3 +28,13 @@ export async function revokeCreator(req: Request, res: Response, next: NextFunct
     res.status(200).json(await service.setCreatorGrant({ actorId, userId, grant: false }));
   } catch (err) { next(err); }
 }
+
+/** POST /admin/creators/:userId/bonus — one-time early-signup credit (default $100). */
+export async function grantBonus(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId = res.locals.user?.id as string;
+    const userId = req.params.userId as string;
+    const amountCents = req.body?.amountCents != null ? Number(req.body.amountCents) : 10000;
+    res.status(200).json(await service.grantEarlySignupBonus({ actorId, userId, amountCents }));
+  } catch (err) { next(err); }
+}
