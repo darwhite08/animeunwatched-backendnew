@@ -20,7 +20,9 @@ import { configError, badRequest } from "../errors";
 const AUTH_BASE = "https://www.instagram.com/oauth/authorize";
 const TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 const GRAPH = "https://graph.instagram.com";
-const SCOPES = "instagram_business_basic";
+// Default scope reads the creator's own media (incl. Reels). Override via
+// INSTAGRAM_SCOPES if Meta requires more (e.g. add instagram_business_content_publish).
+const SCOPES = env.INSTAGRAM_SCOPES || "instagram_business_basic";
 
 export function isConfigured(): boolean {
   return Boolean(env.INSTAGRAM_APP_ID && env.INSTAGRAM_APP_SECRET);

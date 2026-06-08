@@ -221,7 +221,13 @@ export async function createComment(userId: string, shotId: string, body: string
     createNotification({
       recipientId: shot.authorId,
       type: NotificationType.SYSTEM,
-      payload: { message: `${comment.author.displayName ?? comment.author.username} commented on your shot`, link: `/shots`, shotId },
+      payload: {
+        message: `${comment.author.displayName ?? comment.author.username} commented on your shot`,
+        link: `/shots`, shotId,
+        actorUsername: comment.author.username,
+        actorDisplayName: comment.author.displayName,
+        actorAvatarUrl: comment.author.avatarUrl ?? null,
+      },
     }).catch(() => {});
   }
   return { comment };

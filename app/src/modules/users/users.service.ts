@@ -142,7 +142,7 @@ export async function follow(followerId: string, targetUsername: string) {
   }
 
   // Notify the followed user — fire-and-forget so a notification failure doesn't break the follow
-  prisma.user.findUnique({ where: { id: followerId }, select: { username: true, displayName: true } })
+  prisma.user.findUnique({ where: { id: followerId }, select: { username: true, displayName: true, avatarUrl: true } })
     .then((follower) =>
       createNotification({
         recipientId: target.id,
@@ -153,6 +153,9 @@ export async function follow(followerId: string, targetUsername: string) {
               ? `${follower?.displayName ?? follower?.username ?? "Someone"} requested to follow you`
               : `${follower?.displayName ?? follower?.username ?? "Someone"} started following you`,
           link: `/u/${follower?.username ?? ""}`,
+          actorUsername: follower?.username,
+          actorDisplayName: follower?.displayName,
+          actorAvatarUrl: follower?.avatarUrl ?? null,
           followerUsername: follower?.username,
           requested: status === "PENDING",
         },
@@ -188,7 +191,7 @@ export async function respondFollowRequest(userId: string, requesterId: string, 
       where: { followerId_followingId: { followerId: requesterId, followingId: userId } },
       data: { status: "ACCEPTED" },
     });
-    prisma.user.findUnique({ where: { id: userId }, select: { username: true, displayName: true } })
+    prisma.user.findUnique({ where: { id: userId }, select: { username: true, displayName: true, avatarUrl: true } })
       .then((me) =>
         createNotification({
           recipientId: requesterId,
@@ -196,6 +199,9 @@ export async function respondFollowRequest(userId: string, requesterId: string, 
           payload: {
             message: `${me?.displayName ?? me?.username ?? "Someone"} accepted your follow request`,
             link: `/u/${me?.username ?? ""}`,
+            actorUsername: me?.username,
+            actorDisplayName: me?.displayName,
+            actorAvatarUrl: me?.avatarUrl ?? null,
           },
         })
       )

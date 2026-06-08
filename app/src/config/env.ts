@@ -43,6 +43,7 @@ export const env = {
   INSTAGRAM_APP_ID:      process.env.INSTAGRAM_APP_ID      || "",
   INSTAGRAM_APP_SECRET:  process.env.INSTAGRAM_APP_SECRET  || "",
   INSTAGRAM_REDIRECT_URI: process.env.INSTAGRAM_REDIRECT_URI || "",
+  INSTAGRAM_SCOPES:      process.env.INSTAGRAM_SCOPES      || "",
   // Where to bounce the creator back to after connecting (the studio).
   CREATOR_STUDIO_URL:    process.env.CREATOR_STUDIO_URL    || "https://creator-studio.kaiveron.com",
 
