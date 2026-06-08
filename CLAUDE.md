@@ -193,3 +193,15 @@ Read them before making architecture, scaling, or API design decisions.
 - `catalog/` is the only place that calls Jikan. CI enforces this with grep check.
 - Rate limits: global 100 req/min, auth routes 20 req/15min.
 - Refresh tokens rotate on every use (delete old, create new).
+
+---
+
+## Locked features — read before editing anything
+
+Some features are LOCKED. The list lives in `.claude/LOCKED.md`.
+
+Rules:
+1. Never edit files matched by `.claude/locked-paths.txt`. A hook will block you anyway.
+2. Other code may use a locked feature ONLY through its listed Public contract file. Do not import its internals.
+3. Locked tests in `tests/locked/` must stay green. If your change reds one, you broke a locked feature — revert or fix your change. Never edit the locked test to pass.
+4. If a task seems to require changing a locked feature, STOP and ask the user to unlock it. Do not unlock it yourself.

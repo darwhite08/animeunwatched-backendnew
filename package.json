@@ -11,7 +11,8 @@
     "build": "tsc && npx prisma generate",
     "start": "node dist/server.js",
     "seed": "npx tsx scripts/seed.ts",
-    "seed:anime": "npx tsx scripts/seed-anime.ts"
+    "seed:anime": "npx tsx scripts/seed-anime.ts",
+    "test:locked": "vitest run tests/locked --passWithNoTests"
   },
   "author": "",
   "license": "ISC",

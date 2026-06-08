@@ -1,0 +1,6 @@
+# Locked file globs — edits to these are blocked. Keep in sync with LOCKED.md.
+# One glob per line. Use * / ** for wildcards; lines starting with # are ignored.
+#
+# No features locked yet — add globs below to start protecting files, e.g.:
+# app/src/modules/chat/chat.service.ts
+# app/src/realtime/**

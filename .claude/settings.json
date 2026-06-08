@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(.claude/LOCKED.md)",
+      "Edit(.claude/locked-paths.txt)",
+      "Edit(.claude/settings.json)",
+      "Edit(.claude/hooks/**)",
+      "Edit(tests/locked/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-edit-protect-paths.sh" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/verify-locked.sh" }
+        ]
+      }
+    ]
+  }
+}
