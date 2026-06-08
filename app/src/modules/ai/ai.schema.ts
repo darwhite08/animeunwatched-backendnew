@@ -9,3 +9,12 @@ export const askSchema = z.object({
     })
     .optional(),
 });
+
+// AI writing assistant for the Creator Studio blog editor.
+export const writeSchema = z.object({
+  action: z.enum(["draft", "continue", "improve", "fix", "shorten", "expand", "titles"]),
+  prompt: z.string().max(2000).optional().default(""),
+  context: z.string().max(12000).optional().default(""),
+});
+
+export type WriteDto = z.infer<typeof writeSchema>;

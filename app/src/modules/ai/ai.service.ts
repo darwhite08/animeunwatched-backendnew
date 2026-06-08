@@ -46,6 +46,91 @@ const FALLBACK: AIResponse = {
   source: "stub",
 };
 
+// ─── AI writing assistant (Creator Studio blog editor) ──────────────────────
+// Prefers Anthropic (Claude) → falls back to OpenAI → graceful stub. Returns a
+// clean semantic-HTML fragment ready to insert into the TipTap editor.
+
+export type WriteResult = { html: string; text: string; source: "anthropic" | "openai" | "stub" };
+
+const WRITE_SYSTEM = `You are a world-class writing assistant for Kaiveron, an anime blogging platform.
+Return ONLY a clean semantic HTML fragment — no <html>/<head>/<body>, no markdown code fences.
+Use <h2>, <h3>, <p>, <ul>/<ol>/<li>, <blockquote>, <strong>, <em> appropriately.
+Voice: sharp, knowledgeable, engaging for anime fans. Never include images or scripts.`;
+
+function instruction(action: string, prompt: string, context: string): string {
+  switch (action) {
+    case "draft":    return `Write an engaging, well-structured blog section about: "${prompt}". Use a couple of headings and flowing paragraphs.`;
+    case "continue": return `Continue this blog naturally where it leaves off, matching the voice. Do not repeat existing text.\n\nDRAFT:\n${context}`;
+    case "improve":  return `Rewrite the following to improve clarity, flow, rhythm and impact while preserving meaning:\n\n${context}`;
+    case "fix":      return `Correct grammar, spelling and punctuation with minimal changes. Return the corrected text:\n\n${context}`;
+    case "shorten":  return `Make the following more concise and punchy without losing key points:\n\n${context}`;
+    case "expand":   return `Expand the following with more detail, examples and depth:\n\n${context}`;
+    case "titles":   return `Suggest 6 catchy, specific blog titles for this topic/draft. Return ONLY a <ul> with one <li> per title.\n\n${context || prompt}`;
+    default:         return prompt || context;
+  }
+}
+
+function stripFences(s: string): string {
+  return s.replace(/^```(?:html)?\s*/i, "").replace(/```\s*$/i, "").trim();
+}
+function htmlToText(html: string): string {
+  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+async function callAnthropic(userMsg: string): Promise<string | null> {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key) return null;
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" },
+      body: JSON.stringify({
+        model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+        max_tokens: 1500,
+        system: WRITE_SYSTEM,
+        messages: [{ role: "user", content: userMsg }],
+      }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
+    const text = data.content?.filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
+    return text || null;
+  } catch { return null; }
+}
+
+async function callOpenAI(userMsg: string): Promise<string | null> {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return null;
+  try {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [{ role: "system", content: WRITE_SYSTEM }, { role: "user", content: userMsg }],
+        temperature: 0.7,
+        max_tokens: 1500,
+      }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    return data.choices?.[0]?.message?.content?.trim() || null;
+  } catch { return null; }
+}
+
+export async function write(action: string, prompt: string, context: string): Promise<WriteResult> {
+  const userMsg = instruction(action, prompt, context);
+
+  const fromClaude = await callAnthropic(userMsg);
+  if (fromClaude) { const html = stripFences(fromClaude); return { html, text: htmlToText(html), source: "anthropic" }; }
+
+  const fromOpenAI = await callOpenAI(userMsg);
+  if (fromOpenAI) { const html = stripFences(fromOpenAI); return { html, text: htmlToText(html), source: "openai" }; }
+
+  const stub = `<p><em>AI writing isn't configured on this server yet.</em> Ask the admin to set <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code>) to enable drafting, polishing and title ideas.</p>`;
+  return { html: stub, text: htmlToText(stub), source: "stub" };
+}
+
 export async function ask(prompt: string): Promise<AIResponse> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return FALLBACK;
