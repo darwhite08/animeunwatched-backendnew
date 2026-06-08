@@ -3,8 +3,7 @@ import type { CatalogAnime } from "../../lib/catalog/types";
 import { notFound } from "../../lib/errors";
 import { cache } from "../../lib/cache";
 import { jaccard, overlapCoeff, linearProximity, capPerGroup, logNormalize } from "../../lib/ranking";
-import { browseAnime, getAnimeFull, getRaw, searchAnimePage } from "../../lib/catalog/jikanClient";
-import { mapJikanToCatalog } from "../../lib/catalog/jikan.mapper";
+import { getAnimeFull, getRaw, searchAnimePage } from "../../lib/catalog/jikanClient";
 import { logSyncJob, upsertAnimeFromJikan, upsertStubFromSearchResult } from "./animeSync.service";
 import { enqueueAnimeFullSync, enqueueEpisodeSync } from "./syncQueue.service";
 import type { BrowseQuery } from "./anime.schema";
@@ -142,46 +141,9 @@ export async function upsertFromCatalog(data: CatalogAnime) {
 }
 
 // ─── browse ───────────────────────────────────────────────────────────────────
-// Postgres-first. The Jikan fallback only fires while the local DB is still
-// sparse (pre-seed); every fallback hit stub-upserts rows + enqueues full
-// syncs, so the DB grows organically and the fallback stops triggering.
-
-async function browseJikan(page: number, limit: number, filters: {
-  q?: string; year?: number; season?: string; type?: string; status?: string;
-  start_date?: string; end_date?: string;
-}) {
-  const qs = new URLSearchParams({ page: String(page), limit: String(Math.min(limit, 25)) });
-  if (filters.q)          qs.set("q", filters.q);
-  if (filters.year)       qs.set("start_date", `${filters.year}-01-01`);
-  if (filters.start_date) qs.set("start_date", filters.start_date);
-  if (filters.end_date)   qs.set("end_date", filters.end_date);
-  if (filters.season)     qs.set("season", filters.season);
-  if (filters.type)       qs.set("type", filters.type);
-  if (filters.status)     qs.set("status", filters.status === "Finished Airing" ? "complete" : "airing");
-  qs.set("order_by", "score");
-  qs.set("sort", "desc");
-
-  const json = await browseAnime(qs.toString());
-
-  // Background-persist fetched anime as stubs + queue their full syncs
-  // (fire-and-forget — never blocks the response)
-  void Promise.all(
-    (json.data ?? []).map(a =>
-      upsertStubFromSearchResult(a)
-        .then(() => enqueueAnimeFullSync(a.mal_id))
-        .catch(() => {}),
-    ),
-  );
-
-  const perPage = json.pagination?.items?.per_page ?? limit;
-  const total   = json.pagination?.items?.total ?? 0;
-  const pages   = json.pagination?.last_visible_page ?? Math.ceil(total / perPage);
-
-  return {
-    data: (json.data ?? []).map(a => mapJikanToCatalog(a as unknown as Record<string, unknown>)),
-    meta: { total, page, limit: perPage, pages },
-  };
-}
+// Postgres ONLY — the listing/grid is served entirely from our own catalog.
+// Never calls Jikan at request time (spec §5). Jikan stays the background
+// sync feed; on-demand fetches happen only on the single-anime getById path.
 
 export async function browse(query: BrowseQuery) {
   const cacheKey = `anime:browse:${JSON.stringify(query)}`;
