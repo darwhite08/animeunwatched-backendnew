@@ -46,11 +46,11 @@ const MEDIA_URL_PREFIXES = [
   ...(env.S3_PUBLIC_URL ? [env.S3_PUBLIC_URL.replace(/\/$/, "") + "/"] : []),
   ...(env.R2_PUBLIC_URL ? [env.R2_PUBLIC_URL.replace(/\/$/, "") + "/"] : []),
 ];
-// Allowed external GIF CDNs (picked via the Tenor proxy) — these are
-// image-only hosts, so accepting their URLs for GIF messages is safe.
-const GIF_HOSTS = ["https://media.tenor.com/", "https://c.tenor.com/", "https://media1.giphy.com/", "https://media.giphy.com/"];
+// Allowed external GIF/sticker CDNs (Giphy media0-9.giphy.com, Tenor) — these
+// are image-only hosts, so accepting their URLs for GIF/sticker messages is safe.
+const GIF_HOST_RE = /^https:\/\/(media\d*\.giphy\.com|[a-z0-9-]+\.tenor\.com)\//;
 const isOurMediaUrl = (url: string) =>
-  MEDIA_URL_PREFIXES.some((p) => url.startsWith(p)) || GIF_HOSTS.some((p) => url.startsWith(p));
+  MEDIA_URL_PREFIXES.some((p) => url.startsWith(p)) || GIF_HOST_RE.test(url);
 
 // ─── Public key management ────────────────────────────────────────────────────
 
