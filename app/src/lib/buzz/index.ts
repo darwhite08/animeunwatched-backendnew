@@ -12,7 +12,15 @@
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { fetchAniListTrending } from "./anilistTrending";
-import { fetchPageviewBuzz, type WikiCandidate } from "./wikipediaPageviews";
+import { fetchPageviewBuzz, resolveWikipediaArticle, type ResolvedWikiCandidate } from "./wikipediaPageviews";
+
+/** Resolve up to this many new Wikipedia articles per run (bounds search calls). */
+const MAX_RESOLVE_PER_RUN = 40;
+const RESOLVE_SLEEP_MS = 320;
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 // AniList community signal is the more reliable / anime-specific one, so it
 // outweighs the noisier Wikipedia title-matched signal.
@@ -37,17 +45,33 @@ export async function collectBuzz(now = new Date()): Promise<{
 
   const candidates = await prisma.anime.findMany({
     where: { malId: { in: [...candidateMalIds] } },
-    select: { id: true, malId: true, title: true, titleEnglish: true, titleJapanese: true },
+    select: { id: true, malId: true, title: true, titleEnglish: true, wikipediaTitle: true },
   });
 
   // ── 3. Wikipedia pageviews for the candidate set (general interest) ──
-  // Order by AniList buzz so the per-run cap (MAX_CANDIDATES) keeps the
-  // highest-signal titles; airing-only titles (buzz 0) come after.
+  // Order by AniList buzz so the per-run caps keep the highest-signal titles.
   let wikipedia = new Map<number, number>();
   if (env.TRENDING_WIKIPEDIA_ENABLED) {
-    const wikiInput: WikiCandidate[] = candidates
-      .map((c) => ({ malId: c.malId, titles: [c.titleEnglish, c.title].filter((t): t is string => !!t) }))
-      .sort((a, b) => (anilist.get(b.malId) ?? 0) - (anilist.get(a.malId) ?? 0));
+    const ordered = [...candidates].sort((a, b) => (anilist.get(b.malId) ?? 0) - (anilist.get(a.malId) ?? 0));
+
+    // 3a. Resolve+cache Wikipedia articles for titles we haven't resolved yet
+    //     (null = unresolved). Bounded per run; result stored on the Anime row,
+    //     so each title is resolved at most once ("" = no confident article).
+    let resolved = 0;
+    for (const c of ordered) {
+      if (resolved >= MAX_RESOLVE_PER_RUN) break;
+      if (c.wikipediaTitle !== null && c.wikipediaTitle !== undefined) continue;
+      const article = await resolveWikipediaArticle(c.titleEnglish || c.title);
+      await sleep(RESOLVE_SLEEP_MS);
+      await prisma.anime.update({ where: { id: c.id }, data: { wikipediaTitle: article ?? "" } });
+      c.wikipediaTitle = article ?? "";
+      resolved++;
+    }
+
+    // 3b. Fetch pageviews for candidates with a resolved (non-empty) article.
+    const wikiInput: ResolvedWikiCandidate[] = ordered
+      .filter((c): c is typeof c & { wikipediaTitle: string } => !!c.wikipediaTitle)
+      .map((c) => ({ malId: c.malId, article: c.wikipediaTitle }));
     wikipedia = await fetchPageviewBuzz(wikiInput).catch(() => new Map<number, number>());
   }
 

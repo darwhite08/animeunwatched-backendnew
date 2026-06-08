@@ -315,6 +315,10 @@ model Anime {
   waieScore      Float?
   isFeatured     Boolean   @default(false)
 
+  /// Resolved English Wikipedia article title for pageview-buzz lookups, cached
+  /// once via MediaWiki search. null = not yet resolved; "" = no confident article.
+  wikipediaTitle String?
+
   // ── "Trending Now" — computed by the compute-trending worker (docs/trending-algorithm.md).
   // Read path is a single indexed ORDER BY trendingScore; never recomputed at request time.
   trendingScore     Float?    @default(0)

@@ -99,6 +99,7 @@ export type AnimeMinAggregateOutputType = {
   isStub: boolean | null
   waieScore: number | null
   isFeatured: boolean | null
+  wikipediaTitle: string | null
   trendingScore: number | null
   trendingRank: number | null
   trendingUpdatedAt: Date | null
@@ -147,6 +148,7 @@ export type AnimeMaxAggregateOutputType = {
   isStub: boolean | null
   waieScore: number | null
   isFeatured: boolean | null
+  wikipediaTitle: string | null
   trendingScore: number | null
   trendingRank: number | null
   trendingUpdatedAt: Date | null
@@ -197,6 +199,7 @@ export type AnimeCountAggregateOutputType = {
   kaiveronTags: number
   waieScore: number
   isFeatured: number
+  wikipediaTitle: number
   trendingScore: number
   trendingRank: number
   trendingUpdatedAt: number
@@ -279,6 +282,7 @@ export type AnimeMinAggregateInputType = {
   isStub?: true
   waieScore?: true
   isFeatured?: true
+  wikipediaTitle?: true
   trendingScore?: true
   trendingRank?: true
   trendingUpdatedAt?: true
@@ -327,6 +331,7 @@ export type AnimeMaxAggregateInputType = {
   isStub?: true
   waieScore?: true
   isFeatured?: true
+  wikipediaTitle?: true
   trendingScore?: true
   trendingRank?: true
   trendingUpdatedAt?: true
@@ -377,6 +382,7 @@ export type AnimeCountAggregateInputType = {
   kaiveronTags?: true
   waieScore?: true
   isFeatured?: true
+  wikipediaTitle?: true
   trendingScore?: true
   trendingRank?: true
   trendingUpdatedAt?: true
@@ -514,6 +520,7 @@ export type AnimeGroupByOutputType = {
   kaiveronTags: string[]
   waieScore: number | null
   isFeatured: boolean
+  wikipediaTitle: string | null
   trendingScore: number | null
   trendingRank: number | null
   trendingUpdatedAt: Date | null
@@ -587,6 +594,7 @@ export type AnimeWhereInput = {
   kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
   waieScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
   isFeatured?: Prisma.BoolFilter<"Anime"> | boolean
+  wikipediaTitle?: Prisma.StringNullableFilter<"Anime"> | string | null
   trendingScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
   trendingRank?: Prisma.IntNullableFilter<"Anime"> | number | null
   trendingUpdatedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
@@ -649,6 +657,7 @@ export type AnimeOrderByWithRelationInput = {
   kaiveronTags?: Prisma.SortOrder
   waieScore?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  wikipediaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingRank?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -714,6 +723,7 @@ export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
   waieScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
   isFeatured?: Prisma.BoolFilter<"Anime"> | boolean
+  wikipediaTitle?: Prisma.StringNullableFilter<"Anime"> | string | null
   trendingScore?: Prisma.FloatNullableFilter<"Anime"> | number | null
   trendingRank?: Prisma.IntNullableFilter<"Anime"> | number | null
   trendingUpdatedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
@@ -776,6 +786,7 @@ export type AnimeOrderByWithAggregationInput = {
   kaiveronTags?: Prisma.SortOrder
   waieScore?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  wikipediaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingRank?: Prisma.SortOrderInput | Prisma.SortOrder
   trendingUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -834,6 +845,7 @@ export type AnimeScalarWhereWithAggregatesInput = {
   kaiveronTags?: Prisma.StringNullableListFilter<"Anime">
   waieScore?: Prisma.FloatNullableWithAggregatesFilter<"Anime"> | number | null
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Anime"> | boolean
+  wikipediaTitle?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   trendingScore?: Prisma.FloatNullableWithAggregatesFilter<"Anime"> | number | null
   trendingRank?: Prisma.IntNullableWithAggregatesFilter<"Anime"> | number | null
   trendingUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Anime"> | Date | string | null
@@ -884,6 +896,7 @@ export type AnimeCreateInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -946,6 +959,7 @@ export type AnimeUncheckedCreateInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -1008,6 +1022,7 @@ export type AnimeUpdateInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1070,6 +1085,7 @@ export type AnimeUncheckedUpdateInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1132,6 +1148,7 @@ export type AnimeCreateManyInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -1182,6 +1199,7 @@ export type AnimeUpdateManyMutationInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1232,6 +1250,7 @@ export type AnimeUncheckedUpdateManyInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1290,6 +1309,7 @@ export type AnimeCountOrderByAggregateInput = {
   kaiveronTags?: Prisma.SortOrder
   waieScore?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  wikipediaTitle?: Prisma.SortOrder
   trendingScore?: Prisma.SortOrder
   trendingRank?: Prisma.SortOrder
   trendingUpdatedAt?: Prisma.SortOrder
@@ -1354,6 +1374,7 @@ export type AnimeMaxOrderByAggregateInput = {
   isStub?: Prisma.SortOrder
   waieScore?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  wikipediaTitle?: Prisma.SortOrder
   trendingScore?: Prisma.SortOrder
   trendingRank?: Prisma.SortOrder
   trendingUpdatedAt?: Prisma.SortOrder
@@ -1402,6 +1423,7 @@ export type AnimeMinOrderByAggregateInput = {
   isStub?: Prisma.SortOrder
   waieScore?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
+  wikipediaTitle?: Prisma.SortOrder
   trendingScore?: Prisma.SortOrder
   trendingRank?: Prisma.SortOrder
   trendingUpdatedAt?: Prisma.SortOrder
@@ -1694,6 +1716,7 @@ export type AnimeCreateWithoutTrendingStateInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -1755,6 +1778,7 @@ export type AnimeUncheckedCreateWithoutTrendingStateInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -1832,6 +1856,7 @@ export type AnimeUpdateWithoutTrendingStateInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1893,6 +1918,7 @@ export type AnimeUncheckedUpdateWithoutTrendingStateInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1954,6 +1980,7 @@ export type AnimeCreateWithoutGenresInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2015,6 +2042,7 @@ export type AnimeUncheckedCreateWithoutGenresInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2092,6 +2120,7 @@ export type AnimeUpdateWithoutGenresInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2153,6 +2182,7 @@ export type AnimeUncheckedUpdateWithoutGenresInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2214,6 +2244,7 @@ export type AnimeCreateWithoutStudiosInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2275,6 +2306,7 @@ export type AnimeUncheckedCreateWithoutStudiosInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2352,6 +2384,7 @@ export type AnimeUpdateWithoutStudiosInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2413,6 +2446,7 @@ export type AnimeUncheckedUpdateWithoutStudiosInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2474,6 +2508,7 @@ export type AnimeCreateWithoutEpisodeListInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2535,6 +2570,7 @@ export type AnimeUncheckedCreateWithoutEpisodeListInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2612,6 +2648,7 @@ export type AnimeUpdateWithoutEpisodeListInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2673,6 +2710,7 @@ export type AnimeUncheckedUpdateWithoutEpisodeListInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2734,6 +2772,7 @@ export type AnimeCreateWithoutRelationsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2795,6 +2834,7 @@ export type AnimeUncheckedCreateWithoutRelationsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2861,6 +2901,7 @@ export type AnimeCreateWithoutRelatedToInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2922,6 +2963,7 @@ export type AnimeUncheckedCreateWithoutRelatedToInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -2999,6 +3041,7 @@ export type AnimeUpdateWithoutRelationsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3060,6 +3103,7 @@ export type AnimeUncheckedUpdateWithoutRelationsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3132,6 +3176,7 @@ export type AnimeUpdateWithoutRelatedToInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3193,6 +3238,7 @@ export type AnimeUncheckedUpdateWithoutRelatedToInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3254,6 +3300,7 @@ export type AnimeCreateWithoutListEntriesInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3315,6 +3362,7 @@ export type AnimeUncheckedCreateWithoutListEntriesInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3392,6 +3440,7 @@ export type AnimeUpdateWithoutListEntriesInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3453,6 +3502,7 @@ export type AnimeUncheckedUpdateWithoutListEntriesInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3514,6 +3564,7 @@ export type AnimeCreateWithoutPostsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3575,6 +3626,7 @@ export type AnimeUncheckedCreateWithoutPostsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3652,6 +3704,7 @@ export type AnimeUpdateWithoutPostsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3713,6 +3766,7 @@ export type AnimeUncheckedUpdateWithoutPostsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3774,6 +3828,7 @@ export type AnimeCreateWithoutThreadsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3835,6 +3890,7 @@ export type AnimeUncheckedCreateWithoutThreadsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -3912,6 +3968,7 @@ export type AnimeUpdateWithoutThreadsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3973,6 +4030,7 @@ export type AnimeUncheckedUpdateWithoutThreadsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4034,6 +4092,7 @@ export type AnimeCreateWithoutReviewsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4095,6 +4154,7 @@ export type AnimeUncheckedCreateWithoutReviewsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4172,6 +4232,7 @@ export type AnimeUpdateWithoutReviewsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4233,6 +4294,7 @@ export type AnimeUncheckedUpdateWithoutReviewsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4294,6 +4356,7 @@ export type AnimeCreateWithoutActivitiesInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4355,6 +4418,7 @@ export type AnimeUncheckedCreateWithoutActivitiesInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4432,6 +4496,7 @@ export type AnimeUpdateWithoutActivitiesInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4493,6 +4558,7 @@ export type AnimeUncheckedUpdateWithoutActivitiesInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4554,6 +4620,7 @@ export type AnimeCreateWithoutShotsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4615,6 +4682,7 @@ export type AnimeUncheckedCreateWithoutShotsInput = {
   kaiveronTags?: Prisma.AnimeCreatekaiveronTagsInput | string[]
   waieScore?: number | null
   isFeatured?: boolean
+  wikipediaTitle?: string | null
   trendingScore?: number | null
   trendingRank?: number | null
   trendingUpdatedAt?: Date | string | null
@@ -4692,6 +4760,7 @@ export type AnimeUpdateWithoutShotsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4753,6 +4822,7 @@ export type AnimeUncheckedUpdateWithoutShotsInput = {
   kaiveronTags?: Prisma.AnimeUpdatekaiveronTagsInput | string[]
   waieScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  wikipediaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trendingScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   trendingRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trendingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4935,6 +5005,7 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   kaiveronTags?: boolean
   waieScore?: boolean
   isFeatured?: boolean
+  wikipediaTitle?: boolean
   trendingScore?: boolean
   trendingRank?: boolean
   trendingUpdatedAt?: boolean
@@ -4998,6 +5069,7 @@ export type AnimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   kaiveronTags?: boolean
   waieScore?: boolean
   isFeatured?: boolean
+  wikipediaTitle?: boolean
   trendingScore?: boolean
   trendingRank?: boolean
   trendingUpdatedAt?: boolean
@@ -5048,6 +5120,7 @@ export type AnimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   kaiveronTags?: boolean
   waieScore?: boolean
   isFeatured?: boolean
+  wikipediaTitle?: boolean
   trendingScore?: boolean
   trendingRank?: boolean
   trendingUpdatedAt?: boolean
@@ -5098,6 +5171,7 @@ export type AnimeSelectScalar = {
   kaiveronTags?: boolean
   waieScore?: boolean
   isFeatured?: boolean
+  wikipediaTitle?: boolean
   trendingScore?: boolean
   trendingRank?: boolean
   trendingUpdatedAt?: boolean
@@ -5105,7 +5179,7 @@ export type AnimeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
+export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "wikipediaTitle" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
 export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Anime$genresArgs<ExtArgs>
   studios?: boolean | Prisma.Anime$studiosArgs<ExtArgs>
@@ -5199,6 +5273,11 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     kaiveronTags: string[]
     waieScore: number | null
     isFeatured: boolean
+    /**
+     * Resolved English Wikipedia article title for pageview-buzz lookups, cached
+     * once via MediaWiki search. null = not yet resolved; "" = no confident article.
+     */
+    wikipediaTitle: string | null
     trendingScore: number | null
     trendingRank: number | null
     trendingUpdatedAt: Date | null
@@ -5681,6 +5760,7 @@ export interface AnimeFieldRefs {
   readonly kaiveronTags: Prisma.FieldRef<"Anime", 'String[]'>
   readonly waieScore: Prisma.FieldRef<"Anime", 'Float'>
   readonly isFeatured: Prisma.FieldRef<"Anime", 'Boolean'>
+  readonly wikipediaTitle: Prisma.FieldRef<"Anime", 'String'>
   readonly trendingScore: Prisma.FieldRef<"Anime", 'Float'>
   readonly trendingRank: Prisma.FieldRef<"Anime", 'Int'>
   readonly trendingUpdatedAt: Prisma.FieldRef<"Anime", 'DateTime'>

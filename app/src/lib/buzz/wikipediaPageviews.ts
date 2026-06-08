@@ -24,16 +24,25 @@ function ymd(d: Date): string {
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
 }
-function articleCandidates(titles: string[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const t of titles) {
-    const a = t?.trim();
-    if (!a) continue;
-    const enc = encodeURIComponent(a.replace(/\s+/g, "_"));
-    if (!seen.has(enc)) { seen.add(enc); out.push(enc); }
+
+/**
+ * Resolve an anime's best English Wikipedia article via MediaWiki search,
+ * biased toward the anime article with an " anime" hint. Returns the canonical
+ * article title (handles redirects/disambiguation that raw title-guessing
+ * misses), or null if no confident match. One call; the result is cached on the
+ * Anime row so we never resolve the same title twice.
+ */
+export async function resolveWikipediaArticle(title: string): Promise<string | null> {
+  const q = encodeURIComponent(`${title} anime`);
+  const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srlimit=1&srnamespace=0&srsearch=${q}`;
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": env.TRENDING_USER_AGENT }, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+    if (!res.ok) return null;
+    const json = (await res.json()) as { query?: { search?: Array<{ title: string }> } };
+    return json.query?.search?.[0]?.title ?? null;
+  } catch {
+    return null;
   }
-  return out;
 }
 
 interface PageviewItem { timestamp: string; views: number }
@@ -67,29 +76,27 @@ async function fetchArticleDecayedViews(article: string, start: string, end: str
   return decayed;
 }
 
-export interface WikiCandidate { malId: number; titles: string[] }
+/** A candidate with its already-resolved Wikipedia article (from the cache). */
+export interface ResolvedWikiCandidate { malId: number; article: string }
 
 /**
- * For each candidate, returns a normalized decayed-pageview value in [0,1]
- * (relative to the batch p95). Titles with no resolvable article are absent.
+ * For each candidate (with a resolved article), returns a normalized
+ * decayed-pageview value in [0,1] (relative to the batch p95).
  */
-export async function fetchPageviewBuzz(candidates: WikiCandidate[]): Promise<Map<number, number>> {
+export async function fetchPageviewBuzz(candidates: ResolvedWikiCandidate[]): Promise<Map<number, number>> {
   const end = ymd(new Date(Date.now() - 86_400_000)); // yesterday (today is partial)
   const start = ymd(new Date(Date.now() - WINDOW_DAYS * 86_400_000));
 
-  // Cap the number of titles we probe so a slow Wikimedia run can't overrun the
-  // hourly window. Callers pass candidates already ordered by importance.
+  // Cap so a slow Wikimedia run can't overrun the hourly window. Callers pass
+  // candidates already ordered by importance.
   const bounded = candidates.slice(0, MAX_CANDIDATES);
 
   const raw = new Map<number, number>();
   for (const c of bounded) {
-    let best: number | null = null;
-    for (const art of articleCandidates(c.titles)) {
-      const v = await fetchArticleDecayedViews(art, start, end);
-      await sleep(320); // ~3 req/sec, under the 200/min limit
-      if (v != null) { best = v; break; } // first confident article wins
-    }
-    if (best != null) raw.set(c.malId, best);
+    const article = encodeURIComponent(c.article.replace(/\s+/g, "_"));
+    const v = await fetchArticleDecayedViews(article, start, end);
+    await sleep(320); // ~3 req/sec, under the 200/min limit
+    if (v != null) raw.set(c.malId, v);
   }
 
   // Normalize by batch p95 → 0..1 (so one mega-page doesn't crush the rest).

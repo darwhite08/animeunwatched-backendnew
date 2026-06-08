@@ -11844,6 +11844,7 @@ export const AnimeScalarFieldEnum = {
   kaiveronTags: 'kaiveronTags',
   waieScore: 'waieScore',
   isFeatured: 'isFeatured',
+  wikipediaTitle: 'wikipediaTitle',
   trendingScore: 'trendingScore',
   trendingRank: 'trendingRank',
   trendingUpdatedAt: 'trendingUpdatedAt',
