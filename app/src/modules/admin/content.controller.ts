@@ -99,6 +99,7 @@ export async function listClubs(req: Request, res: Response, next: NextFunction)
         skip: (page - 1) * limit, take: limit,
         select: {
           id: true, name: true, slug: true, description: true, createdAt: true,
+          verified: true,
           owner: { select: { id: true, username: true, displayName: true } },
           _count: { select: { members: true, threads: true } },
         },
