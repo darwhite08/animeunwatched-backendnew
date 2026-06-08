@@ -1,5 +1,29 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./creator.service";
+import * as analytics from "./analytics.service";
+
+function range(req: Request): string {
+  const r = (req.query.range as string) || "28d";
+  return /^\d+d$/.test(r) ? r : "28d";
+}
+
+export async function getAnalyticsOverview(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await analytics.getOverview(res.locals.user.id, range(req)));
+  } catch (err) { next(err); }
+}
+
+export async function getAnalyticsContent(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await analytics.getContentAnalytics(res.locals.user.id, range(req)));
+  } catch (err) { next(err); }
+}
+
+export async function getAnalyticsAudience(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await analytics.getAudience(res.locals.user.id, range(req)));
+  } catch (err) { next(err); }
+}
 
 export async function getCreatorStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

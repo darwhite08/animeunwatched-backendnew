@@ -9,3 +9,8 @@ creatorRouter.use(requireAuth);
 creatorRouter.get("/stats",   ctrl.getCreatorStats);
 creatorRouter.get("/content", ctrl.getContentPerformance);
 creatorRouter.get("/daily",   ctrl.getDailySeries);
+
+// Creator Studio analytics (real metrics aggregated from engagement data)
+creatorRouter.get("/analytics/overview", ctrl.getAnalyticsOverview);
+creatorRouter.get("/analytics/content",  ctrl.getAnalyticsContent);
+creatorRouter.get("/analytics/audience", ctrl.getAnalyticsAudience);

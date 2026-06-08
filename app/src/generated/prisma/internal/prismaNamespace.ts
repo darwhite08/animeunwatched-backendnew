@@ -12107,7 +12107,8 @@ export type PostHideScalarFieldEnum = (typeof PostHideScalarFieldEnum)[keyof typ
 
 export const PostLikeScalarFieldEnum = {
   userId: 'userId',
-  postId: 'postId'
+  postId: 'postId',
+  createdAt: 'createdAt'
 } as const
 
 export type PostLikeScalarFieldEnum = (typeof PostLikeScalarFieldEnum)[keyof typeof PostLikeScalarFieldEnum]
@@ -12244,7 +12245,8 @@ export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof 
 
 export const ReviewLikeScalarFieldEnum = {
   userId: 'userId',
-  reviewId: 'reviewId'
+  reviewId: 'reviewId',
+  createdAt: 'createdAt'
 } as const
 
 export type ReviewLikeScalarFieldEnum = (typeof ReviewLikeScalarFieldEnum)[keyof typeof ReviewLikeScalarFieldEnum]

@@ -27,16 +27,19 @@ export type AggregateReviewLike = {
 export type ReviewLikeMinAggregateOutputType = {
   userId: string | null
   reviewId: string | null
+  createdAt: Date | null
 }
 
 export type ReviewLikeMaxAggregateOutputType = {
   userId: string | null
   reviewId: string | null
+  createdAt: Date | null
 }
 
 export type ReviewLikeCountAggregateOutputType = {
   userId: number
   reviewId: number
+  createdAt: number
   _all: number
 }
 
@@ -44,16 +47,19 @@ export type ReviewLikeCountAggregateOutputType = {
 export type ReviewLikeMinAggregateInputType = {
   userId?: true
   reviewId?: true
+  createdAt?: true
 }
 
 export type ReviewLikeMaxAggregateInputType = {
   userId?: true
   reviewId?: true
+  createdAt?: true
 }
 
 export type ReviewLikeCountAggregateInputType = {
   userId?: true
   reviewId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -132,6 +138,7 @@ export type ReviewLikeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type ReviewLikeGroupByOutputType = {
   userId: string
   reviewId: string
+  createdAt: Date
   _count: ReviewLikeCountAggregateOutputType | null
   _min: ReviewLikeMinAggregateOutputType | null
   _max: ReviewLikeMaxAggregateOutputType | null
@@ -158,6 +165,7 @@ export type ReviewLikeWhereInput = {
   NOT?: Prisma.ReviewLikeWhereInput | Prisma.ReviewLikeWhereInput[]
   userId?: Prisma.StringFilter<"ReviewLike"> | string
   reviewId?: Prisma.StringFilter<"ReviewLike"> | string
+  createdAt?: Prisma.DateTimeFilter<"ReviewLike"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
 }
@@ -165,6 +173,7 @@ export type ReviewLikeWhereInput = {
 export type ReviewLikeOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   review?: Prisma.ReviewOrderByWithRelationInput
 }
@@ -176,6 +185,7 @@ export type ReviewLikeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ReviewLikeWhereInput | Prisma.ReviewLikeWhereInput[]
   userId?: Prisma.StringFilter<"ReviewLike"> | string
   reviewId?: Prisma.StringFilter<"ReviewLike"> | string
+  createdAt?: Prisma.DateTimeFilter<"ReviewLike"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
 }, "userId_reviewId">
@@ -183,6 +193,7 @@ export type ReviewLikeWhereUniqueInput = Prisma.AtLeast<{
 export type ReviewLikeOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.ReviewLikeCountOrderByAggregateInput
   _max?: Prisma.ReviewLikeMaxOrderByAggregateInput
   _min?: Prisma.ReviewLikeMinOrderByAggregateInput
@@ -194,9 +205,11 @@ export type ReviewLikeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ReviewLikeScalarWhereWithAggregatesInput | Prisma.ReviewLikeScalarWhereWithAggregatesInput[]
   userId?: Prisma.StringWithAggregatesFilter<"ReviewLike"> | string
   reviewId?: Prisma.StringWithAggregatesFilter<"ReviewLike"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewLike"> | Date | string
 }
 
 export type ReviewLikeCreateInput = {
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewLikesInput
   review: Prisma.ReviewCreateNestedOneWithoutLikesInput
 }
@@ -204,9 +217,11 @@ export type ReviewLikeCreateInput = {
 export type ReviewLikeUncheckedCreateInput = {
   userId: string
   reviewId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeUpdateInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewLikesNestedInput
   review?: Prisma.ReviewUpdateOneRequiredWithoutLikesNestedInput
 }
@@ -214,20 +229,23 @@ export type ReviewLikeUpdateInput = {
 export type ReviewLikeUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeCreateManyInput = {
   userId: string
   reviewId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeUpdateManyMutationInput = {
-
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeListRelationFilter = {
@@ -248,16 +266,19 @@ export type ReviewLikeUserIdReviewIdCompoundUniqueInput = {
 export type ReviewLikeCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ReviewLikeMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ReviewLikeMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ReviewLikeCreateNestedManyWithoutUserInput = {
@@ -345,11 +366,13 @@ export type ReviewLikeUncheckedUpdateManyWithoutReviewNestedInput = {
 }
 
 export type ReviewLikeCreateWithoutUserInput = {
+  createdAt?: Date | string
   review: Prisma.ReviewCreateNestedOneWithoutLikesInput
 }
 
 export type ReviewLikeUncheckedCreateWithoutUserInput = {
   reviewId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeCreateOrConnectWithoutUserInput = {
@@ -384,14 +407,17 @@ export type ReviewLikeScalarWhereInput = {
   NOT?: Prisma.ReviewLikeScalarWhereInput | Prisma.ReviewLikeScalarWhereInput[]
   userId?: Prisma.StringFilter<"ReviewLike"> | string
   reviewId?: Prisma.StringFilter<"ReviewLike"> | string
+  createdAt?: Prisma.DateTimeFilter<"ReviewLike"> | Date | string
 }
 
 export type ReviewLikeCreateWithoutReviewInput = {
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewLikesInput
 }
 
 export type ReviewLikeUncheckedCreateWithoutReviewInput = {
   userId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeCreateOrConnectWithoutReviewInput = {
@@ -422,34 +448,42 @@ export type ReviewLikeUpdateManyWithWhereWithoutReviewInput = {
 
 export type ReviewLikeCreateManyUserInput = {
   reviewId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeUpdateWithoutUserInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   review?: Prisma.ReviewUpdateOneRequiredWithoutLikesNestedInput
 }
 
 export type ReviewLikeUncheckedUpdateWithoutUserInput = {
   reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeUncheckedUpdateManyWithoutUserInput = {
   reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeCreateManyReviewInput = {
   userId: string
+  createdAt?: Date | string
 }
 
 export type ReviewLikeUpdateWithoutReviewInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewLikesNestedInput
 }
 
 export type ReviewLikeUncheckedUpdateWithoutReviewInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewLikeUncheckedUpdateManyWithoutReviewInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -457,6 +491,7 @@ export type ReviewLikeUncheckedUpdateManyWithoutReviewInput = {
 export type ReviewLikeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   reviewId?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewLike"]>
@@ -464,6 +499,7 @@ export type ReviewLikeSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type ReviewLikeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   reviewId?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewLike"]>
@@ -471,6 +507,7 @@ export type ReviewLikeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type ReviewLikeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   reviewId?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewLike"]>
@@ -478,9 +515,10 @@ export type ReviewLikeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type ReviewLikeSelectScalar = {
   userId?: boolean
   reviewId?: boolean
+  createdAt?: boolean
 }
 
-export type ReviewLikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "reviewId", ExtArgs["result"]["reviewLike"]>
+export type ReviewLikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "reviewId" | "createdAt", ExtArgs["result"]["reviewLike"]>
 export type ReviewLikeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
@@ -503,6 +541,7 @@ export type $ReviewLikePayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
     reviewId: string
+    createdAt: Date
   }, ExtArgs["result"]["reviewLike"]>
   composites: {}
 }
@@ -930,6 +969,7 @@ export interface Prisma__ReviewLikeClient<T, Null = never, ExtArgs extends runti
 export interface ReviewLikeFieldRefs {
   readonly userId: Prisma.FieldRef<"ReviewLike", 'String'>
   readonly reviewId: Prisma.FieldRef<"ReviewLike", 'String'>
+  readonly createdAt: Prisma.FieldRef<"ReviewLike", 'DateTime'>
 }
     
 

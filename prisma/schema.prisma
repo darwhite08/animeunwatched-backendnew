@@ -608,6 +608,7 @@ model PostHide {
 model PostLike {
   userId String
   postId String
+  createdAt DateTime @default(now())   // for creator-analytics time-windowing
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -829,6 +830,7 @@ model Review {
 model ReviewLike {
   userId   String
   reviewId String
+  createdAt DateTime @default(now())   // for creator-analytics time-windowing
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
