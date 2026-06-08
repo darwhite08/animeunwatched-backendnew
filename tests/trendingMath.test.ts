@@ -106,4 +106,26 @@ describe("stepTrending", () => {
     const { z } = stepTrending(s, baseInput(1e6));
     expect(z).toBeLessThanOrEqual(TREND.Z_MAX);
   });
+
+  it("confidence shrinkage: a noisy spike from few users scores below the same spike from many", () => {
+    // Warm two identical baselines, then spike both with the same velocity but
+    // different unique-user counts. The broad spike must outscore the narrow one.
+    const warm = (over: object) => {
+      let s: TrendingStateLike = initialTrendingState();
+      for (let i = 0; i < 12; i++) s = stepTrending(s, baseInput(5, over)).next;
+      return s;
+    };
+    const sFew = warm({ uniqueUsers: 2 });
+    const sMany = warm({ uniqueUsers: 60 });
+    const few = stepTrending(sFew, baseInput(60, { uniqueUsers: 2 }));
+    const many = stepTrending(sMany, baseInput(60, { uniqueUsers: 60 }));
+    expect(many.score).toBeGreaterThan(few.score);
+  });
+
+  it("external web buzz is NOT confidence-damped (a web-only title still scores)", () => {
+    // No on-platform users at all, but strong web buzz → should still score.
+    const { score } = stepTrending(initialTrendingState(), baseInput(0, { uniqueUsers: 0, externalBuzz: 0.9 }));
+    expect(score).toBeGreaterThan(0);
+    expect(score).toBeCloseTo(TREND.SMOOTH_BETA * TREND.W_EXT * 0.9, 5);
+  });
 });

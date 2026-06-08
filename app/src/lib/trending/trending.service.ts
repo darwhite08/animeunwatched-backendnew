@@ -26,41 +26,53 @@ interface VelocityRow {
 }
 
 /**
- * Decayed event velocity per anime over the window, with unique-user counts.
- * Unions the qualifying first-party signals (list activity, feed posts/activities,
- * reviews, threads) and weights each event by exp(-λ·ageHours). Bounded by the
- * window, so it never scans full history.
+ * Per-user-capped, signal-type-weighted decayed velocity per anime.
+ *
+ * Improvements over a naive event count (research-grounded anti-gaming/quality):
+ *  - each event is weighted by SIGNAL TYPE (review ≫ post ≫ list-add) — effort/intent.
+ *  - each USER's total weighted contribution to a title is CAPPED, so a handful of
+ *    superfans/bots can't inflate it; velocity becomes "weighted breadth" (how many
+ *    distinct people, lightly scaled by effort) not "depth" (how many times one person).
+ *  - exp(-λ·ageHours) recency decay throughout. Bounded window → no full-history scan.
  */
 async function gatherVelocities(): Promise<VelocityRow[]> {
   const lambda = lambdaPerHour();
   const windowDays = TREND.WINDOW_DAYS;
+  const cap = TREND.USER_CONTRIB_CAP;
+  const w = TREND.W_SIGNAL;
 
-  // λ and window come from trusted constants (not user input) → safe to inline.
+  // λ, window, weights, cap are trusted constants (not user input) → safe to inline.
   const rows = await prisma.$queryRawUnsafe<Array<{ animeId: string; velocity: number; uniqueusers: bigint }>>(
     `
     WITH ev AS (
-      SELECT "animeId" AS aid, "updatedAt" AS ts, "userId"  AS uid
+      SELECT "animeId" AS aid, "updatedAt" AS ts, "userId"  AS uid, ${w.listEntry}::float AS sw
         FROM "ListEntry" WHERE "updatedAt" > now() - interval '${windowDays} days'
       UNION ALL
-      SELECT "linkedAnimeId" AS aid, "createdAt" AS ts, "authorId" AS uid
+      SELECT "linkedAnimeId" AS aid, "createdAt" AS ts, "authorId" AS uid, ${w.activity}::float
         FROM "Activity" WHERE "linkedAnimeId" IS NOT NULL AND "deletedAt" IS NULL
                           AND "createdAt" > now() - interval '${windowDays} days'
       UNION ALL
-      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid
+      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid, ${w.post}::float
         FROM "Post" WHERE "animeId" IS NOT NULL AND "deletedAt" IS NULL
                       AND "createdAt" > now() - interval '${windowDays} days'
       UNION ALL
-      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid
+      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid, ${w.review}::float
         FROM "Review" WHERE "createdAt" > now() - interval '${windowDays} days'
       UNION ALL
-      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid
+      SELECT "animeId" AS aid, "createdAt" AS ts, "authorId" AS uid, ${w.thread}::float
         FROM "Thread" WHERE "animeId" IS NOT NULL AND "createdAt" > now() - interval '${windowDays} days'
+    ),
+    per_user AS (
+      SELECT aid, uid,
+             LEAST(${cap}::float, SUM(sw * exp(-${lambda} * EXTRACT(EPOCH FROM (now() - ts)) / 3600.0))) AS contrib
+        FROM ev
+       WHERE aid IS NOT NULL
+       GROUP BY aid, uid
     )
     SELECT aid AS "animeId",
-           SUM(exp(-${lambda} * EXTRACT(EPOCH FROM (now() - ts)) / 3600.0)) AS velocity,
-           COUNT(DISTINCT uid) AS uniqueusers
-      FROM ev
-     WHERE aid IS NOT NULL
+           SUM(contrib)   AS velocity,
+           COUNT(*)       AS uniqueusers
+      FROM per_user
      GROUP BY aid
     `,
   );

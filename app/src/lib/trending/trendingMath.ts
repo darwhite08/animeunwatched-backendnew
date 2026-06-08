@@ -23,6 +23,10 @@ export const TREND = {
   WARMUP_SAMPLES: 6, // below this many updates, damp burst (cold-start)
   MIN_UNIQUE_USERS: 2, // anti-gaming eligibility floor (on-platform)
   MIN_EXTERNAL_BUZZ: 0.05, // a title can qualify on web buzz alone above this
+  CONFIDENCE_K: 4, // unique-user confidence: conf = u/(u+K) → 4 users ≈ 0.5, 20 ≈ 0.83
+  USER_CONTRIB_CAP: 4, // max weighted decayed contribution counted from any ONE user (anti-spam)
+  // Signal-type weights — effort/intent strength (a review ≫ a one-click list add).
+  W_SIGNAL: { listEntry: 1.0, activity: 1.5, post: 1.5, review: 3.0, thread: 2.0 } as Record<string, number>,
   W_BURST: 0.4, // weight: on-platform acceleration (robust-z)
   W_NEWMA: 0.15, // weight: NEWMA spike confirmation
   W_MAG: 0.15, // weight: on-platform magnitude (unique-user reach)
@@ -101,14 +105,18 @@ export function stepTrending(state: TrendingStateLike, input: TrendingInput): Tr
   // ── 4. Magnitude (unique-user reach), p95-normalized so one title can't dominate
   const magnitude = input.velocityP95 > EPS ? Math.min(1, v / input.velocityP95) : 0;
 
-  // ── 5. Blend → boosts → cold-start damp → EWMA smoothing ────────────────
-  // On-platform burst/magnitude are warmup-damped (need history); the external
-  // web-buzz signal is trustworthy immediately, so it's NOT damped.
-  const warmup = Math.min(1, state.samples / TREND.WARMUP_SAMPLES); // 0..1, damps burst early
+  // ── 5. Blend → boosts → cold-start/confidence damp → EWMA smoothing ─────
+  // On-platform acceleration is damped by BOTH warmup (enough history?) and
+  // confidence (enough distinct users? — a noisy z from 2 users shouldn't beat
+  // a steady signal from 50). The external web-buzz signal carries its own
+  // breadth (AniList community + Wikipedia readers) so it isn't damped.
+  const warmup = Math.min(1, state.samples / TREND.WARMUP_SAMPLES); // 0..1
+  const confidence = input.uniqueUsers / (input.uniqueUsers + TREND.CONFIDENCE_K); // 0..1
+  const onPlatformDamp = warmup * confidence;
   const externalBuzz = Math.max(0, Math.min(1, input.externalBuzz ?? 0));
   let raw =
-    TREND.W_BURST * (z / TREND.Z_MAX) * warmup +
-    TREND.W_NEWMA * Math.min(1, newmaBurst) * warmup +
+    TREND.W_BURST * (z / TREND.Z_MAX) * onPlatformDamp +
+    TREND.W_NEWMA * Math.min(1, newmaBurst) * onPlatformDamp +
     TREND.W_MAG * magnitude +
     TREND.W_EXT * externalBuzz;
 
