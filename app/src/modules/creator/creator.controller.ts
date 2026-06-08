@@ -74,6 +74,10 @@ export async function getMyPosts(_req: Request, res: Response, next: NextFunctio
   try { res.status(200).json(await service.getMyPosts(res.locals.user.id)); } catch (err) { next(err); }
 }
 
+export async function getEngagementInbox(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getEngagementInbox(res.locals.user.id)); } catch (err) { next(err); }
+}
+
 export async function getMyPolls(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getMyPolls(res.locals.user.id)); } catch (err) { next(err); }
 }

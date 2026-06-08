@@ -46,6 +46,42 @@ export async function getMyPosts(userId: string) {
   };
 }
 
+/** Community inbox: recent comments/replies from others on the creator's content
+ *  (posts, blogs, activities) — a YouTube-Studio-style engagement queue. */
+export async function getEngagementInbox(userId: string) {
+  const sel = { username: true, displayName: true, avatarUrl: true };
+  const [postC, blogC, replies, follows] = await Promise.all([
+    prisma.postComment.findMany({
+      where: { post: { authorId: userId }, authorId: { not: userId } },
+      orderBy: { createdAt: "desc" }, take: 25,
+      select: { id: true, content: true, createdAt: true, author: { select: sel }, post: { select: { id: true, content: true } } },
+    }),
+    prisma.blogComment.findMany({
+      where: { blog: { authorId: userId }, authorId: { not: userId } },
+      orderBy: { createdAt: "desc" }, take: 25,
+      select: { id: true, content: true, createdAt: true, author: { select: sel }, blog: { select: { title: true, slug: true } } },
+    }),
+    prisma.reply.findMany({
+      where: { activity: { authorId: userId }, authorId: { not: userId } },
+      orderBy: { createdAt: "desc" }, take: 25,
+      select: { id: true, body: true, createdAt: true, author: { select: sel }, activity: { select: { body: true } } },
+    }),
+    prisma.follow.findMany({
+      where: { followingId: userId, status: "ACCEPTED" }, orderBy: { createdAt: "desc" }, take: 25,
+      select: { followerId: true, createdAt: true, follower: { select: sel } },
+    }),
+  ]);
+
+  const items = [
+    ...postC.map((c) => ({ id: c.id, type: "comment" as const, surface: "post", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: "your post", snippet: c.post?.content?.slice(0, 90) ?? null, href: null as string | null } })),
+    ...blogC.map((c) => ({ id: c.id, type: "comment" as const, surface: "blog", text: c.content, createdAt: c.createdAt.toISOString(), author: c.author, target: { label: c.blog?.title ?? "your blog", snippet: null, href: c.blog ? `/blog/${c.blog.slug}` : null } })),
+    ...replies.map((r) => ({ id: r.id, type: "comment" as const, surface: "activity", text: r.body, createdAt: r.createdAt.toISOString(), author: r.author, target: { label: "your activity", snippet: r.activity?.body?.slice(0, 90) ?? null, href: null } })),
+    ...follows.map((f) => ({ id: `follow-${f.followerId}`, type: "follow" as const, surface: "follow", text: "started following you", createdAt: f.createdAt.toISOString(), author: f.follower, target: { label: "", snippet: null, href: null } })),
+  ].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 40);
+
+  return { items, commentCount: postC.length + blogC.length + replies.length };
+}
+
 /** All of a creator's polls with option vote tallies. */
 export async function getMyPolls(userId: string) {
   const polls = await prisma.poll.findMany({

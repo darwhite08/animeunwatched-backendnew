@@ -59,6 +59,14 @@ export async function getPayouts(_req: Request, res: Response, next: NextFunctio
   try { res.status(200).json(await service.getPayouts(uid(res))); } catch (e) { next(e); }
 }
 
+export async function getMembers(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMembers(uid(res))); } catch (e) { next(e); }
+}
+
+export async function getRevenueSeries(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getRevenueSeries(uid(res), range(req))); } catch (e) { next(e); }
+}
+
 export async function getRetention(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getRetention(uid(res))); } catch (e) { next(e); }
 }
