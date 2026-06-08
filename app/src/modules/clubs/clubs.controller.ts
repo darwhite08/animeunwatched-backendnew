@@ -130,3 +130,17 @@ export async function leaderboard(req: Request, res: Response, next: NextFunctio
     res.status(200).json(await service.leaderboard(req.params.slug as string, period));
   } catch (err) { next(err); }
 }
+
+export async function listClubPolls(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.listClubPolls(req.params.slug as string, res.locals.user?.id));
+  } catch (err) { next(err); }
+}
+
+export async function createClubPoll(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const { question, options, expiresInDays } = req.body ?? {};
+    res.status(201).json(await service.createClubPoll(userId, req.params.slug as string, { question, options, expiresInDays }));
+  } catch (err) { next(err); }
+}

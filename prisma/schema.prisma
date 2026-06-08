@@ -819,6 +819,7 @@ model Club {
   members ClubMember[]
   threads Thread[]
   events  ClubEvent[]
+  polls   Poll[]
   // Optional realtime chat room for the club (a club-backed GroupConversation).
   chatGroup GroupConversation? @relation("ClubChat")
 
@@ -1080,15 +1081,18 @@ model Poll {
   id        String   @id @default(cuid())
   question  String
   authorId  String
+  clubId    String?
   expiresAt DateTime
   createdAt DateTime @default(now())
 
   author  User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  club    Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
   options PollOption[]
   votes   PollVote[]
 
   @@index([authorId])
   @@index([expiresAt])
+  @@index([clubId])
 }
 
 model PollOption {

@@ -26,14 +26,25 @@ export async function list(page = 1, limit = 20) {
   return { data: polls.map(formatPoll), meta: meta(total, page, limit) };
 }
 
-export async function create(authorId: string, dto: CreatePollDto) {
+export async function create(authorId: string, dto: CreatePollDto, clubId?: string) {
   const hours = dto.expiresIn ?? ((dto.expiresInDays ?? 7) * 24);
   const expiresAt = new Date(Date.now() + hours * 60 * 60 * 1000);
   const poll = await prisma.poll.create({
-    data: { question: dto.question, authorId, expiresAt, options: { create: dto.options.map((label, i) => ({ label, order: i })) } },
+    data: { question: dto.question, authorId, expiresAt, ...(clubId ? { clubId } : {}), options: { create: dto.options.map((label, i) => ({ label, order: i })) } },
     include: pollInclude,
   });
   return { poll: formatPoll(poll) };
+}
+
+/** Club-scoped poll list with the caller's vote marked (myVote). */
+export async function listForClub(clubId: string, userId?: string) {
+  const polls = await prisma.poll.findMany({ where: { clubId }, orderBy: { createdAt: "desc" }, take: 50, include: pollInclude });
+  let myVotes = new Map<string, string>();
+  if (userId && polls.length) {
+    const votes = await prisma.pollVote.findMany({ where: { userId, pollId: { in: polls.map((p) => p.id) } }, select: { pollId: true, optionId: true } });
+    myVotes = new Map(votes.map((v) => [v.pollId, v.optionId]));
+  }
+  return { polls: polls.map((p) => ({ ...formatPoll(p), myVote: myVotes.get(p.id) ?? null })) };
 }
 
 export async function getById(id: string) {

@@ -28,6 +28,7 @@ export type PollMinAggregateOutputType = {
   id: string | null
   question: string | null
   authorId: string | null
+  clubId: string | null
   expiresAt: Date | null
   createdAt: Date | null
 }
@@ -36,6 +37,7 @@ export type PollMaxAggregateOutputType = {
   id: string | null
   question: string | null
   authorId: string | null
+  clubId: string | null
   expiresAt: Date | null
   createdAt: Date | null
 }
@@ -44,6 +46,7 @@ export type PollCountAggregateOutputType = {
   id: number
   question: number
   authorId: number
+  clubId: number
   expiresAt: number
   createdAt: number
   _all: number
@@ -54,6 +57,7 @@ export type PollMinAggregateInputType = {
   id?: true
   question?: true
   authorId?: true
+  clubId?: true
   expiresAt?: true
   createdAt?: true
 }
@@ -62,6 +66,7 @@ export type PollMaxAggregateInputType = {
   id?: true
   question?: true
   authorId?: true
+  clubId?: true
   expiresAt?: true
   createdAt?: true
 }
@@ -70,6 +75,7 @@ export type PollCountAggregateInputType = {
   id?: true
   question?: true
   authorId?: true
+  clubId?: true
   expiresAt?: true
   createdAt?: true
   _all?: true
@@ -151,6 +157,7 @@ export type PollGroupByOutputType = {
   id: string
   question: string
   authorId: string
+  clubId: string | null
   expiresAt: Date
   createdAt: Date
   _count: PollCountAggregateOutputType | null
@@ -180,9 +187,11 @@ export type PollWhereInput = {
   id?: Prisma.StringFilter<"Poll"> | string
   question?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
+  clubId?: Prisma.StringNullableFilter<"Poll"> | string | null
   expiresAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   options?: Prisma.PollOptionListRelationFilter
   votes?: Prisma.PollVoteListRelationFilter
 }
@@ -191,9 +200,11 @@ export type PollOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
+  club?: Prisma.ClubOrderByWithRelationInput
   options?: Prisma.PollOptionOrderByRelationAggregateInput
   votes?: Prisma.PollVoteOrderByRelationAggregateInput
 }
@@ -205,9 +216,11 @@ export type PollWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PollWhereInput | Prisma.PollWhereInput[]
   question?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
+  clubId?: Prisma.StringNullableFilter<"Poll"> | string | null
   expiresAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   options?: Prisma.PollOptionListRelationFilter
   votes?: Prisma.PollVoteListRelationFilter
 }, "id">
@@ -216,6 +229,7 @@ export type PollOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PollCountOrderByAggregateInput
@@ -230,6 +244,7 @@ export type PollScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Poll"> | string
   question?: Prisma.StringWithAggregatesFilter<"Poll"> | string
   authorId?: Prisma.StringWithAggregatesFilter<"Poll"> | string
+  clubId?: Prisma.StringNullableWithAggregatesFilter<"Poll"> | string | null
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"Poll"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Poll"> | Date | string
 }
@@ -240,6 +255,7 @@ export type PollCreateInput = {
   expiresAt: Date | string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPollsInput
+  club?: Prisma.ClubCreateNestedOneWithoutPollsInput
   options?: Prisma.PollOptionCreateNestedManyWithoutPollInput
   votes?: Prisma.PollVoteCreateNestedManyWithoutPollInput
 }
@@ -248,6 +264,7 @@ export type PollUncheckedCreateInput = {
   id?: string
   question: string
   authorId: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
   options?: Prisma.PollOptionUncheckedCreateNestedManyWithoutPollInput
@@ -260,6 +277,7 @@ export type PollUpdateInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  club?: Prisma.ClubUpdateOneWithoutPollsNestedInput
   options?: Prisma.PollOptionUpdateManyWithoutPollNestedInput
   votes?: Prisma.PollVoteUpdateManyWithoutPollNestedInput
 }
@@ -268,6 +286,7 @@ export type PollUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   options?: Prisma.PollOptionUncheckedUpdateManyWithoutPollNestedInput
@@ -278,6 +297,7 @@ export type PollCreateManyInput = {
   id?: string
   question: string
   authorId: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
 }
@@ -293,6 +313,7 @@ export type PollUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -311,6 +332,7 @@ export type PollCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -319,6 +341,7 @@ export type PollMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -327,6 +350,7 @@ export type PollMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  clubId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -378,6 +402,48 @@ export type PollUncheckedUpdateManyWithoutAuthorNestedInput = {
   deleteMany?: Prisma.PollScalarWhereInput | Prisma.PollScalarWhereInput[]
 }
 
+export type PollCreateNestedManyWithoutClubInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput> | Prisma.PollCreateWithoutClubInput[] | Prisma.PollUncheckedCreateWithoutClubInput[]
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutClubInput | Prisma.PollCreateOrConnectWithoutClubInput[]
+  createMany?: Prisma.PollCreateManyClubInputEnvelope
+  connect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+}
+
+export type PollUncheckedCreateNestedManyWithoutClubInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput> | Prisma.PollCreateWithoutClubInput[] | Prisma.PollUncheckedCreateWithoutClubInput[]
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutClubInput | Prisma.PollCreateOrConnectWithoutClubInput[]
+  createMany?: Prisma.PollCreateManyClubInputEnvelope
+  connect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+}
+
+export type PollUpdateManyWithoutClubNestedInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput> | Prisma.PollCreateWithoutClubInput[] | Prisma.PollUncheckedCreateWithoutClubInput[]
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutClubInput | Prisma.PollCreateOrConnectWithoutClubInput[]
+  upsert?: Prisma.PollUpsertWithWhereUniqueWithoutClubInput | Prisma.PollUpsertWithWhereUniqueWithoutClubInput[]
+  createMany?: Prisma.PollCreateManyClubInputEnvelope
+  set?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  disconnect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  delete?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  connect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  update?: Prisma.PollUpdateWithWhereUniqueWithoutClubInput | Prisma.PollUpdateWithWhereUniqueWithoutClubInput[]
+  updateMany?: Prisma.PollUpdateManyWithWhereWithoutClubInput | Prisma.PollUpdateManyWithWhereWithoutClubInput[]
+  deleteMany?: Prisma.PollScalarWhereInput | Prisma.PollScalarWhereInput[]
+}
+
+export type PollUncheckedUpdateManyWithoutClubNestedInput = {
+  create?: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput> | Prisma.PollCreateWithoutClubInput[] | Prisma.PollUncheckedCreateWithoutClubInput[]
+  connectOrCreate?: Prisma.PollCreateOrConnectWithoutClubInput | Prisma.PollCreateOrConnectWithoutClubInput[]
+  upsert?: Prisma.PollUpsertWithWhereUniqueWithoutClubInput | Prisma.PollUpsertWithWhereUniqueWithoutClubInput[]
+  createMany?: Prisma.PollCreateManyClubInputEnvelope
+  set?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  disconnect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  delete?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  connect?: Prisma.PollWhereUniqueInput | Prisma.PollWhereUniqueInput[]
+  update?: Prisma.PollUpdateWithWhereUniqueWithoutClubInput | Prisma.PollUpdateWithWhereUniqueWithoutClubInput[]
+  updateMany?: Prisma.PollUpdateManyWithWhereWithoutClubInput | Prisma.PollUpdateManyWithWhereWithoutClubInput[]
+  deleteMany?: Prisma.PollScalarWhereInput | Prisma.PollScalarWhereInput[]
+}
+
 export type PollCreateNestedOneWithoutOptionsInput = {
   create?: Prisma.XOR<Prisma.PollCreateWithoutOptionsInput, Prisma.PollUncheckedCreateWithoutOptionsInput>
   connectOrCreate?: Prisma.PollCreateOrConnectWithoutOptionsInput
@@ -411,6 +477,7 @@ export type PollCreateWithoutAuthorInput = {
   question: string
   expiresAt: Date | string
   createdAt?: Date | string
+  club?: Prisma.ClubCreateNestedOneWithoutPollsInput
   options?: Prisma.PollOptionCreateNestedManyWithoutPollInput
   votes?: Prisma.PollVoteCreateNestedManyWithoutPollInput
 }
@@ -418,6 +485,7 @@ export type PollCreateWithoutAuthorInput = {
 export type PollUncheckedCreateWithoutAuthorInput = {
   id?: string
   question: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
   options?: Prisma.PollOptionUncheckedCreateNestedManyWithoutPollInput
@@ -457,8 +525,55 @@ export type PollScalarWhereInput = {
   id?: Prisma.StringFilter<"Poll"> | string
   question?: Prisma.StringFilter<"Poll"> | string
   authorId?: Prisma.StringFilter<"Poll"> | string
+  clubId?: Prisma.StringNullableFilter<"Poll"> | string | null
   expiresAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Poll"> | Date | string
+}
+
+export type PollCreateWithoutClubInput = {
+  id?: string
+  question: string
+  expiresAt: Date | string
+  createdAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutPollsInput
+  options?: Prisma.PollOptionCreateNestedManyWithoutPollInput
+  votes?: Prisma.PollVoteCreateNestedManyWithoutPollInput
+}
+
+export type PollUncheckedCreateWithoutClubInput = {
+  id?: string
+  question: string
+  authorId: string
+  expiresAt: Date | string
+  createdAt?: Date | string
+  options?: Prisma.PollOptionUncheckedCreateNestedManyWithoutPollInput
+  votes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutPollInput
+}
+
+export type PollCreateOrConnectWithoutClubInput = {
+  where: Prisma.PollWhereUniqueInput
+  create: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput>
+}
+
+export type PollCreateManyClubInputEnvelope = {
+  data: Prisma.PollCreateManyClubInput | Prisma.PollCreateManyClubInput[]
+  skipDuplicates?: boolean
+}
+
+export type PollUpsertWithWhereUniqueWithoutClubInput = {
+  where: Prisma.PollWhereUniqueInput
+  update: Prisma.XOR<Prisma.PollUpdateWithoutClubInput, Prisma.PollUncheckedUpdateWithoutClubInput>
+  create: Prisma.XOR<Prisma.PollCreateWithoutClubInput, Prisma.PollUncheckedCreateWithoutClubInput>
+}
+
+export type PollUpdateWithWhereUniqueWithoutClubInput = {
+  where: Prisma.PollWhereUniqueInput
+  data: Prisma.XOR<Prisma.PollUpdateWithoutClubInput, Prisma.PollUncheckedUpdateWithoutClubInput>
+}
+
+export type PollUpdateManyWithWhereWithoutClubInput = {
+  where: Prisma.PollScalarWhereInput
+  data: Prisma.XOR<Prisma.PollUpdateManyMutationInput, Prisma.PollUncheckedUpdateManyWithoutClubInput>
 }
 
 export type PollCreateWithoutOptionsInput = {
@@ -467,6 +582,7 @@ export type PollCreateWithoutOptionsInput = {
   expiresAt: Date | string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPollsInput
+  club?: Prisma.ClubCreateNestedOneWithoutPollsInput
   votes?: Prisma.PollVoteCreateNestedManyWithoutPollInput
 }
 
@@ -474,6 +590,7 @@ export type PollUncheckedCreateWithoutOptionsInput = {
   id?: string
   question: string
   authorId: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
   votes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutPollInput
@@ -501,6 +618,7 @@ export type PollUpdateWithoutOptionsInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  club?: Prisma.ClubUpdateOneWithoutPollsNestedInput
   votes?: Prisma.PollVoteUpdateManyWithoutPollNestedInput
 }
 
@@ -508,6 +626,7 @@ export type PollUncheckedUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   votes?: Prisma.PollVoteUncheckedUpdateManyWithoutPollNestedInput
@@ -519,6 +638,7 @@ export type PollCreateWithoutVotesInput = {
   expiresAt: Date | string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPollsInput
+  club?: Prisma.ClubCreateNestedOneWithoutPollsInput
   options?: Prisma.PollOptionCreateNestedManyWithoutPollInput
 }
 
@@ -526,6 +646,7 @@ export type PollUncheckedCreateWithoutVotesInput = {
   id?: string
   question: string
   authorId: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
   options?: Prisma.PollOptionUncheckedCreateNestedManyWithoutPollInput
@@ -553,6 +674,7 @@ export type PollUpdateWithoutVotesInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  club?: Prisma.ClubUpdateOneWithoutPollsNestedInput
   options?: Prisma.PollOptionUpdateManyWithoutPollNestedInput
 }
 
@@ -560,6 +682,7 @@ export type PollUncheckedUpdateWithoutVotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   options?: Prisma.PollOptionUncheckedUpdateManyWithoutPollNestedInput
@@ -568,6 +691,7 @@ export type PollUncheckedUpdateWithoutVotesInput = {
 export type PollCreateManyAuthorInput = {
   id?: string
   question: string
+  clubId?: string | null
   expiresAt: Date | string
   createdAt?: Date | string
 }
@@ -577,6 +701,7 @@ export type PollUpdateWithoutAuthorInput = {
   question?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  club?: Prisma.ClubUpdateOneWithoutPollsNestedInput
   options?: Prisma.PollOptionUpdateManyWithoutPollNestedInput
   votes?: Prisma.PollVoteUpdateManyWithoutPollNestedInput
 }
@@ -584,6 +709,7 @@ export type PollUpdateWithoutAuthorInput = {
 export type PollUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   options?: Prisma.PollOptionUncheckedUpdateManyWithoutPollNestedInput
@@ -593,6 +719,43 @@ export type PollUncheckedUpdateWithoutAuthorInput = {
 export type PollUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PollCreateManyClubInput = {
+  id?: string
+  question: string
+  authorId: string
+  expiresAt: Date | string
+  createdAt?: Date | string
+}
+
+export type PollUpdateWithoutClubInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutPollsNestedInput
+  options?: Prisma.PollOptionUpdateManyWithoutPollNestedInput
+  votes?: Prisma.PollVoteUpdateManyWithoutPollNestedInput
+}
+
+export type PollUncheckedUpdateWithoutClubInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  options?: Prisma.PollOptionUncheckedUpdateManyWithoutPollNestedInput
+  votes?: Prisma.PollVoteUncheckedUpdateManyWithoutPollNestedInput
+}
+
+export type PollUncheckedUpdateManyWithoutClubInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  question?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -641,9 +804,11 @@ export type PollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   question?: boolean
   authorId?: boolean
+  clubId?: boolean
   expiresAt?: boolean
   createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
   options?: boolean | Prisma.Poll$optionsArgs<ExtArgs>
   votes?: boolean | Prisma.Poll$votesArgs<ExtArgs>
   _count?: boolean | Prisma.PollCountOutputTypeDefaultArgs<ExtArgs>
@@ -653,46 +818,55 @@ export type PollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   question?: boolean
   authorId?: boolean
+  clubId?: boolean
   expiresAt?: boolean
   createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
 }, ExtArgs["result"]["poll"]>
 
 export type PollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   question?: boolean
   authorId?: boolean
+  clubId?: boolean
   expiresAt?: boolean
   createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
 }, ExtArgs["result"]["poll"]>
 
 export type PollSelectScalar = {
   id?: boolean
   question?: boolean
   authorId?: boolean
+  clubId?: boolean
   expiresAt?: boolean
   createdAt?: boolean
 }
 
-export type PollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "authorId" | "expiresAt" | "createdAt", ExtArgs["result"]["poll"]>
+export type PollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "authorId" | "clubId" | "expiresAt" | "createdAt", ExtArgs["result"]["poll"]>
 export type PollInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
   options?: boolean | Prisma.Poll$optionsArgs<ExtArgs>
   votes?: boolean | Prisma.Poll$votesArgs<ExtArgs>
   _count?: boolean | Prisma.PollCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PollIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
 }
 export type PollIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  club?: boolean | Prisma.Poll$clubArgs<ExtArgs>
 }
 
 export type $PollPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Poll"
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
+    club: Prisma.$ClubPayload<ExtArgs> | null
     options: Prisma.$PollOptionPayload<ExtArgs>[]
     votes: Prisma.$PollVotePayload<ExtArgs>[]
   }
@@ -700,6 +874,7 @@ export type $PollPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     question: string
     authorId: string
+    clubId: string | null
     expiresAt: Date
     createdAt: Date
   }, ExtArgs["result"]["poll"]>
@@ -1097,6 +1272,7 @@ readonly fields: PollFieldRefs;
 export interface Prisma__PollClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  club<T extends Prisma.Poll$clubArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Poll$clubArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   options<T extends Prisma.Poll$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Poll$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   votes<T extends Prisma.Poll$votesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Poll$votesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PollVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1131,6 +1307,7 @@ export interface PollFieldRefs {
   readonly id: Prisma.FieldRef<"Poll", 'String'>
   readonly question: Prisma.FieldRef<"Poll", 'String'>
   readonly authorId: Prisma.FieldRef<"Poll", 'String'>
+  readonly clubId: Prisma.FieldRef<"Poll", 'String'>
   readonly expiresAt: Prisma.FieldRef<"Poll", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Poll", 'DateTime'>
 }
@@ -1526,6 +1703,25 @@ export type PollDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Polls to delete.
    */
   limit?: number
+}
+
+/**
+ * Poll.club
+ */
+export type Poll$clubArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Club
+   */
+  select?: Prisma.ClubSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Club
+   */
+  omit?: Prisma.ClubOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubInclude<ExtArgs> | null
+  where?: Prisma.ClubWhereInput
 }
 
 /**

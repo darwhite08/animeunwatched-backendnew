@@ -12961,6 +12961,7 @@ export const PollScalarFieldEnum = {
   id: 'id',
   question: 'question',
   authorId: 'authorId',
+  clubId: 'clubId',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt'
 } as const

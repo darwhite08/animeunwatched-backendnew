@@ -24,6 +24,9 @@ clubsRouter.get("/:slug/chat", requireAuth, ctrl.clubChat);
 // Onboarding + gamification
 clubsRouter.post("/:slug/onboard", requireAuth, ctrl.onboard);
 clubsRouter.get("/:slug/leaderboard", optionalAuth, ctrl.leaderboard);
+// Club polls (vote via the existing POST /polls/:id/vote)
+clubsRouter.get("/:slug/polls",  optionalAuth, ctrl.listClubPolls);
+clubsRouter.post("/:slug/polls", requireAuth, ctrl.createClubPoll);
 
 // Club threads: POST /clubs/:slug/threads
 clubsRouter.use("/:slug/threads", clubThreadsRouter);

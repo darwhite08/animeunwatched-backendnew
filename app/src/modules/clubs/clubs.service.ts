@@ -155,6 +155,29 @@ export async function onboard(userId: string, slug: string) {
   return { ok: true };
 }
 
+// ─── club polls ────────────────────────────────────────────────────────────
+export async function listClubPolls(slug: string, userId?: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const { listForClub } = await import("../polls/polls.service");
+  return listForClub(club.id, userId);
+}
+
+export async function createClubPoll(userId: string, slug: string, dto: { question: string; options: string[]; expiresInDays?: number }) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const membership = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { userId: true } });
+  if (!membership) throw forbidden("Join the club to create a poll");
+  if (!dto.question?.trim() || !Array.isArray(dto.options) || dto.options.filter((o) => o.trim()).length < 2) {
+    throw notFound("A poll needs a question and at least 2 options");
+  }
+  const { create } = await import("../polls/polls.service");
+  const result = await create(userId, { question: dto.question.trim(), options: dto.options.map((o) => o.trim()).filter(Boolean), expiresInDays: dto.expiresInDays ?? 7 } as never, club.id);
+  await awardClubXp(club.id, userId, 5);
+  void emitClubUpdate(club.id, "poll");
+  return result;
+}
+
 export async function leaderboard(slug: string, period: "week" | "all") {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
   if (!club) throw notFound("Club not found");
