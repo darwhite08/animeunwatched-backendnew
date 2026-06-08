@@ -68,6 +68,7 @@ import * as savedSrch    from "./savedSearches.controller";
 import * as integ        from "./integrations.controller";
 import * as triage       from "./triage.controller";
 import * as flagsExtras  from "./flagsExtras.controller";
+import * as creators     from "./creators.controller";
 
 export const adminRouter = Router();
 
@@ -105,6 +106,11 @@ adminRouter.delete("/users/:userId",                  requirePermissionWithStepU
   requireApproval({ action: "users.delete", resource: (r) => `user:${r.params.userId}` }),
   users.softDelete);
 adminRouter.post(  "/users/bulk",                     requirePermission("users","suspend"),          users.bulkAction);
+
+// Creators — hand-pick who gets Creator Studio access (status="active")
+adminRouter.get(  "/creators",                       requirePermission("users","read"),   creators.listCreators);
+adminRouter.post( "/creators/:userId/grant",         requirePermission("users","update"), creators.grantCreator);
+adminRouter.post( "/creators/:userId/revoke",        requirePermission("users","update"), creators.revokeCreator);
 
 // Invites
 adminRouter.get(   "/invites",                        requirePermission("users","read"),   users.listInvites);
