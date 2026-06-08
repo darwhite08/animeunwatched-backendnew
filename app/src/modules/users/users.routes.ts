@@ -12,6 +12,9 @@ usersRouter.get("/me/connected-accounts",     requireAuth, ctrl.getConnectedAcco
 // Slug management — auth required; slug is the routing alias, never a data key
 usersRouter.patch("/me/slug",                 requireAuth, ctrl.updateSlug);
 usersRouter.get("/slug-check",       ctrl.checkSlugAvailable);   // ?slug=foo  (public, no rate-limit hit)
+// Username change (the @handle) — auth required; availability check is public-ish
+usersRouter.patch("/me/username",             requireAuth, ctrl.changeUsername);
+usersRouter.get("/username-check",   optionalAuth, ctrl.checkUsernameAvailable);  // ?username=foo
 // Leaderboard must be before /:username or Express will match 'leaderboard' as username
 usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);
 // Personalised people-you-may-know — FOAF + taste similarity + recency

@@ -127,6 +127,37 @@ export async function updateMe(userId: string, dto: UpdateMeDto) {
   return { user };
 }
 
+// ─── change username ────────────────────────────────────────────────────────────
+
+export async function checkUsernameAvailable(username: string, selfId?: string) {
+  const u = (username ?? "").trim();
+  if (u.length < 3 || u.length > 30 || !/^[a-zA-Z0-9_]+$/.test(u)) {
+    return { available: false, error: "3–30 letters, numbers or _" };
+  }
+  const taken = await prisma.user.findFirst({
+    where: { username: { equals: u, mode: "insensitive" }, ...(selfId ? { id: { not: selfId } } : {}) },
+    select: { id: true },
+  });
+  return { available: !taken, error: taken ? "That username is taken" : undefined };
+}
+
+export async function changeUsername(userId: string, username: string) {
+  const current = await prisma.user.findUnique({ where: { id: userId }, select: { username: true } });
+  if (current?.username === username) {
+    return prisma.user.findUnique({ where: { id: userId }, select: { ...safeUserSelect, isPrivate: true } });
+  }
+  const taken = await prisma.user.findFirst({
+    where: { username: { equals: username, mode: "insensitive" }, id: { not: userId } },
+    select: { id: true },
+  });
+  if (taken) throw conflict("That username is already taken. Try another.");
+  return prisma.user.update({
+    where: { id: userId },
+    data: { username },
+    select: { ...safeUserSelect, isPrivate: true },
+  });
+}
+
 // ─── follow ───────────────────────────────────────────────────────────────────
 
 export async function follow(followerId: string, targetUsername: string) {
@@ -518,6 +549,7 @@ export async function updateSlug(userId: string, dto: UpdateSlugDto) {
     select: safeUserSelect,
   });
 }
+
 
 // ─── whoToFollow (people-you-may-know) ───────────────────────────────────────
 //

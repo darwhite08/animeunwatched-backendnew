@@ -1,11 +1,31 @@
 import { Request, Response, NextFunction } from "express";
-import { updateMeSchema, updateSlugSchema } from "./users.schema";
+import { updateMeSchema, updateSlugSchema, changeUsernameSchema } from "./users.schema";
 import * as service from "./users.service";
 
 export async function getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const result = await service.getProfile(req.params.username as string, res.locals.user?.id as string | undefined);
     res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function checkUsernameAvailable(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const username = String(req.query.username ?? "");
+    res.status(200).json(await service.checkUsernameAvailable(username, res.locals.user?.id as string | undefined));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function changeUsername(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const { username } = changeUsernameSchema.parse(req.body);
+    const user = await service.changeUsername(userId, username);
+    res.status(200).json({ user });
   } catch (err) {
     next(err);
   }
