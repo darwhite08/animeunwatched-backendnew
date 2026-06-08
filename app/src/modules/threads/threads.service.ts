@@ -65,10 +65,11 @@ export async function createClubThread(
     },
   });
 
-  // Club XP for posting (+5).
+  // Club XP for posting (+5) + live refresh for members.
   try {
-    const { awardClubXp, notifyClub } = await import("../events/events.service");
+    const { awardClubXp, notifyClub, emitClubUpdate } = await import("../events/events.service");
     await awardClubXp(club.id, authorId, 5);
+    void emitClubUpdate(club.id, kind === "ANNOUNCEMENT" ? "announcement" : "thread");
     if (kind === "ANNOUNCEMENT") void notifyClub(club.id, authorId, { title: club.name, body: `📢 ${dto.title}`, data: { type: "club_announcement", slug: clubSlug, threadId: thread.id } });
   } catch { /* best-effort */ }
 
@@ -204,9 +205,9 @@ export async function createReply(
     },
   });
 
-  // Club XP for replying (+2).
+  // Club XP for replying (+2) + live refresh.
   if (thread.clubId) {
-    try { const { awardClubXp } = await import("../events/events.service"); await awardClubXp(thread.clubId, authorId, 2); } catch { /* best-effort */ }
+    try { const { awardClubXp, emitClubUpdate } = await import("../events/events.service"); await awardClubXp(thread.clubId, authorId, 2); void emitClubUpdate(thread.clubId, "reply"); } catch { /* best-effort */ }
   }
 
   // Realtime: anyone watching this thread sees the new reply instantly

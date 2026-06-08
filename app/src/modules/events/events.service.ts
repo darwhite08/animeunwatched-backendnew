@@ -75,8 +75,9 @@ export async function createClubEvent(userId: string, slug: string, dto: {
   // Creator auto-RSVPs GOING + earns club XP.
   await prisma.clubEventRSVP.create({ data: { eventId: ev.id, userId, status: "GOING" } });
   await awardClubXp(club.id, userId, 5);
-  // Notify other members.
+  // Notify + live-refresh other members.
   void notifyClub(club.id, userId, { title: club.name, body: `New event: ${ev.title}`, data: { type: "club_event", slug, eventId: ev.id } });
+  void emitClubUpdate(club.id, "event");
   return shape(ev, userId);
 }
 
@@ -90,6 +91,7 @@ export async function updateEvent(userId: string, eventId: string, patch: Record
   if (patch.startsAt) data.startsAt = new Date(patch.startsAt as string);
   if (patch.endsAt !== undefined) data.endsAt = patch.endsAt ? new Date(patch.endsAt as string) : null;
   const updated = await prisma.clubEvent.update({ where: { id: eventId }, data, select: EVENT_SELECT });
+  void emitClubUpdate(ev.clubId, "event");
   return shape(updated, userId);
 }
 
@@ -99,6 +101,7 @@ export async function deleteEvent(userId: string, eventId: string) {
   const role = await memberRole(ev.clubId, userId);
   if (ev.creatorId !== userId && role !== "ADMIN" && role !== "MOD") throw forbidden("Can't delete this event");
   await prisma.clubEvent.delete({ where: { id: eventId } });
+  void emitClubUpdate(ev.clubId, "event");
   return { ok: true };
 }
 
@@ -110,6 +113,7 @@ export async function rsvp(userId: string, eventId: string, status: RSVP) {
     where: { eventId_userId: { eventId, userId } },
     update: { status }, create: { eventId, userId, status },
   });
+  void emitClubUpdate(ev.clubId, "event");
   return getEvent(eventId, userId);
 }
 
@@ -118,6 +122,20 @@ export async function awardClubXp(clubId: string, userId: string, amount: number
   try {
     await prisma.clubMember.update({ where: { userId_clubId: { userId, clubId } }, data: { xp: { increment: amount }, lastXpAt: new Date() } });
   } catch { /* not a member yet — ignore */ }
+}
+
+/**
+ * Lightweight realtime fan-out: tell every club member's socket that something
+ * in the club changed so open club screens can refetch (threads / members /
+ * events / leaderboard / club meta). No push — purely for live cache refresh.
+ */
+export async function emitClubUpdate(clubId: string, kind: "thread" | "reply" | "member" | "event" | "club" | "announcement") {
+  try {
+    const io = getIo();
+    if (!io) return;
+    const members = await prisma.clubMember.findMany({ where: { clubId }, select: { userId: true } });
+    for (const m of members) io.to(`user:${m.userId}`).emit("club.update", { clubId, kind });
+  } catch { /* best-effort */ }
 }
 
 export async function notifyClub(clubId: string, actorId: string, notif: { title: string; body: string; data?: Record<string, unknown> }) {

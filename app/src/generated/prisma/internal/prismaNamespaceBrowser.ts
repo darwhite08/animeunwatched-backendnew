@@ -57,6 +57,7 @@ export const ModelName = {
   SecurityEvent: 'SecurityEvent',
   Follow: 'Follow',
   Anime: 'Anime',
+  TrendingState: 'TrendingState',
   Genre: 'Genre',
   Studio: 'Studio',
   AnimeGenre: 'AnimeGenre',
@@ -362,11 +363,30 @@ export const AnimeScalarFieldEnum = {
   kaiveronTags: 'kaiveronTags',
   waieScore: 'waieScore',
   isFeatured: 'isFeatured',
+  trendingScore: 'trendingScore',
+  trendingRank: 'trendingRank',
+  trendingUpdatedAt: 'trendingUpdatedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type AnimeScalarFieldEnum = (typeof AnimeScalarFieldEnum)[keyof typeof AnimeScalarFieldEnum]
+
+
+export const TrendingStateScalarFieldEnum = {
+  animeId: 'animeId',
+  ewmaMean: 'ewmaMean',
+  ewmaDev: 'ewmaDev',
+  newmaFast: 'newmaFast',
+  newmaSlow: 'newmaSlow',
+  seasonal: 'seasonal',
+  lastVel: 'lastVel',
+  prevScore: 'prevScore',
+  samples: 'samples',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrendingStateScalarFieldEnum = (typeof TrendingStateScalarFieldEnum)[keyof typeof TrendingStateScalarFieldEnum]
 
 
 export const GenreScalarFieldEnum = {

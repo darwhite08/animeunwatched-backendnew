@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden, conflict } from "../../lib/errors";
 import { auditMod } from "../../lib/audit";
-import { awardClubXp } from "../events/events.service";
+import { awardClubXp, emitClubUpdate } from "../events/events.service";
 import type { CreateClubDto, UpdateClubDto } from "./clubs.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -132,6 +132,7 @@ export async function join(userId: string, slug: string) {
     },
   });
 
+  void emitClubUpdate(club.id, "member");
   return { membership, requiresOnboarding: true, rules: club.rules ?? null, welcomeMessage: club.welcomeMessage ?? null };
 }
 
@@ -149,6 +150,7 @@ export async function onboard(userId: string, slug: string) {
       const user = await prisma.user.findUnique({ where: { id: userId }, select: { displayName: true, username: true } });
       await prisma.groupMessage.create({ data: { groupId: club.chatGroup.id, senderId: null, type: "SYSTEM", body: `${user?.displayName ?? user?.username ?? "Someone"} joined the club` } });
     }
+    void emitClubUpdate(club.id, "member");
   }
   return { ok: true };
 }
@@ -179,6 +181,7 @@ export async function leave(userId: string, slug: string) {
   await prisma.clubMember.deleteMany({
     where: { userId, clubId: club.id },
   });
+  void emitClubUpdate(club.id, "member");
   // Drop them from the club chat room too (soft-leave so history stays attributed).
   if (club.chatGroup) {
     await prisma.groupMember.updateMany({
@@ -278,6 +281,7 @@ export async function setMemberRole(
     extra:        { previousRole: targetMembership.role },
   });
 
+  void emitClubUpdate(club.id, "member");
   return { membership: updated };
 }
 
@@ -334,5 +338,6 @@ export async function update(slug: string, actorId: string, dto: UpdateClubDto) 
     },
   });
 
+  void emitClubUpdate(updated.id, "club");
   return { club: updated };
 }

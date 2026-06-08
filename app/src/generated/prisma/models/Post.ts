@@ -589,14 +589,6 @@ export type PostUncheckedUpdateManyWithoutAnimeNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type PostCreateNestedOneWithoutHidesInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutHidesInput, Prisma.PostUncheckedCreateWithoutHidesInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutHidesInput

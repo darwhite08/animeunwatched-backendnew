@@ -58,6 +58,11 @@ export type Follow = Prisma.FollowModel
  */
 export type Anime = Prisma.AnimeModel
 /**
+ * Model TrendingState
+ * 
+ */
+export type TrendingState = Prisma.TrendingStateModel
+/**
  * Model Genre
  * 
  */
