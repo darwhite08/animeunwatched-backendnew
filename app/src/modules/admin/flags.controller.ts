@@ -3,6 +3,7 @@ import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { adminAudit, ipFromReq, uaFromReq } from "../../lib/adminAudit";
 import { invalidateFlagCache, isEnabled } from "../../lib/featureFlags";
+import { broadcastFlagsChanged } from "../../realtime/broadcast";
 import { broadcastAdminFlagChanged } from "../../realtime/broadcast";
 
 export async function listFlags(_req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -44,6 +45,7 @@ export async function createFlag(req: Request, res: Response, next: NextFunction
       },
     });
     invalidateFlagCache(key);
+    broadcastFlagsChanged(key);
     await adminAudit({
       actorId, action: "flag.create", targetType: "FeatureFlag", targetId: flag.id,
       metadata: { key, type: flag.type }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
@@ -74,6 +76,7 @@ export async function updateFlag(req: Request, res: Response, next: NextFunction
       },
     });
     invalidateFlagCache(flag.key);
+    broadcastFlagsChanged(flag.key);
     await adminAudit({
       actorId, action: "flag.update", targetType: "FeatureFlag", targetId: flagId,
       metadata: { before, after: { enabledGlobally: updated.enabledGlobally, type: updated.type, rolloutRules: updated.rolloutRules } },
@@ -96,6 +99,7 @@ export async function killFlag(req: Request, res: Response, next: NextFunction):
       data: { killedAt: new Date(), killedBy: actorId, killedReason: reason ?? null },
     });
     invalidateFlagCache(flag.key);
+    broadcastFlagsChanged(flag.key);
     await adminAudit({
       actorId, action: "flag.kill", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key, reason }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
@@ -116,6 +120,7 @@ export async function reviveFlag(req: Request, res: Response, next: NextFunction
       data:  { killedAt: null, killedBy: null, killedReason: null },
     });
     invalidateFlagCache(flag.key);
+    broadcastFlagsChanged(flag.key);
     await adminAudit({
       actorId, action: "flag.revive", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
@@ -133,6 +138,7 @@ export async function deleteFlag(req: Request, res: Response, next: NextFunction
     if (!flag) throw notFound("Flag not found");
     await prisma.featureFlag.delete({ where: { id: flagId } });
     invalidateFlagCache(flag.key);
+    broadcastFlagsChanged(flag.key);
     await adminAudit({
       actorId, action: "flag.delete", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key }, ipAddress: ipFromReq(req), userAgent: uaFromReq(req),
@@ -159,6 +165,7 @@ export async function createOverride(req: Request, res: Response, next: NextFunc
       create: { flagId, userId, enabled, reason, grantedBy: actorId, expiresAt: expiresAt ? new Date(expiresAt) : null },
     });
     invalidateFlagCache(flag.key);
+    broadcastFlagsChanged(flag.key);
     await adminAudit({
       actorId, action: "flag.override", targetType: "FeatureFlag", targetId: flagId,
       metadata: { key: flag.key, userId, enabled, reason },
@@ -188,6 +195,7 @@ export async function deleteOverride(req: Request, res: Response, next: NextFunc
     if (!ov) throw notFound("Override not found");
     await prisma.featureFlagOverride.delete({ where: { id: overrideId } });
     invalidateFlagCache(ov.flag.key);
+    broadcastFlagsChanged(ov.flag.key);
     await adminAudit({
       actorId, action: "flag.override_revoke", targetType: "FeatureFlag", targetId: ov.flagId,
       metadata: { key: ov.flag.key, userId: ov.userId },

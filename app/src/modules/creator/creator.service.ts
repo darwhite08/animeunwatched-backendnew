@@ -1,4 +1,43 @@
 import { prisma } from "../../config/prisma";
+import { evaluateEligibility } from "../../lib/monetizationMath";
+
+/**
+ * Whether a user may access the Creator Studio. Not everyone is a creator — the
+ * studio is gated. Access is granted when ANY holds:
+ *   - admin-granted creator status (CreatorProfile.status = "active")
+ *   - they meet the auto-qualify criteria (followers / reputation / age / standing)
+ *   - they're already an active creator (have published a blog)
+ * Denied users get the exact criteria they still need to meet.
+ */
+export async function getCreatorAccess(userId: string) {
+  const [user, followers, publishedBlogs, profile] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { createdAt: true, reputation: true, isBanned: true, isShadowBanned: true } }),
+    prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED" } }),
+    prisma.blog.count({ where: { authorId: userId, status: "PUBLISHED" } }),
+    prisma.creatorProfile.findUnique({ where: { userId }, select: { status: true } }),
+  ]);
+  if (!user) return { hasAccess: false, reasons: ["User not found"], followers: 0, reputation: 0, publishedBlogs: 0 };
+
+  const accountAgeDays = (Date.now() - user.createdAt.getTime()) / 86_400_000;
+  const elig = evaluateEligibility({
+    followers, reputation: user.reputation, accountAgeDays,
+    inGoodStanding: !user.isBanned && !user.isShadowBanned,
+  });
+
+  const granted = profile?.status === "active";
+  const isExistingCreator = publishedBlogs > 0;
+  const hasAccess = granted || elig.isEligible || isExistingCreator;
+
+  return {
+    hasAccess,
+    granted,
+    reasons: hasAccess ? [] : elig.reasons,
+    followers,
+    reputation: user.reputation,
+    publishedBlogs,
+  };
+}
+
 
 // ─── getDailySeries ───────────────────────────────────────────────────────────
 

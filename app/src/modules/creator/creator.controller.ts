@@ -53,3 +53,9 @@ export async function getDailySeries(_req: Request, res: Response, next: NextFun
     next(err);
   }
 }
+
+export async function getAccess(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.getCreatorAccess(res.locals.user.id));
+  } catch (err) { next(err); }
+}

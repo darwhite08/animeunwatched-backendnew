@@ -24,6 +24,7 @@ import { webhooksRouter } from "./modules/webhooks/webhooks.routes";
 import { chatRouter } from "./modules/chat/chat.routes";
 import { groupsRouter } from "./modules/groups/groups.routes";
 import { eventsRouter } from "./modules/events/events.routes";
+import { configRouter } from "./modules/config/config.routes";
 import { pushRouter } from "./modules/push/push.routes";
 import { uploadsRouter } from "./modules/uploads/uploads.routes";
 import { discoveryRouter } from "./modules/discovery/discovery.routes";
@@ -80,6 +81,7 @@ export const ROUTE_MOUNTS = [
   ["/uploads",                         uploadsRouter],
   ["/discovery",                       discoveryRouter],
   ["/ai",                              aiRouter],
+  ["/config",                          configRouter],
   ["/version",                         versionRouter],
   ["/oauth",                           oauthRouter],
   ["/changelog",                       changelogRouter],

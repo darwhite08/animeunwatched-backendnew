@@ -44,6 +44,12 @@ export function broadcastPostCreated(post: unknown): void {
   emit(FEED_ROOM, "post.created", post)
 }
 
+/** A feature flag changed in admin → tell every connected client to refetch
+ *  /config/flags so kill switches take effect in realtime (no app restart). */
+export function broadcastFlagsChanged(key?: string): void {
+  emit(FEED_ROOM, "flags.updated", { key: key ?? null, at: Date.now() })
+}
+
 export function broadcastPostLiked(postId: string, authorId: string, likes: number, likerId: string): void {
   emit(FEED_ROOM, "post.liked",   { postId, likes, likerId })
   emit(userRoom(authorId), "post.liked", { postId, likes, likerId })
