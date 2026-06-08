@@ -110,3 +110,41 @@ describe("e2ee setup/state (§7) — server stores only wrapped material", () =>
     expect(res.added).toBe(1); // only the owned device
   });
 });
+
+describe("franking report flow (§5)", () => {
+  it("marks submitted evidence verified only when HMAC + serverFrank match", async () => {
+    vi.resetModules()
+    const { createHmac } = await import("node:crypto")
+    const { computeServerFrank } = await import("../app/src/lib/franking")
+    const frankingKeyB64 = Buffer.from("0123456789abcdef0123456789abcdef").toString("base64")
+    const plaintext = "this is the abusive message"
+    const frankingTag = createHmac("sha256", Buffer.from(frankingKeyB64, "base64")).update(plaintext).digest("base64")
+    const ts = 1717000000000
+    const serverFrank = computeServerFrank({ frankingTag, messageId: "m1", senderId: "them", ts })
+
+    vi.doMock("../app/src/config/prisma", () => ({
+      prisma: {
+        conversation: { findUnique: vi.fn().mockResolvedValue({ id: "c1", participant1: "me", participant2: "them" }) },
+        directMessage: { findMany: vi.fn().mockResolvedValue([
+          { id: "m1", senderId: "them", type: "TEXT", body: null, mediaUrl: null, createdAt: new Date(ts), deletedAt: null, frankingTag, serverFrank, isE2EE: true },
+        ]) },
+        messageReport: { create: vi.fn(async (a: any) => ({ id: "r1", status: "open", createdAt: new Date(), _data: a.data })) },
+      },
+    }))
+    const { reportConversation } = await import("../app/src/modules/safety/safety.service")
+
+    // correct evidence → verified
+    await reportConversation("me", { conversationId: "c1", reason: "harassment", evidence: [{ messageId: "m1", plaintext, frankingKey: frankingKeyB64 }] })
+    const p1 = await import("../app/src/config/prisma")
+    let snap = JSON.parse((p1.prisma.messageReport.create as any).mock.calls[0][0].data.details)
+    expect(snap.messages[0].verification).toBe("verified")
+    expect(snap.messages[0].decrypted).toBe(plaintext)
+
+    // tampered plaintext → unverified
+    await reportConversation("me", { conversationId: "c1", reason: "harassment", evidence: [{ messageId: "m1", plaintext: plaintext + "X", frankingKey: frankingKeyB64 }] })
+    snap = JSON.parse((p1.prisma.messageReport.create as any).mock.calls[1][0].data.details)
+    expect(snap.messages[0].verification).toBe("unverified")
+    vi.doUnmock("../app/src/config/prisma")
+    vi.resetModules()
+  })
+})

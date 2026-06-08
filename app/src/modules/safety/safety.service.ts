@@ -1,5 +1,7 @@
+import { createHmac } from "node:crypto";
 import { prisma } from "../../config/prisma";
 import { notFound, badReq } from "../../lib/errors";
+import { verifyServerFrank } from "../../lib/franking";
 
 // ─── Block / unblock ────────────────────────────────────────────────────────
 // One-directional block, enforced server-side on every DM path (the chat
@@ -46,6 +48,7 @@ export async function reportConversation(reporterId: string, dto: {
   messageId?: string;
   reason: ReportReason;
   details?: string;
+  evidence?: { messageId: string; plaintext: string; frankingKey: string }[];
 }) {
   const conv = await prisma.conversation.findUnique({
     where:  { id: dto.conversationId },
@@ -57,17 +60,39 @@ export async function reportConversation(reporterId: string, dto: {
   }
   const reportedUserId = conv.participant1 === reporterId ? conv.participant2 : conv.participant1;
 
-  // Immutable snapshot of the last 50 messages.
+  // Immutable snapshot of the last 50 messages (body is null for E2EE rows).
   const recent = await prisma.directMessage.findMany({
     where:   { conversationId: conv.id },
     orderBy: { createdAt: "desc" },
     take:    50,
-    select:  { id: true, senderId: true, type: true, body: true, mediaUrl: true, createdAt: true, deletedAt: true },
+    select:  { id: true, senderId: true, type: true, body: true, mediaUrl: true, createdAt: true, deletedAt: true, frankingTag: true, serverFrank: true, isE2EE: true },
   });
+
+  // Verify any submitted E2EE evidence (spec §5): HMAC(frankingKey, plaintext)
+  // must equal the stored frankingTag AND the serverFrank must recompute — only
+  // then is the decrypted plaintext recorded as cryptographically verified.
+  const verified: Record<string, { plaintext: string; status: "verified" | "unverified" }> = {};
+  for (const ev of dto.evidence ?? []) {
+    const msg = recent.find((m) => m.id === ev.messageId);
+    let ok = false;
+    if (msg?.frankingTag && msg.serverFrank) {
+      try {
+        const tag = createHmac("sha256", Buffer.from(ev.frankingKey, "base64")).update(ev.plaintext).digest("base64");
+        const tagOk = tag === msg.frankingTag;
+        const frankOk = verifyServerFrank({
+          serverFrank: msg.serverFrank, frankingTag: msg.frankingTag,
+          messageId: msg.id, senderId: msg.senderId, ts: msg.createdAt.getTime(),
+        });
+        ok = tagOk && frankOk;
+      } catch { ok = false; }
+    }
+    verified[ev.messageId] = { plaintext: ev.plaintext, status: ok ? "verified" : "unverified" };
+  }
+
   const snapshot = JSON.stringify({
     reporterNote: dto.details ?? null,
     snapshotAt: new Date().toISOString(),
-    messages: recent.reverse(),
+    messages: recent.reverse().map((m) => verified[m.id] ? { ...m, decrypted: verified[m.id].plaintext, verification: verified[m.id].status } : m),
   });
 
   const report = await prisma.messageReport.create({

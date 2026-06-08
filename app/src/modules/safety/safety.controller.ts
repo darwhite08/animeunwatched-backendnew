@@ -26,7 +26,7 @@ export async function listBlocked(req: Request, res: Response, next: NextFunctio
 export async function report(req: Request, res: Response, next: NextFunction) {
   try {
     const { body } = reportSchema.parse({ body: req.body });
-    const result = await safety.reportConversation(res.locals.user.id as string, body);
+    const result = await safety.reportConversation(res.locals.user.id as string, body as Parameters<typeof safety.reportConversation>[1]);
     res.status(201).json({ report: result });
   } catch (err) { next(err); }
 }
