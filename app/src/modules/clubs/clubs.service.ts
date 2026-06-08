@@ -24,17 +24,16 @@ function meta(total: number, page: number, limit: number) {
 
 // ─── list ─────────────────────────────────────────────────────────────────────
 
-export async function list(page = 1, limit = 20, q?: string) {
+export async function list(page = 1, limit = 20, q?: string, category?: string) {
   const { skip, take } = paginate(page, limit);
-  const where = q
-    ? {
-        OR: [
-          { name:        { contains: q, mode: "insensitive" as const } },
-          { slug:        { contains: q, mode: "insensitive" as const } },
-          { description: { contains: q, mode: "insensitive" as const } },
-        ],
-      }
-    : undefined;
+  const and: object[] = [];
+  if (q) and.push({ OR: [
+    { name:        { contains: q, mode: "insensitive" as const } },
+    { slug:        { contains: q, mode: "insensitive" as const } },
+    { description: { contains: q, mode: "insensitive" as const } },
+  ] });
+  if (category) and.push({ category });
+  const where = and.length ? { AND: and } : undefined;
 
   const [data, total] = await prisma.$transaction([
     prisma.club.findMany({
@@ -91,6 +90,7 @@ export async function create(ownerId: string, dto: CreateClubDto) {
       name: dto.name,
       slug: dto.slug,
       description: dto.description,
+      category: dto.category,
       ownerId,
     },
     include: {

@@ -39,6 +39,7 @@ export type ClubMinAggregateOutputType = {
   slug: string | null
   name: string | null
   description: string | null
+  category: string | null
   ownerId: string | null
   reputation: number | null
   createdAt: Date | null
@@ -49,6 +50,7 @@ export type ClubMaxAggregateOutputType = {
   slug: string | null
   name: string | null
   description: string | null
+  category: string | null
   ownerId: string | null
   reputation: number | null
   createdAt: Date | null
@@ -59,6 +61,7 @@ export type ClubCountAggregateOutputType = {
   slug: number
   name: number
   description: number
+  category: number
   ownerId: number
   reputation: number
   createdAt: number
@@ -79,6 +82,7 @@ export type ClubMinAggregateInputType = {
   slug?: true
   name?: true
   description?: true
+  category?: true
   ownerId?: true
   reputation?: true
   createdAt?: true
@@ -89,6 +93,7 @@ export type ClubMaxAggregateInputType = {
   slug?: true
   name?: true
   description?: true
+  category?: true
   ownerId?: true
   reputation?: true
   createdAt?: true
@@ -99,6 +104,7 @@ export type ClubCountAggregateInputType = {
   slug?: true
   name?: true
   description?: true
+  category?: true
   ownerId?: true
   reputation?: true
   createdAt?: true
@@ -196,6 +202,7 @@ export type ClubGroupByOutputType = {
   slug: string
   name: string
   description: string | null
+  category: string | null
   ownerId: string
   reputation: number
   createdAt: Date
@@ -229,6 +236,7 @@ export type ClubWhereInput = {
   slug?: Prisma.StringFilter<"Club"> | string
   name?: Prisma.StringFilter<"Club"> | string
   description?: Prisma.StringNullableFilter<"Club"> | string | null
+  category?: Prisma.StringNullableFilter<"Club"> | string | null
   ownerId?: Prisma.StringFilter<"Club"> | string
   reputation?: Prisma.IntFilter<"Club"> | number
   createdAt?: Prisma.DateTimeFilter<"Club"> | Date | string
@@ -243,6 +251,7 @@ export type ClubOrderByWithRelationInput = {
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -260,6 +269,7 @@ export type ClubWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClubWhereInput | Prisma.ClubWhereInput[]
   name?: Prisma.StringFilter<"Club"> | string
   description?: Prisma.StringNullableFilter<"Club"> | string | null
+  category?: Prisma.StringNullableFilter<"Club"> | string | null
   ownerId?: Prisma.StringFilter<"Club"> | string
   reputation?: Prisma.IntFilter<"Club"> | number
   createdAt?: Prisma.DateTimeFilter<"Club"> | Date | string
@@ -274,6 +284,7 @@ export type ClubOrderByWithAggregationInput = {
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -292,6 +303,7 @@ export type ClubScalarWhereWithAggregatesInput = {
   slug?: Prisma.StringWithAggregatesFilter<"Club"> | string
   name?: Prisma.StringWithAggregatesFilter<"Club"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
+  category?: Prisma.StringNullableWithAggregatesFilter<"Club"> | string | null
   ownerId?: Prisma.StringWithAggregatesFilter<"Club"> | string
   reputation?: Prisma.IntWithAggregatesFilter<"Club"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Club"> | Date | string
@@ -302,6 +314,7 @@ export type ClubCreateInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
@@ -315,6 +328,7 @@ export type ClubUncheckedCreateInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   ownerId: string
   reputation?: number
   createdAt?: Date | string
@@ -328,6 +342,7 @@ export type ClubUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
@@ -341,6 +356,7 @@ export type ClubUncheckedUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,6 +370,7 @@ export type ClubCreateManyInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   ownerId: string
   reputation?: number
   createdAt?: Date | string
@@ -364,6 +381,7 @@ export type ClubUpdateManyMutationInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -373,6 +391,7 @@ export type ClubUncheckedUpdateManyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -393,6 +412,7 @@ export type ClubCountOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -407,6 +427,7 @@ export type ClubMaxOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -417,6 +438,7 @@ export type ClubMinOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -529,6 +551,7 @@ export type ClubCreateWithoutOwnerInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   members?: Prisma.ClubMemberCreateNestedManyWithoutClubInput
@@ -541,6 +564,7 @@ export type ClubUncheckedCreateWithoutOwnerInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   members?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutClubInput
@@ -582,6 +606,7 @@ export type ClubScalarWhereInput = {
   slug?: Prisma.StringFilter<"Club"> | string
   name?: Prisma.StringFilter<"Club"> | string
   description?: Prisma.StringNullableFilter<"Club"> | string | null
+  category?: Prisma.StringNullableFilter<"Club"> | string | null
   ownerId?: Prisma.StringFilter<"Club"> | string
   reputation?: Prisma.IntFilter<"Club"> | number
   createdAt?: Prisma.DateTimeFilter<"Club"> | Date | string
@@ -592,6 +617,7 @@ export type ClubCreateWithoutMembersInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
@@ -604,6 +630,7 @@ export type ClubUncheckedCreateWithoutMembersInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   ownerId: string
   reputation?: number
   createdAt?: Date | string
@@ -632,6 +659,7 @@ export type ClubUpdateWithoutMembersInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
@@ -644,6 +672,7 @@ export type ClubUncheckedUpdateWithoutMembersInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -656,6 +685,7 @@ export type ClubCreateWithoutThreadsInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
@@ -668,6 +698,7 @@ export type ClubUncheckedCreateWithoutThreadsInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   ownerId: string
   reputation?: number
   createdAt?: Date | string
@@ -696,6 +727,7 @@ export type ClubUpdateWithoutThreadsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
@@ -708,6 +740,7 @@ export type ClubUncheckedUpdateWithoutThreadsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -720,6 +753,7 @@ export type ClubCreateWithoutChatGroupInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedClubsInput
@@ -732,6 +766,7 @@ export type ClubUncheckedCreateWithoutChatGroupInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   ownerId: string
   reputation?: number
   createdAt?: Date | string
@@ -760,6 +795,7 @@ export type ClubUpdateWithoutChatGroupInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedClubsNestedInput
@@ -772,6 +808,7 @@ export type ClubUncheckedUpdateWithoutChatGroupInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -784,6 +821,7 @@ export type ClubCreateManyOwnerInput = {
   slug: string
   name: string
   description?: string | null
+  category?: string | null
   reputation?: number
   createdAt?: Date | string
 }
@@ -793,6 +831,7 @@ export type ClubUpdateWithoutOwnerInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUpdateManyWithoutClubNestedInput
@@ -805,6 +844,7 @@ export type ClubUncheckedUpdateWithoutOwnerInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.ClubMemberUncheckedUpdateManyWithoutClubNestedInput
@@ -817,6 +857,7 @@ export type ClubUncheckedUpdateManyWithoutOwnerInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -866,6 +907,7 @@ export type ClubSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   slug?: boolean
   name?: boolean
   description?: boolean
+  category?: boolean
   ownerId?: boolean
   reputation?: boolean
   createdAt?: boolean
@@ -881,6 +923,7 @@ export type ClubSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   slug?: boolean
   name?: boolean
   description?: boolean
+  category?: boolean
   ownerId?: boolean
   reputation?: boolean
   createdAt?: boolean
@@ -892,6 +935,7 @@ export type ClubSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   slug?: boolean
   name?: boolean
   description?: boolean
+  category?: boolean
   ownerId?: boolean
   reputation?: boolean
   createdAt?: boolean
@@ -903,12 +947,13 @@ export type ClubSelectScalar = {
   slug?: boolean
   name?: boolean
   description?: boolean
+  category?: boolean
   ownerId?: boolean
   reputation?: boolean
   createdAt?: boolean
 }
 
-export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "ownerId" | "reputation" | "createdAt", ExtArgs["result"]["club"]>
+export type ClubOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "category" | "ownerId" | "reputation" | "createdAt", ExtArgs["result"]["club"]>
 export type ClubInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Club$membersArgs<ExtArgs>
@@ -936,6 +981,7 @@ export type $ClubPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     slug: string
     name: string
     description: string | null
+    category: string | null
     ownerId: string
     reputation: number
     createdAt: Date
@@ -1370,6 +1416,7 @@ export interface ClubFieldRefs {
   readonly slug: Prisma.FieldRef<"Club", 'String'>
   readonly name: Prisma.FieldRef<"Club", 'String'>
   readonly description: Prisma.FieldRef<"Club", 'String'>
+  readonly category: Prisma.FieldRef<"Club", 'String'>
   readonly ownerId: Prisma.FieldRef<"Club", 'String'>
   readonly reputation: Prisma.FieldRef<"Club", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Club", 'DateTime'>

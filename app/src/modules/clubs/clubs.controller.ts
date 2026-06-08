@@ -10,7 +10,8 @@ export async function listClubs(req: Request, res: Response, next: NextFunction)
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
     const q = typeof req.query.q === "string" ? req.query.q.trim().slice(0, 100) : "";
-    const result = await service.list(page, limit, q || undefined);
+    const category = typeof req.query.category === "string" ? req.query.category.trim().slice(0, 40) : "";
+    const result = await service.list(page, limit, q || undefined, category || undefined);
     res.status(200).json(result);
   } catch (err) {
     next(err);

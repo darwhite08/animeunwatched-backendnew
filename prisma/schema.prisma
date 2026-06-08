@@ -585,6 +585,7 @@ model Club {
   slug        String   @unique
   name        String
   description String?
+  category    String?
   ownerId     String
   reputation  Int      @default(0)
   createdAt   DateTime @default(now())

@@ -11800,6 +11800,7 @@ export const ClubScalarFieldEnum = {
   slug: 'slug',
   name: 'name',
   description: 'description',
+  category: 'category',
   ownerId: 'ownerId',
   reputation: 'reputation',
   createdAt: 'createdAt'
