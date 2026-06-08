@@ -537,12 +537,15 @@ export async function getPost(id: string, userId?: string) {
 // ─── createPost ───────────────────────────────────────────────────────────────
 
 export async function createPost(authorId: string, dto: CreatePostDto) {
+  // Accept a single imageUrl (legacy) or an imageUrls[] gallery. Persist the full
+  // array AND mirror the first into imageUrl so older readers still render one.
+  const images = (dto.imageUrls && dto.imageUrls.length ? dto.imageUrls : dto.imageUrl ? [dto.imageUrl] : []).slice(0, 10);
   const post = await prisma.post.create({
     data: {
       authorId,
       content: dto.content,
-      ...(dto.animeId  ? { animeId:  dto.animeId  } : {}),
-      ...(dto.imageUrl ? { imageUrl: dto.imageUrl } : {}),
+      ...(dto.animeId ? { animeId: dto.animeId } : {}),
+      ...(images.length ? { imageUrl: images[0], imageUrls: images } : {}),
     },
     include: postInclude,
   });

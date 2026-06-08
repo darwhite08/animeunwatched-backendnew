@@ -68,6 +68,7 @@ export type PostCountAggregateOutputType = {
   content: number
   animeId: number
   imageUrl: number
+  imageUrls: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -119,6 +120,7 @@ export type PostCountAggregateInputType = {
   content?: true
   animeId?: true
   imageUrl?: true
+  imageUrls?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -219,6 +221,7 @@ export type PostGroupByOutputType = {
   content: string
   animeId: string | null
   imageUrl: string | null
+  imageUrls: string[]
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -255,6 +258,7 @@ export type PostWhereInput = {
   content?: Prisma.StringFilter<"Post"> | string
   animeId?: Prisma.StringNullableFilter<"Post"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  imageUrls?: Prisma.StringNullableListFilter<"Post">
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
@@ -273,6 +277,7 @@ export type PostOrderByWithRelationInput = {
   content?: Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -294,6 +299,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.StringFilter<"Post"> | string
   animeId?: Prisma.StringNullableFilter<"Post"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  imageUrls?: Prisma.StringNullableListFilter<"Post">
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
@@ -312,6 +318,7 @@ export type PostOrderByWithAggregationInput = {
   content?: Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -333,6 +340,7 @@ export type PostScalarWhereWithAggregatesInput = {
   content?: Prisma.StringWithAggregatesFilter<"Post"> | string
   animeId?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
+  imageUrls?: Prisma.StringNullableListFilter<"Post">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
@@ -344,6 +352,7 @@ export type PostCreateInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -362,6 +371,7 @@ export type PostUncheckedCreateInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -376,6 +386,7 @@ export type PostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -394,6 +405,7 @@ export type PostUncheckedUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -410,6 +422,7 @@ export type PostCreateManyInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -421,6 +434,7 @@ export type PostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -434,6 +448,7 @@ export type PostUncheckedUpdateManyInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -457,6 +472,7 @@ export type PostCountOrderByAggregateInput = {
   content?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -589,6 +605,15 @@ export type PostUncheckedUpdateManyWithoutAnimeNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
+export type PostCreateimageUrlsInput = {
+  set: string[]
+}
+
+export type PostUpdateimageUrlsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type PostCreateNestedOneWithoutHidesInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutHidesInput, Prisma.PostUncheckedCreateWithoutHidesInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutHidesInput
@@ -635,6 +660,7 @@ export type PostCreateWithoutAuthorInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -651,6 +677,7 @@ export type PostUncheckedCreateWithoutAuthorInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -696,6 +723,7 @@ export type PostScalarWhereInput = {
   content?: Prisma.StringFilter<"Post"> | string
   animeId?: Prisma.StringNullableFilter<"Post"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  imageUrls?: Prisma.StringNullableListFilter<"Post">
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
@@ -707,6 +735,7 @@ export type PostCreateWithoutAnimeInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -723,6 +752,7 @@ export type PostUncheckedCreateWithoutAnimeInput = {
   authorId: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -763,6 +793,7 @@ export type PostCreateWithoutHidesInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -780,6 +811,7 @@ export type PostUncheckedCreateWithoutHidesInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -809,6 +841,7 @@ export type PostUpdateWithoutHidesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -826,6 +859,7 @@ export type PostUncheckedUpdateWithoutHidesInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -839,6 +873,7 @@ export type PostCreateWithoutLikesInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -856,6 +891,7 @@ export type PostUncheckedCreateWithoutLikesInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -885,6 +921,7 @@ export type PostUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -902,6 +939,7 @@ export type PostUncheckedUpdateWithoutLikesInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -915,6 +953,7 @@ export type PostCreateWithoutCommentsInput = {
   id?: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -932,6 +971,7 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -961,6 +1001,7 @@ export type PostUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -978,6 +1019,7 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -992,6 +1034,7 @@ export type PostCreateManyAuthorInput = {
   content: string
   animeId?: string | null
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1003,6 +1046,7 @@ export type PostUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1019,6 +1063,7 @@ export type PostUncheckedUpdateWithoutAuthorInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1034,6 +1079,7 @@ export type PostUncheckedUpdateManyWithoutAuthorInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1046,6 +1092,7 @@ export type PostCreateManyAnimeInput = {
   authorId: string
   content: string
   imageUrl?: string | null
+  imageUrls?: Prisma.PostCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1057,6 +1104,7 @@ export type PostUpdateWithoutAnimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1073,6 +1121,7 @@ export type PostUncheckedUpdateWithoutAnimeInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1088,6 +1137,7 @@ export type PostUncheckedUpdateManyWithoutAnimeInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrls?: Prisma.PostUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1150,6 +1200,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   content?: boolean
   animeId?: boolean
   imageUrl?: boolean
+  imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1169,6 +1220,7 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   content?: boolean
   animeId?: boolean
   imageUrl?: boolean
+  imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1184,6 +1236,7 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   content?: boolean
   animeId?: boolean
   imageUrl?: boolean
+  imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1199,6 +1252,7 @@ export type PostSelectScalar = {
   content?: boolean
   animeId?: boolean
   imageUrl?: boolean
+  imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1206,7 +1260,7 @@ export type PostSelectScalar = {
   shadowPenalty?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "content" | "animeId" | "imageUrl" | "createdAt" | "updatedAt" | "deletedAt" | "manualBoost" | "shadowPenalty", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "content" | "animeId" | "imageUrl" | "imageUrls" | "createdAt" | "updatedAt" | "deletedAt" | "manualBoost" | "shadowPenalty", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   anime?: boolean | Prisma.Post$animeArgs<ExtArgs>
@@ -1239,6 +1293,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     content: string
     animeId: string | null
     imageUrl: string | null
+    imageUrls: string[]
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1677,6 +1732,7 @@ export interface PostFieldRefs {
   readonly content: Prisma.FieldRef<"Post", 'String'>
   readonly animeId: Prisma.FieldRef<"Post", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Post", 'String'>
+  readonly imageUrls: Prisma.FieldRef<"Post", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Post", 'DateTime'>

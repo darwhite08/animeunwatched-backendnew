@@ -663,6 +663,7 @@ export const PostScalarFieldEnum = {
   content: 'content',
   animeId: 'animeId',
   imageUrl: 'imageUrl',
+  imageUrls: 'imageUrls',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',

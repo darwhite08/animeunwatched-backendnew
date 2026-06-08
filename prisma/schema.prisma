@@ -728,7 +728,8 @@ model Post {
   authorId  String
   content   String
   animeId   String?
-  imageUrl  String?
+  imageUrl  String?            // first image — kept for backward compatibility
+  imageUrls String[] @default([]) // all images (gallery); imageUrl mirrors [0]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

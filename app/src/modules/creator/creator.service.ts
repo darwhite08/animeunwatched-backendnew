@@ -32,7 +32,7 @@ export async function getMyPosts(userId: string) {
     orderBy: { createdAt: "desc" },
     take: 50,
     select: {
-      id: true, content: true, imageUrl: true, createdAt: true,
+      id: true, content: true, imageUrl: true, imageUrls: true, createdAt: true,
       anime: { select: { title: true, malId: true } },
       _count: { select: { likes: true, comments: true } },
     },
@@ -40,6 +40,7 @@ export async function getMyPosts(userId: string) {
   return {
     items: posts.map((p) => ({
       id: p.id, content: p.content, imageUrl: p.imageUrl,
+      imageUrls: p.imageUrls.length ? p.imageUrls : p.imageUrl ? [p.imageUrl] : [],
       createdAt: p.createdAt.toISOString(),
       anime: p.anime ? { title: p.anime.title, malId: p.anime.malId } : null,
       likes: p._count.likes, comments: p._count.comments,
