@@ -59,3 +59,11 @@ export async function getAccess(_req: Request, res: Response, next: NextFunction
     res.status(200).json(await service.getCreatorAccess(res.locals.user.id));
   } catch (err) { next(err); }
 }
+
+export async function getMyBlogs(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMyBlogs(res.locals.user.id)); } catch (err) { next(err); }
+}
+
+export async function getMyPolls(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getMyPolls(res.locals.user.id)); } catch (err) { next(err); }
+}

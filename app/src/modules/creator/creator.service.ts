@@ -1,6 +1,50 @@
 import { prisma } from "../../config/prisma";
 import { evaluateEligibility } from "../../lib/monetizationMath";
 
+// ─── A creator's own content (incl. drafts) for the Creator Studio ───────────
+
+/** All of a creator's blogs — drafts AND published — newest first. */
+export async function getMyBlogs(userId: string) {
+  const blogs = await prisma.blog.findMany({
+    where: { authorId: userId },
+    orderBy: { updatedAt: "desc" },
+    select: {
+      id: true, slug: true, title: true, status: true,
+      publishedAt: true, createdAt: true, updatedAt: true,
+      _count: { select: { comments: true } },
+    },
+  });
+  return {
+    items: blogs.map((b) => ({
+      id: b.id, slug: b.slug, title: b.title, status: b.status,
+      publishedAt: b.publishedAt?.toISOString() ?? null,
+      updatedAt: b.updatedAt.toISOString(), comments: b._count.comments,
+    })),
+  };
+}
+
+/** All of a creator's polls with option vote tallies. */
+export async function getMyPolls(userId: string) {
+  const polls = await prisma.poll.findMany({
+    where: { authorId: userId },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true, question: true, expiresAt: true, createdAt: true,
+      options: { select: { id: true, label: true, _count: { select: { votes: true } } }, orderBy: { order: "asc" } },
+      _count: { select: { votes: true } },
+    },
+  });
+  return {
+    items: polls.map((p) => ({
+      id: p.id, question: p.question,
+      expiresAt: p.expiresAt.toISOString(), createdAt: p.createdAt.toISOString(),
+      totalVotes: p._count.votes,
+      expired: p.expiresAt.getTime() < Date.now(),
+      options: p.options.map((o) => ({ id: o.id, label: o.label, votes: o._count.votes })),
+    })),
+  };
+}
+
 /**
  * Whether a user may access the Creator Studio. Not everyone is a creator — the
  * studio is gated. Access is granted when ANY holds:

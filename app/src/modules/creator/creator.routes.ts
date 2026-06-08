@@ -7,6 +7,8 @@ export const creatorRouter = Router();
 creatorRouter.use(requireAuth);
 
 creatorRouter.get("/access",  ctrl.getAccess);   // can this user enter the Creator Studio?
+creatorRouter.get("/blogs",   ctrl.getMyBlogs);  // my blogs incl. drafts (studio)
+creatorRouter.get("/polls",   ctrl.getMyPolls);  // my polls incl. tallies (studio)
 creatorRouter.get("/stats",   ctrl.getCreatorStats);
 creatorRouter.get("/content", ctrl.getContentPerformance);
 creatorRouter.get("/daily",   ctrl.getDailySeries);
