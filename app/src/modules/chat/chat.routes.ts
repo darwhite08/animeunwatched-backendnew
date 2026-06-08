@@ -32,6 +32,7 @@ chatRouter.post("/conversations/:conversationId/decline", requireAuth, ctrl.decl
 chatRouter.post("/conversations/:conversationId/mute",    requireAuth, ctrl.muteConversation);
 chatRouter.post("/conversations/:conversationId/pin",     requireAuth, ctrl.pinConversation);
 chatRouter.post("/conversations/:conversationId/archive", requireAuth, ctrl.archiveConversation);
+chatRouter.post("/conversations/:conversationId/disappearing", requireAuth, ctrl.setDisappearing);
 chatRouter.delete("/conversations/:conversationId",       requireAuth, ctrl.deleteConversation);
 chatRouter.get( "/conversations/:conversationId/search",  requireAuth, ctrl.searchConversation);
 

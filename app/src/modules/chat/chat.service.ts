@@ -282,6 +282,17 @@ export async function persistLastSeen(userId: string) {
   await prisma.user.update({ where: { id: userId }, data: { dmLastSeenAt: new Date() } }).catch(() => {});
 }
 
+/** Set the conversation-wide disappearing-message timer (mutual). null = off. */
+export async function setDisappearing(userId: string, conversationId: string, seconds: number | null) {
+  const conv = await prisma.conversation.findUnique({ where: { id: conversationId }, select: { id: true, participant1: true, participant2: true } });
+  if (!conv || (conv.participant1 !== userId && conv.participant2 !== userId)) throw notFound("Conversation not found");
+  await prisma.conversation.update({ where: { id: conversationId }, data: { disappearingSeconds: seconds } });
+  // Notify both participants so headers/timers update live.
+  getIo()?.to(`user:${conv.participant1}`).to(`user:${conv.participant2}`)
+    .emit("chat.conversation-update", { conversationId, disappearingSeconds: seconds });
+  return { conversationId, disappearingSeconds: seconds };
+}
+
 /** Pin/unpin for the calling participant (sorts to the top of the inbox). */
 export async function pinConversation(userId: string, conversationId: string, pinned: boolean) {
   const conv = await prisma.conversation.findUnique({ where: { id: conversationId }, select: { id: true, participant1: true, participant2: true } });
@@ -350,9 +361,10 @@ export async function getConversationById(conversationId: string, userId: string
       user2: { select: { id: true, username: true, displayName: true, avatarUrl: true } },
     },
   });
-  if (!conversation) throw notFound("Conversation not found");
-  if (conversation.participant1 !== userId && conversation.participant2 !== userId) {
-    throw forbidden("Not a participant in this conversation");
+  // IDOR → 404 (no existence leak).
+  if (!conversation ||
+      (conversation.participant1 !== userId && conversation.participant2 !== userId)) {
+    throw notFound("Conversation not found");
   }
 
   const otherUser = conversation.participant1 === userId ? conversation.user2 : conversation.user1;
@@ -362,6 +374,7 @@ export async function getConversationById(conversationId: string, userId: string
     id:        conversation.id,
     otherUser,
     publicKey: recipientKey?.publicKey ?? null,
+    disappearingSeconds: conversation.disappearingSeconds ?? null,
     createdAt: conversation.createdAt,
   };
 }
@@ -412,7 +425,7 @@ export async function sendMessage(opts: SendMessageDto) {
     where: { id: opts.conversationId },
     select: {
       id: true, participant1: true, participant2: true, status: true, initiatorId: true,
-      p1MutedUntil: true, p2MutedUntil: true,
+      p1MutedUntil: true, p2MutedUntil: true, disappearingSeconds: true,
     },
   });
   // IDOR: non-existent OR not-a-participant both return 404 (no existence leak, §9.1).
@@ -522,6 +535,7 @@ export async function sendMessage(opts: SendMessageDto) {
         ...(body != null ? { body } : {}),
         ...(opts.clientNonce ? { clientNonce: opts.clientNonce } : {}),
         ...(recipientOnline ? { deliveredAt: now } : {}),
+        ...(conversation.disappearingSeconds ? { expiresAt: new Date(now.getTime() + conversation.disappearingSeconds * 1000) } : {}),
         ...data,
       },
       select: MSG_SELECT,
@@ -701,6 +715,7 @@ export async function getMessages(opts: {
       conversationId: opts.conversationId,
       ...(opts.cursor ? { createdAt: { lt: new Date(opts.cursor) } } : {}),
       ...(clearedAt ? { createdAt: { gt: clearedAt } } : {}),
+      NOT: { expiresAt: { lt: new Date() } }, // hide disappeared messages
       OR: [
         { senderId: opts.userId,           deletedForSender:    false },
         { senderId: { not: opts.userId },  deletedForRecipient: false },

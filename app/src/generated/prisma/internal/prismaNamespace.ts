@@ -11552,7 +11552,8 @@ export const ConversationScalarFieldEnum = {
   p1Pinned: 'p1Pinned',
   p2Pinned: 'p2Pinned',
   p1Archived: 'p1Archived',
-  p2Archived: 'p2Archived'
+  p2Archived: 'p2Archived',
+  disappearingSeconds: 'disappearingSeconds'
 } as const
 
 export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
@@ -11579,6 +11580,7 @@ export const DirectMessageScalarFieldEnum = {
   replyToId: 'replyToId',
   editedAt: 'editedAt',
   clientNonce: 'clientNonce',
+  expiresAt: 'expiresAt',
   ciphertext: 'ciphertext',
   iv: 'iv',
   contentIv: 'contentIv',

@@ -879,6 +879,8 @@ model Conversation {
   p2Pinned      Boolean  @default(false)
   p1Archived    Boolean  @default(false)
   p2Archived    Boolean  @default(false)
+  // Disappearing messages — conversation-wide TTL in seconds (null = off).
+  disappearingSeconds Int?
 
   user1    User            @relation("ConvParticipant1", fields: [participant1], references: [id], onDelete: Cascade)
   user2    User            @relation("ConvParticipant2", fields: [participant2], references: [id], onDelete: Cascade)
@@ -930,6 +932,7 @@ model DirectMessage {
 
   editedAt       DateTime?
   clientNonce    String?              // client-generated id for optimistic UI dedup
+  expiresAt      DateTime?            // disappearing messages — purged + hidden after this
 
   // Encrypted content. DM-v2 plaintext rows leave these null and use `body`;
   // E2EE rows (isE2EE) set ciphertext/contentIv and leave body null (dual-read).
@@ -962,6 +965,7 @@ model DirectMessage {
   @@unique([conversationId, clientNonce])
   @@index([conversationId, createdAt])
   @@index([senderId])
+  @@index([expiresAt])
 }
 
 enum MessageType {

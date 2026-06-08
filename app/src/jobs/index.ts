@@ -11,7 +11,7 @@ import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
 import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
-import { runDmNightlyCleanup, runDmUnreadReconcile } from "./dmMaintenance.job"
+import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
 
 export function startJobs() {
   // DM v2 maintenance (spec §8)
@@ -24,6 +24,11 @@ export function startJobs() {
     name: "dmUnreadReconcile",
     description: "Correct drifted DM unread counters for recently-active conversations",
     intervalMs: 60 * 60_000, handler: runDmUnreadReconcile,
+  });
+  registerJob({
+    name: "dmExpiry",
+    description: "Purge disappeared (TTL-elapsed) DM messages",
+    intervalMs: 10 * 60_000, handler: runDmExpiry,
   });
   // Register jobs in the in-process registry so /admin/jobs shows them.
   registerJob({

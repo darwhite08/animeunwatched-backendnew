@@ -23,6 +23,11 @@ export async function runDmNightlyCleanup(): Promise<void> {
  * Hourly safety net (spec §8): recompute unread counters for conversations
  * touched in the last hour, correcting any drift from the denormalized values.
  */
+/** Purge disappeared messages whose TTL has elapsed (runs hourly w/ reconcile). */
+export async function runDmExpiry(): Promise<void> {
+  await prisma.directMessage.deleteMany({ where: { expiresAt: { lt: new Date() } } });
+}
+
 export async function runDmUnreadReconcile(): Promise<void> {
   const since = new Date(Date.now() - 60 * 60_000);
   const convs = await prisma.conversation.findMany({

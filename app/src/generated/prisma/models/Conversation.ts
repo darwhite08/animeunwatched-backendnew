@@ -29,11 +29,13 @@ export type AggregateConversation = {
 export type ConversationAvgAggregateOutputType = {
   p1UnreadCount: number | null
   p2UnreadCount: number | null
+  disappearingSeconds: number | null
 }
 
 export type ConversationSumAggregateOutputType = {
   p1UnreadCount: number | null
   p2UnreadCount: number | null
+  disappearingSeconds: number | null
 }
 
 export type ConversationMinAggregateOutputType = {
@@ -57,6 +59,7 @@ export type ConversationMinAggregateOutputType = {
   p2Pinned: boolean | null
   p1Archived: boolean | null
   p2Archived: boolean | null
+  disappearingSeconds: number | null
 }
 
 export type ConversationMaxAggregateOutputType = {
@@ -80,6 +83,7 @@ export type ConversationMaxAggregateOutputType = {
   p2Pinned: boolean | null
   p1Archived: boolean | null
   p2Archived: boolean | null
+  disappearingSeconds: number | null
 }
 
 export type ConversationCountAggregateOutputType = {
@@ -103,6 +107,7 @@ export type ConversationCountAggregateOutputType = {
   p2Pinned: number
   p1Archived: number
   p2Archived: number
+  disappearingSeconds: number
   _all: number
 }
 
@@ -110,11 +115,13 @@ export type ConversationCountAggregateOutputType = {
 export type ConversationAvgAggregateInputType = {
   p1UnreadCount?: true
   p2UnreadCount?: true
+  disappearingSeconds?: true
 }
 
 export type ConversationSumAggregateInputType = {
   p1UnreadCount?: true
   p2UnreadCount?: true
+  disappearingSeconds?: true
 }
 
 export type ConversationMinAggregateInputType = {
@@ -138,6 +145,7 @@ export type ConversationMinAggregateInputType = {
   p2Pinned?: true
   p1Archived?: true
   p2Archived?: true
+  disappearingSeconds?: true
 }
 
 export type ConversationMaxAggregateInputType = {
@@ -161,6 +169,7 @@ export type ConversationMaxAggregateInputType = {
   p2Pinned?: true
   p1Archived?: true
   p2Archived?: true
+  disappearingSeconds?: true
 }
 
 export type ConversationCountAggregateInputType = {
@@ -184,6 +193,7 @@ export type ConversationCountAggregateInputType = {
   p2Pinned?: true
   p1Archived?: true
   p2Archived?: true
+  disappearingSeconds?: true
   _all?: true
 }
 
@@ -294,6 +304,7 @@ export type ConversationGroupByOutputType = {
   p2Pinned: boolean
   p1Archived: boolean
   p2Archived: boolean
+  disappearingSeconds: number | null
   _count: ConversationCountAggregateOutputType | null
   _avg: ConversationAvgAggregateOutputType | null
   _sum: ConversationSumAggregateOutputType | null
@@ -340,6 +351,7 @@ export type ConversationWhereInput = {
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Archived?: Prisma.BoolFilter<"Conversation"> | boolean
+  disappearingSeconds?: Prisma.IntNullableFilter<"Conversation"> | number | null
   user1?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   user2?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.DirectMessageListRelationFilter
@@ -366,6 +378,7 @@ export type ConversationOrderByWithRelationInput = {
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
   p2Archived?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   user1?: Prisma.UserOrderByWithRelationInput
   user2?: Prisma.UserOrderByWithRelationInput
   messages?: Prisma.DirectMessageOrderByRelationAggregateInput
@@ -396,6 +409,7 @@ export type ConversationWhereUniqueInput = Prisma.AtLeast<{
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Archived?: Prisma.BoolFilter<"Conversation"> | boolean
+  disappearingSeconds?: Prisma.IntNullableFilter<"Conversation"> | number | null
   user1?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   user2?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.DirectMessageListRelationFilter
@@ -422,6 +436,7 @@ export type ConversationOrderByWithAggregationInput = {
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
   p2Archived?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ConversationCountOrderByAggregateInput
   _avg?: Prisma.ConversationAvgOrderByAggregateInput
   _max?: Prisma.ConversationMaxOrderByAggregateInput
@@ -453,6 +468,7 @@ export type ConversationScalarWhereWithAggregatesInput = {
   p2Pinned?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
   p2Archived?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
+  disappearingSeconds?: Prisma.IntNullableWithAggregatesFilter<"Conversation"> | number | null
 }
 
 export type ConversationCreateInput = {
@@ -474,6 +490,7 @@ export type ConversationCreateInput = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   user1: Prisma.UserCreateNestedOneWithoutConversations1Input
   user2: Prisma.UserCreateNestedOneWithoutConversations2Input
   messages?: Prisma.DirectMessageCreateNestedManyWithoutConversationInput
@@ -500,6 +517,7 @@ export type ConversationUncheckedCreateInput = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   messages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -522,6 +540,7 @@ export type ConversationUpdateInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user1?: Prisma.UserUpdateOneRequiredWithoutConversations1NestedInput
   user2?: Prisma.UserUpdateOneRequiredWithoutConversations2NestedInput
   messages?: Prisma.DirectMessageUpdateManyWithoutConversationNestedInput
@@ -548,6 +567,7 @@ export type ConversationUncheckedUpdateInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   messages?: Prisma.DirectMessageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -572,6 +592,7 @@ export type ConversationCreateManyInput = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
 }
 
 export type ConversationUpdateManyMutationInput = {
@@ -593,6 +614,7 @@ export type ConversationUpdateManyMutationInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ConversationUncheckedUpdateManyInput = {
@@ -616,6 +638,7 @@ export type ConversationUncheckedUpdateManyInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ConversationListRelationFilter = {
@@ -654,11 +677,13 @@ export type ConversationCountOrderByAggregateInput = {
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
   p2Archived?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrder
 }
 
 export type ConversationAvgOrderByAggregateInput = {
   p1UnreadCount?: Prisma.SortOrder
   p2UnreadCount?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrder
 }
 
 export type ConversationMaxOrderByAggregateInput = {
@@ -682,6 +707,7 @@ export type ConversationMaxOrderByAggregateInput = {
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
   p2Archived?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrder
 }
 
 export type ConversationMinOrderByAggregateInput = {
@@ -705,11 +731,13 @@ export type ConversationMinOrderByAggregateInput = {
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
   p2Archived?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrder
 }
 
 export type ConversationSumOrderByAggregateInput = {
   p1UnreadCount?: Prisma.SortOrder
   p2UnreadCount?: Prisma.SortOrder
+  disappearingSeconds?: Prisma.SortOrder
 }
 
 export type ConversationScalarRelationFilter = {
@@ -838,6 +866,7 @@ export type ConversationCreateWithoutUser1Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   user2: Prisma.UserCreateNestedOneWithoutConversations2Input
   messages?: Prisma.DirectMessageCreateNestedManyWithoutConversationInput
 }
@@ -862,6 +891,7 @@ export type ConversationUncheckedCreateWithoutUser1Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   messages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -894,6 +924,7 @@ export type ConversationCreateWithoutUser2Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   user1: Prisma.UserCreateNestedOneWithoutConversations1Input
   messages?: Prisma.DirectMessageCreateNestedManyWithoutConversationInput
 }
@@ -918,6 +949,7 @@ export type ConversationUncheckedCreateWithoutUser2Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   messages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -971,6 +1003,7 @@ export type ConversationScalarWhereInput = {
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Archived?: Prisma.BoolFilter<"Conversation"> | boolean
+  disappearingSeconds?: Prisma.IntNullableFilter<"Conversation"> | number | null
 }
 
 export type ConversationUpsertWithWhereUniqueWithoutUser2Input = {
@@ -1008,6 +1041,7 @@ export type ConversationCreateWithoutMessagesInput = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
   user1: Prisma.UserCreateNestedOneWithoutConversations1Input
   user2: Prisma.UserCreateNestedOneWithoutConversations2Input
 }
@@ -1033,6 +1067,7 @@ export type ConversationUncheckedCreateWithoutMessagesInput = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
 }
 
 export type ConversationCreateOrConnectWithoutMessagesInput = {
@@ -1070,6 +1105,7 @@ export type ConversationUpdateWithoutMessagesInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user1?: Prisma.UserUpdateOneRequiredWithoutConversations1NestedInput
   user2?: Prisma.UserUpdateOneRequiredWithoutConversations2NestedInput
 }
@@ -1095,6 +1131,7 @@ export type ConversationUncheckedUpdateWithoutMessagesInput = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ConversationCreateManyUser1Input = {
@@ -1117,6 +1154,7 @@ export type ConversationCreateManyUser1Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
 }
 
 export type ConversationCreateManyUser2Input = {
@@ -1139,6 +1177,7 @@ export type ConversationCreateManyUser2Input = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: number | null
 }
 
 export type ConversationUpdateWithoutUser1Input = {
@@ -1160,6 +1199,7 @@ export type ConversationUpdateWithoutUser1Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user2?: Prisma.UserUpdateOneRequiredWithoutConversations2NestedInput
   messages?: Prisma.DirectMessageUpdateManyWithoutConversationNestedInput
 }
@@ -1184,6 +1224,7 @@ export type ConversationUncheckedUpdateWithoutUser1Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   messages?: Prisma.DirectMessageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -1207,6 +1248,7 @@ export type ConversationUncheckedUpdateManyWithoutUser1Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ConversationUpdateWithoutUser2Input = {
@@ -1228,6 +1270,7 @@ export type ConversationUpdateWithoutUser2Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user1?: Prisma.UserUpdateOneRequiredWithoutConversations1NestedInput
   messages?: Prisma.DirectMessageUpdateManyWithoutConversationNestedInput
 }
@@ -1252,6 +1295,7 @@ export type ConversationUncheckedUpdateWithoutUser2Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   messages?: Prisma.DirectMessageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -1275,6 +1319,7 @@ export type ConversationUncheckedUpdateManyWithoutUser2Input = {
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  disappearingSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1329,6 +1374,7 @@ export type ConversationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: boolean
   user1?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   user2?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Conversation$messagesArgs<ExtArgs>
@@ -1356,6 +1402,7 @@ export type ConversationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: boolean
   user1?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   user2?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["conversation"]>
@@ -1381,6 +1428,7 @@ export type ConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: boolean
   user1?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   user2?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["conversation"]>
@@ -1406,9 +1454,10 @@ export type ConversationSelectScalar = {
   p2Pinned?: boolean
   p1Archived?: boolean
   p2Archived?: boolean
+  disappearingSeconds?: boolean
 }
 
-export type ConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "participant1" | "participant2" | "createdAt" | "updatedAt" | "status" | "initiatorId" | "lastMessageAt" | "p1UnreadCount" | "p2UnreadCount" | "p1MutedUntil" | "p2MutedUntil" | "p1DeletedAt" | "p2DeletedAt" | "p1LastReadAt" | "p2LastReadAt" | "p1Pinned" | "p2Pinned" | "p1Archived" | "p2Archived", ExtArgs["result"]["conversation"]>
+export type ConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "participant1" | "participant2" | "createdAt" | "updatedAt" | "status" | "initiatorId" | "lastMessageAt" | "p1UnreadCount" | "p2UnreadCount" | "p1MutedUntil" | "p2MutedUntil" | "p1DeletedAt" | "p2DeletedAt" | "p1LastReadAt" | "p2LastReadAt" | "p1Pinned" | "p2Pinned" | "p1Archived" | "p2Archived" | "disappearingSeconds", ExtArgs["result"]["conversation"]>
 export type ConversationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user1?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   user2?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1452,6 +1501,7 @@ export type $ConversationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     p2Pinned: boolean
     p1Archived: boolean
     p2Archived: boolean
+    disappearingSeconds: number | null
   }, ExtArgs["result"]["conversation"]>
   composites: {}
 }
@@ -1898,6 +1948,7 @@ export interface ConversationFieldRefs {
   readonly p2Pinned: Prisma.FieldRef<"Conversation", 'Boolean'>
   readonly p1Archived: Prisma.FieldRef<"Conversation", 'Boolean'>
   readonly p2Archived: Prisma.FieldRef<"Conversation", 'Boolean'>
+  readonly disappearingSeconds: Prisma.FieldRef<"Conversation", 'Int'>
 }
     
 

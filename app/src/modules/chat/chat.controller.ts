@@ -201,6 +201,15 @@ export async function muteConversation(req: Request, res: Response, next: NextFu
   }
 }
 
+export async function setDisappearing(req: Request, res: Response, next: NextFunction) {
+  try {
+    const raw = req.body?.seconds;
+    const seconds = raw == null ? null : Math.max(60, Math.min(7 * 24 * 3600, Number(raw)));
+    const result = await chatService.setDisappearing(res.locals.user.id as string, req.params.conversationId as string, seconds);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
 export async function pinConversation(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await chatService.pinConversation(res.locals.user.id as string, req.params.conversationId as string, req.body?.pinned !== false);

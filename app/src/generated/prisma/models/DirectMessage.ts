@@ -65,6 +65,7 @@ export type DirectMessageMinAggregateOutputType = {
   replyToId: string | null
   editedAt: Date | null
   clientNonce: string | null
+  expiresAt: Date | null
   ciphertext: string | null
   iv: string | null
   contentIv: string | null
@@ -98,6 +99,7 @@ export type DirectMessageMaxAggregateOutputType = {
   replyToId: string | null
   editedAt: Date | null
   clientNonce: string | null
+  expiresAt: Date | null
   ciphertext: string | null
   iv: string | null
   contentIv: string | null
@@ -131,6 +133,7 @@ export type DirectMessageCountAggregateOutputType = {
   replyToId: number
   editedAt: number
   clientNonce: number
+  expiresAt: number
   ciphertext: number
   iv: number
   contentIv: number
@@ -184,6 +187,7 @@ export type DirectMessageMinAggregateInputType = {
   replyToId?: true
   editedAt?: true
   clientNonce?: true
+  expiresAt?: true
   ciphertext?: true
   iv?: true
   contentIv?: true
@@ -217,6 +221,7 @@ export type DirectMessageMaxAggregateInputType = {
   replyToId?: true
   editedAt?: true
   clientNonce?: true
+  expiresAt?: true
   ciphertext?: true
   iv?: true
   contentIv?: true
@@ -250,6 +255,7 @@ export type DirectMessageCountAggregateInputType = {
   replyToId?: true
   editedAt?: true
   clientNonce?: true
+  expiresAt?: true
   ciphertext?: true
   iv?: true
   contentIv?: true
@@ -370,6 +376,7 @@ export type DirectMessageGroupByOutputType = {
   replyToId: string | null
   editedAt: Date | null
   clientNonce: string | null
+  expiresAt: Date | null
   ciphertext: string | null
   iv: string | null
   contentIv: string | null
@@ -426,6 +433,7 @@ export type DirectMessageWhereInput = {
   replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
@@ -467,6 +475,7 @@ export type DirectMessageOrderByWithRelationInput = {
   replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
   iv?: Prisma.SortOrderInput | Prisma.SortOrder
   contentIv?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -512,6 +521,7 @@ export type DirectMessageWhereUniqueInput = Prisma.AtLeast<{
   replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
@@ -553,6 +563,7 @@ export type DirectMessageOrderByWithAggregationInput = {
   replyToId?: Prisma.SortOrderInput | Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   clientNonce?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   ciphertext?: Prisma.SortOrderInput | Prisma.SortOrder
   iv?: Prisma.SortOrderInput | Prisma.SortOrder
   contentIv?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -594,6 +605,7 @@ export type DirectMessageScalarWhereWithAggregatesInput = {
   replyToId?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   editedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
   clientNonce?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DirectMessage"> | Date | string | null
   ciphertext?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
   contentIv?: Prisma.StringNullableWithAggregatesFilter<"DirectMessage"> | string | null
@@ -624,6 +636,7 @@ export type DirectMessageCreateInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -664,6 +677,7 @@ export type DirectMessageUncheckedCreateInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -698,6 +712,7 @@ export type DirectMessageUpdateInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -738,6 +753,7 @@ export type DirectMessageUncheckedUpdateInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -775,6 +791,7 @@ export type DirectMessageCreateManyInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -805,6 +822,7 @@ export type DirectMessageUpdateManyMutationInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -837,6 +855,7 @@ export type DirectMessageUncheckedUpdateManyInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -890,6 +909,7 @@ export type DirectMessageCountOrderByAggregateInput = {
   replyToId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   clientNonce?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
   contentIv?: Prisma.SortOrder
@@ -932,6 +952,7 @@ export type DirectMessageMaxOrderByAggregateInput = {
   replyToId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   clientNonce?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
   contentIv?: Prisma.SortOrder
@@ -965,6 +986,7 @@ export type DirectMessageMinOrderByAggregateInput = {
   replyToId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
   clientNonce?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
   ciphertext?: Prisma.SortOrder
   iv?: Prisma.SortOrder
   contentIv?: Prisma.SortOrder
@@ -1239,6 +1261,7 @@ export type DirectMessageCreateWithoutSenderInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1277,6 +1300,7 @@ export type DirectMessageUncheckedCreateWithoutSenderInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1343,6 +1367,7 @@ export type DirectMessageScalarWhereInput = {
   replyToId?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   clientNonce?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"DirectMessage"> | Date | string | null
   ciphertext?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   iv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
   contentIv?: Prisma.StringNullableFilter<"DirectMessage"> | string | null
@@ -1373,6 +1398,7 @@ export type DirectMessageCreateWithoutConversationInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1411,6 +1437,7 @@ export type DirectMessageUncheckedCreateWithoutConversationInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1471,6 +1498,7 @@ export type DirectMessageCreateWithoutRepliesInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1510,6 +1538,7 @@ export type DirectMessageUncheckedCreateWithoutRepliesInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1548,6 +1577,7 @@ export type DirectMessageCreateWithoutReplyToInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1586,6 +1616,7 @@ export type DirectMessageUncheckedCreateWithoutReplyToInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1641,6 +1672,7 @@ export type DirectMessageUpdateWithoutRepliesInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1680,6 +1712,7 @@ export type DirectMessageUncheckedUpdateWithoutRepliesInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1729,6 +1762,7 @@ export type DirectMessageCreateWithoutReactionsInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1768,6 +1802,7 @@ export type DirectMessageUncheckedCreateWithoutReactionsInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1817,6 +1852,7 @@ export type DirectMessageUpdateWithoutReactionsInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1856,6 +1892,7 @@ export type DirectMessageUncheckedUpdateWithoutReactionsInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1889,6 +1926,7 @@ export type DirectMessageCreateWithoutSenderDeviceKeyInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1928,6 +1966,7 @@ export type DirectMessageUncheckedCreateWithoutSenderDeviceKeyInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -1987,6 +2026,7 @@ export type DirectMessageCreateWithoutEnvelopesInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2026,6 +2066,7 @@ export type DirectMessageUncheckedCreateWithoutEnvelopesInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2075,6 +2116,7 @@ export type DirectMessageUpdateWithoutEnvelopesInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2114,6 +2156,7 @@ export type DirectMessageUncheckedUpdateWithoutEnvelopesInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2147,6 +2190,7 @@ export type DirectMessageCreateWithoutEnvelopesV2Input = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2186,6 +2230,7 @@ export type DirectMessageUncheckedCreateWithoutEnvelopesV2Input = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2235,6 +2280,7 @@ export type DirectMessageUpdateWithoutEnvelopesV2Input = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2274,6 +2320,7 @@ export type DirectMessageUncheckedUpdateWithoutEnvelopesV2Input = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2309,6 +2356,7 @@ export type DirectMessageCreateManySenderInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2339,6 +2387,7 @@ export type DirectMessageUpdateWithoutSenderInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2377,6 +2426,7 @@ export type DirectMessageUncheckedUpdateWithoutSenderInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2413,6 +2463,7 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2445,6 +2496,7 @@ export type DirectMessageCreateManyConversationInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2475,6 +2527,7 @@ export type DirectMessageUpdateWithoutConversationInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2513,6 +2566,7 @@ export type DirectMessageUncheckedUpdateWithoutConversationInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2549,6 +2603,7 @@ export type DirectMessageUncheckedUpdateManyWithoutConversationInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2581,6 +2636,7 @@ export type DirectMessageCreateManyReplyToInput = {
   mediaBlurhash?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2611,6 +2667,7 @@ export type DirectMessageUpdateWithoutReplyToInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2649,6 +2706,7 @@ export type DirectMessageUncheckedUpdateWithoutReplyToInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2685,6 +2743,7 @@ export type DirectMessageUncheckedUpdateManyWithoutReplyToInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2718,6 +2777,7 @@ export type DirectMessageCreateManySenderDeviceKeyInput = {
   replyToId?: string | null
   editedAt?: Date | string | null
   clientNonce?: string | null
+  expiresAt?: Date | string | null
   ciphertext?: string | null
   iv?: string | null
   contentIv?: string | null
@@ -2747,6 +2807,7 @@ export type DirectMessageUpdateWithoutSenderDeviceKeyInput = {
   mediaBlurhash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2786,6 +2847,7 @@ export type DirectMessageUncheckedUpdateWithoutSenderDeviceKeyInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2822,6 +2884,7 @@ export type DirectMessageUncheckedUpdateManyWithoutSenderDeviceKeyInput = {
   replyToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientNonce?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ciphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   iv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2912,6 +2975,7 @@ export type DirectMessageSelect<ExtArgs extends runtime.Types.Extensions.Interna
   replyToId?: boolean
   editedAt?: boolean
   clientNonce?: boolean
+  expiresAt?: boolean
   ciphertext?: boolean
   iv?: boolean
   contentIv?: boolean
@@ -2954,6 +3018,7 @@ export type DirectMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   replyToId?: boolean
   editedAt?: boolean
   clientNonce?: boolean
+  expiresAt?: boolean
   ciphertext?: boolean
   iv?: boolean
   contentIv?: boolean
@@ -2991,6 +3056,7 @@ export type DirectMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   replyToId?: boolean
   editedAt?: boolean
   clientNonce?: boolean
+  expiresAt?: boolean
   ciphertext?: boolean
   iv?: boolean
   contentIv?: boolean
@@ -3028,6 +3094,7 @@ export type DirectMessageSelectScalar = {
   replyToId?: boolean
   editedAt?: boolean
   clientNonce?: boolean
+  expiresAt?: boolean
   ciphertext?: boolean
   iv?: boolean
   contentIv?: boolean
@@ -3040,7 +3107,7 @@ export type DirectMessageSelectScalar = {
   senderDeviceKeyId?: boolean
 }
 
-export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "createdAt" | "readAt" | "deliveredAt" | "type" | "body" | "animeMalId" | "animeEpisode" | "mediaUrl" | "mediaMime" | "mediaSizeBytes" | "mediaWidth" | "mediaHeight" | "mediaDurationS" | "mediaBlurhash" | "replyToId" | "editedAt" | "clientNonce" | "ciphertext" | "iv" | "contentIv" | "frankingTag" | "serverFrank" | "isE2EE" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
+export type DirectMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "conversationId" | "senderId" | "createdAt" | "readAt" | "deliveredAt" | "type" | "body" | "animeMalId" | "animeEpisode" | "mediaUrl" | "mediaMime" | "mediaSizeBytes" | "mediaWidth" | "mediaHeight" | "mediaDurationS" | "mediaBlurhash" | "replyToId" | "editedAt" | "clientNonce" | "expiresAt" | "ciphertext" | "iv" | "contentIv" | "frankingTag" | "serverFrank" | "isE2EE" | "deletedAt" | "deletedForSender" | "deletedForRecipient" | "senderDeviceKeyId", ExtArgs["result"]["directMessage"]>
 export type DirectMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   replyTo?: boolean | Prisma.DirectMessage$replyToArgs<ExtArgs>
   replies?: boolean | Prisma.DirectMessage$repliesArgs<ExtArgs>
@@ -3098,6 +3165,7 @@ export type $DirectMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
     replyToId: string | null
     editedAt: Date | null
     clientNonce: string | null
+    expiresAt: Date | null
     ciphertext: string | null
     iv: string | null
     contentIv: string | null
@@ -3559,6 +3627,7 @@ export interface DirectMessageFieldRefs {
   readonly replyToId: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly editedAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly clientNonce: Prisma.FieldRef<"DirectMessage", 'String'>
+  readonly expiresAt: Prisma.FieldRef<"DirectMessage", 'DateTime'>
   readonly ciphertext: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly iv: Prisma.FieldRef<"DirectMessage", 'String'>
   readonly contentIv: Prisma.FieldRef<"DirectMessage", 'String'>
