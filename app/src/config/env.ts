@@ -75,6 +75,17 @@ export const env = {
   // OpenAI for /ai/ask — optional; falls back to stub responses if not set
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
 
+  // ── Creator monetization payments (Phase 2). Inert until set: monetization
+  // payment endpoints 503 with "payments not configured" when STRIPE is absent.
+  STRIPE_SECRET_KEY:      process.env.STRIPE_SECRET_KEY      || "",
+  STRIPE_WEBHOOK_SECRET:  process.env.STRIPE_WEBHOOK_SECRET  || "",
+  STRIPE_CONNECT_RETURN_URL: process.env.STRIPE_CONNECT_RETURN_URL || "https://creator-studio.kaiveron.com/settings",
+  STRIPE_CHECKOUT_SUCCESS_URL: process.env.STRIPE_CHECKOUT_SUCCESS_URL || "https://kaiveron.com",
+  // Secondary payout rail for countries Stripe Connect can't pay out to
+  // (notably India/Japan). Optional; PayPal Payouts when present.
+  PAYPAL_CLIENT_ID:     process.env.PAYPAL_CLIENT_ID     || "",
+  PAYPAL_CLIENT_SECRET: process.env.PAYPAL_CLIENT_SECRET || "",
+
   // DM E2EE layer (addendum spec). SERVER_FRANK_SECRET signs franking tags so
   // reported plaintext is non-forgeable. WebAuthn RP id/origin for passkeys.
   // E2EE_ENABLED is the rollout flag (off → DMs stay server-readable v2).

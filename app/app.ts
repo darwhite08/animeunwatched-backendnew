@@ -167,6 +167,7 @@ import { traceCapture } from "./src/middlewares/trace.middleware";
 app.use(traceCapture());
 // Sunset + Deprecation headers for endpoints listed in DeprecatedEndpoint
 import { deprecationHeaders } from "./src/middlewares/deprecation.middleware";
+import { stripeWebhook } from "./src/modules/monetization/monetization.controller";
 app.use(deprecationHeaders());
 app.use(cors({
   origin: (origin, callback) => {
@@ -178,6 +179,13 @@ app.use(cors({
   },
   credentials: true,
 }));
+// Stripe webhook needs the RAW body for signature verification — register it
+// before express.json so the body isn't parsed away.
+app.post(
+  "/api/v1/monetization/webhook/stripe",
+  express.raw({ type: "application/json" }),
+  (req, res) => { void stripeWebhook(req, res); },
+);
 // 1 MB payload limit to prevent large body DoS
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));

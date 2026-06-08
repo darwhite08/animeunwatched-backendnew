@@ -1,11 +1,19 @@
+import type Stripe from "stripe";
 import { prisma } from "../../config/prisma";
-import { badRequest, forbidden, notFound } from "../../lib/errors";
+import { badRequest, configError, forbidden, notFound } from "../../lib/errors";
 import {
   EARNINGS_HOLD_DAYS,
   MIN_PAYOUT_CENTS,
   computeSplit,
   evaluateEligibility,
 } from "../../lib/monetizationMath";
+import {
+  createConnectOnboarding,
+  createMembershipCheckout,
+  createTipCheckout,
+  getConnectStatus,
+  isStripeConfigured,
+} from "../../lib/payments/stripe";
 
 // ─── Eligibility ──────────────────────────────────────────────────────────────
 
@@ -155,6 +163,142 @@ export async function getRevenueSummary(creatorId: string, range = "28d") {
       id: e.id, source: e.source, grossCents: e.grossCents, netCents: e.netCents,
       status: e.status, createdAt: e.createdAt.toISOString(),
     })),
+  };
+}
+
+// ─── Payments (Phase 2 — Stripe Connect; inert until configured) ─────────────
+
+/** Start/continue Stripe Connect onboarding for a creator. */
+export async function startOnboarding(creatorId: string): Promise<{ url: string }> {
+  if (!isStripeConfigured()) throw configError("Payments not configured");
+  await assertEligible(creatorId);
+  const [user, account] = await Promise.all([
+    prisma.user.findUnique({ where: { id: creatorId }, select: { email: true } }),
+    prisma.payoutAccount.findUnique({ where: { userId: creatorId } }),
+  ]);
+  const country = (await prisma.creatorProfile.findUnique({ where: { userId: creatorId }, select: { payoutCountry: true } }))?.payoutCountry;
+  const { accountId, url } = await createConnectOnboarding({
+    existingAcctId: account?.providerAcctId, email: user?.email, country,
+  });
+  await prisma.payoutAccount.upsert({
+    where: { userId: creatorId },
+    create: { userId: creatorId, provider: "stripe", providerAcctId: accountId, country },
+    update: { providerAcctId: accountId },
+  });
+  return { url };
+}
+
+/** Refresh + persist Connect onboarding/payout status. */
+export async function refreshOnboardingStatus(creatorId: string): Promise<void> {
+  const account = await prisma.payoutAccount.findUnique({ where: { userId: creatorId } });
+  if (!account?.providerAcctId || !isStripeConfigured()) return;
+  const status = await getConnectStatus(account.providerAcctId);
+  await prisma.payoutAccount.update({
+    where: { userId: creatorId },
+    data: { onboarded: status.onboarded, payoutsEnabled: status.payoutsEnabled },
+  });
+}
+
+/** Create a membership-subscription Checkout for a fan → creator/tier. */
+export async function checkoutMembership(fanId: string, tierId: string): Promise<{ url: string }> {
+  if (!isStripeConfigured()) throw configError("Payments not configured");
+  const tier = await prisma.creatorTier.findUnique({ where: { id: tierId } });
+  if (!tier || !tier.active) throw notFound("Tier not found");
+  const acct = await prisma.payoutAccount.findUnique({ where: { userId: tier.creatorId } });
+  if (!acct?.providerAcctId || !acct.payoutsEnabled) throw badRequest("Creator hasn't completed payout onboarding");
+  if (fanId === tier.creatorId) throw badRequest("You can't subscribe to yourself");
+  return createMembershipCheckout({
+    creatorAcctId: acct.providerAcctId, creatorId: tier.creatorId, fanId,
+    tier: { id: tier.id, name: tier.name, priceCents: tier.priceCents, currency: tier.currency },
+  });
+}
+
+/** Create a one-off tip Checkout. */
+export async function checkoutTip(fanId: string, creatorId: string, amountCents: number, message?: string): Promise<{ url: string }> {
+  if (!isStripeConfigured()) throw configError("Payments not configured");
+  if (amountCents < 100) throw badRequest("Minimum tip is 100 cents");
+  if (fanId === creatorId) throw badRequest("You can't tip yourself");
+  const acct = await prisma.payoutAccount.findUnique({ where: { userId: creatorId } });
+  if (!acct?.providerAcctId || !acct.payoutsEnabled) throw badRequest("Creator can't receive tips yet");
+  const currency = (await prisma.creatorProfile.findUnique({ where: { userId: creatorId }, select: { defaultCurrency: true } }))?.defaultCurrency ?? "USD";
+  return createTipCheckout({ creatorAcctId: acct.providerAcctId, creatorId, fanId, amountCents, currency, message });
+}
+
+/**
+ * Map a verified Stripe webhook event to our ledger/tables. Idempotent per
+ * Stripe object id. (Stripe Connect destination charges put the creator's 90%
+ * directly in their Stripe balance and auto-pay to their bank — the ledger
+ * here is the analytics mirror that powers the Revenue tab.)
+ */
+export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
+  switch (event.type) {
+    case "checkout.session.completed": {
+      const s = event.data.object as unknown as Stripe.Checkout.Session;
+      const m = s.metadata ?? {};
+      if (m.kind === "membership" && m.fanId && m.creatorId && m.tierId) {
+        await prisma.creatorMembership.upsert({
+          where: { fanId_creatorId: { fanId: m.fanId, creatorId: m.creatorId } },
+          create: { fanId: m.fanId, creatorId: m.creatorId, tierId: m.tierId, status: "active", provider: "stripe", providerSubId: (s.subscription as string) ?? null },
+          update: { status: "active", tierId: m.tierId, providerSubId: (s.subscription as string) ?? null, canceledAt: null },
+        });
+        // first-period earning is recorded on the invoice.paid event below
+      } else if (m.kind === "tip" && m.fanId && m.creatorId && s.amount_total) {
+        const tip = await prisma.tip.create({
+          data: { fromUserId: m.fanId, toCreatorId: m.creatorId, amountCents: s.amount_total, currency: (s.currency ?? "usd").toUpperCase(), message: m.message || null, provider: "stripe", providerRef: s.id },
+        });
+        await recordEarning({ creatorId: m.creatorId, source: "tip", sourceId: tip.id, grossCents: s.amount_total, currency: tip.currency });
+      }
+      break;
+    }
+    case "invoice.paid": {
+      const inv = event.data.object as unknown as Stripe.Invoice;
+      const sub = inv.subscription as string | null;
+      if (!sub || !inv.amount_paid) break;
+      const membership = await prisma.creatorMembership.findFirst({ where: { providerSubId: sub }, select: { creatorId: true, id: true } });
+      if (membership) {
+        await recordEarning({ creatorId: membership.creatorId, source: "membership", sourceId: membership.id, grossCents: inv.amount_paid, currency: (inv.currency ?? "usd").toUpperCase() });
+      }
+      break;
+    }
+    case "customer.subscription.deleted": {
+      const sub = event.data.object as unknown as Stripe.Subscription;
+      await prisma.creatorMembership.updateMany({ where: { providerSubId: sub.id }, data: { status: "canceled", canceledAt: new Date() } });
+      break;
+    }
+  }
+}
+
+/**
+ * Subscriber retention cohorts (Substack-style): group memberships by signup
+ * month, show how many remain active vs churned, plus net growth. Powers the
+ * Revenue tab's Retention section.
+ */
+export async function getRetention(creatorId: string) {
+  const memberships = await prisma.creatorMembership.findMany({
+    where: { creatorId },
+    select: { createdAt: true, status: true, canceledAt: true },
+  });
+
+  const cohorts = new Map<string, { total: number; retained: number }>();
+  for (const m of memberships) {
+    const key = m.createdAt.toISOString().slice(0, 7); // YYYY-MM
+    const c = cohorts.get(key) ?? { total: 0, retained: 0 };
+    c.total += 1;
+    if (m.status === "active") c.retained += 1;
+    cohorts.set(key, c);
+  }
+
+  const active = memberships.filter((m) => m.status === "active").length;
+  const churned = memberships.filter((m) => m.status === "canceled").length;
+  const retentionRate = memberships.length > 0 ? active / memberships.length : 0;
+
+  return {
+    activeMembers: active,
+    churnedMembers: churned,
+    retentionRate,
+    cohorts: [...cohorts.entries()]
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([month, c]) => ({ month, joined: c.total, retained: c.retained, retentionPct: c.total ? (c.retained / c.total) * 100 : 0 })),
   };
 }
 
