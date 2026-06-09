@@ -116,3 +116,16 @@ export async function isBlockedEitherWay(a: string, b: string): Promise<boolean>
   });
   return n > 0;
 }
+
+/** Generic content report (user/post/shot/comment/thread/club/review). */
+export async function reportContent(reporterId: string, dto: {
+  targetType: string;
+  targetId: string;
+  reason: string;
+}) {
+  const report = await prisma.report.create({
+    data: { reporterId, targetType: dto.targetType, targetId: dto.targetId, reason: dto.reason },
+    select: { id: true },
+  });
+  return report;
+}

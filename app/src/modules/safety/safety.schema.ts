@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const reportContentSchema = z.object({
+  targetType: z.enum(["user", "post", "shot", "comment", "thread", "club", "review"]),
+  targetId: z.string().min(1).max(100),
+  reason: z.enum(["spam", "harassment", "nsfw", "other"]),
+  details: z.string().max(2000).optional(),
+});
+
 export const reportSchema = z.object({
   body: z.object({
     conversationId: z.string().min(1),
