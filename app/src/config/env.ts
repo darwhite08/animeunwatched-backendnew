@@ -44,6 +44,11 @@ export const env = {
   INSTAGRAM_APP_SECRET:  process.env.INSTAGRAM_APP_SECRET  || "",
   INSTAGRAM_REDIRECT_URI: process.env.INSTAGRAM_REDIRECT_URI || "",
   INSTAGRAM_SCOPES:      process.env.INSTAGRAM_SCOPES      || "",
+  // TikTok (Login Kit) — connect + import TikTok videos as embedded Shots.
+  // Needs a TikTok developer app with the video.list scope + app review.
+  TIKTOK_CLIENT_KEY:     process.env.TIKTOK_CLIENT_KEY     || "",
+  TIKTOK_CLIENT_SECRET:  process.env.TIKTOK_CLIENT_SECRET  || "",
+  TIKTOK_REDIRECT_URI:   process.env.TIKTOK_REDIRECT_URI   || "",
   // Where to bounce the creator back to after connecting (the studio).
   CREATOR_STUDIO_URL:    process.env.CREATOR_STUDIO_URL    || "https://creator-studio.kaiveron.com",
 

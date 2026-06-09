@@ -2652,6 +2652,8 @@ export const ShotScalarFieldEnum = {
   authorId: 'authorId',
   caption: 'caption',
   videoUrl: 'videoUrl',
+  embedUrl: 'embedUrl',
+  sourceProvider: 'sourceProvider',
   thumbnailUrl: 'thumbnailUrl',
   durationMs: 'durationMs',
   animeId: 'animeId',

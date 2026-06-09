@@ -3407,6 +3407,8 @@ model Shot {
   authorId     String
   caption      String?
   videoUrl     String
+  embedUrl     String?            // set for imported embeds (e.g. TikTok) — render the provider player instead of <video>
+  sourceProvider String?          // null = native upload | "instagram" | "tiktok"
   thumbnailUrl String?
   durationMs   Int?
   animeId      String?
