@@ -48,6 +48,54 @@ export async function getMyPosts(userId: string) {
   };
 }
 
+/** Creator level + verified status — a gamified tier ladder from a transparent
+ *  "creator score" (reputation + followers + published content). Self-contained. */
+const CREATOR_TIERS = [
+  { min: 0,     title: "Newcomer" },
+  { min: 100,   title: "Rising" },
+  { min: 500,   title: "Creator" },
+  { min: 1_500, title: "Established" },
+  { min: 4_000, title: "Elite" },
+  { min: 10_000, title: "Luminary" },
+  { min: 25_000, title: "Icon" },
+] as const;
+
+export async function getCreatorLevel(userId: string) {
+  const [user, followers, blogs, polls, shots, posts] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { reputation: true, verifiedKind: true, verifiedAt: true } }),
+    prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED" } }),
+    prisma.blog.count({ where: { authorId: userId, status: "PUBLISHED" } }),
+    prisma.poll.count({ where: { authorId: userId } }),
+    prisma.shot.count({ where: { authorId: userId, deletedAt: null } }),
+    prisma.post.count({ where: { authorId: userId, deletedAt: null } }),
+  ]);
+  const reputation = user?.reputation ?? 0;
+  const content = blogs + polls + shots + posts;
+  // Transparent score: reputation + 3·followers + 25·published content.
+  const score = reputation + followers * 3 + content * 25;
+
+  let idx = 0;
+  for (let i = 0; i < CREATOR_TIERS.length; i++) if (score >= CREATOR_TIERS[i].min) idx = i;
+  const tier = CREATOR_TIERS[idx];
+  const next = CREATOR_TIERS[idx + 1] ?? null;
+  const span = next ? next.min - tier.min : 1;
+  const into = score - tier.min;
+  const progressPct = next ? Math.min(100, (into / span) * 100) : 100;
+
+  return {
+    level: idx + 1,
+    title: tier.title,
+    nextTitle: next?.title ?? null,
+    score,
+    nextAt: next?.min ?? null,
+    toNext: next ? Math.max(0, next.min - score) : 0,
+    progressPct,
+    verifiedKind: user?.verifiedKind ?? null,
+    verifiedAt: user?.verifiedAt?.toISOString() ?? null,
+    breakdown: { reputation, followers, content },
+  };
+}
+
 /** A creator's own anime reviews — newest first, with anime + engagement. */
 export async function getMyReviews(userId: string) {
   const reviews = await prisma.review.findMany({

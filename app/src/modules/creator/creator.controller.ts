@@ -86,6 +86,10 @@ export async function getEngagementInbox(_req: Request, res: Response, next: Nex
   try { res.status(200).json(await service.getEngagementInbox(res.locals.user.id)); } catch (err) { next(err); }
 }
 
+export async function getCreatorLevel(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getCreatorLevel(res.locals.user.id)); } catch (err) { next(err); }
+}
+
 export async function getMyReviews(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getMyReviews(res.locals.user.id)); } catch (err) { next(err); }
 }
