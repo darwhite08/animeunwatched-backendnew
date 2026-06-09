@@ -425,6 +425,31 @@ export async function searchWithFallback(q: string): Promise<AnimeWithRelations[
 
 // ─── getTrending ─────────────────────────────────────────────────────────────
 
+/** Top anime that have a YouTube trailer — powers the /trailers gallery. */
+export async function getTrailers(limit = 30) {
+  const cacheKey = `anime:trailers:${limit}`;
+  const cached = cache.get<unknown[]>(cacheKey);
+  if (cached) return cached;
+
+  const rows = await prisma.anime.findMany({
+    where: { trailerYoutubeId: { not: null } },
+    orderBy: [{ trendingScore: "desc" }, { score: { sort: "desc", nulls: "last" } }],
+    take: Math.min(60, Math.max(1, limit)),
+    select: { malId: true, title: true, titleEnglish: true, imageUrl: true, trailerYoutubeId: true, score: true, type: true, year: true },
+  });
+  const data = rows.map((a) => ({
+    malId: a.malId,
+    title: a.titleEnglish || a.title,
+    imageUrl: a.imageUrl,
+    youtubeId: a.trailerYoutubeId,
+    score: a.score,
+    type: a.type,
+    year: a.year,
+  }));
+  cache.set(cacheKey, data, 60 * 60_000); // 1h
+  return data;
+}
+
 export async function getTrending(limit = 20) {
   const cacheKey = `anime:trending`
   const cached = cache.get<unknown[]>(cacheKey)
