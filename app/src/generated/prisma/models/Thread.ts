@@ -78,6 +78,7 @@ export type ThreadCountAggregateOutputType = {
   kind: number
   pinnedUntil: number
   episodeNumber: number
+  tags: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -136,6 +137,7 @@ export type ThreadCountAggregateInputType = {
   kind?: true
   pinnedUntil?: true
   episodeNumber?: true
+  tags?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -239,6 +241,7 @@ export type ThreadGroupByOutputType = {
   kind: $Enums.ThreadKind
   pinnedUntil: Date | null
   episodeNumber: number | null
+  tags: string[]
   createdAt: Date
   updatedAt: Date
   _count: ThreadCountAggregateOutputType | null
@@ -278,6 +281,7 @@ export type ThreadWhereInput = {
   kind?: Prisma.EnumThreadKindFilter<"Thread"> | $Enums.ThreadKind
   pinnedUntil?: Prisma.DateTimeNullableFilter<"Thread"> | Date | string | null
   episodeNumber?: Prisma.IntNullableFilter<"Thread"> | number | null
+  tags?: Prisma.StringNullableListFilter<"Thread">
   createdAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -298,6 +302,7 @@ export type ThreadOrderByWithRelationInput = {
   kind?: Prisma.SortOrder
   pinnedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   episodeNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
@@ -321,6 +326,7 @@ export type ThreadWhereUniqueInput = Prisma.AtLeast<{
   kind?: Prisma.EnumThreadKindFilter<"Thread"> | $Enums.ThreadKind
   pinnedUntil?: Prisma.DateTimeNullableFilter<"Thread"> | Date | string | null
   episodeNumber?: Prisma.IntNullableFilter<"Thread"> | number | null
+  tags?: Prisma.StringNullableListFilter<"Thread">
   createdAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -341,6 +347,7 @@ export type ThreadOrderByWithAggregationInput = {
   kind?: Prisma.SortOrder
   pinnedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   episodeNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ThreadCountOrderByAggregateInput
@@ -365,6 +372,7 @@ export type ThreadScalarWhereWithAggregatesInput = {
   kind?: Prisma.EnumThreadKindWithAggregatesFilter<"Thread"> | $Enums.ThreadKind
   pinnedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"Thread"> | Date | string | null
   episodeNumber?: Prisma.IntNullableWithAggregatesFilter<"Thread"> | number | null
+  tags?: Prisma.StringNullableListFilter<"Thread">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Thread"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Thread"> | Date | string
 }
@@ -378,6 +386,7 @@ export type ThreadCreateInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
@@ -398,6 +407,7 @@ export type ThreadUncheckedCreateInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
@@ -412,6 +422,7 @@ export type ThreadUpdateInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
@@ -432,6 +443,7 @@ export type ThreadUncheckedUpdateInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
@@ -449,6 +461,7 @@ export type ThreadCreateManyInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -462,6 +475,7 @@ export type ThreadUpdateManyMutationInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,6 +492,7 @@ export type ThreadUncheckedUpdateManyInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -504,6 +519,7 @@ export type ThreadCountOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   pinnedUntil?: Prisma.SortOrder
   episodeNumber?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -679,8 +695,17 @@ export type ThreadUncheckedUpdateManyWithoutClubNestedInput = {
   deleteMany?: Prisma.ThreadScalarWhereInput | Prisma.ThreadScalarWhereInput[]
 }
 
+export type ThreadCreatetagsInput = {
+  set: string[]
+}
+
 export type EnumThreadKindFieldUpdateOperationsInput = {
   set?: $Enums.ThreadKind
+}
+
+export type ThreadUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type ThreadCreateNestedOneWithoutRepliesInput = {
@@ -706,6 +731,7 @@ export type ThreadCreateWithoutAuthorInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
@@ -724,6 +750,7 @@ export type ThreadUncheckedCreateWithoutAuthorInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
@@ -770,6 +797,7 @@ export type ThreadScalarWhereInput = {
   kind?: Prisma.EnumThreadKindFilter<"Thread"> | $Enums.ThreadKind
   pinnedUntil?: Prisma.DateTimeNullableFilter<"Thread"> | Date | string | null
   episodeNumber?: Prisma.IntNullableFilter<"Thread"> | number | null
+  tags?: Prisma.StringNullableListFilter<"Thread">
   createdAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Thread"> | Date | string
 }
@@ -783,6 +811,7 @@ export type ThreadCreateWithoutAnimeInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
@@ -801,6 +830,7 @@ export type ThreadUncheckedCreateWithoutAnimeInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
@@ -841,6 +871,7 @@ export type ThreadCreateWithoutClubInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
@@ -859,6 +890,7 @@ export type ThreadUncheckedCreateWithoutClubInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
@@ -899,6 +931,7 @@ export type ThreadCreateWithoutRepliesInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
@@ -918,6 +951,7 @@ export type ThreadUncheckedCreateWithoutRepliesInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -947,6 +981,7 @@ export type ThreadUpdateWithoutRepliesInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
@@ -966,6 +1001,7 @@ export type ThreadUncheckedUpdateWithoutRepliesInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -981,6 +1017,7 @@ export type ThreadCreateManyAuthorInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -994,6 +1031,7 @@ export type ThreadUpdateWithoutAuthorInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
@@ -1012,6 +1050,7 @@ export type ThreadUncheckedUpdateWithoutAuthorInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
@@ -1028,6 +1067,7 @@ export type ThreadUncheckedUpdateManyWithoutAuthorInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1043,6 +1083,7 @@ export type ThreadCreateManyAnimeInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1056,6 +1097,7 @@ export type ThreadUpdateWithoutAnimeInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
@@ -1074,6 +1116,7 @@ export type ThreadUncheckedUpdateWithoutAnimeInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
@@ -1090,6 +1133,7 @@ export type ThreadUncheckedUpdateManyWithoutAnimeInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1105,6 +1149,7 @@ export type ThreadCreateManyClubInput = {
   kind?: $Enums.ThreadKind
   pinnedUntil?: Date | string | null
   episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1118,6 +1163,7 @@ export type ThreadUpdateWithoutClubInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
@@ -1136,6 +1182,7 @@ export type ThreadUncheckedUpdateWithoutClubInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
@@ -1152,6 +1199,7 @@ export type ThreadUncheckedUpdateManyWithoutClubInput = {
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
   pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1199,6 +1247,7 @@ export type ThreadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   kind?: boolean
   pinnedUntil?: boolean
   episodeNumber?: boolean
+  tags?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1220,6 +1269,7 @@ export type ThreadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   kind?: boolean
   pinnedUntil?: boolean
   episodeNumber?: boolean
+  tags?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1239,6 +1289,7 @@ export type ThreadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   kind?: boolean
   pinnedUntil?: boolean
   episodeNumber?: boolean
+  tags?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1258,11 +1309,12 @@ export type ThreadSelectScalar = {
   kind?: boolean
   pinnedUntil?: boolean
   episodeNumber?: boolean
+  tags?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ThreadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "clubId" | "animeId" | "isPinned" | "isLocked" | "kind" | "pinnedUntil" | "episodeNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
+export type ThreadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "clubId" | "animeId" | "isPinned" | "isLocked" | "kind" | "pinnedUntil" | "episodeNumber" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
 export type ThreadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.Thread$clubArgs<ExtArgs>
@@ -1301,6 +1353,7 @@ export type $ThreadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     kind: $Enums.ThreadKind
     pinnedUntil: Date | null
     episodeNumber: number | null
+    tags: string[]
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["thread"]>
@@ -1741,6 +1794,7 @@ export interface ThreadFieldRefs {
   readonly kind: Prisma.FieldRef<"Thread", 'ThreadKind'>
   readonly pinnedUntil: Prisma.FieldRef<"Thread", 'DateTime'>
   readonly episodeNumber: Prisma.FieldRef<"Thread", 'Int'>
+  readonly tags: Prisma.FieldRef<"Thread", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Thread", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Thread", 'DateTime'>
 }

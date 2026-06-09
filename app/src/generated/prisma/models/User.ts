@@ -50,6 +50,7 @@ export type UserMinAggregateOutputType = {
   displayName: string | null
   bio: string | null
   avatarUrl: string | null
+  onboardedAt: Date | null
   passwordHash: string | null
   role: $Enums.Role | null
   reputation: number | null
@@ -85,6 +86,7 @@ export type UserMaxAggregateOutputType = {
   displayName: string | null
   bio: string | null
   avatarUrl: string | null
+  onboardedAt: Date | null
   passwordHash: string | null
   role: $Enums.Role | null
   reputation: number | null
@@ -120,6 +122,8 @@ export type UserCountAggregateOutputType = {
   displayName: number
   bio: number
   avatarUrl: number
+  favoriteGenres: number
+  onboardedAt: number
   passwordHash: number
   role: number
   reputation: number
@@ -173,6 +177,7 @@ export type UserMinAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  onboardedAt?: true
   passwordHash?: true
   role?: true
   reputation?: true
@@ -208,6 +213,7 @@ export type UserMaxAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  onboardedAt?: true
   passwordHash?: true
   role?: true
   reputation?: true
@@ -243,6 +249,8 @@ export type UserCountAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  favoriteGenres?: true
+  onboardedAt?: true
   passwordHash?: true
   role?: true
   reputation?: true
@@ -365,6 +373,8 @@ export type UserGroupByOutputType = {
   displayName: string
   bio: string | null
   avatarUrl: string | null
+  favoriteGenres: string[]
+  onboardedAt: Date | null
   passwordHash: string
   role: $Enums.Role
   reputation: number
@@ -423,6 +433,8 @@ export type UserWhereInput = {
   displayName?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  favoriteGenres?: Prisma.StringNullableListFilter<"User">
+  onboardedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
@@ -501,6 +513,7 @@ export type UserWhereInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPListRelationFilter
   clubInvitesCreated?: Prisma.ClubInviteListRelationFilter
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemListRelationFilter
   groupsOwned?: Prisma.GroupConversationListRelationFilter
   groupMemberships?: Prisma.GroupMemberListRelationFilter
   groupMessages?: Prisma.GroupMessageListRelationFilter
@@ -527,6 +540,8 @@ export type UserOrderByWithRelationInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  favoriteGenres?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
@@ -605,6 +620,7 @@ export type UserOrderByWithRelationInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPOrderByRelationAggregateInput
   clubInvitesCreated?: Prisma.ClubInviteOrderByRelationAggregateInput
   clubJoinRequests?: Prisma.ClubJoinRequestOrderByRelationAggregateInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemOrderByRelationAggregateInput
   groupsOwned?: Prisma.GroupConversationOrderByRelationAggregateInput
   groupMemberships?: Prisma.GroupMemberOrderByRelationAggregateInput
   groupMessages?: Prisma.GroupMessageOrderByRelationAggregateInput
@@ -634,6 +650,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   displayName?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  favoriteGenres?: Prisma.StringNullableListFilter<"User">
+  onboardedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntFilter<"User"> | number
@@ -712,6 +730,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   clubEventRsvps?: Prisma.ClubEventRSVPListRelationFilter
   clubInvitesCreated?: Prisma.ClubInviteListRelationFilter
   clubJoinRequests?: Prisma.ClubJoinRequestListRelationFilter
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemListRelationFilter
   groupsOwned?: Prisma.GroupConversationListRelationFilter
   groupMemberships?: Prisma.GroupMemberListRelationFilter
   groupMessages?: Prisma.GroupMessageListRelationFilter
@@ -738,6 +757,8 @@ export type UserOrderByWithAggregationInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  favoriteGenres?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
@@ -781,6 +802,8 @@ export type UserScalarWhereWithAggregatesInput = {
   displayName?: Prisma.StringWithAggregatesFilter<"User"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  favoriteGenres?: Prisma.StringNullableListFilter<"User">
+  onboardedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   reputation?: Prisma.IntWithAggregatesFilter<"User"> | number
@@ -816,6 +839,8 @@ export type UserCreateInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -894,6 +919,7 @@ export type UserCreateInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -920,6 +946,8 @@ export type UserUncheckedCreateInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -998,6 +1026,7 @@ export type UserUncheckedCreateInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1024,6 +1053,8 @@ export type UserUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1102,6 +1133,7 @@ export type UserUpdateInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -1128,6 +1160,8 @@ export type UserUncheckedUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1206,6 +1240,7 @@ export type UserUncheckedUpdateInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1232,6 +1267,8 @@ export type UserCreateManyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -1267,6 +1304,8 @@ export type UserUpdateManyMutationInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1302,6 +1341,8 @@ export type UserUncheckedUpdateManyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1329,6 +1370,14 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -1337,6 +1386,8 @@ export type UserCountOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  favoriteGenres?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
@@ -1380,6 +1431,7 @@ export type UserMaxOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
@@ -1415,6 +1467,7 @@ export type UserMinOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
@@ -1460,12 +1513,25 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
+export type UserCreatefavoriteGenresInput = {
+  set: string[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type UserUpdatefavoriteGenresInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type EnumRoleFieldUpdateOperationsInput = {
@@ -1482,10 +1548,6 @@ export type IntFieldUpdateOperationsInput = {
 
 export type NullableEnumVerificationKindFieldUpdateOperationsInput = {
   set?: $Enums.VerificationKind | null
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -1832,6 +1894,20 @@ export type UserUpdateOneRequiredWithoutOwnedClubsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutOwnedClubsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedClubsInput, Prisma.UserUpdateWithoutOwnedClubsInput>, Prisma.UserUncheckedUpdateWithoutOwnedClubsInput>
+}
+
+export type UserCreateNestedOneWithoutClubWatchlistAddsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedCreateWithoutClubWatchlistAddsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClubWatchlistAddsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutClubWatchlistAddsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedCreateWithoutClubWatchlistAddsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClubWatchlistAddsInput
+  upsert?: Prisma.UserUpsertWithoutClubWatchlistAddsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClubWatchlistAddsInput, Prisma.UserUpdateWithoutClubWatchlistAddsInput>, Prisma.UserUncheckedUpdateWithoutClubWatchlistAddsInput>
 }
 
 export type UserCreateNestedOneWithoutClubInvitesCreatedInput = {
@@ -2474,6 +2550,8 @@ export type UserCreateWithoutCreatorProfileInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -2552,6 +2630,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -2577,6 +2656,8 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -2655,6 +2736,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2696,6 +2778,8 @@ export type UserUpdateWithoutCreatorProfileInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2774,6 +2858,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -2799,6 +2884,8 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2877,6 +2964,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2902,6 +2990,8 @@ export type UserCreateWithoutCreatorTiersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -2980,6 +3070,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -3005,6 +3096,8 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -3083,6 +3176,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3124,6 +3218,8 @@ export type UserUpdateWithoutCreatorTiersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3202,6 +3298,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -3227,6 +3324,8 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3305,6 +3404,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3330,6 +3430,8 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -3408,6 +3510,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -3433,6 +3536,8 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -3511,6 +3616,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3541,6 +3647,8 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -3619,6 +3727,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -3644,6 +3753,8 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -3722,6 +3833,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3763,6 +3875,8 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3841,6 +3955,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -3866,6 +3981,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3944,6 +4061,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3980,6 +4098,8 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4058,6 +4178,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -4083,6 +4204,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4161,6 +4284,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4186,6 +4310,8 @@ export type UserCreateWithoutTipsSentInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -4264,6 +4390,7 @@ export type UserCreateWithoutTipsSentInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -4289,6 +4416,8 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -4367,6 +4496,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -4397,6 +4527,8 @@ export type UserCreateWithoutTipsReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -4475,6 +4607,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -4500,6 +4633,8 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -4578,6 +4713,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -4619,6 +4755,8 @@ export type UserUpdateWithoutTipsSentInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4697,6 +4835,7 @@ export type UserUpdateWithoutTipsSentInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -4722,6 +4861,8 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4800,6 +4941,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4836,6 +4978,8 @@ export type UserUpdateWithoutTipsReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4914,6 +5058,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -4939,6 +5084,8 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5017,6 +5164,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -5042,6 +5190,8 @@ export type UserCreateWithoutCreatorEarningsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -5120,6 +5270,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -5145,6 +5296,8 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -5223,6 +5376,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -5264,6 +5418,8 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5342,6 +5498,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -5367,6 +5524,8 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5445,6 +5604,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -5470,6 +5630,8 @@ export type UserCreateWithoutPayoutAccountInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -5548,6 +5710,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -5573,6 +5736,8 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -5651,6 +5816,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -5692,6 +5858,8 @@ export type UserUpdateWithoutPayoutAccountInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5770,6 +5938,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -5795,6 +5964,8 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5873,6 +6044,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -5898,6 +6070,8 @@ export type UserCreateWithoutPayoutsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -5976,6 +6150,7 @@ export type UserCreateWithoutPayoutsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -6001,6 +6176,8 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -6079,6 +6256,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6120,6 +6298,8 @@ export type UserUpdateWithoutPayoutsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6198,6 +6378,7 @@ export type UserUpdateWithoutPayoutsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -6223,6 +6404,8 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6301,6 +6484,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -6326,6 +6510,8 @@ export type UserCreateWithoutStreakDaysLogInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -6404,6 +6590,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -6429,6 +6616,8 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -6507,6 +6696,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6548,6 +6738,8 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6626,6 +6818,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -6651,6 +6844,8 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6729,6 +6924,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -6754,6 +6950,8 @@ export type UserCreateWithoutDeviceTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -6831,6 +7029,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -6857,6 +7056,8 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -6934,6 +7135,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -6976,6 +7178,8 @@ export type UserUpdateWithoutDeviceTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7053,6 +7257,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -7079,6 +7284,8 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7156,6 +7363,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -7182,6 +7390,8 @@ export type UserCreateWithoutNativePushTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -7259,6 +7469,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -7285,6 +7496,8 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -7362,6 +7575,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -7404,6 +7618,8 @@ export type UserUpdateWithoutNativePushTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7481,6 +7697,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -7507,6 +7724,8 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7584,6 +7803,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -7610,6 +7830,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -7687,6 +7909,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -7713,6 +7936,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -7790,6 +8015,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -7832,6 +8058,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7909,6 +8137,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -7935,6 +8164,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8012,6 +8243,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -8038,6 +8270,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -8115,6 +8349,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -8141,6 +8376,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -8218,6 +8455,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -8260,6 +8498,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8337,6 +8577,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -8363,6 +8604,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8440,6 +8683,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -8466,6 +8710,8 @@ export type UserCreateWithoutSecurityEventsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -8543,6 +8789,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -8569,6 +8816,8 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -8646,6 +8895,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -8688,6 +8938,8 @@ export type UserUpdateWithoutSecurityEventsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8765,6 +9017,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -8791,6 +9044,8 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -8868,6 +9123,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -8894,6 +9150,8 @@ export type UserCreateWithoutFollowingInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -8971,6 +9229,7 @@ export type UserCreateWithoutFollowingInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -8997,6 +9256,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -9074,6 +9335,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9105,6 +9367,8 @@ export type UserCreateWithoutFollowersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -9182,6 +9446,7 @@ export type UserCreateWithoutFollowersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -9208,6 +9473,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -9285,6 +9552,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9327,6 +9595,8 @@ export type UserUpdateWithoutFollowingInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9404,6 +9674,7 @@ export type UserUpdateWithoutFollowingInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -9430,6 +9701,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9507,6 +9780,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9544,6 +9818,8 @@ export type UserUpdateWithoutFollowersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9621,6 +9897,7 @@ export type UserUpdateWithoutFollowersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -9647,6 +9924,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -9724,6 +10003,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9750,6 +10030,8 @@ export type UserCreateWithoutListEntriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -9827,6 +10109,7 @@ export type UserCreateWithoutListEntriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -9853,6 +10136,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -9930,6 +10215,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9972,6 +10258,8 @@ export type UserUpdateWithoutListEntriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10049,6 +10337,7 @@ export type UserUpdateWithoutListEntriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -10075,6 +10364,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10152,6 +10443,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -10178,6 +10470,8 @@ export type UserCreateWithoutPostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -10255,6 +10549,7 @@ export type UserCreateWithoutPostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -10281,6 +10576,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -10358,6 +10655,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -10400,6 +10698,8 @@ export type UserUpdateWithoutPostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10477,6 +10777,7 @@ export type UserUpdateWithoutPostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -10503,6 +10804,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10580,6 +10883,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -10606,6 +10910,8 @@ export type UserCreateWithoutPostHidesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -10683,6 +10989,7 @@ export type UserCreateWithoutPostHidesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -10709,6 +11016,8 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -10786,6 +11095,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -10828,6 +11138,8 @@ export type UserUpdateWithoutPostHidesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -10905,6 +11217,7 @@ export type UserUpdateWithoutPostHidesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -10931,6 +11244,8 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11008,6 +11323,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -11034,6 +11350,8 @@ export type UserCreateWithoutPostLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -11111,6 +11429,7 @@ export type UserCreateWithoutPostLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -11137,6 +11456,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -11214,6 +11535,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -11256,6 +11578,8 @@ export type UserUpdateWithoutPostLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11333,6 +11657,7 @@ export type UserUpdateWithoutPostLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -11359,6 +11684,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11436,6 +11763,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -11462,6 +11790,8 @@ export type UserCreateWithoutPostCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -11539,6 +11869,7 @@ export type UserCreateWithoutPostCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -11565,6 +11896,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -11642,6 +11975,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -11684,6 +12018,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11761,6 +12097,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -11787,6 +12124,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -11864,6 +12203,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -11890,6 +12230,8 @@ export type UserCreateWithoutPostCommentLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -11967,6 +12309,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -11993,6 +12336,8 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -12070,6 +12415,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12112,6 +12458,8 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12189,6 +12537,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -12215,6 +12564,8 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12292,6 +12643,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -12318,6 +12670,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -12395,6 +12749,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -12421,6 +12776,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -12498,6 +12855,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12540,6 +12898,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12617,6 +12977,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -12643,6 +13004,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -12677,6 +13040,447 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutClubWatchlistAddsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClubWatchlistAddsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedCreateWithoutClubWatchlistAddsInput>
+}
+
+export type UserUpsertWithoutClubWatchlistAddsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedUpdateWithoutClubWatchlistAddsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedCreateWithoutClubWatchlistAddsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClubWatchlistAddsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClubWatchlistAddsInput, Prisma.UserUncheckedUpdateWithoutClubWatchlistAddsInput>
+}
+
+export type UserUpdateWithoutClubWatchlistAddsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
@@ -12746,6 +13550,8 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -12823,6 +13629,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -12849,6 +13656,8 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -12926,6 +13735,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -12968,6 +13778,8 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13045,6 +13857,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -13071,6 +13884,8 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13148,6 +13963,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -13174,6 +13990,8 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -13251,6 +14069,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -13277,6 +14096,8 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -13354,6 +14175,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -13396,6 +14218,8 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13473,6 +14297,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -13499,6 +14324,8 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13576,6 +14403,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -13602,6 +14430,8 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -13679,6 +14509,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -13705,6 +14536,8 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -13782,6 +14615,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -13824,6 +14658,8 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -13901,6 +14737,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -13927,6 +14764,8 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14004,6 +14843,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14030,6 +14870,8 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -14107,6 +14949,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -14133,6 +14976,8 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -14210,6 +15055,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -14252,6 +15098,8 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14329,6 +15177,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -14355,6 +15204,8 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14432,6 +15283,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14458,6 +15310,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -14535,6 +15389,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -14561,6 +15416,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -14638,6 +15495,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -14680,6 +15538,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14757,6 +15617,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -14783,6 +15644,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -14860,6 +15723,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14886,6 +15750,8 @@ export type UserCreateWithoutThreadReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -14963,6 +15829,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -14989,6 +15856,8 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -15066,6 +15935,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15108,6 +15978,8 @@ export type UserUpdateWithoutThreadReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -15185,6 +16057,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -15211,6 +16084,8 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -15288,6 +16163,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -15314,6 +16190,8 @@ export type UserCreateWithoutThreadsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -15391,6 +16269,7 @@ export type UserCreateWithoutThreadsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -15417,6 +16296,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -15494,6 +16375,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15536,6 +16418,8 @@ export type UserUpdateWithoutThreadsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -15613,6 +16497,7 @@ export type UserUpdateWithoutThreadsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -15639,6 +16524,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -15716,6 +16603,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -15742,6 +16630,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -15819,6 +16709,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -15845,6 +16736,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -15922,6 +16815,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -15964,6 +16858,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -16041,6 +16937,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -16067,6 +16964,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -16144,6 +17043,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -16170,6 +17070,8 @@ export type UserCreateWithoutReviewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -16247,6 +17149,7 @@ export type UserCreateWithoutReviewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -16273,6 +17176,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -16350,6 +17255,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -16392,6 +17298,8 @@ export type UserUpdateWithoutReviewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -16469,6 +17377,7 @@ export type UserUpdateWithoutReviewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -16495,6 +17404,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -16572,6 +17483,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -16598,6 +17510,8 @@ export type UserCreateWithoutReviewLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -16675,6 +17589,7 @@ export type UserCreateWithoutReviewLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -16701,6 +17616,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -16778,6 +17695,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -16820,6 +17738,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -16897,6 +17817,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -16923,6 +17844,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -17000,6 +17923,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17026,6 +17950,8 @@ export type UserCreateWithoutBlogsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -17103,6 +18029,7 @@ export type UserCreateWithoutBlogsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -17129,6 +18056,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -17206,6 +18135,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -17248,6 +18178,8 @@ export type UserUpdateWithoutBlogsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -17325,6 +18257,7 @@ export type UserUpdateWithoutBlogsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -17351,6 +18284,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -17428,6 +18363,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17454,6 +18390,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -17531,6 +18469,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -17557,6 +18496,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -17634,6 +18575,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -17676,6 +18618,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -17753,6 +18697,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -17779,6 +18724,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -17856,6 +18803,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -17882,6 +18830,8 @@ export type UserCreateWithoutNotificationsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -17959,6 +18909,7 @@ export type UserCreateWithoutNotificationsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -17985,6 +18936,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -18062,6 +19015,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18104,6 +19058,8 @@ export type UserUpdateWithoutNotificationsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -18181,6 +19137,7 @@ export type UserUpdateWithoutNotificationsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -18207,6 +19164,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -18284,6 +19243,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -18310,6 +19270,8 @@ export type UserCreateWithoutReportsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -18387,6 +19349,7 @@ export type UserCreateWithoutReportsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -18413,6 +19376,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -18490,6 +19455,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18532,6 +19498,8 @@ export type UserUpdateWithoutReportsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -18609,6 +19577,7 @@ export type UserUpdateWithoutReportsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -18635,6 +19604,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -18712,6 +19683,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -18738,6 +19710,8 @@ export type UserCreateWithoutModerationActionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -18815,6 +19789,7 @@ export type UserCreateWithoutModerationActionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -18841,6 +19816,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -18918,6 +19895,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18960,6 +19938,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19037,6 +20017,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -19063,6 +20044,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19140,6 +20123,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19166,6 +20150,8 @@ export type UserCreateWithoutPollsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -19243,6 +20229,7 @@ export type UserCreateWithoutPollsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -19269,6 +20256,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -19346,6 +20335,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -19388,6 +20378,8 @@ export type UserUpdateWithoutPollsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19465,6 +20457,7 @@ export type UserUpdateWithoutPollsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -19491,6 +20484,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19568,6 +20563,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -19594,6 +20590,8 @@ export type UserCreateWithoutPollVotesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -19671,6 +20669,7 @@ export type UserCreateWithoutPollVotesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -19697,6 +20696,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -19774,6 +20775,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -19816,6 +20818,8 @@ export type UserUpdateWithoutPollVotesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19893,6 +20897,7 @@ export type UserUpdateWithoutPollVotesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -19919,6 +20924,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -19996,6 +21003,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20022,6 +21030,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -20099,6 +21109,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -20125,6 +21136,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -20202,6 +21215,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20244,6 +21258,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -20321,6 +21337,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -20347,6 +21364,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -20424,6 +21443,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20450,6 +21470,8 @@ export type UserCreateWithoutPublicKeyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -20527,6 +21549,7 @@ export type UserCreateWithoutPublicKeyInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -20553,6 +21576,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -20630,6 +21655,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -20672,6 +21698,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -20749,6 +21777,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -20775,6 +21804,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -20852,6 +21883,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -20878,6 +21910,8 @@ export type UserCreateWithoutConversations1Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -20955,6 +21989,7 @@ export type UserCreateWithoutConversations1Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -20981,6 +22016,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -21058,6 +22095,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21089,6 +22127,8 @@ export type UserCreateWithoutConversations2Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -21166,6 +22206,7 @@ export type UserCreateWithoutConversations2Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -21192,6 +22233,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -21269,6 +22312,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21311,6 +22355,8 @@ export type UserUpdateWithoutConversations1Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -21388,6 +22434,7 @@ export type UserUpdateWithoutConversations1Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -21414,6 +22461,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -21491,6 +22540,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -21528,6 +22578,8 @@ export type UserUpdateWithoutConversations2Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -21605,6 +22657,7 @@ export type UserUpdateWithoutConversations2Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -21631,6 +22684,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -21708,6 +22763,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -21734,6 +22790,8 @@ export type UserCreateWithoutSentMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -21811,6 +22869,7 @@ export type UserCreateWithoutSentMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -21837,6 +22896,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -21914,6 +22975,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21956,6 +23018,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22033,6 +23097,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -22059,6 +23124,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22136,6 +23203,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22162,6 +23230,8 @@ export type UserCreateWithoutMessageReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -22239,6 +23309,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -22265,6 +23336,8 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -22342,6 +23415,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22384,6 +23458,8 @@ export type UserUpdateWithoutMessageReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22461,6 +23537,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -22487,6 +23564,8 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22564,6 +23643,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22590,6 +23670,8 @@ export type UserCreateWithoutGroupsOwnedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -22668,6 +23750,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
@@ -22693,6 +23776,8 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -22771,6 +23856,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
@@ -22812,6 +23898,8 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22890,6 +23978,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
@@ -22915,6 +24004,8 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -22993,6 +24084,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -23018,6 +24110,8 @@ export type UserCreateWithoutGroupMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -23096,6 +24190,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
@@ -23121,6 +24216,8 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -23199,6 +24296,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
@@ -23240,6 +24338,8 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -23318,6 +24418,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
@@ -23343,6 +24444,8 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -23421,6 +24524,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -23446,6 +24550,8 @@ export type UserCreateWithoutGroupMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -23524,6 +24630,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
@@ -23549,6 +24656,8 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -23627,6 +24736,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
@@ -23668,6 +24778,8 @@ export type UserUpdateWithoutGroupMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -23746,6 +24858,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
@@ -23771,6 +24884,8 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -23849,6 +24964,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -23874,6 +24990,8 @@ export type UserCreateWithoutGroupReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -23952,6 +25070,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -23977,6 +25096,8 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -24055,6 +25176,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -24096,6 +25218,8 @@ export type UserUpdateWithoutGroupReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -24174,6 +25298,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -24199,6 +25324,8 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -24277,6 +25404,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -24302,6 +25430,8 @@ export type UserCreateWithoutDeviceKeysInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -24379,6 +25509,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -24405,6 +25536,8 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -24482,6 +25615,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -24524,6 +25658,8 @@ export type UserUpdateWithoutDeviceKeysInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -24601,6 +25737,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -24627,6 +25764,8 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -24704,6 +25843,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -24730,6 +25870,8 @@ export type UserCreateWithoutBlocksMadeInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -24807,6 +25949,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -24833,6 +25976,8 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -24910,6 +26055,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -24941,6 +26087,8 @@ export type UserCreateWithoutBlocksReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -25018,6 +26166,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -25044,6 +26193,8 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -25121,6 +26272,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -25163,6 +26315,8 @@ export type UserUpdateWithoutBlocksMadeInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25240,6 +26394,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -25266,6 +26421,8 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25343,6 +26500,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -25380,6 +26538,8 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25457,6 +26617,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -25483,6 +26644,8 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25560,6 +26723,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -25586,6 +26750,8 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -25663,6 +26829,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -25689,6 +26856,8 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -25766,6 +26935,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -25808,6 +26978,8 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25885,6 +27057,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -25911,6 +27084,8 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -25988,6 +27163,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -26014,6 +27190,8 @@ export type UserCreateWithoutE2eDevicesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -26091,6 +27269,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -26117,6 +27296,8 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -26194,6 +27375,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -26236,6 +27418,8 @@ export type UserUpdateWithoutE2eDevicesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -26313,6 +27497,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -26339,6 +27524,8 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -26416,6 +27603,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -26442,6 +27630,8 @@ export type UserCreateWithoutActivitiesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -26519,6 +27709,7 @@ export type UserCreateWithoutActivitiesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -26545,6 +27736,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -26622,6 +27815,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -26664,6 +27858,8 @@ export type UserUpdateWithoutActivitiesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -26741,6 +27937,7 @@ export type UserUpdateWithoutActivitiesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -26767,6 +27964,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -26844,6 +28043,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -26870,6 +28070,8 @@ export type UserCreateWithoutActivityLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -26947,6 +28149,7 @@ export type UserCreateWithoutActivityLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -26973,6 +28176,8 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -27050,6 +28255,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -27092,6 +28298,8 @@ export type UserUpdateWithoutActivityLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -27169,6 +28377,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -27195,6 +28404,8 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -27272,6 +28483,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -27298,6 +28510,8 @@ export type UserCreateWithoutActivityRepostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -27375,6 +28589,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -27401,6 +28616,8 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -27478,6 +28695,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -27520,6 +28738,8 @@ export type UserUpdateWithoutActivityRepostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -27597,6 +28817,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -27623,6 +28844,8 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -27700,6 +28923,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -27726,6 +28950,8 @@ export type UserCreateWithoutRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -27803,6 +29029,7 @@ export type UserCreateWithoutRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -27829,6 +29056,8 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -27906,6 +29135,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -27948,6 +29178,8 @@ export type UserUpdateWithoutRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28025,6 +29257,7 @@ export type UserUpdateWithoutRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -28051,6 +29284,8 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28128,6 +29363,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -28154,6 +29390,8 @@ export type UserCreateWithoutScimSubjectInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -28231,6 +29469,7 @@ export type UserCreateWithoutScimSubjectInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -28257,6 +29496,8 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -28334,6 +29575,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -28376,6 +29618,8 @@ export type UserUpdateWithoutScimSubjectInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28453,6 +29697,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -28479,6 +29724,8 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28556,6 +29803,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -28582,6 +29830,8 @@ export type UserCreateWithoutShotsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -28659,6 +29909,7 @@ export type UserCreateWithoutShotsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -28685,6 +29936,8 @@ export type UserUncheckedCreateWithoutShotsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -28762,6 +30015,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -28804,6 +30058,8 @@ export type UserUpdateWithoutShotsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28881,6 +30137,7 @@ export type UserUpdateWithoutShotsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -28907,6 +30164,8 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -28984,6 +30243,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29010,6 +30270,8 @@ export type UserCreateWithoutShotLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -29087,6 +30349,7 @@ export type UserCreateWithoutShotLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -29113,6 +30376,8 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -29190,6 +30455,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -29232,6 +30498,8 @@ export type UserUpdateWithoutShotLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -29309,6 +30577,7 @@ export type UserUpdateWithoutShotLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -29335,6 +30604,8 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -29412,6 +30683,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29438,6 +30710,8 @@ export type UserCreateWithoutShotSavesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -29515,6 +30789,7 @@ export type UserCreateWithoutShotSavesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -29541,6 +30816,8 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -29618,6 +30895,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -29660,6 +30938,8 @@ export type UserUpdateWithoutShotSavesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -29737,6 +31017,7 @@ export type UserUpdateWithoutShotSavesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -29763,6 +31044,8 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -29840,6 +31123,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -29866,6 +31150,8 @@ export type UserCreateWithoutShotCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -29943,6 +31229,7 @@ export type UserCreateWithoutShotCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -29969,6 +31256,8 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -30046,6 +31335,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -30088,6 +31378,8 @@ export type UserUpdateWithoutShotCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -30165,6 +31457,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -30191,6 +31484,8 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -30268,6 +31563,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -30294,6 +31590,8 @@ export type UserCreateWithoutSocialConnectionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -30372,6 +31670,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -30397,6 +31696,8 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -30475,6 +31776,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -30516,6 +31818,8 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -30594,6 +31898,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -30619,6 +31924,8 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -30697,6 +32004,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -30722,6 +32030,8 @@ export type UserCreateWithoutImportedMediaInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -30800,6 +32110,7 @@ export type UserCreateWithoutImportedMediaInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -30825,6 +32136,8 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -30903,6 +32216,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -30944,6 +32258,8 @@ export type UserUpdateWithoutImportedMediaInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31022,6 +32338,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -31047,6 +32364,8 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31125,6 +32444,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -31150,6 +32470,8 @@ export type UserCreateWithoutStoriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -31227,6 +32549,7 @@ export type UserCreateWithoutStoriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -31253,6 +32576,8 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -31330,6 +32655,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -31372,6 +32698,8 @@ export type UserUpdateWithoutStoriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31449,6 +32777,7 @@ export type UserUpdateWithoutStoriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -31475,6 +32804,8 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31552,6 +32883,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -31578,6 +32910,8 @@ export type UserCreateWithoutStoryViewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -31655,6 +32989,7 @@ export type UserCreateWithoutStoryViewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
@@ -31681,6 +33016,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
   passwordHash?: string
   role?: $Enums.Role
   reputation?: number
@@ -31758,6 +33095,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
   groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
   groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -31800,6 +33138,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31877,6 +33217,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
@@ -31903,6 +33244,8 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
@@ -31980,6 +33323,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
   clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
   clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
   groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
   groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -32055,6 +33399,7 @@ export type UserCountOutputType = {
   clubEventRsvps: number
   clubInvitesCreated: number
   clubJoinRequests: number
+  clubWatchlistAdds: number
   groupsOwned: number
   groupMemberships: number
   groupMessages: number
@@ -32123,6 +33468,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   clubEventRsvps?: boolean | UserCountOutputTypeCountClubEventRsvpsArgs
   clubInvitesCreated?: boolean | UserCountOutputTypeCountClubInvitesCreatedArgs
   clubJoinRequests?: boolean | UserCountOutputTypeCountClubJoinRequestsArgs
+  clubWatchlistAdds?: boolean | UserCountOutputTypeCountClubWatchlistAddsArgs
   groupsOwned?: boolean | UserCountOutputTypeCountGroupsOwnedArgs
   groupMemberships?: boolean | UserCountOutputTypeCountGroupMembershipsArgs
   groupMessages?: boolean | UserCountOutputTypeCountGroupMessagesArgs
@@ -32509,6 +33855,13 @@ export type UserCountOutputTypeCountClubJoinRequestsArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountClubWatchlistAddsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClubWatchlistItemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountGroupsOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.GroupConversationWhereInput
 }
@@ -32613,6 +33966,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  favoriteGenres?: boolean
+  onboardedAt?: boolean
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
@@ -32691,6 +34046,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   clubEventRsvps?: boolean | Prisma.User$clubEventRsvpsArgs<ExtArgs>
   clubInvitesCreated?: boolean | Prisma.User$clubInvitesCreatedArgs<ExtArgs>
   clubJoinRequests?: boolean | Prisma.User$clubJoinRequestsArgs<ExtArgs>
+  clubWatchlistAdds?: boolean | Prisma.User$clubWatchlistAddsArgs<ExtArgs>
   groupsOwned?: boolean | Prisma.User$groupsOwnedArgs<ExtArgs>
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
   groupMessages?: boolean | Prisma.User$groupMessagesArgs<ExtArgs>
@@ -32718,6 +34074,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  favoriteGenres?: boolean
+  onboardedAt?: boolean
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
@@ -32753,6 +34111,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  favoriteGenres?: boolean
+  onboardedAt?: boolean
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
@@ -32788,6 +34148,8 @@ export type UserSelectScalar = {
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  favoriteGenres?: boolean
+  onboardedAt?: boolean
   passwordHash?: boolean
   role?: boolean
   reputation?: boolean
@@ -32815,7 +34177,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -32870,6 +34232,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   clubEventRsvps?: boolean | Prisma.User$clubEventRsvpsArgs<ExtArgs>
   clubInvitesCreated?: boolean | Prisma.User$clubInvitesCreatedArgs<ExtArgs>
   clubJoinRequests?: boolean | Prisma.User$clubJoinRequestsArgs<ExtArgs>
+  clubWatchlistAdds?: boolean | Prisma.User$clubWatchlistAddsArgs<ExtArgs>
   groupsOwned?: boolean | Prisma.User$groupsOwnedArgs<ExtArgs>
   groupMemberships?: boolean | Prisma.User$groupMembershipsArgs<ExtArgs>
   groupMessages?: boolean | Prisma.User$groupMessagesArgs<ExtArgs>
@@ -32947,6 +34310,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     clubEventRsvps: Prisma.$ClubEventRSVPPayload<ExtArgs>[]
     clubInvitesCreated: Prisma.$ClubInvitePayload<ExtArgs>[]
     clubJoinRequests: Prisma.$ClubJoinRequestPayload<ExtArgs>[]
+    clubWatchlistAdds: Prisma.$ClubWatchlistItemPayload<ExtArgs>[]
     groupsOwned: Prisma.$GroupConversationPayload<ExtArgs>[]
     groupMemberships: Prisma.$GroupMemberPayload<ExtArgs>[]
     groupMessages: Prisma.$GroupMessagePayload<ExtArgs>[]
@@ -32977,6 +34341,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     displayName: string
     bio: string | null
     avatarUrl: string | null
+    favoriteGenres: string[]
+    onboardedAt: Date | null
     passwordHash: string
     role: $Enums.Role
     reputation: number
@@ -33459,6 +34825,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   clubEventRsvps<T extends Prisma.User$clubEventRsvpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubEventRsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubEventRSVPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubInvitesCreated<T extends Prisma.User$clubInvitesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubInvitesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clubJoinRequests<T extends Prisma.User$clubJoinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubJoinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubJoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clubWatchlistAdds<T extends Prisma.User$clubWatchlistAddsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clubWatchlistAddsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClubWatchlistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupsOwned<T extends Prisma.User$groupsOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupsOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupMemberships<T extends Prisma.User$groupMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   groupMessages<T extends Prisma.User$groupMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -33511,6 +34878,8 @@ export interface UserFieldRefs {
   readonly displayName: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly favoriteGenres: Prisma.FieldRef<"User", 'String[]'>
+  readonly onboardedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly reputation: Prisma.FieldRef<"User", 'Int'>
@@ -35183,6 +36552,30 @@ export type User$clubJoinRequestsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ClubJoinRequestScalarFieldEnum | Prisma.ClubJoinRequestScalarFieldEnum[]
+}
+
+/**
+ * User.clubWatchlistAdds
+ */
+export type User$clubWatchlistAddsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClubWatchlistItem
+   */
+  select?: Prisma.ClubWatchlistItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClubWatchlistItem
+   */
+  omit?: Prisma.ClubWatchlistItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClubWatchlistItemInclude<ExtArgs> | null
+  where?: Prisma.ClubWatchlistItemWhereInput
+  orderBy?: Prisma.ClubWatchlistItemOrderByWithRelationInput | Prisma.ClubWatchlistItemOrderByWithRelationInput[]
+  cursor?: Prisma.ClubWatchlistItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClubWatchlistItemScalarFieldEnum | Prisma.ClubWatchlistItemScalarFieldEnum[]
 }
 
 /**

@@ -11,6 +11,14 @@ export async function getProfile(req: Request, res: Response, next: NextFunction
   }
 }
 
+export async function completeOnboarding(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const favoriteGenres = Array.isArray(req.body?.favoriteGenres) ? req.body.favoriteGenres : [];
+    res.status(200).json(await service.completeOnboarding(userId, favoriteGenres));
+  } catch (err) { next(err); }
+}
+
 export async function checkUsernameAvailable(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const username = String(req.query.username ?? "");

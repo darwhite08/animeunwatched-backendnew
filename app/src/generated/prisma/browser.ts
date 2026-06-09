@@ -178,6 +178,11 @@ export type PostCommentLike = Prisma.PostCommentLikeModel
  */
 export type Club = Prisma.ClubModel
 /**
+ * Model ClubWatchlistItem
+ * 
+ */
+export type ClubWatchlistItem = Prisma.ClubWatchlistItemModel
+/**
  * Model ClubInvite
  * 
  */

@@ -85,6 +85,8 @@ const userSelect = {
   avatarUrl: true,
   role: true,
   reputation: true,
+  verifiedKind: true,
+  onboardedAt: true,
   streakDays: true,   // real streak tracking (not rep-estimate)
   bestStreak: true,
   lastActiveAt: true,

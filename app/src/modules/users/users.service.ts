@@ -127,6 +127,18 @@ export async function updateMe(userId: string, dto: UpdateMeDto) {
   return { user };
 }
 
+// ─── onboarding ────────────────────────────────────────────────────────────────
+
+export async function completeOnboarding(userId: string, favoriteGenres: string[]) {
+  const clean = (favoriteGenres ?? []).filter((g) => typeof g === "string").map((g) => g.trim()).filter(Boolean).slice(0, 20);
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: { favoriteGenres: clean, onboardedAt: new Date() },
+    select: { ...safeUserSelect, isPrivate: true, onboardedAt: true, favoriteGenres: true },
+  });
+  return { user };
+}
+
 // ─── change username ────────────────────────────────────────────────────────────
 
 export async function checkUsernameAvailable(username: string, selfId?: string) {

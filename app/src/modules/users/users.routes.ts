@@ -8,6 +8,7 @@ export const usersRouter = Router();
 
 // ── Static routes MUST be registered before dynamic /:username routes ─────────
 usersRouter.patch("/me",                      requireAuth, ctrl.updateMe);
+usersRouter.post("/me/onboarding",            requireAuth, ctrl.completeOnboarding);
 usersRouter.get("/me/export",                 requireAuth, ctrl.exportMyData);
 usersRouter.get("/me/connected-accounts",     requireAuth, ctrl.getConnectedAccounts);
 // Slug management — auth required; slug is the routing alias, never a data key

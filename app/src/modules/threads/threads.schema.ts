@@ -4,6 +4,7 @@ export const createThreadSchema = z.object({
   title:   z.string().min(3).max(120),
   content: z.string().min(10).max(20000),
   kind:    z.enum(["DISCUSSION", "ANNOUNCEMENT", "CHALLENGE", "EPISODE"]).optional(),
+  tags:    z.array(z.string().max(24)).max(5).optional(),
 });
 
 export const updateThreadSchema = createThreadSchema.partial();

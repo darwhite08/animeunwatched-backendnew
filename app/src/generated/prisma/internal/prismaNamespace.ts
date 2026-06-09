@@ -422,6 +422,7 @@ export const ModelName = {
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
   Club: 'Club',
+  ClubWatchlistItem: 'ClubWatchlistItem',
   ClubInvite: 'ClubInvite',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubEvent: 'ClubEvent',
@@ -570,7 +571,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotSave" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotSave" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2939,6 +2940,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ClubCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ClubCountAggregateOutputType> | number
+        }
+      }
+    }
+    ClubWatchlistItem: {
+      payload: Prisma.$ClubWatchlistItemPayload<ExtArgs>
+      fields: Prisma.ClubWatchlistItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClubWatchlistItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClubWatchlistItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ClubWatchlistItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClubWatchlistItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        findMany: {
+          args: Prisma.ClubWatchlistItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>[]
+        }
+        create: {
+          args: Prisma.ClubWatchlistItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        createMany: {
+          args: Prisma.ClubWatchlistItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClubWatchlistItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ClubWatchlistItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        update: {
+          args: Prisma.ClubWatchlistItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ClubWatchlistItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClubWatchlistItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClubWatchlistItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ClubWatchlistItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClubWatchlistItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ClubWatchlistItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClubWatchlistItem>
+        }
+        groupBy: {
+          args: Prisma.ClubWatchlistItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubWatchlistItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClubWatchlistItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClubWatchlistItemCountAggregateOutputType> | number
         }
       }
     }
@@ -12831,6 +12906,8 @@ export const UserScalarFieldEnum = {
   displayName: 'displayName',
   bio: 'bio',
   avatarUrl: 'avatarUrl',
+  favoriteGenres: 'favoriteGenres',
+  onboardedAt: 'onboardedAt',
   passwordHash: 'passwordHash',
   role: 'role',
   reputation: 'reputation',
@@ -13327,6 +13404,19 @@ export const ClubScalarFieldEnum = {
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
 
 
+export const ClubWatchlistItemScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  malId: 'malId',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubWatchlistItemScalarFieldEnum = (typeof ClubWatchlistItemScalarFieldEnum)[keyof typeof ClubWatchlistItemScalarFieldEnum]
+
+
 export const ClubInviteScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
@@ -13424,6 +13514,7 @@ export const ThreadScalarFieldEnum = {
   kind: 'kind',
   pinnedUntil: 'pinnedUntil',
   episodeNumber: 'episodeNumber',
+  tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -15406,6 +15497,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
  * Reference to a field of type 'Role'
  */
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -15444,20 +15549,6 @@ export type EnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'VerificationKind[]'
  */
 export type ListEnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationKind[]'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -15852,6 +15943,7 @@ export type GlobalOmitConfig = {
   postComment?: Prisma.PostCommentOmit
   postCommentLike?: Prisma.PostCommentLikeOmit
   club?: Prisma.ClubOmit
+  clubWatchlistItem?: Prisma.ClubWatchlistItemOmit
   clubInvite?: Prisma.ClubInviteOmit
   clubJoinRequest?: Prisma.ClubJoinRequestOmit
   clubEvent?: Prisma.ClubEventOmit

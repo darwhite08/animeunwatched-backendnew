@@ -14,6 +14,8 @@ const userSelect = {
   role: true,
   reputation: true,
   isBanned: true,
+  verifiedKind: true,
+  onboardedAt: true,
   createdAt: true,
 } as const;
 

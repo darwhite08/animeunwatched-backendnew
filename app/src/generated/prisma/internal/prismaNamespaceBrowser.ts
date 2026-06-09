@@ -81,6 +81,7 @@ export const ModelName = {
   PostComment: 'PostComment',
   PostCommentLike: 'PostCommentLike',
   Club: 'Club',
+  ClubWatchlistItem: 'ClubWatchlistItem',
   ClubInvite: 'ClubInvite',
   ClubJoinRequest: 'ClubJoinRequest',
   ClubEvent: 'ClubEvent',
@@ -240,6 +241,8 @@ export const UserScalarFieldEnum = {
   displayName: 'displayName',
   bio: 'bio',
   avatarUrl: 'avatarUrl',
+  favoriteGenres: 'favoriteGenres',
+  onboardedAt: 'onboardedAt',
   passwordHash: 'passwordHash',
   role: 'role',
   reputation: 'reputation',
@@ -736,6 +739,19 @@ export const ClubScalarFieldEnum = {
 export type ClubScalarFieldEnum = (typeof ClubScalarFieldEnum)[keyof typeof ClubScalarFieldEnum]
 
 
+export const ClubWatchlistItemScalarFieldEnum = {
+  id: 'id',
+  clubId: 'clubId',
+  malId: 'malId',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type ClubWatchlistItemScalarFieldEnum = (typeof ClubWatchlistItemScalarFieldEnum)[keyof typeof ClubWatchlistItemScalarFieldEnum]
+
+
 export const ClubInviteScalarFieldEnum = {
   id: 'id',
   clubId: 'clubId',
@@ -833,6 +849,7 @@ export const ThreadScalarFieldEnum = {
   kind: 'kind',
   pinnedUntil: 'pinnedUntil',
   episodeNumber: 'episodeNumber',
+  tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

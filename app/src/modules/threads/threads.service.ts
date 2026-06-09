@@ -70,6 +70,7 @@ export async function createClubThread(
       clubId: club.id,
       kind: kind as "DISCUSSION" | "ANNOUNCEMENT" | "CHALLENGE" | "EPISODE",
       ...(kind === "ANNOUNCEMENT" ? { isPinned: true } : {}),
+      ...(Array.isArray(dto.tags) ? { tags: dto.tags.map((t) => String(t).trim().toLowerCase().replace(/^#/, "")).filter(Boolean).slice(0, 5) } : {}),
     },
     include: {
       author: { select: authorSelect },
