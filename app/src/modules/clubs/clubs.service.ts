@@ -360,6 +360,31 @@ export async function leaderboard(slug: string, period: "week" | "all") {
   return { leaderboard: rows.map((r, i) => ({ rank: i + 1, xp: r.xp, role: r.role, user: r.user })) };
 }
 
+// ─── activity feed (P2) — merged recent threads/events/members/watchlist ───────
+
+export async function getClubActivity(slug: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const since = new Date(Date.now() - 60 * 24 * 60 * 60_000); // last 60 days
+
+  const [threads, events, members, watch] = await Promise.all([
+    prisma.thread.findMany({ where: { clubId: club.id, createdAt: { gte: since } }, orderBy: { createdAt: "desc" }, take: 15, select: { id: true, title: true, kind: true, createdAt: true, author: { select: authorSelect } } }),
+    prisma.clubEvent.findMany({ where: { clubId: club.id, createdAt: { gte: since } }, orderBy: { createdAt: "desc" }, take: 10, select: { id: true, title: true, startsAt: true, createdAt: true, creator: { select: authorSelect } } }),
+    prisma.clubMember.findMany({ where: { clubId: club.id, joinedAt: { gte: since } }, orderBy: { joinedAt: "desc" }, take: 10, select: { joinedAt: true, user: { select: authorSelect } } }),
+    prisma.clubWatchlistItem.findMany({ where: { clubId: club.id, createdAt: { gte: since } }, orderBy: { createdAt: "desc" }, take: 10, select: { id: true, malId: true, title: true, createdAt: true, addedBy: { select: authorSelect } } }),
+  ]);
+
+  type Item = { type: string; at: string; actor: typeof threads[number]["author"] | null; text: string; link?: string };
+  const items: Item[] = [
+    ...threads.map((t) => ({ type: t.kind === "ANNOUNCEMENT" ? "announcement" : "thread", at: t.createdAt.toISOString(), actor: t.author, text: t.title.replace(/^\[CHALLENGE\]\s*/, ""), link: `/threads/${t.id}` })),
+    ...events.map((e) => ({ type: "event", at: e.createdAt.toISOString(), actor: e.creator, text: e.title })),
+    ...members.map((m) => ({ type: "member", at: m.joinedAt.toISOString(), actor: m.user, text: "joined the club" })),
+    ...watch.map((w) => ({ type: "watchlist", at: w.createdAt.toISOString(), actor: w.addedBy, text: w.title, link: `/anime/${w.malId}` })),
+  ].sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 40);
+
+  return { items };
+}
+
 // ─── shared watchlist (P2) ─────────────────────────────────────────────────────
 
 export async function getWatchlist(slug: string) {
@@ -523,7 +548,7 @@ export async function getClubMembers(slug: string, page: number, limit: number) 
   const club = await prisma.club.findUnique({ where: { slug } });
   if (!club) throw notFound("Club not found");
 
-  const [members, total] = await prisma.$transaction([
+  const [members, total, topXp] = await prisma.$transaction([
     prisma.clubMember.findMany({
       where: { clubId: club.id },
       include: {
@@ -534,6 +559,7 @@ export async function getClubMembers(slug: string, page: number, limit: number) 
             displayName: true,
             avatarUrl: true,
             reputation: true,
+            verifiedKind: true,
           },
         },
       },
@@ -542,9 +568,24 @@ export async function getClubMembers(slug: string, page: number, limit: number) 
       skip: (page - 1) * limit,
     }),
     prisma.clubMember.count({ where: { clubId: club.id } }),
+    // Top-3 contributors by club XP, for a "Top contributor" badge.
+    prisma.clubMember.findMany({ where: { clubId: club.id, xp: { gt: 0 } }, orderBy: { xp: "desc" }, take: 3, select: { userId: true } }),
   ]);
 
-  return { data: members, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+  const topSet = new Set(topXp.map((m) => m.userId));
+  const now = Date.now();
+  const withBadges = members.map((m) => {
+    const badges: string[] = [];
+    if (club.ownerId === m.userId) badges.push("founder");
+    else if (m.role === "ADMIN") badges.push("admin");
+    else if (m.role === "MOD") badges.push("mod");
+    if (m.user.verifiedKind) badges.push("verified");
+    if (topSet.has(m.userId)) badges.push("top");
+    if (now - new Date(m.joinedAt).getTime() > 30 * 24 * 60 * 60_000) badges.push("veteran");
+    return { ...m, badges };
+  });
+
+  return { data: withBadges, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
 }
 
 // ─── update ───────────────────────────────────────────────────────────────────

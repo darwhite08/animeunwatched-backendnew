@@ -224,3 +224,8 @@ export async function removeWatchlist(req: Request, res: Response, next: NextFun
     res.status(200).json(await service.removeFromWatchlist(actorId, req.params.slug as string, Number(req.params.malId)));
   } catch (err) { next(err); }
 }
+
+export async function getActivity(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getClubActivity(req.params.slug as string)); }
+  catch (err) { next(err); }
+}

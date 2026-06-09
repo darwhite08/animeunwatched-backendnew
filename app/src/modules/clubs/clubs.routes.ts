@@ -36,6 +36,8 @@ clubsRouter.get("/:slug/leaderboard", optionalAuth, ctrl.leaderboard);
 // Club polls (vote via the existing POST /polls/:id/vote)
 clubsRouter.get("/:slug/polls",  optionalAuth, ctrl.listClubPolls);
 clubsRouter.post("/:slug/polls", requireAuth, ctrl.createClubPoll);
+// Activity feed (P2)
+clubsRouter.get("/:slug/activity", optionalAuth, ctrl.getActivity);
 // Shared watchlist (P2)
 clubsRouter.get("/:slug/watchlist", optionalAuth, ctrl.getWatchlist);
 clubsRouter.post("/:slug/watchlist", requireAuth, ctrl.addWatchlist);
