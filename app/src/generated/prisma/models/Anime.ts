@@ -89,6 +89,7 @@ export type AnimeMinAggregateOutputType = {
   localImagePath: string | null
   trailerUrl: string | null
   trailerYoutubeId: string | null
+  trailerCheckedAt: Date | null
   broadcastDay: string | null
   broadcastTime: string | null
   broadcastTz: string | null
@@ -138,6 +139,7 @@ export type AnimeMaxAggregateOutputType = {
   localImagePath: string | null
   trailerUrl: string | null
   trailerYoutubeId: string | null
+  trailerCheckedAt: Date | null
   broadcastDay: string | null
   broadcastTime: string | null
   broadcastTz: string | null
@@ -188,6 +190,7 @@ export type AnimeCountAggregateOutputType = {
   localImagePath: number
   trailerUrl: number
   trailerYoutubeId: number
+  trailerCheckedAt: number
   broadcastDay: number
   broadcastTime: number
   broadcastTz: number
@@ -272,6 +275,7 @@ export type AnimeMinAggregateInputType = {
   localImagePath?: true
   trailerUrl?: true
   trailerYoutubeId?: true
+  trailerCheckedAt?: true
   broadcastDay?: true
   broadcastTime?: true
   broadcastTz?: true
@@ -321,6 +325,7 @@ export type AnimeMaxAggregateInputType = {
   localImagePath?: true
   trailerUrl?: true
   trailerYoutubeId?: true
+  trailerCheckedAt?: true
   broadcastDay?: true
   broadcastTime?: true
   broadcastTz?: true
@@ -371,6 +376,7 @@ export type AnimeCountAggregateInputType = {
   localImagePath?: true
   trailerUrl?: true
   trailerYoutubeId?: true
+  trailerCheckedAt?: true
   broadcastDay?: true
   broadcastTime?: true
   broadcastTz?: true
@@ -509,6 +515,7 @@ export type AnimeGroupByOutputType = {
   localImagePath: string | null
   trailerUrl: string | null
   trailerYoutubeId: string | null
+  trailerCheckedAt: Date | null
   broadcastDay: string | null
   broadcastTime: string | null
   broadcastTz: string | null
@@ -583,6 +590,7 @@ export type AnimeWhereInput = {
   localImagePath?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerYoutubeId?: Prisma.StringNullableFilter<"Anime"> | string | null
+  trailerCheckedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
   broadcastDay?: Prisma.StringNullableFilter<"Anime"> | string | null
   broadcastTime?: Prisma.StringNullableFilter<"Anime"> | string | null
   broadcastTz?: Prisma.StringNullableFilter<"Anime"> | string | null
@@ -646,6 +654,7 @@ export type AnimeOrderByWithRelationInput = {
   localImagePath?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerYoutubeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  trailerCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastDay?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastTime?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastTz?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -712,6 +721,7 @@ export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   localImagePath?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
   trailerYoutubeId?: Prisma.StringNullableFilter<"Anime"> | string | null
+  trailerCheckedAt?: Prisma.DateTimeNullableFilter<"Anime"> | Date | string | null
   broadcastDay?: Prisma.StringNullableFilter<"Anime"> | string | null
   broadcastTime?: Prisma.StringNullableFilter<"Anime"> | string | null
   broadcastTz?: Prisma.StringNullableFilter<"Anime"> | string | null
@@ -775,6 +785,7 @@ export type AnimeOrderByWithAggregationInput = {
   localImagePath?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   trailerYoutubeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  trailerCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastDay?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastTime?: Prisma.SortOrderInput | Prisma.SortOrder
   broadcastTz?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -834,6 +845,7 @@ export type AnimeScalarWhereWithAggregatesInput = {
   localImagePath?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   trailerUrl?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   trailerYoutubeId?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
+  trailerCheckedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Anime"> | Date | string | null
   broadcastDay?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   broadcastTime?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   broadcastTz?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
@@ -885,6 +897,7 @@ export type AnimeCreateInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -948,6 +961,7 @@ export type AnimeUncheckedCreateInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -1011,6 +1025,7 @@ export type AnimeUpdateInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1074,6 +1089,7 @@ export type AnimeUncheckedUpdateInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1137,6 +1153,7 @@ export type AnimeCreateManyInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -1188,6 +1205,7 @@ export type AnimeUpdateManyMutationInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1239,6 +1257,7 @@ export type AnimeUncheckedUpdateManyInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1290,6 +1309,7 @@ export type AnimeCountOrderByAggregateInput = {
   localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
   trailerYoutubeId?: Prisma.SortOrder
+  trailerCheckedAt?: Prisma.SortOrder
   broadcastDay?: Prisma.SortOrder
   broadcastTime?: Prisma.SortOrder
   broadcastTz?: Prisma.SortOrder
@@ -1356,6 +1376,7 @@ export type AnimeMaxOrderByAggregateInput = {
   localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
   trailerYoutubeId?: Prisma.SortOrder
+  trailerCheckedAt?: Prisma.SortOrder
   broadcastDay?: Prisma.SortOrder
   broadcastTime?: Prisma.SortOrder
   broadcastTz?: Prisma.SortOrder
@@ -1405,6 +1426,7 @@ export type AnimeMinOrderByAggregateInput = {
   localImagePath?: Prisma.SortOrder
   trailerUrl?: Prisma.SortOrder
   trailerYoutubeId?: Prisma.SortOrder
+  trailerCheckedAt?: Prisma.SortOrder
   broadcastDay?: Prisma.SortOrder
   broadcastTime?: Prisma.SortOrder
   broadcastTz?: Prisma.SortOrder
@@ -1697,6 +1719,7 @@ export type AnimeCreateWithoutTrendingStateInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -1759,6 +1782,7 @@ export type AnimeUncheckedCreateWithoutTrendingStateInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -1837,6 +1861,7 @@ export type AnimeUpdateWithoutTrendingStateInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1899,6 +1924,7 @@ export type AnimeUncheckedUpdateWithoutTrendingStateInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1961,6 +1987,7 @@ export type AnimeCreateWithoutGenresInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2023,6 +2050,7 @@ export type AnimeUncheckedCreateWithoutGenresInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2101,6 +2129,7 @@ export type AnimeUpdateWithoutGenresInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2163,6 +2192,7 @@ export type AnimeUncheckedUpdateWithoutGenresInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2225,6 +2255,7 @@ export type AnimeCreateWithoutStudiosInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2287,6 +2318,7 @@ export type AnimeUncheckedCreateWithoutStudiosInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2365,6 +2397,7 @@ export type AnimeUpdateWithoutStudiosInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2427,6 +2460,7 @@ export type AnimeUncheckedUpdateWithoutStudiosInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2489,6 +2523,7 @@ export type AnimeCreateWithoutEpisodeListInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2551,6 +2586,7 @@ export type AnimeUncheckedCreateWithoutEpisodeListInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2629,6 +2665,7 @@ export type AnimeUpdateWithoutEpisodeListInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2691,6 +2728,7 @@ export type AnimeUncheckedUpdateWithoutEpisodeListInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2753,6 +2791,7 @@ export type AnimeCreateWithoutRelationsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2815,6 +2854,7 @@ export type AnimeUncheckedCreateWithoutRelationsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2882,6 +2922,7 @@ export type AnimeCreateWithoutRelatedToInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -2944,6 +2985,7 @@ export type AnimeUncheckedCreateWithoutRelatedToInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3022,6 +3064,7 @@ export type AnimeUpdateWithoutRelationsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3084,6 +3127,7 @@ export type AnimeUncheckedUpdateWithoutRelationsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3157,6 +3201,7 @@ export type AnimeUpdateWithoutRelatedToInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3219,6 +3264,7 @@ export type AnimeUncheckedUpdateWithoutRelatedToInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3281,6 +3327,7 @@ export type AnimeCreateWithoutListEntriesInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3343,6 +3390,7 @@ export type AnimeUncheckedCreateWithoutListEntriesInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3421,6 +3469,7 @@ export type AnimeUpdateWithoutListEntriesInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3483,6 +3532,7 @@ export type AnimeUncheckedUpdateWithoutListEntriesInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3545,6 +3595,7 @@ export type AnimeCreateWithoutPostsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3607,6 +3658,7 @@ export type AnimeUncheckedCreateWithoutPostsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3685,6 +3737,7 @@ export type AnimeUpdateWithoutPostsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3747,6 +3800,7 @@ export type AnimeUncheckedUpdateWithoutPostsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3809,6 +3863,7 @@ export type AnimeCreateWithoutThreadsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3871,6 +3926,7 @@ export type AnimeUncheckedCreateWithoutThreadsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -3949,6 +4005,7 @@ export type AnimeUpdateWithoutThreadsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4011,6 +4068,7 @@ export type AnimeUncheckedUpdateWithoutThreadsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4073,6 +4131,7 @@ export type AnimeCreateWithoutReviewsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4135,6 +4194,7 @@ export type AnimeUncheckedCreateWithoutReviewsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4213,6 +4273,7 @@ export type AnimeUpdateWithoutReviewsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4275,6 +4336,7 @@ export type AnimeUncheckedUpdateWithoutReviewsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4337,6 +4399,7 @@ export type AnimeCreateWithoutActivitiesInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4399,6 +4462,7 @@ export type AnimeUncheckedCreateWithoutActivitiesInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4477,6 +4541,7 @@ export type AnimeUpdateWithoutActivitiesInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4539,6 +4604,7 @@ export type AnimeUncheckedUpdateWithoutActivitiesInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4601,6 +4667,7 @@ export type AnimeCreateWithoutShotsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4663,6 +4730,7 @@ export type AnimeUncheckedCreateWithoutShotsInput = {
   localImagePath?: string | null
   trailerUrl?: string | null
   trailerYoutubeId?: string | null
+  trailerCheckedAt?: Date | string | null
   broadcastDay?: string | null
   broadcastTime?: string | null
   broadcastTz?: string | null
@@ -4741,6 +4809,7 @@ export type AnimeUpdateWithoutShotsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4803,6 +4872,7 @@ export type AnimeUncheckedUpdateWithoutShotsInput = {
   localImagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trailerYoutubeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trailerCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   broadcastDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   broadcastTz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4986,6 +5056,7 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   localImagePath?: boolean
   trailerUrl?: boolean
   trailerYoutubeId?: boolean
+  trailerCheckedAt?: boolean
   broadcastDay?: boolean
   broadcastTime?: boolean
   broadcastTz?: boolean
@@ -5050,6 +5121,7 @@ export type AnimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   localImagePath?: boolean
   trailerUrl?: boolean
   trailerYoutubeId?: boolean
+  trailerCheckedAt?: boolean
   broadcastDay?: boolean
   broadcastTime?: boolean
   broadcastTz?: boolean
@@ -5101,6 +5173,7 @@ export type AnimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   localImagePath?: boolean
   trailerUrl?: boolean
   trailerYoutubeId?: boolean
+  trailerCheckedAt?: boolean
   broadcastDay?: boolean
   broadcastTime?: boolean
   broadcastTz?: boolean
@@ -5152,6 +5225,7 @@ export type AnimeSelectScalar = {
   localImagePath?: boolean
   trailerUrl?: boolean
   trailerYoutubeId?: boolean
+  trailerCheckedAt?: boolean
   broadcastDay?: boolean
   broadcastTime?: boolean
   broadcastTz?: boolean
@@ -5171,7 +5245,7 @@ export type AnimeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "wikipediaTitle" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
+export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "trailerCheckedAt" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "wikipediaTitle" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
 export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Anime$genresArgs<ExtArgs>
   studios?: boolean | Prisma.Anime$studiosArgs<ExtArgs>
@@ -5246,6 +5320,11 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     localImagePath: string | null
     trailerUrl: string | null
     trailerYoutubeId: string | null
+    /**
+     * Last time the YouTube trailer resolver looked for a trailer (whether or not
+     * one was found) — lets the backfill skip recently-checked misses to save quota.
+     */
+    trailerCheckedAt: Date | null
     broadcastDay: string | null
     broadcastTime: string | null
     broadcastTz: string | null
@@ -5741,6 +5820,7 @@ export interface AnimeFieldRefs {
   readonly localImagePath: Prisma.FieldRef<"Anime", 'String'>
   readonly trailerUrl: Prisma.FieldRef<"Anime", 'String'>
   readonly trailerYoutubeId: Prisma.FieldRef<"Anime", 'String'>
+  readonly trailerCheckedAt: Prisma.FieldRef<"Anime", 'DateTime'>
   readonly broadcastDay: Prisma.FieldRef<"Anime", 'String'>
   readonly broadcastTime: Prisma.FieldRef<"Anime", 'String'>
   readonly broadcastTz: Prisma.FieldRef<"Anime", 'String'>

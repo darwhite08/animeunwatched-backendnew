@@ -493,6 +493,9 @@ model Anime {
   localImagePath String?
   trailerUrl     String?
   trailerYoutubeId String?
+  /// Last time the YouTube trailer resolver looked for a trailer (whether or not
+  /// one was found) — lets the backfill skip recently-checked misses to save quota.
+  trailerCheckedAt DateTime?
   broadcastDay   String?
   broadcastTime  String?
   broadcastTz    String?

@@ -111,6 +111,13 @@ export function startJobs() {
       return { published: await publishDueScheduled() }
     },
   })
+  registerJob({
+    name: "backfillYoutubeTrailers", description: "Resolve official YouTube trailers (search + AI pick) for popular anime missing one — inert unless YOUTUBE_API_KEY is set",
+    intervalMs: 6 * 60 * 60_000, handler: async () => {
+      const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
+      return backfillTrailers(80)
+    },
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -195,6 +202,15 @@ export function startJobs() {
     return { published: await publishDueScheduled() }
   })
   setInterval(publishScheduled, 60_000)
+
+  // YouTube trailer backfill — every 6h, ~80 popular anime per run (quota-bounded).
+  // Inert unless YOUTUBE_API_KEY is set. First run ~2min after boot.
+  const backfillTrailersJob = instrument("backfillYoutubeTrailers", async () => {
+    const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
+    return backfillTrailers(80)
+  })
+  setInterval(backfillTrailersJob, 6 * 60 * 60_000)
+  setTimeout(() => { backfillTrailersJob().catch(console.error) }, 120_000)
 
   console.log("[Jobs] Background jobs started")
 }

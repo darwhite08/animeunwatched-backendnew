@@ -118,6 +118,16 @@ async function callOpenAI(userMsg: string, system: string = WRITE_SYSTEM, maxTok
   } catch { return null; }
 }
 
+/**
+ * Generic short-form LLM call: tries Anthropic (Claude) → OpenAI → null.
+ * Used for classification/extraction tasks (e.g. picking the official trailer
+ * from a list of YouTube candidates). Returns the raw model text or null when
+ * no AI key is configured.
+ */
+export async function askLLM(system: string, user: string, maxTokens = 200): Promise<string | null> {
+  return (await callAnthropic(user, system, maxTokens)) ?? (await callOpenAI(user, system, maxTokens));
+}
+
 export async function write(action: string, prompt: string, context: string): Promise<WriteResult> {
   const userMsg = instruction(action, prompt, context);
 

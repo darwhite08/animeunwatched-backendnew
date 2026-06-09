@@ -506,6 +506,7 @@ export const AnimeScalarFieldEnum = {
   localImagePath: 'localImagePath',
   trailerUrl: 'trailerUrl',
   trailerYoutubeId: 'trailerYoutubeId',
+  trailerCheckedAt: 'trailerCheckedAt',
   broadcastDay: 'broadcastDay',
   broadcastTime: 'broadcastTime',
   broadcastTz: 'broadcastTz',
