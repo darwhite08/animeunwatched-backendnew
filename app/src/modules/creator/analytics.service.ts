@@ -354,19 +354,49 @@ export async function getAudience(userId: string, range = "28d") {
   const days = rangeDays(range);
   const since = new Date(Date.now() - days * 86_400_000);
 
-  const [totalFollowers, newFollowers, series] = await Promise.all([
+  const [totalFollowers, newFollowers, series, followerTz] = await Promise.all([
     prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED" } }),
     prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED", createdAt: { gte: since } } }),
     dailySeries(userId, days),
+    // Derive audience geography from each follower's timezone (already stored for
+    // streaks) — real geo with zero extra tracking.
+    prisma.follow.findMany({ where: { followingId: userId, status: "ACCEPTED" }, select: { follower: { select: { timezone: true } } } }),
   ]);
 
-  // Geo/sources require per-follower geo + referrer tracking (not yet captured);
-  // returned empty until that lightweight tracking lands — the UI degrades gracefully.
+  // Bucket follower timezones into world regions.
+  const regionCount = new Map<string, number>();
+  const tzCount = new Map<string, number>();
+  for (const f of followerTz) {
+    const tz = f.follower.timezone || "";
+    const region = regionOf(tz);
+    regionCount.set(region, (regionCount.get(region) ?? 0) + 1);
+    if (tz) tzCount.set(tz, (tzCount.get(tz) ?? 0) + 1);
+  }
+  const tot = followerTz.length || 1;
+  const geo = [...regionCount.entries()].sort((a, b) => b[1] - a[1]).map(([country, n]) => ({ country, pct: (n / tot) * 100 }));
+  const timezones = [...tzCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([tz, n]) => ({ source: tz.replace(/_/g, " "), pct: (n / tot) * 100 }));
+
   return {
     totalFollowers,
     newFollowers,
-    geo: [] as { country: string; pct: number }[],
-    sources: [] as { source: string; pct: number }[],
+    geo,
+    sources: timezones, // top timezones (reuses the "sources" UI slot)
     series: series.map((s) => ({ date: s.date, value: s.followers })),
   };
+}
+
+/** Map an IANA timezone to a coarse world region for audience geography. */
+function regionOf(tz: string): string {
+  if (!tz) return "Unknown";
+  if (/^Asia\/(Kolkata|Calcutta|Colombo|Kathmandu|Karachi|Dhaka|Thimphu)/.test(tz)) return "South Asia";
+  const cont = tz.split("/")[0];
+  switch (cont) {
+    case "America": return "Americas";
+    case "Europe": return "Europe";
+    case "Africa": return "Africa";
+    case "Asia": return "Asia";
+    case "Australia": case "Pacific": return "Oceania";
+    case "Atlantic": case "Indian": return "Other";
+    default: return "Other";
+  }
 }
