@@ -360,6 +360,46 @@ export async function leaderboard(slug: string, period: "week" | "all") {
   return { leaderboard: rows.map((r, i) => ({ rank: i + 1, xp: r.xp, role: r.role, user: r.user })) };
 }
 
+// ─── shared watchlist (P2) ─────────────────────────────────────────────────────
+
+export async function getWatchlist(slug: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const items = await prisma.clubWatchlistItem.findMany({
+    where: { clubId: club.id },
+    orderBy: { createdAt: "desc" },
+    select: { id: true, malId: true, title: true, imageUrl: true, createdAt: true, addedBy: { select: authorSelect } },
+  });
+  return { items };
+}
+
+export async function addToWatchlist(actorId: string, slug: string, dto: { malId: number; title: string; imageUrl?: string }) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const membership = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: actorId, clubId: club.id } }, select: { userId: true } });
+  if (!membership) throw forbidden("Join the club to add to its watchlist");
+  if (!dto.malId || !dto.title?.trim()) throw badReq("malId and title are required");
+  const item = await prisma.clubWatchlistItem.upsert({
+    where: { clubId_malId: { clubId: club.id, malId: dto.malId } },
+    update: {},
+    create: { clubId: club.id, malId: dto.malId, title: dto.title.trim().slice(0, 200), imageUrl: dto.imageUrl ?? null, addedById: actorId },
+    select: { id: true, malId: true, title: true, imageUrl: true, createdAt: true, addedBy: { select: authorSelect } },
+  });
+  void emitClubUpdate(club.id, "club");
+  return { item };
+}
+
+export async function removeFromWatchlist(actorId: string, slug: string, malId: number) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
+  if (!club) throw notFound("Club not found");
+  const item = await prisma.clubWatchlistItem.findUnique({ where: { clubId_malId: { clubId: club.id, malId } }, select: { addedById: true } });
+  if (!item) throw notFound("Not on the watchlist");
+  if (item.addedById !== actorId) await assertModerator(actorId, club.id); // adder, or a mod
+  await prisma.clubWatchlistItem.delete({ where: { clubId_malId: { clubId: club.id, malId } } });
+  void emitClubUpdate(club.id, "club");
+  return { ok: true };
+}
+
 // ─── leave ────────────────────────────────────────────────────────────────────
 
 export async function leave(userId: string, slug: string) {

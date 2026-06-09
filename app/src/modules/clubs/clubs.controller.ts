@@ -206,3 +206,21 @@ export async function createClubPoll(req: Request, res: Response, next: NextFunc
     res.status(201).json(await service.createClubPoll(userId, req.params.slug as string, { question, options, expiresInDays }));
   } catch (err) { next(err); }
 }
+
+export async function getWatchlist(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getWatchlist(req.params.slug as string)); }
+  catch (err) { next(err); }
+}
+export async function addWatchlist(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    const { malId, title, imageUrl } = req.body ?? {};
+    res.status(201).json(await service.addToWatchlist(actorId, req.params.slug as string, { malId: Number(malId), title: String(title ?? ""), imageUrl }));
+  } catch (err) { next(err); }
+}
+export async function removeWatchlist(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    res.status(200).json(await service.removeFromWatchlist(actorId, req.params.slug as string, Number(req.params.malId)));
+  } catch (err) { next(err); }
+}
