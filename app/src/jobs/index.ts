@@ -212,5 +212,14 @@ export function startJobs() {
   setInterval(backfillTrailersJob, 6 * 60 * 60_000)
   setTimeout(() => { backfillTrailersJob().catch(console.error) }, 120_000)
 
+  // One-off on boot: give slug-less (older) accounts a slug so /user/[slug]/*
+  // routing works for them. Idempotent — only updates rows where slug IS NULL.
+  setTimeout(() => {
+    import("../modules/users/users.service")
+      .then((m) => m.backfillMissingSlugs())
+      .then((n) => { if (n) console.log(`[Boot] Backfilled ${n} missing user slug(s)`) })
+      .catch(console.error)
+  }, 8_000)
+
   console.log("[Jobs] Background jobs started")
 }

@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
-import { validateSlug } from "../../lib/slug";
+import { validateSlug, generateUniqueSlug } from "../../lib/slug";
 import { cache } from "../../lib/cache";
 import { jaccard, logNormalize } from "../../lib/ranking";
 import type { UpdateMeDto, UpdateSlugDto } from "./users.schema";
@@ -508,6 +508,29 @@ export async function getFollowingActivity(username: string, limit = 10) {
 // ─── Slug management ──────────────────────────────────────────────────────────
 
 /** Check if a slug is available (and valid format). Returns immediately — used for live validation. */
+/**
+ * One-off boot backfill: give every slug-less user a slug. Older accounts
+ * predate slug generation, and a null slug breaks all /user/[slug]/* routing
+ * (links fall back to /login). Idempotent — only touches rows where slug IS NULL.
+ */
+export async function backfillMissingSlugs(): Promise<number> {
+  const users = await prisma.user.findMany({
+    where: { slug: null },
+    select: { id: true, username: true, displayName: true },
+  });
+  let updated = 0;
+  for (const u of users) {
+    try {
+      const slug = await generateUniqueSlug(u.displayName || u.username);
+      await prisma.user.update({ where: { id: u.id }, data: { slug } });
+      updated++;
+    } catch {
+      /* slug race/conflict — skip; next boot retries */
+    }
+  }
+  return updated;
+}
+
 export async function checkSlugAvailable(slug: string): Promise<{ available: boolean; error?: string }> {
   const formatError = validateSlug(slug);
   if (formatError) return { available: false, error: formatError };
