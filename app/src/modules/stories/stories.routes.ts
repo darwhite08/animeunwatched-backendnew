@@ -7,4 +7,5 @@ export const storiesRouter = Router();
 storiesRouter.get("/feed", requireAuth, ctrl.getFeed);
 storiesRouter.post("/", requireAuth, ctrl.createStory);
 storiesRouter.post("/:id/view", requireAuth, ctrl.markViewed);
+storiesRouter.get("/:id/viewers", requireAuth, ctrl.listViewers);
 storiesRouter.delete("/:id", requireAuth, ctrl.deleteStory);

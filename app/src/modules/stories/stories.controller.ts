@@ -44,3 +44,12 @@ export async function deleteStory(req: Request, res: Response, next: NextFunctio
     next(err);
   }
 }
+
+export async function listViewers(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.listViewers(userId, req.params.id as string));
+  } catch (err) {
+    next(err);
+  }
+}

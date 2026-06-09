@@ -35,6 +35,7 @@ export async function getFeed(userId: string) {
     include: {
       author: { select: authorSelect },
       views: { where: { userId }, select: { userId: true } },
+      _count: { select: { views: true } },
     },
   });
 
@@ -42,7 +43,7 @@ export async function getFeed(userId: string) {
     author: { id: string; username: string; displayName: string | null; avatarUrl: string | null };
     stories: Array<{
       id: string; mediaUrl: string; mediaType: string; caption: string | null;
-      createdAt: Date; expiresAt: Date; viewedByMe: boolean;
+      createdAt: Date; expiresAt: Date; viewedByMe: boolean; viewCount: number;
     }>;
     allViewed: boolean;
     latestAt: Date;
@@ -66,6 +67,7 @@ export async function getFeed(userId: string) {
       createdAt: s.createdAt,
       expiresAt: s.expiresAt,
       viewedByMe,
+      viewCount: s._count.views,
     });
   }
 
@@ -107,6 +109,20 @@ export async function markViewed(userId: string, storyId: string) {
     create: { userId, storyId },
     update: {},
   });
+}
+
+// ─── listViewers (owner only) — who saw this Peeak ─────────────────────────────
+
+export async function listViewers(userId: string, storyId: string) {
+  const story = await prisma.story.findUnique({ where: { id: storyId }, select: { authorId: true } });
+  if (!story) throw notFound("Story not found");
+  if (story.authorId !== userId) throw forbidden("Only the author can see viewers");
+  const views = await prisma.storyView.findMany({
+    where: { storyId },
+    orderBy: { viewedAt: "desc" },
+    select: { viewedAt: true, user: { select: authorSelect } },
+  });
+  return { viewers: views.map((v) => ({ ...v.user, viewedAt: v.viewedAt })) };
 }
 
 // ─── deleteStory (author only, soft delete) ───────────────────────────────────
