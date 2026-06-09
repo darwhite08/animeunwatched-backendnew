@@ -18,3 +18,12 @@ export const writeSchema = z.object({
 });
 
 export type WriteDto = z.infer<typeof writeSchema>;
+
+// Public auto-translate (readers translating blogs/captions).
+export const translateSchema = z.object({
+  text: z.string().min(1).max(40_000),
+  targetLang: z.string().min(2).max(8),
+  html: z.boolean().optional(),
+});
+
+export type TranslateDto = z.infer<typeof translateSchema>;

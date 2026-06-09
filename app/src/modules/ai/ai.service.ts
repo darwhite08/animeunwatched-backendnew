@@ -77,7 +77,7 @@ function htmlToText(html: string): string {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-async function callAnthropic(userMsg: string): Promise<string | null> {
+async function callAnthropic(userMsg: string, system: string = WRITE_SYSTEM, maxTokens = 1500): Promise<string | null> {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return null;
   try {
@@ -86,8 +86,8 @@ async function callAnthropic(userMsg: string): Promise<string | null> {
       headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" },
       body: JSON.stringify({
         model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
-        max_tokens: 1500,
-        system: WRITE_SYSTEM,
+        max_tokens: maxTokens,
+        system,
         messages: [{ role: "user", content: userMsg }],
       }),
     });
@@ -98,7 +98,7 @@ async function callAnthropic(userMsg: string): Promise<string | null> {
   } catch { return null; }
 }
 
-async function callOpenAI(userMsg: string): Promise<string | null> {
+async function callOpenAI(userMsg: string, system: string = WRITE_SYSTEM, maxTokens = 1500): Promise<string | null> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return null;
   try {
@@ -107,9 +107,9 @@ async function callOpenAI(userMsg: string): Promise<string | null> {
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
         model: "gpt-4o-mini",
-        messages: [{ role: "system", content: WRITE_SYSTEM }, { role: "user", content: userMsg }],
-        temperature: 0.7,
-        max_tokens: 1500,
+        messages: [{ role: "system", content: system }, { role: "user", content: userMsg }],
+        temperature: 0.4,
+        max_tokens: maxTokens,
       }),
     });
     if (!res.ok) return null;
@@ -129,6 +129,30 @@ export async function write(action: string, prompt: string, context: string): Pr
 
   const stub = `<p><em>AI writing isn't configured on this server yet.</em> Ask the admin to set <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code>) to enable drafting, polishing and title ideas.</p>`;
   return { html: stub, text: htmlToText(stub), source: "stub" };
+}
+
+// ─── Translation (reuses the AI key — same ANTHROPIC/OPENAI_API_KEY) ─────────
+
+export const TRANSLATE_LANGS: Record<string, string> = {
+  es: "Spanish", fr: "French", de: "German", pt: "Portuguese", it: "Italian",
+  ja: "Japanese", ko: "Korean", zh: "Chinese (Simplified)", hi: "Hindi",
+  ar: "Arabic", ru: "Russian", id: "Indonesian", tr: "Turkish", vi: "Vietnamese",
+  th: "Thai", fil: "Filipino", bn: "Bengali", en: "English",
+};
+
+export type TranslateResult = { text: string; source: "anthropic" | "openai" | "stub"; lang: string };
+
+/** Translate text (optionally HTML) into a target language via the AI provider. */
+export async function translate(text: string, targetLang: string, isHtml = false): Promise<TranslateResult> {
+  const lang = TRANSLATE_LANGS[targetLang] ?? targetLang;
+  const sys = `You are a professional translator. Translate the user's content into ${lang}.${isHtml ? " The content is HTML — preserve every tag, attribute and structure EXACTLY; translate only the human-readable text between tags." : ""} Output ONLY the translation — no preamble, no notes, no code fences. Keep proper nouns, anime titles and @mentions unchanged.`;
+  const budget = Math.min(4000, Math.max(800, Math.ceil(text.length / 2)));
+
+  const fromClaude = await callAnthropic(text, sys, budget);
+  if (fromClaude) return { text: stripFences(fromClaude), source: "anthropic", lang };
+  const fromOpenAI = await callOpenAI(text, sys, budget);
+  if (fromOpenAI) return { text: stripFences(fromOpenAI), source: "openai", lang };
+  return { text, source: "stub", lang }; // not configured → return original unchanged
 }
 
 export async function ask(prompt: string): Promise<AIResponse> {

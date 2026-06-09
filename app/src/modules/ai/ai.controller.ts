@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { badRequest } from "../../lib/errors";
-import { askSchema, writeSchema } from "./ai.schema";
+import { askSchema, writeSchema, translateSchema } from "./ai.schema";
 import * as service from "./ai.service";
 
 export async function ask(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -20,6 +20,17 @@ export async function write(req: Request, res: Response, next: NextFunction): Pr
     if (!parsed.success) throw badRequest("Invalid write request");
     const { action, prompt, context } = parsed.data;
     res.status(200).json(await service.write(action, prompt, context));
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function translate(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const parsed = translateSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid translate request");
+    const { text, targetLang, html } = parsed.data;
+    res.status(200).json(await service.translate(text, targetLang, html ?? false));
   } catch (err) {
     next(err);
   }
