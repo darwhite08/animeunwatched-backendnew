@@ -8,6 +8,7 @@ const userSelect = {
   id: true,
   email: true,
   username: true,
+  slug: true,          // routing alias — required so /auth/me carries it through
   displayName: true,
   bio: true,
   avatarUrl: true,
