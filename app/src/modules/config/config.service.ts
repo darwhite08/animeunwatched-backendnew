@@ -64,3 +64,32 @@ export async function getClientFlags(userId?: string): Promise<Record<string, bo
   }
   return out
 }
+
+// ── Admin: list + toggle client flags (simple requireAdmin path) ──────────────
+
+export async function listClientFlagsAdmin() {
+  await ensureClientFlagsSeeded()
+  const rows = await prisma.featureFlag.findMany({
+    where: { key: { in: [...CLIENT_FLAG_KEYS] } },
+    select: { key: true, description: true, enabledGlobally: true, killedAt: true },
+  })
+  const byKey = new Map(rows.map((r) => [r.key, r]))
+  return CLIENT_FLAG_KEYS.map((key) => {
+    const r = byKey.get(key)
+    return { key, description: r?.description ?? null, enabled: r ? (r.enabledGlobally && !r.killedAt) : true }
+  })
+}
+
+export async function setClientFlag(key: string, enabled: boolean) {
+  if (!(CLIENT_FLAG_KEYS as readonly string[]).includes(key)) {
+    const e = new Error("Unknown flag") as Error & { status?: number }
+    e.status = 400
+    throw e
+  }
+  await prisma.featureFlag.upsert({
+    where: { key },
+    update: { enabledGlobally: enabled, killedAt: enabled ? null : new Date() },
+    create: { key, description: `Client feature: ${key}`, type: "ops", isKillSwitch: true, enabledGlobally: enabled, ...(enabled ? {} : { killedAt: new Date() }) },
+  })
+  return { key, enabled }
+}
