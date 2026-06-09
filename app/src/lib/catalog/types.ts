@@ -15,6 +15,7 @@ export interface CatalogAnime {
   score: number | null;
   imageUrl: string | null;
   trailerUrl: string | null;
+  trailerYoutubeId?: string | null;
   source: string | null;
   genres: string[];
   studios: string[];

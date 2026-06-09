@@ -43,6 +43,7 @@ type AnimeWithRelations = {
   score: number | null;
   imageUrl: string | null;
   trailerUrl: string | null;
+  trailerYoutubeId?: string | null;
   source: string | null;
   updatedAt: Date;
   genres: Array<{ genre: { id: string; name: string } }>;
@@ -95,6 +96,7 @@ export async function upsertFromCatalog(data: CatalogAnime) {
       score: data.score,
       imageUrl: data.imageUrl,
       trailerUrl: data.trailerUrl,
+      ...(data.trailerYoutubeId != null ? { trailerYoutubeId: data.trailerYoutubeId } : {}),
       source: data.source,
     },
     update: {
@@ -113,6 +115,7 @@ export async function upsertFromCatalog(data: CatalogAnime) {
       score: data.score,
       imageUrl: data.imageUrl,
       trailerUrl: data.trailerUrl,
+      ...(data.trailerYoutubeId != null ? { trailerYoutubeId: data.trailerYoutubeId } : {}),
       source: data.source,
     },
     include: animeInclude,

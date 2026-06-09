@@ -5,6 +5,15 @@
 import type { CatalogAnime } from "./types";
 import type { JikanAnime, JikanEpisode, JikanMalEntity } from "./jikanClient";
 
+/** Jikan often leaves trailer.youtube_id null but provides embed_url — pull the
+ *  11-char video id out of either. */
+export function ytIdFromTrailer(t?: { youtube_id?: string | null; embed_url?: string | null } | null): string | null {
+  if (!t) return null;
+  if (t.youtube_id) return t.youtube_id;
+  const m = t.embed_url?.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : null;
+}
+
 // ─── Legacy CatalogAnime mapping (browse/search/seasonal paths) ──────────────
 
 export function mapJikanToCatalog(data: Record<string, unknown>): CatalogAnime {
@@ -31,6 +40,7 @@ export function mapJikanToCatalog(data: Record<string, unknown>): CatalogAnime {
     score: (data.score as number | null) ?? null,
     imageUrl: images.jpg?.large_image_url ?? images.jpg?.image_url ?? null,
     trailerUrl: trailer.url ?? null,
+    trailerYoutubeId: ytIdFromTrailer(trailer),
     source: (data.source as string | null) ?? null,
     genres: genres.map((g) => g.name),
     studios: studios.map((s) => s.name),
@@ -125,7 +135,7 @@ export function mapAnimeScalars(a: JikanAnime): MappedAnimeScalars {
     imageSmallUrl: a.images?.jpg?.small_image_url ?? null,
     imageWebpUrl: a.images?.webp?.large_image_url ?? a.images?.webp?.image_url ?? null,
     trailerUrl: a.trailer?.url ?? null,
-    trailerYoutubeId: a.trailer?.youtube_id ?? null,
+    trailerYoutubeId: ytIdFromTrailer(a.trailer),
     broadcastDay: a.broadcast?.day ?? null,
     broadcastTime: a.broadcast?.time ?? null,
     broadcastTz: a.broadcast?.timezone ?? null,

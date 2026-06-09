@@ -105,7 +105,7 @@ export interface JikanAnime {
   season?: string | null;
   year?: number | null;
   broadcast?: { day?: string | null; time?: string | null; timezone?: string | null } | null;
-  trailer?: { youtube_id?: string | null; url?: string | null } | null;
+  trailer?: { youtube_id?: string | null; url?: string | null; embed_url?: string | null } | null;
   images?: JikanImages | null;
   genres?: JikanMalEntity[] | null;
   explicit_genres?: JikanMalEntity[] | null;
