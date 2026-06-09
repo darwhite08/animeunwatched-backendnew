@@ -90,6 +90,11 @@ export async function getCreatorLevel(_req: Request, res: Response, next: NextFu
   try { res.status(200).json(await service.getCreatorLevel(res.locals.user.id)); } catch (err) { next(err); }
 }
 
+/** Public — creator storefront by username (optionalAuth for isFollowing). */
+export async function getStorefront(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try { res.status(200).json(await service.getStorefront(req.params.username as string, res.locals.user?.id)); } catch (err) { next(err); }
+}
+
 export async function getMyReviews(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try { res.status(200).json(await service.getMyReviews(res.locals.user.id)); } catch (err) { next(err); }
 }

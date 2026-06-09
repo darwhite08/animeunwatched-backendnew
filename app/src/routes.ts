@@ -37,6 +37,7 @@ import { ticketsRouter } from "./modules/tickets/tickets.routes";
 import { clubThreadsRouter } from "./modules/threads/threads.routes";
 import { socialRouter } from "./modules/social/social.routes";
 import { linksRouter } from "./modules/links/links.routes";
+import { storefrontRouter } from "./modules/creator/storefront.routes";
 
 /**
  * Source of truth for what's mounted under /api/v1. Single array consumed
@@ -74,6 +75,7 @@ export const ROUTE_MOUNTS = [
   ["/creator",                         creatorRouter],
   ["/social",                          socialRouter],
   ["/links",                           linksRouter],
+  ["/storefront",                      storefrontRouter],
   ["/monetization",                    monetizationRouter],
   ["/polls",                           pollsRouter],
   ["/analytics",                       analyticsRouter],

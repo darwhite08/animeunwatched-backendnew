@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { evaluateEligibility } from "../../lib/monetizationMath";
+import { notFound } from "../../lib/errors";
 
 // ─── A creator's own content (incl. drafts) for the Creator Studio ───────────
 
@@ -93,6 +94,45 @@ export async function getCreatorLevel(userId: string) {
     verifiedKind: user?.verifiedKind ?? null,
     verifiedAt: user?.verifiedAt?.toISOString() ?? null,
     breakdown: { reputation, followers, content },
+  };
+}
+
+/** Public creator storefront — a branded hub: profile + level + tiers + recent
+ *  content across formats. Powers the consumer /c/[handle] page. */
+export async function getStorefront(username: string, viewerId?: string) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: { id: true, username: true, slug: true, displayName: true, avatarUrl: true, bio: true, verifiedKind: true, reputation: true, createdAt: true },
+  });
+  if (!user) throw notFound("Creator not found");
+  const uid = user.id;
+
+  const [followers, level, profile, tiers, blogs, shots, posts, reviews, clubs, isFollowing] = await Promise.all([
+    prisma.follow.count({ where: { followingId: uid, status: "ACCEPTED" } }),
+    getCreatorLevel(uid),
+    prisma.creatorProfile.findUnique({ where: { userId: uid }, select: { status: true, isEligible: true } }),
+    prisma.creatorTier.findMany({ where: { creatorId: uid, active: true }, orderBy: { priceCents: "asc" }, select: { id: true, name: true, description: true, priceCents: true, currency: true, perks: true } }),
+    prisma.blog.findMany({ where: { authorId: uid, status: "PUBLISHED" }, orderBy: { publishedAt: "desc" }, take: 4, select: { slug: true, title: true, publishedAt: true } }),
+    prisma.shot.findMany({ where: { authorId: uid, deletedAt: null }, orderBy: { createdAt: "desc" }, take: 6, select: { id: true, thumbnailUrl: true, caption: true } }),
+    prisma.post.findMany({ where: { authorId: uid, deletedAt: null }, orderBy: { createdAt: "desc" }, take: 4, select: { id: true, content: true, imageUrl: true, createdAt: true } }),
+    prisma.review.findMany({ where: { authorId: uid }, orderBy: { createdAt: "desc" }, take: 3, select: { id: true, score: true, body: true, anime: { select: { malId: true, title: true, imageUrl: true } } } }),
+    prisma.club.findMany({ where: { ownerId: uid }, orderBy: { createdAt: "desc" }, take: 4, select: { slug: true, name: true, _count: { select: { members: true } } } }),
+    viewerId ? prisma.follow.findUnique({ where: { followerId_followingId: { followerId: viewerId, followingId: uid } }, select: { status: true } }) : Promise.resolve(null),
+  ]);
+
+  return {
+    creator: { id: uid, username: user.username, displayName: user.displayName, avatarUrl: user.avatarUrl, bio: user.bio, verifiedKind: user.verifiedKind, joinedAt: user.createdAt.toISOString() },
+    stats: { followers, reputation: user.reputation, level: level.level, tierTitle: level.title },
+    isMonetized: !!profile && (profile.status === "active" || profile.status === "eligible" || profile.isEligible),
+    isFollowing: isFollowing?.status === "ACCEPTED",
+    tiers,
+    content: {
+      blogs: blogs.map((b) => ({ slug: b.slug, title: b.title, publishedAt: b.publishedAt?.toISOString() ?? null })),
+      shots: shots.map((s) => ({ id: s.id, thumbnailUrl: s.thumbnailUrl, caption: s.caption })),
+      posts: posts.map((p) => ({ id: p.id, content: p.content.slice(0, 200), imageUrl: p.imageUrl, createdAt: p.createdAt.toISOString() })),
+      reviews: reviews.map((r) => ({ id: r.id, score: r.score, snippet: r.body.slice(0, 160), anime: r.anime })),
+      clubs: clubs.map((c) => ({ slug: c.slug, name: c.name, members: c._count.members })),
+    },
   };
 }
 
