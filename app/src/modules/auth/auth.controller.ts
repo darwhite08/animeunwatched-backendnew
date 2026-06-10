@@ -323,7 +323,9 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
     );
   } catch (err) {
     console.error("[Google callback]", err);
-    res.redirect(errorDest("google_failed"));
+    const reason = err instanceof Error ? err.message.slice(0, 100) : "unknown";
+    const dest = errorDest("google_failed");
+    res.redirect(`${dest}${dest.includes("?") ? "&" : "?"}reason=${encodeURIComponent(reason)}`);
   }
 }
 

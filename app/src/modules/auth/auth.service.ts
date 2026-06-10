@@ -442,7 +442,9 @@ export async function googleCallbackCode(code: string, redirectUri: string, meta
   if (!tokenRes.ok) {
     const err = await tokenRes.text();
     console.error("[Google token exchange]", err);
-    throw unauth("Failed to exchange Google authorization code");
+    let code = "exchange_failed";
+    try { code = (JSON.parse(err) as { error?: string }).error || code; } catch { /* not json */ }
+    throw unauth(`google_token:${code}`);
   }
 
   const tokens = await tokenRes.json() as { id_token?: string; access_token?: string };
