@@ -50,6 +50,7 @@ export type UserMinAggregateOutputType = {
   displayName: string | null
   bio: string | null
   avatarUrl: string | null
+  coverImage: string | null
   onboardedAt: Date | null
   passwordHash: string | null
   role: $Enums.Role | null
@@ -86,6 +87,7 @@ export type UserMaxAggregateOutputType = {
   displayName: string | null
   bio: string | null
   avatarUrl: string | null
+  coverImage: string | null
   onboardedAt: Date | null
   passwordHash: string | null
   role: $Enums.Role | null
@@ -122,6 +124,7 @@ export type UserCountAggregateOutputType = {
   displayName: number
   bio: number
   avatarUrl: number
+  coverImage: number
   favoriteGenres: number
   onboardedAt: number
   passwordHash: number
@@ -177,6 +180,7 @@ export type UserMinAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  coverImage?: true
   onboardedAt?: true
   passwordHash?: true
   role?: true
@@ -213,6 +217,7 @@ export type UserMaxAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  coverImage?: true
   onboardedAt?: true
   passwordHash?: true
   role?: true
@@ -249,6 +254,7 @@ export type UserCountAggregateInputType = {
   displayName?: true
   bio?: true
   avatarUrl?: true
+  coverImage?: true
   favoriteGenres?: true
   onboardedAt?: true
   passwordHash?: true
@@ -373,6 +379,7 @@ export type UserGroupByOutputType = {
   displayName: string
   bio: string | null
   avatarUrl: string | null
+  coverImage: string | null
   favoriteGenres: string[]
   onboardedAt: Date | null
   passwordHash: string
@@ -433,6 +440,7 @@ export type UserWhereInput = {
   displayName?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"User"> | string | null
   favoriteGenres?: Prisma.StringNullableListFilter<"User">
   onboardedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
@@ -540,6 +548,7 @@ export type UserOrderByWithRelationInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   favoriteGenres?: Prisma.SortOrder
   onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
@@ -650,6 +659,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   displayName?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"User"> | string | null
   favoriteGenres?: Prisma.StringNullableListFilter<"User">
   onboardedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
@@ -757,6 +767,7 @@ export type UserOrderByWithAggregationInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   favoriteGenres?: Prisma.SortOrder
   onboardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
@@ -802,6 +813,7 @@ export type UserScalarWhereWithAggregatesInput = {
   displayName?: Prisma.StringWithAggregatesFilter<"User"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  coverImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   favoriteGenres?: Prisma.StringNullableListFilter<"User">
   onboardedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
@@ -839,6 +851,7 @@ export type UserCreateInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -946,6 +959,7 @@ export type UserUncheckedCreateInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -1053,6 +1067,7 @@ export type UserUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1160,6 +1175,7 @@ export type UserUncheckedUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1267,6 +1283,7 @@ export type UserCreateManyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -1304,6 +1321,7 @@ export type UserUpdateManyMutationInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1341,6 +1359,7 @@ export type UserUncheckedUpdateManyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1386,6 +1405,7 @@ export type UserCountOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   favoriteGenres?: Prisma.SortOrder
   onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
@@ -1431,6 +1451,7 @@ export type UserMaxOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -1467,6 +1488,7 @@ export type UserMinOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   onboardedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -2550,6 +2572,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -2656,6 +2679,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -2778,6 +2802,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2884,6 +2909,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2990,6 +3016,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3096,6 +3123,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3218,6 +3246,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3324,6 +3353,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3430,6 +3460,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3536,6 +3567,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3647,6 +3679,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3753,6 +3786,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -3875,6 +3909,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3981,6 +4016,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4098,6 +4134,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4204,6 +4241,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4310,6 +4348,7 @@ export type UserCreateWithoutTipsSentInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -4416,6 +4455,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -4527,6 +4567,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -4633,6 +4674,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -4755,6 +4797,7 @@ export type UserUpdateWithoutTipsSentInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4861,6 +4904,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4978,6 +5022,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5084,6 +5129,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5190,6 +5236,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -5296,6 +5343,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -5418,6 +5466,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5524,6 +5573,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5630,6 +5680,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -5736,6 +5787,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -5858,6 +5910,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5964,6 +6017,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6070,6 +6124,7 @@ export type UserCreateWithoutPayoutsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -6176,6 +6231,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -6298,6 +6354,7 @@ export type UserUpdateWithoutPayoutsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6404,6 +6461,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6510,6 +6568,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -6616,6 +6675,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -6738,6 +6798,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6844,6 +6905,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6950,6 +7012,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -7056,6 +7119,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -7178,6 +7242,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7284,6 +7349,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7390,6 +7456,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -7496,6 +7563,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -7618,6 +7686,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7724,6 +7793,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7830,6 +7900,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -7936,6 +8007,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -8058,6 +8130,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8164,6 +8237,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8270,6 +8344,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -8376,6 +8451,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -8498,6 +8574,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8604,6 +8681,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8710,6 +8788,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -8816,6 +8895,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -8938,6 +9018,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9044,6 +9125,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9150,6 +9232,7 @@ export type UserCreateWithoutFollowingInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -9256,6 +9339,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -9367,6 +9451,7 @@ export type UserCreateWithoutFollowersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -9473,6 +9558,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -9595,6 +9681,7 @@ export type UserUpdateWithoutFollowingInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9701,6 +9788,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9818,6 +9906,7 @@ export type UserUpdateWithoutFollowersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9924,6 +10013,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10030,6 +10120,7 @@ export type UserCreateWithoutListEntriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -10136,6 +10227,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -10258,6 +10350,7 @@ export type UserUpdateWithoutListEntriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10364,6 +10457,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10470,6 +10564,7 @@ export type UserCreateWithoutPostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -10576,6 +10671,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -10698,6 +10794,7 @@ export type UserUpdateWithoutPostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10804,6 +10901,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10910,6 +11008,7 @@ export type UserCreateWithoutPostHidesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -11016,6 +11115,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -11138,6 +11238,7 @@ export type UserUpdateWithoutPostHidesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11244,6 +11345,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11350,6 +11452,7 @@ export type UserCreateWithoutPostLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -11456,6 +11559,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -11578,6 +11682,7 @@ export type UserUpdateWithoutPostLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11684,6 +11789,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11790,6 +11896,7 @@ export type UserCreateWithoutPostCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -11896,6 +12003,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -12018,6 +12126,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12124,6 +12233,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12230,6 +12340,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -12336,6 +12447,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -12458,6 +12570,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12564,6 +12677,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12670,6 +12784,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -12776,6 +12891,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -12898,6 +13014,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13004,6 +13121,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13110,6 +13228,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -13216,6 +13335,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -13338,6 +13458,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13444,6 +13565,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13550,6 +13672,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -13656,6 +13779,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -13778,6 +13902,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13884,6 +14009,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13990,6 +14116,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -14096,6 +14223,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -14218,6 +14346,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14324,6 +14453,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14430,6 +14560,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -14536,6 +14667,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -14658,6 +14790,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14764,6 +14897,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14870,6 +15004,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -14976,6 +15111,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -15098,6 +15234,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15204,6 +15341,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15310,6 +15448,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -15416,6 +15555,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -15538,6 +15678,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15644,6 +15785,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15750,6 +15892,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -15856,6 +15999,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -15978,6 +16122,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16084,6 +16229,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16190,6 +16336,7 @@ export type UserCreateWithoutThreadsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -16296,6 +16443,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -16418,6 +16566,7 @@ export type UserUpdateWithoutThreadsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16524,6 +16673,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16630,6 +16780,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -16736,6 +16887,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -16858,6 +17010,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16964,6 +17117,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17070,6 +17224,7 @@ export type UserCreateWithoutReviewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -17176,6 +17331,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -17298,6 +17454,7 @@ export type UserUpdateWithoutReviewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17404,6 +17561,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17510,6 +17668,7 @@ export type UserCreateWithoutReviewLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -17616,6 +17775,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -17738,6 +17898,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17844,6 +18005,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17950,6 +18112,7 @@ export type UserCreateWithoutBlogsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -18056,6 +18219,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -18178,6 +18342,7 @@ export type UserUpdateWithoutBlogsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18284,6 +18449,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18390,6 +18556,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -18496,6 +18663,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -18618,6 +18786,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18724,6 +18893,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18830,6 +19000,7 @@ export type UserCreateWithoutNotificationsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -18936,6 +19107,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -19058,6 +19230,7 @@ export type UserUpdateWithoutNotificationsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19164,6 +19337,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19270,6 +19444,7 @@ export type UserCreateWithoutReportsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -19376,6 +19551,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -19498,6 +19674,7 @@ export type UserUpdateWithoutReportsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19604,6 +19781,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19710,6 +19888,7 @@ export type UserCreateWithoutModerationActionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -19816,6 +19995,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -19938,6 +20118,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20044,6 +20225,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20150,6 +20332,7 @@ export type UserCreateWithoutPollsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -20256,6 +20439,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -20378,6 +20562,7 @@ export type UserUpdateWithoutPollsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20484,6 +20669,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20590,6 +20776,7 @@ export type UserCreateWithoutPollVotesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -20696,6 +20883,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -20818,6 +21006,7 @@ export type UserUpdateWithoutPollVotesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20924,6 +21113,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21030,6 +21220,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -21136,6 +21327,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -21258,6 +21450,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21364,6 +21557,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21470,6 +21664,7 @@ export type UserCreateWithoutPublicKeyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -21576,6 +21771,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -21698,6 +21894,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21804,6 +22001,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21910,6 +22108,7 @@ export type UserCreateWithoutConversations1Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -22016,6 +22215,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -22127,6 +22327,7 @@ export type UserCreateWithoutConversations2Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -22233,6 +22434,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -22355,6 +22557,7 @@ export type UserUpdateWithoutConversations1Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22461,6 +22664,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22578,6 +22782,7 @@ export type UserUpdateWithoutConversations2Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22684,6 +22889,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22790,6 +22996,7 @@ export type UserCreateWithoutSentMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -22896,6 +23103,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -23018,6 +23226,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23124,6 +23333,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23230,6 +23440,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -23336,6 +23547,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -23458,6 +23670,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23564,6 +23777,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23670,6 +23884,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -23776,6 +23991,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -23898,6 +24114,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24004,6 +24221,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24110,6 +24328,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -24216,6 +24435,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -24338,6 +24558,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24444,6 +24665,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24550,6 +24772,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -24656,6 +24879,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -24778,6 +25002,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24884,6 +25109,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24990,6 +25216,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -25096,6 +25323,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -25218,6 +25446,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25324,6 +25553,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25430,6 +25660,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -25536,6 +25767,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -25658,6 +25890,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25764,6 +25997,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25870,6 +26104,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -25976,6 +26211,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -26087,6 +26323,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -26193,6 +26430,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -26315,6 +26553,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26421,6 +26660,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26538,6 +26778,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26644,6 +26885,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26750,6 +26992,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -26856,6 +27099,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -26978,6 +27222,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27084,6 +27329,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27190,6 +27436,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -27296,6 +27543,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -27418,6 +27666,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27524,6 +27773,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27630,6 +27880,7 @@ export type UserCreateWithoutActivitiesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -27736,6 +27987,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -27858,6 +28110,7 @@ export type UserUpdateWithoutActivitiesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27964,6 +28217,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28070,6 +28324,7 @@ export type UserCreateWithoutActivityLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -28176,6 +28431,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -28298,6 +28554,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28404,6 +28661,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28510,6 +28768,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -28616,6 +28875,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -28738,6 +28998,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28844,6 +29105,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28950,6 +29212,7 @@ export type UserCreateWithoutRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -29056,6 +29319,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -29178,6 +29442,7 @@ export type UserUpdateWithoutRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29284,6 +29549,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29390,6 +29656,7 @@ export type UserCreateWithoutScimSubjectInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -29496,6 +29763,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -29618,6 +29886,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29724,6 +29993,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29830,6 +30100,7 @@ export type UserCreateWithoutShotsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -29936,6 +30207,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -30058,6 +30330,7 @@ export type UserUpdateWithoutShotsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30164,6 +30437,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30270,6 +30544,7 @@ export type UserCreateWithoutShotLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -30376,6 +30651,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -30498,6 +30774,7 @@ export type UserUpdateWithoutShotLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30604,6 +30881,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30710,6 +30988,7 @@ export type UserCreateWithoutShotSavesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -30816,6 +31095,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -30938,6 +31218,7 @@ export type UserUpdateWithoutShotSavesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31044,6 +31325,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31150,6 +31432,7 @@ export type UserCreateWithoutShotCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -31256,6 +31539,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -31378,6 +31662,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31484,6 +31769,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31590,6 +31876,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -31696,6 +31983,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -31818,6 +32106,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31924,6 +32213,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32030,6 +32320,7 @@ export type UserCreateWithoutImportedMediaInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -32136,6 +32427,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -32258,6 +32550,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32364,6 +32657,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32470,6 +32764,7 @@ export type UserCreateWithoutStoriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -32576,6 +32871,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -32698,6 +32994,7 @@ export type UserUpdateWithoutStoriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32804,6 +33101,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32910,6 +33208,7 @@ export type UserCreateWithoutStoryViewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -33016,6 +33315,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   displayName: string
   bio?: string | null
   avatarUrl?: string | null
+  coverImage?: string | null
   favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
   onboardedAt?: Date | string | null
   passwordHash?: string
@@ -33138,6 +33438,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33244,6 +33545,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
   onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33966,6 +34268,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  coverImage?: boolean
   favoriteGenres?: boolean
   onboardedAt?: boolean
   passwordHash?: boolean
@@ -34074,6 +34377,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  coverImage?: boolean
   favoriteGenres?: boolean
   onboardedAt?: boolean
   passwordHash?: boolean
@@ -34111,6 +34415,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  coverImage?: boolean
   favoriteGenres?: boolean
   onboardedAt?: boolean
   passwordHash?: boolean
@@ -34148,6 +34453,7 @@ export type UserSelectScalar = {
   displayName?: boolean
   bio?: boolean
   avatarUrl?: boolean
+  coverImage?: boolean
   favoriteGenres?: boolean
   onboardedAt?: boolean
   passwordHash?: boolean
@@ -34177,7 +34483,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "coverImage" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
@@ -34341,6 +34647,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     displayName: string
     bio: string | null
     avatarUrl: string | null
+    coverImage: string | null
     favoriteGenres: string[]
     onboardedAt: Date | null
     passwordHash: string
@@ -34878,6 +35185,7 @@ export interface UserFieldRefs {
   readonly displayName: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly coverImage: Prisma.FieldRef<"User", 'String'>
   readonly favoriteGenres: Prisma.FieldRef<"User", 'String[]'>
   readonly onboardedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>

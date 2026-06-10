@@ -12906,6 +12906,7 @@ export const UserScalarFieldEnum = {
   displayName: 'displayName',
   bio: 'bio',
   avatarUrl: 'avatarUrl',
+  coverImage: 'coverImage',
   favoriteGenres: 'favoriteGenres',
   onboardedAt: 'onboardedAt',
   passwordHash: 'passwordHash',

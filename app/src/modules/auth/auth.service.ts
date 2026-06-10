@@ -83,6 +83,7 @@ const userSelect = {
   displayName: true,
   bio: true,
   avatarUrl: true,
+  coverImage: true,
   role: true,
   reputation: true,
   verifiedKind: true,

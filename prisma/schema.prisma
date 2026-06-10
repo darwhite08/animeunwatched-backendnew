@@ -61,6 +61,7 @@ model User {
   displayName  String
   bio          String?
   avatarUrl    String?
+  coverImage   String?
   // Onboarding (first-run): chosen genres + completion timestamp
   favoriteGenres String[]  @default([])
   onboardedAt    DateTime?
