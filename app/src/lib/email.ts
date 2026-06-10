@@ -51,7 +51,7 @@ export async function sendEmail(opts: EmailOpts): Promise<void> {
 }
 
 const BRAND_NAME = "Kaiveron"
-const BRAND_URL  = "https://kaiveron.app"
+const BRAND_URL  = "https://kaiveron.com"
 const ACCENT     = "#f59e0b"
 
 function emailBase(content: string): string {
