@@ -209,6 +209,42 @@ export async function browse(query: BrowseQuery) {
   return result;
 }
 
+// ─── getSitemapEntries (SEO sitemap feed) ────────────────────────────────────
+//
+// Returns EVERY anime worth indexing — not the whole catalog. A new domain that
+// publishes 30k thin/duplicate pages dilutes crawl budget and hurts ranking, so
+// we gate on real signal:
+//   - not a stub (full row, not a search/list placeholder)
+//   - has a real synopsis (no thin/empty pages)
+//   - has a real catalog score
+//   - membersCount >= 500  (some genuine popularity)
+// Ordered by membersCount desc so the strongest pages lead the sitemap. Selects
+// only malId + updatedAt (lastmod) — cheap to build and serialize even at scale.
+// Count is derived from the query; nothing is hardcoded.
+
+const SITEMAP_MEMBERS_FLOOR = 500;
+
+export async function getSitemapEntries(): Promise<Array<{ malId: number; updatedAt: Date }>> {
+  const cacheKey = "anime:sitemap";
+  const cached = cache.get<Array<{ malId: number; updatedAt: Date }>>(cacheKey);
+  if (cached) return cached;
+
+  const rows = await prisma.anime.findMany({
+    where: {
+      isStub: false,
+      score: { not: null },
+      membersCount: { gte: SITEMAP_MEMBERS_FLOOR },
+      synopsis: { not: null },
+      NOT: { synopsis: "" }, // exclude empty-synopsis thin pages
+    },
+    select: { malId: true, updatedAt: true },
+    orderBy: { membersCount: "desc" },
+  });
+
+  cache.set(cacheKey, rows, 6 * 60 * 60_000); // 6h — sitemap changes slowly
+  return rows;
+}
+
 // ─── getById / getBySlug — canonical read-through path ───────────────────────
 //
 //   1. cache hit                            → serve

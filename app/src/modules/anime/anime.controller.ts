@@ -34,6 +34,15 @@ export async function browse(req: Request, res: Response, next: NextFunction): P
   }
 }
 
+export async function getSitemap(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const data = await service.getSitemapEntries();
+    res.status(200).json({ data, meta: { total: data.length } });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getAnimeUserStats(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const malId = parseMalId(req.params.malId);
