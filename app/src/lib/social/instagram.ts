@@ -48,6 +48,17 @@ function isAuthErrorBody(text: string): boolean {
   }
 }
 
+/** Human-readable message from an Instagram error payload (falls back to raw). */
+function igErrorMessage(text: string): string {
+  try {
+    const j = JSON.parse(text) as { error?: { message?: string; code?: number; error_user_msg?: string } };
+    const e = j.error;
+    return e?.error_user_msg || e?.message || text.slice(0, 300);
+  } catch {
+    return text.slice(0, 300);
+  }
+}
+
 export function isConfigured(): boolean {
   return Boolean(env.INSTAGRAM_APP_ID && env.INSTAGRAM_APP_SECRET);
 }
@@ -166,8 +177,8 @@ export async function listReels(accessToken: string, limit = 25): Promise<IgReel
   const res = await fetch(url);
   if (!res.ok) {
     const text = await res.text();
-    if (isAuthErrorBody(text)) throw new IgAuthError();
-    throw badRequest(`Instagram media fetch failed: ${text}`);
+    if (isAuthErrorBody(text)) throw new IgAuthError(igErrorMessage(text));
+    throw badRequest(`Instagram media fetch failed: ${igErrorMessage(text)}`);
   }
   const body = (await res.json()) as {
     data?: Array<{

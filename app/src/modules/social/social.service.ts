@@ -138,6 +138,8 @@ async function igReelsResilient(conn: IgConn, limit?: number) {
     return await ig.listReels(active.accessToken, limit);
   } catch (e) {
     if (!(e instanceof ig.IgAuthError)) throw e;
+
+    // Try one forced refresh + retry — recovers a genuinely-stale token.
     const refreshed = await refreshInstagramToken(active);
     if (refreshed.accessToken !== active.accessToken) {
       try {
@@ -146,8 +148,22 @@ async function igReelsResilient(conn: IgConn, limit?: number) {
         if (!(e2 instanceof ig.IgAuthError)) throw e2;
       }
     }
-    await markInstagramNeedsReauth(conn.userId);
-    throw badRequest("Instagram needs to be reconnected — please connect again.");
+
+    // Still rejected. Distinguish a genuinely-expired token (→ reconnect) from
+    // IG rejecting an otherwise-valid token (almost always: the account isn't a
+    // Business/Creator account, or the Meta app lacks media permission / is in
+    // Development mode). Marking the latter as "needs reconnect" would loop
+    // forever, so we only set that flag for real expiry and otherwise surface
+    // the actual Instagram reason.
+    const exp = active.tokenExpiresAt?.getTime() ?? null;
+    const genuinelyExpired = exp !== null && exp <= Date.now() + 24 * 60 * 60_000;
+    if (genuinelyExpired) {
+      await markInstagramNeedsReauth(conn.userId);
+      throw badRequest("Instagram needs to be reconnected — please connect again.");
+    }
+    throw badRequest(
+      `Instagram rejected the request: ${e.message}. The connected account must be a Business or Creator account, and the app must be granted media access.`,
+    );
   }
 }
 
