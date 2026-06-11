@@ -528,6 +528,7 @@ export type UserWhereInput = {
   groupReactions?: Prisma.GroupMessageReactionListRelationFilter
   streakDaysLog?: Prisma.StreakDayListRelationFilter
   badges?: Prisma.UserBadgeListRelationFilter
+  blogLikes?: Prisma.BlogLikeListRelationFilter
   lbSnapshots?: Prisma.LeaderboardSnapshotListRelationFilter
   creatorProfile?: Prisma.XOR<Prisma.CreatorProfileNullableScalarRelationFilter, Prisma.CreatorProfileWhereInput> | null
   creatorTiers?: Prisma.CreatorTierListRelationFilter
@@ -638,6 +639,7 @@ export type UserOrderByWithRelationInput = {
   groupReactions?: Prisma.GroupMessageReactionOrderByRelationAggregateInput
   streakDaysLog?: Prisma.StreakDayOrderByRelationAggregateInput
   badges?: Prisma.UserBadgeOrderByRelationAggregateInput
+  blogLikes?: Prisma.BlogLikeOrderByRelationAggregateInput
   lbSnapshots?: Prisma.LeaderboardSnapshotOrderByRelationAggregateInput
   creatorProfile?: Prisma.CreatorProfileOrderByWithRelationInput
   creatorTiers?: Prisma.CreatorTierOrderByRelationAggregateInput
@@ -751,6 +753,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   groupReactions?: Prisma.GroupMessageReactionListRelationFilter
   streakDaysLog?: Prisma.StreakDayListRelationFilter
   badges?: Prisma.UserBadgeListRelationFilter
+  blogLikes?: Prisma.BlogLikeListRelationFilter
   lbSnapshots?: Prisma.LeaderboardSnapshotListRelationFilter
   creatorProfile?: Prisma.XOR<Prisma.CreatorProfileNullableScalarRelationFilter, Prisma.CreatorProfileWhereInput> | null
   creatorTiers?: Prisma.CreatorTierListRelationFilter
@@ -945,6 +948,7 @@ export type UserCreateInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -1055,6 +1059,7 @@ export type UserUncheckedCreateInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -1165,6 +1170,7 @@ export type UserUpdateInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -1275,6 +1281,7 @@ export type UserUncheckedUpdateInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -2128,6 +2135,20 @@ export type UserUpdateOneRequiredWithoutBlogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlogsInput, Prisma.UserUpdateWithoutBlogsInput>, Prisma.UserUncheckedUpdateWithoutBlogsInput>
 }
 
+export type UserCreateNestedOneWithoutBlogLikesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlogLikesInput, Prisma.UserUncheckedCreateWithoutBlogLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlogLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBlogLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlogLikesInput, Prisma.UserUncheckedCreateWithoutBlogLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlogLikesInput
+  upsert?: Prisma.UserUpsertWithoutBlogLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlogLikesInput, Prisma.UserUpdateWithoutBlogLikesInput>, Prisma.UserUncheckedUpdateWithoutBlogLikesInput>
+}
+
 export type UserCreateNestedOneWithoutBlogCommentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutBlogCommentsInput, Prisma.UserUncheckedCreateWithoutBlogCommentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlogCommentsInput
@@ -2702,6 +2723,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
   membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
@@ -2811,6 +2833,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
@@ -2936,6 +2959,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
@@ -3045,6 +3069,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
@@ -3154,6 +3179,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
@@ -3263,6 +3289,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
@@ -3388,6 +3415,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
@@ -3497,6 +3525,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
@@ -3606,6 +3635,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -3715,6 +3745,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -3829,6 +3860,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -3938,6 +3970,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -4063,6 +4096,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -4172,6 +4206,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -4292,6 +4327,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -4401,6 +4437,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -4510,6 +4547,7 @@ export type UserCreateWithoutTipsSentInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -4619,6 +4657,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -4733,6 +4772,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -4842,6 +4882,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -4967,6 +5008,7 @@ export type UserUpdateWithoutTipsSentInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -5076,6 +5118,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -5196,6 +5239,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -5305,6 +5349,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -5414,6 +5459,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -5523,6 +5569,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -5648,6 +5695,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -5757,6 +5805,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -5866,6 +5915,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -5975,6 +6025,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -6100,6 +6151,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -6209,6 +6261,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -6318,6 +6371,7 @@ export type UserCreateWithoutPayoutsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -6427,6 +6481,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -6552,6 +6607,7 @@ export type UserUpdateWithoutPayoutsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -6661,6 +6717,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -6769,6 +6826,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -6878,6 +6936,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -7003,6 +7062,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -7112,6 +7172,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -7221,6 +7282,7 @@ export type UserCreateWithoutBadgesInput = {
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -7330,6 +7392,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -7455,6 +7518,7 @@ export type UserUpdateWithoutBadgesInput = {
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -7564,6 +7628,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -7674,6 +7739,7 @@ export type UserCreateWithoutLbSnapshotsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
   membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
@@ -7783,6 +7849,7 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
@@ -7908,6 +7975,7 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
@@ -8017,6 +8085,7 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
   membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
@@ -8125,6 +8194,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -8234,6 +8304,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -8359,6 +8430,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -8468,6 +8540,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -8577,6 +8650,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -8686,6 +8760,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -8811,6 +8886,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -8920,6 +8996,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -9029,6 +9106,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -9138,6 +9216,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -9263,6 +9342,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -9372,6 +9452,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -9481,6 +9562,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -9590,6 +9672,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -9715,6 +9798,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -9824,6 +9908,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -9933,6 +10018,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -10042,6 +10128,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -10167,6 +10254,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -10276,6 +10364,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -10385,6 +10474,7 @@ export type UserCreateWithoutFollowingInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -10494,6 +10584,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -10608,6 +10699,7 @@ export type UserCreateWithoutFollowersInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -10717,6 +10809,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -10842,6 +10935,7 @@ export type UserUpdateWithoutFollowingInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -10951,6 +11045,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -11071,6 +11166,7 @@ export type UserUpdateWithoutFollowersInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -11180,6 +11276,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -11289,6 +11386,7 @@ export type UserCreateWithoutListEntriesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -11398,6 +11496,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -11523,6 +11622,7 @@ export type UserUpdateWithoutListEntriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -11632,6 +11732,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -11741,6 +11842,7 @@ export type UserCreateWithoutPostsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -11850,6 +11952,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -11975,6 +12078,7 @@ export type UserUpdateWithoutPostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -12084,6 +12188,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -12193,6 +12298,7 @@ export type UserCreateWithoutPostHidesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -12302,6 +12408,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -12427,6 +12534,7 @@ export type UserUpdateWithoutPostHidesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -12536,6 +12644,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -12645,6 +12754,7 @@ export type UserCreateWithoutPostLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -12754,6 +12864,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -12879,6 +12990,7 @@ export type UserUpdateWithoutPostLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -12988,6 +13100,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -13097,6 +13210,7 @@ export type UserCreateWithoutPostCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -13206,6 +13320,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -13331,6 +13446,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -13440,6 +13556,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -13549,6 +13666,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -13658,6 +13776,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -13783,6 +13902,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -13892,6 +14012,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -14001,6 +14122,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -14110,6 +14232,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -14235,6 +14358,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -14344,6 +14468,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -14453,6 +14578,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -14562,6 +14688,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -14687,6 +14814,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -14796,6 +14924,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -14905,6 +15034,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -15014,6 +15144,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -15139,6 +15270,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -15248,6 +15380,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -15357,6 +15490,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -15466,6 +15600,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -15591,6 +15726,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -15700,6 +15836,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -15809,6 +15946,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -15918,6 +16056,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -16043,6 +16182,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -16152,6 +16292,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -16261,6 +16402,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -16370,6 +16512,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -16495,6 +16638,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -16604,6 +16748,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -16713,6 +16858,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -16822,6 +16968,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -16947,6 +17094,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -17056,6 +17204,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -17165,6 +17314,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -17274,6 +17424,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -17399,6 +17550,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -17508,6 +17660,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -17617,6 +17770,7 @@ export type UserCreateWithoutThreadsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -17726,6 +17880,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -17851,6 +18006,7 @@ export type UserUpdateWithoutThreadsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -17960,6 +18116,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -18069,6 +18226,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -18178,6 +18336,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -18303,6 +18462,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -18412,6 +18572,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -18521,6 +18682,7 @@ export type UserCreateWithoutReviewsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -18630,6 +18792,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -18755,6 +18918,7 @@ export type UserUpdateWithoutReviewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -18864,6 +19028,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -18973,6 +19138,7 @@ export type UserCreateWithoutReviewLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -19082,6 +19248,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -19207,6 +19374,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -19316,6 +19484,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -19425,6 +19594,7 @@ export type UserCreateWithoutBlogsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -19534,6 +19704,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -19659,6 +19830,7 @@ export type UserUpdateWithoutBlogsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -19724,6 +19896,463 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBlogLikesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBlogLikesInput = {
+  id?: string
+  email: string
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBlogLikesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlogLikesInput, Prisma.UserUncheckedCreateWithoutBlogLikesInput>
+}
+
+export type UserUpsertWithoutBlogLikesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlogLikesInput, Prisma.UserUncheckedUpdateWithoutBlogLikesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlogLikesInput, Prisma.UserUncheckedCreateWithoutBlogLikesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlogLikesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlogLikesInput, Prisma.UserUncheckedUpdateWithoutBlogLikesInput>
+}
+
+export type UserUpdateWithoutBlogLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlogLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
@@ -19877,6 +20506,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -19986,6 +20616,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -20111,6 +20742,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -20220,6 +20852,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20329,6 +20962,7 @@ export type UserCreateWithoutNotificationsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -20438,6 +21072,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -20563,6 +21198,7 @@ export type UserUpdateWithoutNotificationsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -20672,6 +21308,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20781,6 +21418,7 @@ export type UserCreateWithoutReportsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -20890,6 +21528,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -21015,6 +21654,7 @@ export type UserUpdateWithoutReportsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -21124,6 +21764,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -21233,6 +21874,7 @@ export type UserCreateWithoutModerationActionsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -21342,6 +21984,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -21467,6 +22110,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -21576,6 +22220,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -21685,6 +22330,7 @@ export type UserCreateWithoutPollsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -21794,6 +22440,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -21919,6 +22566,7 @@ export type UserUpdateWithoutPollsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -22028,6 +22676,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -22137,6 +22786,7 @@ export type UserCreateWithoutPollVotesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -22246,6 +22896,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -22371,6 +23022,7 @@ export type UserUpdateWithoutPollVotesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -22480,6 +23132,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -22589,6 +23242,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -22698,6 +23352,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -22823,6 +23478,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -22932,6 +23588,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -23041,6 +23698,7 @@ export type UserCreateWithoutPublicKeyInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -23150,6 +23808,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -23275,6 +23934,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -23384,6 +24044,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -23493,6 +24154,7 @@ export type UserCreateWithoutConversations1Input = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -23602,6 +24264,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -23716,6 +24379,7 @@ export type UserCreateWithoutConversations2Input = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -23825,6 +24489,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -23950,6 +24615,7 @@ export type UserUpdateWithoutConversations1Input = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -24059,6 +24725,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24179,6 +24846,7 @@ export type UserUpdateWithoutConversations2Input = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -24288,6 +24956,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24397,6 +25066,7 @@ export type UserCreateWithoutSentMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -24506,6 +25176,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -24631,6 +25302,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -24740,6 +25412,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24849,6 +25522,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -24958,6 +25632,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -25083,6 +25758,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -25192,6 +25868,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25301,6 +25978,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -25410,6 +26088,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -25535,6 +26214,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -25644,6 +26324,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25753,6 +26434,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -25862,6 +26544,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -25987,6 +26670,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -26096,6 +26780,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -26205,6 +26890,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -26314,6 +27000,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -26439,6 +27126,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -26548,6 +27236,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -26657,6 +27346,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -26766,6 +27456,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -26891,6 +27582,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -27000,6 +27692,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -27109,6 +27802,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -27218,6 +27912,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -27343,6 +28038,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -27452,6 +28148,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -27561,6 +28258,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -27670,6 +28368,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -27784,6 +28483,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -27893,6 +28593,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -28018,6 +28719,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -28127,6 +28829,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28247,6 +28950,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -28356,6 +29060,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28465,6 +29170,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -28574,6 +29280,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -28699,6 +29406,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -28808,6 +29516,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28917,6 +29626,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -29026,6 +29736,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -29151,6 +29862,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -29260,6 +29972,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -29369,6 +30082,7 @@ export type UserCreateWithoutActivitiesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -29478,6 +30192,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -29603,6 +30318,7 @@ export type UserUpdateWithoutActivitiesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -29712,6 +30428,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -29821,6 +30538,7 @@ export type UserCreateWithoutActivityLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -29930,6 +30648,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -30055,6 +30774,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -30164,6 +30884,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -30273,6 +30994,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -30382,6 +31104,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -30507,6 +31230,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -30616,6 +31340,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -30725,6 +31450,7 @@ export type UserCreateWithoutRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -30834,6 +31560,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -30959,6 +31686,7 @@ export type UserUpdateWithoutRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -31068,6 +31796,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -31177,6 +31906,7 @@ export type UserCreateWithoutScimSubjectInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -31286,6 +32016,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -31411,6 +32142,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -31520,6 +32252,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -31629,6 +32362,7 @@ export type UserCreateWithoutShotsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -31738,6 +32472,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -31863,6 +32598,7 @@ export type UserUpdateWithoutShotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -31972,6 +32708,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -32081,6 +32818,7 @@ export type UserCreateWithoutShotLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -32190,6 +32928,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -32315,6 +33054,7 @@ export type UserUpdateWithoutShotLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -32424,6 +33164,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -32533,6 +33274,7 @@ export type UserCreateWithoutShotSavesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -32642,6 +33384,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -32767,6 +33510,7 @@ export type UserUpdateWithoutShotSavesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -32876,6 +33620,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -32985,6 +33730,7 @@ export type UserCreateWithoutShotCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -33094,6 +33840,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -33219,6 +33966,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -33328,6 +34076,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -33438,6 +34187,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -33547,6 +34297,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -33672,6 +34423,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -33781,6 +34533,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -33890,6 +34643,7 @@ export type UserCreateWithoutImportedMediaInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -33999,6 +34753,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -34124,6 +34879,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -34233,6 +34989,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -34341,6 +35098,7 @@ export type UserCreateWithoutStoriesInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -34450,6 +35208,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -34575,6 +35334,7 @@ export type UserUpdateWithoutStoriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -34684,6 +35444,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -34793,6 +35554,7 @@ export type UserCreateWithoutStoryViewsInput = {
   groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
@@ -34902,6 +35664,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
   streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
   badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
   creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
   creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
@@ -35027,6 +35790,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
@@ -35136,6 +35900,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
   streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
   badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
   lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
   creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
   creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
@@ -35214,6 +35979,7 @@ export type UserCountOutputType = {
   groupReactions: number
   streakDaysLog: number
   badges: number
+  blogLikes: number
   lbSnapshots: number
   creatorTiers: number
   membershipsAsFan: number
@@ -35285,6 +36051,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   groupReactions?: boolean | UserCountOutputTypeCountGroupReactionsArgs
   streakDaysLog?: boolean | UserCountOutputTypeCountStreakDaysLogArgs
   badges?: boolean | UserCountOutputTypeCountBadgesArgs
+  blogLikes?: boolean | UserCountOutputTypeCountBlogLikesArgs
   lbSnapshots?: boolean | UserCountOutputTypeCountLbSnapshotsArgs
   creatorTiers?: boolean | UserCountOutputTypeCountCreatorTiersArgs
   membershipsAsFan?: boolean | UserCountOutputTypeCountMembershipsAsFanArgs
@@ -35716,6 +36483,13 @@ export type UserCountOutputTypeCountBadgesArgs<ExtArgs extends runtime.Types.Ext
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountBlogLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlogLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountLbSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.LeaderboardSnapshotWhereInput
 }
@@ -35880,6 +36654,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   groupReactions?: boolean | Prisma.User$groupReactionsArgs<ExtArgs>
   streakDaysLog?: boolean | Prisma.User$streakDaysLogArgs<ExtArgs>
   badges?: boolean | Prisma.User$badgesArgs<ExtArgs>
+  blogLikes?: boolean | Prisma.User$blogLikesArgs<ExtArgs>
   lbSnapshots?: boolean | Prisma.User$lbSnapshotsArgs<ExtArgs>
   creatorProfile?: boolean | Prisma.User$creatorProfileArgs<ExtArgs>
   creatorTiers?: boolean | Prisma.User$creatorTiersArgs<ExtArgs>
@@ -36071,6 +36846,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   groupReactions?: boolean | Prisma.User$groupReactionsArgs<ExtArgs>
   streakDaysLog?: boolean | Prisma.User$streakDaysLogArgs<ExtArgs>
   badges?: boolean | Prisma.User$badgesArgs<ExtArgs>
+  blogLikes?: boolean | Prisma.User$blogLikesArgs<ExtArgs>
   lbSnapshots?: boolean | Prisma.User$lbSnapshotsArgs<ExtArgs>
   creatorProfile?: boolean | Prisma.User$creatorProfileArgs<ExtArgs>
   creatorTiers?: boolean | Prisma.User$creatorTiersArgs<ExtArgs>
@@ -36151,6 +36927,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     groupReactions: Prisma.$GroupMessageReactionPayload<ExtArgs>[]
     streakDaysLog: Prisma.$StreakDayPayload<ExtArgs>[]
     badges: Prisma.$UserBadgePayload<ExtArgs>[]
+    blogLikes: Prisma.$BlogLikePayload<ExtArgs>[]
     lbSnapshots: Prisma.$LeaderboardSnapshotPayload<ExtArgs>[]
     creatorProfile: Prisma.$CreatorProfilePayload<ExtArgs> | null
     creatorTiers: Prisma.$CreatorTierPayload<ExtArgs>[]
@@ -36669,6 +37446,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   groupReactions<T extends Prisma.User$groupReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   streakDaysLog<T extends Prisma.User$streakDaysLogArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$streakDaysLogArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StreakDayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   badges<T extends Prisma.User$badgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$badgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blogLikes<T extends Prisma.User$blogLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blogLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lbSnapshots<T extends Prisma.User$lbSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lbSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeaderboardSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creatorProfile<T extends Prisma.User$creatorProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creatorProfileArgs<ExtArgs>>): Prisma.Prisma__CreatorProfileClient<runtime.Types.Result.GetResult<Prisma.$CreatorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creatorTiers<T extends Prisma.User$creatorTiersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creatorTiersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreatorTierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -38560,6 +39338,30 @@ export type User$badgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.UserBadgeScalarFieldEnum | Prisma.UserBadgeScalarFieldEnum[]
+}
+
+/**
+ * User.blogLikes
+ */
+export type User$blogLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BlogLike
+   */
+  select?: Prisma.BlogLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BlogLike
+   */
+  omit?: Prisma.BlogLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BlogLikeInclude<ExtArgs> | null
+  where?: Prisma.BlogLikeWhereInput
+  orderBy?: Prisma.BlogLikeOrderByWithRelationInput | Prisma.BlogLikeOrderByWithRelationInput[]
+  cursor?: Prisma.BlogLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BlogLikeScalarFieldEnum | Prisma.BlogLikeScalarFieldEnum[]
 }
 
 /**

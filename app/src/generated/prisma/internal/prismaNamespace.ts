@@ -400,6 +400,7 @@ export const ModelName = {
   Payout: 'Payout',
   StreakDay: 'StreakDay',
   UserBadge: 'UserBadge',
+  FoundingCounter: 'FoundingCounter',
   LeaderboardSnapshot: 'LeaderboardSnapshot',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
@@ -437,6 +438,7 @@ export const ModelName = {
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
   BlogView: 'BlogView',
+  BlogLike: 'BlogLike',
   BlogComment: 'BlogComment',
   Notification: 'Notification',
   Report: 'Report',
@@ -574,7 +576,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogView" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotSave" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadReply" | "review" | "reviewLike" | "blog" | "blogView" | "blogLike" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotLike" | "shotSave" | "shotComment" | "socialConnection" | "importedMedia" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1315,6 +1317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserBadgeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserBadgeCountAggregateOutputType> | number
+        }
+      }
+    }
+    FoundingCounter: {
+      payload: Prisma.$FoundingCounterPayload<ExtArgs>
+      fields: Prisma.FoundingCounterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FoundingCounterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FoundingCounterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        findFirst: {
+          args: Prisma.FoundingCounterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FoundingCounterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        findMany: {
+          args: Prisma.FoundingCounterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>[]
+        }
+        create: {
+          args: Prisma.FoundingCounterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        createMany: {
+          args: Prisma.FoundingCounterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FoundingCounterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>[]
+        }
+        delete: {
+          args: Prisma.FoundingCounterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        update: {
+          args: Prisma.FoundingCounterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        deleteMany: {
+          args: Prisma.FoundingCounterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FoundingCounterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FoundingCounterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>[]
+        }
+        upsert: {
+          args: Prisma.FoundingCounterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingCounterPayload>
+        }
+        aggregate: {
+          args: Prisma.FoundingCounterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFoundingCounter>
+        }
+        groupBy: {
+          args: Prisma.FoundingCounterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FoundingCounterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FoundingCounterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FoundingCounterCountAggregateOutputType> | number
         }
       }
     }
@@ -4053,6 +4129,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.BlogViewCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.BlogViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    BlogLike: {
+      payload: Prisma.$BlogLikePayload<ExtArgs>
+      fields: Prisma.BlogLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlogLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlogLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        findFirst: {
+          args: Prisma.BlogLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlogLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        findMany: {
+          args: Prisma.BlogLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>[]
+        }
+        create: {
+          args: Prisma.BlogLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        createMany: {
+          args: Prisma.BlogLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlogLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>[]
+        }
+        delete: {
+          args: Prisma.BlogLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        update: {
+          args: Prisma.BlogLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.BlogLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlogLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlogLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.BlogLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogLikePayload>
+        }
+        aggregate: {
+          args: Prisma.BlogLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlogLike>
+        }
+        groupBy: {
+          args: Prisma.BlogLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlogLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogLikeCountAggregateOutputType> | number
         }
       }
     }
@@ -13295,10 +13445,20 @@ export const UserBadgeScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   code: 'code',
+  serial: 'serial',
   earnedAt: 'earnedAt'
 } as const
 
 export type UserBadgeScalarFieldEnum = (typeof UserBadgeScalarFieldEnum)[keyof typeof UserBadgeScalarFieldEnum]
+
+
+export const FoundingCounterScalarFieldEnum = {
+  id: 'id',
+  issued: 'issued',
+  cap: 'cap'
+} as const
+
+export type FoundingCounterScalarFieldEnum = (typeof FoundingCounterScalarFieldEnum)[keyof typeof FoundingCounterScalarFieldEnum]
 
 
 export const LeaderboardSnapshotScalarFieldEnum = {
@@ -13819,6 +13979,7 @@ export const BlogScalarFieldEnum = {
   publishedAt: 'publishedAt',
   scheduledAt: 'scheduledAt',
   viewCount: 'viewCount',
+  likeCount: 'likeCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -13835,6 +13996,15 @@ export const BlogViewScalarFieldEnum = {
 } as const
 
 export type BlogViewScalarFieldEnum = (typeof BlogViewScalarFieldEnum)[keyof typeof BlogViewScalarFieldEnum]
+
+
+export const BlogLikeScalarFieldEnum = {
+  userId: 'userId',
+  blogId: 'blogId',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogLikeScalarFieldEnum = (typeof BlogLikeScalarFieldEnum)[keyof typeof BlogLikeScalarFieldEnum]
 
 
 export const BlogCommentScalarFieldEnum = {
@@ -16199,6 +16369,7 @@ export type GlobalOmitConfig = {
   payout?: Prisma.PayoutOmit
   streakDay?: Prisma.StreakDayOmit
   userBadge?: Prisma.UserBadgeOmit
+  foundingCounter?: Prisma.FoundingCounterOmit
   leaderboardSnapshot?: Prisma.LeaderboardSnapshotOmit
   deviceToken?: Prisma.DeviceTokenOmit
   nativePushToken?: Prisma.NativePushTokenOmit
@@ -16236,6 +16407,7 @@ export type GlobalOmitConfig = {
   reviewLike?: Prisma.ReviewLikeOmit
   blog?: Prisma.BlogOmit
   blogView?: Prisma.BlogViewOmit
+  blogLike?: Prisma.BlogLikeOmit
   blogComment?: Prisma.BlogCommentOmit
   notification?: Prisma.NotificationOmit
   report?: Prisma.ReportOmit

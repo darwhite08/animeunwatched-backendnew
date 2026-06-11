@@ -7,6 +7,13 @@ const prisma = new PrismaClient()
 async function main() {
   const hash = await argon2.hash("password123")
 
+  // ─── Founding Creator counter (single row) ──────────────────────────────────
+  await prisma.foundingCounter.upsert({
+    where: { id: 1 },
+    update: {},
+    create: { id: 1, issued: 0, cap: 250 },
+  })
+
   // ─── Users ────────────────────────────────────────────────────────────────
   const users = await Promise.all([
     prisma.user.upsert({ where: { email: "admin@unwatched.dev" }, update: {}, create: { email: "admin@unwatched.dev", username: "admin", displayName: "Admin", passwordHash: hash, role: "ADMIN", reputation: 9999 } }),

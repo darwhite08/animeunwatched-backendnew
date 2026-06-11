@@ -59,6 +59,7 @@ export const ModelName = {
   Payout: 'Payout',
   StreakDay: 'StreakDay',
   UserBadge: 'UserBadge',
+  FoundingCounter: 'FoundingCounter',
   LeaderboardSnapshot: 'LeaderboardSnapshot',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
@@ -96,6 +97,7 @@ export const ModelName = {
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
   BlogView: 'BlogView',
+  BlogLike: 'BlogLike',
   BlogComment: 'BlogComment',
   Notification: 'Notification',
   Report: 'Report',
@@ -408,10 +410,20 @@ export const UserBadgeScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   code: 'code',
+  serial: 'serial',
   earnedAt: 'earnedAt'
 } as const
 
 export type UserBadgeScalarFieldEnum = (typeof UserBadgeScalarFieldEnum)[keyof typeof UserBadgeScalarFieldEnum]
+
+
+export const FoundingCounterScalarFieldEnum = {
+  id: 'id',
+  issued: 'issued',
+  cap: 'cap'
+} as const
+
+export type FoundingCounterScalarFieldEnum = (typeof FoundingCounterScalarFieldEnum)[keyof typeof FoundingCounterScalarFieldEnum]
 
 
 export const LeaderboardSnapshotScalarFieldEnum = {
@@ -932,6 +944,7 @@ export const BlogScalarFieldEnum = {
   publishedAt: 'publishedAt',
   scheduledAt: 'scheduledAt',
   viewCount: 'viewCount',
+  likeCount: 'likeCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -948,6 +961,15 @@ export const BlogViewScalarFieldEnum = {
 } as const
 
 export type BlogViewScalarFieldEnum = (typeof BlogViewScalarFieldEnum)[keyof typeof BlogViewScalarFieldEnum]
+
+
+export const BlogLikeScalarFieldEnum = {
+  userId: 'userId',
+  blogId: 'blogId',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogLikeScalarFieldEnum = (typeof BlogLikeScalarFieldEnum)[keyof typeof BlogLikeScalarFieldEnum]
 
 
 export const BlogCommentScalarFieldEnum = {

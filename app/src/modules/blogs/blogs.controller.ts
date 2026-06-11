@@ -25,6 +25,26 @@ export async function getBySlug(req: Request, res: Response, next: NextFunction)
   }
 }
 
+/** POST /blogs/:slug/like — like a blog (idempotent); returns live count + state. */
+export async function like(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const result = await service.like(req.params.slug as string, res.locals.user.id as string);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/** DELETE /blogs/:slug/like — remove a like (idempotent). */
+export async function unlike(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const result = await service.unlike(req.params.slug as string, res.locals.user.id as string);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 /** POST /blogs/:slug/view — record a (deduplicated) read; returns the live count. */
 export async function recordView(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

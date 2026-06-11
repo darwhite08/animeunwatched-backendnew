@@ -246,6 +246,13 @@ export function startJobs() {
   setInterval(lbSnap, 6 * 60 * 60_000)
   setTimeout(() => { lbSnap().catch(console.error) }, 45_000)
 
+  // One-off on boot: ensure the Founding Creator counter row exists (idempotent).
+  setTimeout(() => {
+    import("../lib/founding")
+      .then((m) => m.ensureFoundingCounter())
+      .catch((e) => console.error("[Boot] ensureFoundingCounter failed:", e))
+  }, 6_000)
+
   // One-off on boot: give slug-less (older) accounts a slug so /user/[slug]/*
   // routing works for them. Idempotent — only updates rows where slug IS NULL.
   setTimeout(() => {

@@ -186,6 +186,7 @@ model User {
   groupReactions     GroupMessageReaction[]
   streakDaysLog      StreakDay[]
   badges             UserBadge[]
+  blogLikes          BlogLike[]
   lbSnapshots        LeaderboardSnapshot[]
   // Creator monetization (docs/monetization-system.md)
   creatorProfile     CreatorProfile?
@@ -360,12 +361,26 @@ model UserBadge {
   id       String   @id @default(cuid())
   userId   String
   code     String
+  // Tenure ordinal for serialized badges (FOUNDING_CREATOR = 1..cap). null for
+  // every other badge type. Unique among non-null values so no two users share
+  // founding #N (Postgres treats NULLs as distinct in a unique index).
+  serial   Int?
   earnedAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, code])
+  @@unique([code, serial])
   @@index([userId])
+}
+
+// Single-row atomic counter that serializes Founding Creator issuance so the
+// cap is never exceeded under concurrent grants. Locked FOR UPDATE inside the
+// grant transaction. Seeded as { id: 1, issued: 0, cap: 250 }.
+model FoundingCounter {
+  id     Int @id @default(1)
+  issued Int @default(0)
+  cap    Int @default(250)
 }
 
 // Daily global-board rank snapshots — power the leaderboard's rank-movement
@@ -1175,12 +1190,15 @@ model Blog {
   // Source of truth for the granular events is BlogView; this is the fast O(1)
   // read used everywhere the count is shown.
   viewCount   Int        @default(0)
+  // Denormalized like counter (source of truth: BlogLike rows). Fast O(1) read.
+  likeCount   Int        @default(0)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments BlogComment[]
   views    BlogView[]
+  likes    BlogLike[]
 
   @@index([authorId])
   @@index([status, publishedAt])
@@ -1204,6 +1222,21 @@ model BlogView {
 
   @@unique([blogId, viewerKey, day])
   @@index([blogId, day])
+}
+
+// One row per (user, blog) like. Composite PK makes likes idempotent and lets
+// the reader resolve "did I already like this?" so the liked state survives a
+// refresh. Blog.likeCount is the denormalized fast counter.
+model BlogLike {
+  userId    String
+  blogId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@id([userId, blogId])
+  @@index([blogId])
 }
 
 model BlogComment {

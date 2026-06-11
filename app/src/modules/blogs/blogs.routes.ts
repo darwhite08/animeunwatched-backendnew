@@ -9,6 +9,8 @@ blogsRouter.get("/", optionalAuth, ctrl.list);
 blogsRouter.post("/", requireAuth, requireCreator, ctrl.createBlog);
 blogsRouter.get("/:slug", optionalAuth, ctrl.getBySlug);
 blogsRouter.post("/:slug/view", optionalAuth, ctrl.recordView);
+blogsRouter.post("/:slug/like",   requireAuth, ctrl.like);
+blogsRouter.delete("/:slug/like", requireAuth, ctrl.unlike);
 blogsRouter.patch("/:slug", requireAuth, ctrl.updateBlog);
 blogsRouter.delete("/:slug", requireAuth, ctrl.deleteBlog);
 blogsRouter.get("/:slug/comments",  optionalAuth, ctrl.getComments);

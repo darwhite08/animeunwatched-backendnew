@@ -3,7 +3,7 @@ import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { auditDelete } from "../../lib/audit";
-import { broadcastBlogViews } from "../../realtime/broadcast";
+import { broadcastBlogViews, broadcastBlogLikes } from "../../realtime/broadcast";
 import { env } from "../../config/env";
 import type { BlogCategory, CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
 
@@ -74,7 +74,60 @@ export async function getBySlug(slug: string, userId?: string) {
     throw notFound("Blog not found");
   }
 
-  return { blog };
+  // Whether the current viewer has already liked this — lets the like button
+  // render in the correct state on load (persists across refresh).
+  const likedByMe = userId
+    ? (await prisma.blogLike.findUnique({
+        where: { userId_blogId: { userId, blogId: blog.id } },
+        select: { userId: true },
+      })) != null
+    : false;
+
+  return { blog: { ...blog, likedByMe } };
+}
+
+// ─── like / unlike ──────────────────────────────────────────────────────────
+// Idempotent: liking twice (or unliking when not liked) is a no-op that returns
+// the current state. Keeps Blog.likeCount in lockstep with the BlogLike rows and
+// broadcasts the live count to everyone reading the blog.
+
+export async function like(slug: string, userId: string): Promise<{ likeCount: number; likedByMe: boolean }> {
+  const blog = await prisma.blog.findUnique({ where: { slug }, select: { id: true, status: true, likeCount: true } });
+  if (!blog || blog.status !== "PUBLISHED") throw notFound("Blog not found");
+
+  try {
+    await prisma.blogLike.create({ data: { userId, blogId: blog.id } });
+  } catch {
+    // Already liked → idempotent no-op.
+    return { likeCount: blog.likeCount, likedByMe: true };
+  }
+  const updated = await prisma.blog.update({
+    where: { id: blog.id },
+    data: { likeCount: { increment: 1 } },
+    select: { likeCount: true },
+  });
+  broadcastBlogLikes(slug, updated.likeCount);
+  return { likeCount: updated.likeCount, likedByMe: true };
+}
+
+export async function unlike(slug: string, userId: string): Promise<{ likeCount: number; likedByMe: boolean }> {
+  const blog = await prisma.blog.findUnique({ where: { slug }, select: { id: true, likeCount: true } });
+  if (!blog) throw notFound("Blog not found");
+
+  const { count } = await prisma.blogLike.deleteMany({ where: { userId, blogId: blog.id } });
+  if (count === 0) {
+    // Wasn't liked → idempotent no-op.
+    return { likeCount: blog.likeCount, likedByMe: false };
+  }
+  const updated = await prisma.blog.update({
+    where: { id: blog.id },
+    // Guard against ever going negative if counters ever drift.
+    data: { likeCount: { decrement: 1 } },
+    select: { likeCount: true },
+  });
+  const safeCount = Math.max(0, updated.likeCount);
+  broadcastBlogLikes(slug, safeCount);
+  return { likeCount: safeCount, likedByMe: false };
 }
 
 // ─── recordView ───────────────────────────────────────────────────────────────

@@ -93,6 +93,11 @@ export type StreakDay = Prisma.StreakDayModel
  */
 export type UserBadge = Prisma.UserBadgeModel
 /**
+ * Model FoundingCounter
+ * 
+ */
+export type FoundingCounter = Prisma.FoundingCounterModel
+/**
  * Model LeaderboardSnapshot
  * 
  */
@@ -277,6 +282,11 @@ export type Blog = Prisma.BlogModel
  * 
  */
 export type BlogView = Prisma.BlogViewModel
+/**
+ * Model BlogLike
+ * 
+ */
+export type BlogLike = Prisma.BlogLikeModel
 /**
  * Model BlogComment
  * 

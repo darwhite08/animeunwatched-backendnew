@@ -20,14 +20,25 @@ export type UserBadgeModel = runtime.Types.Result.DefaultSelection<Prisma.$UserB
 
 export type AggregateUserBadge = {
   _count: UserBadgeCountAggregateOutputType | null
+  _avg: UserBadgeAvgAggregateOutputType | null
+  _sum: UserBadgeSumAggregateOutputType | null
   _min: UserBadgeMinAggregateOutputType | null
   _max: UserBadgeMaxAggregateOutputType | null
+}
+
+export type UserBadgeAvgAggregateOutputType = {
+  serial: number | null
+}
+
+export type UserBadgeSumAggregateOutputType = {
+  serial: number | null
 }
 
 export type UserBadgeMinAggregateOutputType = {
   id: string | null
   userId: string | null
   code: string | null
+  serial: number | null
   earnedAt: Date | null
 }
 
@@ -35,6 +46,7 @@ export type UserBadgeMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   code: string | null
+  serial: number | null
   earnedAt: Date | null
 }
 
@@ -42,15 +54,25 @@ export type UserBadgeCountAggregateOutputType = {
   id: number
   userId: number
   code: number
+  serial: number
   earnedAt: number
   _all: number
 }
 
 
+export type UserBadgeAvgAggregateInputType = {
+  serial?: true
+}
+
+export type UserBadgeSumAggregateInputType = {
+  serial?: true
+}
+
 export type UserBadgeMinAggregateInputType = {
   id?: true
   userId?: true
   code?: true
+  serial?: true
   earnedAt?: true
 }
 
@@ -58,6 +80,7 @@ export type UserBadgeMaxAggregateInputType = {
   id?: true
   userId?: true
   code?: true
+  serial?: true
   earnedAt?: true
 }
 
@@ -65,6 +88,7 @@ export type UserBadgeCountAggregateInputType = {
   id?: true
   userId?: true
   code?: true
+  serial?: true
   earnedAt?: true
   _all?: true
 }
@@ -107,6 +131,18 @@ export type UserBadgeAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserBadgeAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserBadgeSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserBadgeMinAggregateInputType
@@ -137,6 +173,8 @@ export type UserBadgeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: UserBadgeCountAggregateInputType | true
+  _avg?: UserBadgeAvgAggregateInputType
+  _sum?: UserBadgeSumAggregateInputType
   _min?: UserBadgeMinAggregateInputType
   _max?: UserBadgeMaxAggregateInputType
 }
@@ -145,8 +183,11 @@ export type UserBadgeGroupByOutputType = {
   id: string
   userId: string
   code: string
+  serial: number | null
   earnedAt: Date
   _count: UserBadgeCountAggregateOutputType | null
+  _avg: UserBadgeAvgAggregateOutputType | null
+  _sum: UserBadgeSumAggregateOutputType | null
   _min: UserBadgeMinAggregateOutputType | null
   _max: UserBadgeMaxAggregateOutputType | null
 }
@@ -173,6 +214,7 @@ export type UserBadgeWhereInput = {
   id?: Prisma.StringFilter<"UserBadge"> | string
   userId?: Prisma.StringFilter<"UserBadge"> | string
   code?: Prisma.StringFilter<"UserBadge"> | string
+  serial?: Prisma.IntNullableFilter<"UserBadge"> | number | null
   earnedAt?: Prisma.DateTimeFilter<"UserBadge"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -181,6 +223,7 @@ export type UserBadgeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  serial?: Prisma.SortOrderInput | Prisma.SortOrder
   earnedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -188,23 +231,28 @@ export type UserBadgeOrderByWithRelationInput = {
 export type UserBadgeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId_code?: Prisma.UserBadgeUserIdCodeCompoundUniqueInput
+  code_serial?: Prisma.UserBadgeCodeSerialCompoundUniqueInput
   AND?: Prisma.UserBadgeWhereInput | Prisma.UserBadgeWhereInput[]
   OR?: Prisma.UserBadgeWhereInput[]
   NOT?: Prisma.UserBadgeWhereInput | Prisma.UserBadgeWhereInput[]
   userId?: Prisma.StringFilter<"UserBadge"> | string
   code?: Prisma.StringFilter<"UserBadge"> | string
+  serial?: Prisma.IntNullableFilter<"UserBadge"> | number | null
   earnedAt?: Prisma.DateTimeFilter<"UserBadge"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId_code">
+}, "id" | "userId_code" | "code_serial">
 
 export type UserBadgeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  serial?: Prisma.SortOrderInput | Prisma.SortOrder
   earnedAt?: Prisma.SortOrder
   _count?: Prisma.UserBadgeCountOrderByAggregateInput
+  _avg?: Prisma.UserBadgeAvgOrderByAggregateInput
   _max?: Prisma.UserBadgeMaxOrderByAggregateInput
   _min?: Prisma.UserBadgeMinOrderByAggregateInput
+  _sum?: Prisma.UserBadgeSumOrderByAggregateInput
 }
 
 export type UserBadgeScalarWhereWithAggregatesInput = {
@@ -214,12 +262,14 @@ export type UserBadgeScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"UserBadge"> | string
   userId?: Prisma.StringWithAggregatesFilter<"UserBadge"> | string
   code?: Prisma.StringWithAggregatesFilter<"UserBadge"> | string
+  serial?: Prisma.IntNullableWithAggregatesFilter<"UserBadge"> | number | null
   earnedAt?: Prisma.DateTimeWithAggregatesFilter<"UserBadge"> | Date | string
 }
 
 export type UserBadgeCreateInput = {
   id?: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutBadgesInput
 }
@@ -228,12 +278,14 @@ export type UserBadgeUncheckedCreateInput = {
   id?: string
   userId: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
 }
 
 export type UserBadgeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutBadgesNestedInput
 }
@@ -242,6 +294,7 @@ export type UserBadgeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -249,12 +302,14 @@ export type UserBadgeCreateManyInput = {
   id?: string
   userId: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
 }
 
 export type UserBadgeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -262,6 +317,7 @@ export type UserBadgeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -280,17 +336,28 @@ export type UserBadgeUserIdCodeCompoundUniqueInput = {
   code: string
 }
 
+export type UserBadgeCodeSerialCompoundUniqueInput = {
+  code: string
+  serial: number
+}
+
 export type UserBadgeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  serial?: Prisma.SortOrder
   earnedAt?: Prisma.SortOrder
+}
+
+export type UserBadgeAvgOrderByAggregateInput = {
+  serial?: Prisma.SortOrder
 }
 
 export type UserBadgeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  serial?: Prisma.SortOrder
   earnedAt?: Prisma.SortOrder
 }
 
@@ -298,7 +365,12 @@ export type UserBadgeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  serial?: Prisma.SortOrder
   earnedAt?: Prisma.SortOrder
+}
+
+export type UserBadgeSumOrderByAggregateInput = {
+  serial?: Prisma.SortOrder
 }
 
 export type UserBadgeCreateNestedManyWithoutUserInput = {
@@ -343,15 +415,25 @@ export type UserBadgeUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserBadgeScalarWhereInput | Prisma.UserBadgeScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type UserBadgeCreateWithoutUserInput = {
   id?: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
 }
 
 export type UserBadgeUncheckedCreateWithoutUserInput = {
   id?: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
 }
 
@@ -388,30 +470,35 @@ export type UserBadgeScalarWhereInput = {
   id?: Prisma.StringFilter<"UserBadge"> | string
   userId?: Prisma.StringFilter<"UserBadge"> | string
   code?: Prisma.StringFilter<"UserBadge"> | string
+  serial?: Prisma.IntNullableFilter<"UserBadge"> | number | null
   earnedAt?: Prisma.DateTimeFilter<"UserBadge"> | Date | string
 }
 
 export type UserBadgeCreateManyUserInput = {
   id?: string
   code: string
+  serial?: number | null
   earnedAt?: Date | string
 }
 
 export type UserBadgeUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserBadgeUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserBadgeUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  serial?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   earnedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -421,6 +508,7 @@ export type UserBadgeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   userId?: boolean
   code?: boolean
+  serial?: boolean
   earnedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userBadge"]>
@@ -429,6 +517,7 @@ export type UserBadgeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   userId?: boolean
   code?: boolean
+  serial?: boolean
   earnedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userBadge"]>
@@ -437,6 +526,7 @@ export type UserBadgeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   userId?: boolean
   code?: boolean
+  serial?: boolean
   earnedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userBadge"]>
@@ -445,10 +535,11 @@ export type UserBadgeSelectScalar = {
   id?: boolean
   userId?: boolean
   code?: boolean
+  serial?: boolean
   earnedAt?: boolean
 }
 
-export type UserBadgeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "code" | "earnedAt", ExtArgs["result"]["userBadge"]>
+export type UserBadgeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "code" | "serial" | "earnedAt", ExtArgs["result"]["userBadge"]>
 export type UserBadgeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -468,6 +559,7 @@ export type $UserBadgePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     id: string
     userId: string
     code: string
+    serial: number | null
     earnedAt: Date
   }, ExtArgs["result"]["userBadge"]>
   composites: {}
@@ -896,6 +988,7 @@ export interface UserBadgeFieldRefs {
   readonly id: Prisma.FieldRef<"UserBadge", 'String'>
   readonly userId: Prisma.FieldRef<"UserBadge", 'String'>
   readonly code: Prisma.FieldRef<"UserBadge", 'String'>
+  readonly serial: Prisma.FieldRef<"UserBadge", 'Int'>
   readonly earnedAt: Prisma.FieldRef<"UserBadge", 'DateTime'>
 }
     

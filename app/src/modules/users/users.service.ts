@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma";
 import { Prisma } from "../../generated/prisma/client";
+import { grantFoundingCreatorBadge } from "../../lib/founding";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { validateSlug, generateUniqueSlug } from "../../lib/slug";
@@ -32,7 +33,32 @@ export async function setVerification(username: string, kind: "USER" | "CREATOR"
     data: { verifiedKind: kind, verifiedAt: kind ? new Date() : null },
     select: safeUserSelect,
   });
+
+  // Becoming a Verified Creator is the trigger for the Founding Creator badge
+  // (first 250, first-come). Fire after the verification commit; never let it
+  // block or fail the verification flow.
+  if (kind === "CREATOR") {
+    void grantFoundingCreatorBadge(user.id).catch((e) =>
+      console.error("[founding] grant after setVerification failed:", e),
+    );
+  }
+
   return { user: updated };
+}
+
+/**
+ * Grant the Verified Creator badge to a user (idempotent), then fire the
+ * Founding Creator grant. The programmatic entry point for the verified-creator
+ * flow; the admin path (setVerification) triggers founding too. Returns the
+ * Founding badge if one was issued, else null (window closed / already founding).
+ */
+export async function grantVerifiedCreatorBadge(userId: string) {
+  await prisma.user.update({
+    where: { id: userId },
+    data: { verifiedKind: "CREATOR", verifiedAt: new Date() },
+    select: { id: true },
+  });
+  return grantFoundingCreatorBadge(userId);
 }
 
 // ─── getProfile ───────────────────────────────────────────────────────────────
@@ -83,7 +109,7 @@ export async function getProfile(username: string, viewerId?: string) {
       },
       badges: {
         orderBy: { earnedAt: "desc" },
-        select: { code: true, earnedAt: true },
+        select: { code: true, serial: true, earnedAt: true },
       },
     },
   });

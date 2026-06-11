@@ -36,6 +36,11 @@ export function broadcastBlogViews(slug: string, viewCount: number): void {
   emit(blogRoom(slug), "blog.views", { slug, viewCount })
 }
 
+/** Live blog like-count update → everyone currently reading that blog. */
+export function broadcastBlogLikes(slug: string, likeCount: number): void {
+  emit(blogRoom(slug), "blog.likes", { slug, likeCount })
+}
+
 // ── Generic helper ───────────────────────────────────────────────────────────
 
 function emit(room: string, event: string, payload: unknown): void {
