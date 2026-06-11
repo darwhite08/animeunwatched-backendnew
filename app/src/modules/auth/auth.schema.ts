@@ -37,6 +37,9 @@ export const registerSchema = z.object({
 export const loginSchema = z.object({
   email: z.string().email(),
   password: z.string(),
+  // Optional second factor: a 6-digit TOTP code or an 8+ char backup code.
+  // Required only when the account has TOTP enabled (enforced in login()).
+  totpCode: z.string().trim().min(6).max(20).optional(),
 });
 
 export type RegisterDto = z.infer<typeof registerSchema>;

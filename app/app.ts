@@ -201,6 +201,11 @@ if (env.NODE_ENV === "production") {
   app.use("/api/v1/auth/login",    rateLimit(10, 15 * 60_000));
   app.use("/api/v1/auth/register", rateLimit(10, 15 * 60_000));
 
+  // Password reset: tighter than the relaxed /auth bucket — these trigger email
+  // sends and enable account enumeration / email-bombing if left wide open.
+  app.use("/api/v1/auth/forgot-password", rateLimit(5, 15 * 60_000));
+  app.use("/api/v1/auth/reset-password",  rateLimit(10, 15 * 60_000));
+
   // Auth read/session endpoints (refresh, me, logout): relaxed
   app.use("/api/v1/auth", rateLimit(120, 60_000));
 }

@@ -21,6 +21,33 @@ export async function isBlockedEitherWay(a: string, b: string): Promise<boolean>
   return n > 0;
 }
 
+/**
+ * Authorize a WebRTC call from `from` to `to`: a conversation must already
+ * exist between them and neither may have blocked the other. Returns the
+ * caller's real display identity (server-derived — never trust client-supplied
+ * callerName/avatar, which are spoofable). null = not allowed.
+ */
+export async function authorizeCall(from: string, to: string): Promise<{ name: string; avatar: string | null } | null> {
+  if (from === to) return null;
+  if (await isBlockedEitherWay(from, to)) return null;
+  const conv = await prisma.conversation.findFirst({
+    where: {
+      OR: [
+        { participant1: from, participant2: to },
+        { participant1: to, participant2: from },
+      ],
+    },
+    select: { id: true },
+  });
+  if (!conv) return null;
+  const caller = await prisma.user.findUnique({
+    where: { id: from },
+    select: { displayName: true, username: true, avatarUrl: true },
+  });
+  if (!caller) return null;
+  return { name: caller.displayName || caller.username, avatar: caller.avatarUrl };
+}
+
 /** Does `follower` follow `followee` with an accepted follow? */
 async function follows(follower: string, followee: string): Promise<boolean> {
   const n = await prisma.follow.count({

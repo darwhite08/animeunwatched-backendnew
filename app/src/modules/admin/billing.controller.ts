@@ -235,9 +235,18 @@ export async function cancelSubscription(req: Request, res: Response, next: Next
   } catch (err) { next(err); }
 }
 
-/** Webhook receiver — records every provider event for replay/reconciliation. */
+/** Billing-event reconciliation receiver (admin-gated; see route comment). */
 export async function receiveBillingWebhook(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
+    // Defense-in-depth: if a shared secret is configured, require it. This keeps
+    // the endpoint safe from event injection even if it were ever exposed
+    // outside the admin guard. (The signature-verified provider webhook is the
+    // monetization Stripe handler; this path is for manual/admin reconciliation.)
+    const requiredSecret = process.env.BILLING_WEBHOOK_SECRET;
+    if (requiredSecret && req.header("x-kaiveron-webhook-secret") !== requiredSecret) {
+      res.status(401).json({ error: { code: "UNAUTHORIZED", message: "Invalid webhook secret" } });
+      return;
+    }
     const provider = (req.params.provider as string) ?? "stripe";
     const body = req.body as { id?: string; type?: string };
     if (!body?.id || !body?.type) throw badRequest("event must have id + type");

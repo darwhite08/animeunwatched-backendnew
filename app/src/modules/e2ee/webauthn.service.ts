@@ -69,7 +69,14 @@ export async function verifyAuthentication(userId: string, response: Parameters<
     credential: { id: cred.credentialId, publicKey: new Uint8Array(Buffer.from(cred.publicKey, "base64")), counter: cred.counter },
   });
   if (!verification.verified) throw badReq("Passkey authentication failed");
-  await prisma.webAuthnCredential.update({ where: { id: cred.id }, data: { counter: verification.authenticationInfo.newCounter } });
+  // Reject signature-counter regression: a non-zero counter that did not
+  // advance signals a cloned authenticator (replay). Authenticators that don't
+  // implement counters report 0 on both sides — allow that case.
+  const newCounter = verification.authenticationInfo.newCounter;
+  if (newCounter !== 0 && newCounter <= cred.counter) {
+    throw badReq("Passkey authentication failed (counter regression)");
+  }
+  await prisma.webAuthnCredential.update({ where: { id: cred.id }, data: { counter: newCounter } });
   cache.del(challengeKey(userId, "auth"));
   return { verified: true };
 }

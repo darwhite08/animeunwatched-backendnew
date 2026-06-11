@@ -221,7 +221,7 @@ export async function checkSlugAvailable(req: Request, res: Response, next: Next
 /** PATCH /users/me/slug  — change the authenticated user's routing slug */
 export async function updateSlug(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const userId = (req as any).user.id as string;
+    const userId = res.locals.user.id as string;
     const dto    = updateSlugSchema.parse(req.body);
     const user   = await service.updateSlug(userId, dto);
     res.status(200).json({ user });

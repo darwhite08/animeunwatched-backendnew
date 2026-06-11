@@ -9,6 +9,22 @@ export const samlRouter = Router()
 
 const FRONTEND_BASE = process.env.FRONTEND_URL ?? "https://kaiveron.com"
 
+/**
+ * Constrain the post-login redirect target to a SAME-SITE RELATIVE PATH.
+ * `returnTo` is attacker-controllable at /saml/login (it round-trips through
+ * RelayState), and the ACS appends the freshly-minted access token to the URL
+ * fragment — so an absolute/off-origin value is a token-exfiltration open
+ * redirect. Only allow paths that start with a single "/" (not "//" or "/\"),
+ * with no scheme/authority; everything else falls back to "/".
+ */
+function safeReturnPath(returnTo: unknown): string {
+  if (typeof returnTo !== "string") return "/"
+  if (!returnTo.startsWith("/")) return "/"     // reject absolute http(s):// etc.
+  if (/^\/[/\\]/.test(returnTo)) return "/"     // reject protocol-relative //evil and /\evil
+  if (/[\r\n]/.test(returnTo)) return "/"       // header/Location injection guard
+  return returnTo
+}
+
 function baseUrlFor(req: Request): string {
   const proto = (req.header("X-Forwarded-Proto") ?? req.protocol).split(",")[0].trim()
   const host  = req.header("X-Forwarded-Host") ?? req.header("Host") ?? "localhost"
@@ -47,7 +63,9 @@ samlRouter.get("/login", async (req, res) => {
   try {
     const active = await getActiveSaml(baseUrlFor(req))
     if (!active) { res.status(404).type("text/plain").send("SSO not configured"); return }
-    const returnTo = typeof req.query.returnTo === "string" ? req.query.returnTo : "/"
+    // Normalize to a same-site path at entry too (defense-in-depth; the ACS
+    // re-validates regardless).
+    const returnTo = safeReturnPath(req.query.returnTo)
     // RelayState is opaque to the IdP; we sign it lightly so we don't trust the round-tripped value blindly
     const state = encodeRelayState(returnTo)
     const url   = await active.saml.getAuthorizeUrlAsync(state, undefined, {})
@@ -133,14 +151,22 @@ samlRouter.post("/acs", async (req, res) => {
 
     outcome = "success"
 
-    // Set httpOnly refresh cookie, then 302 back to frontend with access token in fragment
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true, secure: true, sameSite: "lax",
-      maxAge: 30 * 24 * 60 * 60_000,
-      path:   "/",
+    // Set httpOnly refresh cookie with the SAME name + scoping as the main auth
+    // flow (was "refreshToken" at path "/", which both over-broadened the send
+    // scope AND was never read by the refresh endpoint, which expects aw_refresh
+    // scoped to /api/v1/auth).
+    res.cookie("aw_refresh", refreshToken, {
+      httpOnly: true,
+      secure:   process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path:     "/api/v1/auth",
+      maxAge:   7 * 24 * 60 * 60_000,
+      ...(process.env.NODE_ENV === "production" ? { domain: ".kaiveron.com" } : {}),
     })
-    const returnTo = decodeRelayState(body.RelayState) ?? "/"
-    const redirectUrl = new URL(returnTo.startsWith("http") ? returnTo : FRONTEND_BASE + returnTo)
+    // Always build the redirect from our OWN origin + a validated same-site
+    // path — never trust returnTo as an absolute URL (token-leak open redirect).
+    const returnTo = safeReturnPath(decodeRelayState(body.RelayState))
+    const redirectUrl = new URL(FRONTEND_BASE + returnTo)
     redirectUrl.hash = `accessToken=${encodeURIComponent(accessToken)}&via=saml`
     res.redirect(302, redirectUrl.toString())
   } catch (err) {
@@ -171,7 +197,13 @@ samlRouter.post("/acs", async (req, res) => {
 
 class SamlVerificationError extends Error {}
 
-const RELAY_SECRET = process.env.JWT_ACCESS_SECRET ?? "dev"
+// RelayState HMAC key. In production the JWT secret MUST exist; the "dev"
+// fallback is dev-only (and the open-redirect is independently closed by
+// safeReturnPath, so a forged RelayState can only yield a same-site path).
+const RELAY_SECRET = process.env.JWT_ACCESS_SECRET
+  ?? (process.env.NODE_ENV === "production"
+      ? (() => { throw new Error("JWT_ACCESS_SECRET required for SAML RelayState signing") })()
+      : "dev")
 function encodeRelayState(returnTo: string): string {
   const sig = crypto.createHmac("sha256", RELAY_SECRET).update(returnTo).digest("hex").slice(0, 16)
   return Buffer.from(`${sig}:${returnTo}`, "utf8").toString("base64url")

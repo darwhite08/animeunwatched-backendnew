@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { notFound, badRequest } from "../../lib/errors";
+import { seal, open } from "../../lib/secretBox";
 import { uploadImageBuffer } from "../../lib/storage";
 import * as ig from "../../lib/social/instagram";
 import * as tt from "../../lib/social/tiktok";
@@ -67,15 +68,19 @@ type IgConn = NonNullable<Awaited<ReturnType<typeof getInstagram>>>;
 
 /** Persist a refreshed token (or mark the connection as needing reconnect). */
 async function refreshInstagramToken(conn: IgConn): Promise<IgConn> {
-  const refreshed = await ig.refreshLongLivedToken(conn.accessToken);
-  if (!refreshed) return conn; // refresh not possible (too fresh / transient) — keep current
+  // conn.accessToken may be plaintext (from getInstagram) or ciphertext (from
+  // the bulk job reading rows directly); open() handles both.
+  const currentToken = open(conn.accessToken);
+  const refreshed = await ig.refreshLongLivedToken(currentToken);
+  if (!refreshed) return { ...conn, accessToken: currentToken }; // keep current (plaintext)
   const expiresAt = refreshed.expiresInSec
     ? new Date(Date.now() + refreshed.expiresInSec * 1000)
     : conn.tokenExpiresAt;
-  return prisma.socialConnection.update({
+  const updated = await prisma.socialConnection.update({
     where: { userId_provider: { userId: conn.userId, provider: "instagram" } },
-    data: { accessToken: refreshed.accessToken, tokenExpiresAt: expiresAt },
+    data: { accessToken: seal(refreshed.accessToken), tokenExpiresAt: expiresAt },
   });
+  return { ...updated, accessToken: refreshed.accessToken }; // hand callers plaintext
 }
 
 /** Refresh the token ahead of expiry so reads never hit an expired token. */
@@ -108,12 +113,12 @@ export async function handleInstagramCallback(code: string, state: string): Prom
     where: { userId_provider: { userId, provider: "instagram" } },
     create: {
       userId, provider: "instagram", providerUserId: conn.providerUserId,
-      username: conn.username, accessToken: conn.accessToken, tokenExpiresAt: expiresAt,
+      username: conn.username, accessToken: seal(conn.accessToken), tokenExpiresAt: expiresAt,
       scopes: ["instagram_business_basic"],
     },
     update: {
       providerUserId: conn.providerUserId, username: conn.username,
-      accessToken: conn.accessToken, tokenExpiresAt: expiresAt,
+      accessToken: seal(conn.accessToken), tokenExpiresAt: expiresAt,
     },
   });
   return { userId };
@@ -124,7 +129,7 @@ async function getInstagram(userId: string) {
     where: { userId_provider: { userId, provider: "instagram" } },
   });
   if (!conn) throw notFound("Instagram is not connected");
-  return conn;
+  return { ...conn, accessToken: open(conn.accessToken) }; // decrypt for use
 }
 
 /**
@@ -254,7 +259,7 @@ export async function refreshExpiringInstagramTokens(): Promise<{ scanned: numbe
   let refreshed = 0;
   for (const conn of rows) {
     const updated = await refreshInstagramToken(conn);
-    if (updated.accessToken !== conn.accessToken) refreshed++;
+    if (updated.accessToken !== open(conn.accessToken)) refreshed++;
   }
   return { scanned: rows.length, refreshed, skipped: false };
 }
@@ -273,10 +278,10 @@ export async function handleTiktokCallback(code: string, state: string): Promise
     where: { userId_provider: { userId, provider: "tiktok" } },
     create: {
       userId, provider: "tiktok", providerUserId: conn.providerUserId,
-      username: conn.username, accessToken: conn.accessToken, tokenExpiresAt: expiresAt,
+      username: conn.username, accessToken: seal(conn.accessToken), tokenExpiresAt: expiresAt,
       scopes: ["user.info.basic", "video.list"],
     },
-    update: { providerUserId: conn.providerUserId, username: conn.username, accessToken: conn.accessToken, tokenExpiresAt: expiresAt },
+    update: { providerUserId: conn.providerUserId, username: conn.username, accessToken: seal(conn.accessToken), tokenExpiresAt: expiresAt },
   });
   return { userId };
 }
@@ -284,7 +289,7 @@ export async function handleTiktokCallback(code: string, state: string): Promise
 async function getTiktok(userId: string) {
   const conn = await prisma.socialConnection.findUnique({ where: { userId_provider: { userId, provider: "tiktok" } } });
   if (!conn) throw notFound("TikTok is not connected");
-  return conn;
+  return { ...conn, accessToken: open(conn.accessToken) }; // decrypt for use
 }
 
 export async function listTiktokVideos(userId: string) {

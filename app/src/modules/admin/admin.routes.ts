@@ -283,7 +283,12 @@ adminRouter.post(  "/reports/schedules",               requirePermission("audit"
 adminRouter.delete("/reports/schedules/:id",           requirePermission("audit","export"),    reports.deleteSchedule);
 adminRouter.post(  "/reports/schedules/:id/run",       requirePermission("audit","export"),    reports.runScheduleNow);
 
-// Public webhook receiver (no auth — but the body must be a valid provider event)
+// Billing-event reconciliation receiver. NOTE: this is mounted UNDER the admin
+// router, so it inherits requireAuth + requireAdmin — it is NOT a public,
+// unauthenticated endpoint (the real provider webhook with stripe-signature
+// verification lives in monetization.controller). The handler additionally
+// enforces a shared-secret header when BILLING_WEBHOOK_SECRET is set, so it
+// stays safe against event injection even if ever detached from the admin guard.
 adminRouter.post(  "/billing/webhooks/:provider",      billing.receiveBillingWebhook);
 
 // Mailer status + test-send

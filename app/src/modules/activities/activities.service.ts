@@ -276,6 +276,16 @@ export async function createReply(authorId: string, activityId: string, dto: Cre
     });
     if (!target || target.deletedAt !== null) throw notFound("Activity not found");
 
+    // A parent reply, if given, MUST belong to this same activity — otherwise a
+    // client could graft a reply across activities and inflate the wrong
+    // reply's replyCount.
+    if (dto.parentReplyId) {
+      const parent = await tx.reply.findFirst({
+        where: { id: dto.parentReplyId, activityId }, select: { id: true },
+      });
+      if (!parent) throw notFound("Parent reply not found");
+    }
+
     const reply = await tx.reply.create({
       data: {
         activityId,

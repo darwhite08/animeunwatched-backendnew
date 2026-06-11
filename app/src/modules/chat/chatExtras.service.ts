@@ -1,19 +1,12 @@
 import { cache } from "../../lib/cache";
 import { env } from "../../config/env";
 import { badReq } from "../../lib/errors";
+import { ssrfSafeFetch, readTextCapped, SsrfError } from "../../lib/ssrfFetch";
 
 // ─── Link preview (Open Graph) ──────────────────────────────────────────────
-// SSRF-guarded server-side fetch: only http/https, no private/loopback hosts,
-// timeout + size cap. Cached 1h. The client never fetches cross-origin itself.
-
-function isBlockedHost(host: string): boolean {
-  const h = host.toLowerCase();
-  if (h === "localhost" || h.endsWith(".local") || h.endsWith(".internal")) return true;
-  if (/^127\./.test(h) || /^10\./.test(h) || /^192\.168\./.test(h)) return true;
-  if (/^172\.(1[6-9]|2\d|3[01])\./.test(h)) return true;
-  if (/^169\.254\./.test(h) || h === "0.0.0.0" || h === "::1" || h === "[::1]") return true;
-  return false;
-}
+// SSRF-hardened server-side fetch (ssrfSafeFetch: resolves host + re-validates
+// every redirect hop against private/internal ranges), timeout + size cap.
+// Cached 1h. The client never fetches cross-origin itself.
 
 function ogTag(html: string, prop: string): string | undefined {
   const re = new RegExp(`<meta[^>]+(?:property|name)=["']${prop}["'][^>]*>`, "i");
@@ -25,39 +18,24 @@ export async function linkPreview(rawUrl: string) {
   let url: URL;
   try { url = new URL(rawUrl); } catch { throw badReq("Invalid URL"); }
   if (url.protocol !== "http:" && url.protocol !== "https:") throw badReq("Unsupported URL");
-  if (isBlockedHost(url.hostname)) throw badReq("URL not allowed");
 
   const key = `linkpreview:${url.href}`;
   const cached = cache.get<object>(key);
   if (cached) return cached;
 
-  const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(), 5000);
   try {
-    const res = await fetch(url.href, {
-      signal: ac.signal,
-      redirect: "follow",
-      headers: { "User-Agent": "KaiveronBot/1.0 (+https://kaiveron.com)", Accept: "text/html" },
-    });
+    const res = await ssrfSafeFetch(url.href, { timeoutMs: 5000, headers: { Accept: "text/html" } });
     const type = res.headers.get("content-type") ?? "";
     if (!res.ok || !type.includes("text/html")) {
+      void res.body?.cancel();
       const empty = { url: url.href, title: null, description: null, image: null };
       cache.set(key, empty, 60 * 60_000);
       return empty;
     }
-    // Read at most ~512KB of HTML.
-    const reader = res.body?.getReader();
-    let html = ""; let bytes = 0;
-    if (reader) {
-      const dec = new TextDecoder();
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done || bytes > 512 * 1024) { void reader.cancel(); break; }
-        bytes += value.byteLength;
-        html += dec.decode(value, { stream: true });
-        if (html.includes("</head>")) break; // OG tags live in <head>
-      }
-    }
+    // Read at most ~512KB of HTML (OG tags live in <head>).
+    let html = await readTextCapped(res, 512 * 1024);
+    const headEnd = html.indexOf("</head>");
+    if (headEnd !== -1) html = html.slice(0, headEnd + 7);
     const preview = {
       url: url.href,
       title: ogTag(html, "og:title") ?? html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1]?.trim() ?? null,
@@ -67,12 +45,11 @@ export async function linkPreview(rawUrl: string) {
     };
     cache.set(key, preview, 60 * 60_000);
     return preview;
-  } catch {
+  } catch (e) {
+    if (e instanceof SsrfError) throw badReq("URL not allowed");
     const empty = { url: url.href, title: null, description: null, image: null };
     cache.set(key, empty, 10 * 60_000);
     return empty;
-  } finally {
-    clearTimeout(timer);
   }
 }
 

@@ -5,6 +5,7 @@ import { OAuth2Client } from "google-auth-library";
 import appleSignin from "apple-signin-auth";
 import { generateUniqueSlug } from "../../lib/slug";
 import { updateStreak } from "../../lib/streak";
+import { verifyTotp, hashBackupCode } from "../../lib/totp";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth, badRequest } from "../../lib/errors";
@@ -202,6 +203,41 @@ export interface AuthMeta {
   userAgent?: string | null
 }
 
+/**
+ * Enforce TOTP at login. No-op if the account has no enabled TOTP secret.
+ * Otherwise requires a valid current TOTP code OR an unused backup code
+ * (consumed on use). Throws a `TOTP_REQUIRED`/`TOTP_INVALID` coded error so the
+ * client can prompt for the second factor.
+ */
+async function enforceTotp(userId: string, code: string | undefined): Promise<void> {
+  const row = await prisma.totpSecret.findUnique({
+    where: { userId },
+    select: { secretBase32: true, enabled: true, backupCodes: true },
+  });
+  if (!row?.enabled) return; // 2FA not enabled for this account
+
+  if (!code) throw unauth("Two-factor code required", "TOTP_REQUIRED");
+
+  // Try a live TOTP code first.
+  if (verifyTotp(row.secretBase32, code.replace(/\s/g, ""))) {
+    await prisma.totpSecret.update({ where: { userId }, data: { lastUsedAt: new Date() } }).catch(() => {});
+    return;
+  }
+
+  // Fall back to single-use backup codes (stored hashed).
+  const codes = Array.isArray(row.backupCodes) ? (row.backupCodes as string[]) : [];
+  const hashed = hashBackupCode(code.replace(/\s/g, "").toUpperCase());
+  if (codes.includes(hashed)) {
+    await prisma.totpSecret.update({
+      where: { userId },
+      data: { backupCodes: codes.filter((c) => c !== hashed), lastUsedAt: new Date() },
+    }).catch(() => {});
+    return;
+  }
+
+  throw unauth("Invalid two-factor code", "TOTP_INVALID");
+}
+
 export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   // Brute-force guard: reject immediately if account is temporarily locked
   checkLoginAttempts(dto.email);
@@ -222,6 +258,11 @@ export async function login(dto: LoginDto, meta: AuthMeta = {}) {
     recordFailedLogin(dto.email);
     throw unauth("Invalid email or password");
   }
+
+  // Second factor: if the account has TOTP enabled, a valid TOTP (or single-use
+  // backup) code is required before any token is issued. Without this, 2FA was
+  // enrollment-only and gave no actual login protection.
+  await enforceTotp(userWithHash.id, dto.totpCode);
 
   // Successful login → clear failure counter
   clearLoginAttempts(dto.email);
@@ -258,7 +299,18 @@ export async function refresh(oldToken: string, meta: AuthMeta = {}) {
     where: { token: oldToken },
   });
 
-  if (!storedToken) throw unauth("Refresh token not found");
+  // Reuse-theft detection: the JWT signature is valid (we issued it) but the
+  // row is gone — i.e. this token was ALREADY rotated and consumed. A second
+  // presentation means either an attacker is replaying a stolen token or the
+  // legitimate token was stolen and used. Fail closed by revoking the whole
+  // session family so neither party keeps access; force a fresh login.
+  if (!storedToken) {
+    await prisma.refreshToken.deleteMany({ where: { userId: payload.userId } }).catch(() => {});
+    recordSecurityEvent("session_revoked", {
+      userId: payload.userId, metadata: { reason: "refresh_token_reuse_detected" },
+    });
+    throw unauth("Session expired — please sign in again");
+  }
   if (storedToken.expiresAt < new Date()) {
     // Clean up expired token
     await prisma.refreshToken.delete({ where: { token: oldToken } });

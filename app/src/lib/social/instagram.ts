@@ -199,10 +199,24 @@ export async function listReels(accessToken: string, limit = 25): Promise<IgReel
     }));
 }
 
+// Instagram/Facebook media is only ever served from these CDN hosts. Pinning to
+// them prevents a spoofed/compromised Graph response from pointing downloadMedia
+// at an internal host (SSRF) or an oversized body.
+const IG_MEDIA_HOST = /(^|\.)(cdninstagram\.com|fbcdn\.net)$/i;
+const MAX_MEDIA_BYTES = 25 * 1024 * 1024; // 25 MB hard cap
+
 /** Fetch the raw bytes of a media URL so we can re-host it permanently. */
 export async function downloadMedia(mediaUrl: string): Promise<Buffer> {
-  const res = await fetch(mediaUrl);
+  let u: URL;
+  try { u = new URL(mediaUrl); } catch { throw badRequest("Invalid media URL"); }
+  if (u.protocol !== "https:" || !IG_MEDIA_HOST.test(u.hostname)) {
+    throw badRequest("Unsupported media host");
+  }
+  const res = await fetch(u.toString(), { redirect: "error", signal: AbortSignal.timeout(15_000) });
   if (!res.ok) throw badRequest("Failed to download Instagram media");
+  const len = Number(res.headers.get("content-length") ?? 0);
+  if (len > MAX_MEDIA_BYTES) throw badRequest("Instagram media too large");
   const arr = await res.arrayBuffer();
+  if (arr.byteLength > MAX_MEDIA_BYTES) throw badRequest("Instagram media too large");
   return Buffer.from(arr);
 }

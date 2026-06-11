@@ -5,11 +5,15 @@ import { env } from "../config/env";
 import { prisma } from "../config/prisma";
 import { addSocket, removeSocket, setFocus, shouldPersistLastSeen } from "./presence";
 import { canSeeActivity } from "./activityGuard";
-import { deliverUndelivered, persistLastSeen, markConversationRead } from "../modules/chat/chat.service";
+import { deliverUndelivered, persistLastSeen, markConversationRead, authorizeCall, isBlockedEitherWay } from "../modules/chat/chat.service";
 
 export function initSocket(httpServer: HttpServer) {
   const io = new SocketServer(httpServer, {
     path: "/socket/v1",
+    // Cap inbound frame size (default 1 MB). Socket events here carry small
+    // JSON (SDP/ICE, room ids, conversation ids); 256 KB is generous and stops
+    // a client from flooding multi-MB payloads through the relay handlers.
+    maxHttpBufferSize: 256 * 1024,
     cors: {
       origin: (origin: string | undefined, callback: (err: Error | null, ok?: boolean) => void) => {
         if (!origin) { callback(null, true); return }
@@ -38,8 +42,9 @@ export function initSocket(httpServer: HttpServer) {
     const token = socket.handshake.auth?.token as string | undefined;
     if (!token) return next(new Error("unauthorized"));
     try {
-      const payload = jwt.verify(token, env.JWT_ACCESS_SECRET) as { userId: string };
+      const payload = jwt.verify(token, env.JWT_ACCESS_SECRET) as { userId: string; exp?: number };
       socket.data.userId = payload.userId;
+      socket.data.tokenExp = payload.exp; // seconds since epoch (for expiry enforcement)
       next();
     } catch {
       next(new Error("unauthorized"));
@@ -84,6 +89,18 @@ export function initSocket(httpServer: HttpServer) {
   io.on("connection", (socket) => {
     const userId = socket.data.userId as string;
     socket.join(`user:${userId}`);
+
+    // Enforce access-token expiry on the live socket: a long-lived connection
+    // must not outlive its token. Disconnect at exp; the client reconnects with
+    // a freshly-refreshed token (frontend re-emits token after refresh). Without
+    // this, a socket opened with a stolen token keeps realtime access forever.
+    const expSec = socket.data.tokenExp as number | undefined;
+    if (expSec) {
+      const msLeft = expSec * 1000 - Date.now();
+      const t = setTimeout(() => { try { socket.disconnect(true); } catch { /* noop */ } },
+        Math.max(0, Math.min(msLeft, 2_147_483_000)));
+      socket.on("disconnect", () => clearTimeout(t));
+    }
     // Join the global feed channel so server can broadcast posts/reviews
     socket.join("feed");
     setOnline(userId);
@@ -120,9 +137,15 @@ export function initSocket(httpServer: HttpServer) {
     socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });
     socket.emit("presence.count", { online: presenceCounts.size, at: Date.now() });
 
-    // Client opts in to anime / club / thread rooms when viewing those pages
-    socket.on("room:join",  (room: string) => { if (typeof room === "string" && room.length < 64) socket.join(room) });
-    socket.on("room:leave", (room: string) => { if (typeof room === "string" && room.length < 64) socket.leave(room) });
+    // Client opts in to PUBLIC content rooms when viewing those pages. Only an
+    // allowlist of public prefixes is joinable — never `user:` (per-user DM /
+    // notification stream) or `admin` (privileged event stream), which would
+    // otherwise let any authenticated client eavesdrop by guessing an id.
+    // `user:<self>` is already auto-joined on connect; `admin` is server-joined
+    // after a role check. Legitimate clients only ever join anime/post/thread/feed.
+    const JOINABLE = /^(anime:[0-9]+|post:[a-z0-9]+|thread:[a-z0-9]+|feed)$/i;
+    socket.on("room:join",  (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.join(room) });
+    socket.on("room:leave", (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.leave(room) });
 
     socket.on("disconnect", () => {
       setOffline(userId);
@@ -147,48 +170,67 @@ export function initSocket(httpServer: HttpServer) {
     });
 
     // ── WebRTC call signaling ────────────────────────────────────────────────
-    // The server is a pure relay — it never inspects SDP or ICE data.
+    // The server is a pure relay for SDP/ICE — but it authorizes every signal:
+    // a conversation must exist between the two users and neither may have
+    // blocked the other. Without this, any authenticated client could ring or
+    // flood any user by guessing an id, and spoof the caller name/avatar.
+    const validTo = (data: unknown): string | null =>
+      data && typeof (data as { to?: unknown }).to === "string" ? (data as { to: string }).to : null;
 
-    // Caller → server → recipient: incoming call notification
+    // Lightweight per-socket throttle on call:offer (anti-ring-spam).
+    let lastOfferAt = 0;
+
+    // Caller → server → recipient: incoming call notification. Caller identity
+    // is derived server-side, never taken from the client payload.
     socket.on("call:offer", (data: {
       to: string;
       offer: RTCSessionDescriptionInit;
       callType: "audio" | "video";
-      callerName: string;
-      callerAvatar: string | null;
     }) => {
-      io.to(`user:${data.to}`).emit("call:incoming", {
-        from:        userId,
-        offer:       data.offer,
-        callType:    data.callType,
-        callerName:  data.callerName,
-        callerAvatar: data.callerAvatar,
-      });
+      const to = validTo(data);
+      if (!to) return;
+      const now = Date.now();
+      if (now - lastOfferAt < 2000) return; // ≤1 offer / 2s / socket
+      lastOfferAt = now;
+      void authorizeCall(userId, to).then((caller) => {
+        if (!caller) return; // no conversation or blocked → silently drop
+        io.to(`user:${to}`).emit("call:incoming", {
+          from:        userId,
+          offer:       data.offer,
+          callType:    data.callType === "video" ? "video" : "audio",
+          callerName:  caller.name,
+          callerAvatar: caller.avatar,
+        });
+      }).catch(() => {});
     });
 
-    // Recipient → server → caller: accepted, here's the answer SDP
+    // Relay the remaining signals only when not blocked either way. (These
+    // follow an authorized offer, so a full conversation re-check isn't needed;
+    // the block check prevents continuing a call across a fresh block.)
+    const relayIfAllowed = (to: string | null, emit: () => void) => {
+      if (!to) return;
+      void isBlockedEitherWay(userId, to).then((blocked) => { if (!blocked) emit(); }).catch(() => {});
+    };
+
     socket.on("call:answer", (data: { to: string; answer: RTCSessionDescriptionInit }) => {
-      io.to(`user:${data.to}`).emit("call:answered", { answer: data.answer });
+      const to = validTo(data);
+      relayIfAllowed(to, () => io.to(`user:${to}`).emit("call:answered", { answer: data.answer }));
     });
-
-    // Both sides → server → other side: ICE candidates
     socket.on("call:ice-candidate", (data: { to: string; candidate: RTCIceCandidateInit }) => {
-      io.to(`user:${data.to}`).emit("call:ice-candidate", { candidate: data.candidate });
+      const to = validTo(data);
+      relayIfAllowed(to, () => io.to(`user:${to}`).emit("call:ice-candidate", { candidate: data.candidate }));
     });
-
-    // Either side → server → other side: call ended
     socket.on("call:end", (data: { to: string }) => {
-      io.to(`user:${data.to}`).emit("call:ended");
+      const to = validTo(data);
+      if (to) io.to(`user:${to}`).emit("call:ended"); // ending is always allowed (hangup)
     });
-
-    // Recipient → server → caller: call rejected
     socket.on("call:reject", (data: { to: string }) => {
-      io.to(`user:${data.to}`).emit("call:rejected");
+      const to = validTo(data);
+      if (to) io.to(`user:${to}`).emit("call:rejected");
     });
-
-    // Recipient → server → caller: already in another call
     socket.on("call:busy", (data: { to: string }) => {
-      io.to(`user:${data.to}`).emit("call:busy");
+      const to = validTo(data);
+      if (to) io.to(`user:${to}`).emit("call:busy");
     });
 
     // ── Typing indicators ────────────────────────────────────────────────────

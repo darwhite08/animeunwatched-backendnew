@@ -25,8 +25,8 @@ export const badReq = (msg = "Bad request") =>
 // Alias for consistency
 export const badRequest = badReq;
 
-export const unauth = (msg = "Unauthorized") =>
-  new HttpError(401, "UNAUTHORIZED", msg);
+export const unauth = (msg = "Unauthorized", code = "UNAUTHORIZED") =>
+  new HttpError(401, code, msg);
 
 export const internal = (msg = "Internal server error") =>
   new HttpError(500, "INTERNAL", msg);
