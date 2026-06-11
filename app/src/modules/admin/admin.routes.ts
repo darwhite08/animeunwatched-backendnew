@@ -82,6 +82,7 @@ adminRouter.get("/health",             ctrl.getPlatformHealth);
 adminRouter.get("/metrics/overview",   ctrl.getMetricsOverview);
 adminRouter.get("/analytics/live",     ctrl.getAnalyticsLive);
 adminRouter.get("/ga/realtime",        ctrl.getGAAnalyticsLive);
+adminRouter.get("/ga/countries",       ctrl.getGACountries);
 adminRouter.get("/metrics/timeseries", ctrl.getTimeSeries);
 adminRouter.get("/metrics/top",        ctrl.getTopPerformers);
 adminRouter.get("/metrics/funnel",     ctrl.getFunnel);

@@ -110,3 +110,44 @@ export async function getGA4Realtime(): Promise<GA4RealtimeSnapshot | null> {
     return null
   }
 }
+
+export interface GA4CountryRow { country: string; countryId: string; users: number; views: number }
+export interface GA4CountrySnapshot {
+  rangeDays:  number
+  totalUsers: number
+  countries:  GA4CountryRow[]
+  generatedAt: number
+}
+
+/**
+ * Historical visitors broken down by country over the last `days` (default 28).
+ * Returns null when GA4 isn't configured or the API call fails.
+ */
+export async function getGA4Countries(days = 28): Promise<GA4CountrySnapshot | null> {
+  const client = getClient()
+  if (!client) return null
+
+  const property = `properties/${PROPERTY_ID}`
+  const d = Math.min(365, Math.max(1, Math.floor(days)))
+  try {
+    const [res] = await client.runReport({
+      property,
+      dateRanges: [{ startDate: `${d}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "country" }, { name: "countryId" }],
+      metrics:    [{ name: "activeUsers" }, { name: "screenPageViews" }],
+      orderBys:   [{ metric: { metricName: "activeUsers" }, desc: true }],
+      limit:      60,
+    })
+    const countries = (res.rows ?? []).map((r) => ({
+      country:   r.dimensionValues?.[0]?.value ?? "(unknown)",
+      countryId: r.dimensionValues?.[1]?.value ?? "",
+      users:     Number(r.metricValues?.[0]?.value ?? 0),
+      views:     Number(r.metricValues?.[1]?.value ?? 0),
+    }))
+    const totalUsers = countries.reduce((s, c) => s + c.users, 0)
+    return { rangeDays: d, totalUsers, countries, generatedAt: Date.now() }
+  } catch (err) {
+    console.error("[ga4] country report failed:", (err as Error).message)
+    return null
+  }
+}

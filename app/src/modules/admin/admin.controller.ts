@@ -3,7 +3,7 @@ import * as service from "./admin.service";
 import { badRequest } from "../../lib/errors";
 import { prisma } from "../../config/prisma";
 import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
-import { getGA4Realtime, isGA4Configured } from "../../lib/ga4";
+import { getGA4Realtime, getGA4Countries, isGA4Configured } from "../../lib/ga4";
 
 export async function getStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -185,6 +185,23 @@ export async function getGAAnalyticsLive(_req: Request, res: Response, next: Nex
       return
     }
     const snap = await getGA4Realtime()
+    if (!snap) {
+      res.status(200).json({ configured: true, available: false })
+      return
+    }
+    res.status(200).json({ configured: true, available: true, ...snap })
+  } catch (err) { next(err) }
+}
+
+/** GET /admin/ga/countries?days=28 — historical visitors by country (GA4). */
+export async function getGACountries(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    if (!isGA4Configured()) {
+      res.status(200).json({ configured: false })
+      return
+    }
+    const days = req.query.days ? Number(req.query.days) : 28
+    const snap = await getGA4Countries(days)
     if (!snap) {
       res.status(200).json({ configured: true, available: false })
       return
