@@ -182,6 +182,29 @@ export async function getLeaderboard(req: Request, res: Response, next: NextFunc
   }
 }
 
+/** GET /users/leaderboard/boards?board=&window=&audience=&limit= — metric boards */
+export async function getBoardLeaderboard(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const board = String(req.query.board ?? "episodes") as service.BoardId;
+    if (!service.BOARD_IDS.includes(board)) {
+      res.status(400).json({ error: { code: "VALIDATION", message: "Unknown board" } });
+      return;
+    }
+    const windowQ   = String(req.query.window ?? "all");
+    const window    = (["week", "month", "all"].includes(windowQ) ? windowQ : "all") as "week" | "month" | "all";
+    const audienceQ = String(req.query.audience ?? "global");
+    const audience  = (["global", "friends"].includes(audienceQ) ? audienceQ : "global") as "global" | "friends";
+    const limit     = Math.min(100, Number(req.query.limit) || 50);
+    const result = await service.getBoardLeaderboard({
+      board, window, audience, limit,
+      viewerId: res.locals.user?.id as string | undefined,
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 // ── Slug management ───────────────────────────────────────────────────────────
 
 /** GET /users/slug-check?slug=foo  — live availability check (no auth needed) */

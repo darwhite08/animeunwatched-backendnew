@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma";
+import { Prisma } from "../../generated/prisma/client";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { validateSlug, generateUniqueSlug } from "../../lib/slug";
@@ -725,4 +726,189 @@ export async function whoToFollow(viewerId: string, limit = 10) {
 
   cache.set(cacheKey, ranked, 10 * 60_000)
   return ranked
+}
+
+// ─── Board leaderboards ───────────────────────────────────────────────────────
+// Five boards, each backed by a real aggregate:
+//   episodes — SUM(ListEntry.episodesSeen)        (windowable via updatedAt)
+//   reviews  — COUNT(Review) + likes received     (windowable via createdAt)
+//   streak   — User.streakDays / bestStreak       (window-agnostic)
+//   followed — COUNT(Follow ACCEPTED)             (window-agnostic)
+//   xp       — reputation * 100                   (window-agnostic, no history)
+
+export const BOARD_IDS = ["episodes", "reviews", "streak", "followed", "xp"] as const;
+export type BoardId = (typeof BOARD_IDS)[number];
+const BOARD_WINDOWED: Record<BoardId, boolean> = {
+  episodes: true, reviews: true, streak: false, followed: false, xp: false,
+};
+
+const lbLevel = (rep: number) =>
+  Math.max(1, Math.min(99, Math.floor(Math.sqrt(Math.max(0, rep) * 100 / 1000))));
+
+/** (userId, value, sec) per board — sec is the tie-breaker / secondary stat. */
+function boardCte(board: BoardId, since: Date | null): Prisma.Sql {
+  switch (board) {
+    case "episodes":
+      return Prisma.sql`
+        SELECT le."userId" AS uid, SUM(le."episodesSeen")::int AS value, COUNT(*)::int AS sec
+        FROM "ListEntry" le
+        ${since ? Prisma.sql`WHERE le."updatedAt" >= ${since}` : Prisma.empty}
+        GROUP BY 1
+        HAVING SUM(le."episodesSeen") > 0`;
+    case "reviews":
+      return Prisma.sql`
+        SELECT r."authorId" AS uid, COUNT(*)::int AS value, COALESCE(SUM(lk.n), 0)::int AS sec
+        FROM "Review" r
+        LEFT JOIN (SELECT "reviewId", COUNT(*) AS n FROM "ReviewLike" GROUP BY 1) lk
+          ON lk."reviewId" = r.id
+        ${since ? Prisma.sql`WHERE r."createdAt" >= ${since}` : Prisma.empty}
+        GROUP BY 1`;
+    case "streak":
+      return Prisma.sql`
+        SELECT u.id AS uid, u."streakDays"::int AS value, u."bestStreak"::int AS sec
+        FROM "User" u
+        WHERE u."streakDays" > 0`;
+    case "followed":
+      return Prisma.sql`
+        SELECT f."followingId" AS uid, COUNT(*)::int AS value, 0 AS sec
+        FROM "Follow" f
+        WHERE f.status = 'ACCEPTED'
+        GROUP BY 1`;
+    case "xp":
+      return Prisma.sql`
+        SELECT u.id AS uid, (u.reputation * 100)::int AS value, COALESCE(le.n, 0)::int AS sec
+        FROM "User" u
+        LEFT JOIN (SELECT "userId", COUNT(*) AS n FROM "ListEntry" GROUP BY 1) le
+          ON le."userId" = u.id
+        WHERE u.reputation > 0`;
+  }
+}
+
+export async function getBoardLeaderboard(opts: {
+  board: BoardId;
+  window: "week" | "month" | "all";
+  audience: "global" | "friends";
+  limit: number;
+  viewerId?: string;
+}) {
+  const { board, audience, limit, viewerId } = opts;
+  // Window-agnostic boards always report "all" so the client can grey the toggle.
+  const window = BOARD_WINDOWED[board] ? opts.window : "all";
+  const since =
+    window === "week"  ? new Date(Date.now() -  7 * 86_400_000) :
+    window === "month" ? new Date(Date.now() - 30 * 86_400_000) : null;
+
+  // Friends scope = people the viewer follows (ACCEPTED) + the viewer.
+  let scopeIds: string[] | null = null;
+  if (audience === "friends") {
+    if (!viewerId) return { board, window, audience, total: 0, data: [], me: null };
+    const follows = await prisma.follow.findMany({
+      where: { followerId: viewerId, status: "ACCEPTED" },
+      select: { followingId: true },
+    });
+    scopeIds = [...follows.map((f: { followingId: string }) => f.followingId), viewerId];
+  }
+
+  const cte = boardCte(board, since);
+  const scopeSql = scopeIds
+    ? Prisma.sql`AND m.uid IN (${Prisma.join(scopeIds)})`
+    : Prisma.empty;
+
+  const cacheKey = `lb:${board}:${window}:${audience}:${audience === "friends" ? viewerId : ""}`;
+  type Agg = { uid: string; value: number; sec: number };
+  let computed = cache.get(cacheKey) as { top: Agg[]; total: number } | undefined;
+  if (!computed) {
+    const top = await prisma.$queryRaw<Agg[]>`
+      SELECT m.uid, m.value, m.sec
+      FROM (${cte}) m
+      JOIN "User" u ON u.id = m.uid
+      WHERE u."isBanned" = false ${scopeSql}
+      ORDER BY m.value DESC, m.sec DESC, m.uid ASC
+      LIMIT ${limit}`;
+    const totalRows = await prisma.$queryRaw<Array<{ n: number }>>`
+      SELECT COUNT(*)::int AS n
+      FROM (${cte}) m
+      JOIN "User" u ON u.id = m.uid
+      WHERE u."isBanned" = false ${scopeSql}`;
+    computed = { top, total: totalRows[0]?.n ?? 0 };
+    // Global boards are identical for everyone — cache briefly. Friends boards
+    // are per-viewer; skip the cache to avoid unbounded keys.
+    if (audience === "global") cache.set(cacheKey, computed, 60_000);
+  }
+  const { top, total } = computed;
+
+  // Hydrate public user objects + the viewer's follow state for the rows.
+  const uids = top.map((r) => r.uid);
+  const users = uids.length
+    ? await prisma.user.findMany({
+        where: { id: { in: uids } },
+        select: {
+          id: true, username: true, slug: true, displayName: true, avatarUrl: true,
+          verifiedKind: true, reputation: true, streakDays: true, bestStreak: true,
+        },
+      })
+    : [];
+  const byId = new Map(users.map((u: (typeof users)[0]) => [u.id, u]));
+
+  let followingSet = new Set<string>();
+  if (viewerId && uids.length) {
+    const fs = await prisma.follow.findMany({
+      where: { followerId: viewerId, followingId: { in: uids }, status: "ACCEPTED" },
+      select: { followingId: true },
+    });
+    followingSet = new Set(fs.map((f: { followingId: string }) => f.followingId));
+  }
+
+  const data = top.flatMap((r, i) => {
+    const u = byId.get(r.uid);
+    if (!u) return [];
+    return [{
+      rank: i + 1,
+      value: r.value,
+      secondary: board === "followed" ? lbLevel(u.reputation) : r.sec,
+      isFollowing: followingSet.has(r.uid),
+      user: {
+        id: u.id, username: u.username, slug: u.slug, displayName: u.displayName,
+        avatarUrl: u.avatarUrl, verifiedKind: u.verifiedKind,
+        reputation: u.reputation, level: lbLevel(u.reputation),
+      },
+    }];
+  });
+
+  // Viewer standing on this board (rank within the same scope) + the value of
+  // the user one rank ahead, so the client can render "X to pass #N".
+  let me: { rank: number; value: number; secondary: number; nextValue: number | null } | null = null;
+  if (viewerId) {
+    const mine = await prisma.$queryRaw<Agg[]>`
+      SELECT m.uid, m.value, m.sec FROM (${cte}) m WHERE m.uid = ${viewerId} LIMIT 1`;
+    if (mine.length) {
+      const { value, sec } = mine[0];
+      const ahead = await prisma.$queryRaw<Array<{ n: number }>>`
+        SELECT COUNT(*)::int AS n
+        FROM (${cte}) m
+        JOIN "User" u ON u.id = m.uid
+        WHERE u."isBanned" = false ${scopeSql}
+          AND (m.value > ${value} OR (m.value = ${value} AND m.sec > ${sec}))`;
+      const rank = (ahead[0]?.n ?? 0) + 1;
+      let nextValue: number | null = null;
+      if (rank > 1) {
+        const inTop = top[rank - 2];
+        if (inTop) {
+          nextValue = inTop.value;
+        } else {
+          const next = await prisma.$queryRaw<Array<{ value: number }>>`
+            SELECT m.value
+            FROM (${cte}) m
+            JOIN "User" u ON u.id = m.uid
+            WHERE u."isBanned" = false ${scopeSql}
+            ORDER BY m.value DESC, m.sec DESC, m.uid ASC
+            OFFSET ${rank - 2} LIMIT 1`;
+          nextValue = next[0]?.value ?? null;
+        }
+      }
+      me = { rank, value, secondary: sec, nextValue };
+    }
+  }
+
+  return { board, window, audience, total, data, me };
 }

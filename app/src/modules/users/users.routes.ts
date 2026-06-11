@@ -18,7 +18,8 @@ usersRouter.get("/slug-check",       ctrl.checkSlugAvailable);   // ?slug=foo  (
 usersRouter.patch("/me/username",             requireAuth, ctrl.changeUsername);
 usersRouter.get("/username-check",   optionalAuth, ctrl.checkUsernameAvailable);  // ?username=foo
 // Leaderboard must be before /:username or Express will match 'leaderboard' as username
-usersRouter.get("/leaderboard/top", ctrl.getLeaderboard);
+usersRouter.get("/leaderboard/top",    ctrl.getLeaderboard);
+usersRouter.get("/leaderboard/boards", optionalAuth, ctrl.getBoardLeaderboard);
 // Personalised people-you-may-know — FOAF + taste similarity + recency
 usersRouter.get("/suggestions",     requireAuth, ctrl.whoToFollow);
 
