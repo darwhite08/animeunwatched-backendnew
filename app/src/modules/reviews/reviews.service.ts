@@ -80,6 +80,12 @@ export async function create(authorId: string, dto: CreateReviewDto) {
   });
   addReputation(authorId, "review_posted").catch(console.error);
 
+  // First-review badge (first-time action only)
+  void (async () => {
+    const n = await prisma.review.count({ where: { authorId } });
+    if (n === 1) await (await import("../../lib/badges")).awardBadge(authorId, "FIRST_REVIEW");
+  })().catch(() => {});
+
   // Realtime: broadcast to anyone viewing this anime page + platform activity ticker
   try {
     const animeRow = await prisma.anime.findUnique({ where: { id: dto.animeId }, select: { malId: true, title: true } });

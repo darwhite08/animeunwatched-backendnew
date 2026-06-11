@@ -185,6 +185,7 @@ model User {
   groupMessages      GroupMessage[]      @relation("GroupMessageSender")
   groupReactions     GroupMessageReaction[]
   streakDaysLog      StreakDay[]
+  badges             UserBadge[]
   // Creator monetization (docs/monetization-system.md)
   creatorProfile     CreatorProfile?
   creatorTiers       CreatorTier[]
@@ -348,6 +349,22 @@ model StreakDay {
 
   @@id([userId, date])
   @@index([userId, date])
+}
+
+// Earned achievement badges. One row per (user, badge code) — awards are
+// idempotent. Catalog (names/tiers/criteria) lives in code: app/src/lib/badges.ts.
+// Per the engagement research: badges ONLY for rare / first-time / completion
+// actions — never for common actions (those measured no effect and dilute the wall).
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  code     String
+  earnedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, code])
+  @@index([userId])
 }
 
 // One row per registered push-notification device for a user.

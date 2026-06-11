@@ -88,6 +88,11 @@ export type Payout = Prisma.PayoutModel
  */
 export type StreakDay = Prisma.StreakDayModel
 /**
+ * Model UserBadge
+ * 
+ */
+export type UserBadge = Prisma.UserBadgeModel
+/**
  * Model DeviceToken
  * 
  */

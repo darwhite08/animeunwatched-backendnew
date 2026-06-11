@@ -118,6 +118,14 @@ export async function upsertEntry(userId: string, animeId: string, dto: UpsertEn
   // Fire-and-forget streak update — list activity counts as daily engagement
   void updateStreak(userId).catch(() => {});
 
+  // Badge hooks — first list-add + series completion (rare/first/completion only)
+  void (async () => {
+    const { awardBadge, checkCompletionBadges } = await import("../../lib/badges");
+    const n = await prisma.listEntry.count({ where: { userId } });
+    if (n === 1) await awardBadge(userId, "FIRST_LIST_ADD");
+    if (dto.status === "COMPLETED") await checkCompletionBadges(userId);
+  })().catch(() => {});
+
   // Realtime: anime detail page's user-stats counter updates live
   if (anime.malId) broadcastAnimeListChanged(anime.malId);
   // Realtime: the user's own watchlist tabs/devices sync

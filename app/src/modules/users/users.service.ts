@@ -81,12 +81,16 @@ export async function getProfile(username: string, viewerId?: string) {
           createdAt: true,
         },
       },
+      badges: {
+        orderBy: { earnedAt: "desc" },
+        select: { code: true, earnedAt: true },
+      },
     },
   });
 
   if (!user) throw notFound("User not found");
 
-  const { _count, posts, reviews, ...rest } = user;
+  const { _count, posts, reviews, badges, ...rest } = user;
 
   // Viewer's follow relationship: ACCEPTED → following, PENDING → requested.
   let isFollowing = false;
@@ -127,6 +131,7 @@ export async function getProfile(username: string, viewerId?: string) {
     },
     recentPosts: locked ? [] : posts,
     recentReviews: locked ? [] : reviews,
+    badges: locked ? [] : badges,
   };
 }
 
@@ -156,7 +161,37 @@ export async function completeOnboarding(userId: string, favoriteGenres: string[
     data: { favoriteGenres: clean, onboardedAt: new Date() },
     select: { ...safeUserSelect, isPrivate: true, onboardedAt: true, favoriteGenres: true },
   });
-  return { user };
+
+  // Endowed-progress head start (Nunes & Drèze 2006: 2 pre-filled stamps lifted
+  // completion 19%→34%): pre-add two strong picks from the user's chosen genres
+  // so the starter archive begins partly complete. The effect requires a STATED
+  // REASON — the client surfaces "because you chose <genres>" with these picks.
+  let endowed: Array<{ malId: number | null; title: string; imageUrl: string | null }> = [];
+  if (clean.length) {
+    try {
+      const existing = await prisma.listEntry.findMany({ where: { userId }, select: { animeId: true } });
+      const picks = await prisma.anime.findMany({
+        where: {
+          id: { notIn: existing.map((e: { animeId: string }) => e.animeId) },
+          score: { not: null },
+          genres: { some: { genre: { name: { in: clean } } } },
+        },
+        orderBy: { score: "desc" },
+        take: 2,
+        select: { id: true, malId: true, title: true, imageUrl: true },
+      });
+      if (picks.length) {
+        await prisma.listEntry.createMany({
+          data: picks.map((p: { id: string }) => ({ userId, animeId: p.id, status: "PLAN_TO_WATCH" as const })),
+          skipDuplicates: true,
+        });
+        endowed = picks.map((p: { malId: number | null; title: string; imageUrl: string | null }) =>
+          ({ malId: p.malId, title: p.title, imageUrl: p.imageUrl }));
+      }
+    } catch { /* endowment is best-effort — onboarding still succeeds without it */ }
+  }
+
+  return { user, endowed };
 }
 
 // ─── change username ────────────────────────────────────────────────────────────

@@ -171,6 +171,13 @@ export async function join(userId: string, slug: string, message?: string) {
   });
 
   void emitClubUpdate(club.id, "member");
+
+  // First-community badge (belonging is the strongest identity driver)
+  void (async () => {
+    const n = await prisma.clubMember.count({ where: { userId } });
+    if (n === 1) await (await import("../../lib/badges")).awardBadge(userId, "FIRST_CLUB");
+  })().catch(() => {});
+
   return { membership, requiresOnboarding: true, rules: club.rules ?? null, welcomeMessage: club.welcomeMessage ?? null };
 }
 

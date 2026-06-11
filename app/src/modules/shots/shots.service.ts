@@ -150,6 +150,11 @@ export async function createShot(authorId: string, dto: CreateShotDto) {
     include: shotInclude,
   });
   addReputation(authorId, "post_created").catch(console.error);
+  // First-Shot badge (first-time action only)
+  void (async () => {
+    const n = await prisma.shot.count({ where: { authorId, deletedAt: null } });
+    if (n === 1) await (await import("../../lib/badges")).awardBadge(authorId, "FIRST_SHOT");
+  })().catch(() => {});
   return { ...shot, isLikedByMe: false, isSavedByMe: false, authorFollowedByMe: false };
 }
 

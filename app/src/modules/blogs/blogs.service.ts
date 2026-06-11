@@ -102,6 +102,14 @@ export async function create(authorId: string, dto: CreateBlogDto) {
   });
   if (isPublished) addReputation(authorId, "blog_published").catch(console.error);
 
+  // First-blog badge — on first PUBLISHED blog only (drafts don't count)
+  if (isPublished) {
+    void (async () => {
+      const n = await prisma.blog.count({ where: { authorId, status: "PUBLISHED" } });
+      if (n === 1) await (await import("../../lib/badges")).awardBadge(authorId, "FIRST_BLOG");
+    })().catch(() => {});
+  }
+
   return { blog };
 }
 

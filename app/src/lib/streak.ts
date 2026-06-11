@@ -122,6 +122,11 @@ export async function updateStreak(userId: string, now = new Date()): Promise<St
     }),
   ]);
 
+  // Streak-milestone badges (7/30) — rare milestones only, awarded as a surprise.
+  if (milestonesCrossed.length) {
+    void import("./badges").then(b => b.checkStreakBadges(userId, milestonesCrossed)).catch(() => {});
+  }
+
   return { streakDays: newStreak, changed: true, broke, repairable, milestonesCrossed, freezesGranted };
 }
 
