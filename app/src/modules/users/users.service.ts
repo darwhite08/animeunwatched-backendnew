@@ -41,6 +41,9 @@ export async function getProfile(username: string, viewerId?: string) {
     where: { username },
     select: {
       ...safeUserSelect,
+      streakDays: true,
+      bestStreak: true,
+      lastActiveAt: true,
       isPrivate: true,
       _count: {
         select: {
@@ -57,9 +60,13 @@ export async function getProfile(username: string, viewerId?: string) {
         take: 3,
         select: {
           id: true,
+          authorId: true,
           content: true,
           animeId: true,
+          imageUrl: true,
           createdAt: true,
+          anime: { select: { title: true, malId: true } },
+          _count: { select: { likes: true, comments: true } },
         },
       },
       reviews: {
@@ -95,8 +102,17 @@ export async function getProfile(username: string, viewerId?: string) {
   // Private account content is hidden from non-followers (Instagram-style).
   const locked = !!rest.isPrivate && viewerId !== rest.id && !isFollowing;
 
+  // 1-based global rank by reputation among non-banned users.
+  const rank =
+    (await prisma.user.count({
+      where: { isBanned: false, reputation: { gt: rest.reputation } },
+    })) + 1;
+
+  // Email is account-private — only the owner sees it on their own profile.
+  const { email: _email, ...publicUser } = rest;
+
   return {
-    user: { ...rest, isFollowing, followRequested },
+    user: { ...(viewerId === rest.id ? rest : publicUser), isFollowing, followRequested },
     isFollowing,
     followRequested,
     isPrivate: rest.isPrivate,
@@ -106,6 +122,7 @@ export async function getProfile(username: string, viewerId?: string) {
       following: _count.following,
       listCount: _count.listEntries,
       reviewCount: _count.reviews,
+      rank,
     },
     recentPosts: locked ? [] : posts,
     recentReviews: locked ? [] : reviews,
