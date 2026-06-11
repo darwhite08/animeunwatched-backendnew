@@ -22,6 +22,10 @@ export async function getById(id: string, userId?: string) {
     include: {
       author: { select: authorSelect },
       _count: { select: { replies: true } },
+      // Surface the parent so the frontend can render a correct breadcrumb:
+      // anime threads link back to the anime, club threads to the club.
+      club:  { select: { slug: true, name: true } },
+      anime: { select: { malId: true, title: true, titleEnglish: true } },
     },
   });
 
