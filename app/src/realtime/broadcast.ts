@@ -203,6 +203,17 @@ export function broadcastThreadReply(threadId: string, reply: unknown): void {
   emit(threadRoom(threadId), "thread.reply", reply)
 }
 
+/** A reaction (e.g. a like) was toggled on a thread or one of its replies —
+ *  sent to the thread's room so all viewers' like counts update live. */
+export function broadcastThreadReaction(
+  threadId: string,
+  targetId: string,
+  targetType: "thread" | "reply",
+  reactions: unknown,
+): void {
+  emit(threadRoom(threadId), "thread.reaction", { targetId, targetType, reactions, at: Date.now() })
+}
+
 export function broadcastThreadCreated(parentRoom: string, thread: unknown): void {
   emit(parentRoom, "thread.created", thread)
 }

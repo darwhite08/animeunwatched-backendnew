@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { auditDelete } from "../../lib/audit";
-import { broadcastThreadReply, broadcastAnimeThreadCreated } from "../../realtime/broadcast";
+import { broadcastThreadReply, broadcastAnimeThreadCreated, broadcastThreadReaction } from "../../realtime/broadcast";
 import type { CreateThreadDto, UpdateThreadDto, CreateReplyDto } from "./threads.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -320,16 +320,29 @@ export async function reactionsFor(targetIds: string[], userId?: string): Promis
 
 /** Toggle a reaction on a thread or reply. Returns the target's reaction summary. */
 export async function setReaction(targetId: string, targetType: "thread" | "reply", userId: string, emoji: string) {
-  const exists = targetType === "thread"
-    ? await prisma.thread.findUnique({ where: { id: targetId }, select: { id: true } })
-    : await prisma.threadReply.findUnique({ where: { id: targetId }, select: { id: true } });
-  if (!exists) throw notFound("Not found");
+  // Resolve the owning thread id (the room to broadcast to). For a thread the
+  // target IS the thread; for a reply we look up its parent thread.
+  let threadId: string | null = null;
+  if (targetType === "thread") {
+    const t = await prisma.thread.findUnique({ where: { id: targetId }, select: { id: true } });
+    threadId = t?.id ?? null;
+  } else {
+    const r = await prisma.threadReply.findUnique({ where: { id: targetId }, select: { threadId: true } });
+    threadId = r?.threadId ?? null;
+  }
+  if (!threadId) throw notFound("Not found");
 
   const existing = await prisma.threadReaction.findUnique({ where: { targetId_userId_emoji: { targetId, userId, emoji } } });
   if (existing) await prisma.threadReaction.delete({ where: { id: existing.id } });
   else await prisma.threadReaction.create({ data: { targetId, targetType, userId, emoji } });
   const map = await reactionsFor([targetId], userId);
-  return { reactions: map.get(targetId) ?? [] };
+  const reactions = map.get(targetId) ?? [];
+
+  // Live-sync everyone viewing this thread (counts only — reactedByMe is
+  // per-viewer, so clients recompute their own state on the next fetch).
+  void broadcastThreadReaction(threadId, targetId, targetType, reactions);
+
+  return { reactions };
 }
 
 // ─── thread lock (author or club mod/admin) ───────────────────────────────────
