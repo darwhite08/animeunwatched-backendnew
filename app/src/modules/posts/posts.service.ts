@@ -712,6 +712,45 @@ async function attachCommentLikeStatus<T extends { id: string }>(comments: T[], 
   return comments.map(c => ({ ...c, isLikedByMe: set.has(c.id) }));
 }
 
+// ─── getLikers ───────────────────────────────────────────────────────────────
+// The people who liked a post (Instagram-style likes list). Most recent first,
+// annotated with whether the viewer already follows each one (for follow CTAs).
+
+const LIKER_SELECT = {
+  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true,
+} as const;
+
+export async function getLikers(postId: string, page = 1, limit = 30, viewerId?: string) {
+  const post = await prisma.post.findUnique({ where: { id: postId }, select: { id: true, deletedAt: true } });
+  if (!post || post.deletedAt !== null) throw notFound("Post not found");
+
+  const { skip, take } = paginate(page, limit);
+  const [rows, total] = await prisma.$transaction([
+    prisma.postLike.findMany({
+      where: { postId }, skip, take, orderBy: { createdAt: "desc" },
+      select: { user: { select: LIKER_SELECT } },
+    }),
+    prisma.postLike.count({ where: { postId } }),
+  ]);
+
+  const ids = rows.map((r: { user: { id: string } }) => r.user.id);
+  let followed = new Set<string>();
+  if (viewerId && ids.length) {
+    const f = await prisma.follow.findMany({
+      where: { followerId: viewerId, followingId: { in: ids }, status: "ACCEPTED" },
+      select: { followingId: true },
+    });
+    followed = new Set(f.map((x: { followingId: string }) => x.followingId));
+  }
+
+  const data = rows.map((r: { user: { id: string } }) => ({
+    ...r.user,
+    isFollowedByMe: followed.has(r.user.id),
+    isMe: r.user.id === viewerId,
+  }));
+  return { data, meta: meta(total, page, limit) };
+}
+
 // ─── getComments ─────────────────────────────────────────────────────────────
 //
 // Returns TOP-LEVEL comments (parentCommentId IS NULL) on a post, each with
