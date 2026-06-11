@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { auditDelete } from "../../lib/audit";
-import { broadcastThreadReply } from "../../realtime/broadcast";
+import { broadcastThreadReply, broadcastAnimeThreadCreated } from "../../realtime/broadcast";
 import type { CreateThreadDto, UpdateThreadDto, CreateReplyDto } from "./threads.schema";
 
 // ─── Shared select ────────────────────────────────────────────────────────────
@@ -111,6 +111,10 @@ export async function createAnimeThread(
       _count: { select: { replies: true } },
     },
   });
+
+  // Live-push to everyone viewing this anime's page so the discussion list
+  // updates in real time without a refetch.
+  void broadcastAnimeThreadCreated(malId, thread);
 
   return { thread };
 }

@@ -86,6 +86,13 @@ export function broadcastUserListChanged(userId: string, malId: number, status: 
   emit(userRoom(userId), "list.changed", { malId, status, at: Date.now() })
 }
 
+/** A new discussion thread was started on an anime — viewers of that anime's
+ *  page get it live (room `anime:<malId>`). Payload is the created thread so
+ *  the client can prepend it without a refetch. */
+export function broadcastAnimeThreadCreated(malId: number, thread: unknown): void {
+  emit(animeRoom(malId), "anime-thread.new", { malId, thread, at: Date.now() })
+}
+
 // ── Platform-wide activity (drives the live activity ticker on dashboard) ────
 
 export type PlatformActivity = {
