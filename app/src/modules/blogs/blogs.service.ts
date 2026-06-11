@@ -39,6 +39,7 @@ const blogInclude = {
       username: true,
       displayName: true,
       avatarUrl: true,
+      verifiedKind: true,
     },
   },
 } as const;
