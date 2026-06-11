@@ -95,6 +95,7 @@ export const ModelName = {
   Review: 'Review',
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
+  BlogView: 'BlogView',
   BlogComment: 'BlogComment',
   Notification: 'Notification',
   Report: 'Report',
@@ -930,11 +931,23 @@ export const BlogScalarFieldEnum = {
   animeTitle: 'animeTitle',
   publishedAt: 'publishedAt',
   scheduledAt: 'scheduledAt',
+  viewCount: 'viewCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const BlogViewScalarFieldEnum = {
+  id: 'id',
+  blogId: 'blogId',
+  viewerKey: 'viewerKey',
+  day: 'day',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogViewScalarFieldEnum = (typeof BlogViewScalarFieldEnum)[keyof typeof BlogViewScalarFieldEnum]
 
 
 export const BlogCommentScalarFieldEnum = {

@@ -1,7 +1,10 @@
+import crypto from "node:crypto";
 import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { auditDelete } from "../../lib/audit";
+import { broadcastBlogViews } from "../../realtime/broadcast";
+import { env } from "../../config/env";
 import type { BlogCategory, CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
 
 // ─── Pagination helpers ───────────────────────────────────────────────────────
@@ -72,6 +75,49 @@ export async function getBySlug(slug: string, userId?: string) {
   }
 
   return { blog };
+}
+
+// ─── recordView ───────────────────────────────────────────────────────────────
+// Deduplicated, realtime view counting. One count per unique viewer per UTC day
+// (refreshes / repeat visits within a day don't inflate; a later day re-counts).
+// The author's own views are never counted. On a genuinely new view we bump the
+// denormalized counter and broadcast the live total to everyone reading the blog.
+
+export async function recordView(
+  slug: string,
+  viewer: { userId?: string; ip?: string; userAgent?: string },
+): Promise<{ viewCount: number }> {
+  const blog = await prisma.blog.findUnique({
+    where: { slug },
+    select: { id: true, status: true, authorId: true, viewCount: true },
+  });
+  // Only published blogs accrue views; silently ignore anything else.
+  if (!blog || blog.status !== "PUBLISHED") return { viewCount: blog?.viewCount ?? 0 };
+
+  // Don't count the author viewing their own post.
+  if (viewer.userId && viewer.userId === blog.authorId) return { viewCount: blog.viewCount };
+
+  const viewerKey = viewer.userId
+    ? `u:${viewer.userId}`
+    : `a:${crypto.createHash("sha256")
+        .update(`${viewer.ip ?? "?"}|${viewer.userAgent ?? "?"}|${env.JWT_ACCESS_SECRET}`)
+        .digest("hex").slice(0, 32)}`;
+  const day = new Date().toISOString().slice(0, 10);
+
+  try {
+    await prisma.blogView.create({ data: { blogId: blog.id, viewerKey, day } });
+  } catch {
+    // Unique violation → already counted this viewer today. No-op.
+    return { viewCount: blog.viewCount };
+  }
+
+  const updated = await prisma.blog.update({
+    where: { id: blog.id },
+    data: { viewCount: { increment: 1 } },
+    select: { viewCount: true },
+  });
+  broadcastBlogViews(slug, updated.viewCount);
+  return { viewCount: updated.viewCount };
 }
 
 // ─── create ───────────────────────────────────────────────────────────────────

@@ -25,6 +25,22 @@ export async function getBySlug(req: Request, res: Response, next: NextFunction)
   }
 }
 
+/** POST /blogs/:slug/view — record a (deduplicated) read; returns the live count. */
+export async function recordView(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const slug = req.params.slug as string;
+    const ip = (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0].trim() ?? req.ip;
+    const result = await service.recordView(slug, {
+      userId: res.locals.user?.id as string | undefined,
+      ip,
+      userAgent: req.header("User-Agent") ?? undefined,
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function createBlog(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authorId: string = res.locals.user.id;

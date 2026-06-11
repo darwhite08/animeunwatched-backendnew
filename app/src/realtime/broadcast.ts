@@ -29,6 +29,12 @@ export const clubRoom     = (clubId: string) => `club:${clubId}`
 export const threadRoom   = (threadId: string) => `thread:${threadId}`
 export const postRoom     = (postId: string) => `post:${postId}`
 export const userRoom     = (userId: string) => `user:${userId}`
+export const blogRoom     = (slug: string) => `blog:${slug}`
+
+/** Live blog view-count update → everyone currently reading that blog. */
+export function broadcastBlogViews(slug: string, viewCount: number): void {
+  emit(blogRoom(slug), "blog.views", { slug, viewCount })
+}
 
 // ── Generic helper ───────────────────────────────────────────────────────────
 

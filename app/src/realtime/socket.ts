@@ -143,7 +143,7 @@ export function initSocket(httpServer: HttpServer) {
     // otherwise let any authenticated client eavesdrop by guessing an id.
     // `user:<self>` is already auto-joined on connect; `admin` is server-joined
     // after a role check. Legitimate clients only ever join anime/post/thread/feed.
-    const JOINABLE = /^(anime:[0-9]+|post:[a-z0-9]+|thread:[a-z0-9]+|feed)$/i;
+    const JOINABLE = /^(anime:[0-9]+|post:[a-z0-9]+|thread:[a-z0-9]+|blog:[a-z0-9-]+|feed)$/i;
     socket.on("room:join",  (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.join(room) });
     socket.on("room:leave", (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.leave(room) });
 

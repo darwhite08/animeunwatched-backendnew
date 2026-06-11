@@ -273,6 +273,11 @@ export type ReviewLike = Prisma.ReviewLikeModel
  */
 export type Blog = Prisma.BlogModel
 /**
+ * Model BlogView
+ * 
+ */
+export type BlogView = Prisma.BlogViewModel
+/**
  * Model BlogComment
  * 
  */

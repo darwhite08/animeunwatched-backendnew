@@ -1171,16 +1171,39 @@ model Blog {
   animeTitle  String?
   publishedAt DateTime?
   scheduledAt DateTime?                      // when a SCHEDULED blog should auto-publish
+  // Denormalized deduplicated view counter (one per unique viewer per UTC day).
+  // Source of truth for the granular events is BlogView; this is the fast O(1)
+  // read used everywhere the count is shown.
+  viewCount   Int        @default(0)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments BlogComment[]
+  views    BlogView[]
 
   @@index([authorId])
   @@index([status, publishedAt])
   @@index([category, status, publishedAt])
   @@index([animeMalId])
+}
+
+// One row per (blog, viewer, UTC day) — deduplicates views so refreshes and
+// repeat visits within a day don't inflate the count, while still allowing a
+// returning reader to re-count on a later day. viewerKey is "u:<userId>" for
+// signed-in readers or "a:<hash>" (salted IP+UA hash, no raw PII) for anon.
+// Enables real analytics (unique viewers, daily time series) beyond the counter.
+model BlogView {
+  id        String   @id @default(cuid())
+  blogId    String
+  viewerKey String
+  day       String   // "YYYY-MM-DD" (UTC)
+  createdAt DateTime @default(now())
+
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([blogId, viewerKey, day])
+  @@index([blogId, day])
 }
 
 model BlogComment {
