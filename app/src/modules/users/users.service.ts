@@ -819,6 +819,19 @@ function boardCte(board: BoardId, since: Date | null): Prisma.Sql {
   }
 }
 
+/** Full ranked global standings for one board (all-time) — used by the daily
+ *  snapshot job. Capped to keep snapshot size bounded. */
+export async function computeGlobalStandings(board: BoardId, limit = 1000) {
+  const cte = boardCte(board, null);
+  return prisma.$queryRaw<Array<{ uid: string; value: number; sec: number }>>`
+    SELECT m.uid, m.value, m.sec
+    FROM (${cte}) m
+    JOIN "User" u ON u.id = m.uid
+    WHERE u."isBanned" = false
+    ORDER BY m.value DESC, m.sec DESC, m.uid ASC
+    LIMIT ${limit}`;
+}
+
 export async function getBoardLeaderboard(opts: {
   board: BoardId;
   window: "week" | "month" | "all";
@@ -894,14 +907,39 @@ export async function getBoardLeaderboard(opts: {
     followingSet = new Set(fs.map((f: { followingId: string }) => f.followingId));
   }
 
+  // Rank-movement deltas vs the most recent prior daily snapshot. Snapshots
+  // cover all-time global standings only, so deltas are served only there —
+  // windowed/friends views get null (the client hides the chip).
+  const prevRankById = new Map<string, number>();
+  let hasSnapshot = false;
+  if (audience === "global" && window === "all" && uids.length) {
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const prevDay = await prisma.leaderboardSnapshot.findFirst({
+      where: { board, date: { lt: todayKey } },
+      orderBy: { date: "desc" },
+      select: { date: true },
+    });
+    if (prevDay) {
+      hasSnapshot = true;
+      const prev = await prisma.leaderboardSnapshot.findMany({
+        where: { board, date: prevDay.date, userId: { in: uids } },
+        select: { userId: true, rank: true },
+      });
+      prev.forEach((p: { userId: string; rank: number }) => prevRankById.set(p.userId, p.rank));
+    }
+  }
+
   const data = top.flatMap((r, i) => {
     const u = byId.get(r.uid);
     if (!u) return [];
+    const prevRank = prevRankById.get(r.uid);
     return [{
       rank: i + 1,
       value: r.value,
       secondary: board === "followed" ? lbLevel(u.reputation) : r.sec,
       isFollowing: followingSet.has(r.uid),
+      delta: hasSnapshot && prevRank !== undefined ? prevRank - (i + 1) : null,
+      isNew: hasSnapshot && prevRank === undefined,
       user: {
         id: u.id, username: u.username, slug: u.slug, displayName: u.displayName,
         avatarUrl: u.avatarUrl, verifiedKind: u.verifiedKind,

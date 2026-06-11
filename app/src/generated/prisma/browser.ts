@@ -68,6 +68,11 @@ export type StreakDay = Prisma.StreakDayModel
  */
 export type UserBadge = Prisma.UserBadgeModel
 /**
+ * Model LeaderboardSnapshot
+ * 
+ */
+export type LeaderboardSnapshot = Prisma.LeaderboardSnapshotModel
+/**
  * Model DeviceToken
  * 
  */

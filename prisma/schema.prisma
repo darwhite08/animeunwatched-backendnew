@@ -186,6 +186,7 @@ model User {
   groupReactions     GroupMessageReaction[]
   streakDaysLog      StreakDay[]
   badges             UserBadge[]
+  lbSnapshots        LeaderboardSnapshot[]
   // Creator monetization (docs/monetization-system.md)
   creatorProfile     CreatorProfile?
   creatorTiers       CreatorTier[]
@@ -365,6 +366,22 @@ model UserBadge {
 
   @@unique([userId, code])
   @@index([userId])
+}
+
+// Daily global-board rank snapshots — power the leaderboard's rank-movement
+// deltas (climbed/dropped/NEW). Snapshotted once per day per board for the
+// all-time global standings only; 14-day retention.
+model LeaderboardSnapshot {
+  date   String // "YYYY-MM-DD" (UTC)
+  board  String // episodes | reviews | streak | followed | xp
+  userId String
+  rank   Int
+  value  Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([date, board, userId])
+  @@index([board, date])
 }
 
 // One row per registered push-notification device for a user.

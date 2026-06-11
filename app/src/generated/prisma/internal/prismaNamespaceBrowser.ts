@@ -59,6 +59,7 @@ export const ModelName = {
   Payout: 'Payout',
   StreakDay: 'StreakDay',
   UserBadge: 'UserBadge',
+  LeaderboardSnapshot: 'LeaderboardSnapshot',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
   RefreshToken: 'RefreshToken',
@@ -410,6 +411,17 @@ export const UserBadgeScalarFieldEnum = {
 } as const
 
 export type UserBadgeScalarFieldEnum = (typeof UserBadgeScalarFieldEnum)[keyof typeof UserBadgeScalarFieldEnum]
+
+
+export const LeaderboardSnapshotScalarFieldEnum = {
+  date: 'date',
+  board: 'board',
+  userId: 'userId',
+  rank: 'rank',
+  value: 'value'
+} as const
+
+export type LeaderboardSnapshotScalarFieldEnum = (typeof LeaderboardSnapshotScalarFieldEnum)[keyof typeof LeaderboardSnapshotScalarFieldEnum]
 
 
 export const DeviceTokenScalarFieldEnum = {

@@ -125,6 +125,13 @@ export function startJobs() {
       return refreshExpiringInstagramTokens()
     },
   })
+  registerJob({
+    name: "leaderboardSnapshot", description: "Daily all-time global standings snapshot per board — powers leaderboard rank-movement deltas (14-day retention)",
+    intervalMs: 6 * 60 * 60_000, handler: async () => {
+      const { snapshotLeaderboards } = await import("./leaderboardSnapshot.job")
+      return snapshotLeaderboards()
+    },
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -228,6 +235,16 @@ export function startJobs() {
   })
   setInterval(refreshIgTokens, 12 * 60 * 60_000)
   setTimeout(() => { refreshIgTokens().catch(console.error) }, 60_000)
+
+  // Leaderboard rank snapshots — idempotent per UTC day, so a 6h check interval
+  // just guarantees the daily row lands even across restarts/timezone edges.
+  // First run ~45s after boot.
+  const lbSnap = instrument("leaderboardSnapshot", async () => {
+    const { snapshotLeaderboards } = await import("./leaderboardSnapshot.job")
+    return snapshotLeaderboards()
+  })
+  setInterval(lbSnap, 6 * 60 * 60_000)
+  setTimeout(() => { lbSnap().catch(console.error) }, 45_000)
 
   // One-off on boot: give slug-less (older) accounts a slug so /user/[slug]/*
   // routing works for them. Idempotent — only updates rows where slug IS NULL.
