@@ -118,6 +118,13 @@ export function startJobs() {
       return backfillTrailers(80)
     },
   })
+  registerJob({
+    name: "refreshInstagramTokens", description: "Renew Instagram long-lived tokens nearing expiry so Shots connections never lapse (every 12h)",
+    intervalMs: 12 * 60 * 60_000, handler: async () => {
+      const { refreshExpiringInstagramTokens } = await import("../modules/social/social.service")
+      return refreshExpiringInstagramTokens()
+    },
+  })
 
   const cleanup    = instrument("cleanupRefreshTokens", cleanupRefreshTokens)
   const refresh    = instrument("refreshTopAnime",      refreshTopAnime)
@@ -211,6 +218,16 @@ export function startJobs() {
   })
   setInterval(backfillTrailersJob, 6 * 60 * 60_000)
   setTimeout(() => { backfillTrailersJob().catch(console.error) }, 120_000)
+
+  // Instagram token refresh — renew long-lived tokens nearing expiry so Shots
+  // connections never lapse (each refresh extends +60 days). Every 12h, plus a
+  // run ~60s after boot. Inert unless Instagram is configured.
+  const refreshIgTokens = instrument("refreshInstagramTokens", async () => {
+    const { refreshExpiringInstagramTokens } = await import("../modules/social/social.service")
+    return refreshExpiringInstagramTokens()
+  })
+  setInterval(refreshIgTokens, 12 * 60 * 60_000)
+  setTimeout(() => { refreshIgTokens().catch(console.error) }, 60_000)
 
   // One-off on boot: give slug-less (older) accounts a slug so /user/[slug]/*
   // routing works for them. Idempotent — only updates rows where slug IS NULL.

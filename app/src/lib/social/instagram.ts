@@ -24,6 +24,30 @@ const GRAPH = "https://graph.instagram.com";
 // INSTAGRAM_SCOPES if Meta requires more (e.g. add instagram_business_content_publish).
 const SCOPES = env.INSTAGRAM_SCOPES || "instagram_business_basic";
 
+/**
+ * Thrown when Instagram rejects the token itself (OAuthException / code 190) —
+ * i.e. the connection genuinely needs the user to reconnect, as opposed to a
+ * transient network/5xx error. Callers use this to decide refresh-vs-reconnect
+ * instead of surfacing a vague "token may have expired".
+ */
+export class IgAuthError extends Error {
+  constructor(message = "Instagram authorization expired") {
+    super(message);
+    this.name = "IgAuthError";
+  }
+}
+
+/** True when an Instagram error payload means the access token is invalid/expired. */
+function isAuthErrorBody(text: string): boolean {
+  try {
+    const j = JSON.parse(text) as { error?: { type?: string; code?: number } };
+    const e = j.error;
+    return !!e && (e.type === "OAuthException" || e.code === 190 || e.code === 102 || e.code === 10);
+  } catch {
+    return /OAuthException|access token|expired|invalid.*token/i.test(text);
+  }
+}
+
 export function isConfigured(): boolean {
   return Boolean(env.INSTAGRAM_APP_ID && env.INSTAGRAM_APP_SECRET);
 }
@@ -102,6 +126,29 @@ export async function exchangeCode(code: string): Promise<IgConnection> {
   };
 }
 
+/**
+ * Refresh a long-lived token, extending it another ~60 days. Instagram allows
+ * this once the token is ≥24h old and NOT yet expired; an already-expired or
+ * revoked token can't be refreshed (the user must reconnect). Returns the new
+ * token + lifetime on success, or null when refresh isn't possible.
+ */
+export async function refreshLongLivedToken(
+  accessToken: string,
+): Promise<{ accessToken: string; expiresInSec: number } | null> {
+  assertConfigured();
+  try {
+    const res = await fetch(
+      `${GRAPH}/refresh_access_token?grant_type=ig_refresh_token&access_token=${encodeURIComponent(accessToken)}`,
+    );
+    if (!res.ok) return null;
+    const d = (await res.json()) as { access_token?: string; expires_in?: number };
+    if (!d.access_token) return null;
+    return { accessToken: d.access_token, expiresInSec: d.expires_in ?? 0 };
+  } catch {
+    return null;
+  }
+}
+
 export interface IgReel {
   externalId: string;
   caption: string | null;
@@ -117,7 +164,11 @@ export async function listReels(accessToken: string, limit = 25): Promise<IgReel
   const fields = "id,media_type,media_product_type,media_url,thumbnail_url,caption,permalink,timestamp";
   const url = `${GRAPH}/me/media?fields=${fields}&limit=${Math.min(limit, 50)}&access_token=${encodeURIComponent(accessToken)}`;
   const res = await fetch(url);
-  if (!res.ok) throw badRequest(`Instagram media fetch failed: ${await res.text()}`);
+  if (!res.ok) {
+    const text = await res.text();
+    if (isAuthErrorBody(text)) throw new IgAuthError();
+    throw badRequest(`Instagram media fetch failed: ${text}`);
+  }
   const body = (await res.json()) as {
     data?: Array<{
       id: string; media_type?: string; media_product_type?: string;
