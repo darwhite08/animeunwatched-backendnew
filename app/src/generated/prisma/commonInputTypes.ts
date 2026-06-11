@@ -535,6 +535,13 @@ export type EnumBlogStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel> | $Enums.BlogStatus
 }
 
+export type EnumBlogCategoryNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlogCategory | Prisma.EnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel> | $Enums.BlogCategory | null
+}
+
 export type EnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.BlogStatus | Prisma.EnumBlogStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BlogStatus[] | Prisma.ListEnumBlogStatusFieldRefInput<$PrismaModel>
@@ -543,6 +550,16 @@ export type EnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel>
+}
+
+export type EnumBlogCategoryNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlogCategory | Prisma.EnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBlogCategoryNullableWithAggregatesFilter<$PrismaModel> | $Enums.BlogCategory | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel>
 }
 
 export type EnumReportStatusFilter<$PrismaModel = never> = {
@@ -1149,6 +1166,13 @@ export type NestedEnumBlogStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel> | $Enums.BlogStatus
 }
 
+export type NestedEnumBlogCategoryNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlogCategory | Prisma.EnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel> | $Enums.BlogCategory | null
+}
+
 export type NestedEnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.BlogStatus | Prisma.EnumBlogStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BlogStatus[] | Prisma.ListEnumBlogStatusFieldRefInput<$PrismaModel>
@@ -1157,6 +1181,16 @@ export type NestedEnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBlogStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumBlogCategoryNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlogCategory | Prisma.EnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BlogCategory[] | Prisma.ListEnumBlogCategoryFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBlogCategoryNullableWithAggregatesFilter<$PrismaModel> | $Enums.BlogCategory | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBlogCategoryNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumReportStatusFilter<$PrismaModel = never> = {

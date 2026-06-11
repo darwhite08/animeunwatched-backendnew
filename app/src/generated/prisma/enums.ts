@@ -48,6 +48,20 @@ export const BlogStatus = {
 export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
 
 
+export const BlogCategory = {
+  DEEP_DIVE: 'DEEP_DIVE',
+  REVIEW: 'REVIEW',
+  FEATURE: 'FEATURE',
+  DISCUSSION: 'DISCUSSION',
+  THEORY: 'THEORY',
+  OPINION: 'OPINION',
+  LIST: 'LIST',
+  NEWS: 'NEWS'
+} as const
+
+export type BlogCategory = (typeof BlogCategory)[keyof typeof BlogCategory]
+
+
 export const ReportStatus = {
   OPEN: 'OPEN',
   RESOLVED: 'RESOLVED',

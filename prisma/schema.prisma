@@ -40,6 +40,17 @@ enum BlogStatus {
   PUBLISHED
 }
 
+enum BlogCategory {
+  DEEP_DIVE
+  REVIEW
+  FEATURE
+  DISCUSSION
+  THEORY
+  OPINION
+  LIST
+  NEWS
+}
+
 enum ReportStatus {
   OPEN
   RESOLVED
@@ -1117,6 +1128,13 @@ model Blog {
   title       String
   body        String
   status      BlogStatus @default(DRAFT)
+  // What the post IS — picked by the creator before writing (Deep Dive, Review…).
+  category    BlogCategory?
+  hasSpoilers Boolean    @default(false)
+  // Optional anime the post is about. Denormalized (no FK) — the anime may only
+  // exist upstream in Jikan and not yet have a local Anime row.
+  animeMalId  Int?
+  animeTitle  String?
   publishedAt DateTime?
   scheduledAt DateTime?                      // when a SCHEDULED blog should auto-publish
   createdAt   DateTime   @default(now())
@@ -1127,6 +1145,8 @@ model Blog {
 
   @@index([authorId])
   @@index([status, publishedAt])
+  @@index([category, status, publishedAt])
+  @@index([animeMalId])
 }
 
 model BlogComment {

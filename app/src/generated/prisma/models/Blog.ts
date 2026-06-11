@@ -20,8 +20,18 @@ export type BlogModel = runtime.Types.Result.DefaultSelection<Prisma.$BlogPayloa
 
 export type AggregateBlog = {
   _count: BlogCountAggregateOutputType | null
+  _avg: BlogAvgAggregateOutputType | null
+  _sum: BlogSumAggregateOutputType | null
   _min: BlogMinAggregateOutputType | null
   _max: BlogMaxAggregateOutputType | null
+}
+
+export type BlogAvgAggregateOutputType = {
+  animeMalId: number | null
+}
+
+export type BlogSumAggregateOutputType = {
+  animeMalId: number | null
 }
 
 export type BlogMinAggregateOutputType = {
@@ -31,6 +41,10 @@ export type BlogMinAggregateOutputType = {
   title: string | null
   body: string | null
   status: $Enums.BlogStatus | null
+  category: $Enums.BlogCategory | null
+  hasSpoilers: boolean | null
+  animeMalId: number | null
+  animeTitle: string | null
   publishedAt: Date | null
   scheduledAt: Date | null
   createdAt: Date | null
@@ -44,6 +58,10 @@ export type BlogMaxAggregateOutputType = {
   title: string | null
   body: string | null
   status: $Enums.BlogStatus | null
+  category: $Enums.BlogCategory | null
+  hasSpoilers: boolean | null
+  animeMalId: number | null
+  animeTitle: string | null
   publishedAt: Date | null
   scheduledAt: Date | null
   createdAt: Date | null
@@ -57,6 +75,10 @@ export type BlogCountAggregateOutputType = {
   title: number
   body: number
   status: number
+  category: number
+  hasSpoilers: number
+  animeMalId: number
+  animeTitle: number
   publishedAt: number
   scheduledAt: number
   createdAt: number
@@ -65,6 +87,14 @@ export type BlogCountAggregateOutputType = {
 }
 
 
+export type BlogAvgAggregateInputType = {
+  animeMalId?: true
+}
+
+export type BlogSumAggregateInputType = {
+  animeMalId?: true
+}
+
 export type BlogMinAggregateInputType = {
   id?: true
   slug?: true
@@ -72,6 +102,10 @@ export type BlogMinAggregateInputType = {
   title?: true
   body?: true
   status?: true
+  category?: true
+  hasSpoilers?: true
+  animeMalId?: true
+  animeTitle?: true
   publishedAt?: true
   scheduledAt?: true
   createdAt?: true
@@ -85,6 +119,10 @@ export type BlogMaxAggregateInputType = {
   title?: true
   body?: true
   status?: true
+  category?: true
+  hasSpoilers?: true
+  animeMalId?: true
+  animeTitle?: true
   publishedAt?: true
   scheduledAt?: true
   createdAt?: true
@@ -98,6 +136,10 @@ export type BlogCountAggregateInputType = {
   title?: true
   body?: true
   status?: true
+  category?: true
+  hasSpoilers?: true
+  animeMalId?: true
+  animeTitle?: true
   publishedAt?: true
   scheduledAt?: true
   createdAt?: true
@@ -143,6 +185,18 @@ export type BlogAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: BlogAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: BlogSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: BlogMinAggregateInputType
@@ -173,6 +227,8 @@ export type BlogGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: BlogCountAggregateInputType | true
+  _avg?: BlogAvgAggregateInputType
+  _sum?: BlogSumAggregateInputType
   _min?: BlogMinAggregateInputType
   _max?: BlogMaxAggregateInputType
 }
@@ -184,11 +240,17 @@ export type BlogGroupByOutputType = {
   title: string
   body: string
   status: $Enums.BlogStatus
+  category: $Enums.BlogCategory | null
+  hasSpoilers: boolean
+  animeMalId: number | null
+  animeTitle: string | null
   publishedAt: Date | null
   scheduledAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: BlogCountAggregateOutputType | null
+  _avg: BlogAvgAggregateOutputType | null
+  _sum: BlogSumAggregateOutputType | null
   _min: BlogMinAggregateOutputType | null
   _max: BlogMaxAggregateOutputType | null
 }
@@ -218,6 +280,10 @@ export type BlogWhereInput = {
   title?: Prisma.StringFilter<"Blog"> | string
   body?: Prisma.StringFilter<"Blog"> | string
   status?: Prisma.EnumBlogStatusFilter<"Blog"> | $Enums.BlogStatus
+  category?: Prisma.EnumBlogCategoryNullableFilter<"Blog"> | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFilter<"Blog"> | boolean
+  animeMalId?: Prisma.IntNullableFilter<"Blog"> | number | null
+  animeTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -233,6 +299,10 @@ export type BlogOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  hasSpoilers?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -251,6 +321,10 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Blog"> | string
   body?: Prisma.StringFilter<"Blog"> | string
   status?: Prisma.EnumBlogStatusFilter<"Blog"> | $Enums.BlogStatus
+  category?: Prisma.EnumBlogCategoryNullableFilter<"Blog"> | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFilter<"Blog"> | boolean
+  animeMalId?: Prisma.IntNullableFilter<"Blog"> | number | null
+  animeTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -266,13 +340,19 @@ export type BlogOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  hasSpoilers?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  animeTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BlogCountOrderByAggregateInput
+  _avg?: Prisma.BlogAvgOrderByAggregateInput
   _max?: Prisma.BlogMaxOrderByAggregateInput
   _min?: Prisma.BlogMinOrderByAggregateInput
+  _sum?: Prisma.BlogSumOrderByAggregateInput
 }
 
 export type BlogScalarWhereWithAggregatesInput = {
@@ -285,6 +365,10 @@ export type BlogScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Blog"> | string
   body?: Prisma.StringWithAggregatesFilter<"Blog"> | string
   status?: Prisma.EnumBlogStatusWithAggregatesFilter<"Blog"> | $Enums.BlogStatus
+  category?: Prisma.EnumBlogCategoryNullableWithAggregatesFilter<"Blog"> | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolWithAggregatesFilter<"Blog"> | boolean
+  animeMalId?: Prisma.IntNullableWithAggregatesFilter<"Blog"> | number | null
+  animeTitle?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Blog"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Blog"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Blog"> | Date | string
@@ -297,6 +381,10 @@ export type BlogCreateInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -312,6 +400,10 @@ export type BlogUncheckedCreateInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -325,6 +417,10 @@ export type BlogUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +436,10 @@ export type BlogUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,6 +454,10 @@ export type BlogCreateManyInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -366,6 +470,10 @@ export type BlogUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -379,6 +487,10 @@ export type BlogUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -402,10 +514,18 @@ export type BlogCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  hasSpoilers?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeTitle?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BlogAvgOrderByAggregateInput = {
+  animeMalId?: Prisma.SortOrder
 }
 
 export type BlogMaxOrderByAggregateInput = {
@@ -415,6 +535,10 @@ export type BlogMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  hasSpoilers?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeTitle?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -428,10 +552,18 @@ export type BlogMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  hasSpoilers?: Prisma.SortOrder
+  animeMalId?: Prisma.SortOrder
+  animeTitle?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BlogSumOrderByAggregateInput = {
+  animeMalId?: Prisma.SortOrder
 }
 
 export type BlogScalarRelationFilter = {
@@ -485,6 +617,10 @@ export type EnumBlogStatusFieldUpdateOperationsInput = {
   set?: $Enums.BlogStatus
 }
 
+export type NullableEnumBlogCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.BlogCategory | null
+}
+
 export type BlogCreateNestedOneWithoutCommentsInput = {
   create?: Prisma.XOR<Prisma.BlogCreateWithoutCommentsInput, Prisma.BlogUncheckedCreateWithoutCommentsInput>
   connectOrCreate?: Prisma.BlogCreateOrConnectWithoutCommentsInput
@@ -505,6 +641,10 @@ export type BlogCreateWithoutAuthorInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -518,6 +658,10 @@ export type BlogUncheckedCreateWithoutAuthorInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -561,6 +705,10 @@ export type BlogScalarWhereInput = {
   title?: Prisma.StringFilter<"Blog"> | string
   body?: Prisma.StringFilter<"Blog"> | string
   status?: Prisma.EnumBlogStatusFilter<"Blog"> | $Enums.BlogStatus
+  category?: Prisma.EnumBlogCategoryNullableFilter<"Blog"> | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFilter<"Blog"> | boolean
+  animeMalId?: Prisma.IntNullableFilter<"Blog"> | number | null
+  animeTitle?: Prisma.StringNullableFilter<"Blog"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Blog"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -573,6 +721,10 @@ export type BlogCreateWithoutCommentsInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -587,6 +739,10 @@ export type BlogUncheckedCreateWithoutCommentsInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -615,6 +771,10 @@ export type BlogUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -629,6 +789,10 @@ export type BlogUncheckedUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -641,6 +805,10 @@ export type BlogCreateManyAuthorInput = {
   title: string
   body: string
   status?: $Enums.BlogStatus
+  category?: $Enums.BlogCategory | null
+  hasSpoilers?: boolean
+  animeMalId?: number | null
+  animeTitle?: string | null
   publishedAt?: Date | string | null
   scheduledAt?: Date | string | null
   createdAt?: Date | string
@@ -653,6 +821,10 @@ export type BlogUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -666,6 +838,10 @@ export type BlogUncheckedUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -679,6 +855,10 @@ export type BlogUncheckedUpdateManyWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+  category?: Prisma.NullableEnumBlogCategoryFieldUpdateOperationsInput | $Enums.BlogCategory | null
+  hasSpoilers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  animeMalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,6 +903,10 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   body?: boolean
   status?: boolean
+  category?: boolean
+  hasSpoilers?: boolean
+  animeMalId?: boolean
+  animeTitle?: boolean
   publishedAt?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
@@ -739,6 +923,10 @@ export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   body?: boolean
   status?: boolean
+  category?: boolean
+  hasSpoilers?: boolean
+  animeMalId?: boolean
+  animeTitle?: boolean
   publishedAt?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
@@ -753,6 +941,10 @@ export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   body?: boolean
   status?: boolean
+  category?: boolean
+  hasSpoilers?: boolean
+  animeMalId?: boolean
+  animeTitle?: boolean
   publishedAt?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
@@ -767,13 +959,17 @@ export type BlogSelectScalar = {
   title?: boolean
   body?: boolean
   status?: boolean
+  category?: boolean
+  hasSpoilers?: boolean
+  animeMalId?: boolean
+  animeTitle?: boolean
   publishedAt?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "authorId" | "title" | "body" | "status" | "publishedAt" | "scheduledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
+export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "authorId" | "title" | "body" | "status" | "category" | "hasSpoilers" | "animeMalId" | "animeTitle" | "publishedAt" | "scheduledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Blog$commentsArgs<ExtArgs>
@@ -799,6 +995,10 @@ export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title: string
     body: string
     status: $Enums.BlogStatus
+    category: $Enums.BlogCategory | null
+    hasSpoilers: boolean
+    animeMalId: number | null
+    animeTitle: string | null
     publishedAt: Date | null
     scheduledAt: Date | null
     createdAt: Date
@@ -1234,6 +1434,10 @@ export interface BlogFieldRefs {
   readonly title: Prisma.FieldRef<"Blog", 'String'>
   readonly body: Prisma.FieldRef<"Blog", 'String'>
   readonly status: Prisma.FieldRef<"Blog", 'BlogStatus'>
+  readonly category: Prisma.FieldRef<"Blog", 'BlogCategory'>
+  readonly hasSpoilers: Prisma.FieldRef<"Blog", 'Boolean'>
+  readonly animeMalId: Prisma.FieldRef<"Blog", 'Int'>
+  readonly animeTitle: Prisma.FieldRef<"Blog", 'String'>
   readonly publishedAt: Prisma.FieldRef<"Blog", 'DateTime'>
   readonly scheduledAt: Prisma.FieldRef<"Blog", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Blog", 'DateTime'>

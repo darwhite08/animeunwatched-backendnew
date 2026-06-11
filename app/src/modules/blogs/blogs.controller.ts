@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import { createBlogSchema, updateBlogSchema } from "./blogs.schema";
+import { blogCategoryEnum, createBlogSchema, updateBlogSchema } from "./blogs.schema";
 import * as service from "./blogs.service";
 
 export async function list(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
-    const result = await service.list(page, limit);
+    const category = blogCategoryEnum.optional().catch(undefined).parse(req.query.category);
+    const result = await service.list(page, limit, category);
     res.status(200).json(result);
   } catch (err) {
     next(err);

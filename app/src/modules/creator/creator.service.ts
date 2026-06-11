@@ -11,6 +11,7 @@ export async function getMyBlogs(userId: string) {
     orderBy: { updatedAt: "desc" },
     select: {
       id: true, slug: true, title: true, status: true,
+      category: true, hasSpoilers: true, animeMalId: true, animeTitle: true,
       publishedAt: true, scheduledAt: true, createdAt: true, updatedAt: true,
       _count: { select: { comments: true } },
     },
@@ -18,6 +19,8 @@ export async function getMyBlogs(userId: string) {
   return {
     items: blogs.map((b) => ({
       id: b.id, slug: b.slug, title: b.title, status: b.status,
+      category: b.category, hasSpoilers: b.hasSpoilers,
+      animeMalId: b.animeMalId, animeTitle: b.animeTitle,
       publishedAt: b.publishedAt?.toISOString() ?? null,
       scheduledAt: b.scheduledAt?.toISOString() ?? null,
       updatedAt: b.updatedAt.toISOString(), comments: b._count.comments,

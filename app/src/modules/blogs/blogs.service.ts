@@ -2,7 +2,7 @@ import { prisma } from "../../config/prisma";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { auditDelete } from "../../lib/audit";
-import type { CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
+import type { BlogCategory, CreateBlogDto, UpdateBlogDto } from "./blogs.schema";
 
 // ─── Pagination helpers ───────────────────────────────────────────────────────
 
@@ -42,18 +42,19 @@ const blogInclude = {
 
 // ─── list ─────────────────────────────────────────────────────────────────────
 
-export async function list(page = 1, limit = 20) {
+export async function list(page = 1, limit = 20, category?: BlogCategory) {
   const { skip, take } = paginate(page, limit);
+  const where = { status: "PUBLISHED" as const, ...(category ? { category } : {}) };
 
   const [data, total] = await prisma.$transaction([
     prisma.blog.findMany({
-      where: { status: "PUBLISHED" },
+      where,
       skip,
       take,
       orderBy: { publishedAt: "desc" },
       include: blogInclude,
     }),
-    prisma.blog.count({ where: { status: "PUBLISHED" } }),
+    prisma.blog.count({ where }),
   ]);
 
   return { data, meta: meta(total, page, limit) };
@@ -89,6 +90,11 @@ export async function create(authorId: string, dto: CreateBlogDto) {
       body: dto.body,
       slug,
       status: isScheduled ? "SCHEDULED" : isPublished ? "PUBLISHED" : "DRAFT",
+      category: dto.category ?? null,
+      hasSpoilers: dto.hasSpoilers ?? false,
+      // animeTitle only makes sense alongside an anime id — drop it otherwise.
+      animeMalId: dto.animeMalId ?? null,
+      animeTitle: dto.animeMalId ? (dto.animeTitle ?? null) : null,
       ...(isScheduled ? { scheduledAt } : {}),
       ...(isPublished ? { publishedAt: new Date() } : {}),
     },
@@ -116,6 +122,11 @@ export async function update(slug: string, userId: string, dto: UpdateBlogDto) {
     data: {
       ...(dto.title !== undefined ? { title: dto.title } : {}),
       ...(dto.body !== undefined ? { body: dto.body } : {}),
+      ...(dto.category !== undefined ? { category: dto.category } : {}),
+      ...(dto.hasSpoilers !== undefined ? { hasSpoilers: dto.hasSpoilers } : {}),
+      ...(dto.animeMalId !== undefined
+        ? { animeMalId: dto.animeMalId, animeTitle: dto.animeMalId ? (dto.animeTitle ?? null) : null }
+        : {}),
       ...(dto.status !== undefined ? { status: isScheduling ? "SCHEDULED" : dto.status } : {}),
       ...(newSlug ? { slug: newSlug } : {}),
       ...(isScheduling ? { scheduledAt } : {}),
