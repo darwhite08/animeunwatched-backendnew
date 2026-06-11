@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
-import { unauth } from "../lib/errors";
+import { unauth, forbidden } from "../lib/errors";
 import { prisma } from "../config/prisma";
 
 const userSelect = {
@@ -79,5 +79,31 @@ export function optionalAuth(
       .catch(() => next());
   } catch {
     next();
+  }
+}
+
+/**
+ * Gate an action to creators only. Blogs and polls are creator-authored content
+ * — regular members cannot publish them. Access mirrors the Creator Studio gate
+ * (admin-granted "active" status, auto-qualify eligibility, or already an active
+ * creator); platform admins are always allowed. Must run AFTER requireAuth.
+ */
+export async function requireCreator(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const user = res.locals.user;
+    if (!user) return next(unauth());
+    if (user.role === "ADMIN") return next();
+    const { getCreatorAccess } = await import("../modules/creator/creator.service");
+    const access = await getCreatorAccess(user.id);
+    if (!access.hasAccess) {
+      return next(forbidden("Only creators can publish this. Apply for Creator access in Creator Studio."));
+    }
+    next();
+  } catch (err) {
+    next(err);
   }
 }
