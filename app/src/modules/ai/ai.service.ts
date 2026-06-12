@@ -150,7 +150,51 @@ export const TRANSLATE_LANGS: Record<string, string> = {
   th: "Thai", fil: "Filipino", bn: "Bengali", en: "English",
 };
 
-export type TranslateResult = { text: string; source: "anthropic" | "openai" | "stub"; lang: string };
+export type TranslateResult = { text: string; source: "anthropic" | "openai" | "google" | "stub"; lang: string };
+
+// Split HTML into ≤max-char chunks at block-element boundaries so we never cut a
+// tag in half. Used to keep each free-translate request under provider limits.
+function chunkForTranslate(text: string, max = 4500): string[] {
+  if (text.length <= max) return [text];
+  const parts = text.split(/(?<=<\/(?:p|h[1-6]|li|blockquote|div|ul|ol|pre|figure|table)>)/i);
+  const chunks: string[] = [];
+  let buf = "";
+  for (const part of parts) {
+    if (buf && buf.length + part.length > max) { chunks.push(buf); buf = ""; }
+    buf += part;
+    if (buf.length > max) { chunks.push(buf); buf = ""; }
+  }
+  if (buf) chunks.push(buf);
+  return chunks;
+}
+
+/**
+ * Free machine translation via Google's public gtx endpoint. No key required and
+ * it preserves HTML tags (translates only the visible text). Used as a fallback
+ * when no AI key is configured. Returns null on any failure → caller falls back
+ * to the original text.
+ */
+async function translateViaGoogle(text: string, targetLang: string): Promise<string | null> {
+  const tl = targetLang === "fil" ? "tl" : targetLang === "zh" ? "zh-CN" : targetLang;
+  try {
+    const out: string[] = [];
+    for (const chunk of chunkForTranslate(text)) {
+      const body = new URLSearchParams({ client: "gtx", sl: "auto", tl, dt: "t", q: chunk });
+      const res = await fetch("https://translate.googleapis.com/translate_a/single", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!res.ok) return null;
+      const data = (await res.json()) as Array<Array<[string, ...unknown[]]>>;
+      out.push((data[0] ?? []).map((seg) => seg[0]).join(""));
+    }
+    const joined = out.join("");
+    return joined.trim() ? joined : null;
+  } catch {
+    return null;
+  }
+}
 
 /** Translate text (optionally HTML) into a target language via the AI provider. */
 export async function translate(text: string, targetLang: string, isHtml = false): Promise<TranslateResult> {
@@ -162,7 +206,12 @@ export async function translate(text: string, targetLang: string, isHtml = false
   if (fromClaude) return { text: stripFences(fromClaude), source: "anthropic", lang };
   const fromOpenAI = await callOpenAI(text, sys, budget);
   if (fromOpenAI) return { text: stripFences(fromOpenAI), source: "openai", lang };
-  return { text, source: "stub", lang }; // not configured → return original unchanged
+  // No AI key → free Google machine translation (preserves HTML).
+  if (targetLang !== "en") {
+    const fromGoogle = await translateViaGoogle(text, targetLang);
+    if (fromGoogle) return { text: fromGoogle, source: "google", lang };
+  }
+  return { text, source: "stub", lang }; // all providers failed → original unchanged
 }
 
 export async function ask(prompt: string): Promise<AIResponse> {
