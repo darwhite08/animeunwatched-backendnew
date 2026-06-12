@@ -481,6 +481,7 @@ export type UserWhereInput = {
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
   listEntries?: Prisma.ListEntryListRelationFilter
+  mangaEntries?: Prisma.MangaEntryListRelationFilter
   posts?: Prisma.PostListRelationFilter
   postLikes?: Prisma.PostLikeListRelationFilter
   postComments?: Prisma.PostCommentListRelationFilter
@@ -594,6 +595,7 @@ export type UserOrderByWithRelationInput = {
   following?: Prisma.FollowOrderByRelationAggregateInput
   followers?: Prisma.FollowOrderByRelationAggregateInput
   listEntries?: Prisma.ListEntryOrderByRelationAggregateInput
+  mangaEntries?: Prisma.MangaEntryOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
   postLikes?: Prisma.PostLikeOrderByRelationAggregateInput
   postComments?: Prisma.PostCommentOrderByRelationAggregateInput
@@ -710,6 +712,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
   listEntries?: Prisma.ListEntryListRelationFilter
+  mangaEntries?: Prisma.MangaEntryListRelationFilter
   posts?: Prisma.PostListRelationFilter
   postLikes?: Prisma.PostLikeListRelationFilter
   postComments?: Prisma.PostCommentListRelationFilter
@@ -909,6 +912,7 @@ export type UserCreateInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -1022,6 +1026,7 @@ export type UserUncheckedCreateInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -1135,6 +1140,7 @@ export type UserUpdateInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -1248,6 +1254,7 @@ export type UserUncheckedUpdateInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1910,6 +1917,20 @@ export type UserUpdateOneRequiredWithoutListEntriesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutListEntriesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutListEntriesInput, Prisma.UserUpdateWithoutListEntriesInput>, Prisma.UserUncheckedUpdateWithoutListEntriesInput>
+}
+
+export type UserCreateNestedOneWithoutMangaEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMangaEntriesInput, Prisma.UserUncheckedCreateWithoutMangaEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMangaEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMangaEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMangaEntriesInput, Prisma.UserUncheckedCreateWithoutMangaEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMangaEntriesInput
+  upsert?: Prisma.UserUpsertWithoutMangaEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMangaEntriesInput, Prisma.UserUpdateWithoutMangaEntriesInput>, Prisma.UserUncheckedUpdateWithoutMangaEntriesInput>
 }
 
 export type UserCreateNestedOneWithoutPostsInput = {
@@ -2712,6 +2733,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -2824,6 +2846,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -2952,6 +2975,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -3064,6 +3088,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3176,6 +3201,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -3288,6 +3314,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -3416,6 +3443,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -3528,6 +3556,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3640,6 +3669,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -3752,6 +3782,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -3869,6 +3900,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -3981,6 +4013,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -4109,6 +4142,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -4221,6 +4255,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4344,6 +4379,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -4456,6 +4492,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4568,6 +4605,7 @@ export type UserCreateWithoutTipsSentInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -4680,6 +4718,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -4797,6 +4836,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -4909,6 +4949,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5037,6 +5078,7 @@ export type UserUpdateWithoutTipsSentInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -5149,6 +5191,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5272,6 +5315,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -5384,6 +5428,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5496,6 +5541,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -5608,6 +5654,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5736,6 +5783,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -5848,6 +5896,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5960,6 +6009,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -6072,6 +6122,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6200,6 +6251,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -6312,6 +6364,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6424,6 +6477,7 @@ export type UserCreateWithoutPayoutsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -6536,6 +6590,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6664,6 +6719,7 @@ export type UserUpdateWithoutPayoutsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -6776,6 +6832,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6888,6 +6945,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -7000,6 +7058,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7128,6 +7187,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -7240,6 +7300,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7352,6 +7413,7 @@ export type UserCreateWithoutBadgesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -7464,6 +7526,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7592,6 +7655,7 @@ export type UserUpdateWithoutBadgesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -7704,6 +7768,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7816,6 +7881,7 @@ export type UserCreateWithoutLbSnapshotsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -7928,6 +7994,7 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -8056,6 +8123,7 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -8168,6 +8236,7 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8280,6 +8349,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -8392,6 +8462,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -8520,6 +8591,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -8632,6 +8704,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8744,6 +8817,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -8856,6 +8930,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -8984,6 +9059,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -9096,6 +9172,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9207,6 +9284,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -9319,6 +9397,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -9447,6 +9526,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -9559,6 +9639,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9672,6 +9753,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -9784,6 +9866,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -9912,6 +9995,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -10024,6 +10108,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10136,6 +10221,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -10248,6 +10334,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -10376,6 +10463,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -10488,6 +10576,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10599,6 +10688,7 @@ export type UserCreateWithoutFollowingInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -10711,6 +10801,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -10828,6 +10919,7 @@ export type UserCreateWithoutFollowersInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -10940,6 +11032,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -11068,6 +11161,7 @@ export type UserUpdateWithoutFollowingInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -11180,6 +11274,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11303,6 +11398,7 @@ export type UserUpdateWithoutFollowersInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -11415,6 +11511,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11527,6 +11624,7 @@ export type UserCreateWithoutListEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -11639,6 +11737,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -11767,6 +11866,7 @@ export type UserUpdateWithoutListEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -11879,6 +11979,475 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMangaEntriesInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMangaEntriesInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMangaEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMangaEntriesInput, Prisma.UserUncheckedCreateWithoutMangaEntriesInput>
+}
+
+export type UserUpsertWithoutMangaEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMangaEntriesInput, Prisma.UserUncheckedUpdateWithoutMangaEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMangaEntriesInput, Prisma.UserUncheckedCreateWithoutMangaEntriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMangaEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMangaEntriesInput, Prisma.UserUncheckedUpdateWithoutMangaEntriesInput>
+}
+
+export type UserUpdateWithoutMangaEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMangaEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11992,6 +12561,7 @@ export type UserCreateWithoutPostsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
@@ -12104,6 +12674,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
@@ -12232,6 +12803,7 @@ export type UserUpdateWithoutPostsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
@@ -12344,6 +12916,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -12456,6 +13029,7 @@ export type UserCreateWithoutPostHidesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -12568,6 +13142,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -12696,6 +13271,7 @@ export type UserUpdateWithoutPostHidesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -12808,6 +13384,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -12920,6 +13497,7 @@ export type UserCreateWithoutPostLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
@@ -13032,6 +13610,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
@@ -13160,6 +13739,7 @@ export type UserUpdateWithoutPostLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
@@ -13272,6 +13852,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -13384,6 +13965,7 @@ export type UserCreateWithoutPostCommentsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
@@ -13496,6 +14078,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
@@ -13624,6 +14207,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
@@ -13736,6 +14320,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -13848,6 +14433,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -13960,6 +14546,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -14088,6 +14675,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -14200,6 +14788,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -14312,6 +14901,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -14424,6 +15014,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -14552,6 +15143,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -14664,6 +15256,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -14776,6 +15369,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -14888,6 +15482,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -15016,6 +15611,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -15128,6 +15724,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -15240,6 +15837,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -15352,6 +15950,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -15480,6 +16079,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -15592,6 +16192,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -15704,6 +16305,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -15816,6 +16418,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -15944,6 +16547,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -16056,6 +16660,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -16168,6 +16773,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -16280,6 +16886,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -16408,6 +17015,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -16520,6 +17128,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -16632,6 +17241,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -16744,6 +17354,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -16872,6 +17483,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -16984,6 +17596,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17096,6 +17709,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -17208,6 +17822,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -17336,6 +17951,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -17448,6 +18064,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17560,6 +18177,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -17672,6 +18290,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -17800,6 +18419,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -17912,6 +18532,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18024,6 +18645,7 @@ export type UserCreateWithoutThreadsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -18136,6 +18758,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -18264,6 +18887,7 @@ export type UserUpdateWithoutThreadsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -18376,6 +19000,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18488,6 +19113,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -18600,6 +19226,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -18728,6 +19355,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -18840,6 +19468,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18952,6 +19581,7 @@ export type UserCreateWithoutReviewsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -19064,6 +19694,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -19192,6 +19823,7 @@ export type UserUpdateWithoutReviewsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -19304,6 +19936,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -19416,6 +20049,7 @@ export type UserCreateWithoutReviewLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -19528,6 +20162,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -19656,6 +20291,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -19768,6 +20404,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -19880,6 +20517,7 @@ export type UserCreateWithoutBlogsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -19992,6 +20630,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -20120,6 +20759,7 @@ export type UserUpdateWithoutBlogsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -20232,6 +20872,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -20344,6 +20985,7 @@ export type UserCreateWithoutBlogLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -20456,6 +21098,7 @@ export type UserUncheckedCreateWithoutBlogLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -20584,6 +21227,7 @@ export type UserUpdateWithoutBlogLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -20696,6 +21340,7 @@ export type UserUncheckedUpdateWithoutBlogLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -20808,6 +21453,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -20920,6 +21566,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -21048,6 +21695,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -21160,6 +21808,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -21272,6 +21921,7 @@ export type UserCreateWithoutNotificationsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -21384,6 +22034,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -21512,6 +22163,7 @@ export type UserUpdateWithoutNotificationsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -21624,6 +22276,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -21736,6 +22389,7 @@ export type UserCreateWithoutReportsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -21848,6 +22502,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -21976,6 +22631,7 @@ export type UserUpdateWithoutReportsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -22088,6 +22744,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22200,6 +22857,7 @@ export type UserCreateWithoutModerationActionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -22312,6 +22970,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -22440,6 +23099,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -22552,6 +23212,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22664,6 +23325,7 @@ export type UserCreateWithoutPollsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -22776,6 +23438,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -22904,6 +23567,7 @@ export type UserUpdateWithoutPollsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -23016,6 +23680,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -23128,6 +23793,7 @@ export type UserCreateWithoutPollVotesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -23240,6 +23906,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -23368,6 +24035,7 @@ export type UserUpdateWithoutPollVotesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -23480,6 +24148,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -23592,6 +24261,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -23704,6 +24374,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -23832,6 +24503,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -23944,6 +24616,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -24056,6 +24729,7 @@ export type UserCreateWithoutPublicKeyInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -24168,6 +24842,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -24296,6 +24971,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -24408,6 +25084,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -24520,6 +25197,7 @@ export type UserCreateWithoutConversations1Input = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -24632,6 +25310,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -24749,6 +25428,7 @@ export type UserCreateWithoutConversations2Input = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -24861,6 +25541,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -24989,6 +25670,7 @@ export type UserUpdateWithoutConversations1Input = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -25101,6 +25783,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -25224,6 +25907,7 @@ export type UserUpdateWithoutConversations2Input = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -25336,6 +26020,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -25448,6 +26133,7 @@ export type UserCreateWithoutSentMessagesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -25560,6 +26246,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -25688,6 +26375,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -25800,6 +26488,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -25912,6 +26601,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -26024,6 +26714,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -26152,6 +26843,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -26264,6 +26956,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -26376,6 +27069,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -26488,6 +27182,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -26616,6 +27311,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -26728,6 +27424,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -26840,6 +27537,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -26952,6 +27650,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -27080,6 +27779,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -27192,6 +27892,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -27304,6 +28005,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -27416,6 +28118,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -27544,6 +28247,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -27656,6 +28360,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -27768,6 +28473,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -27880,6 +28586,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -28008,6 +28715,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -28120,6 +28828,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -28232,6 +28941,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -28344,6 +29054,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -28472,6 +29183,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -28584,6 +29296,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -28696,6 +29409,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -28808,6 +29522,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -28925,6 +29640,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -29037,6 +29753,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -29165,6 +29882,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -29277,6 +29995,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29400,6 +30119,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -29512,6 +30232,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29624,6 +30345,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -29736,6 +30458,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -29864,6 +30587,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -29976,6 +30700,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -30088,6 +30813,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -30200,6 +30926,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -30328,6 +31055,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -30440,6 +31168,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -30552,6 +31281,7 @@ export type UserCreateWithoutActivitiesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -30664,6 +31394,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -30792,6 +31523,7 @@ export type UserUpdateWithoutActivitiesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -30904,6 +31636,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -31016,6 +31749,7 @@ export type UserCreateWithoutActivityLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -31128,6 +31862,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -31256,6 +31991,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -31368,6 +32104,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -31480,6 +32217,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -31592,6 +32330,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -31720,6 +32459,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -31832,6 +32572,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -31944,6 +32685,7 @@ export type UserCreateWithoutRepliesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -32056,6 +32798,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -32184,6 +32927,7 @@ export type UserUpdateWithoutRepliesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -32296,6 +33040,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -32407,6 +33152,7 @@ export type UserCreateWithoutEmailVerificationInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -32519,6 +33265,7 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -32647,6 +33394,7 @@ export type UserUpdateWithoutEmailVerificationInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -32759,6 +33507,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -32872,6 +33621,7 @@ export type UserCreateWithoutScimSubjectInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -32984,6 +33734,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -33112,6 +33863,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -33224,6 +33976,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -33336,6 +34089,7 @@ export type UserCreateWithoutShotsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -33448,6 +34202,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -33576,6 +34331,7 @@ export type UserUpdateWithoutShotsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -33688,6 +34444,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -33800,6 +34557,7 @@ export type UserCreateWithoutShotLikesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -33912,6 +34670,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -34040,6 +34799,7 @@ export type UserUpdateWithoutShotLikesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -34152,6 +34912,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -34264,6 +35025,7 @@ export type UserCreateWithoutShotSavesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -34376,6 +35138,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -34504,6 +35267,7 @@ export type UserUpdateWithoutShotSavesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -34616,6 +35380,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -34728,6 +35493,7 @@ export type UserCreateWithoutShotCommentsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -34840,6 +35606,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -34968,6 +35735,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -35080,6 +35848,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -35192,6 +35961,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -35304,6 +36074,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -35432,6 +36203,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -35544,6 +36316,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -35656,6 +36429,7 @@ export type UserCreateWithoutImportedMediaInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -35768,6 +36542,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -35896,6 +36671,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -36008,6 +36784,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -36120,6 +36897,7 @@ export type UserCreateWithoutStoriesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -36232,6 +37010,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -36360,6 +37139,7 @@ export type UserUpdateWithoutStoriesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -36472,6 +37252,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -36584,6 +37365,7 @@ export type UserCreateWithoutStoryViewsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
@@ -36696,6 +37478,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -36824,6 +37607,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
@@ -36936,6 +37720,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -37016,6 +37801,7 @@ export type UserCountOutputType = {
   following: number
   followers: number
   listEntries: number
+  mangaEntries: number
   posts: number
   postLikes: number
   postComments: number
@@ -37088,6 +37874,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   following?: boolean | UserCountOutputTypeCountFollowingArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   listEntries?: boolean | UserCountOutputTypeCountListEntriesArgs
+  mangaEntries?: boolean | UserCountOutputTypeCountMangaEntriesArgs
   posts?: boolean | UserCountOutputTypeCountPostsArgs
   postLikes?: boolean | UserCountOutputTypeCountPostLikesArgs
   postComments?: boolean | UserCountOutputTypeCountPostCommentsArgs
@@ -37191,6 +37978,13 @@ export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends runtime.Types.
  */
 export type UserCountOutputTypeCountListEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ListEntryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMangaEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MangaEntryWhereInput
 }
 
 /**
@@ -37691,6 +38485,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   listEntries?: boolean | Prisma.User$listEntriesArgs<ExtArgs>
+  mangaEntries?: boolean | Prisma.User$mangaEntriesArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   postLikes?: boolean | Prisma.User$postLikesArgs<ExtArgs>
   postComments?: boolean | Prisma.User$postCommentsArgs<ExtArgs>
@@ -37887,6 +38682,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   listEntries?: boolean | Prisma.User$listEntriesArgs<ExtArgs>
+  mangaEntries?: boolean | Prisma.User$mangaEntriesArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   postLikes?: boolean | Prisma.User$postLikesArgs<ExtArgs>
   postComments?: boolean | Prisma.User$postCommentsArgs<ExtArgs>
@@ -37969,6 +38765,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     following: Prisma.$FollowPayload<ExtArgs>[]
     followers: Prisma.$FollowPayload<ExtArgs>[]
     listEntries: Prisma.$ListEntryPayload<ExtArgs>[]
+    mangaEntries: Prisma.$MangaEntryPayload<ExtArgs>[]
     posts: Prisma.$PostPayload<ExtArgs>[]
     postLikes: Prisma.$PostLikePayload<ExtArgs>[]
     postComments: Prisma.$PostCommentPayload<ExtArgs>[]
@@ -38495,6 +39292,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   listEntries<T extends Prisma.User$listEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mangaEntries<T extends Prisma.User$mangaEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mangaEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   postLikes<T extends Prisma.User$postLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   postComments<T extends Prisma.User$postCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -39129,6 +39927,30 @@ export type User$listEntriesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ListEntryScalarFieldEnum | Prisma.ListEntryScalarFieldEnum[]
+}
+
+/**
+ * User.mangaEntries
+ */
+export type User$mangaEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MangaEntry
+   */
+  select?: Prisma.MangaEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MangaEntry
+   */
+  omit?: Prisma.MangaEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaEntryInclude<ExtArgs> | null
+  where?: Prisma.MangaEntryWhereInput
+  orderBy?: Prisma.MangaEntryOrderByWithRelationInput | Prisma.MangaEntryOrderByWithRelationInput[]
+  cursor?: Prisma.MangaEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MangaEntryScalarFieldEnum | Prisma.MangaEntryScalarFieldEnum[]
 }
 
 /**

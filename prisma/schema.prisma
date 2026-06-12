@@ -123,6 +123,7 @@ model User {
   following          Follow[]           @relation("Follower")
   followers          Follow[]           @relation("Following")
   listEntries        ListEntry[]
+  mangaEntries       MangaEntry[]
   posts              Post[]
   postLikes          PostLike[]
   postComments       PostComment[]
@@ -789,6 +790,31 @@ model ListEntry {
   anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, animeId])
+  @@index([userId, status])
+}
+
+// Manga reading list. Manga isn't in our anime catalog, so each entry caches the
+// AniList media (id + title + cover + author) alongside the user's tracking
+// state. status: READING | COMPLETED | PLAN_TO_READ | ON_HOLD | DROPPED.
+model MangaEntry {
+  id            String   @id @default(cuid())
+  userId        String
+  anilistId     Int
+  title         String
+  coverUrl      String?
+  author        String?
+  format        String?
+  totalChapters Int?
+  genre         String?
+  status        String   @default("PLAN_TO_READ")
+  progress      Int      @default(0)
+  score         Int?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, anilistId])
   @@index([userId, status])
 }
 

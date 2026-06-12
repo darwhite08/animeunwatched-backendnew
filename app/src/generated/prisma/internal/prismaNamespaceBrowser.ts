@@ -78,6 +78,7 @@ export const ModelName = {
   SyncJob: 'SyncJob',
   SyncJobLog: 'SyncJobLog',
   ListEntry: 'ListEntry',
+  MangaEntry: 'MangaEntry',
   Post: 'Post',
   PostHide: 'PostHide',
   PostLike: 'PostLike',
@@ -700,6 +701,26 @@ export const ListEntryScalarFieldEnum = {
 } as const
 
 export type ListEntryScalarFieldEnum = (typeof ListEntryScalarFieldEnum)[keyof typeof ListEntryScalarFieldEnum]
+
+
+export const MangaEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  anilistId: 'anilistId',
+  title: 'title',
+  coverUrl: 'coverUrl',
+  author: 'author',
+  format: 'format',
+  totalChapters: 'totalChapters',
+  genre: 'genre',
+  status: 'status',
+  progress: 'progress',
+  score: 'score',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MangaEntryScalarFieldEnum = (typeof MangaEntryScalarFieldEnum)[keyof typeof MangaEntryScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {

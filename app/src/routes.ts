@@ -3,6 +3,7 @@ import { authRouter } from "./modules/auth/auth.routes";
 import { animeRouter } from "./modules/anime/anime.routes";
 import { usersRouter } from "./modules/users/users.routes";
 import { listsRouter } from "./modules/lists/lists.routes";
+import { readlistRouter } from "./modules/readlist/readlist.routes";
 import { postsRouter } from "./modules/posts/posts.routes";
 import { shotsRouter } from "./modules/shots/shots.routes";
 import { storiesRouter } from "./modules/stories/stories.routes";
@@ -60,6 +61,7 @@ export const ROUTE_MOUNTS = [
   ["/e2ee",                            e2eeRouter],
   ["/webauthn",                        webauthnRouter],
   ["/lists",                           listsRouter],
+  ["/readlist",                        readlistRouter],
   ["/posts",                           postsRouter],
   ["/shots",                           shotsRouter],
   ["/stories",                         storiesRouter],
