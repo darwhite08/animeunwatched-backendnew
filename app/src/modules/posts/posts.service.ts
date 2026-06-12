@@ -608,6 +608,8 @@ export async function createPost(authorId: string, dto: CreatePostDto) {
       content: dto.content,
       ...(dto.animeId ? { animeId: dto.animeId } : {}),
       ...(images.length ? { imageUrl: images[0], imageUrls: images } : {}),
+      // Author's gallery layout only matters for 2+ images; default grid.
+      ...(images.length > 1 && dto.galleryLayout ? { galleryLayout: dto.galleryLayout } : {}),
     },
     include: postInclude,
   });

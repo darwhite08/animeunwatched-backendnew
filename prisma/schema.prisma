@@ -803,6 +803,7 @@ model Post {
   animeId   String?
   imageUrl  String?            // first image — kept for backward compatibility
   imageUrls String[] @default([]) // all images (gallery); imageUrl mirrors [0]
+  galleryLayout String @default("grid") // author's choice for multi-image: "grid" | "carousel"
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

@@ -92,6 +92,7 @@ export async function getProfile(username: string, viewerId?: string) {
           animeId: true,
           imageUrl: true,
           imageUrls: true,
+          galleryLayout: true,
           createdAt: true,
           anime: { select: { title: true, malId: true } },
           _count: { select: { likes: true, comments: true } },

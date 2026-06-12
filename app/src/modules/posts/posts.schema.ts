@@ -5,6 +5,7 @@ export const createPostSchema = z.object({
   animeId: z.string().optional(),
   imageUrl: z.string().url().max(500).optional(),
   imageUrls: z.array(z.string().url().max(500)).max(10).optional(),
+  galleryLayout: z.enum(["grid", "carousel"]).optional(),
 });
 
 export const createCommentSchema = z.object({
