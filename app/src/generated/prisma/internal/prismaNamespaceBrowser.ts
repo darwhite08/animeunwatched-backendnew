@@ -135,6 +135,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   UserInvite: 'UserInvite',
   TotpSecret: 'TotpSecret',
+  LoginAttempt: 'LoginAttempt',
   StepUpToken: 'StepUpToken',
   FeatureFlag: 'FeatureFlag',
   FeatureFlagOverride: 'FeatureFlagOverride',
@@ -1492,6 +1493,16 @@ export const TotpSecretScalarFieldEnum = {
 } as const
 
 export type TotpSecretScalarFieldEnum = (typeof TotpSecretScalarFieldEnum)[keyof typeof TotpSecretScalarFieldEnum]
+
+
+export const LoginAttemptScalarFieldEnum = {
+  email: 'email',
+  count: 'count',
+  lockedUntil: 'lockedUntil',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoginAttemptScalarFieldEnum = (typeof LoginAttemptScalarFieldEnum)[keyof typeof LoginAttemptScalarFieldEnum]
 
 
 export const StepUpTokenScalarFieldEnum = {

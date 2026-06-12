@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./admin.service";
-import { badRequest } from "../../lib/errors";
+import { badRequest, forbidden } from "../../lib/errors";
 import { prisma } from "../../config/prisma";
 import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
 import { getGA4Realtime, getGA4Countries, isGA4Configured } from "../../lib/ga4";
@@ -119,6 +119,14 @@ export async function setUserRole(req: Request, res: Response, next: NextFunctio
     const role    = req.body?.role as "USER" | "MOD" | "ADMIN" | undefined
     if (!role || !["USER", "MOD", "ADMIN"].includes(role)) {
       throw badRequest("role must be USER, MOD, or ADMIN")
+    }
+    // Granting ADMIN mints a full administrator → require a separate, higher-trust
+    // permission than ordinary USER/MOD role changes (users:role).
+    if (role === "ADMIN") {
+      const { hasPermission } = await import("../../lib/permissions")
+      if (!(await hasPermission(actorId, "users", "grant_admin"))) {
+        throw forbidden("Granting ADMIN requires the users:grant_admin permission")
+      }
     }
     const result = await service.setUserRole({ actorId, userId, role })
     res.status(200).json(result)

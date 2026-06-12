@@ -9,12 +9,12 @@ const IMAGE_MIME = z.enum([
 
 export const avatarUploadSchema = z.object({
   contentType: IMAGE_MIME,
-  size: z.number().int().positive().max(5 * 1024 * 1024).optional(),
+  size: z.number().int().positive().max(5 * 1024 * 1024),
 });
 
 export const postImageUploadSchema = z.object({
   contentType: IMAGE_MIME,
-  size: z.number().int().positive().max(10 * 1024 * 1024).optional(),
+  size: z.number().int().positive().max(10 * 1024 * 1024),
 });
 
 const AUDIO_MIME = z.enum([
@@ -40,7 +40,7 @@ const VIDEO_MIME = z.enum([
 
 export const shotVideoUploadSchema = z.object({
   contentType: VIDEO_MIME,
-  size: z.number().int().positive().max(100 * 1024 * 1024).optional(),
+  size: z.number().int().positive().max(100 * 1024 * 1024),
 });
 
 const STORY_MIME = z.enum([
@@ -56,5 +56,5 @@ const STORY_MIME = z.enum([
 
 export const storyUploadSchema = z.object({
   contentType: STORY_MIME,
-  size: z.number().int().positive().max(50 * 1024 * 1024).optional(),
+  size: z.number().int().positive().max(50 * 1024 * 1024),
 });

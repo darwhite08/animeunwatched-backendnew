@@ -54,11 +54,17 @@ export function startJobs() {
     intervalMs: 24 * 60 * 60_000, handler: runAuditChainCheck,
   })
   registerJob({
-    name: "purgeExpiredIpBlocks", description: "Delete expired IpBlock rows (hourly)",
+    name: "purgeExpiredIpBlocks", description: "Delete expired IpBlock rows + stale login-attempt counters (hourly)",
     intervalMs: 60 * 60_000, handler: async () => {
       const { prisma } = await import("../config/prisma")
       const { count } = await prisma.ipBlock.deleteMany({ where: { expiresAt: { lt: new Date() } } })
-      return { purged: count }
+      // Drop login-attempt counters with no active lock that haven't been
+      // touched in a day (auto-reset; keeps the table tiny).
+      const dayAgo = new Date(Date.now() - 24 * 60 * 60_000)
+      const { count: la } = await prisma.loginAttempt.deleteMany({
+        where: { updatedAt: { lt: dayAgo }, OR: [{ lockedUntil: null }, { lockedUntil: { lt: new Date() } }] },
+      })
+      return { purged: count, loginAttempts: la }
     },
   })
   registerJob({

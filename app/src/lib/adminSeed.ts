@@ -24,6 +24,7 @@ const PERMISSIONS = [
   ["users",        "reset_mfa"],
   ["users",        "revoke_sessions"],
   ["users",        "role"],
+  ["users",        "grant_admin"],   // higher-trust: required to grant the ADMIN role specifically
 
   ["roles",        "read"],
   ["roles",        "write"],

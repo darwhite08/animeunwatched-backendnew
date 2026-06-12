@@ -163,33 +163,36 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   return { user, accessToken, refreshToken };
 }
 
-// ─── Brute-force lockout (in-memory, per email) ───────────────────────────────
-// Resets on restart — acceptable for MVP. Use Redis for multi-instance production.
-const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
+// ─── Brute-force lockout (Postgres-backed, per email) ─────────────────────────
+// Shared across instances (App Runner can run >1), so the lockout can't be
+// bypassed by spraying attempts at different instances. Survives restarts.
 const MAX_ATTEMPTS  = 5;
 const LOCKOUT_MS    = 15 * 60 * 1000; // 15 minutes
 
-function checkLoginAttempts(email: string): void {
-  const entry = loginAttempts.get(email);
-  if (!entry) return;
-  if (entry.lockedUntil > Date.now()) {
-    const remaining = Math.ceil((entry.lockedUntil - Date.now()) / 60000);
+async function checkLoginAttempts(email: string): Promise<void> {
+  const row = await prisma.loginAttempt.findUnique({ where: { email } });
+  if (row?.lockedUntil && row.lockedUntil.getTime() > Date.now()) {
+    const remaining = Math.ceil((row.lockedUntil.getTime() - Date.now()) / 60000);
     throw Object.assign(new Error(`Too many failed attempts. Try again in ${remaining} minute(s).`), { statusCode: 429, code: "RATE_LIMITED" });
   }
 }
 
-function recordFailedLogin(email: string): void {
-  const entry = loginAttempts.get(email) ?? { count: 0, lockedUntil: 0 };
-  entry.count += 1;
-  if (entry.count >= MAX_ATTEMPTS) {
-    entry.lockedUntil = Date.now() + LOCKOUT_MS;
-    entry.count = 0;
+async function recordFailedLogin(email: string): Promise<void> {
+  const row = await prisma.loginAttempt.upsert({
+    where: { email },
+    create: { email, count: 1 },
+    update: { count: { increment: 1 } },
+  });
+  if (row.count >= MAX_ATTEMPTS) {
+    await prisma.loginAttempt.update({
+      where: { email },
+      data: { lockedUntil: new Date(Date.now() + LOCKOUT_MS), count: 0 },
+    });
   }
-  loginAttempts.set(email, entry);
 }
 
-function clearLoginAttempts(email: string): void {
-  loginAttempts.delete(email);
+async function clearLoginAttempts(email: string): Promise<void> {
+  await prisma.loginAttempt.deleteMany({ where: { email } });
 }
 
 /**
@@ -240,7 +243,7 @@ async function enforceTotp(userId: string, code: string | undefined): Promise<vo
 
 export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   // Brute-force guard: reject immediately if account is temporarily locked
-  checkLoginAttempts(dto.email);
+  await checkLoginAttempts(dto.email);
 
   // Single query: fetch user with all needed fields + passwordHash
   const userWithHash = await prisma.user.findUnique({
@@ -249,13 +252,13 @@ export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   });
 
   if (!userWithHash) {
-    recordFailedLogin(dto.email);
+    await recordFailedLogin(dto.email);
     throw unauth("Invalid email or password");
   }
 
   const valid = await verifyPassword(userWithHash.passwordHash, dto.password);
   if (!valid) {
-    recordFailedLogin(dto.email);
+    await recordFailedLogin(dto.email);
     throw unauth("Invalid email or password");
   }
 
@@ -265,7 +268,7 @@ export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   await enforceTotp(userWithHash.id, dto.totpCode);
 
   // Successful login → clear failure counter
-  clearLoginAttempts(dto.email);
+  await clearLoginAttempts(dto.email);
 
   // Strip the passwordHash before returning to callers
   const { passwordHash: _hash, ...user } = userWithHash;

@@ -78,6 +78,13 @@ export async function stopImpersonation(req: Request, res: Response, next: NextF
     if (!sessionId) throw badRequest("No active impersonation");
     const session = await prisma.impersonationSession.findUnique({ where: { id: sessionId } });
     if (!session) throw notFound("Session not found");
+    // Initiator check: only the operator who STARTED this session may stop it.
+    // (sessionId already comes from the caller's own impersonation token, so this
+    // is defense-in-depth — it can't mismatch in practice.)
+    const operatorId = res.locals.impersonator?.id as string | undefined;
+    if (operatorId && session.impersonatorId !== operatorId) {
+      throw forbidden("Only the operator who started this session can stop it");
+    }
     if (session.endedAt) {
       res.status(200).json({ ok: true, alreadyEnded: true }); return;
     }

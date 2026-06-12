@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma";
+import { Prisma } from "../../generated/prisma/client";
 import { notFound, forbidden } from "../../lib/errors";
 import { addReputation } from "../../lib/reputation";
 import { createNotification, NotificationType } from "../../lib/notify";
@@ -47,17 +48,48 @@ function meta(total: number, page: number, limit: number) {
   return { total, page, limit, pages: Math.ceil(total / limit) };
 }
 
-/** Attach isLikedByMe flag to posts when userId is known */
-async function withLikeStatus<T extends { id: string }>(posts: T[], userId?: string): Promise<(T & { isLikedByMe: boolean })[]> {
-  if (!userId || posts.length === 0) {
-    return posts.map(p => ({ ...p, isLikedByMe: false }))
+export interface LikePreviewUser { username: string; displayName: string; avatarUrl: string | null }
+
+/**
+ * Attach `isLikedByMe` + `likePreview` (up to 3 most-recent likers, for the
+ * Instagram-style overlapping-avatar row) to a page of posts. Both are batched
+ * — one query each across all posts — so there's no N+1 in the feed.
+ */
+async function withLikeStatus<T extends { id: string }>(
+  posts: T[], userId?: string,
+): Promise<(T & { isLikedByMe: boolean; likePreview: LikePreviewUser[] })[]> {
+  if (posts.length === 0) return [];
+  const ids = posts.map(p => p.id);
+
+  // Who *I* liked (only when authed).
+  let likedSet = new Set<string>();
+  if (userId) {
+    const likes = await prisma.postLike.findMany({
+      where: { userId, postId: { in: ids } }, select: { postId: true },
+    });
+    likedSet = new Set(likes.map((l: { postId: string }) => l.postId));
   }
-  const likes = await prisma.postLike.findMany({
-    where: { userId, postId: { in: posts.map(p => p.id) } },
-    select: { postId: true },
-  })
-  const likedSet = new Set(likes.map((l: { postId: string }) => l.postId))
-  return posts.map(p => ({ ...p, isLikedByMe: likedSet.has(p.id) }))
+
+  // Top-3 most-recent likers per post (single windowed query).
+  const previewRows = await prisma.$queryRaw<Array<{ postId: string; username: string; displayName: string; avatarUrl: string | null }>>`
+    SELECT t."postId", t.username, t."displayName", t."avatarUrl" FROM (
+      SELECT pl."postId", u.username, u."displayName", u."avatarUrl",
+             ROW_NUMBER() OVER (PARTITION BY pl."postId" ORDER BY pl."createdAt" DESC) AS rn
+      FROM "PostLike" pl JOIN "User" u ON u.id = pl."userId"
+      WHERE pl."postId" IN (${Prisma.join(ids)})
+    ) t WHERE t.rn <= 3`;
+  const previewByPost = new Map<string, LikePreviewUser[]>();
+  for (const r of previewRows) {
+    const arr = previewByPost.get(r.postId) ?? [];
+    arr.push({ username: r.username, displayName: r.displayName, avatarUrl: r.avatarUrl });
+    previewByPost.set(r.postId, arr);
+  }
+
+  return posts.map(p => ({
+    ...p,
+    isLikedByMe: likedSet.has(p.id),
+    likePreview: previewByPost.get(p.id) ?? [],
+  }));
 }
 
 // ─── getFeed ──────────────────────────────────────────────────────────────────

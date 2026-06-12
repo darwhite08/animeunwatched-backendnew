@@ -448,6 +448,11 @@ export type UserInvite = Prisma.UserInviteModel
  */
 export type TotpSecret = Prisma.TotpSecretModel
 /**
+ * Model LoginAttempt
+ * 
+ */
+export type LoginAttempt = Prisma.LoginAttemptModel
+/**
  * Model StepUpToken
  * 
  */

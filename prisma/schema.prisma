@@ -2061,6 +2061,16 @@ model TotpSecret {
   updatedAt    DateTime @updatedAt
 }
 
+// Shared (cross-instance) brute-force lockout, keyed by login email. Replaces
+// the old per-process in-memory Map so the lockout can't be defeated by hitting
+// different App Runner instances.
+model LoginAttempt {
+  email       String    @id
+  count       Int       @default(0)
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
 // Short-lived "step-up" credential issued after re-authentication. Required
 // for high-risk admin actions (role grants, kill switches, DSAR delete,
 // impersonation start). Stored hashed.
