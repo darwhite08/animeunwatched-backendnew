@@ -110,20 +110,43 @@ export function verificationEmail(email: string, displayName: string, code: stri
 }
 
 export function welcomeEmail(email: string, displayName: string): EmailOpts {
+  // A numbered "next step" card — keeps the onboarding path obvious.
+  const step = (n: number, title: string, body: string) => `
+    <tr>
+      <td style="padding:14px 0;border-bottom:1px solid #1a1a1a;vertical-align:top">
+        <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+          <td style="width:38px;vertical-align:top">
+            <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;font-weight:900;font-size:14px;text-align:center;line-height:30px">${n}</div>
+          </td>
+          <td style="vertical-align:top;padding-left:4px">
+            <div style="color:#fff;font-size:14px;font-weight:800;margin-bottom:2px">${title}</div>
+            <div style="color:#888;font-size:13px;line-height:1.5">${body}</div>
+          </td>
+        </tr></table>
+      </td>
+    </tr>`
+
   return {
     to: email,
-    subject: `Welcome to ${BRAND_NAME}, ${displayName}`,
+    subject: `Welcome to ${BRAND_NAME}, ${displayName} — your archive is live`,
     html: emailBase(`
-      <h1 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 16px;font-style:italic">Welcome to the archive, ${displayName}!</h1>
-      <p style="color:#aaa;line-height:1.7;margin-bottom:24px">
-        Your Kaiveron profile is live. Here's what to do next:
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">Welcome to the network</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 14px;font-style:italic;letter-spacing:-0.02em">Welcome, ${displayName}.</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 28px">
+        Your ${BRAND_NAME} profile is live and your email is confirmed. ${BRAND_NAME} is where you track, rate, and discover anime — and find the people who love it like you do. Three quick steps to make it yours:
       </p>
-      <ol style="color:#aaa;line-height:2;padding-left:20px">
-        <li>Complete your <strong style="color:#fff">onboarding</strong> to pick your watcher type</li>
-        <li>Add <strong style="color:#fff">5+ anime</strong> to your watchlist to unlock your DNA chart</li>
-        <li>Join a <strong style="color:#fff">club</strong> to find your community</li>
-      </ol>
-      <a href="${BRAND_URL}/onboarding" style="display:inline-block;margin-top:28px;padding:14px 28px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.05em;text-transform:uppercase">Build Your Archive →</a>
+
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 4px">
+        ${step(1, "Finish onboarding", "Pick your watcher type so your feed and recommendations fit you from day one.")}
+        ${step(2, "Add 5+ anime", "Build your watchlist to unlock your taste DNA chart and smarter AI picks.")}
+        ${step(3, "Join a club", "Find your community — episode threads, clubs, and creators worth following.")}
+      </table>
+
+      <a href="${BRAND_URL}/onboarding" style="display:inline-block;margin-top:30px;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Build Your Archive →</a>
+
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:30px 0 0">
+        Need a hand? Just reply to this email or visit <a href="${BRAND_URL}" style="color:#888">${BRAND_NAME.toLowerCase()}.com</a>. Glad you're here.
+      </p>
     `),
   }
 }
