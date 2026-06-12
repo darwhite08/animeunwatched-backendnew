@@ -453,6 +453,11 @@ export type TotpSecret = Prisma.TotpSecretModel
  */
 export type LoginAttempt = Prisma.LoginAttemptModel
 /**
+ * Model RateLimitBucket
+ * 
+ */
+export type RateLimitBucket = Prisma.RateLimitBucketModel
+/**
  * Model StepUpToken
  * 
  */

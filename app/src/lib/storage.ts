@@ -11,7 +11,8 @@
  * without proxying bytes through this server.
  */
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
+// (getSignedUrl removed — uploads now use size-enforced presigned POST)
 import { randomBytes } from "node:crypto";
 import { env } from "../config/env";
 import { configError } from "./errors";
@@ -76,6 +77,11 @@ export type UploadIntent = {
   key:         string
   expiresIn:   number
   contentType: string
+  // Form fields for a presigned POST. When present, the client MUST POST
+  // multipart/form-data (these fields + the file last). The presigned POST
+  // policy enforces the byte size (content-length-range) and Content-Type at
+  // S3, so an oversized or wrong-type upload is rejected by storage itself.
+  fields?:     Record<string, string>
 }
 
 /**
@@ -118,20 +124,28 @@ export async function presignImageUpload(opts: {
   scope:       "avatar" | "post" | "club" | "voice" | "shot" | "story" | "dm"
   contentType: string
   ext:         string
+  maxBytes:    number   // hard size ceiling, enforced by the S3 POST policy
 }): Promise<UploadIntent> {
   const b = getBackend()
   const key = makeKey({ scope: opts.scope, userId: opts.userId, ext: opts.ext })
+  const expiresIn = 300 // 5 minutes
 
-  const cmd = new PutObjectCommand({
-    Bucket:       b.bucket,
-    Key:          key,
-    ContentType:  opts.contentType,
-    CacheControl: "public, max-age=31536000, immutable",
+  // Presigned POST with content-length-range → S3 itself rejects anything over
+  // maxBytes (and anything whose Content-Type doesn't match), so byte size is
+  // enforced at the storage layer, not just the client's declared size.
+  const { url, fields } = await createPresignedPost(b.client, {
+    Bucket: b.bucket,
+    Key:    key,
+    Conditions: [
+      ["content-length-range", 1, opts.maxBytes],
+      ["eq", "$Content-Type", opts.contentType],
+    ],
+    Fields: {
+      "Content-Type":  opts.contentType,
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+    Expires: expiresIn,
   })
 
-  const expiresIn = 300 // 5 minutes
-  const uploadUrl = await getSignedUrl(b.client, cmd, { expiresIn })
-  const publicUrl = `${b.publicUrl}/${key}`
-
-  return { uploadUrl, publicUrl, key, expiresIn, contentType: opts.contentType }
+  return { uploadUrl: url, fields, publicUrl: `${b.publicUrl}/${key}`, key, expiresIn, contentType: opts.contentType }
 }

@@ -2071,6 +2071,15 @@ model LoginAttempt {
   updatedAt   DateTime  @updatedAt
 }
 
+// Shared (cross-instance) fixed-window rate-limit counters. One row per
+// (bucket, identity). Incremented via a single atomic upsert per request so
+// the limit holds across App Runner instances. Expired rows are purged hourly.
+model RateLimitBucket {
+  key     String   @id
+  count   Int      @default(0)
+  resetAt DateTime
+}
+
 // Short-lived "step-up" credential issued after re-authentication. Required
 // for high-risk admin actions (role grants, kill switches, DSAR delete,
 // impersonation start). Stored hashed.

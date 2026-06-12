@@ -64,7 +64,9 @@ export function startJobs() {
       const { count: la } = await prisma.loginAttempt.deleteMany({
         where: { updatedAt: { lt: dayAgo }, OR: [{ lockedUntil: null }, { lockedUntil: { lt: new Date() } }] },
       })
-      return { purged: count, loginAttempts: la }
+      // Expired rate-limit windows.
+      const { count: rl } = await prisma.rateLimitBucket.deleteMany({ where: { resetAt: { lt: new Date() } } })
+      return { purged: count, loginAttempts: la, rateLimitBuckets: rl }
     },
   })
   registerJob({

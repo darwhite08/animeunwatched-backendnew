@@ -136,6 +136,7 @@ export const ModelName = {
   UserInvite: 'UserInvite',
   TotpSecret: 'TotpSecret',
   LoginAttempt: 'LoginAttempt',
+  RateLimitBucket: 'RateLimitBucket',
   StepUpToken: 'StepUpToken',
   FeatureFlag: 'FeatureFlag',
   FeatureFlagOverride: 'FeatureFlagOverride',
@@ -1503,6 +1504,15 @@ export const LoginAttemptScalarFieldEnum = {
 } as const
 
 export type LoginAttemptScalarFieldEnum = (typeof LoginAttemptScalarFieldEnum)[keyof typeof LoginAttemptScalarFieldEnum]
+
+
+export const RateLimitBucketScalarFieldEnum = {
+  key: 'key',
+  count: 'count',
+  resetAt: 'resetAt'
+} as const
+
+export type RateLimitBucketScalarFieldEnum = (typeof RateLimitBucketScalarFieldEnum)[keyof typeof RateLimitBucketScalarFieldEnum]
 
 
 export const StepUpTokenScalarFieldEnum = {

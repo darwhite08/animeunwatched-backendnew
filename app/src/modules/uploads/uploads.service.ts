@@ -1,5 +1,15 @@
 import { presignImageUpload, type UploadIntent } from "../../lib/storage";
 
+// Hard byte ceilings per scope (mirror the request schemas). Enforced at S3 via
+// the presigned-POST content-length-range, so the cap can't be bypassed.
+const MAX_BYTES = {
+  avatar: 5 * 1024 * 1024,
+  post:   10 * 1024 * 1024,
+  story:  50 * 1024 * 1024,
+  voice:  10 * 1024 * 1024,
+  shot:   100 * 1024 * 1024,
+} as const;
+
 function extFromContentType(ct: string): string {
   if (ct === "image/jpeg") return "jpg";
   if (ct === "image/png")  return "png";
@@ -26,6 +36,7 @@ export async function presignAvatar(opts: {
     scope: "avatar",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
+    maxBytes: MAX_BYTES.avatar,
   });
 }
 
@@ -38,6 +49,7 @@ export async function presignPostImage(opts: {
     scope: "post",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
+    maxBytes: MAX_BYTES.post,
   });
 }
 
@@ -50,6 +62,7 @@ export async function presignShotVideo(opts: {
     scope: "shot",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
+    maxBytes: MAX_BYTES.shot,
   });
 }
 
@@ -62,6 +75,7 @@ export async function presignStory(opts: {
     scope: "story",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
+    maxBytes: MAX_BYTES.story,
   });
 }
 
@@ -74,5 +88,6 @@ export async function presignVoiceMessage(opts: {
     scope: "voice",
     contentType: opts.contentType,
     ext: extFromContentType(opts.contentType),
+    maxBytes: MAX_BYTES.voice,
   });
 }
