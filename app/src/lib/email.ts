@@ -54,8 +54,12 @@ export async function sendEmail(opts: EmailOpts): Promise<void> {
   }
 
   try {
+    // Prefer an explicit From address; fall back to the SMTP username for
+    // plain mailbox SMTP. (Resend/SES use a non-email SMTP_USER, so EMAIL_FROM
+    // must be set to a verified sender there.)
+    const fromAddress = env.EMAIL_FROM || env.SMTP_USER;
     await getTransporter().sendMail({
-      from: `"AnimeUnwatched" <${env.SMTP_USER}>`,
+      from: `"Kaiveron" <${fromAddress}>`,
       to: opts.to,
       subject: opts.subject,
       html: opts.html,

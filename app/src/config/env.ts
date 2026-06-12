@@ -63,6 +63,10 @@ export const env = {
   SMTP_PORT: Number(process.env.SMTP_PORT) || 587,
   SMTP_USER: process.env.SMTP_USER || "",
   SMTP_PASS: process.env.SMTP_PASS || "",
+  // The visible From address (e.g. "no-reply@kaiveron.com"). Required by
+  // providers like Resend where SMTP_USER is a literal ("resend"), not an email.
+  // Falls back to SMTP_USER for plain mailbox-style SMTP.
+  EMAIL_FROM: process.env.EMAIL_FROM || "",
   ENABLE_EMAIL_NOTIFICATIONS: process.env.ENABLE_EMAIL_NOTIFICATIONS === "true",
 
   // Cron security — all cron endpoints require this secret in x-cron-secret header
