@@ -7,8 +7,12 @@ export async function search(q: string) {
   return { data: await searchManga(q) };
 }
 
-export async function getByUsername(username: string) {
-  const user = await prisma.user.findUnique({ where: { username }, select: { id: true } });
+export async function getByUsername(usernameOrSlug: string) {
+  // The profile URL uses the slug; the API also accepts the raw username.
+  const user = await prisma.user.findFirst({
+    where: { OR: [{ username: usernameOrSlug }, { slug: usernameOrSlug }] },
+    select: { id: true },
+  });
   if (!user) throw notFound("User not found");
   const data = await prisma.mangaEntry.findMany({ where: { userId: user.id }, orderBy: { updatedAt: "desc" } });
   return { data };
