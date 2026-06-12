@@ -8,6 +8,7 @@ export type SecurityEventType =
   | "login_failed"
   | "register"
   | "password_changed"
+  | "email_verified"
   | "password_reset_requested"
   | "password_reset_completed"
   | "account_deleted"

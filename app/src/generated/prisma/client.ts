@@ -483,6 +483,11 @@ export type LoginAttempt = Prisma.LoginAttemptModel
  */
 export type RateLimitBucket = Prisma.RateLimitBucketModel
 /**
+ * Model EmailVerification
+ * 
+ */
+export type EmailVerification = Prisma.EmailVerificationModel
+/**
  * Model StepUpToken
  * 
  */

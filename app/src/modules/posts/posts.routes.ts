@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
+import { requireAuth, optionalAuth, requireVerifiedEmail } from "../../middlewares/auth.middleware";
 import { turnstile } from "../../middlewares/turnstile.middleware";
 import * as ctrl from "./posts.controller";
 
@@ -17,14 +17,14 @@ postsRouter.delete("/comments/:commentId/like", requireAuth, ctrl.unlikeComment)
 
 postsRouter.get("/:id", optionalAuth, ctrl.getPost);
 // turnstile() is a no-op until TURNSTILE_SECRET is set
-postsRouter.post("/", requireAuth, turnstile(), ctrl.createPost);
+postsRouter.post("/", requireAuth, requireVerifiedEmail, turnstile(), ctrl.createPost);
 postsRouter.delete("/:id", requireAuth, ctrl.deletePost);
 postsRouter.post("/:id/like", requireAuth, ctrl.likePost);
 postsRouter.delete("/:id/like", requireAuth, ctrl.unlikePost);
 postsRouter.get("/:id/likers", optionalAuth, ctrl.getLikers);
 postsRouter.put("/:id/reaction", requireAuth, ctrl.reactPost);
 postsRouter.get("/:id/comments", optionalAuth, ctrl.getComments);
-postsRouter.post("/:id/comments", requireAuth, turnstile(), ctrl.createComment);
+postsRouter.post("/:id/comments", requireAuth, requireVerifiedEmail, turnstile(), ctrl.createComment);
 
 // "Not interested" — drops the post from the caller's trending feed and
 // accumulates author-level soft-blocks (≥3 hides per author → ×0.2 score).

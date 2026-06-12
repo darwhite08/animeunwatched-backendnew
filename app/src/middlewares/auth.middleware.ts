@@ -7,6 +7,7 @@ import { prisma } from "../config/prisma";
 const userSelect = {
   id: true,
   email: true,
+  emailVerifiedAt: true,
   username: true,
   slug: true,          // routing alias — required so /auth/me carries it through
   displayName: true,
@@ -80,6 +81,29 @@ export function optionalAuth(
   } catch {
     next();
   }
+}
+
+/**
+ * Gate an action behind a confirmed email address. Applied to "participate"
+ * endpoints (posting, commenting, publishing) so an unverified signup can browse
+ * but not contribute until they enter the code.
+ *
+ * INERT when email delivery isn't configured: if we can't send a code, we must
+ * not block anyone on one. Existing users + OAuth signups are already verified,
+ * so this only ever stops a brand-new email/password signup mid-onboarding.
+ * Must run AFTER requireAuth.
+ */
+export async function requireVerifiedEmail(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  const user = res.locals.user;
+  if (!user) return next(unauth());
+  const { isEmailConfigured } = await import("../lib/email");
+  if (!isEmailConfigured()) return next();        // gate inert until SMTP is set
+  if (user.emailVerifiedAt) return next();        // already confirmed
+  return next(forbidden("Verify your email to do this. Check your inbox for the code.", "EMAIL_UNVERIFIED"));
 }
 
 /**

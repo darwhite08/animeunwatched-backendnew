@@ -13,14 +13,14 @@ export class HttpError extends Error {
 export const notFound = (msg = "Not found") =>
   new HttpError(404, "NOT_FOUND", msg);
 
-export const forbidden = (msg = "Forbidden") =>
-  new HttpError(403, "FORBIDDEN", msg);
+export const forbidden = (msg = "Forbidden", code = "FORBIDDEN") =>
+  new HttpError(403, code, msg);
 
 export const conflict = (msg = "Conflict") =>
   new HttpError(409, "CONFLICT", msg);
 
-export const badReq = (msg = "Bad request") =>
-  new HttpError(400, "BAD_REQUEST", msg);
+export const badReq = (msg = "Bad request", code = "BAD_REQUEST") =>
+  new HttpError(400, code, msg);
 
 // Alias for consistency
 export const badRequest = badReq;

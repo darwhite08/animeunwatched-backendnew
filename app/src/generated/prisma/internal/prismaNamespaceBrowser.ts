@@ -137,6 +137,7 @@ export const ModelName = {
   TotpSecret: 'TotpSecret',
   LoginAttempt: 'LoginAttempt',
   RateLimitBucket: 'RateLimitBucket',
+  EmailVerification: 'EmailVerification',
   StepUpToken: 'StepUpToken',
   FeatureFlag: 'FeatureFlag',
   FeatureFlagOverride: 'FeatureFlagOverride',
@@ -243,6 +244,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  emailVerifiedAt: 'emailVerifiedAt',
   username: 'username',
   slug: 'slug',
   displayName: 'displayName',
@@ -1513,6 +1515,17 @@ export const RateLimitBucketScalarFieldEnum = {
 } as const
 
 export type RateLimitBucketScalarFieldEnum = (typeof RateLimitBucketScalarFieldEnum)[keyof typeof RateLimitBucketScalarFieldEnum]
+
+
+export const EmailVerificationScalarFieldEnum = {
+  userId: 'userId',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  attempts: 'attempts',
+  sentAt: 'sentAt'
+} as const
+
+export type EmailVerificationScalarFieldEnum = (typeof EmailVerificationScalarFieldEnum)[keyof typeof EmailVerificationScalarFieldEnum]
 
 
 export const StepUpTokenScalarFieldEnum = {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
+import { requireAuth, optionalAuth, requireVerifiedEmail } from "../../middlewares/auth.middleware";
 import * as ctrl from "./threads.controller";
 
 export const threadsRouter = Router();
@@ -14,7 +14,7 @@ threadsRouter.put("/replies/:replyId/reaction", requireAuth, ctrl.reactReply);
 
 // Replies
 threadsRouter.get("/:id/replies", optionalAuth, ctrl.getReplies);
-threadsRouter.post("/:id/replies", requireAuth, ctrl.createReply);
+threadsRouter.post("/:id/replies", requireAuth, requireVerifiedEmail, ctrl.createReply);
 threadsRouter.put("/:id/reaction", requireAuth, ctrl.reactThread);
 threadsRouter.post("/:id/lock", requireAuth, ctrl.lockThread);
 
@@ -22,9 +22,9 @@ threadsRouter.post("/:id/lock", requireAuth, ctrl.lockThread);
 // Exported separately so it can be mounted under clubsRouter
 export const clubThreadsRouter = Router({ mergeParams: true });
 clubThreadsRouter.get("/", optionalAuth, ctrl.getClubThreads);
-clubThreadsRouter.post("/", requireAuth, ctrl.createClubThread);
+clubThreadsRouter.post("/", requireAuth, requireVerifiedEmail, ctrl.createClubThread);
 
 // ─── Anime thread sub-router (mounted at /anime/:malId in routes.ts) ────────
 export const animeThreadsRouter = Router({ mergeParams: true });
 animeThreadsRouter.get("/", optionalAuth, ctrl.getAnimeThreads);
-animeThreadsRouter.post("/", requireAuth, ctrl.createAnimeThread);
+animeThreadsRouter.post("/", requireAuth, requireVerifiedEmail, ctrl.createAnimeThread);

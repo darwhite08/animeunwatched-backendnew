@@ -133,6 +133,36 @@ export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
 }
 
+// Confirm the signup email-verification code. Requires a valid access token
+// (the user is logged in but unverified). On success returns the updated user.
+export async function verifyEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user?.id;
+    const raw = (req.body as { code?: unknown })?.code;
+    const code = typeof raw === "string" ? raw.trim() : "";
+    if (!/^\d{6}$/.test(code)) {
+      res.status(400).json({ error: { code: "VALIDATION", message: "Enter the 6-digit code from your email." } });
+      return;
+    }
+    const { user } = await service.verifyEmail(userId, code);
+    recordSecurityEvent("email_verified", { userId, req });
+    res.status(200).json({ user });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// Re-send the signup verification code (rate-limited in the service).
+export async function resendVerification(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user?.id;
+    const result = await service.resendVerification(userId);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 /**
  * OAuth session handoff endpoint.
  *

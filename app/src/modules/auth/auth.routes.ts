@@ -17,6 +17,10 @@ authRouter.post("/logout",           ctrl.logout);
 authRouter.post("/logout-all",       requireAuth, ctrl.logoutAll);
 authRouter.post("/change-password",  requireAuth, ctrl.changePassword);
 authRouter.get( "/me",               requireAuth, ctrl.me);
+
+// Email verification (signup OTP). User is authenticated but unverified.
+authRouter.post("/verify-email",        requireAuth, ctrl.verifyEmail);
+authRouter.post("/resend-verification", requireAuth, ctrl.resendVerification);
 // No auth needed — clears stale refresh cookie so users can log in again
 // even if the JWT secret was rotated and their cookie is permanently invalid
 authRouter.get( "/clear-session",    ctrl.clearSession);

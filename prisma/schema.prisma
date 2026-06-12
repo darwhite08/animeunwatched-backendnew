@@ -64,6 +64,11 @@ enum ReportStatus {
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
+  /// When the email address was confirmed. null = unverified (email/password
+  /// signups before they enter the code). OAuth signups + existing users are
+  /// backfilled as verified. Enforcement is inert until SMTP is configured.
+  emailVerifiedAt DateTime?
+  emailVerification EmailVerification?
   username     String   @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.
   /// Never used for data access — only for URL display. Always look up session userId internally.
@@ -2078,6 +2083,19 @@ model RateLimitBucket {
   key     String   @id
   count   Int      @default(0)
   resetAt DateTime
+}
+
+// Pending email-verification OTP for a signup. One per user (resend overwrites).
+// The 6-digit code is stored hashed; expires after a short window with a capped
+// number of attempts.
+model EmailVerification {
+  userId    String   @id
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  sentAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Short-lived "step-up" credential issued after re-authentication. Required

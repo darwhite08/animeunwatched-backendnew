@@ -24,6 +24,22 @@ function getTransporter() {
   return _transporter;
 }
 
+/**
+ * Whether a real email would actually be delivered right now. This is the single
+ * gate that decides if email-verification enforcement is active: if mail can't
+ * leave the building, we must NOT block signups on a code they'll never receive.
+ * Mirrors the exact conditions under which sendEmail() does real work.
+ */
+export function isEmailConfigured(): boolean {
+  return (
+    env.NODE_ENV === "production" &&
+    !!env.ENABLE_EMAIL_NOTIFICATIONS &&
+    !!env.SMTP_HOST &&
+    !!env.SMTP_USER &&
+    !!env.SMTP_PASS
+  );
+}
+
 export async function sendEmail(opts: EmailOpts): Promise<void> {
   if (env.NODE_ENV !== "production" || !env.ENABLE_EMAIL_NOTIFICATIONS) {
     if (env.NODE_ENV !== "production") {
@@ -66,6 +82,27 @@ function emailBase(content: string): string {
       </div>
     </div>
   `
+}
+
+export function verificationEmail(email: string, displayName: string, code: string): EmailOpts {
+  // Space the 6 digits so they're easy to read off a phone and hard to misread.
+  const spaced = code.split("").join(" ")
+  return {
+    to: email,
+    subject: `${code} is your ${BRAND_NAME} verification code`,
+    html: emailBase(`
+      <h1 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 16px;font-style:italic">Confirm your email</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 28px">
+        Hey <strong style="color:#fff">${displayName}</strong> — enter this code in Kaiveron to verify your email and activate your account.
+      </p>
+      <div style="text-align:center;margin:0 0 28px">
+        <div style="display:inline-block;padding:20px 32px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:16px;font-size:34px;font-weight:900;letter-spacing:0.35em;color:${ACCENT};font-family:'SF Mono',ui-monospace,Menlo,monospace">${spaced}</div>
+      </div>
+      <p style="color:#666;font-size:13px;line-height:1.6;margin:0">
+        This code expires in 15 minutes. If you didn't create a Kaiveron account, you can safely ignore this email.
+      </p>
+    `),
+  }
 }
 
 export function welcomeEmail(email: string, displayName: string): EmailOpts {

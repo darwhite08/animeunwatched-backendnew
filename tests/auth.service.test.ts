@@ -34,12 +34,31 @@ vi.mock("../app/src/config/prisma", () => ({
     userPublicKey: {
       findUnique: vi.fn(),
     },
+    loginAttempt: {
+      findUnique: vi.fn().mockResolvedValue(null),
+      upsert: vi.fn().mockResolvedValue({ count: 1 }),
+      update: vi.fn().mockResolvedValue({}),
+      delete: vi.fn().mockResolvedValue({}),
+      deleteMany: vi.fn().mockResolvedValue({}),
+    },
+    emailVerification: {
+      upsert: vi.fn().mockResolvedValue({}),
+      findUnique: vi.fn().mockResolvedValue(null),
+      update: vi.fn().mockResolvedValue({}),
+      delete: vi.fn().mockResolvedValue({}),
+    },
+    totpSecret: {
+      findUnique: vi.fn().mockResolvedValue(null),
+    },
   },
 }));
 
 vi.mock("../app/src/lib/email", () => ({
   sendEmail: vi.fn().mockResolvedValue(undefined),
   welcomeEmail: vi.fn().mockReturnValue({ to: "x", subject: "y", html: "z" }),
+  verificationEmail: vi.fn().mockReturnValue({ to: "x", subject: "y", html: "z" }),
+  // SMTP not configured in tests → verification gate is inert.
+  isEmailConfigured: vi.fn().mockReturnValue(false),
 }));
 
 // ── Password hashing ──────────────────────────────────────────────────────────

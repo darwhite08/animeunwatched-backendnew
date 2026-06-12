@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth, optionalAuth } from "../../middlewares/auth.middleware";
+import { requireAuth, optionalAuth, requireVerifiedEmail } from "../../middlewares/auth.middleware";
 import * as ctrl from "./reviews.controller";
 
 export const reviewsRouter = Router();
@@ -12,7 +12,7 @@ reviewsAnimeRouter.get("/", optionalAuth, ctrl.getAnimeReviews);
 reviewsRouter.get("/", optionalAuth, ctrl.listReviews);
 
 // CRUD + like/unlike
-reviewsRouter.post("/", requireAuth, ctrl.createReview);
+reviewsRouter.post("/", requireAuth, requireVerifiedEmail, ctrl.createReview);
 reviewsRouter.patch("/:id", requireAuth, ctrl.updateReview);
 reviewsRouter.delete("/:id", requireAuth, ctrl.deleteReview);
 reviewsRouter.post("/:id/like", requireAuth, ctrl.likeReview);

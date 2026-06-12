@@ -10,7 +10,7 @@ import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth, badRequest } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
-import { sendEmail, welcomeEmail } from "../../lib/email";
+import { sendEmail, welcomeEmail, verificationEmail, isEmailConfigured } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
 import { broadcastAdminUserSignup } from "../../realtime/broadcast";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
@@ -79,6 +79,7 @@ export function verifyRefreshToken(token: string): { userId: string } {
 const userSelect = {
   id: true,
   email: true,
+  emailVerifiedAt: true,
   username: true,
   slug: true,         // routing alias — never used for data access
   displayName: true,
@@ -110,6 +111,12 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   // Generate a human-readable slug from displayName. Unique, never exposes userId.
   const slug = await generateUniqueSlug(dto.displayName || dto.username);
 
+  // Email/password signups must confirm their address with a code — but ONLY
+  // when email can actually be delivered. If SMTP isn't configured the code
+  // would never arrive, so we mark them verified immediately (the gate stays
+  // inert) rather than trapping them in an unverifiable state.
+  const requireVerification = isEmailConfigured();
+
   const user = await prisma.user.create({
     data: {
       email: dto.email,
@@ -117,6 +124,7 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
       displayName: dto.displayName,
       slug,
       passwordHash,
+      emailVerifiedAt: requireVerification ? null : new Date(),
     },
     select: userSelect,
   });
@@ -124,7 +132,12 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   // Realtime signal to the admin dashboard (no-op if Socket.io isn't up yet).
   broadcastAdminUserSignup(user);
 
-  sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
+  if (requireVerification) {
+    // Fire the verification code; don't send the welcome email until verified.
+    await issueEmailVerification(user.id, dto.email, dto.displayName).catch(console.error);
+  } else {
+    sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
+  }
 
   // Reward referrer if referredBy username is provided
   if (dto.referredBy) {
@@ -161,6 +174,99 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   });
 
   return { user, accessToken, refreshToken };
+}
+
+// ─── Email verification (signup OTP) ──────────────────────────────────────────
+// New email/password signups confirm their address with a 6-digit code before
+// the account is fully active. Codes are stored hashed, expire quickly, and are
+// attempt-capped. OAuth signups + existing users are verified without a code.
+const EMAIL_CODE_TTL_MS      = 15 * 60 * 1000;  // code valid for 15 minutes
+const EMAIL_CODE_MAX_ATTEMPTS = 6;              // wrong-code tries before lockout
+const EMAIL_RESEND_COOLDOWN_MS = 60 * 1000;     // min gap between code sends
+
+function generateEmailCode(): string {
+  // 6 digits, uniformly random, zero-padded. crypto.randomInt avoids modulo bias.
+  return String(crypto.randomInt(0, 1_000_000)).padStart(6, "0");
+}
+
+function hashEmailCode(code: string): string {
+  return crypto.createHash("sha256").update(code).digest("hex");
+}
+
+/**
+ * Generate a fresh code, persist its hash (overwriting any pending one), and
+ * email it. Used by register() and resendVerification(). Throws nothing fatal —
+ * callers decide whether a send failure should surface.
+ */
+async function issueEmailVerification(userId: string, email: string, displayName: string): Promise<void> {
+  const code = generateEmailCode();
+  const expiresAt = new Date(Date.now() + EMAIL_CODE_TTL_MS);
+  await prisma.emailVerification.upsert({
+    where: { userId },
+    create: { userId, codeHash: hashEmailCode(code), expiresAt, attempts: 0 },
+    update: { codeHash: hashEmailCode(code), expiresAt, attempts: 0, sentAt: new Date() },
+  });
+  await sendEmail(verificationEmail(email, displayName, code));
+}
+
+/** Confirm the signup code. On success marks the account verified and clears the row. */
+export async function verifyEmail(userId: string, code: string) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw unauth();
+  if (user.emailVerifiedAt) {
+    // Already verified — idempotent success (e.g. double-submit).
+    return { user: await prisma.user.findUnique({ where: { id: userId }, select: userSelect }) };
+  }
+
+  const row = await prisma.emailVerification.findUnique({ where: { userId } });
+  if (!row) throw badRequest("No verification is pending. Request a new code.", "NO_PENDING_VERIFICATION");
+
+  if (row.expiresAt.getTime() < Date.now()) {
+    throw badRequest("This code has expired. Request a new one.", "CODE_EXPIRED");
+  }
+  if (row.attempts >= EMAIL_CODE_MAX_ATTEMPTS) {
+    throw badRequest("Too many incorrect attempts. Request a new code.", "TOO_MANY_ATTEMPTS");
+  }
+
+  const matches = crypto.timingSafeEqual(
+    Buffer.from(row.codeHash, "hex"),
+    Buffer.from(hashEmailCode(code), "hex"),
+  );
+  if (!matches) {
+    await prisma.emailVerification.update({ where: { userId }, data: { attempts: { increment: 1 } } });
+    throw badRequest("That code isn't right. Check the digits and try again.", "INVALID_CODE");
+  }
+
+  // Correct: flip the flag and drop the pending row in one transaction.
+  const [updated] = await prisma.$transaction([
+    prisma.user.update({ where: { id: userId }, data: { emailVerifiedAt: new Date() }, select: userSelect }),
+    prisma.emailVerification.delete({ where: { userId } }),
+  ]);
+
+  // Now that the address is confirmed, send the welcome email.
+  sendEmail(welcomeEmail(updated.email, updated.displayName ?? updated.username)).catch(console.error);
+
+  return { user: updated };
+}
+
+/** Re-send the signup code (rate-limited). No-op-success if already verified. */
+export async function resendVerification(userId: string) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw unauth();
+  if (user.emailVerifiedAt) return { alreadyVerified: true };
+  if (!isEmailConfigured()) {
+    // Email can't be delivered — surface that rather than pretend a code is coming.
+    throw badRequest("Email delivery isn't enabled yet. Contact support.", "EMAIL_NOT_CONFIGURED");
+  }
+
+  const existing = await prisma.emailVerification.findUnique({ where: { userId } });
+  if (existing && Date.now() - existing.sentAt.getTime() < EMAIL_RESEND_COOLDOWN_MS) {
+    const wait = Math.ceil((EMAIL_RESEND_COOLDOWN_MS - (Date.now() - existing.sentAt.getTime())) / 1000);
+    throw badRequest(`Please wait ${wait}s before requesting another code.`, "RESEND_COOLDOWN");
+  }
+
+  await issueEmailVerification(userId, user.email, user.displayName ?? user.username);
+  return { sent: true };
 }
 
 // ─── Brute-force lockout (Postgres-backed, per email) ─────────────────────────
@@ -409,6 +515,8 @@ async function findOrCreateOAuthUser(opts: {
         slug,
         passwordHash: crypto.randomBytes(32).toString("hex"),
         avatarUrl:    opts.avatarUrl,
+        // The OAuth provider (Google/Apple) already verified the email address.
+        emailVerifiedAt: new Date(),
       },
       select: userSelect,
     });

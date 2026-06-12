@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth, optionalAuth, requireCreator } from "../../middlewares/auth.middleware";
+import { requireAuth, optionalAuth, requireCreator, requireVerifiedEmail } from "../../middlewares/auth.middleware";
 import * as ctrl from "./blogs.controller";
 
 export const blogsRouter = Router();
@@ -14,4 +14,4 @@ blogsRouter.delete("/:slug/like", requireAuth, ctrl.unlike);
 blogsRouter.patch("/:slug", requireAuth, ctrl.updateBlog);
 blogsRouter.delete("/:slug", requireAuth, ctrl.deleteBlog);
 blogsRouter.get("/:slug/comments",  optionalAuth, ctrl.getComments);
-blogsRouter.post("/:slug/comments", requireAuth,  ctrl.createComment);
+blogsRouter.post("/:slug/comments", requireAuth, requireVerifiedEmail, ctrl.createComment);
