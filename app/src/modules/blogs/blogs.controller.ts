@@ -7,7 +7,9 @@ export async function list(req: Request, res: Response, next: NextFunction): Pro
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 20;
     const category = blogCategoryEnum.optional().catch(undefined).parse(req.query.category);
-    const result = await service.list(page, limit, category);
+    const sortRaw = String(req.query.sort ?? "trending");
+    const sort = (["trending", "top", "latest"].includes(sortRaw) ? sortRaw : "trending") as "trending" | "top" | "latest";
+    const result = await service.list(page, limit, category, sort);
     res.status(200).json(result);
   } catch (err) {
     next(err);

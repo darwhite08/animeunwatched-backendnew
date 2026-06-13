@@ -44,24 +44,104 @@ const blogInclude = {
   },
 } as const;
 
+// ─── Ranking: "Kaiveron Blog Rank" ────────────────────────────────────────────
+// trending = quality-weighted engagement × gentle time decay (blogs are read
+//   over days, so gravity is softer than Hacker News).
+// top      = same quality signal with NO decay → best-of-all-time.
+// latest   = pure reverse-chronological.
+//
+// QualityFactor uses a Wilson lower-bound on like-per-view so low-sample posts
+// aren't over/under-rated and raw reach can't dominate. Views are already
+// deduped (one per unique viewer/day), so they're hard to game.
+
+export type BlogSort = "trending" | "top" | "latest";
+
+/** 95% Wilson lower bound for `positives` successes out of `trials`. 0 when n=0. */
+function wilsonLowerBound(positives: number, trials: number): number {
+  if (trials <= 0) return 0;
+  const z = 1.96;
+  const p = positives / trials;
+  return (
+    (p + (z * z) / (2 * trials) - z * Math.sqrt((p * (1 - p) + (z * z) / (4 * trials)) / trials)) /
+    (1 + (z * z) / trials)
+  );
+}
+
+type ScoredBlog = {
+  likeCount: number;
+  viewCount: number;
+  publishedAt: Date | null;
+  createdAt: Date;
+  author: { verifiedKind: unknown; reputation: number } | null;
+  _count: { comments: number };
+};
+
+function blogRankScore(b: ScoredBlog, nowMs: number, decay: boolean): number {
+  const likes = b.likeCount ?? 0;
+  const views = b.viewCount ?? 0;
+  const comments = b._count?.comments ?? 0;
+  const rep = b.author?.reputation ?? 0;
+  const verified = b.author?.verifiedKind ? 1 : 0;
+
+  // Comments (depth) > likes > views (log-damped so reach can't run away).
+  const baseEngagement = 3 * likes + 5 * comments + Math.log(1 + views);
+  // 0.5–1.0: rewards like-per-view with statistical confidence.
+  const qualityFactor = 0.5 + 0.5 * wilsonLowerBound(likes, views);
+  // Light, capped credibility nudge for verified / high-rep authors.
+  const authorFactor = 1 + 0.15 * verified + Math.min(0.25, rep / 20_000);
+  const quality = baseEngagement * qualityFactor * authorFactor;
+
+  if (!decay) return quality; // "top"
+
+  const publishedMs = (b.publishedAt ?? b.createdAt).getTime();
+  const ageHours = Math.max(0, (nowMs - publishedMs) / 3_600_000);
+  const G = 1.5; // gravity — gentler than HN's 1.8 so blogs live for days
+  let score = quality / Math.pow(ageHours + 2, G);
+  // Cold-start grace: keep brand-new posts visible during their first day even
+  // before they've earned engagement.
+  if (ageHours < 24) score += 0.5 / Math.pow(ageHours + 2, 0.5);
+  return score;
+}
+
 // ─── list ─────────────────────────────────────────────────────────────────────
 
-export async function list(page = 1, limit = 20, category?: BlogCategory) {
-  const { skip, take } = paginate(page, limit);
+export async function list(page = 1, limit = 20, category?: BlogCategory, sort: BlogSort = "trending") {
   const where = { status: "PUBLISHED" as const, ...(category ? { category } : {}) };
 
-  const [data, total] = await prisma.$transaction([
-    prisma.blog.findMany({
-      where,
-      skip,
-      take,
-      orderBy: { publishedAt: "desc" },
-      include: blogInclude,
-    }),
-    prisma.blog.count({ where }),
-  ]);
+  // Latest: pure reverse-chron, paginated in the DB (cheap + exact).
+  if (sort === "latest") {
+    const { skip, take } = paginate(page, limit);
+    const [data, total] = await prisma.$transaction([
+      prisma.blog.findMany({ where, skip, take, orderBy: { publishedAt: "desc" }, include: blogInclude }),
+      prisma.blog.count({ where }),
+    ]);
+    return { data, meta: meta(total, page, limit) };
+  }
 
-  return { data, meta: meta(total, page, limit) };
+  // Trending / Top: score in-app over a recent candidate window. O(cap) at blog
+  // volume; a materialized rankScore column + recompute job is the scale path.
+  const CAP = 500;
+  const candidates = await prisma.blog.findMany({
+    where,
+    orderBy: { publishedAt: "desc" },
+    take: CAP,
+    include: {
+      author: {
+        select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true, reputation: true },
+      },
+      _count: { select: { comments: true } },
+    },
+  });
+
+  const nowMs = Date.now();
+  const decay = sort === "trending";
+  const ranked = candidates
+    .map((b) => ({ b, score: blogRankScore(b, nowMs, decay) }))
+    .sort((a, z) => z.score - a.score);
+
+  const start = (page - 1) * limit;
+  const data = ranked.slice(start, start + limit).map((x) => x.b);
+  return { data, meta: meta(ranked.length, page, limit) };
 }
 
 // ─── getBySlug ────────────────────────────────────────────────────────────────
