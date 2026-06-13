@@ -68,6 +68,9 @@ model User {
   /// signups before they enter the code). OAuth signups + existing users are
   /// backfilled as verified. Enforcement is inert until SMTP is configured.
   emailVerifiedAt DateTime?
+  // Last time we sent this user a re-engagement email — enforces a per-user
+  // cooldown so the recurring campaign never spams anyone.
+  lastReengagedAt DateTime?
   emailVerification EmailVerification?
   username     String   @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.

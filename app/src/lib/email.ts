@@ -213,3 +213,44 @@ export function reEngagementEmail(email: string, displayName: string, daysSince:
     `),
   }
 }
+
+/**
+ * FOMO-style re-engagement email for the recurring win-back campaign. Features
+ * the latest blog + a trending-anime list (passed in by the job so the content
+ * is always fresh).
+ */
+export function reengagementCampaignEmail(
+  email: string,
+  name: string,
+  blog: { slug: string; title: string; image: string | null },
+  trending: Array<{ title: string; score: number | null }>,
+): EmailOpts {
+  const blogUrl = `${BRAND_URL}/blog/${blog.slug}`
+  const rows = trending.slice(0, 3).map(a =>
+    `<tr><td style="padding:9px 0;border-bottom:1px solid #161616"><span style="color:#fff;font-size:14px;font-weight:700">${a.title}</span></td>
+     <td style="padding:9px 0;border-bottom:1px solid #161616;text-align:right;white-space:nowrap"><span style="color:${ACCENT};font-weight:900;font-size:13px">★ ${a.score?.toFixed(1) ?? "—"}</span></td></tr>`
+  ).join("")
+  const topScore = trending[0]?.score?.toFixed(1) ?? "9.0"
+
+  return {
+    to: email,
+    subject: `${name}, you're missing the #1 anime right now (and what's new)`,
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">While you were gone</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 14px;font-style:italic;letter-spacing:-0.02em">${name}, the anime world didn't wait. 👀</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 28px">New drops, hot takes and the season's biggest releases have been piling up on Kaiveron. Here's the 2-minute catch-up:</p>
+      <table role="presentation" width="100%" style="margin:0 0 28px"><tr>
+        <td style="text-align:center;padding:14px 6px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:12px"><div style="color:${ACCENT};font-size:22px;font-weight:900">${topScore}★</div><div style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.1em">Top anime now</div></td>
+        <td style="width:10px"></td>
+        <td style="text-align:center;padding:14px 6px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:12px"><div style="color:${ACCENT};font-size:22px;font-weight:900">30k</div><div style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.1em">Anime tracked</div></td>
+      </tr></table>
+      <a href="${blogUrl}" style="display:block;border:1px solid #1a1a1a;border-radius:16px;overflow:hidden;text-decoration:none;background:#0f0f0f">
+        ${blog.image ? `<img src="${blog.image}" alt="" width="600" style="width:100%;height:auto;display:block"/>` : ""}
+        <div style="padding:18px 20px"><span style="color:${ACCENT};font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.18em">The Chronicle</span><div style="color:#fff;font-size:17px;font-weight:800;margin:8px 0 0;line-height:1.35">${blog.title}</div></div>
+      </a>
+      ${rows ? `<p style="color:#fff;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;margin:30px 0 6px">🔥 Trending right now</p><table role="presentation" width="100%">${rows}</table>` : ""}
+      <a href="${BRAND_URL}/community" style="display:inline-block;margin-top:30px;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Catch up now →</a>
+      <p style="color:#555;font-size:12px;margin:24px 0 0">Your watchlist and streak are waiting — pick them back up.</p>
+    `),
+  }
+}

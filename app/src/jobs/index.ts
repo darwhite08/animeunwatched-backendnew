@@ -14,8 +14,18 @@ import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from ".
 import { computeTrending } from "../lib/trending/trending.service"
 import { collectBuzz } from "../lib/buzz"
 import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
+import { runReEngagementCampaign } from "./reEngagementCampaign.job"
 
 export function startJobs() {
+  // Win-back inactive users — checks daily (robust to restarts), but the job's
+  // own 14-day per-user cooldown means each user is re-engaged at most fortnightly.
+  // Inert until SMTP is configured. NOT run on boot, so deploys never trigger sends.
+  registerJob({
+    name: "reEngagementCampaign",
+    description: "Email inactive users (7d+) a FOMO win-back; 14d per-user cooldown, capped 100/run + throttled",
+    intervalMs: 24 * 60 * 60_000,
+    handler: runReEngagementCampaign,
+  });
   // DM v2 maintenance (spec §8)
   registerJob({
     name: "dmNightlyCleanup",
@@ -164,6 +174,11 @@ export function startJobs() {
   // Audit chain integrity — once on startup, then every 24h
   chainCheck().catch(console.error)
   setInterval(chainCheck, 24 * 60 * 60_000)
+
+  // Re-engagement win-back — daily check, deliberately NOT run on boot so a
+  // deploy can never fire a campaign. Per-user 14-day cooldown does the rest.
+  const reEngage = instrument("reEngagementCampaign", runReEngagementCampaign)
+  setInterval(reEngage, 24 * 60 * 60_000)
 
   // Webhook dispatcher — polls WebhookDelivery rows every 30s
   startWebhookDispatcher()
