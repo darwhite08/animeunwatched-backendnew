@@ -117,6 +117,17 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   // inert) rather than trapping them in an unverifiable state.
   const requireVerification = isEmailConfigured();
 
+  // Resolve the referrer (by @handle) up front so we can persist the referral
+  // graph edge on the new user — that's what powers "N people joined through
+  // you". Self-referral is ignored.
+  let referrer: { id: string; username: string } | null = null;
+  if (dto.referredBy && dto.referredBy !== dto.username) {
+    referrer = await prisma.user.findUnique({
+      where: { username: dto.referredBy },
+      select: { id: true, username: true },
+    });
+  }
+
   const user = await prisma.user.create({
     data: {
       email: dto.email,
@@ -125,6 +136,7 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
       slug,
       passwordHash,
       emailVerifiedAt: requireVerification ? null : new Date(),
+      referredById: referrer?.id ?? null,
     },
     select: userSelect,
   });
@@ -139,22 +151,19 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
     sendEmail(welcomeEmail(dto.email, dto.displayName)).catch(console.error);
   }
 
-  // Reward referrer if referredBy username is provided
-  if (dto.referredBy) {
+  // Reward the referrer: +100 rep (feeds the reputation leaderboard) + a notification.
+  if (referrer) {
     void (async () => {
       try {
-        const referrer = await prisma.user.findUnique({ where: { username: dto.referredBy! } });
-        if (referrer) {
-          await prisma.user.update({ where: { id: referrer.id }, data: { reputation: { increment: 100 } } });
-          await createNotification({
-            recipientId: referrer.id,
-            type: NotificationType.ACHIEVEMENT,
-            payload: {
-              message: `${dto.username} joined Kaiveron using your invite! +100 Rep for you.`,
-              link: `/u/${dto.username}`,
-            },
-          });
-        }
+        await prisma.user.update({ where: { id: referrer!.id }, data: { reputation: { increment: 100 } } });
+        await createNotification({
+          recipientId: referrer!.id,
+          type: NotificationType.ACHIEVEMENT,
+          payload: {
+            message: `${dto.username} joined Kaiveron using your invite! +100 Rep for you.`,
+            link: `/u/${dto.username}`,
+          },
+        });
       } catch { /* non-blocking */ }
     })();
   }

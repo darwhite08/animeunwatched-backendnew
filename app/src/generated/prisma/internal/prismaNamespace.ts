@@ -13610,7 +13610,8 @@ export const UserScalarFieldEnum = {
   streakBrokenAt: 'streakBrokenAt',
   prevStreakDays: 'prevStreakDays',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  referredById: 'referredById'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

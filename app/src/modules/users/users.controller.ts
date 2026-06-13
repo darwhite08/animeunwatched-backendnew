@@ -161,6 +161,16 @@ export async function exportMyData(req: Request, res: Response, next: NextFuncti
   }
 }
 
+export async function getMyReferrals(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const result = await service.getMyReferrals(userId);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getActivity(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const limit = Math.min(60, Number(req.query.limit) || 20);

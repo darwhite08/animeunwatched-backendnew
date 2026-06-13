@@ -120,9 +120,16 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  // Referral / viral loop — who invited this user (set once at signup, by handle).
+  referredById String?
+
   @@index([slug])
+  @@index([referredById])
 
   refreshTokens      RefreshToken[]
+  // Referral graph (self-relation): who referred me, and everyone I referred.
+  referredBy         User?              @relation("UserReferrals", fields: [referredById], references: [id], onDelete: SetNull)
+  referrals          User[]             @relation("UserReferrals")
   following          Follow[]           @relation("Follower")
   followers          Follow[]           @relation("Following")
   listEntries        ListEntry[]

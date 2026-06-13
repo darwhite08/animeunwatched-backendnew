@@ -1013,3 +1013,35 @@ export async function getBoardLeaderboard(opts: {
 
   return { board, window, audience, total, data, me };
 }
+
+/**
+ * Referral dashboard for the current user: how many people joined through their
+ * invite link, the rep it earned, and a recent list of who joined. `verifiedCount`
+ * counts only confirmed-email signups (real humans, not throwaways).
+ */
+export async function getMyReferrals(userId: string) {
+  const [count, verifiedCount, recent] = await Promise.all([
+    prisma.user.count({ where: { referredById: userId } }),
+    prisma.user.count({ where: { referredById: userId, emailVerifiedAt: { not: null } } }),
+    prisma.user.findMany({
+      where: { referredById: userId },
+      orderBy: { createdAt: "desc" },
+      take: 24,
+      select: { username: true, displayName: true, slug: true, avatarUrl: true, emailVerifiedAt: true, createdAt: true },
+    }),
+  ]);
+  return {
+    count,
+    verifiedCount,
+    // +100 rep per referral (see auth.service.register) — feeds the rep leaderboard.
+    repEarned: count * 100,
+    recent: recent.map((u) => ({
+      username: u.username,
+      displayName: u.displayName,
+      slug: u.slug,
+      avatarUrl: u.avatarUrl,
+      verified: u.emailVerifiedAt != null,
+      joinedAt: u.createdAt,
+    })),
+  };
+}
