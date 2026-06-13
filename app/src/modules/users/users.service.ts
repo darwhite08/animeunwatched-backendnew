@@ -64,8 +64,9 @@ export async function grantVerifiedCreatorBadge(userId: string) {
 // ─── getProfile ───────────────────────────────────────────────────────────────
 
 export async function getProfile(username: string, viewerId?: string) {
-  const user = await prisma.user.findUnique({
-    where: { username },
+  const user = await prisma.user.findFirst({
+    // Case-insensitive so /u/AniverseX and /u/aniversex resolve to the same user.
+    where: { username: { equals: username, mode: "insensitive" } },
     select: {
       ...safeUserSelect,
       streakDays: true,

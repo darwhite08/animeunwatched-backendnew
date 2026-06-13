@@ -28,10 +28,12 @@ const COMMON_PASSWORDS = new Set([
 
 export const registerSchema = z.object({
   email: z.string().email(),
-  username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_]+$/),
+  // Usernames are case-insensitive identities — normalize to lowercase so the
+  // @handle and invite link (kaiveron.com/join/<handle>) are always consistent.
+  username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_]+$/).transform((s) => s.toLowerCase()),
   displayName: z.string().min(1).max(60),
   password: PASSWORD_RULES,
-  referredBy: z.string().max(30).optional(), // referral username (for tracking viral loops)
+  referredBy: z.string().max(30).optional().transform((s) => s?.toLowerCase()), // referral @handle (case-insensitive)
 });
 
 export const loginSchema = z.object({

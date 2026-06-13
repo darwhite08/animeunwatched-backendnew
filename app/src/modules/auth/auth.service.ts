@@ -101,7 +101,8 @@ const userSelect = {
 export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   const [existingEmail, existingUsername] = await Promise.all([
     prisma.user.findUnique({ where: { email: dto.email } }),
-    prisma.user.findUnique({ where: { username: dto.username } }),
+    // Case-insensitive: "aniversex" and "AniverseX" are the same handle.
+    prisma.user.findFirst({ where: { username: { equals: dto.username, mode: "insensitive" } } }),
   ]);
 
   if (existingEmail) throw conflict("Email is already in use");
@@ -122,8 +123,8 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   // you". Self-referral is ignored.
   let referrer: { id: string; username: string } | null = null;
   if (dto.referredBy && dto.referredBy !== dto.username) {
-    referrer = await prisma.user.findUnique({
-      where: { username: dto.referredBy },
+    referrer = await prisma.user.findFirst({
+      where: { username: { equals: dto.referredBy, mode: "insensitive" } },
       select: { id: true, username: true },
     });
   }
