@@ -448,6 +448,11 @@ model RefreshToken {
   lastUsedAt DateTime @default(now())
   expiresAt DateTime
   createdAt DateTime @default(now())
+  // Rotation grace: a token isn't deleted on rotation but marked rotated, so a
+  // benign concurrent/retried refresh (multiple tabs, reload mid-request) can be
+  // re-served within a short window instead of nuking the whole session family.
+  rotatedAt  DateTime?
+  replacedBy String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

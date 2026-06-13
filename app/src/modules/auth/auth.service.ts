@@ -399,51 +399,73 @@ export async function login(dto: LoginDto, meta: AuthMeta = {}) {
   return { user, accessToken, refreshToken };
 }
 
+// How long a just-rotated refresh token is still honoured, so concurrent/retried
+// refreshes (two tabs, a reload while a request is in flight) don't trip
+// reuse-detection and log the user out everywhere.
+const REFRESH_GRACE_MS = 60_000;
+
+function revokeFamily(userId: string) {
+  return prisma.refreshToken.deleteMany({ where: { userId } }).catch(() => {});
+}
+
 export async function refresh(oldToken: string, meta: AuthMeta = {}) {
   // Validate JWT signature/expiry first
   const payload = verifyRefreshToken(oldToken);
 
-  // Look up the stored token
-  const storedToken = await prisma.refreshToken.findUnique({
-    where: { token: oldToken },
-  });
+  const storedToken = await prisma.refreshToken.findUnique({ where: { token: oldToken } });
 
-  // Reuse-theft detection: the JWT signature is valid (we issued it) but the
-  // row is gone — i.e. this token was ALREADY rotated and consumed. A second
-  // presentation means either an attacker is replaying a stolen token or the
-  // legitimate token was stolen and used. Fail closed by revoking the whole
-  // session family so neither party keeps access; force a fresh login.
+  // Unknown token: signature is valid (we issued it) but no row — it was purged
+  // long ago or never persisted. Treat as theft; revoke the family.
   if (!storedToken) {
-    await prisma.refreshToken.deleteMany({ where: { userId: payload.userId } }).catch(() => {});
+    await revokeFamily(payload.userId);
     recordSecurityEvent("session_revoked", {
       userId: payload.userId, metadata: { reason: "refresh_token_reuse_detected" },
     });
     throw unauth("Session expired — please sign in again");
   }
+
   if (storedToken.expiresAt < new Date()) {
-    // Clean up expired token
-    await prisma.refreshToken.delete({ where: { token: oldToken } });
+    await prisma.refreshToken.delete({ where: { token: oldToken } }).catch(() => {});
     throw unauth("Refresh token has expired");
   }
 
-  // Rotate: delete old, issue new — carry through current request's IP+UA
-  // so the session row reflects where the user actually IS now, not where
-  // they originally signed in.
-  await prisma.refreshToken.delete({ where: { token: oldToken } });
+  // Already rotated once. Within the grace window this is a benign race (another
+  // tab refreshed first) — hand back a fresh access token + the replacement
+  // refresh token so this client converges, WITHOUT revoking anything. Past the
+  // window it's genuine reuse → revoke the family.
+  if (storedToken.rotatedAt) {
+    const withinGrace = Date.now() - storedToken.rotatedAt.getTime() <= REFRESH_GRACE_MS;
+    if (withinGrace && storedToken.replacedBy) {
+      return { accessToken: signAccessToken(payload.userId), refreshToken: storedToken.replacedBy };
+    }
+    await revokeFamily(payload.userId);
+    recordSecurityEvent("session_revoked", {
+      userId: payload.userId, metadata: { reason: "refresh_token_reuse_detected" },
+    });
+    throw unauth("Session expired — please sign in again");
+  }
 
+  // Normal rotation: mark the old token rotated (kept for the grace window) and
+  // issue a new one. Carry the current IP/UA so the session row reflects "now".
   const accessToken = signAccessToken(payload.userId);
   const newRefreshToken = signRefreshToken(payload.userId);
-
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  await prisma.refreshToken.create({
-    data: {
-      token:     newRefreshToken,
-      userId:    payload.userId,
-      expiresAt,
-      ipAddress: meta.ip        ?? storedToken.ipAddress ?? null,
-      userAgent: meta.userAgent?.slice(0, 500) ?? storedToken.userAgent ?? null,
-    },
-  });
+
+  await prisma.$transaction([
+    prisma.refreshToken.update({
+      where: { token: oldToken },
+      data: { rotatedAt: new Date(), replacedBy: newRefreshToken },
+    }),
+    prisma.refreshToken.create({
+      data: {
+        token:     newRefreshToken,
+        userId:    payload.userId,
+        expiresAt,
+        ipAddress: meta.ip        ?? storedToken.ipAddress ?? null,
+        userAgent: meta.userAgent?.slice(0, 500) ?? storedToken.userAgent ?? null,
+      },
+    }),
+  ]);
 
   return { accessToken, refreshToken: newRefreshToken };
 }
@@ -789,7 +811,8 @@ export async function deleteAccount(userId: string, password?: string): Promise<
 
 export async function listActiveSessions(userId: string, currentRefreshToken: string | undefined) {
   const sessions = await prisma.refreshToken.findMany({
-    where: { userId, expiresAt: { gt: new Date() } },
+    // Exclude rotated tokens — they're superseded and only kept for the grace window.
+    where: { userId, expiresAt: { gt: new Date() }, rotatedAt: null },
     orderBy: { lastUsedAt: "desc" },
     select: {
       id: true,

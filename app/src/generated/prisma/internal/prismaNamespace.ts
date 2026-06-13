@@ -13806,7 +13806,9 @@ export const RefreshTokenScalarFieldEnum = {
   ipAddress: 'ipAddress',
   lastUsedAt: 'lastUsedAt',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  rotatedAt: 'rotatedAt',
+  replacedBy: 'replacedBy'
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
