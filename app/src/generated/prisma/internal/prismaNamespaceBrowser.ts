@@ -94,6 +94,7 @@ export const ModelName = {
   ClubMember: 'ClubMember',
   ThreadReaction: 'ThreadReaction',
   Thread: 'Thread',
+  ThreadSave: 'ThreadSave',
   ThreadReply: 'ThreadReply',
   Review: 'Review',
   ReviewLike: 'ReviewLike',
@@ -939,6 +940,15 @@ export const ThreadScalarFieldEnum = {
 } as const
 
 export type ThreadScalarFieldEnum = (typeof ThreadScalarFieldEnum)[keyof typeof ThreadScalarFieldEnum]
+
+
+export const ThreadSaveScalarFieldEnum = {
+  userId: 'userId',
+  threadId: 'threadId',
+  createdAt: 'createdAt'
+} as const
+
+export type ThreadSaveScalarFieldEnum = (typeof ThreadSaveScalarFieldEnum)[keyof typeof ThreadSaveScalarFieldEnum]
 
 
 export const ThreadReplyScalarFieldEnum = {

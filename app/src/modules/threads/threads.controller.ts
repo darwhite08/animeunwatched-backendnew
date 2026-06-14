@@ -41,6 +41,36 @@ export async function lockThread(req: Request, res: Response, next: NextFunction
   } catch (err) { next(err); }
 }
 
+export async function pinThread(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const pinned = (req.body ?? {}).pinned !== false; // default pin=true
+    res.status(200).json(await service.setThreadPin(userId, req.params.id as string, pinned));
+  } catch (err) { next(err); }
+}
+
+export async function saveThread(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.saveThread(userId, req.params.id as string));
+  } catch (err) { next(err); }
+}
+
+export async function unsaveThread(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    res.status(200).json(await service.unsaveThread(userId, req.params.id as string));
+  } catch (err) { next(err); }
+}
+
+export async function listSavedThreads(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const page = Number(req.query.page) || 1;
+    res.status(200).json(await service.listSavedThreads(userId, page));
+  } catch (err) { next(err); }
+}
+
 export async function createClubThread(
   req: Request,
   res: Response,

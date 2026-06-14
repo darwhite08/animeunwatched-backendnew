@@ -143,6 +143,7 @@ model User {
   clubMemberships    ClubMember[]
   threads            Thread[]
   threadReplies      ThreadReply[]
+  savedThreads       ThreadSave[]
   reviews            Review[]
   reviewLikes        ReviewLike[]
   blogs              Blog[]
@@ -1175,10 +1176,25 @@ model Thread {
   club    Club?         @relation(fields: [clubId], references: [id], onDelete: SetNull)
   anime   Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
   replies ThreadReply[]
+  saves   ThreadSave[]
 
   @@index([clubId, createdAt])
   @@index([animeId, createdAt])
   @@index([authorId])
+}
+
+// Bookmark — a user saving a thread to read/return to later.
+model ThreadSave {
+  userId    String
+  threadId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@id([userId, threadId])
+  @@index([threadId])
+  @@index([userId, createdAt])
 }
 
 model ThreadReply {

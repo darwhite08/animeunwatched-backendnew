@@ -32,6 +32,7 @@ export async function getById(id: string, userId?: string) {
   if (!thread) throw notFound("Thread not found");
 
   const reactions = (await reactionsFor([id], userId)).get(id) ?? [];
+  const savedByMe = userId ? (await prisma.threadSave.findUnique({ where: { userId_threadId: { userId, threadId: id } }, select: { userId: true } })) != null : false;
   // If this is a club thread, surface whether the viewer can moderate it.
   let canModerate = false;
   if (userId && thread.clubId) {
@@ -41,7 +42,7 @@ export async function getById(id: string, userId?: string) {
       canModerate = m?.role === "ADMIN" || m?.role === "MOD";
     }
   }
-  return { thread: { ...thread, reactions, canModerate } };
+  return { thread: { ...thread, reactions, canModerate, savedByMe } };
 }
 
 // ─── createClubThread ─────────────────────────────────────────────────────────
@@ -296,8 +297,10 @@ export async function getClubThreads(slug: string, page = 1, limit = 20, userId?
 
   // Attach reaction summaries so the feed can render Hype/like counts inline
   // (Reddit/Twitter-style cards) without an N+1 round-trip per thread.
-  const rmap = await reactionsFor(rows.map((t) => t.id), userId);
-  const data = rows.map((t) => ({ ...t, reactions: rmap.get(t.id) ?? [] }));
+  const ids = rows.map((t) => t.id);
+  const rmap = await reactionsFor(ids, userId);
+  const saved = await savedSet(userId, ids);
+  const data = rows.map((t) => ({ ...t, reactions: rmap.get(t.id) ?? [], savedByMe: saved.has(t.id) }));
 
   return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
 }
@@ -365,4 +368,66 @@ export async function setThreadLock(userId: string, threadId: string, locked: bo
   if (!allowed) throw forbidden("Only the author or a club mod can lock this thread");
   const updated = await prisma.thread.update({ where: { id: threadId }, data: { isLocked: locked }, select: { id: true, isLocked: true } });
   return { thread: updated };
+}
+
+// ─── thread pin (club mod/admin only) ─────────────────────────────────────────
+export async function setThreadPin(userId: string, threadId: string, pinned: boolean) {
+  const thread = await prisma.thread.findUnique({ where: { id: threadId }, select: { id: true, clubId: true } });
+  if (!thread) throw notFound("Thread not found");
+  if (!thread.clubId) throw forbidden("Only Den posts can be pinned");
+  const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: thread.clubId } }, select: { role: true } });
+  if (m?.role !== "ADMIN" && m?.role !== "MOD") throw forbidden("Only a Den mod can pin posts");
+  const updated = await prisma.thread.update({ where: { id: threadId }, data: { isPinned: pinned }, select: { id: true, isPinned: true } });
+  return { thread: updated };
+}
+
+// ─── thread save / bookmark ───────────────────────────────────────────────────
+export async function saveThread(userId: string, threadId: string) {
+  const thread = await prisma.thread.findUnique({ where: { id: threadId }, select: { id: true } });
+  if (!thread) throw notFound("Thread not found");
+  await prisma.threadSave.upsert({
+    where: { userId_threadId: { userId, threadId } },
+    create: { userId, threadId },
+    update: {},
+  });
+  return { saved: true };
+}
+
+export async function unsaveThread(userId: string, threadId: string) {
+  await prisma.threadSave.deleteMany({ where: { userId, threadId } });
+  return { saved: false };
+}
+
+export async function listSavedThreads(userId: string, page = 1, limit = 20) {
+  const skip = (page - 1) * limit;
+  const [saves, total] = await prisma.$transaction([
+    prisma.threadSave.findMany({
+      where: { userId },
+      skip, take: limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        thread: {
+          include: {
+            author: { select: authorSelect },
+            club: { select: { slug: true, name: true } },
+            _count: { select: { replies: true } },
+          },
+        },
+      },
+    }),
+    prisma.threadSave.count({ where: { userId } }),
+  ]);
+  const ids = saves.map((s) => s.threadId);
+  const rmap = await reactionsFor(ids, userId);
+  const data = saves
+    .filter((s) => s.thread)
+    .map((s) => ({ ...s.thread, reactions: rmap.get(s.threadId) ?? [], savedByMe: true }));
+  return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
+}
+
+/** Which of these thread ids has the viewer saved? Returns a Set for O(1) lookup. */
+async function savedSet(userId: string | undefined, threadIds: string[]): Promise<Set<string>> {
+  if (!userId || threadIds.length === 0) return new Set();
+  const rows = await prisma.threadSave.findMany({ where: { userId, threadId: { in: threadIds } }, select: { threadId: true } });
+  return new Set(rows.map((r) => r.threadId));
 }

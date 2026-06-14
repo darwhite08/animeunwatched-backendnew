@@ -296,6 +296,7 @@ export type ThreadWhereInput = {
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   anime?: Prisma.XOR<Prisma.AnimeNullableScalarRelationFilter, Prisma.AnimeWhereInput> | null
   replies?: Prisma.ThreadReplyListRelationFilter
+  saves?: Prisma.ThreadSaveListRelationFilter
 }
 
 export type ThreadOrderByWithRelationInput = {
@@ -318,6 +319,7 @@ export type ThreadOrderByWithRelationInput = {
   club?: Prisma.ClubOrderByWithRelationInput
   anime?: Prisma.AnimeOrderByWithRelationInput
   replies?: Prisma.ThreadReplyOrderByRelationAggregateInput
+  saves?: Prisma.ThreadSaveOrderByRelationAggregateInput
 }
 
 export type ThreadWhereUniqueInput = Prisma.AtLeast<{
@@ -343,6 +345,7 @@ export type ThreadWhereUniqueInput = Prisma.AtLeast<{
   club?: Prisma.XOR<Prisma.ClubNullableScalarRelationFilter, Prisma.ClubWhereInput> | null
   anime?: Prisma.XOR<Prisma.AnimeNullableScalarRelationFilter, Prisma.AnimeWhereInput> | null
   replies?: Prisma.ThreadReplyListRelationFilter
+  saves?: Prisma.ThreadSaveListRelationFilter
 }, "id">
 
 export type ThreadOrderByWithAggregationInput = {
@@ -406,6 +409,7 @@ export type ThreadCreateInput = {
   club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutThreadsInput
   replies?: Prisma.ThreadReplyCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateInput = {
@@ -425,6 +429,7 @@ export type ThreadUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUpdateInput = {
@@ -444,6 +449,7 @@ export type ThreadUpdateInput = {
   club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutThreadsNestedInput
   replies?: Prisma.ThreadReplyUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateInput = {
@@ -463,6 +469,7 @@ export type ThreadUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateManyInput = {
@@ -730,6 +737,20 @@ export type ThreadUpdatetagsInput = {
   push?: string | string[]
 }
 
+export type ThreadCreateNestedOneWithoutSavesInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutSavesInput, Prisma.ThreadUncheckedCreateWithoutSavesInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutSavesInput
+  connect?: Prisma.ThreadWhereUniqueInput
+}
+
+export type ThreadUpdateOneRequiredWithoutSavesNestedInput = {
+  create?: Prisma.XOR<Prisma.ThreadCreateWithoutSavesInput, Prisma.ThreadUncheckedCreateWithoutSavesInput>
+  connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutSavesInput
+  upsert?: Prisma.ThreadUpsertWithoutSavesInput
+  connect?: Prisma.ThreadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ThreadUpdateToOneWithWhereWithoutSavesInput, Prisma.ThreadUpdateWithoutSavesInput>, Prisma.ThreadUncheckedUpdateWithoutSavesInput>
+}
+
 export type ThreadCreateNestedOneWithoutRepliesInput = {
   create?: Prisma.XOR<Prisma.ThreadCreateWithoutRepliesInput, Prisma.ThreadUncheckedCreateWithoutRepliesInput>
   connectOrCreate?: Prisma.ThreadCreateOrConnectWithoutRepliesInput
@@ -760,6 +781,7 @@ export type ThreadCreateWithoutAuthorInput = {
   club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutThreadsInput
   replies?: Prisma.ThreadReplyCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutAuthorInput = {
@@ -778,6 +800,7 @@ export type ThreadUncheckedCreateWithoutAuthorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutAuthorInput = {
@@ -843,6 +866,7 @@ export type ThreadCreateWithoutAnimeInput = {
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
   club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
   replies?: Prisma.ThreadReplyCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutAnimeInput = {
@@ -861,6 +885,7 @@ export type ThreadUncheckedCreateWithoutAnimeInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutAnimeInput = {
@@ -905,6 +930,7 @@ export type ThreadCreateWithoutClubInput = {
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutThreadsInput
   replies?: Prisma.ThreadReplyCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutClubInput = {
@@ -923,6 +949,7 @@ export type ThreadUncheckedCreateWithoutClubInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
+  saves?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutClubInput = {
@@ -951,6 +978,98 @@ export type ThreadUpdateManyWithWhereWithoutClubInput = {
   data: Prisma.XOR<Prisma.ThreadUpdateManyMutationInput, Prisma.ThreadUncheckedUpdateManyWithoutClubInput>
 }
 
+export type ThreadCreateWithoutSavesInput = {
+  id?: string
+  title: string
+  content: string
+  imageUrl?: string | null
+  isPinned?: boolean
+  isLocked?: boolean
+  kind?: $Enums.ThreadKind
+  pinnedUntil?: Date | string | null
+  episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutThreadsInput
+  club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
+  anime?: Prisma.AnimeCreateNestedOneWithoutThreadsInput
+  replies?: Prisma.ThreadReplyCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadUncheckedCreateWithoutSavesInput = {
+  id?: string
+  title: string
+  content: string
+  imageUrl?: string | null
+  authorId: string
+  clubId?: string | null
+  animeId?: string | null
+  isPinned?: boolean
+  isLocked?: boolean
+  kind?: $Enums.ThreadKind
+  pinnedUntil?: Date | string | null
+  episodeNumber?: number | null
+  tags?: Prisma.ThreadCreatetagsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  replies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutThreadInput
+}
+
+export type ThreadCreateOrConnectWithoutSavesInput = {
+  where: Prisma.ThreadWhereUniqueInput
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutSavesInput, Prisma.ThreadUncheckedCreateWithoutSavesInput>
+}
+
+export type ThreadUpsertWithoutSavesInput = {
+  update: Prisma.XOR<Prisma.ThreadUpdateWithoutSavesInput, Prisma.ThreadUncheckedUpdateWithoutSavesInput>
+  create: Prisma.XOR<Prisma.ThreadCreateWithoutSavesInput, Prisma.ThreadUncheckedCreateWithoutSavesInput>
+  where?: Prisma.ThreadWhereInput
+}
+
+export type ThreadUpdateToOneWithWhereWithoutSavesInput = {
+  where?: Prisma.ThreadWhereInput
+  data: Prisma.XOR<Prisma.ThreadUpdateWithoutSavesInput, Prisma.ThreadUncheckedUpdateWithoutSavesInput>
+}
+
+export type ThreadUpdateWithoutSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
+  pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
+  club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
+  anime?: Prisma.AnimeUpdateOneWithoutThreadsNestedInput
+  replies?: Prisma.ThreadReplyUpdateManyWithoutThreadNestedInput
+}
+
+export type ThreadUncheckedUpdateWithoutSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
+  pinnedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  episodeNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.ThreadUpdatetagsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
+}
+
 export type ThreadCreateWithoutRepliesInput = {
   id?: string
   title: string
@@ -967,6 +1086,7 @@ export type ThreadCreateWithoutRepliesInput = {
   author: Prisma.UserCreateNestedOneWithoutThreadsInput
   club?: Prisma.ClubCreateNestedOneWithoutThreadsInput
   anime?: Prisma.AnimeCreateNestedOneWithoutThreadsInput
+  saves?: Prisma.ThreadSaveCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadUncheckedCreateWithoutRepliesInput = {
@@ -985,6 +1105,7 @@ export type ThreadUncheckedCreateWithoutRepliesInput = {
   tags?: Prisma.ThreadCreatetagsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  saves?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutThreadInput
 }
 
 export type ThreadCreateOrConnectWithoutRepliesInput = {
@@ -1019,6 +1140,7 @@ export type ThreadUpdateWithoutRepliesInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
   club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutThreadsNestedInput
+  saves?: Prisma.ThreadSaveUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutRepliesInput = {
@@ -1037,6 +1159,7 @@ export type ThreadUncheckedUpdateWithoutRepliesInput = {
   tags?: Prisma.ThreadUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  saves?: Prisma.ThreadSaveUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadCreateManyAuthorInput = {
@@ -1072,6 +1195,7 @@ export type ThreadUpdateWithoutAuthorInput = {
   club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutThreadsNestedInput
   replies?: Prisma.ThreadReplyUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutAuthorInput = {
@@ -1090,6 +1214,7 @@ export type ThreadUncheckedUpdateWithoutAuthorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateManyWithoutAuthorInput = {
@@ -1142,6 +1267,7 @@ export type ThreadUpdateWithoutAnimeInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
   club?: Prisma.ClubUpdateOneWithoutThreadsNestedInput
   replies?: Prisma.ThreadReplyUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutAnimeInput = {
@@ -1160,6 +1286,7 @@ export type ThreadUncheckedUpdateWithoutAnimeInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateManyWithoutAnimeInput = {
@@ -1212,6 +1339,7 @@ export type ThreadUpdateWithoutClubInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutThreadsNestedInput
   anime?: Prisma.AnimeUpdateOneWithoutThreadsNestedInput
   replies?: Prisma.ThreadReplyUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateWithoutClubInput = {
@@ -1230,6 +1358,7 @@ export type ThreadUncheckedUpdateWithoutClubInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutThreadNestedInput
+  saves?: Prisma.ThreadSaveUncheckedUpdateManyWithoutThreadNestedInput
 }
 
 export type ThreadUncheckedUpdateManyWithoutClubInput = {
@@ -1256,10 +1385,12 @@ export type ThreadUncheckedUpdateManyWithoutClubInput = {
 
 export type ThreadCountOutputType = {
   replies: number
+  saves: number
 }
 
 export type ThreadCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   replies?: boolean | ThreadCountOutputTypeCountRepliesArgs
+  saves?: boolean | ThreadCountOutputTypeCountSavesArgs
 }
 
 /**
@@ -1277,6 +1408,13 @@ export type ThreadCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  */
 export type ThreadCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ThreadReplyWhereInput
+}
+
+/**
+ * ThreadCountOutputType without action
+ */
+export type ThreadCountOutputTypeCountSavesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ThreadSaveWhereInput
 }
 
 
@@ -1300,6 +1438,7 @@ export type ThreadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   club?: boolean | Prisma.Thread$clubArgs<ExtArgs>
   anime?: boolean | Prisma.Thread$animeArgs<ExtArgs>
   replies?: boolean | Prisma.Thread$repliesArgs<ExtArgs>
+  saves?: boolean | Prisma.Thread$savesArgs<ExtArgs>
   _count?: boolean | Prisma.ThreadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["thread"]>
 
@@ -1369,6 +1508,7 @@ export type ThreadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   club?: boolean | Prisma.Thread$clubArgs<ExtArgs>
   anime?: boolean | Prisma.Thread$animeArgs<ExtArgs>
   replies?: boolean | Prisma.Thread$repliesArgs<ExtArgs>
+  saves?: boolean | Prisma.Thread$savesArgs<ExtArgs>
   _count?: boolean | Prisma.ThreadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ThreadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1389,6 +1529,7 @@ export type $ThreadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     club: Prisma.$ClubPayload<ExtArgs> | null
     anime: Prisma.$AnimePayload<ExtArgs> | null
     replies: Prisma.$ThreadReplyPayload<ExtArgs>[]
+    saves: Prisma.$ThreadSavePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1804,6 +1945,7 @@ export interface Prisma__ThreadClient<T, Null = never, ExtArgs extends runtime.T
   club<T extends Prisma.Thread$clubArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$clubArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   anime<T extends Prisma.Thread$animeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$animeArgs<ExtArgs>>): Prisma.Prisma__AnimeClient<runtime.Types.Result.GetResult<Prisma.$AnimePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   replies<T extends Prisma.Thread$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  saves<T extends Prisma.Thread$savesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Thread$savesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2303,6 +2445,30 @@ export type Thread$repliesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ThreadReplyScalarFieldEnum | Prisma.ThreadReplyScalarFieldEnum[]
+}
+
+/**
+ * Thread.saves
+ */
+export type Thread$savesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ThreadSave
+   */
+  select?: Prisma.ThreadSaveSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ThreadSave
+   */
+  omit?: Prisma.ThreadSaveOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ThreadSaveInclude<ExtArgs> | null
+  where?: Prisma.ThreadSaveWhereInput
+  orderBy?: Prisma.ThreadSaveOrderByWithRelationInput | Prisma.ThreadSaveOrderByWithRelationInput[]
+  cursor?: Prisma.ThreadSaveWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ThreadSaveScalarFieldEnum | Prisma.ThreadSaveScalarFieldEnum[]
 }
 
 /**

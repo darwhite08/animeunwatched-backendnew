@@ -243,6 +243,11 @@ export type ThreadReaction = Prisma.ThreadReactionModel
  */
 export type Thread = Prisma.ThreadModel
 /**
+ * Model ThreadSave
+ * 
+ */
+export type ThreadSave = Prisma.ThreadSaveModel
+/**
  * Model ThreadReply
  * 
  */
