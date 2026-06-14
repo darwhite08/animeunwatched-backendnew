@@ -191,34 +191,60 @@ export async function unlikeShot(userId: string, shotId: string) {
 
 const commentInclude = {
   author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true } },
+  _count: { select: { likes: true } },
 } as const;
 
-export async function listComments(shotId: string, cursor?: string, limit = 20) {
+export async function listComments(shotId: string, userId?: string, limit = 200) {
+  const shot = await prisma.shot.findUnique({ where: { id: shotId }, select: { authorId: true } });
   const comments = await prisma.shotComment.findMany({
-    where: {
-      shotId,
-      deletedAt: null,
-      ...(cursor ? { createdAt: { lt: new Date(cursor) } } : {}),
-    },
-    take: limit + 1,
-    orderBy: { createdAt: "desc" },
+    where: { shotId, deletedAt: null },
+    take: limit,
+    orderBy: { createdAt: "asc" }, // chronological; the client builds + sorts the tree (pinned/newest first)
     include: commentInclude,
   });
-  const hasMore = comments.length > limit;
-  const data = hasMore ? comments.slice(0, limit) : comments;
-  const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
-  return { data, meta: { nextCursor } };
+
+  let liked = new Set<string>();
+  if (userId && comments.length) {
+    const rows = await prisma.shotCommentLike.findMany({
+      where: { userId, commentId: { in: comments.map((c) => c.id) } },
+      select: { commentId: true },
+    });
+    liked = new Set(rows.map((r) => r.commentId));
+  }
+
+  const data = comments.map((c) => ({
+    id: c.id,
+    body: c.body,
+    createdAt: c.createdAt,
+    authorId: c.authorId,
+    parentId: c.parentId,
+    pinned: c.pinnedAt != null,
+    isAuthor: c.authorId === shot?.authorId,
+    likeCount: c._count.likes,
+    likedByMe: liked.has(c.id),
+    author: c.author,
+  }));
+  return { data, meta: { nextCursor: null } };
 }
 
-export async function createComment(userId: string, shotId: string, body: string) {
+export async function createComment(userId: string, shotId: string, body: string, parentId?: string) {
   const text = body.trim();
   if (!text) throw badRequest("Comment can't be empty");
   if (text.length > 1000) throw badRequest("Comment too long");
   const shot = await prisma.shot.findUnique({ where: { id: shotId }, select: { id: true, authorId: true, deletedAt: true } });
   if (!shot || shot.deletedAt) throw notFound("Shot not found");
 
+  // A reply must point at a real comment on this same shot. Only one level of
+  // nesting — replying to a reply attaches to its top-level parent.
+  let resolvedParentId: string | undefined;
+  if (parentId) {
+    const parent = await prisma.shotComment.findUnique({ where: { id: parentId }, select: { shotId: true, parentId: true } });
+    if (!parent || parent.shotId !== shotId) throw badRequest("Invalid parent comment");
+    resolvedParentId = parent.parentId ?? parentId;
+  }
+
   const comment = await prisma.shotComment.create({
-    data: { shotId, authorId: userId, body: text },
+    data: { shotId, authorId: userId, body: text, parentId: resolvedParentId ?? null },
     include: commentInclude,
   });
 
@@ -251,4 +277,32 @@ export async function deleteComment(userId: string, commentId: string) {
     throw forbidden("You can't delete this comment");
   }
   await prisma.shotComment.update({ where: { id: commentId }, data: { deletedAt: new Date() } });
+}
+
+export async function likeComment(userId: string, commentId: string) {
+  const c = await prisma.shotComment.findUnique({ where: { id: commentId }, select: { id: true, deletedAt: true } });
+  if (!c || c.deletedAt) throw notFound("Comment not found");
+  await prisma.shotCommentLike.upsert({
+    where: { userId_commentId: { userId, commentId } },
+    create: { userId, commentId },
+    update: {},
+  });
+  return { liked: true, likeCount: await prisma.shotCommentLike.count({ where: { commentId } }) };
+}
+
+export async function unlikeComment(userId: string, commentId: string) {
+  await prisma.shotCommentLike.deleteMany({ where: { userId, commentId } });
+  return { liked: false, likeCount: await prisma.shotCommentLike.count({ where: { commentId } }) };
+}
+
+/** Pin/unpin a comment on a shot — only the shot's author may do this. */
+export async function pinComment(userId: string, commentId: string, pinned: boolean) {
+  const c = await prisma.shotComment.findUnique({
+    where: { id: commentId },
+    select: { id: true, deletedAt: true, shot: { select: { authorId: true } } },
+  });
+  if (!c || c.deletedAt) throw notFound("Comment not found");
+  if (c.shot.authorId !== userId) throw forbidden("Only the shot author can pin comments");
+  await prisma.shotComment.update({ where: { id: commentId }, data: { pinnedAt: pinned ? new Date() : null } });
+  return { pinned };
 }

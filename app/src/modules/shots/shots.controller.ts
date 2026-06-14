@@ -101,9 +101,7 @@ export async function unlikeShot(req: Request, res: Response, next: NextFunction
 
 export async function listComments(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const cursor = req.query.cursor as string | undefined;
-    const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 20));
-    const result = await service.listComments(req.params.id as string, cursor, limit);
+    const result = await service.listComments(req.params.id as string, res.locals.user?.id);
     res.status(200).json(result);
   } catch (err) {
     next(err);
@@ -114,7 +112,8 @@ export async function createComment(req: Request, res: Response, next: NextFunct
   try {
     const userId: string = res.locals.user.id;
     const body = typeof req.body?.body === "string" ? req.body.body : "";
-    const result = await service.createComment(userId, req.params.id as string, body);
+    const parentId = typeof req.body?.parentId === "string" ? req.body.parentId : undefined;
+    const result = await service.createComment(userId, req.params.id as string, body, parentId);
     res.status(201).json(result);
   } catch (err) {
     next(err);
@@ -129,4 +128,23 @@ export async function deleteComment(req: Request, res: Response, next: NextFunct
   } catch (err) {
     next(err);
   }
+}
+
+export async function likeComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.likeComment(res.locals.user.id, req.params.commentId as string));
+  } catch (err) { next(err); }
+}
+
+export async function unlikeComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.status(200).json(await service.unlikeComment(res.locals.user.id, req.params.commentId as string));
+  } catch (err) { next(err); }
+}
+
+export async function pinComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const pinned = req.body?.pinned !== false; // default true
+    res.status(200).json(await service.pinComment(res.locals.user.id, req.params.commentId as string, pinned));
+  } catch (err) { next(err); }
 }

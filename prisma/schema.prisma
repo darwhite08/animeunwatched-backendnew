@@ -144,6 +144,7 @@ model User {
   threads            Thread[]
   threadReplies      ThreadReply[]
   savedThreads       ThreadSave[]
+  shotCommentLikes   ShotCommentLike[]
   reviews            Review[]
   reviewLikes        ReviewLike[]
   blogs              Blog[]
@@ -3708,14 +3709,32 @@ model ShotComment {
   id        String    @id @default(cuid())
   shotId    String
   authorId  String
+  parentId  String?
   body      String    @db.Text
+  pinnedAt  DateTime?
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 
-  shot   Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  shot    Shot              @relation(fields: [shotId], references: [id], onDelete: Cascade)
+  author  User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent  ShotComment?      @relation("ShotCommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies ShotComment[]     @relation("ShotCommentReplies")
+  likes   ShotCommentLike[]
 
   @@index([shotId, createdAt])
+  @@index([parentId])
+}
+
+model ShotCommentLike {
+  userId    String
+  commentId String
+  createdAt DateTime @default(now())
+
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment ShotComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, commentId])
+  @@index([commentId])
 }
 
 // ─── Social connections — link external accounts (Instagram) ────────────────

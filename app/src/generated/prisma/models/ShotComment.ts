@@ -28,7 +28,9 @@ export type ShotCommentMinAggregateOutputType = {
   id: string | null
   shotId: string | null
   authorId: string | null
+  parentId: string | null
   body: string | null
+  pinnedAt: Date | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -37,7 +39,9 @@ export type ShotCommentMaxAggregateOutputType = {
   id: string | null
   shotId: string | null
   authorId: string | null
+  parentId: string | null
   body: string | null
+  pinnedAt: Date | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -46,7 +50,9 @@ export type ShotCommentCountAggregateOutputType = {
   id: number
   shotId: number
   authorId: number
+  parentId: number
   body: number
+  pinnedAt: number
   createdAt: number
   deletedAt: number
   _all: number
@@ -57,7 +63,9 @@ export type ShotCommentMinAggregateInputType = {
   id?: true
   shotId?: true
   authorId?: true
+  parentId?: true
   body?: true
+  pinnedAt?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -66,7 +74,9 @@ export type ShotCommentMaxAggregateInputType = {
   id?: true
   shotId?: true
   authorId?: true
+  parentId?: true
   body?: true
+  pinnedAt?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -75,7 +85,9 @@ export type ShotCommentCountAggregateInputType = {
   id?: true
   shotId?: true
   authorId?: true
+  parentId?: true
   body?: true
+  pinnedAt?: true
   createdAt?: true
   deletedAt?: true
   _all?: true
@@ -157,7 +169,9 @@ export type ShotCommentGroupByOutputType = {
   id: string
   shotId: string
   authorId: string
+  parentId: string | null
   body: string
+  pinnedAt: Date | null
   createdAt: Date
   deletedAt: Date | null
   _count: ShotCommentCountAggregateOutputType | null
@@ -187,22 +201,32 @@ export type ShotCommentWhereInput = {
   id?: Prisma.StringFilter<"ShotComment"> | string
   shotId?: Prisma.StringFilter<"ShotComment"> | string
   authorId?: Prisma.StringFilter<"ShotComment"> | string
+  parentId?: Prisma.StringNullableFilter<"ShotComment"> | string | null
   body?: Prisma.StringFilter<"ShotComment"> | string
+  pinnedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShotComment"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
   shot?: Prisma.XOR<Prisma.ShotScalarRelationFilter, Prisma.ShotWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  parent?: Prisma.XOR<Prisma.ShotCommentNullableScalarRelationFilter, Prisma.ShotCommentWhereInput> | null
+  replies?: Prisma.ShotCommentListRelationFilter
+  likes?: Prisma.ShotCommentLikeListRelationFilter
 }
 
 export type ShotCommentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   shotId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   shot?: Prisma.ShotOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
+  parent?: Prisma.ShotCommentOrderByWithRelationInput
+  replies?: Prisma.ShotCommentOrderByRelationAggregateInput
+  likes?: Prisma.ShotCommentLikeOrderByRelationAggregateInput
 }
 
 export type ShotCommentWhereUniqueInput = Prisma.AtLeast<{
@@ -212,18 +236,25 @@ export type ShotCommentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ShotCommentWhereInput | Prisma.ShotCommentWhereInput[]
   shotId?: Prisma.StringFilter<"ShotComment"> | string
   authorId?: Prisma.StringFilter<"ShotComment"> | string
+  parentId?: Prisma.StringNullableFilter<"ShotComment"> | string | null
   body?: Prisma.StringFilter<"ShotComment"> | string
+  pinnedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShotComment"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
   shot?: Prisma.XOR<Prisma.ShotScalarRelationFilter, Prisma.ShotWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  parent?: Prisma.XOR<Prisma.ShotCommentNullableScalarRelationFilter, Prisma.ShotCommentWhereInput> | null
+  replies?: Prisma.ShotCommentListRelationFilter
+  likes?: Prisma.ShotCommentLikeListRelationFilter
 }, "id">
 
 export type ShotCommentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   shotId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ShotCommentCountOrderByAggregateInput
@@ -238,7 +269,9 @@ export type ShotCommentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ShotComment"> | string
   shotId?: Prisma.StringWithAggregatesFilter<"ShotComment"> | string
   authorId?: Prisma.StringWithAggregatesFilter<"ShotComment"> | string
+  parentId?: Prisma.StringNullableWithAggregatesFilter<"ShotComment"> | string | null
   body?: Prisma.StringWithAggregatesFilter<"ShotComment"> | string
+  pinnedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ShotComment"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ShotComment"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ShotComment"> | Date | string | null
 }
@@ -246,44 +279,62 @@ export type ShotCommentScalarWhereWithAggregatesInput = {
 export type ShotCommentCreateInput = {
   id?: string
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   shot: Prisma.ShotCreateNestedOneWithoutCommentsInput
   author: Prisma.UserCreateNestedOneWithoutShotCommentsInput
+  parent?: Prisma.ShotCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ShotCommentCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentUncheckedCreateInput = {
   id?: string
   shotId: string
   authorId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
+  replies?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   shot?: Prisma.ShotUpdateOneRequiredWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutShotCommentsNestedInput
+  parent?: Prisma.ShotCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ShotCommentUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shotId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.ShotCommentUncheckedUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentCreateManyInput = {
   id?: string
   shotId: string
   authorId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -291,6 +342,7 @@ export type ShotCommentCreateManyInput = {
 export type ShotCommentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -299,7 +351,9 @@ export type ShotCommentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shotId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -314,11 +368,18 @@ export type ShotCommentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ShotCommentNullableScalarRelationFilter = {
+  is?: Prisma.ShotCommentWhereInput | null
+  isNot?: Prisma.ShotCommentWhereInput | null
+}
+
 export type ShotCommentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   shotId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -327,7 +388,9 @@ export type ShotCommentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   shotId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -336,9 +399,16 @@ export type ShotCommentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   shotId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   body?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+}
+
+export type ShotCommentScalarRelationFilter = {
+  is?: Prisma.ShotCommentWhereInput
+  isNot?: Prisma.ShotCommentWhereInput
 }
 
 export type ShotCommentCreateNestedManyWithoutAuthorInput = {
@@ -425,20 +495,100 @@ export type ShotCommentUncheckedUpdateManyWithoutShotNestedInput = {
   deleteMany?: Prisma.ShotCommentScalarWhereInput | Prisma.ShotCommentScalarWhereInput[]
 }
 
+export type ShotCommentCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutRepliesInput, Prisma.ShotCommentUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.ShotCommentWhereUniqueInput
+}
+
+export type ShotCommentCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput> | Prisma.ShotCommentCreateWithoutParentInput[] | Prisma.ShotCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutParentInput | Prisma.ShotCommentCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.ShotCommentCreateManyParentInputEnvelope
+  connect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+}
+
+export type ShotCommentUncheckedCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput> | Prisma.ShotCommentCreateWithoutParentInput[] | Prisma.ShotCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutParentInput | Prisma.ShotCommentCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.ShotCommentCreateManyParentInputEnvelope
+  connect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+}
+
+export type ShotCommentUpdateOneWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutRepliesInput, Prisma.ShotCommentUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.ShotCommentUpsertWithoutRepliesInput
+  disconnect?: Prisma.ShotCommentWhereInput | boolean
+  delete?: Prisma.ShotCommentWhereInput | boolean
+  connect?: Prisma.ShotCommentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShotCommentUpdateToOneWithWhereWithoutRepliesInput, Prisma.ShotCommentUpdateWithoutRepliesInput>, Prisma.ShotCommentUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ShotCommentUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput> | Prisma.ShotCommentCreateWithoutParentInput[] | Prisma.ShotCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutParentInput | Prisma.ShotCommentCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.ShotCommentUpsertWithWhereUniqueWithoutParentInput | Prisma.ShotCommentUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.ShotCommentCreateManyParentInputEnvelope
+  set?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  disconnect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  delete?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  connect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  update?: Prisma.ShotCommentUpdateWithWhereUniqueWithoutParentInput | Prisma.ShotCommentUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.ShotCommentUpdateManyWithWhereWithoutParentInput | Prisma.ShotCommentUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.ShotCommentScalarWhereInput | Prisma.ShotCommentScalarWhereInput[]
+}
+
+export type ShotCommentUncheckedUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput> | Prisma.ShotCommentCreateWithoutParentInput[] | Prisma.ShotCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutParentInput | Prisma.ShotCommentCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.ShotCommentUpsertWithWhereUniqueWithoutParentInput | Prisma.ShotCommentUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.ShotCommentCreateManyParentInputEnvelope
+  set?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  disconnect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  delete?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  connect?: Prisma.ShotCommentWhereUniqueInput | Prisma.ShotCommentWhereUniqueInput[]
+  update?: Prisma.ShotCommentUpdateWithWhereUniqueWithoutParentInput | Prisma.ShotCommentUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.ShotCommentUpdateManyWithWhereWithoutParentInput | Prisma.ShotCommentUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.ShotCommentScalarWhereInput | Prisma.ShotCommentScalarWhereInput[]
+}
+
+export type ShotCommentCreateNestedOneWithoutLikesInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutLikesInput, Prisma.ShotCommentUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutLikesInput
+  connect?: Prisma.ShotCommentWhereUniqueInput
+}
+
+export type ShotCommentUpdateOneRequiredWithoutLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCommentCreateWithoutLikesInput, Prisma.ShotCommentUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.ShotCommentCreateOrConnectWithoutLikesInput
+  upsert?: Prisma.ShotCommentUpsertWithoutLikesInput
+  connect?: Prisma.ShotCommentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShotCommentUpdateToOneWithWhereWithoutLikesInput, Prisma.ShotCommentUpdateWithoutLikesInput>, Prisma.ShotCommentUncheckedUpdateWithoutLikesInput>
+}
+
 export type ShotCommentCreateWithoutAuthorInput = {
   id?: string
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   shot: Prisma.ShotCreateNestedOneWithoutCommentsInput
+  parent?: Prisma.ShotCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ShotCommentCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentUncheckedCreateWithoutAuthorInput = {
   id?: string
   shotId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
+  replies?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentCreateOrConnectWithoutAuthorInput = {
@@ -474,7 +624,9 @@ export type ShotCommentScalarWhereInput = {
   id?: Prisma.StringFilter<"ShotComment"> | string
   shotId?: Prisma.StringFilter<"ShotComment"> | string
   authorId?: Prisma.StringFilter<"ShotComment"> | string
+  parentId?: Prisma.StringNullableFilter<"ShotComment"> | string | null
   body?: Prisma.StringFilter<"ShotComment"> | string
+  pinnedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ShotComment"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"ShotComment"> | Date | string | null
 }
@@ -482,17 +634,25 @@ export type ShotCommentScalarWhereInput = {
 export type ShotCommentCreateWithoutShotInput = {
   id?: string
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   author: Prisma.UserCreateNestedOneWithoutShotCommentsInput
+  parent?: Prisma.ShotCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ShotCommentCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentUncheckedCreateWithoutShotInput = {
   id?: string
   authorId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
+  replies?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutCommentInput
 }
 
 export type ShotCommentCreateOrConnectWithoutShotInput = {
@@ -521,10 +681,190 @@ export type ShotCommentUpdateManyWithWhereWithoutShotInput = {
   data: Prisma.XOR<Prisma.ShotCommentUpdateManyMutationInput, Prisma.ShotCommentUncheckedUpdateManyWithoutShotInput>
 }
 
+export type ShotCommentCreateWithoutRepliesInput = {
+  id?: string
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  shot: Prisma.ShotCreateNestedOneWithoutCommentsInput
+  author: Prisma.UserCreateNestedOneWithoutShotCommentsInput
+  parent?: Prisma.ShotCommentCreateNestedOneWithoutRepliesInput
+  likes?: Prisma.ShotCommentLikeCreateNestedManyWithoutCommentInput
+}
+
+export type ShotCommentUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  shotId: string
+  authorId: string
+  parentId?: string | null
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  likes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutCommentInput
+}
+
+export type ShotCommentCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.ShotCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutRepliesInput, Prisma.ShotCommentUncheckedCreateWithoutRepliesInput>
+}
+
+export type ShotCommentCreateWithoutParentInput = {
+  id?: string
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  shot: Prisma.ShotCreateNestedOneWithoutCommentsInput
+  author: Prisma.UserCreateNestedOneWithoutShotCommentsInput
+  replies?: Prisma.ShotCommentCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeCreateNestedManyWithoutCommentInput
+}
+
+export type ShotCommentUncheckedCreateWithoutParentInput = {
+  id?: string
+  shotId: string
+  authorId: string
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  replies?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutParentInput
+  likes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutCommentInput
+}
+
+export type ShotCommentCreateOrConnectWithoutParentInput = {
+  where: Prisma.ShotCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput>
+}
+
+export type ShotCommentCreateManyParentInputEnvelope = {
+  data: Prisma.ShotCommentCreateManyParentInput | Prisma.ShotCommentCreateManyParentInput[]
+  skipDuplicates?: boolean
+}
+
+export type ShotCommentUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.ShotCommentUpdateWithoutRepliesInput, Prisma.ShotCommentUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutRepliesInput, Prisma.ShotCommentUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.ShotCommentWhereInput
+}
+
+export type ShotCommentUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.ShotCommentWhereInput
+  data: Prisma.XOR<Prisma.ShotCommentUpdateWithoutRepliesInput, Prisma.ShotCommentUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ShotCommentUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shot?: Prisma.ShotUpdateOneRequiredWithoutCommentsNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutShotCommentsNestedInput
+  parent?: Prisma.ShotCommentUpdateOneWithoutRepliesNestedInput
+  likes?: Prisma.ShotCommentLikeUpdateManyWithoutCommentNestedInput
+}
+
+export type ShotCommentUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  likes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutCommentNestedInput
+}
+
+export type ShotCommentUpsertWithWhereUniqueWithoutParentInput = {
+  where: Prisma.ShotCommentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ShotCommentUpdateWithoutParentInput, Prisma.ShotCommentUncheckedUpdateWithoutParentInput>
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutParentInput, Prisma.ShotCommentUncheckedCreateWithoutParentInput>
+}
+
+export type ShotCommentUpdateWithWhereUniqueWithoutParentInput = {
+  where: Prisma.ShotCommentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ShotCommentUpdateWithoutParentInput, Prisma.ShotCommentUncheckedUpdateWithoutParentInput>
+}
+
+export type ShotCommentUpdateManyWithWhereWithoutParentInput = {
+  where: Prisma.ShotCommentScalarWhereInput
+  data: Prisma.XOR<Prisma.ShotCommentUpdateManyMutationInput, Prisma.ShotCommentUncheckedUpdateManyWithoutParentInput>
+}
+
+export type ShotCommentCreateWithoutLikesInput = {
+  id?: string
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  shot: Prisma.ShotCreateNestedOneWithoutCommentsInput
+  author: Prisma.UserCreateNestedOneWithoutShotCommentsInput
+  parent?: Prisma.ShotCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.ShotCommentCreateNestedManyWithoutParentInput
+}
+
+export type ShotCommentUncheckedCreateWithoutLikesInput = {
+  id?: string
+  shotId: string
+  authorId: string
+  parentId?: string | null
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  replies?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type ShotCommentCreateOrConnectWithoutLikesInput = {
+  where: Prisma.ShotCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutLikesInput, Prisma.ShotCommentUncheckedCreateWithoutLikesInput>
+}
+
+export type ShotCommentUpsertWithoutLikesInput = {
+  update: Prisma.XOR<Prisma.ShotCommentUpdateWithoutLikesInput, Prisma.ShotCommentUncheckedUpdateWithoutLikesInput>
+  create: Prisma.XOR<Prisma.ShotCommentCreateWithoutLikesInput, Prisma.ShotCommentUncheckedCreateWithoutLikesInput>
+  where?: Prisma.ShotCommentWhereInput
+}
+
+export type ShotCommentUpdateToOneWithWhereWithoutLikesInput = {
+  where?: Prisma.ShotCommentWhereInput
+  data: Prisma.XOR<Prisma.ShotCommentUpdateWithoutLikesInput, Prisma.ShotCommentUncheckedUpdateWithoutLikesInput>
+}
+
+export type ShotCommentUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shot?: Prisma.ShotUpdateOneRequiredWithoutCommentsNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutShotCommentsNestedInput
+  parent?: Prisma.ShotCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ShotCommentUpdateManyWithoutParentNestedInput
+}
+
+export type ShotCommentUncheckedUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.ShotCommentUncheckedUpdateManyWithoutParentNestedInput
+}
+
 export type ShotCommentCreateManyAuthorInput = {
   id?: string
   shotId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -532,23 +872,33 @@ export type ShotCommentCreateManyAuthorInput = {
 export type ShotCommentUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   shot?: Prisma.ShotUpdateOneRequiredWithoutCommentsNestedInput
+  parent?: Prisma.ShotCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ShotCommentUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.ShotCommentUncheckedUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -556,7 +906,9 @@ export type ShotCommentUncheckedUpdateManyWithoutAuthorInput = {
 export type ShotCommentCreateManyShotInput = {
   id?: string
   authorId: string
+  parentId?: string | null
   body: string
+  pinnedAt?: Date | string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -564,83 +916,195 @@ export type ShotCommentCreateManyShotInput = {
 export type ShotCommentUpdateWithoutShotInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   author?: Prisma.UserUpdateOneRequiredWithoutShotCommentsNestedInput
+  parent?: Prisma.ShotCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.ShotCommentUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentUncheckedUpdateWithoutShotInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.ShotCommentUncheckedUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutCommentNestedInput
 }
 
 export type ShotCommentUncheckedUpdateManyWithoutShotInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+export type ShotCommentCreateManyParentInput = {
+  id?: string
+  shotId: string
+  authorId: string
+  body: string
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type ShotCommentUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shot?: Prisma.ShotUpdateOneRequiredWithoutCommentsNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutShotCommentsNestedInput
+  replies?: Prisma.ShotCommentUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUpdateManyWithoutCommentNestedInput
+}
+
+export type ShotCommentUncheckedUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.ShotCommentUncheckedUpdateManyWithoutParentNestedInput
+  likes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutCommentNestedInput
+}
+
+export type ShotCommentUncheckedUpdateManyWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shotId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+
+/**
+ * Count Type ShotCommentCountOutputType
+ */
+
+export type ShotCommentCountOutputType = {
+  replies: number
+  likes: number
+}
+
+export type ShotCommentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replies?: boolean | ShotCommentCountOutputTypeCountRepliesArgs
+  likes?: boolean | ShotCommentCountOutputTypeCountLikesArgs
+}
+
+/**
+ * ShotCommentCountOutputType without action
+ */
+export type ShotCommentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotCommentCountOutputType
+   */
+  select?: Prisma.ShotCommentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ShotCommentCountOutputType without action
+ */
+export type ShotCommentCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotCommentWhereInput
+}
+
+/**
+ * ShotCommentCountOutputType without action
+ */
+export type ShotCommentCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotCommentLikeWhereInput
+}
 
 
 export type ShotCommentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   shotId?: boolean
   authorId?: boolean
+  parentId?: boolean
   body?: boolean
+  pinnedAt?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.ShotComment$repliesArgs<ExtArgs>
+  likes?: boolean | Prisma.ShotComment$likesArgs<ExtArgs>
+  _count?: boolean | Prisma.ShotCommentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shotComment"]>
 
 export type ShotCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   shotId?: boolean
   authorId?: boolean
+  parentId?: boolean
   body?: boolean
+  pinnedAt?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
 }, ExtArgs["result"]["shotComment"]>
 
 export type ShotCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   shotId?: boolean
   authorId?: boolean
+  parentId?: boolean
   body?: boolean
+  pinnedAt?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
 }, ExtArgs["result"]["shotComment"]>
 
 export type ShotCommentSelectScalar = {
   id?: boolean
   shotId?: boolean
   authorId?: boolean
+  parentId?: boolean
   body?: boolean
+  pinnedAt?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }
 
-export type ShotCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shotId" | "authorId" | "body" | "createdAt" | "deletedAt", ExtArgs["result"]["shotComment"]>
+export type ShotCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shotId" | "authorId" | "parentId" | "body" | "pinnedAt" | "createdAt" | "deletedAt", ExtArgs["result"]["shotComment"]>
 export type ShotCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.ShotComment$repliesArgs<ExtArgs>
+  likes?: boolean | Prisma.ShotComment$likesArgs<ExtArgs>
+  _count?: boolean | Prisma.ShotCommentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShotCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
 }
 export type ShotCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shot?: boolean | Prisma.ShotDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.ShotComment$parentArgs<ExtArgs>
 }
 
 export type $ShotCommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -648,12 +1112,17 @@ export type $ShotCommentPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     shot: Prisma.$ShotPayload<ExtArgs>
     author: Prisma.$UserPayload<ExtArgs>
+    parent: Prisma.$ShotCommentPayload<ExtArgs> | null
+    replies: Prisma.$ShotCommentPayload<ExtArgs>[]
+    likes: Prisma.$ShotCommentLikePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shotId: string
     authorId: string
+    parentId: string | null
     body: string
+    pinnedAt: Date | null
     createdAt: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["shotComment"]>
@@ -1052,6 +1521,9 @@ export interface Prisma__ShotCommentClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   shot<T extends Prisma.ShotDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShotDefaultArgs<ExtArgs>>): Prisma.Prisma__ShotClient<runtime.Types.Result.GetResult<Prisma.$ShotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  parent<T extends Prisma.ShotComment$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShotComment$parentArgs<ExtArgs>>): Prisma.Prisma__ShotCommentClient<runtime.Types.Result.GetResult<Prisma.$ShotCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.ShotComment$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShotComment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likes<T extends Prisma.ShotComment$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShotComment$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1084,7 +1556,9 @@ export interface ShotCommentFieldRefs {
   readonly id: Prisma.FieldRef<"ShotComment", 'String'>
   readonly shotId: Prisma.FieldRef<"ShotComment", 'String'>
   readonly authorId: Prisma.FieldRef<"ShotComment", 'String'>
+  readonly parentId: Prisma.FieldRef<"ShotComment", 'String'>
   readonly body: Prisma.FieldRef<"ShotComment", 'String'>
+  readonly pinnedAt: Prisma.FieldRef<"ShotComment", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ShotComment", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"ShotComment", 'DateTime'>
 }
@@ -1480,6 +1954,73 @@ export type ShotCommentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many ShotComments to delete.
    */
   limit?: number
+}
+
+/**
+ * ShotComment.parent
+ */
+export type ShotComment$parentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotComment
+   */
+  select?: Prisma.ShotCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotComment
+   */
+  omit?: Prisma.ShotCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotCommentInclude<ExtArgs> | null
+  where?: Prisma.ShotCommentWhereInput
+}
+
+/**
+ * ShotComment.replies
+ */
+export type ShotComment$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotComment
+   */
+  select?: Prisma.ShotCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotComment
+   */
+  omit?: Prisma.ShotCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotCommentInclude<ExtArgs> | null
+  where?: Prisma.ShotCommentWhereInput
+  orderBy?: Prisma.ShotCommentOrderByWithRelationInput | Prisma.ShotCommentOrderByWithRelationInput[]
+  cursor?: Prisma.ShotCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotCommentScalarFieldEnum | Prisma.ShotCommentScalarFieldEnum[]
+}
+
+/**
+ * ShotComment.likes
+ */
+export type ShotComment$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotCommentLike
+   */
+  select?: Prisma.ShotCommentLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotCommentLike
+   */
+  omit?: Prisma.ShotCommentLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotCommentLikeInclude<ExtArgs> | null
+  where?: Prisma.ShotCommentLikeWhereInput
+  orderBy?: Prisma.ShotCommentLikeOrderByWithRelationInput | Prisma.ShotCommentLikeOrderByWithRelationInput[]
+  cursor?: Prisma.ShotCommentLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotCommentLikeScalarFieldEnum | Prisma.ShotCommentLikeScalarFieldEnum[]
 }
 
 /**

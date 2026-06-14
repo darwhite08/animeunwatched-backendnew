@@ -222,6 +222,7 @@ export const ModelName = {
   ShotLike: 'ShotLike',
   ShotSave: 'ShotSave',
   ShotComment: 'ShotComment',
+  ShotCommentLike: 'ShotCommentLike',
   SocialConnection: 'SocialConnection',
   ImportedMedia: 'ImportedMedia',
   Story: 'Story',
@@ -2854,12 +2855,23 @@ export const ShotCommentScalarFieldEnum = {
   id: 'id',
   shotId: 'shotId',
   authorId: 'authorId',
+  parentId: 'parentId',
   body: 'body',
+  pinnedAt: 'pinnedAt',
   createdAt: 'createdAt',
   deletedAt: 'deletedAt'
 } as const
 
 export type ShotCommentScalarFieldEnum = (typeof ShotCommentScalarFieldEnum)[keyof typeof ShotCommentScalarFieldEnum]
+
+
+export const ShotCommentLikeScalarFieldEnum = {
+  userId: 'userId',
+  commentId: 'commentId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShotCommentLikeScalarFieldEnum = (typeof ShotCommentLikeScalarFieldEnum)[keyof typeof ShotCommentLikeScalarFieldEnum]
 
 
 export const SocialConnectionScalarFieldEnum = {

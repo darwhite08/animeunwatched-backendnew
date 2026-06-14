@@ -510,6 +510,7 @@ export type UserWhereInput = {
   threads?: Prisma.ThreadListRelationFilter
   threadReplies?: Prisma.ThreadReplyListRelationFilter
   savedThreads?: Prisma.ThreadSaveListRelationFilter
+  shotCommentLikes?: Prisma.ShotCommentLikeListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   reviewLikes?: Prisma.ReviewLikeListRelationFilter
   blogs?: Prisma.BlogListRelationFilter
@@ -630,6 +631,7 @@ export type UserOrderByWithRelationInput = {
   threads?: Prisma.ThreadOrderByRelationAggregateInput
   threadReplies?: Prisma.ThreadReplyOrderByRelationAggregateInput
   savedThreads?: Prisma.ThreadSaveOrderByRelationAggregateInput
+  shotCommentLikes?: Prisma.ShotCommentLikeOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   reviewLikes?: Prisma.ReviewLikeOrderByRelationAggregateInput
   blogs?: Prisma.BlogOrderByRelationAggregateInput
@@ -753,6 +755,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   threads?: Prisma.ThreadListRelationFilter
   threadReplies?: Prisma.ThreadReplyListRelationFilter
   savedThreads?: Prisma.ThreadSaveListRelationFilter
+  shotCommentLikes?: Prisma.ShotCommentLikeListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   reviewLikes?: Prisma.ReviewLikeListRelationFilter
   blogs?: Prisma.BlogListRelationFilter
@@ -962,6 +965,7 @@ export type UserCreateInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -1081,6 +1085,7 @@ export type UserUncheckedCreateInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -1200,6 +1205,7 @@ export type UserUpdateInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -1319,6 +1325,7 @@ export type UserUncheckedUpdateInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2798,6 +2805,20 @@ export type UserUpdateOneRequiredWithoutShotCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotCommentsInput, Prisma.UserUpdateWithoutShotCommentsInput>, Prisma.UserUncheckedUpdateWithoutShotCommentsInput>
 }
 
+export type UserCreateNestedOneWithoutShotCommentLikesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotCommentLikesInput, Prisma.UserUncheckedCreateWithoutShotCommentLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotCommentLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShotCommentLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShotCommentLikesInput, Prisma.UserUncheckedCreateWithoutShotCommentLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShotCommentLikesInput
+  upsert?: Prisma.UserUpsertWithoutShotCommentLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShotCommentLikesInput, Prisma.UserUpdateWithoutShotCommentLikesInput>, Prisma.UserUncheckedUpdateWithoutShotCommentLikesInput>
+}
+
 export type UserCreateNestedOneWithoutSocialConnectionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSocialConnectionsInput, Prisma.UserUncheckedCreateWithoutSocialConnectionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSocialConnectionsInput
@@ -2909,6 +2930,7 @@ export type UserCreateWithoutReferralsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -3027,6 +3049,7 @@ export type UserUncheckedCreateWithoutReferralsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -3150,6 +3173,7 @@ export type UserCreateWithoutReferredByInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -3268,6 +3292,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -3407,6 +3432,7 @@ export type UserUpdateWithoutReferralsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -3525,6 +3551,7 @@ export type UserUncheckedUpdateWithoutReferralsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3704,6 +3731,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -3822,6 +3850,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -3956,6 +3985,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -4074,6 +4104,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4192,6 +4223,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -4310,6 +4342,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -4444,6 +4477,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -4562,6 +4596,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4680,6 +4715,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -4798,6 +4834,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -4921,6 +4958,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -5039,6 +5077,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -5173,6 +5212,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -5291,6 +5331,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5420,6 +5461,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -5538,6 +5580,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5656,6 +5699,7 @@ export type UserCreateWithoutTipsSentInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -5774,6 +5818,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -5897,6 +5942,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -6015,6 +6061,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -6149,6 +6196,7 @@ export type UserUpdateWithoutTipsSentInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -6267,6 +6315,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6396,6 +6445,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -6514,6 +6564,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6632,6 +6683,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -6750,6 +6802,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -6884,6 +6937,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -7002,6 +7056,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7120,6 +7175,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -7238,6 +7294,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -7372,6 +7429,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -7490,6 +7548,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7608,6 +7667,7 @@ export type UserCreateWithoutPayoutsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -7726,6 +7786,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -7860,6 +7921,7 @@ export type UserUpdateWithoutPayoutsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -7978,6 +8040,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8096,6 +8159,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -8214,6 +8278,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -8348,6 +8413,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -8466,6 +8532,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8584,6 +8651,7 @@ export type UserCreateWithoutBadgesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -8702,6 +8770,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -8836,6 +8905,7 @@ export type UserUpdateWithoutBadgesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -8954,6 +9024,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9072,6 +9143,7 @@ export type UserCreateWithoutLbSnapshotsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -9190,6 +9262,7 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -9324,6 +9397,7 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -9442,6 +9516,7 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -9560,6 +9635,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -9678,6 +9754,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -9812,6 +9889,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -9930,6 +10008,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10048,6 +10127,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -10166,6 +10246,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -10300,6 +10381,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -10418,6 +10500,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10536,6 +10619,7 @@ export type UserCreateWithoutWebPushSubscriptionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -10654,6 +10738,7 @@ export type UserUncheckedCreateWithoutWebPushSubscriptionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -10788,6 +10873,7 @@ export type UserUpdateWithoutWebPushSubscriptionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -10906,6 +10992,7 @@ export type UserUncheckedUpdateWithoutWebPushSubscriptionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11023,6 +11110,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -11141,6 +11229,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -11275,6 +11364,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -11393,6 +11483,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11512,6 +11603,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -11630,6 +11722,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -11764,6 +11857,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -11882,6 +11976,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -12000,6 +12095,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -12118,6 +12214,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -12252,6 +12349,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -12370,6 +12468,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -12487,6 +12586,7 @@ export type UserCreateWithoutFollowingInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -12605,6 +12705,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -12728,6 +12829,7 @@ export type UserCreateWithoutFollowersInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -12846,6 +12948,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -12980,6 +13083,7 @@ export type UserUpdateWithoutFollowingInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -13098,6 +13202,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -13227,6 +13332,7 @@ export type UserUpdateWithoutFollowersInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -13345,6 +13451,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -13463,6 +13570,7 @@ export type UserCreateWithoutListEntriesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -13581,6 +13689,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -13715,6 +13824,7 @@ export type UserUpdateWithoutListEntriesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -13833,6 +13943,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -13951,6 +14062,7 @@ export type UserCreateWithoutMangaEntriesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -14069,6 +14181,7 @@ export type UserUncheckedCreateWithoutMangaEntriesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -14203,6 +14316,7 @@ export type UserUpdateWithoutMangaEntriesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -14321,6 +14435,7 @@ export type UserUncheckedUpdateWithoutMangaEntriesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -14439,6 +14554,7 @@ export type UserCreateWithoutPostsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -14557,6 +14673,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -14691,6 +14808,7 @@ export type UserUpdateWithoutPostsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -14809,6 +14927,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -14927,6 +15046,7 @@ export type UserCreateWithoutPostHidesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -15045,6 +15165,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -15179,6 +15300,7 @@ export type UserUpdateWithoutPostHidesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -15297,6 +15419,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -15415,6 +15538,7 @@ export type UserCreateWithoutPostLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -15533,6 +15657,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -15667,6 +15792,7 @@ export type UserUpdateWithoutPostLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -15785,6 +15911,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -15903,6 +16030,7 @@ export type UserCreateWithoutPostCommentsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -16021,6 +16149,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -16155,6 +16284,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -16273,6 +16403,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -16391,6 +16522,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -16509,6 +16641,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -16643,6 +16776,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -16761,6 +16895,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -16879,6 +17014,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -16997,6 +17133,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -17131,6 +17268,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -17249,6 +17387,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17368,6 +17507,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -17486,6 +17626,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -17620,6 +17761,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -17738,6 +17880,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17856,6 +17999,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -17974,6 +18118,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -18108,6 +18253,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -18226,6 +18372,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18344,6 +18491,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -18462,6 +18610,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -18596,6 +18745,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -18714,6 +18864,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18832,6 +18983,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -18950,6 +19102,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -19084,6 +19237,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -19202,6 +19356,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -19320,6 +19475,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -19438,6 +19594,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -19572,6 +19729,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -19690,6 +19848,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -19807,6 +19966,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -19925,6 +20085,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -20059,6 +20220,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -20177,6 +20339,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -20296,6 +20459,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -20414,6 +20578,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -20548,6 +20713,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -20666,6 +20832,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -20783,6 +20950,7 @@ export type UserCreateWithoutThreadsInput = {
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -20901,6 +21069,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -21035,6 +21204,7 @@ export type UserUpdateWithoutThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -21153,6 +21323,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -21271,6 +21442,7 @@ export type UserCreateWithoutSavedThreadsInput = {
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -21389,6 +21561,7 @@ export type UserUncheckedCreateWithoutSavedThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -21523,6 +21696,7 @@ export type UserUpdateWithoutSavedThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -21641,6 +21815,7 @@ export type UserUncheckedUpdateWithoutSavedThreadsInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -21759,6 +21934,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -21877,6 +22053,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -22011,6 +22188,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -22129,6 +22307,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22248,6 +22427,7 @@ export type UserCreateWithoutReviewsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
@@ -22366,6 +22546,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
   blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -22500,6 +22681,7 @@ export type UserUpdateWithoutReviewsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
@@ -22618,6 +22800,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22736,6 +22919,7 @@ export type UserCreateWithoutReviewLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
@@ -22854,6 +23038,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
   blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -22988,6 +23173,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
@@ -23106,6 +23292,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -23224,6 +23411,7 @@ export type UserCreateWithoutBlogsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
@@ -23342,6 +23530,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -23476,6 +23665,7 @@ export type UserUpdateWithoutBlogsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
@@ -23594,6 +23784,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -23712,6 +23903,7 @@ export type UserCreateWithoutBlogLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -23830,6 +24022,7 @@ export type UserUncheckedCreateWithoutBlogLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -23964,6 +24157,7 @@ export type UserUpdateWithoutBlogLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -24082,6 +24276,7 @@ export type UserUncheckedUpdateWithoutBlogLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -24200,6 +24395,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -24318,6 +24514,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -24452,6 +24649,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -24570,6 +24768,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -24688,6 +24887,7 @@ export type UserCreateWithoutNotificationsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -24806,6 +25006,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -24940,6 +25141,7 @@ export type UserUpdateWithoutNotificationsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -25058,6 +25260,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -25176,6 +25379,7 @@ export type UserCreateWithoutReportsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -25294,6 +25498,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -25428,6 +25633,7 @@ export type UserUpdateWithoutReportsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -25546,6 +25752,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -25664,6 +25871,7 @@ export type UserCreateWithoutModerationActionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -25782,6 +25990,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -25916,6 +26125,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -26034,6 +26244,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -26152,6 +26363,7 @@ export type UserCreateWithoutPollsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -26270,6 +26482,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -26404,6 +26617,7 @@ export type UserUpdateWithoutPollsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -26522,6 +26736,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -26640,6 +26855,7 @@ export type UserCreateWithoutPollVotesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -26758,6 +26974,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -26892,6 +27109,7 @@ export type UserUpdateWithoutPollVotesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -27010,6 +27228,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -27128,6 +27347,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -27246,6 +27466,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -27380,6 +27601,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -27498,6 +27720,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -27616,6 +27839,7 @@ export type UserCreateWithoutPublicKeyInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -27734,6 +27958,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -27868,6 +28093,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -27986,6 +28212,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -28104,6 +28331,7 @@ export type UserCreateWithoutConversations1Input = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -28222,6 +28450,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -28345,6 +28574,7 @@ export type UserCreateWithoutConversations2Input = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -28463,6 +28693,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -28597,6 +28828,7 @@ export type UserUpdateWithoutConversations1Input = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -28715,6 +28947,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -28844,6 +29077,7 @@ export type UserUpdateWithoutConversations2Input = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -28962,6 +29196,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29080,6 +29315,7 @@ export type UserCreateWithoutSentMessagesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -29198,6 +29434,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -29332,6 +29569,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -29450,6 +29688,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29568,6 +29807,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -29686,6 +29926,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -29820,6 +30061,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -29938,6 +30180,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -30056,6 +30299,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -30174,6 +30418,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -30308,6 +30553,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -30426,6 +30672,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -30544,6 +30791,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -30662,6 +30910,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -30796,6 +31045,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -30914,6 +31164,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -31032,6 +31283,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -31150,6 +31402,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -31284,6 +31537,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -31402,6 +31656,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -31520,6 +31775,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -31638,6 +31894,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -31772,6 +32029,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -31890,6 +32148,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -32008,6 +32267,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -32126,6 +32386,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -32260,6 +32521,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -32378,6 +32640,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -32496,6 +32759,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -32614,6 +32878,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -32737,6 +33002,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -32855,6 +33121,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -32989,6 +33256,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -33107,6 +33375,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -33236,6 +33505,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -33354,6 +33624,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -33472,6 +33743,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -33590,6 +33862,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -33724,6 +33997,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -33842,6 +34116,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -33960,6 +34235,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -34078,6 +34354,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -34212,6 +34489,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -34330,6 +34608,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -34448,6 +34727,7 @@ export type UserCreateWithoutActivitiesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -34566,6 +34846,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -34700,6 +34981,7 @@ export type UserUpdateWithoutActivitiesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -34818,6 +35100,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -34936,6 +35219,7 @@ export type UserCreateWithoutActivityLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -35054,6 +35338,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -35188,6 +35473,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -35306,6 +35592,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -35424,6 +35711,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -35542,6 +35830,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -35676,6 +35965,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -35794,6 +36084,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -35912,6 +36203,7 @@ export type UserCreateWithoutRepliesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -36030,6 +36322,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -36164,6 +36457,7 @@ export type UserUpdateWithoutRepliesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -36282,6 +36576,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -36399,6 +36694,7 @@ export type UserCreateWithoutEmailVerificationInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -36517,6 +36813,7 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -36651,6 +36948,7 @@ export type UserUpdateWithoutEmailVerificationInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -36769,6 +37067,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -36888,6 +37187,7 @@ export type UserCreateWithoutScimSubjectInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -37006,6 +37306,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -37140,6 +37441,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -37258,6 +37560,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -37376,6 +37679,7 @@ export type UserCreateWithoutShotsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -37494,6 +37798,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -37628,6 +37933,7 @@ export type UserUpdateWithoutShotsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -37746,6 +38052,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -37864,6 +38171,7 @@ export type UserCreateWithoutShotLikesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -37982,6 +38290,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -38116,6 +38425,7 @@ export type UserUpdateWithoutShotLikesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -38234,6 +38544,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -38352,6 +38663,7 @@ export type UserCreateWithoutShotSavesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -38470,6 +38782,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -38604,6 +38917,7 @@ export type UserUpdateWithoutShotSavesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -38722,6 +39036,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -38840,6 +39155,7 @@ export type UserCreateWithoutShotCommentsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -38958,6 +39274,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -39092,6 +39409,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -39210,6 +39528,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -39226,6 +39545,498 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
   shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
   shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutShotCommentLikesInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  lastReengagedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsInput
+  referrals?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShotCommentLikesInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  lastReengagedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  referredById?: string | null
+  emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  referrals?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShotCommentLikesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotCommentLikesInput, Prisma.UserUncheckedCreateWithoutShotCommentLikesInput>
+}
+
+export type UserUpsertWithoutShotCommentLikesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShotCommentLikesInput, Prisma.UserUncheckedUpdateWithoutShotCommentLikesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShotCommentLikesInput, Prisma.UserUncheckedCreateWithoutShotCommentLikesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShotCommentLikesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShotCommentLikesInput, Prisma.UserUncheckedUpdateWithoutShotCommentLikesInput>
+}
+
+export type UserUpdateWithoutShotCommentLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsNestedInput
+  referrals?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShotCommentLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  referredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  referrals?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
   shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
   stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
@@ -39328,6 +40139,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -39446,6 +40258,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -39580,6 +40393,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -39698,6 +40512,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -39816,6 +40631,7 @@ export type UserCreateWithoutImportedMediaInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -39934,6 +40750,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -40068,6 +40885,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -40186,6 +41004,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -40304,6 +41123,7 @@ export type UserCreateWithoutStoriesInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -40422,6 +41242,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -40556,6 +41377,7 @@ export type UserUpdateWithoutStoriesInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -40674,6 +41496,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -40792,6 +41615,7 @@ export type UserCreateWithoutStoryViewsInput = {
   threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
@@ -40910,6 +41734,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
   threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
   savedThreads?: Prisma.ThreadSaveUncheckedCreateNestedManyWithoutUserInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
   reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -41044,6 +41869,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -41162,6 +41988,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -41319,6 +42146,7 @@ export type UserUpdateWithoutReferredByInput = {
   threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
@@ -41437,6 +42265,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
   threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
   savedThreads?: Prisma.ThreadSaveUncheckedUpdateManyWithoutUserNestedInput
+  shotCommentLikes?: Prisma.ShotCommentLikeUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
   reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -41562,6 +42391,7 @@ export type UserCountOutputType = {
   threads: number
   threadReplies: number
   savedThreads: number
+  shotCommentLikes: number
   reviews: number
   reviewLikes: number
   blogs: number
@@ -41638,6 +42468,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   threads?: boolean | UserCountOutputTypeCountThreadsArgs
   threadReplies?: boolean | UserCountOutputTypeCountThreadRepliesArgs
   savedThreads?: boolean | UserCountOutputTypeCountSavedThreadsArgs
+  shotCommentLikes?: boolean | UserCountOutputTypeCountShotCommentLikesArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
   reviewLikes?: boolean | UserCountOutputTypeCountReviewLikesArgs
   blogs?: boolean | UserCountOutputTypeCountBlogsArgs
@@ -41817,6 +42648,13 @@ export type UserCountOutputTypeCountThreadRepliesArgs<ExtArgs extends runtime.Ty
  */
 export type UserCountOutputTypeCountSavedThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ThreadSaveWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShotCommentLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotCommentLikeWhereInput
 }
 
 /**
@@ -42276,6 +43114,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   threads?: boolean | Prisma.User$threadsArgs<ExtArgs>
   threadReplies?: boolean | Prisma.User$threadRepliesArgs<ExtArgs>
   savedThreads?: boolean | Prisma.User$savedThreadsArgs<ExtArgs>
+  shotCommentLikes?: boolean | Prisma.User$shotCommentLikesArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   reviewLikes?: boolean | Prisma.User$reviewLikesArgs<ExtArgs>
   blogs?: boolean | Prisma.User$blogsArgs<ExtArgs>
@@ -42485,6 +43324,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   threads?: boolean | Prisma.User$threadsArgs<ExtArgs>
   threadReplies?: boolean | Prisma.User$threadRepliesArgs<ExtArgs>
   savedThreads?: boolean | Prisma.User$savedThreadsArgs<ExtArgs>
+  shotCommentLikes?: boolean | Prisma.User$shotCommentLikesArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   reviewLikes?: boolean | Prisma.User$reviewLikesArgs<ExtArgs>
   blogs?: boolean | Prisma.User$blogsArgs<ExtArgs>
@@ -42576,6 +43416,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     threads: Prisma.$ThreadPayload<ExtArgs>[]
     threadReplies: Prisma.$ThreadReplyPayload<ExtArgs>[]
     savedThreads: Prisma.$ThreadSavePayload<ExtArgs>[]
+    shotCommentLikes: Prisma.$ShotCommentLikePayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     reviewLikes: Prisma.$ReviewLikePayload<ExtArgs>[]
     blogs: Prisma.$BlogPayload<ExtArgs>[]
@@ -43109,6 +43950,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   threads<T extends Prisma.User$threadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   threadReplies<T extends Prisma.User$threadRepliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$threadRepliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   savedThreads<T extends Prisma.User$savedThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$savedThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThreadSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shotCommentLikes<T extends Prisma.User$shotCommentLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shotCommentLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewLikes<T extends Prisma.User$reviewLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   blogs<T extends Prisma.User$blogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -44052,6 +44894,30 @@ export type User$savedThreadsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ThreadSaveScalarFieldEnum | Prisma.ThreadSaveScalarFieldEnum[]
+}
+
+/**
+ * User.shotCommentLikes
+ */
+export type User$shotCommentLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotCommentLike
+   */
+  select?: Prisma.ShotCommentLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotCommentLike
+   */
+  omit?: Prisma.ShotCommentLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotCommentLikeInclude<ExtArgs> | null
+  where?: Prisma.ShotCommentLikeWhereInput
+  orderBy?: Prisma.ShotCommentLikeOrderByWithRelationInput | Prisma.ShotCommentLikeOrderByWithRelationInput[]
+  cursor?: Prisma.ShotCommentLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotCommentLikeScalarFieldEnum | Prisma.ShotCommentLikeScalarFieldEnum[]
 }
 
 /**
