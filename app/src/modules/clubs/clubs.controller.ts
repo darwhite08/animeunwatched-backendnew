@@ -42,6 +42,15 @@ export async function createClub(req: Request, res: Response, next: NextFunction
   }
 }
 
+export async function deleteClub(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const actorId: string = res.locals.user.id;
+    res.status(200).json(await service.deleteClub(actorId, req.params.slug as string));
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function joinClub(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

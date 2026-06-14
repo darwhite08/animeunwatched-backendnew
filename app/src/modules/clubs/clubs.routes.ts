@@ -24,6 +24,7 @@ clubsRouter.post("/invite/:code/join", requireAuth, ctrl.joinViaInvite);
 // Specific slug routes
 clubsRouter.get("/:slug", optionalAuth, ctrl.getClubBySlug);
 clubsRouter.patch("/:slug", requireAuth, ctrl.updateClub);
+clubsRouter.delete("/:slug", requireAuth, ctrl.deleteClub);
 clubsRouter.post("/:slug/join", requireAuth, ctrl.joinClub);
 clubsRouter.delete("/:slug/membership", requireAuth, ctrl.leaveClub);
 clubsRouter.get("/:slug/members", optionalAuth, ctrl.getClubMembers);

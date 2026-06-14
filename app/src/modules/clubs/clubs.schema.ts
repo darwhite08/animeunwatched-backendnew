@@ -6,6 +6,8 @@ export const createClubSchema = z.object({
   description: z.string().max(1000).optional(),
   category:    z.string().max(40).optional(),
   visibility:  z.enum(["PUBLIC", "PRIVATE"]).optional(),
+  bannerUrl:   z.string().url().max(500).nullable().optional(),
+  avatarUrl:   z.string().url().max(500).nullable().optional(),
 });
 
 export const updateClubSchema = createClubSchema.partial().extend({

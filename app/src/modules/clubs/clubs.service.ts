@@ -66,7 +66,7 @@ export async function getBySlug(slug: string, userId?: string) {
     },
   });
 
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   let isMember = false;
   let myRole: "USER" | "MOD" | "ADMIN" | null = null;
@@ -96,7 +96,7 @@ export async function getBySlug(slug: string, userId?: string) {
 
 export async function setClubVerified(slug: string, verified: boolean) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   await prisma.club.update({ where: { id: club.id }, data: { verified, verifiedAt: verified ? new Date() : null } });
   void emitClubUpdate(club.id, "club");
   return { ok: true, verified };
@@ -109,7 +109,7 @@ export async function create(ownerId: string, dto: CreateClubDto) {
   if (!user) throw notFound("User not found");
 
   if (user.reputation < 50) {
-    throw forbidden("You need at least 50 reputation to create a club");
+    throw forbidden("You need at least 50 reputation to create a den");
   }
 
   const club = await prisma.club.create({
@@ -119,6 +119,8 @@ export async function create(ownerId: string, dto: CreateClubDto) {
       description: dto.description,
       category: dto.category,
       visibility: dto.visibility ?? "PUBLIC",
+      bannerUrl: dto.bannerUrl ?? null,
+      avatarUrl: dto.avatarUrl ?? null,
       ownerId,
     },
     include: {
@@ -139,16 +141,31 @@ export async function create(ownerId: string, dto: CreateClubDto) {
   return { club };
 }
 
+// ─── delete ─────────────────────────────────────────────────────────────────
+/**
+ * Permanently delete a club. Owner-only. Members, events, invites, join
+ * requests, watchlist and the chat group cascade away (schema onDelete:Cascade);
+ * threads and polls are detached (clubId → null) so user content survives.
+ */
+export async function deleteClub(actorId: string, slug: string) {
+  const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, ownerId: true } });
+  if (!club) throw notFound("Den not found");
+  if (club.ownerId !== actorId) throw forbidden("Only the den owner can delete this den");
+
+  await prisma.club.delete({ where: { id: club.id } });
+  return { ok: true };
+}
+
 // ─── join ─────────────────────────────────────────────────────────────────────
 
 export async function join(userId: string, slug: string, message?: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, rules: true, welcomeMessage: true, visibility: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   const existing = await prisma.clubMember.findUnique({
     where: { userId_clubId: { userId, clubId: club.id } },
   });
-  if (existing) throw conflict("Already a member of this club");
+  if (existing) throw conflict("Already a member of this den");
 
   // Private clubs: queue a join request for a mod/admin to approve (idempotent).
   if (club.visibility === "PRIVATE") {
@@ -191,7 +208,7 @@ function inviteCode(): string {
 /** Create a shareable invite link for a club (mod/admin). */
 export async function createInvite(actorId: string, slug: string, dto: CreateInviteDto) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   await assertModerator(actorId, club.id);
   const expiresAt = dto.expiresInDays ? new Date(Date.now() + dto.expiresInDays * 86_400_000) : null;
   const invite = await prisma.clubInvite.create({
@@ -221,7 +238,7 @@ export async function joinViaInvite(userId: string, code: string) {
   if (invite.maxUses != null && invite.uses >= invite.maxUses) throw forbidden("This invite has reached its limit");
 
   const existing = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: invite.club.id } } });
-  if (existing) throw conflict("Already a member of this club");
+  if (existing) throw conflict("Already a member of this den");
 
   const [membership] = await prisma.$transaction([
     prisma.clubMember.create({ data: { userId, clubId: invite.club.id, role: "USER" } }),
@@ -236,7 +253,7 @@ export async function joinViaInvite(userId: string, code: string) {
 /** List pending join requests for a club (mod/admin). */
 export async function listJoinRequests(actorId: string, slug: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   await assertModerator(actorId, club.id);
   const requests = await prisma.clubJoinRequest.findMany({
     where: { clubId: club.id, status: "PENDING" },
@@ -249,7 +266,7 @@ export async function listJoinRequests(actorId: string, slug: string) {
 /** Approve or reject a pending join request (mod/admin). */
 export async function decideJoinRequest(actorId: string, slug: string, targetUserId: string, approve: boolean) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   await assertModerator(actorId, club.id);
   const req = await prisma.clubJoinRequest.findUnique({ where: { clubId_userId: { clubId: club.id, userId: targetUserId } }, select: { status: true } });
   if (!req) throw notFound("Join request not found");
@@ -271,16 +288,16 @@ export async function decideJoinRequest(actorId: string, slug: string, targetUse
 // Mark onboarding complete (rules agreed) + post a system "joined" message.
 export async function onboard(userId: string, slug: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, chatGroup: { select: { id: true } } } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const m = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { onboardedAt: true } });
-  if (!m) throw forbidden("Join the club first");
+  if (!m) throw forbidden("Join the den first");
   const now = new Date();
   await prisma.clubMember.update({ where: { userId_clubId: { userId, clubId: club.id } }, data: { agreedRulesAt: now, onboardedAt: m.onboardedAt ?? now } });
   if (!m.onboardedAt) {
     await awardClubXp(club.id, userId, 3);
     if (club.chatGroup) {
       const user = await prisma.user.findUnique({ where: { id: userId }, select: { displayName: true, username: true } });
-      await prisma.groupMessage.create({ data: { groupId: club.chatGroup.id, senderId: null, type: "SYSTEM", body: `${user?.displayName ?? user?.username ?? "Someone"} joined the club` } });
+      await prisma.groupMessage.create({ data: { groupId: club.chatGroup.id, senderId: null, type: "SYSTEM", body: `${user?.displayName ?? user?.username ?? "Someone"} joined the den` } });
     }
     void emitClubUpdate(club.id, "member");
   }
@@ -297,7 +314,7 @@ async function assertModerator(actorId: string, clubId: string) {
 /** Mute (minutes > 0) or unmute (minutes = 0/undefined) a member. Muting adds a strike. */
 export async function muteMember(actorId: string, slug: string, targetId: string, minutes?: number) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, ownerId: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   await assertModerator(actorId, club.id);
   if (targetId === club.ownerId) throw forbidden("Can't mute the owner");
   const target = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: targetId, clubId: club.id } }, select: { role: true } });
@@ -316,7 +333,7 @@ export async function muteMember(actorId: string, slug: string, targetId: string
 /** Remove (kick) a member from the club + its chat room. Mod/admin only. */
 export async function removeClubMember(actorId: string, slug: string, targetId: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true, ownerId: true, chatGroup: { select: { id: true } } } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const actor = await assertModerator(actorId, club.id);
   if (targetId === club.ownerId) throw forbidden("Can't remove the owner");
   const target = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: targetId, clubId: club.id } }, select: { role: true } });
@@ -334,14 +351,14 @@ export async function removeClubMember(actorId: string, slug: string, targetId: 
 // ─── club polls ────────────────────────────────────────────────────────────
 export async function listClubPolls(slug: string, userId?: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const { listForClub } = await import("../polls/polls.service");
   return listForClub(club.id, userId);
 }
 
 export async function createClubPoll(userId: string, slug: string, dto: { question: string; options: string[]; expiresInDays?: number }) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const membership = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId, clubId: club.id } }, select: { userId: true } });
   if (!membership) throw forbidden("Join the club to create a poll");
   if (!dto.question?.trim() || !Array.isArray(dto.options) || dto.options.filter((o) => o.trim()).length < 2) {
@@ -356,7 +373,7 @@ export async function createClubPoll(userId: string, slug: string, dto: { questi
 
 export async function leaderboard(slug: string, period: "week" | "all") {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const where = period === "week"
     ? { clubId: club.id, lastXpAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60_000) } }
     : { clubId: club.id };
@@ -371,7 +388,7 @@ export async function leaderboard(slug: string, period: "week" | "all") {
 
 export async function getClubActivity(slug: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const since = new Date(Date.now() - 60 * 24 * 60 * 60_000); // last 60 days
 
   const [threads, events, members, watch] = await Promise.all([
@@ -396,7 +413,7 @@ export async function getClubActivity(slug: string) {
 
 export async function getWatchlist(slug: string) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const items = await prisma.clubWatchlistItem.findMany({
     where: { clubId: club.id },
     orderBy: { createdAt: "desc" },
@@ -407,7 +424,7 @@ export async function getWatchlist(slug: string) {
 
 export async function addToWatchlist(actorId: string, slug: string, dto: { malId: number; title: string; imageUrl?: string }) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const membership = await prisma.clubMember.findUnique({ where: { userId_clubId: { userId: actorId, clubId: club.id } }, select: { userId: true } });
   if (!membership) throw forbidden("Join the club to add to its watchlist");
   if (!dto.malId || !dto.title?.trim()) throw badReq("malId and title are required");
@@ -423,7 +440,7 @@ export async function addToWatchlist(actorId: string, slug: string, dto: { malId
 
 export async function removeFromWatchlist(actorId: string, slug: string, malId: number) {
   const club = await prisma.club.findUnique({ where: { slug }, select: { id: true } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
   const item = await prisma.clubWatchlistItem.findUnique({ where: { clubId_malId: { clubId: club.id, malId } }, select: { addedById: true } });
   if (!item) throw notFound("Not on the watchlist");
   if (item.addedById !== actorId) await assertModerator(actorId, club.id); // adder, or a mod
@@ -436,7 +453,7 @@ export async function removeFromWatchlist(actorId: string, slug: string, malId: 
 
 export async function leave(userId: string, slug: string) {
   const club = await prisma.club.findUnique({ where: { slug }, include: { chatGroup: { select: { id: true } } } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   if (club.ownerId === userId) {
     throw forbidden("Club owner cannot leave; transfer ownership first");
@@ -474,7 +491,7 @@ export async function getOrCreateClubChat(userId: string, slug: string) {
     where: { slug },
     include: { chatGroup: { select: { id: true } } },
   });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   const membership = await prisma.clubMember.findUnique({
     where: { userId_clubId: { userId, clubId: club.id } },
@@ -516,7 +533,7 @@ export async function setMemberRole(
   role: "USER" | "MOD" | "ADMIN",
 ) {
   const club = await prisma.club.findUnique({ where: { slug } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   const actorMembership = await prisma.clubMember.findUnique({
     where: { userId_clubId: { userId: actorId, clubId: club.id } },
@@ -553,7 +570,7 @@ export async function setMemberRole(
 
 export async function getClubMembers(slug: string, page: number, limit: number) {
   const club = await prisma.club.findUnique({ where: { slug } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   const [members, total, topXp] = await prisma.$transaction([
     prisma.clubMember.findMany({
@@ -599,7 +616,7 @@ export async function getClubMembers(slug: string, page: number, limit: number) 
 
 export async function update(slug: string, actorId: string, dto: UpdateClubDto) {
   const club = await prisma.club.findUnique({ where: { slug } });
-  if (!club) throw notFound("Club not found");
+  if (!club) throw notFound("Den not found");
 
   const actorMembership = await prisma.clubMember.findUnique({
     where: { userId_clubId: { userId: actorId, clubId: club.id } },
