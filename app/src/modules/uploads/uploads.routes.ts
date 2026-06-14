@@ -35,10 +35,10 @@ uploadsRouter.post(
 );
 
 // Server-side fallback when the browser can't PUT directly to S3.
-// 10MB body cap matches the post-image limit in useImageUpload.
+// Accepts images and short videos (shots), buffered then sent to S3 with our creds.
 uploadsRouter.post(
   "/proxy",
   requireAuth,
-  raw({ type: ["image/*"], limit: "10mb" }),
+  raw({ type: ["image/*", "video/*"], limit: "100mb" }),
   ctrl.uploadProxy,
 );

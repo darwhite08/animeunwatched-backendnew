@@ -11,13 +11,18 @@ import {
 } from "./uploads.schema";
 
 const ALLOWED_IMG = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"])
-const MAX_BYTES = { avatar: 5 * 1024 * 1024, post: 10 * 1024 * 1024 } as const
+const ALLOWED_VIDEO = new Set(["video/mp4", "video/webm", "video/quicktime", "video/3gpp"])
+const MAX_BYTES = { avatar: 5 * 1024 * 1024, post: 10 * 1024 * 1024, shot: 100 * 1024 * 1024 } as const
 
 function extFor(ct: string): string {
   if (ct === "image/jpeg") return "jpg"
   if (ct === "image/png")  return "png"
   if (ct === "image/webp") return "webp"
   if (ct === "image/gif")  return "gif"
+  if (ct === "video/mp4")  return "mp4"
+  if (ct === "video/webm") return "webm"
+  if (ct === "video/quicktime") return "mov"
+  if (ct === "video/3gpp") return "3gp"
   return "bin"
 }
 
@@ -33,16 +38,20 @@ function extFor(ct: string): string {
 export async function uploadProxy(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id
-    const scope = req.query.scope === "avatar" ? "avatar" : req.query.scope === "post" ? "post" : null
-    if (!scope) throw badRequest("scope must be 'avatar' or 'post'")
+    const rawScope = req.query.scope
+    const scope = rawScope === "avatar" ? "avatar" : rawScope === "post" ? "post" : rawScope === "shot" ? "shot" : null
+    if (!scope) throw badRequest("scope must be 'avatar', 'post' or 'shot'")
 
     const contentType = req.header("content-type") ?? ""
-    if (!ALLOWED_IMG.has(contentType)) throw badRequest("Only JPEG/PNG/WebP/GIF images are accepted")
+    const isVideo = scope === "shot"
+    if (isVideo ? !ALLOWED_VIDEO.has(contentType) : !ALLOWED_IMG.has(contentType)) {
+      throw badRequest(isVideo ? "Only MP4/WebM/MOV/3GP videos are accepted" : "Only JPEG/PNG/WebP/GIF images are accepted")
+    }
 
     const body = req.body as Buffer | undefined
     if (!body || !Buffer.isBuffer(body) || body.length === 0) throw badRequest("Empty body")
     if (body.length > MAX_BYTES[scope]) {
-      throw badRequest(`Image too large — max ${MAX_BYTES[scope] / 1024 / 1024}MB`)
+      throw badRequest(`File too large — max ${MAX_BYTES[scope] / 1024 / 1024}MB`)
     }
 
     const result = await uploadImageBuffer({
