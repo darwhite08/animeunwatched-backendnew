@@ -1158,6 +1158,7 @@ model Thread {
   id        String   @id @default(cuid())
   title     String
   content   String
+  imageUrl  String?
   authorId  String
   clubId    String?
   animeId   String?
@@ -1186,6 +1187,7 @@ model ThreadReply {
   authorId  String
   parentId  String?
   content   String
+  imageUrl  String?
   createdAt DateTime @default(now())
 
   thread Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)

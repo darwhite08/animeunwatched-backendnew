@@ -14329,6 +14329,7 @@ export const ThreadScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
+  imageUrl: 'imageUrl',
   authorId: 'authorId',
   clubId: 'clubId',
   animeId: 'animeId',
@@ -14351,6 +14352,7 @@ export const ThreadReplyScalarFieldEnum = {
   authorId: 'authorId',
   parentId: 'parentId',
   content: 'content',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt'
 } as const
 

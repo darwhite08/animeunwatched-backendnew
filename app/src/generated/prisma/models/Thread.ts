@@ -38,6 +38,7 @@ export type ThreadMinAggregateOutputType = {
   id: string | null
   title: string | null
   content: string | null
+  imageUrl: string | null
   authorId: string | null
   clubId: string | null
   animeId: string | null
@@ -54,6 +55,7 @@ export type ThreadMaxAggregateOutputType = {
   id: string | null
   title: string | null
   content: string | null
+  imageUrl: string | null
   authorId: string | null
   clubId: string | null
   animeId: string | null
@@ -70,6 +72,7 @@ export type ThreadCountAggregateOutputType = {
   id: number
   title: number
   content: number
+  imageUrl: number
   authorId: number
   clubId: number
   animeId: number
@@ -97,6 +100,7 @@ export type ThreadMinAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  imageUrl?: true
   authorId?: true
   clubId?: true
   animeId?: true
@@ -113,6 +117,7 @@ export type ThreadMaxAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  imageUrl?: true
   authorId?: true
   clubId?: true
   animeId?: true
@@ -129,6 +134,7 @@ export type ThreadCountAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  imageUrl?: true
   authorId?: true
   clubId?: true
   animeId?: true
@@ -233,6 +239,7 @@ export type ThreadGroupByOutputType = {
   id: string
   title: string
   content: string
+  imageUrl: string | null
   authorId: string
   clubId: string | null
   animeId: string | null
@@ -273,6 +280,7 @@ export type ThreadWhereInput = {
   id?: Prisma.StringFilter<"Thread"> | string
   title?: Prisma.StringFilter<"Thread"> | string
   content?: Prisma.StringFilter<"Thread"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Thread"> | string | null
   authorId?: Prisma.StringFilter<"Thread"> | string
   clubId?: Prisma.StringNullableFilter<"Thread"> | string | null
   animeId?: Prisma.StringNullableFilter<"Thread"> | string | null
@@ -294,6 +302,7 @@ export type ThreadOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -318,6 +327,7 @@ export type ThreadWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ThreadWhereInput | Prisma.ThreadWhereInput[]
   title?: Prisma.StringFilter<"Thread"> | string
   content?: Prisma.StringFilter<"Thread"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Thread"> | string | null
   authorId?: Prisma.StringFilter<"Thread"> | string
   clubId?: Prisma.StringNullableFilter<"Thread"> | string | null
   animeId?: Prisma.StringNullableFilter<"Thread"> | string | null
@@ -339,6 +349,7 @@ export type ThreadOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   clubId?: Prisma.SortOrderInput | Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -364,6 +375,7 @@ export type ThreadScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Thread"> | string
   title?: Prisma.StringWithAggregatesFilter<"Thread"> | string
   content?: Prisma.StringWithAggregatesFilter<"Thread"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Thread"> | string | null
   authorId?: Prisma.StringWithAggregatesFilter<"Thread"> | string
   clubId?: Prisma.StringNullableWithAggregatesFilter<"Thread"> | string | null
   animeId?: Prisma.StringNullableWithAggregatesFilter<"Thread"> | string | null
@@ -381,6 +393,7 @@ export type ThreadCreateInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   isPinned?: boolean
   isLocked?: boolean
   kind?: $Enums.ThreadKind
@@ -399,6 +412,7 @@ export type ThreadUncheckedCreateInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   clubId?: string | null
   animeId?: string | null
@@ -417,6 +431,7 @@ export type ThreadUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -435,6 +450,7 @@ export type ThreadUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -453,6 +469,7 @@ export type ThreadCreateManyInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   clubId?: string | null
   animeId?: string | null
@@ -470,6 +487,7 @@ export type ThreadUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -484,6 +502,7 @@ export type ThreadUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -511,6 +530,7 @@ export type ThreadCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
@@ -532,6 +552,7 @@ export type ThreadMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
@@ -548,6 +569,7 @@ export type ThreadMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   clubId?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
@@ -726,6 +748,7 @@ export type ThreadCreateWithoutAuthorInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   isPinned?: boolean
   isLocked?: boolean
   kind?: $Enums.ThreadKind
@@ -743,6 +766,7 @@ export type ThreadUncheckedCreateWithoutAuthorInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   clubId?: string | null
   animeId?: string | null
   isPinned?: boolean
@@ -789,6 +813,7 @@ export type ThreadScalarWhereInput = {
   id?: Prisma.StringFilter<"Thread"> | string
   title?: Prisma.StringFilter<"Thread"> | string
   content?: Prisma.StringFilter<"Thread"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Thread"> | string | null
   authorId?: Prisma.StringFilter<"Thread"> | string
   clubId?: Prisma.StringNullableFilter<"Thread"> | string | null
   animeId?: Prisma.StringNullableFilter<"Thread"> | string | null
@@ -806,6 +831,7 @@ export type ThreadCreateWithoutAnimeInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   isPinned?: boolean
   isLocked?: boolean
   kind?: $Enums.ThreadKind
@@ -823,6 +849,7 @@ export type ThreadUncheckedCreateWithoutAnimeInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   clubId?: string | null
   isPinned?: boolean
@@ -866,6 +893,7 @@ export type ThreadCreateWithoutClubInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   isPinned?: boolean
   isLocked?: boolean
   kind?: $Enums.ThreadKind
@@ -883,6 +911,7 @@ export type ThreadUncheckedCreateWithoutClubInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   animeId?: string | null
   isPinned?: boolean
@@ -926,6 +955,7 @@ export type ThreadCreateWithoutRepliesInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   isPinned?: boolean
   isLocked?: boolean
   kind?: $Enums.ThreadKind
@@ -943,6 +973,7 @@ export type ThreadUncheckedCreateWithoutRepliesInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   clubId?: string | null
   animeId?: string | null
@@ -976,6 +1007,7 @@ export type ThreadUpdateWithoutRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -993,6 +1025,7 @@ export type ThreadUncheckedUpdateWithoutRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1010,6 +1043,7 @@ export type ThreadCreateManyAuthorInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   clubId?: string | null
   animeId?: string | null
   isPinned?: boolean
@@ -1026,6 +1060,7 @@ export type ThreadUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -1043,6 +1078,7 @@ export type ThreadUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1060,6 +1096,7 @@ export type ThreadUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1076,6 +1113,7 @@ export type ThreadCreateManyAnimeInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   clubId?: string | null
   isPinned?: boolean
@@ -1092,6 +1130,7 @@ export type ThreadUpdateWithoutAnimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -1109,6 +1148,7 @@ export type ThreadUncheckedUpdateWithoutAnimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1126,6 +1166,7 @@ export type ThreadUncheckedUpdateManyWithoutAnimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   clubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1142,6 +1183,7 @@ export type ThreadCreateManyClubInput = {
   id?: string
   title: string
   content: string
+  imageUrl?: string | null
   authorId: string
   animeId?: string | null
   isPinned?: boolean
@@ -1158,6 +1200,7 @@ export type ThreadUpdateWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   kind?: Prisma.EnumThreadKindFieldUpdateOperationsInput | $Enums.ThreadKind
@@ -1175,6 +1218,7 @@ export type ThreadUncheckedUpdateWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1192,6 +1236,7 @@ export type ThreadUncheckedUpdateManyWithoutClubInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1239,6 +1284,7 @@ export type ThreadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   title?: boolean
   content?: boolean
+  imageUrl?: boolean
   authorId?: boolean
   clubId?: boolean
   animeId?: boolean
@@ -1261,6 +1307,7 @@ export type ThreadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   content?: boolean
+  imageUrl?: boolean
   authorId?: boolean
   clubId?: boolean
   animeId?: boolean
@@ -1281,6 +1328,7 @@ export type ThreadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   content?: boolean
+  imageUrl?: boolean
   authorId?: boolean
   clubId?: boolean
   animeId?: boolean
@@ -1301,6 +1349,7 @@ export type ThreadSelectScalar = {
   id?: boolean
   title?: boolean
   content?: boolean
+  imageUrl?: boolean
   authorId?: boolean
   clubId?: boolean
   animeId?: boolean
@@ -1314,7 +1363,7 @@ export type ThreadSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ThreadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "clubId" | "animeId" | "isPinned" | "isLocked" | "kind" | "pinnedUntil" | "episodeNumber" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
+export type ThreadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "imageUrl" | "authorId" | "clubId" | "animeId" | "isPinned" | "isLocked" | "kind" | "pinnedUntil" | "episodeNumber" | "tags" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
 export type ThreadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   club?: boolean | Prisma.Thread$clubArgs<ExtArgs>
@@ -1345,6 +1394,7 @@ export type $ThreadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     title: string
     content: string
+    imageUrl: string | null
     authorId: string
     clubId: string | null
     animeId: string | null
@@ -1786,6 +1836,7 @@ export interface ThreadFieldRefs {
   readonly id: Prisma.FieldRef<"Thread", 'String'>
   readonly title: Prisma.FieldRef<"Thread", 'String'>
   readonly content: Prisma.FieldRef<"Thread", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Thread", 'String'>
   readonly authorId: Prisma.FieldRef<"Thread", 'String'>
   readonly clubId: Prisma.FieldRef<"Thread", 'String'>
   readonly animeId: Prisma.FieldRef<"Thread", 'String'>

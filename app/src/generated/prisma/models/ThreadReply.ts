@@ -30,6 +30,7 @@ export type ThreadReplyMinAggregateOutputType = {
   authorId: string | null
   parentId: string | null
   content: string | null
+  imageUrl: string | null
   createdAt: Date | null
 }
 
@@ -39,6 +40,7 @@ export type ThreadReplyMaxAggregateOutputType = {
   authorId: string | null
   parentId: string | null
   content: string | null
+  imageUrl: string | null
   createdAt: Date | null
 }
 
@@ -48,6 +50,7 @@ export type ThreadReplyCountAggregateOutputType = {
   authorId: number
   parentId: number
   content: number
+  imageUrl: number
   createdAt: number
   _all: number
 }
@@ -59,6 +62,7 @@ export type ThreadReplyMinAggregateInputType = {
   authorId?: true
   parentId?: true
   content?: true
+  imageUrl?: true
   createdAt?: true
 }
 
@@ -68,6 +72,7 @@ export type ThreadReplyMaxAggregateInputType = {
   authorId?: true
   parentId?: true
   content?: true
+  imageUrl?: true
   createdAt?: true
 }
 
@@ -77,6 +82,7 @@ export type ThreadReplyCountAggregateInputType = {
   authorId?: true
   parentId?: true
   content?: true
+  imageUrl?: true
   createdAt?: true
   _all?: true
 }
@@ -159,6 +165,7 @@ export type ThreadReplyGroupByOutputType = {
   authorId: string
   parentId: string | null
   content: string
+  imageUrl: string | null
   createdAt: Date
   _count: ThreadReplyCountAggregateOutputType | null
   _min: ThreadReplyMinAggregateOutputType | null
@@ -189,6 +196,7 @@ export type ThreadReplyWhereInput = {
   authorId?: Prisma.StringFilter<"ThreadReply"> | string
   parentId?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   content?: Prisma.StringFilter<"ThreadReply"> | string
+  imageUrl?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ThreadReply"> | Date | string
   thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -202,6 +210,7 @@ export type ThreadReplyOrderByWithRelationInput = {
   authorId?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   thread?: Prisma.ThreadOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
@@ -218,6 +227,7 @@ export type ThreadReplyWhereUniqueInput = Prisma.AtLeast<{
   authorId?: Prisma.StringFilter<"ThreadReply"> | string
   parentId?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   content?: Prisma.StringFilter<"ThreadReply"> | string
+  imageUrl?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ThreadReply"> | Date | string
   thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -231,6 +241,7 @@ export type ThreadReplyOrderByWithAggregationInput = {
   authorId?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ThreadReplyCountOrderByAggregateInput
   _max?: Prisma.ThreadReplyMaxOrderByAggregateInput
@@ -246,12 +257,14 @@ export type ThreadReplyScalarWhereWithAggregatesInput = {
   authorId?: Prisma.StringWithAggregatesFilter<"ThreadReply"> | string
   parentId?: Prisma.StringNullableWithAggregatesFilter<"ThreadReply"> | string | null
   content?: Prisma.StringWithAggregatesFilter<"ThreadReply"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"ThreadReply"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ThreadReply"> | Date | string
 }
 
 export type ThreadReplyCreateInput = {
   id?: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutRepliesInput
   author: Prisma.UserCreateNestedOneWithoutThreadRepliesInput
@@ -265,6 +278,7 @@ export type ThreadReplyUncheckedCreateInput = {
   authorId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   children?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutParentInput
 }
@@ -272,6 +286,7 @@ export type ThreadReplyUncheckedCreateInput = {
 export type ThreadReplyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutRepliesNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutThreadRepliesNestedInput
@@ -285,6 +300,7 @@ export type ThreadReplyUncheckedUpdateInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ThreadReplyUncheckedUpdateManyWithoutParentNestedInput
 }
@@ -295,12 +311,14 @@ export type ThreadReplyCreateManyInput = {
   authorId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
 }
 
 export type ThreadReplyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -310,6 +328,7 @@ export type ThreadReplyUncheckedUpdateManyInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -334,6 +353,7 @@ export type ThreadReplyCountOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -343,6 +363,7 @@ export type ThreadReplyMaxOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -352,6 +373,7 @@ export type ThreadReplyMinOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -500,6 +522,7 @@ export type ThreadReplyUncheckedUpdateManyWithoutParentNestedInput = {
 export type ThreadReplyCreateWithoutAuthorInput = {
   id?: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutRepliesInput
   parent?: Prisma.ThreadReplyCreateNestedOneWithoutChildrenInput
@@ -511,6 +534,7 @@ export type ThreadReplyUncheckedCreateWithoutAuthorInput = {
   threadId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   children?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutParentInput
 }
@@ -550,12 +574,14 @@ export type ThreadReplyScalarWhereInput = {
   authorId?: Prisma.StringFilter<"ThreadReply"> | string
   parentId?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   content?: Prisma.StringFilter<"ThreadReply"> | string
+  imageUrl?: Prisma.StringNullableFilter<"ThreadReply"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ThreadReply"> | Date | string
 }
 
 export type ThreadReplyCreateWithoutThreadInput = {
   id?: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutThreadRepliesInput
   parent?: Prisma.ThreadReplyCreateNestedOneWithoutChildrenInput
@@ -567,6 +593,7 @@ export type ThreadReplyUncheckedCreateWithoutThreadInput = {
   authorId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   children?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutParentInput
 }
@@ -600,6 +627,7 @@ export type ThreadReplyUpdateManyWithWhereWithoutThreadInput = {
 export type ThreadReplyCreateWithoutChildrenInput = {
   id?: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutRepliesInput
   author: Prisma.UserCreateNestedOneWithoutThreadRepliesInput
@@ -612,6 +640,7 @@ export type ThreadReplyUncheckedCreateWithoutChildrenInput = {
   authorId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -623,6 +652,7 @@ export type ThreadReplyCreateOrConnectWithoutChildrenInput = {
 export type ThreadReplyCreateWithoutParentInput = {
   id?: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   thread: Prisma.ThreadCreateNestedOneWithoutRepliesInput
   author: Prisma.UserCreateNestedOneWithoutThreadRepliesInput
@@ -634,6 +664,7 @@ export type ThreadReplyUncheckedCreateWithoutParentInput = {
   threadId: string
   authorId: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
   children?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutParentInput
 }
@@ -662,6 +693,7 @@ export type ThreadReplyUpdateToOneWithWhereWithoutChildrenInput = {
 export type ThreadReplyUpdateWithoutChildrenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutRepliesNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutThreadRepliesNestedInput
@@ -674,6 +706,7 @@ export type ThreadReplyUncheckedUpdateWithoutChildrenInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -698,12 +731,14 @@ export type ThreadReplyCreateManyAuthorInput = {
   threadId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
 }
 
 export type ThreadReplyUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutRepliesNestedInput
   parent?: Prisma.ThreadReplyUpdateOneWithoutChildrenNestedInput
@@ -715,6 +750,7 @@ export type ThreadReplyUncheckedUpdateWithoutAuthorInput = {
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ThreadReplyUncheckedUpdateManyWithoutParentNestedInput
 }
@@ -724,6 +760,7 @@ export type ThreadReplyUncheckedUpdateManyWithoutAuthorInput = {
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -732,12 +769,14 @@ export type ThreadReplyCreateManyThreadInput = {
   authorId: string
   parentId?: string | null
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
 }
 
 export type ThreadReplyUpdateWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutThreadRepliesNestedInput
   parent?: Prisma.ThreadReplyUpdateOneWithoutChildrenNestedInput
@@ -749,6 +788,7 @@ export type ThreadReplyUncheckedUpdateWithoutThreadInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ThreadReplyUncheckedUpdateManyWithoutParentNestedInput
 }
@@ -758,6 +798,7 @@ export type ThreadReplyUncheckedUpdateManyWithoutThreadInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -766,12 +807,14 @@ export type ThreadReplyCreateManyParentInput = {
   threadId: string
   authorId: string
   content: string
+  imageUrl?: string | null
   createdAt?: Date | string
 }
 
 export type ThreadReplyUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   thread?: Prisma.ThreadUpdateOneRequiredWithoutRepliesNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutThreadRepliesNestedInput
@@ -783,6 +826,7 @@ export type ThreadReplyUncheckedUpdateWithoutParentInput = {
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ThreadReplyUncheckedUpdateManyWithoutParentNestedInput
 }
@@ -792,6 +836,7 @@ export type ThreadReplyUncheckedUpdateManyWithoutParentInput = {
   threadId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -832,6 +877,7 @@ export type ThreadReplySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   authorId?: boolean
   parentId?: boolean
   content?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -846,6 +892,7 @@ export type ThreadReplySelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   authorId?: boolean
   parentId?: boolean
   content?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -858,6 +905,7 @@ export type ThreadReplySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   authorId?: boolean
   parentId?: boolean
   content?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -870,10 +918,11 @@ export type ThreadReplySelectScalar = {
   authorId?: boolean
   parentId?: boolean
   content?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
 }
 
-export type ThreadReplyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "threadId" | "authorId" | "parentId" | "content" | "createdAt", ExtArgs["result"]["threadReply"]>
+export type ThreadReplyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "threadId" | "authorId" | "parentId" | "content" | "imageUrl" | "createdAt", ExtArgs["result"]["threadReply"]>
 export type ThreadReplyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -906,6 +955,7 @@ export type $ThreadReplyPayload<ExtArgs extends runtime.Types.Extensions.Interna
     authorId: string
     parentId: string | null
     content: string
+    imageUrl: string | null
     createdAt: Date
   }, ExtArgs["result"]["threadReply"]>
   composites: {}
@@ -1339,6 +1389,7 @@ export interface ThreadReplyFieldRefs {
   readonly authorId: Prisma.FieldRef<"ThreadReply", 'String'>
   readonly parentId: Prisma.FieldRef<"ThreadReply", 'String'>
   readonly content: Prisma.FieldRef<"ThreadReply", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"ThreadReply", 'String'>
   readonly createdAt: Prisma.FieldRef<"ThreadReply", 'DateTime'>
 }
     

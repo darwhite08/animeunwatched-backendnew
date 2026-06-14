@@ -70,6 +70,7 @@ export async function createClubThread(
     data: {
       title: dto.title,
       content: dto.content,
+      imageUrl: dto.imageUrl ?? null,
       authorId,
       clubId: club.id,
       kind: kind as "DISCUSSION" | "ANNOUNCEMENT" | "CHALLENGE" | "EPISODE",
@@ -107,6 +108,7 @@ export async function createAnimeThread(
     data: {
       title: dto.title,
       content: dto.content,
+      imageUrl: dto.imageUrl ?? null,
       authorId,
       animeId: anime.id,
     },
@@ -227,6 +229,7 @@ export async function createReply(
       threadId,
       authorId,
       content: dto.content,
+      imageUrl: dto.imageUrl ?? null,
       ...(dto.parentId ? { parentId: dto.parentId } : {}),
     },
     include: {
@@ -281,7 +284,7 @@ export async function getClubThreads(slug: string, page = 1, limit = 20, userId?
     if (!member) return { data: [], meta: { total: 0, page, limit, pages: 0 } };
   }
 
-  const [data, total] = await prisma.$transaction([
+  const [rows, total] = await prisma.$transaction([
     prisma.thread.findMany({
       where: { clubId: club.id },
       skip, take: limit,
@@ -290,6 +293,11 @@ export async function getClubThreads(slug: string, page = 1, limit = 20, userId?
     }),
     prisma.thread.count({ where: { clubId: club.id } }),
   ]);
+
+  // Attach reaction summaries so the feed can render Hype/like counts inline
+  // (Reddit/Twitter-style cards) without an N+1 round-trip per thread.
+  const rmap = await reactionsFor(rows.map((t) => t.id), userId);
+  const data = rows.map((t) => ({ ...t, reactions: rmap.get(t.id) ?? [] }));
 
   return { data, meta: { total, page, limit, pages: Math.ceil(total / limit) } };
 }
