@@ -63,6 +63,7 @@ export const ModelName = {
   LeaderboardSnapshot: 'LeaderboardSnapshot',
   DeviceToken: 'DeviceToken',
   NativePushToken: 'NativePushToken',
+  WebPushSubscription: 'WebPushSubscription',
   RefreshToken: 'RefreshToken',
   PasswordResetToken: 'PasswordResetToken',
   SecurityEvent: 'SecurityEvent',
@@ -467,6 +468,20 @@ export const NativePushTokenScalarFieldEnum = {
 } as const
 
 export type NativePushTokenScalarFieldEnum = (typeof NativePushTokenScalarFieldEnum)[keyof typeof NativePushTokenScalarFieldEnum]
+
+
+export const WebPushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt',
+  lastSeen: 'lastSeen'
+} as const
+
+export type WebPushSubscriptionScalarFieldEnum = (typeof WebPushSubscriptionScalarFieldEnum)[keyof typeof WebPushSubscriptionScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {

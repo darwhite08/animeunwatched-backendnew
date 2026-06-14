@@ -173,6 +173,7 @@ model User {
   // Push notification device tokens
   deviceTokens       DeviceToken[]
   nativePushTokens   NativePushToken[] // Capacitor FCM/APNs tokens (additive)
+  webPushSubscriptions WebPushSubscription[] // W3C Web Push (VAPID) for PWAs/browsers
   messageReactions   MessageReaction[]
   // Activity feed (FEED_FEATURES §12 — MVP)
   activities         Activity[]
@@ -442,6 +443,23 @@ model NativePushToken {
   platform   String   // "ios" | "android"
   createdAt  DateTime @default(now())
   lastSeenAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// W3C Web Push (VAPID) subscriptions for installed PWAs / browsers. One row per
+// browser/device endpoint; the endpoint is the dedupe + cleanup key.
+model WebPushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+  lastSeen  DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

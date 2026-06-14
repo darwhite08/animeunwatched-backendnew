@@ -26,3 +26,19 @@ export const registerNativeTokenSchema = z.object({
 export const unregisterNativeTokenSchema = z.object({
   token: z.string().min(1).max(4096),
 });
+
+// W3C Web Push (VAPID) subscription from the browser's PushManager.
+export const webPushSubscribeSchema = z.object({
+  subscription: z.object({
+    endpoint: z.string().url().max(2048),
+    keys: z.object({
+      p256dh: z.string().min(1).max(200),
+      auth: z.string().min(1).max(100),
+    }),
+  }),
+  userAgent: z.string().max(500).optional(),
+});
+
+export const webPushUnsubscribeSchema = z.object({
+  endpoint: z.string().min(1).max(2048),
+});

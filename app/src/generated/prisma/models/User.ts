@@ -534,6 +534,7 @@ export type UserWhereInput = {
   conversations2?: Prisma.ConversationListRelationFilter
   deviceTokens?: Prisma.DeviceTokenListRelationFilter
   nativePushTokens?: Prisma.NativePushTokenListRelationFilter
+  webPushSubscriptions?: Prisma.WebPushSubscriptionListRelationFilter
   messageReactions?: Prisma.MessageReactionListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   activityLikes?: Prisma.ActivityLikeListRelationFilter
@@ -652,6 +653,7 @@ export type UserOrderByWithRelationInput = {
   conversations2?: Prisma.ConversationOrderByRelationAggregateInput
   deviceTokens?: Prisma.DeviceTokenOrderByRelationAggregateInput
   nativePushTokens?: Prisma.NativePushTokenOrderByRelationAggregateInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionOrderByRelationAggregateInput
   messageReactions?: Prisma.MessageReactionOrderByRelationAggregateInput
   activities?: Prisma.ActivityOrderByRelationAggregateInput
   activityLikes?: Prisma.ActivityLikeOrderByRelationAggregateInput
@@ -773,6 +775,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   conversations2?: Prisma.ConversationListRelationFilter
   deviceTokens?: Prisma.DeviceTokenListRelationFilter
   nativePushTokens?: Prisma.NativePushTokenListRelationFilter
+  webPushSubscriptions?: Prisma.WebPushSubscriptionListRelationFilter
   messageReactions?: Prisma.MessageReactionListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   activityLikes?: Prisma.ActivityLikeListRelationFilter
@@ -980,6 +983,7 @@ export type UserCreateInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -1097,6 +1101,7 @@ export type UserUncheckedCreateInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -1214,6 +1219,7 @@ export type UserUpdateInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -1331,6 +1337,7 @@ export type UserUncheckedUpdateInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -1952,6 +1959,20 @@ export type UserUpdateOneRequiredWithoutNativePushTokensNestedInput = {
   upsert?: Prisma.UserUpsertWithoutNativePushTokensInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNativePushTokensInput, Prisma.UserUpdateWithoutNativePushTokensInput>, Prisma.UserUncheckedUpdateWithoutNativePushTokensInput>
+}
+
+export type UserCreateNestedOneWithoutWebPushSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutWebPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWebPushSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutWebPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebPushSubscriptionsInput
+  upsert?: Prisma.UserUpsertWithoutWebPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWebPushSubscriptionsInput, Prisma.UserUpdateWithoutWebPushSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutWebPushSubscriptionsInput>
 }
 
 export type UserCreateNestedOneWithoutRefreshTokensInput = {
@@ -2891,6 +2912,7 @@ export type UserCreateWithoutReferralsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -3007,6 +3029,7 @@ export type UserUncheckedCreateWithoutReferralsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -3128,6 +3151,7 @@ export type UserCreateWithoutReferredByInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -3244,6 +3268,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -3381,6 +3406,7 @@ export type UserUpdateWithoutReferralsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -3497,6 +3523,7 @@ export type UserUncheckedUpdateWithoutReferralsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -3674,6 +3701,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -3790,6 +3818,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -3922,6 +3951,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -4038,6 +4068,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -4154,6 +4185,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -4270,6 +4302,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -4402,6 +4435,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -4518,6 +4552,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -4634,6 +4669,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -4750,6 +4786,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -4871,6 +4908,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -4987,6 +5025,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -5119,6 +5158,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -5235,6 +5275,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -5362,6 +5403,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -5478,6 +5520,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -5594,6 +5637,7 @@ export type UserCreateWithoutTipsSentInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -5710,6 +5754,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -5831,6 +5876,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -5947,6 +5993,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -6079,6 +6126,7 @@ export type UserUpdateWithoutTipsSentInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -6195,6 +6243,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -6322,6 +6371,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -6438,6 +6488,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -6554,6 +6605,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -6670,6 +6722,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -6802,6 +6855,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -6918,6 +6972,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -7034,6 +7089,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -7150,6 +7206,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -7282,6 +7339,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -7398,6 +7456,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -7514,6 +7573,7 @@ export type UserCreateWithoutPayoutsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -7630,6 +7690,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -7762,6 +7823,7 @@ export type UserUpdateWithoutPayoutsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -7878,6 +7940,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -7994,6 +8057,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -8110,6 +8174,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -8242,6 +8307,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -8358,6 +8424,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -8474,6 +8541,7 @@ export type UserCreateWithoutBadgesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -8590,6 +8658,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -8722,6 +8791,7 @@ export type UserUpdateWithoutBadgesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -8838,6 +8908,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -8954,6 +9025,7 @@ export type UserCreateWithoutLbSnapshotsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -9070,6 +9142,7 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -9202,6 +9275,7 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -9318,6 +9392,7 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -9433,6 +9508,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -9549,6 +9625,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -9681,6 +9758,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -9797,6 +9875,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -9913,6 +9992,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -10029,6 +10109,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -10161,6 +10242,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -10277,6 +10359,491 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUncheckedUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUncheckedUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUncheckedUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUncheckedUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUncheckedUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUncheckedUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUncheckedUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUncheckedUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUncheckedUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWebPushSubscriptionsInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  lastReengagedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsInput
+  referrals?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutModInput
+  polls?: Prisma.PollCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWebPushSubscriptionsInput = {
+  id?: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  lastReengagedAt?: Date | string | null
+  username: string
+  slug?: string | null
+  displayName: string
+  bio?: string | null
+  avatarUrl?: string | null
+  coverImage?: string | null
+  favoriteGenres?: Prisma.UserCreatefavoriteGenresInput | string[]
+  onboardedAt?: Date | string | null
+  passwordHash?: string
+  role?: $Enums.Role
+  reputation?: number
+  verifiedKind?: $Enums.VerificationKind | null
+  verifiedAt?: Date | string | null
+  isBanned?: boolean
+  bannedReason?: string | null
+  isShadowBanned?: boolean
+  isPrivate?: boolean
+  dmPrivacy?: string
+  readReceiptsOn?: boolean
+  showOnlineStatus?: string
+  dmLastSeenAt?: Date | string | null
+  streakDays?: number
+  lastActiveAt?: Date | string | null
+  bestStreak?: number
+  lastStreakDate?: string | null
+  timezone?: string
+  streakFreezes?: number
+  freezeGrantedAt?: Date | string | null
+  streakRepairAt?: Date | string | null
+  streakBrokenAt?: Date | string | null
+  prevStreakDays?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  referredById?: string | null
+  emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  referrals?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  listEntries?: Prisma.ListEntryUncheckedCreateNestedManyWithoutUserInput
+  mangaEntries?: Prisma.MangaEntryUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedCreateNestedManyWithoutUserInput
+  postHides?: Prisma.PostHideUncheckedCreateNestedManyWithoutUserInput
+  ownedClubs?: Prisma.ClubUncheckedCreateNestedManyWithoutOwnerInput
+  clubMemberships?: Prisma.ClubMemberUncheckedCreateNestedManyWithoutUserInput
+  threads?: Prisma.ThreadUncheckedCreateNestedManyWithoutAuthorInput
+  threadReplies?: Prisma.ThreadReplyUncheckedCreateNestedManyWithoutAuthorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutAuthorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutModInput
+  polls?: Prisma.PollUncheckedCreateNestedManyWithoutAuthorInput
+  pollVotes?: Prisma.PollVoteUncheckedCreateNestedManyWithoutUserInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  securityEvents?: Prisma.SecurityEventUncheckedCreateNestedManyWithoutUserInput
+  publicKey?: Prisma.UserPublicKeyUncheckedCreateNestedOneWithoutUserInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedCreateNestedManyWithoutUserInput
+  shots?: Prisma.ShotUncheckedCreateNestedManyWithoutAuthorInput
+  shotLikes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutUserInput
+  shotComments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutAuthorInput
+  shotSaves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutUserInput
+  stories?: Prisma.StoryUncheckedCreateNestedManyWithoutAuthorInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.DirectMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
+  conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
+  deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
+  activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
+  activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
+  replies?: Prisma.ReplyUncheckedCreateNestedManyWithoutAuthorInput
+  scimSubject?: Prisma.ScimSubjectUncheckedCreateNestedOneWithoutUserInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  e2eDevices?: Prisma.UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUncheckedCreateNestedManyWithoutUserInput
+  clubEventsCreated?: Prisma.ClubEventUncheckedCreateNestedManyWithoutCreatorInput
+  threadReactions?: Prisma.ThreadReactionUncheckedCreateNestedManyWithoutUserInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUncheckedCreateNestedManyWithoutUserInput
+  clubInvitesCreated?: Prisma.ClubInviteUncheckedCreateNestedManyWithoutCreatedByInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUncheckedCreateNestedManyWithoutUserInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUncheckedCreateNestedManyWithoutAddedByInput
+  groupsOwned?: Prisma.GroupConversationUncheckedCreateNestedManyWithoutOwnerInput
+  groupMemberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  groupMessages?: Prisma.GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+  groupReactions?: Prisma.GroupMessageReactionUncheckedCreateNestedManyWithoutUserInput
+  streakDaysLog?: Prisma.StreakDayUncheckedCreateNestedManyWithoutUserInput
+  badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  blogLikes?: Prisma.BlogLikeUncheckedCreateNestedManyWithoutUserInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUncheckedCreateNestedManyWithoutUserInput
+  creatorProfile?: Prisma.CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+  creatorTiers?: Prisma.CreatorTierUncheckedCreateNestedManyWithoutCreatorInput
+  membershipsAsFan?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutFanInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUncheckedCreateNestedManyWithoutCreatorInput
+  tipsSent?: Prisma.TipUncheckedCreateNestedManyWithoutFromUserInput
+  tipsReceived?: Prisma.TipUncheckedCreateNestedManyWithoutToCreatorInput
+  creatorEarnings?: Prisma.CreatorEarningUncheckedCreateNestedManyWithoutCreatorInput
+  payoutAccount?: Prisma.PayoutAccountUncheckedCreateNestedOneWithoutUserInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCreatorInput
+  socialConnections?: Prisma.SocialConnectionUncheckedCreateNestedManyWithoutUserInput
+  importedMedia?: Prisma.ImportedMediaUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWebPushSubscriptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutWebPushSubscriptionsInput>
+}
+
+export type UserUpsertWithoutWebPushSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutWebPushSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutWebPushSubscriptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWebPushSubscriptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWebPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutWebPushSubscriptionsInput>
+}
+
+export type UserUpdateWithoutWebPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsNestedInput
+  referrals?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
+  activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
+  activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
+  replies?: Prisma.ReplyUpdateManyWithoutAuthorNestedInput
+  scimSubject?: Prisma.ScimSubjectUpdateOneWithoutUserNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  e2eDevices?: Prisma.UserDeviceUpdateManyWithoutUserNestedInput
+  e2eKeyWraps?: Prisma.UserMasterKeyWrapUpdateManyWithoutUserNestedInput
+  clubEventsCreated?: Prisma.ClubEventUpdateManyWithoutCreatorNestedInput
+  threadReactions?: Prisma.ThreadReactionUpdateManyWithoutUserNestedInput
+  clubEventRsvps?: Prisma.ClubEventRSVPUpdateManyWithoutUserNestedInput
+  clubInvitesCreated?: Prisma.ClubInviteUpdateManyWithoutCreatedByNestedInput
+  clubJoinRequests?: Prisma.ClubJoinRequestUpdateManyWithoutUserNestedInput
+  clubWatchlistAdds?: Prisma.ClubWatchlistItemUpdateManyWithoutAddedByNestedInput
+  groupsOwned?: Prisma.GroupConversationUpdateManyWithoutOwnerNestedInput
+  groupMemberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  groupMessages?: Prisma.GroupMessageUpdateManyWithoutSenderNestedInput
+  groupReactions?: Prisma.GroupMessageReactionUpdateManyWithoutUserNestedInput
+  streakDaysLog?: Prisma.StreakDayUpdateManyWithoutUserNestedInput
+  badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  blogLikes?: Prisma.BlogLikeUpdateManyWithoutUserNestedInput
+  lbSnapshots?: Prisma.LeaderboardSnapshotUpdateManyWithoutUserNestedInput
+  creatorProfile?: Prisma.CreatorProfileUpdateOneWithoutUserNestedInput
+  creatorTiers?: Prisma.CreatorTierUpdateManyWithoutCreatorNestedInput
+  membershipsAsFan?: Prisma.CreatorMembershipUpdateManyWithoutFanNestedInput
+  membershipsAsCreator?: Prisma.CreatorMembershipUpdateManyWithoutCreatorNestedInput
+  tipsSent?: Prisma.TipUpdateManyWithoutFromUserNestedInput
+  tipsReceived?: Prisma.TipUpdateManyWithoutToCreatorNestedInput
+  creatorEarnings?: Prisma.CreatorEarningUpdateManyWithoutCreatorNestedInput
+  payoutAccount?: Prisma.PayoutAccountUpdateOneWithoutUserNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCreatorNestedInput
+  socialConnections?: Prisma.SocialConnectionUpdateManyWithoutUserNestedInput
+  importedMedia?: Prisma.ImportedMediaUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWebPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  favoriteGenres?: Prisma.UserUpdatefavoriteGenresInput | string[]
+  onboardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  reputation?: Prisma.IntFieldUpdateOperationsInput | number
+  verifiedKind?: Prisma.NullableEnumVerificationKindFieldUpdateOperationsInput | $Enums.VerificationKind | null
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bannedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isShadowBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dmPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  readReceiptsOn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showOnlineStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  dmLastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastStreakDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  streakFreezes?: Prisma.IntFieldUpdateOperationsInput | number
+  freezeGrantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakRepairAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakBrokenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prevStreakDays?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  referredById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  referrals?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  listEntries?: Prisma.ListEntryUncheckedUpdateManyWithoutUserNestedInput
+  mangaEntries?: Prisma.MangaEntryUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  postCommentLikes?: Prisma.PostCommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  postHides?: Prisma.PostHideUncheckedUpdateManyWithoutUserNestedInput
+  ownedClubs?: Prisma.ClubUncheckedUpdateManyWithoutOwnerNestedInput
+  clubMemberships?: Prisma.ClubMemberUncheckedUpdateManyWithoutUserNestedInput
+  threads?: Prisma.ThreadUncheckedUpdateManyWithoutAuthorNestedInput
+  threadReplies?: Prisma.ThreadReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewLikes?: Prisma.ReviewLikeUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutModNestedInput
+  polls?: Prisma.PollUncheckedUpdateManyWithoutAuthorNestedInput
+  pollVotes?: Prisma.PollVoteUncheckedUpdateManyWithoutUserNestedInput
+  oauthProviders?: Prisma.UserOAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  securityEvents?: Prisma.SecurityEventUncheckedUpdateManyWithoutUserNestedInput
+  publicKey?: Prisma.UserPublicKeyUncheckedUpdateOneWithoutUserNestedInput
+  deviceKeys?: Prisma.UserDeviceKeyUncheckedUpdateManyWithoutUserNestedInput
+  shots?: Prisma.ShotUncheckedUpdateManyWithoutAuthorNestedInput
+  shotLikes?: Prisma.ShotLikeUncheckedUpdateManyWithoutUserNestedInput
+  shotComments?: Prisma.ShotCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  shotSaves?: Prisma.ShotSaveUncheckedUpdateManyWithoutUserNestedInput
+  stories?: Prisma.StoryUncheckedUpdateManyWithoutAuthorNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.DirectMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
+  conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
+  deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
+  nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -10393,6 +10960,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -10509,6 +11077,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -10641,6 +11210,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -10757,6 +11327,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -10873,6 +11444,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -10989,6 +11561,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -11121,6 +11694,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -11237,6 +11811,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11353,6 +11928,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -11469,6 +12045,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -11601,6 +12178,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -11717,6 +12295,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11833,6 +12412,7 @@ export type UserCreateWithoutFollowingInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -11949,6 +12529,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -12070,6 +12651,7 @@ export type UserCreateWithoutFollowersInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -12186,6 +12768,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -12318,6 +12901,7 @@ export type UserUpdateWithoutFollowingInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -12434,6 +13018,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -12561,6 +13146,7 @@ export type UserUpdateWithoutFollowersInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -12677,6 +13263,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -12793,6 +13380,7 @@ export type UserCreateWithoutListEntriesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -12909,6 +13497,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -13041,6 +13630,7 @@ export type UserUpdateWithoutListEntriesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -13157,6 +13747,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -13273,6 +13864,7 @@ export type UserCreateWithoutMangaEntriesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -13389,6 +13981,7 @@ export type UserUncheckedCreateWithoutMangaEntriesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -13521,6 +14114,7 @@ export type UserUpdateWithoutMangaEntriesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -13637,6 +14231,7 @@ export type UserUncheckedUpdateWithoutMangaEntriesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -13753,6 +14348,7 @@ export type UserCreateWithoutPostsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -13869,6 +14465,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -14001,6 +14598,7 @@ export type UserUpdateWithoutPostsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -14117,6 +14715,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -14233,6 +14832,7 @@ export type UserCreateWithoutPostHidesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -14349,6 +14949,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -14481,6 +15082,7 @@ export type UserUpdateWithoutPostHidesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -14597,6 +15199,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -14713,6 +15316,7 @@ export type UserCreateWithoutPostLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -14829,6 +15433,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -14961,6 +15566,7 @@ export type UserUpdateWithoutPostLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -15077,6 +15683,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -15193,6 +15800,7 @@ export type UserCreateWithoutPostCommentsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -15309,6 +15917,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -15441,6 +16050,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -15557,6 +16167,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -15673,6 +16284,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -15789,6 +16401,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -15921,6 +16534,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -16037,6 +16651,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -16153,6 +16768,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -16269,6 +16885,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -16401,6 +17018,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -16517,6 +17135,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -16634,6 +17253,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -16750,6 +17370,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -16882,6 +17503,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -16998,6 +17620,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -17114,6 +17737,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -17230,6 +17854,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -17362,6 +17987,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -17478,6 +18104,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -17594,6 +18221,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -17710,6 +18338,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -17842,6 +18471,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -17958,6 +18588,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -18074,6 +18705,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -18190,6 +18822,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -18322,6 +18955,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -18438,6 +19072,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -18554,6 +19189,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -18670,6 +19306,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -18802,6 +19439,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -18918,6 +19556,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -19033,6 +19672,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -19149,6 +19789,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -19281,6 +19922,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -19397,6 +20039,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -19514,6 +20157,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -19630,6 +20274,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -19762,6 +20407,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -19878,6 +20524,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -19993,6 +20640,7 @@ export type UserCreateWithoutThreadsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -20109,6 +20757,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -20241,6 +20890,7 @@ export type UserUpdateWithoutThreadsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -20357,6 +21007,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -20473,6 +21124,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -20589,6 +21241,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -20721,6 +21374,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -20837,6 +21491,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -20953,6 +21608,7 @@ export type UserCreateWithoutReviewsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -21069,6 +21725,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -21201,6 +21858,7 @@ export type UserUpdateWithoutReviewsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -21317,6 +21975,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -21433,6 +22092,7 @@ export type UserCreateWithoutReviewLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -21549,6 +22209,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -21681,6 +22342,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -21797,6 +22459,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -21913,6 +22576,7 @@ export type UserCreateWithoutBlogsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -22029,6 +22693,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -22161,6 +22826,7 @@ export type UserUpdateWithoutBlogsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -22277,6 +22943,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -22394,6 +23061,7 @@ export type UserCreateWithoutBlogLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -22510,6 +23178,7 @@ export type UserUncheckedCreateWithoutBlogLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -22642,6 +23311,7 @@ export type UserUpdateWithoutBlogLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -22758,6 +23428,7 @@ export type UserUncheckedUpdateWithoutBlogLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -22873,6 +23544,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -22989,6 +23661,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -23121,6 +23794,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -23237,6 +23911,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -23353,6 +24028,7 @@ export type UserCreateWithoutNotificationsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -23469,6 +24145,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -23601,6 +24278,7 @@ export type UserUpdateWithoutNotificationsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -23717,6 +24395,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -23833,6 +24512,7 @@ export type UserCreateWithoutReportsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -23949,6 +24629,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -24081,6 +24762,7 @@ export type UserUpdateWithoutReportsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -24197,6 +24879,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -24313,6 +24996,7 @@ export type UserCreateWithoutModerationActionsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -24429,6 +25113,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -24561,6 +25246,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -24677,6 +25363,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -24793,6 +25480,7 @@ export type UserCreateWithoutPollsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -24909,6 +25597,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -25041,6 +25730,7 @@ export type UserUpdateWithoutPollsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -25157,6 +25847,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -25273,6 +25964,7 @@ export type UserCreateWithoutPollVotesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -25389,6 +26081,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -25521,6 +26214,7 @@ export type UserUpdateWithoutPollVotesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -25637,6 +26331,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -25753,6 +26448,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -25869,6 +26565,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -26001,6 +26698,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -26117,6 +26815,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -26233,6 +26932,7 @@ export type UserCreateWithoutPublicKeyInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -26349,6 +27049,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -26481,6 +27182,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -26597,6 +27299,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -26713,6 +27416,7 @@ export type UserCreateWithoutConversations1Input = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -26829,6 +27533,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -26950,6 +27655,7 @@ export type UserCreateWithoutConversations2Input = {
   conversations1?: Prisma.ConversationCreateNestedManyWithoutUser1Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -27066,6 +27772,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   conversations1?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser1Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -27198,6 +27905,7 @@ export type UserUpdateWithoutConversations1Input = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -27314,6 +28022,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -27441,6 +28150,7 @@ export type UserUpdateWithoutConversations2Input = {
   conversations1?: Prisma.ConversationUpdateManyWithoutUser1NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -27557,6 +28267,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   conversations1?: Prisma.ConversationUncheckedUpdateManyWithoutUser1NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -27673,6 +28384,7 @@ export type UserCreateWithoutSentMessagesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -27789,6 +28501,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -27921,6 +28634,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -28037,6 +28751,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -28154,6 +28869,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
@@ -28270,6 +28986,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
@@ -28402,6 +29119,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
@@ -28518,6 +29236,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
@@ -28634,6 +29353,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -28750,6 +29470,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -28882,6 +29603,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -28998,6 +29720,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -29114,6 +29837,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -29230,6 +29954,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -29362,6 +30087,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -29478,6 +30204,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -29594,6 +30321,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -29710,6 +30438,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -29842,6 +30571,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -29958,6 +30688,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -30074,6 +30805,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -30190,6 +30922,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -30322,6 +31055,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -30438,6 +31172,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -30553,6 +31288,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -30669,6 +31405,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -30801,6 +31538,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -30917,6 +31655,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -31034,6 +31773,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -31150,6 +31890,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -31271,6 +32012,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -31387,6 +32129,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -31519,6 +32262,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -31635,6 +32379,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -31762,6 +32507,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -31878,6 +32624,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -31994,6 +32741,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -32110,6 +32858,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -32242,6 +32991,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -32358,6 +33108,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -32474,6 +33225,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -32590,6 +33342,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -32722,6 +33475,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -32838,6 +33592,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -32954,6 +33709,7 @@ export type UserCreateWithoutActivitiesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
@@ -33070,6 +33826,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
@@ -33202,6 +33959,7 @@ export type UserUpdateWithoutActivitiesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
@@ -33318,6 +34076,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
@@ -33434,6 +34193,7 @@ export type UserCreateWithoutActivityLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityReposts?: Prisma.ActivityRepostCreateNestedManyWithoutUserInput
@@ -33550,6 +34310,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityReposts?: Prisma.ActivityRepostUncheckedCreateNestedManyWithoutUserInput
@@ -33682,6 +34443,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityReposts?: Prisma.ActivityRepostUpdateManyWithoutUserNestedInput
@@ -33798,6 +34560,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityReposts?: Prisma.ActivityRepostUncheckedUpdateManyWithoutUserNestedInput
@@ -33914,6 +34677,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -34030,6 +34794,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -34162,6 +34927,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -34278,6 +35044,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -34394,6 +35161,7 @@ export type UserCreateWithoutRepliesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -34510,6 +35278,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -34642,6 +35411,7 @@ export type UserUpdateWithoutRepliesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -34758,6 +35528,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -34873,6 +35644,7 @@ export type UserCreateWithoutEmailVerificationInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -34989,6 +35761,7 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -35121,6 +35894,7 @@ export type UserUpdateWithoutEmailVerificationInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -35237,6 +36011,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -35354,6 +36129,7 @@ export type UserCreateWithoutScimSubjectInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -35470,6 +36246,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -35602,6 +36379,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -35718,6 +36496,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -35833,6 +36612,7 @@ export type UserCreateWithoutShotsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -35949,6 +36729,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -36081,6 +36862,7 @@ export type UserUpdateWithoutShotsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -36197,6 +36979,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -36313,6 +37096,7 @@ export type UserCreateWithoutShotLikesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -36429,6 +37213,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -36561,6 +37346,7 @@ export type UserUpdateWithoutShotLikesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -36677,6 +37463,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -36793,6 +37580,7 @@ export type UserCreateWithoutShotSavesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -36909,6 +37697,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -37041,6 +37830,7 @@ export type UserUpdateWithoutShotSavesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -37157,6 +37947,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -37273,6 +38064,7 @@ export type UserCreateWithoutShotCommentsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -37389,6 +38181,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -37521,6 +38314,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -37637,6 +38431,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -37754,6 +38549,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -37870,6 +38666,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -38002,6 +38799,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -38118,6 +38916,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -38234,6 +39033,7 @@ export type UserCreateWithoutImportedMediaInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -38350,6 +39150,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -38482,6 +39283,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -38598,6 +39400,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -38713,6 +39516,7 @@ export type UserCreateWithoutStoriesInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -38829,6 +39633,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -38961,6 +39766,7 @@ export type UserUpdateWithoutStoriesInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -39077,6 +39883,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -39193,6 +40000,7 @@ export type UserCreateWithoutStoryViewsInput = {
   conversations2?: Prisma.ConversationCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeCreateNestedManyWithoutUserInput
@@ -39309,6 +40117,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   conversations2?: Prisma.ConversationUncheckedCreateNestedManyWithoutUser2Input
   deviceTokens?: Prisma.DeviceTokenUncheckedCreateNestedManyWithoutUserInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedCreateNestedManyWithoutUserInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutAuthorInput
   activityLikes?: Prisma.ActivityLikeUncheckedCreateNestedManyWithoutUserInput
@@ -39441,6 +40250,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -39557,6 +40367,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -39713,6 +40524,7 @@ export type UserUpdateWithoutReferredByInput = {
   conversations2?: Prisma.ConversationUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUpdateManyWithoutUserNestedInput
@@ -39829,6 +40641,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   conversations2?: Prisma.ConversationUncheckedUpdateManyWithoutUser2NestedInput
   deviceTokens?: Prisma.DeviceTokenUncheckedUpdateManyWithoutUserNestedInput
   nativePushTokens?: Prisma.NativePushTokenUncheckedUpdateManyWithoutUserNestedInput
+  webPushSubscriptions?: Prisma.WebPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutAuthorNestedInput
   activityLikes?: Prisma.ActivityLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -39951,6 +40764,7 @@ export type UserCountOutputType = {
   conversations2: number
   deviceTokens: number
   nativePushTokens: number
+  webPushSubscriptions: number
   messageReactions: number
   activities: number
   activityLikes: number
@@ -40025,6 +40839,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   conversations2?: boolean | UserCountOutputTypeCountConversations2Args
   deviceTokens?: boolean | UserCountOutputTypeCountDeviceTokensArgs
   nativePushTokens?: boolean | UserCountOutputTypeCountNativePushTokensArgs
+  webPushSubscriptions?: boolean | UserCountOutputTypeCountWebPushSubscriptionsArgs
   messageReactions?: boolean | UserCountOutputTypeCountMessageReactionsArgs
   activities?: boolean | UserCountOutputTypeCountActivitiesArgs
   activityLikes?: boolean | UserCountOutputTypeCountActivityLikesArgs
@@ -40345,6 +41160,13 @@ export type UserCountOutputTypeCountNativePushTokensArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountWebPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WebPushSubscriptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountMessageReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MessageReactionWhereInput
 }
@@ -40648,6 +41470,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   conversations2?: boolean | Prisma.User$conversations2Args<ExtArgs>
   deviceTokens?: boolean | Prisma.User$deviceTokensArgs<ExtArgs>
   nativePushTokens?: boolean | Prisma.User$nativePushTokensArgs<ExtArgs>
+  webPushSubscriptions?: boolean | Prisma.User$webPushSubscriptionsArgs<ExtArgs>
   messageReactions?: boolean | Prisma.User$messageReactionsArgs<ExtArgs>
   activities?: boolean | Prisma.User$activitiesArgs<ExtArgs>
   activityLikes?: boolean | Prisma.User$activityLikesArgs<ExtArgs>
@@ -40855,6 +41678,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   conversations2?: boolean | Prisma.User$conversations2Args<ExtArgs>
   deviceTokens?: boolean | Prisma.User$deviceTokensArgs<ExtArgs>
   nativePushTokens?: boolean | Prisma.User$nativePushTokensArgs<ExtArgs>
+  webPushSubscriptions?: boolean | Prisma.User$webPushSubscriptionsArgs<ExtArgs>
   messageReactions?: boolean | Prisma.User$messageReactionsArgs<ExtArgs>
   activities?: boolean | Prisma.User$activitiesArgs<ExtArgs>
   activityLikes?: boolean | Prisma.User$activityLikesArgs<ExtArgs>
@@ -40944,6 +41768,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     conversations2: Prisma.$ConversationPayload<ExtArgs>[]
     deviceTokens: Prisma.$DeviceTokenPayload<ExtArgs>[]
     nativePushTokens: Prisma.$NativePushTokenPayload<ExtArgs>[]
+    webPushSubscriptions: Prisma.$WebPushSubscriptionPayload<ExtArgs>[]
     messageReactions: Prisma.$MessageReactionPayload<ExtArgs>[]
     activities: Prisma.$ActivityPayload<ExtArgs>[]
     activityLikes: Prisma.$ActivityLikePayload<ExtArgs>[]
@@ -41475,6 +42300,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   conversations2<T extends Prisma.User$conversations2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversations2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deviceTokens<T extends Prisma.User$deviceTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deviceTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeviceTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   nativePushTokens<T extends Prisma.User$nativePushTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$nativePushTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NativePushTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  webPushSubscriptions<T extends Prisma.User$webPushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$webPushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebPushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messageReactions<T extends Prisma.User$messageReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.User$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityLikes<T extends Prisma.User$activityLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -42963,6 +43789,30 @@ export type User$nativePushTokensArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.NativePushTokenScalarFieldEnum | Prisma.NativePushTokenScalarFieldEnum[]
+}
+
+/**
+ * User.webPushSubscriptions
+ */
+export type User$webPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WebPushSubscription
+   */
+  select?: Prisma.WebPushSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WebPushSubscription
+   */
+  omit?: Prisma.WebPushSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WebPushSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.WebPushSubscriptionWhereInput
+  orderBy?: Prisma.WebPushSubscriptionOrderByWithRelationInput | Prisma.WebPushSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.WebPushSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WebPushSubscriptionScalarFieldEnum | Prisma.WebPushSubscriptionScalarFieldEnum[]
 }
 
 /**

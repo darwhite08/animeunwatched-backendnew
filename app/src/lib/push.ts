@@ -6,6 +6,7 @@
  * the DB so we don't keep sending to dead devices.
  */
 import { Expo, type ExpoPushMessage, type ExpoPushTicket } from "expo-server-sdk";
+import webpush from "web-push";
 import { prisma } from "../config/prisma";
 
 const expo = new Expo({
@@ -131,13 +132,59 @@ export async function sendFcmPush(
   }
 }
 
+// ─── Web Push (browser PWA, VAPID) ───────────────────────────────────────────
+// Standard W3C web-push via VAPID for installed PWAs (Android/desktop + iOS
+// 16.4+ in standalone). Sent IN-PROCESS (this backend has no Redis/queue by
+// design); dead endpoints (404/410) are pruned so we stop sending to them.
+// Inert until VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY are set.
+let webPushReady = false;
+function ensureWebPush(): boolean {
+  if (webPushReady) return true;
+  const pub = process.env.VAPID_PUBLIC_KEY;
+  const priv = process.env.VAPID_PRIVATE_KEY;
+  if (!pub || !priv) return false;
+  webpush.setVapidDetails(process.env.VAPID_SUBJECT || "mailto:admin@kaiveron.com", pub, priv);
+  webPushReady = true;
+  return true;
+}
+
+export async function sendWebPush(
+  subs: Array<{ id: string; endpoint: string; p256dh: string; auth: string }>,
+  notif: { title: string; body: string; data?: Record<string, unknown> },
+): Promise<void> {
+  if (subs.length === 0 || !ensureWebPush()) return;
+  const dead: string[] = [];
+  const payload = JSON.stringify({
+    title: notif.title,
+    body: notif.body,
+    url: (notif.data?.link as string) || "/",
+    tag: (notif.data?.type as string) || undefined,
+  });
+  await Promise.all(
+    subs.map(async (s) => {
+      try {
+        await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, payload);
+      } catch (err) {
+        const code = (err as { statusCode?: number }).statusCode;
+        // 404/410 = subscription permanently dead → prune so we stop trying.
+        if (code === 404 || code === 410) dead.push(s.id);
+        else console.error("[push] web push send failed", code, err);
+      }
+    }),
+  );
+  if (dead.length > 0) {
+    await prisma.webPushSubscription.deleteMany({ where: { id: { in: dead } } }).catch(() => {});
+  }
+}
+
 export async function pushToUser(
   userId: string,
   notif: { title: string; body: string; data?: Record<string, unknown> },
 ): Promise<number> {
-  const [devices, native] = await Promise.all([
+  const [devices, native, web] = await Promise.all([
     prisma.deviceToken.findMany({ where: { userId }, select: { expoToken: true } }),
     prisma.nativePushToken.findMany({ where: { userId }, select: { token: true } }),
+    prisma.webPushSubscription.findMany({ where: { userId }, select: { id: true, endpoint: true, p256dh: true, auth: true } }),
   ]);
   if (devices.length > 0) {
     await sendExpoPush({
@@ -148,5 +195,6 @@ export async function pushToUser(
     });
   }
   if (native.length > 0) await sendFcmPush(native.map((d) => d.token), notif);
-  return devices.length + native.length;
+  if (web.length > 0) await sendWebPush(web, notif);
+  return devices.length + native.length + web.length;
 }

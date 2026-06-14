@@ -96,3 +96,32 @@ export async function sendTestPush(userId: string) {
   });
   return { sent: tokens.length };
 }
+
+// ─── Web Push (VAPID) subscriptions ───────────────────────────────────────────
+export async function saveWebSubscription(opts: {
+  userId: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  userAgent?: string;
+}) {
+  // Endpoint is unique per browser/device — upsert so re-subscribing (or a new
+  // owner on a shared device) updates rather than duplicates.
+  await prisma.webPushSubscription.upsert({
+    where: { endpoint: opts.endpoint },
+    create: {
+      userId: opts.userId,
+      endpoint: opts.endpoint,
+      p256dh: opts.p256dh,
+      auth: opts.auth,
+      userAgent: opts.userAgent ?? null,
+    },
+    update: { userId: opts.userId, p256dh: opts.p256dh, auth: opts.auth, lastSeen: new Date() },
+  });
+  return { ok: true };
+}
+
+export async function removeWebSubscription(opts: { userId: string; endpoint: string }) {
+  await prisma.webPushSubscription.deleteMany({ where: { endpoint: opts.endpoint, userId: opts.userId } });
+  return { ok: true };
+}

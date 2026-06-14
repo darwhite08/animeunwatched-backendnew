@@ -113,6 +113,11 @@ export type DeviceToken = Prisma.DeviceTokenModel
  */
 export type NativePushToken = Prisma.NativePushTokenModel
 /**
+ * Model WebPushSubscription
+ * 
+ */
+export type WebPushSubscription = Prisma.WebPushSubscriptionModel
+/**
  * Model RefreshToken
  * 
  */

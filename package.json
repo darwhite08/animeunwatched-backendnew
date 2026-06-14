@@ -48,6 +48,7 @@
     "sharp": "^0.34.5",
     "socket.io": "^4.8.3",
     "stripe": "^17.7.0",
+    "web-push": "^3.6.7",
     "zod": "^4.4.3"
   },
   "type": "commonjs",
@@ -59,6 +60,7 @@
     "@types/multer": "^2.1.0",
     "@types/node": "^25.3.3",
     "@types/nodemailer": "^8.0.0",
+    "@types/web-push": "^3.6.4",
     "@vitest/coverage-v8": "^4.1.6",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",

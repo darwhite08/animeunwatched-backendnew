@@ -6,6 +6,8 @@ import {
   unregisterDeviceSchema,
   registerNativeTokenSchema,
   unregisterNativeTokenSchema,
+  webPushSubscribeSchema,
+  webPushUnsubscribeSchema,
 } from "./push.schema";
 
 export async function register(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -72,6 +74,37 @@ export async function test(req: Request, res: Response, next: NextFunction): Pro
     const userId: string = res.locals.user.id;
     const result = await service.sendTestPush(userId);
     res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function webSubscribe(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const parsed = webPushSubscribeSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid web push subscription");
+    const { subscription, userAgent } = parsed.data;
+    await service.saveWebSubscription({
+      userId,
+      endpoint: subscription.endpoint,
+      p256dh: subscription.keys.p256dh,
+      auth: subscription.keys.auth,
+      userAgent,
+    });
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function webUnsubscribe(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user.id;
+    const parsed = webPushUnsubscribeSchema.safeParse(req.body);
+    if (!parsed.success) throw badRequest("Invalid endpoint");
+    await service.removeWebSubscription({ userId, endpoint: parsed.data.endpoint });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
