@@ -1,5 +1,5 @@
 import { prisma } from "../../config/prisma";
-import { sendExpoPush } from "../../lib/push";
+import { pushToUser } from "../../lib/push";
 
 export async function registerDevice(opts: {
   userId: string;
@@ -82,19 +82,14 @@ export async function listMyDevices(userId: string) {
 }
 
 export async function sendTestPush(userId: string) {
-  const devices = await prisma.deviceToken.findMany({
-    where: { userId },
-    select: { expoToken: true },
-  });
-  const tokens = devices.map((d) => d.expoToken);
-  if (tokens.length === 0) return { sent: 0 };
-  await sendExpoPush({
-    tokens,
+  // Route through pushToUser so the test reaches EVERY channel the user has —
+  // Expo, native FCM, AND web push — not just Expo tokens.
+  const sent = await pushToUser(userId, {
     title: "Kaiveron test push",
     body: "If you can see this, push notifications are working 🎉",
-    data: { type: "test" },
+    data: { type: "test", link: "/" },
   });
-  return { sent: tokens.length };
+  return { sent };
 }
 
 // ─── Web Push (VAPID) subscriptions ───────────────────────────────────────────
