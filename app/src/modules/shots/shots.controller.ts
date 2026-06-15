@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { badRequest } from "../../lib/errors";
-import { createShotSchema, recordViewSchema } from "./shots.schema";
+import { createShotSchema, recordViewSchema, recordFeedbackSchema } from "./shots.schema";
 import * as service from "./shots.service";
 
 export async function getFeed(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -154,5 +154,13 @@ export async function recordView(req: Request, res: Response, next: NextFunction
     const { viewerKey, watchedMs } = recordViewSchema.parse(req.body);
     const userId: string | undefined = res.locals.user?.id;
     res.status(200).json(await service.recordView(req.params.id as string, { userId, viewerKey, watchedMs }));
+  } catch (err) { next(err); }
+}
+
+export async function recordFeedback(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { viewerKey, kind, watchedMs } = recordFeedbackSchema.parse(req.body);
+    const userId: string | undefined = res.locals.user?.id;
+    res.status(200).json(await service.recordFeedback(req.params.id as string, { userId, viewerKey, kind, watchedMs }));
   } catch (err) { next(err); }
 }

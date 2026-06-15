@@ -3670,12 +3670,13 @@ model Shot {
   updatedAt      DateTime  @updatedAt
   deletedAt      DateTime?
 
-  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  anime    Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
+  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  anime    Anime?         @relation(fields: [animeId], references: [id], onDelete: SetNull)
   likes    ShotLike[]
   comments ShotComment[]
   saves    ShotSave[]
   views    ShotView[]
+  feedback ShotFeedback[]
 
   @@index([createdAt])
   @@index([authorId, createdAt])
@@ -3698,6 +3699,26 @@ model ShotView {
 
   @@unique([shotId, viewerKey, day])
   @@index([shotId])
+}
+
+// Negative feedback on a shot — the Instagram-style suppression loop.
+// kind = "SKIP" (implicit fast scroll-away / low watch-through) | "NOT_INTERESTED"
+// (explicit). Used by the ranker as a global quality penalty (skip rate) and a
+// per-viewer suppression of the shot + its author + its topic.
+model ShotFeedback {
+  id        String   @id @default(cuid())
+  shotId    String
+  viewerKey String // "u:<userId>" for authed, "a:<uuid>" for anon
+  userId    String? // attribution only
+  kind      String // "SKIP" | "NOT_INTERESTED"
+  watchedMs Int      @default(0)
+  createdAt DateTime @default(now())
+
+  shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
+
+  @@unique([shotId, viewerKey, kind])
+  @@index([shotId, kind])
+  @@index([viewerKey, kind])
 }
 
 model ShotLike {

@@ -18,3 +18,11 @@ export const recordViewSchema = z.object({
 });
 
 export type RecordViewDto = z.infer<typeof recordViewSchema>;
+
+export const recordFeedbackSchema = z.object({
+  viewerKey: z.string().min(8).max(64),
+  kind: z.enum(["SKIP", "NOT_INTERESTED"]),
+  watchedMs: z.number().int().nonnegative().max(10 * 60 * 1000).optional(),
+});
+
+export type RecordFeedbackDto = z.infer<typeof recordFeedbackSchema>;

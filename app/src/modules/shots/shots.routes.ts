@@ -26,6 +26,8 @@ shotsRouter.delete("/:id/save", requireAuth, ctrl.unsaveShot);
 // View counting — high-volume, anonymous-allowed, no Turnstile. Dedup +
 // idempotency are enforced in the service (see docs/shots-view-counting.md).
 shotsRouter.post("/:id/view", optionalAuth, ctrl.recordView);
+// Negative feedback (SKIP / NOT_INTERESTED) — the suppression loop.
+shotsRouter.post("/:id/feedback", optionalAuth, ctrl.recordFeedback);
 
 // Comments on a shot
 shotsRouter.get("/:id/comments", optionalAuth, ctrl.listComments);

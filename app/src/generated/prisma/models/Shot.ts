@@ -290,6 +290,7 @@ export type ShotWhereInput = {
   comments?: Prisma.ShotCommentListRelationFilter
   saves?: Prisma.ShotSaveListRelationFilter
   views?: Prisma.ShotViewListRelationFilter
+  feedback?: Prisma.ShotFeedbackListRelationFilter
 }
 
 export type ShotOrderByWithRelationInput = {
@@ -312,6 +313,7 @@ export type ShotOrderByWithRelationInput = {
   comments?: Prisma.ShotCommentOrderByRelationAggregateInput
   saves?: Prisma.ShotSaveOrderByRelationAggregateInput
   views?: Prisma.ShotViewOrderByRelationAggregateInput
+  feedback?: Prisma.ShotFeedbackOrderByRelationAggregateInput
 }
 
 export type ShotWhereUniqueInput = Prisma.AtLeast<{
@@ -337,6 +339,7 @@ export type ShotWhereUniqueInput = Prisma.AtLeast<{
   comments?: Prisma.ShotCommentListRelationFilter
   saves?: Prisma.ShotSaveListRelationFilter
   views?: Prisma.ShotViewListRelationFilter
+  feedback?: Prisma.ShotFeedbackListRelationFilter
 }, "id">
 
 export type ShotOrderByWithAggregationInput = {
@@ -397,6 +400,7 @@ export type ShotCreateInput = {
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateInput = {
@@ -417,6 +421,7 @@ export type ShotUncheckedCreateInput = {
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotUpdateInput = {
@@ -437,6 +442,7 @@ export type ShotUpdateInput = {
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateInput = {
@@ -457,6 +463,7 @@ export type ShotUncheckedUpdateInput = {
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateManyInput = {
@@ -676,6 +683,20 @@ export type ShotUpdateOneRequiredWithoutViewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShotUpdateToOneWithWhereWithoutViewsInput, Prisma.ShotUpdateWithoutViewsInput>, Prisma.ShotUncheckedUpdateWithoutViewsInput>
 }
 
+export type ShotCreateNestedOneWithoutFeedbackInput = {
+  create?: Prisma.XOR<Prisma.ShotCreateWithoutFeedbackInput, Prisma.ShotUncheckedCreateWithoutFeedbackInput>
+  connectOrCreate?: Prisma.ShotCreateOrConnectWithoutFeedbackInput
+  connect?: Prisma.ShotWhereUniqueInput
+}
+
+export type ShotUpdateOneRequiredWithoutFeedbackNestedInput = {
+  create?: Prisma.XOR<Prisma.ShotCreateWithoutFeedbackInput, Prisma.ShotUncheckedCreateWithoutFeedbackInput>
+  connectOrCreate?: Prisma.ShotCreateOrConnectWithoutFeedbackInput
+  upsert?: Prisma.ShotUpsertWithoutFeedbackInput
+  connect?: Prisma.ShotWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShotUpdateToOneWithWhereWithoutFeedbackInput, Prisma.ShotUpdateWithoutFeedbackInput>, Prisma.ShotUncheckedUpdateWithoutFeedbackInput>
+}
+
 export type ShotCreateNestedOneWithoutLikesInput = {
   create?: Prisma.XOR<Prisma.ShotCreateWithoutLikesInput, Prisma.ShotUncheckedCreateWithoutLikesInput>
   connectOrCreate?: Prisma.ShotCreateOrConnectWithoutLikesInput
@@ -735,6 +756,7 @@ export type ShotCreateWithoutAuthorInput = {
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutAuthorInput = {
@@ -754,6 +776,7 @@ export type ShotUncheckedCreateWithoutAuthorInput = {
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutAuthorInput = {
@@ -818,6 +841,7 @@ export type ShotCreateWithoutAnimeInput = {
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutAnimeInput = {
@@ -837,6 +861,7 @@ export type ShotUncheckedCreateWithoutAnimeInput = {
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutAnimeInput = {
@@ -882,6 +907,7 @@ export type ShotCreateWithoutViewsInput = {
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutViewsInput = {
@@ -901,6 +927,7 @@ export type ShotUncheckedCreateWithoutViewsInput = {
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutViewsInput = {
@@ -936,6 +963,7 @@ export type ShotUpdateWithoutViewsInput = {
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutViewsInput = {
@@ -955,6 +983,103 @@ export type ShotUncheckedUpdateWithoutViewsInput = {
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
+}
+
+export type ShotCreateWithoutFeedbackInput = {
+  id?: string
+  caption?: string | null
+  videoUrl: string
+  embedUrl?: string | null
+  sourceProvider?: string | null
+  thumbnailUrl?: string | null
+  durationMs?: number | null
+  viewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  author: Prisma.UserCreateNestedOneWithoutShotsInput
+  anime?: Prisma.AnimeCreateNestedOneWithoutShotsInput
+  likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
+  saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
+  views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+}
+
+export type ShotUncheckedCreateWithoutFeedbackInput = {
+  id?: string
+  authorId: string
+  caption?: string | null
+  videoUrl: string
+  embedUrl?: string | null
+  sourceProvider?: string | null
+  thumbnailUrl?: string | null
+  durationMs?: number | null
+  animeId?: string | null
+  viewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
+  comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
+  saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
+  views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+}
+
+export type ShotCreateOrConnectWithoutFeedbackInput = {
+  where: Prisma.ShotWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShotCreateWithoutFeedbackInput, Prisma.ShotUncheckedCreateWithoutFeedbackInput>
+}
+
+export type ShotUpsertWithoutFeedbackInput = {
+  update: Prisma.XOR<Prisma.ShotUpdateWithoutFeedbackInput, Prisma.ShotUncheckedUpdateWithoutFeedbackInput>
+  create: Prisma.XOR<Prisma.ShotCreateWithoutFeedbackInput, Prisma.ShotUncheckedCreateWithoutFeedbackInput>
+  where?: Prisma.ShotWhereInput
+}
+
+export type ShotUpdateToOneWithWhereWithoutFeedbackInput = {
+  where?: Prisma.ShotWhereInput
+  data: Prisma.XOR<Prisma.ShotUpdateWithoutFeedbackInput, Prisma.ShotUncheckedUpdateWithoutFeedbackInput>
+}
+
+export type ShotUpdateWithoutFeedbackInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  embedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  author?: Prisma.UserUpdateOneRequiredWithoutShotsNestedInput
+  anime?: Prisma.AnimeUpdateOneWithoutShotsNestedInput
+  likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
+  saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
+  views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+}
+
+export type ShotUncheckedUpdateWithoutFeedbackInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  embedUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
+  comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
+  saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
+  views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateWithoutLikesInput = {
@@ -974,6 +1099,7 @@ export type ShotCreateWithoutLikesInput = {
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutLikesInput = {
@@ -993,6 +1119,7 @@ export type ShotUncheckedCreateWithoutLikesInput = {
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutLikesInput = {
@@ -1028,6 +1155,7 @@ export type ShotUpdateWithoutLikesInput = {
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutLikesInput = {
@@ -1047,6 +1175,7 @@ export type ShotUncheckedUpdateWithoutLikesInput = {
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateWithoutSavesInput = {
@@ -1066,6 +1195,7 @@ export type ShotCreateWithoutSavesInput = {
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
   comments?: Prisma.ShotCommentCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutSavesInput = {
@@ -1085,6 +1215,7 @@ export type ShotUncheckedCreateWithoutSavesInput = {
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
   comments?: Prisma.ShotCommentUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutSavesInput = {
@@ -1120,6 +1251,7 @@ export type ShotUpdateWithoutSavesInput = {
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutSavesInput = {
@@ -1139,6 +1271,7 @@ export type ShotUncheckedUpdateWithoutSavesInput = {
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateWithoutCommentsInput = {
@@ -1158,6 +1291,7 @@ export type ShotCreateWithoutCommentsInput = {
   likes?: Prisma.ShotLikeCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackCreateNestedManyWithoutShotInput
 }
 
 export type ShotUncheckedCreateWithoutCommentsInput = {
@@ -1177,6 +1311,7 @@ export type ShotUncheckedCreateWithoutCommentsInput = {
   likes?: Prisma.ShotLikeUncheckedCreateNestedManyWithoutShotInput
   saves?: Prisma.ShotSaveUncheckedCreateNestedManyWithoutShotInput
   views?: Prisma.ShotViewUncheckedCreateNestedManyWithoutShotInput
+  feedback?: Prisma.ShotFeedbackUncheckedCreateNestedManyWithoutShotInput
 }
 
 export type ShotCreateOrConnectWithoutCommentsInput = {
@@ -1212,6 +1347,7 @@ export type ShotUpdateWithoutCommentsInput = {
   likes?: Prisma.ShotLikeUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutCommentsInput = {
@@ -1231,6 +1367,7 @@ export type ShotUncheckedUpdateWithoutCommentsInput = {
   likes?: Prisma.ShotLikeUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotCreateManyAuthorInput = {
@@ -1265,6 +1402,7 @@ export type ShotUpdateWithoutAuthorInput = {
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutAuthorInput = {
@@ -1284,6 +1422,7 @@ export type ShotUncheckedUpdateWithoutAuthorInput = {
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateManyWithoutAuthorInput = {
@@ -1333,6 +1472,7 @@ export type ShotUpdateWithoutAnimeInput = {
   comments?: Prisma.ShotCommentUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateWithoutAnimeInput = {
@@ -1352,6 +1492,7 @@ export type ShotUncheckedUpdateWithoutAnimeInput = {
   comments?: Prisma.ShotCommentUncheckedUpdateManyWithoutShotNestedInput
   saves?: Prisma.ShotSaveUncheckedUpdateManyWithoutShotNestedInput
   views?: Prisma.ShotViewUncheckedUpdateManyWithoutShotNestedInput
+  feedback?: Prisma.ShotFeedbackUncheckedUpdateManyWithoutShotNestedInput
 }
 
 export type ShotUncheckedUpdateManyWithoutAnimeInput = {
@@ -1379,6 +1520,7 @@ export type ShotCountOutputType = {
   comments: number
   saves: number
   views: number
+  feedback: number
 }
 
 export type ShotCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1386,6 +1528,7 @@ export type ShotCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   comments?: boolean | ShotCountOutputTypeCountCommentsArgs
   saves?: boolean | ShotCountOutputTypeCountSavesArgs
   views?: boolean | ShotCountOutputTypeCountViewsArgs
+  feedback?: boolean | ShotCountOutputTypeCountFeedbackArgs
 }
 
 /**
@@ -1426,6 +1569,13 @@ export type ShotCountOutputTypeCountViewsArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.ShotViewWhereInput
 }
 
+/**
+ * ShotCountOutputType without action
+ */
+export type ShotCountOutputTypeCountFeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShotFeedbackWhereInput
+}
+
 
 export type ShotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1447,6 +1597,7 @@ export type ShotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   comments?: boolean | Prisma.Shot$commentsArgs<ExtArgs>
   saves?: boolean | Prisma.Shot$savesArgs<ExtArgs>
   views?: boolean | Prisma.Shot$viewsArgs<ExtArgs>
+  feedback?: boolean | Prisma.Shot$feedbackArgs<ExtArgs>
   _count?: boolean | Prisma.ShotCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shot"]>
 
@@ -1510,6 +1661,7 @@ export type ShotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   comments?: boolean | Prisma.Shot$commentsArgs<ExtArgs>
   saves?: boolean | Prisma.Shot$savesArgs<ExtArgs>
   views?: boolean | Prisma.Shot$viewsArgs<ExtArgs>
+  feedback?: boolean | Prisma.Shot$feedbackArgs<ExtArgs>
   _count?: boolean | Prisma.ShotCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1530,6 +1682,7 @@ export type $ShotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     comments: Prisma.$ShotCommentPayload<ExtArgs>[]
     saves: Prisma.$ShotSavePayload<ExtArgs>[]
     views: Prisma.$ShotViewPayload<ExtArgs>[]
+    feedback: Prisma.$ShotFeedbackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1945,6 +2098,7 @@ export interface Prisma__ShotClient<T, Null = never, ExtArgs extends runtime.Typ
   comments<T extends Prisma.Shot$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   saves<T extends Prisma.Shot$savesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$savesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   views<T extends Prisma.Shot$viewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feedback<T extends Prisma.Shot$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shot$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShotFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2495,6 +2649,30 @@ export type Shot$viewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.ShotViewScalarFieldEnum | Prisma.ShotViewScalarFieldEnum[]
+}
+
+/**
+ * Shot.feedback
+ */
+export type Shot$feedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShotFeedback
+   */
+  select?: Prisma.ShotFeedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShotFeedback
+   */
+  omit?: Prisma.ShotFeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShotFeedbackInclude<ExtArgs> | null
+  where?: Prisma.ShotFeedbackWhereInput
+  orderBy?: Prisma.ShotFeedbackOrderByWithRelationInput | Prisma.ShotFeedbackOrderByWithRelationInput[]
+  cursor?: Prisma.ShotFeedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShotFeedbackScalarFieldEnum | Prisma.ShotFeedbackScalarFieldEnum[]
 }
 
 /**

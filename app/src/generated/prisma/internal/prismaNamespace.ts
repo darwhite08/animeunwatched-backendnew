@@ -561,6 +561,7 @@ export const ModelName = {
   SamlLoginEvent: 'SamlLoginEvent',
   Shot: 'Shot',
   ShotView: 'ShotView',
+  ShotFeedback: 'ShotFeedback',
   ShotLike: 'ShotLike',
   ShotSave: 'ShotSave',
   ShotComment: 'ShotComment',
@@ -584,7 +585,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "blogView" | "blogLike" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "blogView" | "blogLike" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotFeedback" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -13242,6 +13243,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShotFeedback: {
+      payload: Prisma.$ShotFeedbackPayload<ExtArgs>
+      fields: Prisma.ShotFeedbackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShotFeedbackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShotFeedbackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        findFirst: {
+          args: Prisma.ShotFeedbackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShotFeedbackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        findMany: {
+          args: Prisma.ShotFeedbackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>[]
+        }
+        create: {
+          args: Prisma.ShotFeedbackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        createMany: {
+          args: Prisma.ShotFeedbackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShotFeedbackCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>[]
+        }
+        delete: {
+          args: Prisma.ShotFeedbackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        update: {
+          args: Prisma.ShotFeedbackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShotFeedbackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShotFeedbackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShotFeedbackUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShotFeedbackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShotFeedbackPayload>
+        }
+        aggregate: {
+          args: Prisma.ShotFeedbackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShotFeedback>
+        }
+        groupBy: {
+          args: Prisma.ShotFeedbackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotFeedbackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShotFeedbackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShotFeedbackCountAggregateOutputType> | number
+        }
+      }
+    }
     ShotLike: {
       payload: Prisma.$ShotLikePayload<ExtArgs>
       fields: Prisma.ShotLikeFieldRefs
@@ -16476,6 +16551,19 @@ export const ShotViewScalarFieldEnum = {
 export type ShotViewScalarFieldEnum = (typeof ShotViewScalarFieldEnum)[keyof typeof ShotViewScalarFieldEnum]
 
 
+export const ShotFeedbackScalarFieldEnum = {
+  id: 'id',
+  shotId: 'shotId',
+  viewerKey: 'viewerKey',
+  userId: 'userId',
+  kind: 'kind',
+  watchedMs: 'watchedMs',
+  createdAt: 'createdAt'
+} as const
+
+export type ShotFeedbackScalarFieldEnum = (typeof ShotFeedbackScalarFieldEnum)[keyof typeof ShotFeedbackScalarFieldEnum]
+
+
 export const ShotLikeScalarFieldEnum = {
   userId: 'userId',
   shotId: 'shotId'
@@ -17236,6 +17324,7 @@ export type GlobalOmitConfig = {
   samlLoginEvent?: Prisma.SamlLoginEventOmit
   shot?: Prisma.ShotOmit
   shotView?: Prisma.ShotViewOmit
+  shotFeedback?: Prisma.ShotFeedbackOmit
   shotLike?: Prisma.ShotLikeOmit
   shotSave?: Prisma.ShotSaveOmit
   shotComment?: Prisma.ShotCommentOmit

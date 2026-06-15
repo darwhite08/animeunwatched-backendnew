@@ -898,6 +898,11 @@ export type Shot = Prisma.ShotModel
  */
 export type ShotView = Prisma.ShotViewModel
 /**
+ * Model ShotFeedback
+ * 
+ */
+export type ShotFeedback = Prisma.ShotFeedbackModel
+/**
  * Model ShotLike
  * 
  */

@@ -100,6 +100,12 @@ const RANK = {
   cfSeedCap: 80,           // viewer's recent engaged shots used as CF seeds
   cfNeighborCap: 120,      // top co-engaging neighbors considered
   cfCandidateCap: 150,     // CF-surfaced shots merged into the pool
+  // negative signals (suppression loop)
+  negFetchCap: 500,        // viewer's stored negative-feedback rows pulled
+  skipGlobalMax: 0.6,      // global quality penalty at 100% skip rate
+  skipSelfPenalty: 0.25,   // viewer previously skipped this exact shot
+  suppressAuthor: 0.5,     // author of a "Not interested" shot
+  suppressTopic: 0.6,      // anime/topic of a "Not interested" shot
 } as const;
 
 function decodeSeen(cursor?: string): string[] {
@@ -164,15 +170,40 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
     }
   }
 
+  // Negative feedback (the suppression loop). NOT_INTERESTED shots are excluded
+  // outright; the viewer's skipped shots + the author/topic of not-interested
+  // shots are downranked in scoring below.
+  const skippedIds = new Set<string>();
+  const notInterestedIds = new Set<string>();
+  const suppressedAuthors = new Set<string>();
+  const suppressedAnime = new Set<string>();
+  if (userId) {
+    const myNeg = await prisma.shotFeedback.findMany({
+      where: { viewerKey: `u:${userId}` },
+      take: RANK.negFetchCap,
+      select: { shotId: true, kind: true, shot: { select: { authorId: true, animeId: true } } },
+    });
+    for (const f of myNeg) {
+      if (f.kind === "NOT_INTERESTED") {
+        notInterestedIds.add(f.shotId);
+        if (f.shot?.authorId) suppressedAuthors.add(f.shot.authorId);
+        if (f.shot?.animeId) suppressedAnime.add(f.shot.animeId);
+      } else {
+        skippedIds.add(f.shotId);
+      }
+    }
+  }
+
   // Source 2: recency. Pool = recent ∪ (CF candidates outside the recency window).
+  const excludeIds = [...seen, ...notInterestedIds];
   const recent = await prisma.shot.findMany({
-    where: { deletedAt: null, createdAt: { gte: since }, ...(seen.length ? { id: { notIn: seen } } : {}) },
+    where: { deletedAt: null, createdAt: { gte: since }, ...(excludeIds.length ? { id: { notIn: excludeIds } } : {}) },
     take: RANK.poolSize,
     orderBy: { createdAt: "desc" },
     include: shotInclude,
   });
   const recentIds = new Set(recent.map(s => s.id));
-  const seenSet = new Set(seen);
+  const seenSet = new Set(excludeIds);
   const extraCfIds = [...cfScoreRaw.keys()].filter(id => !recentIds.has(id) && !seenSet.has(id)).slice(0, RANK.cfCandidateCap);
   const extra = extraCfIds.length
     ? await prisma.shot.findMany({ where: { id: { in: extraCfIds }, deletedAt: null }, include: shotInclude })
@@ -183,8 +214,10 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
   const poolAnimeIds = [...new Set(pool.map(s => s.animeId).filter((x): x is string => !!x))];
 
   // ── Stage B — feature gathering ─────────────────────────────────────────────
-  const [watch, follows, profileRows, listRows, userRow, candGenreRows] = await Promise.all([
+  const [watch, skips, follows, profileRows, listRows, userRow, candGenreRows] = await Promise.all([
     prisma.shotView.groupBy({ by: ["shotId"], where: { shotId: { in: ids } }, _avg: { watchedMs: true } }),
+    // global skip counts → quality penalty (high skip rate = low quality for everyone)
+    prisma.shotFeedback.groupBy({ by: ["shotId"], where: { shotId: { in: ids }, kind: "SKIP" }, _count: { _all: true } }),
     userId ? prisma.follow.findMany({ where: { followerId: userId, status: "ACCEPTED" }, select: { followingId: true } }) : Promise.resolve([]),
     // viewer's engaged shots → author (affinity) + anime genres (content vector)
     userId ? prisma.shotLike.findMany({ where: { userId }, take: 200, select: { shot: { select: { authorId: true, anime: { select: { genres: { select: { genre: { select: { name: true } } } } } } } } } }) : Promise.resolve([] as Array<{ shot: { authorId: string; anime: { genres: { genre: { name: string } }[] } | null } | null }>),
@@ -195,6 +228,7 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
   ]);
 
   const avgWatch = new Map(watch.map(w => [w.shotId, w._avg.watchedMs ?? 0]));
+  const skipCount = new Map(skips.map(s => [s.shotId, s._count._all]));
   const followSet = new Set(follows.map(f => f.followingId));
 
   // Build the viewer's CONTENT (genre) interest vector — onboarding picks +
@@ -263,7 +297,21 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
     if (s.sourceProvider) integrity *= RANK.demoteRepost;
     if (!s.thumbnailUrl) integrity *= RANK.demoteNoThumb;
 
-    const score = quality * gravity * testBoost * aff * topicBoost * cfBoost * integrity;
+    // Negative signals (suppression). Global: high skip-rate = low quality for
+    // everyone. Per-viewer: shots this viewer skipped, and the author/topic of
+    // shots they marked "Not interested", are pushed down.
+    const sc = skipCount.get(s.id) ?? 0;
+    const impressions = s.viewCount + sc;
+    const skipRate = impressions > 0 ? sc / impressions : 0;
+    let neg = 1 - RANK.skipGlobalMax * skipRate; // global quality penalty
+    if (userId) {
+      if (skippedIds.has(s.id)) neg *= RANK.skipSelfPenalty;
+      if (suppressedAuthors.has(s.authorId)) neg *= RANK.suppressAuthor;
+      if (s.animeId && suppressedAnime.has(s.animeId)) neg *= RANK.suppressTopic;
+    }
+    neg = Math.max(0.05, neg);
+
+    const score = quality * gravity * testBoost * aff * topicBoost * cfBoost * integrity * neg;
     return { shot: s, score, ageH, views: s.viewCount };
   });
 
@@ -574,4 +622,27 @@ export async function recordView(
     }
     throw err;
   }
+}
+
+// ─── negative feedback (suppression loop) ────────────────────────────────────
+// SKIP = implicit fast scroll-away / low watch-through. NOT_INTERESTED = explicit.
+// Idempotent per (shot, viewer, kind). Consumed by getRankedFeed as a global
+// skip-rate quality penalty and per-viewer suppression of the shot/author/topic.
+export async function recordFeedback(
+  shotId: string,
+  opts: { userId?: string; viewerKey: string; kind: "SKIP" | "NOT_INTERESTED"; watchedMs?: number },
+) {
+  const shot = await prisma.shot.findFirst({ where: { id: shotId, deletedAt: null }, select: { id: true, authorId: true } });
+  if (!shot) throw notFound("Shot not found");
+  // Don't let a creator's own scroll poison their shot's signals.
+  if (opts.userId && opts.userId === shot.authorId) return { ok: true, counted: false };
+
+  const viewerKey = opts.userId ? `u:${opts.userId}` : `a:${opts.viewerKey}`;
+  const watchedMs = Math.max(0, Math.min(opts.watchedMs ?? 0, 10 * 60 * 1000));
+  await prisma.shotFeedback.upsert({
+    where: { shotId_viewerKey_kind: { shotId, viewerKey, kind: opts.kind } },
+    create: { shotId, viewerKey, userId: opts.userId ?? null, kind: opts.kind, watchedMs },
+    update: { watchedMs },
+  });
+  return { ok: true, counted: true };
 }

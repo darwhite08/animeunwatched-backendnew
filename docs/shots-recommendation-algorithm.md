@@ -194,6 +194,25 @@ All of it is bounded Postgres queries (seed ≤ 80, neighbors ≤ 120, CF candid
 exactly where neural ANN retrieval would slot in at much larger scale without
 touching the scoring/rerank stages.
 
+### Negative-signal suppression loop (implemented)
+The ranker closes Instagram's feedback loop via a `ShotFeedback` table (one row
+per `(shot, viewer, kind)`, idempotent):
+
+- **`SKIP`** — implicit. The client fires it when a reel was on screen only briefly
+  (300ms–2.5s) and never qualified as a view (fast scroll-away).
+- **`NOT_INTERESTED`** — explicit, from the reel's "⋯ → Not interested" menu.
+
+How the ranker consumes them:
+1. **Global quality penalty** — a shot's skip rate `skips / (views + skips)`
+   multiplies its score by `1 − 0.6·skipRate` (high-skip shots sink for everyone).
+2. **Per-viewer "Not interested" exclusion** — those shots are dropped from the
+   candidate pool entirely, and their **author ×0.5** and **anime/topic ×0.6** are
+   suppressed (the "and fewer like this" effect).
+3. **Per-viewer skip penalty** — shots the viewer personally skipped get ×0.25.
+
+`POST /shots/:id/feedback {viewerKey, kind, watchedMs?}` (optionalAuth, idempotent).
+The creator's own skips never poison their shot's signals.
+
 ### Why Postgres-only is enough at our scale
 Per refresh: one `findMany` (pool ≤ 300) + one `ShotView` groupBy (watch stats) +
 a few small set queries (follows, engaged authors/anime). All scoring is in Node.
