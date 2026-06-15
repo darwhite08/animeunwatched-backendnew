@@ -219,6 +219,7 @@ export const ModelName = {
   CostBudget: 'CostBudget',
   SamlLoginEvent: 'SamlLoginEvent',
   Shot: 'Shot',
+  ShotView: 'ShotView',
   ShotLike: 'ShotLike',
   ShotSave: 'ShotSave',
   ShotComment: 'ShotComment',
@@ -2826,12 +2827,26 @@ export const ShotScalarFieldEnum = {
   thumbnailUrl: 'thumbnailUrl',
   durationMs: 'durationMs',
   animeId: 'animeId',
+  viewCount: 'viewCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
 export type ShotScalarFieldEnum = (typeof ShotScalarFieldEnum)[keyof typeof ShotScalarFieldEnum]
+
+
+export const ShotViewScalarFieldEnum = {
+  id: 'id',
+  shotId: 'shotId',
+  viewerKey: 'viewerKey',
+  userId: 'userId',
+  day: 'day',
+  watchedMs: 'watchedMs',
+  createdAt: 'createdAt'
+} as const
+
+export type ShotViewScalarFieldEnum = (typeof ShotViewScalarFieldEnum)[keyof typeof ShotViewScalarFieldEnum]
 
 
 export const ShotLikeScalarFieldEnum = {

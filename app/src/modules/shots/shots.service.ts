@@ -306,3 +306,54 @@ export async function pinComment(userId: string, commentId: string, pinned: bool
   await prisma.shotComment.update({ where: { id: commentId }, data: { pinnedAt: pinned ? new Date() : null } });
   return { pinned };
 }
+
+// ─── view counting (see docs/shots-view-counting.md) ─────────────────────────
+// Reels-style "it played" qualification happens client-side; here we enforce the
+// honesty guards: one counted view per (shot, viewer) per UTC day, never the
+// author's own view. The unique constraint on ShotView is the dedup +
+// idempotency mechanism, so a refresh/loop/replay within the day is a no-op and
+// no Redis set or queue is needed.
+export async function recordView(
+  shotId: string,
+  opts: { userId?: string; viewerKey: string; watchedMs?: number },
+) {
+  const shot = await prisma.shot.findFirst({
+    where: { id: shotId, deletedAt: null },
+    select: { id: true, authorId: true, viewCount: true },
+  });
+  if (!shot) throw notFound("Shot not found");
+
+  // Authed users dedupe by user id (across devices); anon by their device key.
+  const viewerKey = opts.userId ? `u:${opts.userId}` : `a:${opts.viewerKey}`;
+
+  // Never count the creator watching their own shot.
+  if (opts.userId && opts.userId === shot.authorId) {
+    return { viewCount: shot.viewCount, counted: false };
+  }
+
+  const day = new Date().toISOString().slice(0, 10); // UTC YYYY-MM-DD
+  const watchedMs = Math.max(0, Math.min(opts.watchedMs ?? 0, 10 * 60 * 1000));
+
+  try {
+    // Insert the ledger row + bump the denormalized counter atomically. If the
+    // viewer already counted today, the unique constraint throws (P2002) and the
+    // increment never runs — the count cannot be inflated by replays/refreshes.
+    const [, updated] = await prisma.$transaction([
+      prisma.shotView.create({
+        data: { shotId, viewerKey, userId: opts.userId ?? null, day, watchedMs },
+      }),
+      prisma.shot.update({
+        where: { id: shotId },
+        data: { viewCount: { increment: 1 } },
+        select: { viewCount: true },
+      }),
+    ]);
+    return { viewCount: updated.viewCount, counted: true };
+  } catch (err: unknown) {
+    // P2002 = already counted for this (shot, viewer, day) → idempotent no-op.
+    if (typeof err === "object" && err !== null && (err as { code?: string }).code === "P2002") {
+      return { viewCount: shot.viewCount, counted: false };
+    }
+    throw err;
+  }
+}

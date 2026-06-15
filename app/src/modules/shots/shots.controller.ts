@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { badRequest } from "../../lib/errors";
-import { createShotSchema } from "./shots.schema";
+import { createShotSchema, recordViewSchema } from "./shots.schema";
 import * as service from "./shots.service";
 
 export async function getFeed(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -146,5 +146,13 @@ export async function pinComment(req: Request, res: Response, next: NextFunction
   try {
     const pinned = req.body?.pinned !== false; // default true
     res.status(200).json(await service.pinComment(res.locals.user.id, req.params.commentId as string, pinned));
+  } catch (err) { next(err); }
+}
+
+export async function recordView(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { viewerKey, watchedMs } = recordViewSchema.parse(req.body);
+    const userId: string | undefined = res.locals.user?.id;
+    res.status(200).json(await service.recordView(req.params.id as string, { userId, viewerKey, watchedMs }));
   } catch (err) { next(err); }
 }

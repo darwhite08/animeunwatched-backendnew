@@ -31,7 +31,7 @@ enum WatchStatus {
   COMPLETED
   ON_HOLD
   DROPPED
-  REWATCHING   // Most-requested missing status (research finding)
+  REWATCHING // Most-requested missing status (research finding)
 }
 
 enum BlogStatus {
@@ -62,164 +62,164 @@ enum ReportStatus {
 // ---------------------------------------------------------------------------
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id                String             @id @default(cuid())
+  email             String             @unique
   /// When the email address was confirmed. null = unverified (email/password
   /// signups before they enter the code). OAuth signups + existing users are
   /// backfilled as verified. Enforcement is inert until SMTP is configured.
-  emailVerifiedAt DateTime?
+  emailVerifiedAt   DateTime?
   // Last time we sent this user a re-engagement email — enforces a per-user
   // cooldown so the recurring campaign never spams anyone.
-  lastReengagedAt DateTime?
+  lastReengagedAt   DateTime?
   emailVerification EmailVerification?
-  username     String   @unique
+  username          String             @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.
   /// Never used for data access — only for URL display. Always look up session userId internally.
   /// Nullable so existing users can be backfilled without data loss.
-  slug         String?  @unique
-  displayName  String
-  bio          String?
-  avatarUrl    String?
-  coverImage   String?
+  slug              String?            @unique
+  displayName       String
+  bio               String?
+  avatarUrl         String?
+  coverImage        String?
   // Onboarding (first-run): chosen genres + completion timestamp
-  favoriteGenres String[]  @default([])
-  onboardedAt    DateTime?
-  passwordHash String  @default("")
-  role         Role     @default(USER)
-  reputation   Int      @default(0)
+  favoriteGenres    String[]           @default([])
+  onboardedAt       DateTime?
+  passwordHash      String             @default("")
+  role              Role               @default(USER)
+  reputation        Int                @default(0)
   // Verified badge (admin-granted). null = not verified.
-  verifiedKind VerificationKind?
-  verifiedAt   DateTime?
-  isBanned     Boolean  @default(false)
-  bannedReason String?  // operator-supplied reason shown in admin tooling, null when not banned
-  isShadowBanned Boolean @default(false)  // soft moderation: user can post but content is hidden from others
-  isPrivate    Boolean  @default(false)   // private account (Instagram-style): followers need approval
+  verifiedKind      VerificationKind?
+  verifiedAt        DateTime?
+  isBanned          Boolean            @default(false)
+  bannedReason      String? // operator-supplied reason shown in admin tooling, null when not banned
+  isShadowBanned    Boolean            @default(false) // soft moderation: user can post but content is hidden from others
+  isPrivate         Boolean            @default(false) // private account (Instagram-style): followers need approval
   // DM privacy (DM v2). Who may start a DM, whether read receipts are sent,
   // and who may see online/last-seen status. Enforced server-side.
-  dmPrivacy        String  @default("everyone")   // everyone | followers | nobody
-  readReceiptsOn   Boolean @default(true)
-  showOnlineStatus String  @default("everyone")   // everyone | followers | nobody
-  dmLastSeenAt     DateTime?                       // presence "last seen" (throttled writes)
+  dmPrivacy         String             @default("everyone") // everyone | followers | nobody
+  readReceiptsOn    Boolean            @default(true)
+  showOnlineStatus  String             @default("everyone") // everyone | followers | nobody
+  dmLastSeenAt      DateTime? // presence "last seen" (throttled writes)
   // Streak tracking — real database-backed (not rep estimate). See
   // docs/streak-algorithm.md: timezone-correct day boundary + grace + freezes +
   // soft-break + repair (humane, anti-frustration).
-  streakDays   Int      @default(0)
-  lastActiveAt DateTime?
-  bestStreak   Int      @default(0)
+  streakDays        Int                @default(0)
+  lastActiveAt      DateTime?
+  bestStreak        Int                @default(0)
   /// Local-day key "YYYY-MM-DD" (in `timezone`, grace-shifted) the streak was
   /// last credited — the REAL consecutive-day comparison key (not a UTC ts).
-  lastStreakDate String?
+  lastStreakDate    String?
   /// IANA tz for the user's day boundary (fixes the UTC-midnight churn bug).
-  timezone     String   @default("Asia/Kolkata")
+  timezone          String             @default("Asia/Kolkata")
   /// Auto-consumed freeze tokens that absorb a missed day (Duolingo-style).
-  streakFreezes   Int    @default(0)
-  freezeGrantedAt DateTime?            // weekly earn-cap anchor
-  streakRepairAt  DateTime?            // last free repair (monthly cap)
-  streakBrokenAt  DateTime?            // when the last break happened (48h repair window)
-  prevStreakDays  Int    @default(0)   // streak value just before a break (for repair)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  streakFreezes     Int                @default(0)
+  freezeGrantedAt   DateTime? // weekly earn-cap anchor
+  streakRepairAt    DateTime? // last free repair (monthly cap)
+  streakBrokenAt    DateTime? // when the last break happened (48h repair window)
+  prevStreakDays    Int                @default(0) // streak value just before a break (for repair)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 
   // Referral / viral loop — who invited this user (set once at signup, by handle).
   referredById String?
 
+  refreshTokens        RefreshToken[]
+  // Referral graph (self-relation): who referred me, and everyone I referred.
+  referredBy           User?                  @relation("UserReferrals", fields: [referredById], references: [id], onDelete: SetNull)
+  referrals            User[]                 @relation("UserReferrals")
+  following            Follow[]               @relation("Follower")
+  followers            Follow[]               @relation("Following")
+  listEntries          ListEntry[]
+  mangaEntries         MangaEntry[]
+  posts                Post[]
+  postLikes            PostLike[]
+  postComments         PostComment[]
+  postCommentLikes     PostCommentLike[]
+  postHides            PostHide[]
+  ownedClubs           Club[]                 @relation("ClubOwner")
+  clubMemberships      ClubMember[]
+  threads              Thread[]
+  threadReplies        ThreadReply[]
+  savedThreads         ThreadSave[]
+  shotCommentLikes     ShotCommentLike[]
+  reviews              Review[]
+  reviewLikes          ReviewLike[]
+  blogs                Blog[]
+  blogComments         BlogComment[]
+  notifications        Notification[]
+  reports              Report[]               @relation("Reporter")
+  moderationActions    ModerationAction[]
+  polls                Poll[]
+  pollVotes            PollVote[]
+  // OAuth providers linked to this account
+  oauthProviders       UserOAuthProvider[]
+  passwordResetTokens  PasswordResetToken[]
+  securityEvents       SecurityEvent[]
+  // Chat
+  publicKey            UserPublicKey?
+  deviceKeys           UserDeviceKey[] // multi-device E2E (Phase 1, additive)
+  // Shots (short vertical videos)
+  shots                Shot[]
+  shotLikes            ShotLike[]
+  shotComments         ShotComment[]
+  shotSaves            ShotSave[]
+  // Peeak (24h stories)
+  stories              Story[]
+  storyViews           StoryView[]
+  sentMessages         DirectMessage[]        @relation("MessageSender")
+  conversations1       Conversation[]         @relation("ConvParticipant1")
+  conversations2       Conversation[]         @relation("ConvParticipant2")
+  // Push notification device tokens
+  deviceTokens         DeviceToken[]
+  nativePushTokens     NativePushToken[] // Capacitor FCM/APNs tokens (additive)
+  webPushSubscriptions WebPushSubscription[] // W3C Web Push (VAPID) for PWAs/browsers
+  messageReactions     MessageReaction[]
+  // Activity feed (FEED_FEATURES §12 — MVP)
+  activities           Activity[]
+  activityLikes        ActivityLike[]
+  activityReposts      ActivityRepost[]
+  replies              Reply[]
+  // SCIM 2.0 provisioning mapping (optional — only populated if an IdP provisioned this user)
+  scimSubject          ScimSubject?
+  // DM safety + privacy (DM v2)
+  blocksMade           UserBlock[]            @relation("blocksMade")
+  blocksReceived       UserBlock[]            @relation("blocksReceived")
+  // DM E2EE layer
+  e2eDevices           UserDevice[]
+  e2eKeyWraps          UserMasterKeyWrap[]
+  // Club 2.0 — events
+  clubEventsCreated    ClubEvent[]            @relation("ClubEventCreator")
+  threadReactions      ThreadReaction[]
+  clubEventRsvps       ClubEventRSVP[]
+  // Private clubs — invites + join requests
+  clubInvitesCreated   ClubInvite[]           @relation("ClubInviteCreator")
+  clubJoinRequests     ClubJoinRequest[]      @relation("ClubJoinRequestUser")
+  clubWatchlistAdds    ClubWatchlistItem[]    @relation("ClubWatchlistAdder")
+  // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
+  groupsOwned          GroupConversation[]    @relation("GroupOwner")
+  groupMemberships     GroupMember[]
+  groupMessages        GroupMessage[]         @relation("GroupMessageSender")
+  groupReactions       GroupMessageReaction[]
+  streakDaysLog        StreakDay[]
+  badges               UserBadge[]
+  blogLikes            BlogLike[]
+  lbSnapshots          LeaderboardSnapshot[]
+  // Creator monetization (docs/monetization-system.md)
+  creatorProfile       CreatorProfile?
+  creatorTiers         CreatorTier[]
+  membershipsAsFan     CreatorMembership[]    @relation("FanMemberships")
+  membershipsAsCreator CreatorMembership[]    @relation("CreatorMemberships")
+  tipsSent             Tip[]                  @relation("TipsSent")
+  tipsReceived         Tip[]                  @relation("TipsReceived")
+  creatorEarnings      CreatorEarning[]
+  payoutAccount        PayoutAccount?
+  payouts              Payout[]
+  // Connected external accounts (Instagram, …) + imported media dedup
+  socialConnections    SocialConnection[]
+  importedMedia        ImportedMedia[]
+
   @@index([slug])
   @@index([referredById])
-
-  refreshTokens      RefreshToken[]
-  // Referral graph (self-relation): who referred me, and everyone I referred.
-  referredBy         User?              @relation("UserReferrals", fields: [referredById], references: [id], onDelete: SetNull)
-  referrals          User[]             @relation("UserReferrals")
-  following          Follow[]           @relation("Follower")
-  followers          Follow[]           @relation("Following")
-  listEntries        ListEntry[]
-  mangaEntries       MangaEntry[]
-  posts              Post[]
-  postLikes          PostLike[]
-  postComments       PostComment[]
-  postCommentLikes   PostCommentLike[]
-  postHides          PostHide[]
-  ownedClubs         Club[]             @relation("ClubOwner")
-  clubMemberships    ClubMember[]
-  threads            Thread[]
-  threadReplies      ThreadReply[]
-  savedThreads       ThreadSave[]
-  shotCommentLikes   ShotCommentLike[]
-  reviews            Review[]
-  reviewLikes        ReviewLike[]
-  blogs              Blog[]
-  blogComments       BlogComment[]
-  notifications      Notification[]
-  reports            Report[]           @relation("Reporter")
-  moderationActions  ModerationAction[]
-  polls              Poll[]
-  pollVotes          PollVote[]
-  // OAuth providers linked to this account
-  oauthProviders     UserOAuthProvider[]
-  passwordResetTokens PasswordResetToken[]
-  securityEvents      SecurityEvent[]
-  // Chat
-  publicKey          UserPublicKey?
-  deviceKeys         UserDeviceKey[]    // multi-device E2E (Phase 1, additive)
-  // Shots (short vertical videos)
-  shots              Shot[]
-  shotLikes          ShotLike[]
-  shotComments       ShotComment[]
-  shotSaves          ShotSave[]
-  // Peeak (24h stories)
-  stories            Story[]
-  storyViews         StoryView[]
-  sentMessages       DirectMessage[]    @relation("MessageSender")
-  conversations1     Conversation[]     @relation("ConvParticipant1")
-  conversations2     Conversation[]     @relation("ConvParticipant2")
-  // Push notification device tokens
-  deviceTokens       DeviceToken[]
-  nativePushTokens   NativePushToken[] // Capacitor FCM/APNs tokens (additive)
-  webPushSubscriptions WebPushSubscription[] // W3C Web Push (VAPID) for PWAs/browsers
-  messageReactions   MessageReaction[]
-  // Activity feed (FEED_FEATURES §12 — MVP)
-  activities         Activity[]
-  activityLikes      ActivityLike[]
-  activityReposts    ActivityRepost[]
-  replies            Reply[]
-  // SCIM 2.0 provisioning mapping (optional — only populated if an IdP provisioned this user)
-  scimSubject        ScimSubject?
-  // DM safety + privacy (DM v2)
-  blocksMade         UserBlock[]        @relation("blocksMade")
-  blocksReceived     UserBlock[]        @relation("blocksReceived")
-  // DM E2EE layer
-  e2eDevices         UserDevice[]
-  e2eKeyWraps        UserMasterKeyWrap[]
-  // Club 2.0 — events
-  clubEventsCreated  ClubEvent[]         @relation("ClubEventCreator")
-  threadReactions    ThreadReaction[]
-  clubEventRsvps     ClubEventRSVP[]
-  // Private clubs — invites + join requests
-  clubInvitesCreated ClubInvite[]        @relation("ClubInviteCreator")
-  clubJoinRequests   ClubJoinRequest[]   @relation("ClubJoinRequestUser")
-  clubWatchlistAdds  ClubWatchlistItem[] @relation("ClubWatchlistAdder")
-  // Group chat (parallel to 1:1 DM — does not touch the locked direct system)
-  groupsOwned        GroupConversation[] @relation("GroupOwner")
-  groupMemberships   GroupMember[]
-  groupMessages      GroupMessage[]      @relation("GroupMessageSender")
-  groupReactions     GroupMessageReaction[]
-  streakDaysLog      StreakDay[]
-  badges             UserBadge[]
-  blogLikes          BlogLike[]
-  lbSnapshots        LeaderboardSnapshot[]
-  // Creator monetization (docs/monetization-system.md)
-  creatorProfile     CreatorProfile?
-  creatorTiers       CreatorTier[]
-  membershipsAsFan     CreatorMembership[] @relation("FanMemberships")
-  membershipsAsCreator CreatorMembership[] @relation("CreatorMemberships")
-  tipsSent           Tip[]              @relation("TipsSent")
-  tipsReceived       Tip[]              @relation("TipsReceived")
-  creatorEarnings    CreatorEarning[]
-  payoutAccount      PayoutAccount?
-  payouts            Payout[]
-  // Connected external accounts (Instagram, …) + imported media dedup
-  socialConnections  SocialConnection[]
-  importedMedia      ImportedMedia[]
 }
 
 // ---------------------------------------------------------------------------
@@ -228,17 +228,17 @@ model User {
 // ---------------------------------------------------------------------------
 
 model CreatorProfile {
-  userId         String   @id
-  status         String   @default("none")   // none | pending | eligible | active | suspended
-  isEligible     Boolean  @default(false)
-  eligibleAt     DateTime?
-  payoutCountry  String?                       // ISO-2; routes to Stripe vs PayPal rail
-  defaultCurrency String  @default("USD")
+  userId            String    @id
+  status            String    @default("none") // none | pending | eligible | active | suspended
+  isEligible        Boolean   @default(false)
+  eligibleAt        DateTime?
+  payoutCountry     String? // ISO-2; routes to Stripe vs PayPal rail
+  defaultCurrency   String    @default("USD")
   // Cached eligibility snapshot (recomputed on demand)
-  followersAtCheck Int    @default(0)
-  reputationAtCheck Int   @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  followersAtCheck  Int       @default(0)
+  reputationAtCheck Int       @default(0)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -248,7 +248,7 @@ model CreatorTier {
   creatorId   String
   name        String
   description String?
-  priceCents  Int                              // monthly price
+  priceCents  Int // monthly price
   currency    String   @default("USD")
   perks       String[] @default([])
   active      Boolean  @default(true)
@@ -262,22 +262,22 @@ model CreatorTier {
 }
 
 model CreatorMembership {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   fanId            String
   creatorId        String
   tierId           String
-  status           String   @default("active") // active | canceled | past_due
+  status           String    @default("active") // active | canceled | past_due
   currentPeriodEnd DateTime?
-  provider         String   @default("stripe")  // stripe | paypal | simulated
+  provider         String    @default("stripe") // stripe | paypal | simulated
   providerSubId    String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime  @default(now())
   canceledAt       DateTime?
 
-  fan     User        @relation("FanMemberships",     fields: [fanId],     references: [id], onDelete: Cascade)
+  fan     User        @relation("FanMemberships", fields: [fanId], references: [id], onDelete: Cascade)
   creator User        @relation("CreatorMemberships", fields: [creatorId], references: [id], onDelete: Cascade)
   tier    CreatorTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
 
-  @@unique([fanId, creatorId])   // one active membership per fan→creator
+  @@unique([fanId, creatorId]) // one active membership per fan→creator
   @@index([creatorId, status])
 }
 
@@ -288,13 +288,13 @@ model Tip {
   amountCents Int
   currency    String   @default("USD")
   message     String?
-  targetType  String?                          // "blog" | "activity" | "profile"
+  targetType  String? // "blog" | "activity" | "profile"
   targetId    String?
   provider    String   @default("stripe")
   providerRef String?
   createdAt   DateTime @default(now())
 
-  fromUser  User @relation("TipsSent",     fields: [fromUserId],  references: [id], onDelete: Cascade)
+  fromUser  User @relation("TipsSent", fields: [fromUserId], references: [id], onDelete: Cascade)
   toCreator User @relation("TipsReceived", fields: [toCreatorId], references: [id], onDelete: Cascade)
 
   @@index([toCreatorId, createdAt])
@@ -303,19 +303,19 @@ model Tip {
 // Append-only earnings ledger — the single source of truth for the Patreon-style
 // funnel: gross → processorFee → platformFee(10%) → net.
 model CreatorEarning {
-  id            String   @id @default(cuid())
-  creatorId     String
-  source        String                          // membership | tip | unlock
-  sourceId      String?                          // membership/tip/unlock id
-  grossCents    Int
-  processorFeeCents Int   @default(0)
-  platformFeeCents  Int                          // 10% of gross
-  netCents      Int                              // gross − processorFee − platformFee
-  currency      String   @default("USD")
-  status        String   @default("pending")     // pending(hold) | available | paid | refunded
-  availableAt   DateTime                         // when it leaves the 7-day hold
-  payoutId      String?
-  createdAt     DateTime @default(now())
+  id                String   @id @default(cuid())
+  creatorId         String
+  source            String // membership | tip | unlock
+  sourceId          String? // membership/tip/unlock id
+  grossCents        Int
+  processorFeeCents Int      @default(0)
+  platformFeeCents  Int // 10% of gross
+  netCents          Int // gross − processorFee − platformFee
+  currency          String   @default("USD")
+  status            String   @default("pending") // pending(hold) | available | paid | refunded
+  availableAt       DateTime // when it leaves the 7-day hold
+  payoutId          String?
+  createdAt         DateTime @default(now())
 
   creator User    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   payout  Payout? @relation(fields: [payoutId], references: [id], onDelete: SetNull)
@@ -325,30 +325,30 @@ model CreatorEarning {
 }
 
 model PayoutAccount {
-  userId        String   @id
-  provider      String                           // stripe | paypal
+  userId         String   @id
+  provider       String // stripe | paypal
   providerAcctId String?
-  onboarded     Boolean  @default(false)
-  taxFormStatus String   @default("missing")     // missing | submitted
-  payoutsEnabled Boolean @default(false)
-  country       String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  onboarded      Boolean  @default(false)
+  taxFormStatus  String   @default("missing") // missing | submitted
+  payoutsEnabled Boolean  @default(false)
+  country        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Payout {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   creatorId   String
   amountCents Int
-  currency    String   @default("USD")
-  provider    String                             // stripe | paypal
-  status      String   @default("requested")     // requested | processing | paid | failed
+  currency    String    @default("USD")
+  provider    String // stripe | paypal
+  status      String    @default("requested") // requested | processing | paid | failed
   providerRef String?
   periodStart DateTime?
   periodEnd   DateTime?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
   paidAt      DateTime?
 
   creator  User             @relation(fields: [creatorId], references: [id], onDelete: Cascade)
@@ -361,7 +361,7 @@ model Payout {
 // heatmap and is the audit trail for how each day was credited (docs/streak-algorithm.md).
 model StreakDay {
   userId        String
-  date          String   // local-day key "YYYY-MM-DD" (user's tz, grace-shifted)
+  date          String // local-day key "YYYY-MM-DD" (user's tz, grace-shifted)
   activityCount Int      @default(1)
   source        String   @default("activity") // activity | frozen | grace | repair
   createdAt     DateTime @default(now())
@@ -423,13 +423,13 @@ model LeaderboardSnapshot {
 // Token uniqueness across users: a given Expo push token belongs to ONE device,
 // so if it's seen on a new userId we transfer ownership rather than duplicate.
 model DeviceToken {
-  id          String   @id @default(cuid())
-  userId      String
-  expoToken   String   @unique
-  platform    String   // "ios" | "android" | "web"
-  deviceName  String?
-  lastSeenAt  DateTime @default(now())
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  userId     String
+  expoToken  String   @unique
+  platform   String // "ios" | "android" | "web"
+  deviceName String?
+  lastSeenAt DateTime @default(now())
+  createdAt  DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -442,7 +442,7 @@ model NativePushToken {
   id         String   @id @default(cuid())
   userId     String
   token      String   @unique
-  platform   String   // "ios" | "android"
+  platform   String // "ios" | "android"
   createdAt  DateTime @default(now())
   lastSeenAt DateTime @default(now())
 
@@ -469,15 +469,15 @@ model WebPushSubscription {
 }
 
 model RefreshToken {
-  id        String   @id @default(cuid())
-  token     String   @unique
-  userId    String
+  id         String    @id @default(cuid())
+  token      String    @unique
+  userId     String
   // Session metadata — populated on issuance for the "active sessions" UI
-  userAgent String?
-  ipAddress String?
-  lastUsedAt DateTime @default(now())
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+  userAgent  String?
+  ipAddress  String?
+  lastUsedAt DateTime  @default(now())
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
   // Rotation grace: a token isn't deleted on rotation but marked rotated, so a
   // benign concurrent/retried refresh (multiple tabs, reload mid-request) can be
   // re-served within a short window instead of nuking the whole session family.
@@ -494,12 +494,12 @@ model RefreshToken {
 // consumed on POST /auth/reset-password. Hashed in storage to prevent
 // DB-level token theft from being directly usable.
 model PasswordResetToken {
-  id         String   @id @default(cuid())
-  tokenHash  String   @unique  // SHA-256 of the actual token sent to the user
+  id         String    @id @default(cuid())
+  tokenHash  String    @unique // SHA-256 of the actual token sent to the user
   userId     String
-  expiresAt  DateTime           // 1 hour from creation
-  consumedAt DateTime?           // set on successful reset
-  createdAt  DateTime @default(now())
+  expiresAt  DateTime // 1 hour from creation
+  consumedAt DateTime? // set on successful reset
+  createdAt  DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -527,15 +527,15 @@ model SecurityEvent {
 }
 
 enum FollowStatus {
-  PENDING   // request awaiting approval (target is a private account)
-  ACCEPTED  // active follow
+  PENDING // request awaiting approval (target is a private account)
+  ACCEPTED // active follow
 }
 
 model Follow {
   followerId  String
   followingId String
   status      FollowStatus @default(ACCEPTED)
-  createdAt   DateTime @default(now())
+  createdAt   DateTime     @default(now())
 
   follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
   following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
@@ -560,63 +560,63 @@ enum SyncPriority {
 }
 
 model Anime {
-  id             String    @id @default(cuid())
-  malId          Int       @unique
+  id               String    @id @default(cuid())
+  malId            Int       @unique
   /// SEO-friendly slug ("fullmetal-alchemist-brotherhood"). Set ONCE on first
   /// full sync and never changed (stable URLs). Nullable so pre-existing rows
   /// can be backfilled lazily — same pattern as User.slug.
-  slug           String?   @unique
-  title          String
-  titleEnglish   String?
-  titleJapanese  String?
-  titleSynonyms  String[]  @default([])
-  synopsis       String?
-  background     String?
-  type           String?
-  episodes       Int?      // total episode count from Jikan (null = unknown/ongoing)
-  status         String?
-  airing         Boolean   @default(false)
-  airedFrom      DateTime?
-  airedTo        DateTime?
-  duration       String?
-  season         String?
-  year           Int?
-  rating         String?
-  score          Float?
-  scoredBy       Int?
-  rank           Int?
-  popularity     Int?
-  membersCount   Int?
-  favoritesCount Int?
-  imageUrl       String?   // large JPG — kept as the canonical field the frontend reads
-  imageSmallUrl  String?
-  imageWebpUrl   String?
+  slug             String?   @unique
+  title            String
+  titleEnglish     String?
+  titleJapanese    String?
+  titleSynonyms    String[]  @default([])
+  synopsis         String?
+  background       String?
+  type             String?
+  episodes         Int? // total episode count from Jikan (null = unknown/ongoing)
+  status           String?
+  airing           Boolean   @default(false)
+  airedFrom        DateTime?
+  airedTo          DateTime?
+  duration         String?
+  season           String?
+  year             Int?
+  rating           String?
+  score            Float?
+  scoredBy         Int?
+  rank             Int?
+  popularity       Int?
+  membersCount     Int?
+  favoritesCount   Int?
+  imageUrl         String? // large JPG — kept as the canonical field the frontend reads
+  imageSmallUrl    String?
+  imageWebpUrl     String?
   /// Reserved for a future CDN-mirroring phase. Never written by sync.
-  localImagePath String?
-  trailerUrl     String?
+  localImagePath   String?
+  trailerUrl       String?
   trailerYoutubeId String?
   /// Last time the YouTube trailer resolver looked for a trailer (whether or not
   /// one was found) — lets the backfill skip recently-checked misses to save quota.
   trailerCheckedAt DateTime?
-  broadcastDay   String?
-  broadcastTime  String?
-  broadcastTz    String?
-  source         String?
+  broadcastDay     String?
+  broadcastTime    String?
+  broadcastTz      String?
+  source           String?
 
   // ── Sync bookkeeping ──
   /// Null = never fully synced from /anime/{id}/full (row came from a list/
   /// search payload or predates the sync worker).
-  lastSyncedAt   DateTime?
-  syncPriority   SyncPriority @default(NORMAL)
-  syncFailCount  Int       @default(0)
+  lastSyncedAt  DateTime?
+  syncPriority  SyncPriority @default(NORMAL)
+  syncFailCount Int          @default(0)
   /// True when the row was created from a search/list payload and the full
   /// detail fetch hasn't happened yet.
-  isStub         Boolean   @default(false)
+  isStub        Boolean      @default(false)
 
   // ── Kaiveron-native enrichment — NEVER overwritten by sync ──
-  kaiveronTags   String[]  @default([])
-  waieScore      Float?
-  isFeatured     Boolean   @default(false)
+  kaiveronTags String[] @default([])
+  waieScore    Float?
+  isFeatured   Boolean  @default(false)
 
   /// Resolved English Wikipedia article title for pageview-buzz lookups, cached
   /// once via MediaWiki search. null = not yet resolved; "" = no confident article.
@@ -628,20 +628,20 @@ model Anime {
   trendingRank      Int?
   trendingUpdatedAt DateTime?
 
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  genres      AnimeGenre[]
-  studios     AnimeStudio[]
-  episodeList Episode[]
-  relations   AnimeRelation[] @relation("RelationSource")
-  relatedTo   AnimeRelation[] @relation("RelationTarget")
-  listEntries ListEntry[]
-  posts       Post[]
-  threads     Thread[]
-  reviews     Review[]
-  activities  Activity[]
-  shots       Shot[]
+  genres        AnimeGenre[]
+  studios       AnimeStudio[]
+  episodeList   Episode[]
+  relations     AnimeRelation[] @relation("RelationSource")
+  relatedTo     AnimeRelation[] @relation("RelationTarget")
+  listEntries   ListEntry[]
+  posts         Post[]
+  threads       Thread[]
+  reviews       Review[]
+  activities    Activity[]
+  shots         Shot[]
   trendingState TrendingState?
 
   @@index([malId])
@@ -663,24 +663,24 @@ model Anime {
 //   - seasonal[7]       → S-H-ESD weekly deseasonalization (per-weekday EWMA)
 //   - prevScore         → EWMA smoothing across ticks (anti-flicker)
 model TrendingState {
-  animeId    String   @id
-  ewmaMean   Float    @default(0)   // EWMA mean of deseasonalized velocity residual
-  ewmaDev    Float    @default(0)   // EWMA mean-abs-deviation → robust scale
-  newmaFast  Float    @default(0)   // fast EWMA of velocity
-  newmaSlow  Float    @default(0)   // slow EWMA of velocity
-  seasonal   Json     @default("[0,0,0,0,0,0,0]")  // per-weekday seasonal EWMA (Sun..Sat)
-  lastVel    Float    @default(0)   // last raw decayed velocity (debug/inspect)
-  prevScore  Float    @default(0)   // last smoothed trendingScore
-  samples    Int      @default(0)   // updates seen (cold-start warmup)
+  animeId      String    @id
+  ewmaMean     Float     @default(0) // EWMA mean of deseasonalized velocity residual
+  ewmaDev      Float     @default(0) // EWMA mean-abs-deviation → robust scale
+  newmaFast    Float     @default(0) // fast EWMA of velocity
+  newmaSlow    Float     @default(0) // slow EWMA of velocity
+  seasonal     Json      @default("[0,0,0,0,0,0,0]") // per-weekday seasonal EWMA (Sun..Sat)
+  lastVel      Float     @default(0) // last raw decayed velocity (debug/inspect)
+  prevScore    Float     @default(0) // last smoothed trendingScore
+  samples      Int       @default(0) // updates seen (cold-start warmup)
   // Off-platform web buzz (AniList trending + Wikimedia pageviews), normalized
   // 0..1, refreshed by the compute-buzz tick. Lets a title trend on web activity
   // even with no on-platform engagement yet.
-  externalBuzz Float   @default(0)
-  buzzAt     DateTime?
+  externalBuzz Float     @default(0)
+  buzzAt       DateTime?
   // Score component breakdown for "why is this trending" UI + tuning/debug:
   // { burst, magnitude, newma, web, anilist, wikipedia } weighted contributions.
-  components Json?
-  updatedAt  DateTime @updatedAt
+  components   Json?
+  updatedAt    DateTime  @updatedAt
 
   anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
 }
@@ -731,7 +731,7 @@ model AnimeStudio {
 model Episode {
   id            String    @id @default(cuid())
   animeId       String
-  malEpisodeId  Int       // episode number on MAL
+  malEpisodeId  Int // episode number on MAL
   title         String?
   titleJapanese String?
   titleRomaji   String?
@@ -750,9 +750,9 @@ model Episode {
 model AnimeRelation {
   id           String  @id @default(cuid())
   sourceId     String
-  targetMalId  Int     // target may not exist locally yet
+  targetMalId  Int // target may not exist locally yet
   targetId     String? // resolved local id when available
-  relationType String  // Sequel, Prequel, Adaptation, Side story...
+  relationType String // Sequel, Prequel, Adaptation, Side story...
 
   source Anime  @relation("RelationSource", fields: [sourceId], references: [id], onDelete: Cascade)
   target Anime? @relation("RelationTarget", fields: [targetId], references: [id], onDelete: SetNull)
@@ -778,10 +778,10 @@ model SyncJob {
   /// finishes so the same work can be re-enqueued later.
   dedupeKey   String?   @unique
   status      String    @default("PENDING") // PENDING | RUNNING | DONE | FAILED
-  priority    Int       @default(0)         // higher runs first
+  priority    Int       @default(0) // higher runs first
   attempts    Int       @default(0)
   maxAttempts Int       @default(3)
-  runAt       DateTime  @default(now())     // not claimable before this
+  runAt       DateTime  @default(now()) // not claimable before this
   lockedAt    DateTime?
   lastError   String?
   createdAt   DateTime  @default(now())
@@ -795,7 +795,7 @@ model SyncJobLog {
   id         String   @id @default(cuid())
   jobType    String
   malId      Int?
-  status     String   // success | failed | skipped
+  status     String // success | failed | skipped
   error      String?
   durationMs Int?
   createdAt  DateTime @default(now())
@@ -858,16 +858,16 @@ model MangaEntry {
 // ---------------------------------------------------------------------------
 
 model Post {
-  id        String    @id @default(cuid())
-  authorId  String
-  content   String
-  animeId   String?
-  imageUrl  String?            // first image — kept for backward compatibility
-  imageUrls String[] @default([]) // all images (gallery); imageUrl mirrors [0]
-  galleryLayout String @default("grid") // author's choice for multi-image: "grid" | "carousel"
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id            String    @id @default(cuid())
+  authorId      String
+  content       String
+  animeId       String?
+  imageUrl      String? // first image — kept for backward compatibility
+  imageUrls     String[]  @default([]) // all images (gallery); imageUrl mirrors [0]
+  galleryLayout String    @default("grid") // author's choice for multi-image: "grid" | "carousel"
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
 
   // Trending-algorithm admin overrides. Per HN's pattern of manually
   // penalizing ~20% of front-page stories — pure formulas always need a
@@ -907,9 +907,9 @@ model PostHide {
 }
 
 model PostLike {
-  userId String
-  postId String
-  createdAt DateTime @default(now())   // for creator-analytics time-windowing
+  userId    String
+  postId    String
+  createdAt DateTime @default(now()) // for creator-analytics time-windowing
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -930,11 +930,11 @@ model PostComment {
   replyCount      Int      @default(0)
   createdAt       DateTime @default(now())
 
-  post   Post          @relation(fields: [postId],          references: [id], onDelete: Cascade)
-  author User          @relation(fields: [authorId],        references: [id], onDelete: Cascade)
-  parent PostComment?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
-  replies PostComment[] @relation("CommentReplies")
-  likes  PostCommentLike[]
+  post    Post              @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent  PostComment?      @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  replies PostComment[]     @relation("CommentReplies")
+  likes   PostCommentLike[]
 
   @@index([postId, parentCommentId, createdAt])
   @@index([parentCommentId, createdAt])
@@ -945,7 +945,7 @@ model PostCommentLike {
   commentId String
   createdAt DateTime @default(now())
 
-  user    User        @relation(fields: [userId],    references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   comment PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@id([userId, commentId])
@@ -957,35 +957,35 @@ model PostCommentLike {
 // ---------------------------------------------------------------------------
 
 model Club {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  description String?
-  category    String?
-  ownerId     String
-  reputation  Int      @default(0)
-  createdAt   DateTime @default(now())
+  id             String         @id @default(cuid())
+  slug           String         @unique
+  name           String
+  description    String?
+  category       String?
+  ownerId        String
+  reputation     Int            @default(0)
+  createdAt      DateTime       @default(now())
   // Club 2.0 — identity + onboarding
   bannerUrl      String?
   avatarUrl      String?
-  rules          String?  @db.Text
-  welcomeMessage String?  @db.Text
+  rules          String?        @db.Text
+  welcomeMessage String?        @db.Text
   // Private clubs — gate joins behind invite/approval
   visibility     ClubVisibility @default(PUBLIC)
   // Verified badge (admin-granted)
-  verified       Boolean @default(false)
+  verified       Boolean        @default(false)
   verifiedAt     DateTime?
 
-  owner   User         @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
-  members ClubMember[]
-  threads Thread[]
-  events  ClubEvent[]
-  polls   Poll[]
+  owner        User                @relation("ClubOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  members      ClubMember[]
+  threads      Thread[]
+  events       ClubEvent[]
+  polls        Poll[]
   invites      ClubInvite[]
   joinRequests ClubJoinRequest[]
   watchlist    ClubWatchlistItem[]
   // Optional realtime chat room for the club (a club-backed GroupConversation).
-  chatGroup GroupConversation? @relation("ClubChat")
+  chatGroup    GroupConversation?  @relation("ClubChat")
 
   @@index([slug])
   @@index([createdAt])
@@ -1083,12 +1083,12 @@ model ClubEvent {
   episodeNumber Int?
   startsAt      DateTime
   endsAt        DateTime?
-  location      String?       // "club chat" | external URL
-  remindedAt    DateTime?     // last reminder dispatch (cron)
+  location      String? // "club chat" | external URL
+  remindedAt    DateTime? // last reminder dispatch (cron)
   createdAt     DateTime      @default(now())
 
-  club    Club             @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  creator User             @relation("ClubEventCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  club    Club            @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  creator User            @relation("ClubEventCreator", fields: [creatorId], references: [id], onDelete: Cascade)
   rsvps   ClubEventRSVP[]
 
   @@index([clubId, startsAt])
@@ -1109,10 +1109,10 @@ model ClubEventRSVP {
 }
 
 model ClubMember {
-  userId   String
-  clubId   String
-  role     Role     @default(USER)
-  joinedAt DateTime @default(now())
+  userId        String
+  clubId        String
+  role          Role      @default(USER)
+  joinedAt      DateTime  @default(now())
   // Club 2.0 — onboarding + gamification
   agreedRulesAt DateTime?
   onboardedAt   DateTime?
@@ -1133,8 +1133,8 @@ model ClubMember {
 // Emoji reactions on a Thread or a ThreadReply (polymorphic targetId).
 model ThreadReaction {
   id         String   @id @default(cuid())
-  targetId   String   // Thread.id or ThreadReply.id
-  targetType String   // "thread" | "reply"
+  targetId   String // Thread.id or ThreadReply.id
+  targetType String // "thread" | "reply"
   userId     String
   emoji      String
   createdAt  DateTime @default(now())
@@ -1157,21 +1157,21 @@ enum ThreadKind {
 }
 
 model Thread {
-  id        String   @id @default(cuid())
-  title     String
-  content   String
-  imageUrl  String?
-  authorId  String
-  clubId    String?
-  animeId   String?
-  isPinned  Boolean  @default(false)
-  isLocked  Boolean  @default(false)
+  id            String     @id @default(cuid())
+  title         String
+  content       String
+  imageUrl      String?
+  authorId      String
+  clubId        String?
+  animeId       String?
+  isPinned      Boolean    @default(false)
+  isLocked      Boolean    @default(false)
   kind          ThreadKind @default(DISCUSSION)
   pinnedUntil   DateTime?
   episodeNumber Int?
   tags          String[]   @default([])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 
   author  User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   club    Club?         @relation(fields: [clubId], references: [id], onDelete: SetNull)
@@ -1207,9 +1207,9 @@ model ThreadReply {
   imageUrl  String?
   createdAt DateTime @default(now())
 
-  thread Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  author User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  parent ThreadReply? @relation("ReplyToReply", fields: [parentId], references: [id], onDelete: SetNull)
+  thread   Thread        @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent   ThreadReply?  @relation("ReplyToReply", fields: [parentId], references: [id], onDelete: SetNull)
   children ThreadReply[] @relation("ReplyToReply")
 
   @@index([threadId, createdAt])
@@ -1240,9 +1240,9 @@ model Review {
 }
 
 model ReviewLike {
-  userId   String
-  reviewId String
-  createdAt DateTime @default(now())   // for creator-analytics time-windowing
+  userId    String
+  reviewId  String
+  createdAt DateTime @default(now()) // for creator-analytics time-windowing
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
@@ -1255,31 +1255,31 @@ model ReviewLike {
 // ---------------------------------------------------------------------------
 
 model Blog {
-  id          String     @id @default(cuid())
-  slug        String     @unique
+  id          String        @id @default(cuid())
+  slug        String        @unique
   authorId    String
   title       String
   body        String
-  status      BlogStatus @default(DRAFT)
+  status      BlogStatus    @default(DRAFT)
   // What the post IS — picked by the creator before writing (Deep Dive, Review…).
   category    BlogCategory?
-  hasSpoilers Boolean    @default(false)
+  hasSpoilers Boolean       @default(false)
   // Optional anime the post is about. Denormalized (no FK) — the anime may only
   // exist upstream in Jikan and not yet have a local Anime row.
   animeMalId  Int?
   animeTitle  String?
   publishedAt DateTime?
-  scheduledAt DateTime?                      // when a SCHEDULED blog should auto-publish
+  scheduledAt DateTime? // when a SCHEDULED blog should auto-publish
   // Denormalized deduplicated view counter (one per unique viewer per UTC day).
   // Source of truth for the granular events is BlogView; this is the fast O(1)
   // read used everywhere the count is shown.
-  viewCount   Int        @default(0)
+  viewCount   Int           @default(0)
   // Denormalized like counter (source of truth: BlogLike rows). Fast O(1) read.
-  likeCount   Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  likeCount   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments BlogComment[]
   views    BlogView[]
   likes    BlogLike[]
@@ -1299,7 +1299,7 @@ model BlogView {
   id        String   @id @default(cuid())
   blogId    String
   viewerKey String
-  day       String   // "YYYY-MM-DD" (UTC)
+  day       String // "YYYY-MM-DD" (UTC)
   createdAt DateTime @default(now())
 
   blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
@@ -1402,8 +1402,8 @@ model Poll {
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  author  User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  club    Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  author  User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  club    Club?        @relation(fields: [clubId], references: [id], onDelete: Cascade)
   options PollOption[]
   votes   PollVote[]
 
@@ -1413,10 +1413,10 @@ model Poll {
 }
 
 model PollOption {
-  id      String @id @default(cuid())
-  pollId  String
-  label   String
-  order   Int    @default(0)
+  id     String @id @default(cuid())
+  pollId String
+  label  String
+  order  Int    @default(0)
 
   poll  Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
   votes PollVote[]
@@ -1446,8 +1446,8 @@ model PollVote {
 model UserOAuthProvider {
   id         String   @id @default(cuid())
   userId     String
-  provider   String   // "google" | "apple"
-  providerId String   // Provider's stable user ID (sub claim)
+  provider   String // "google" | "apple"
+  providerId String // Provider's stable user ID (sub claim)
   createdAt  DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -1483,24 +1483,24 @@ model Conversation {
   // initiator isn't followed back by the recipient (privacy-dependent), else
   // ACTIVE. DECLINED conversations reject further messages from the initiator.
   status        ConversationStatus @default(ACTIVE)
-  initiatorId   String?                              // who sent the first message
+  initiatorId   String? // who sent the first message
   // Denormalized sort/cursor key for the inbox (cheaper than joining messages).
-  lastMessageAt DateTime @default(now())
+  lastMessageAt DateTime           @default(now())
 
   // Per-participant state (denormalized for cheap inbox queries). p1/p2 map to
   // participant1/participant2 (canonical lexicographic order).
-  p1UnreadCount Int      @default(0)
-  p2UnreadCount Int      @default(0)
-  p1MutedUntil  DateTime?
-  p2MutedUntil  DateTime?
-  p1DeletedAt   DateTime?            // "delete conversation for me" — hide messages before this
-  p2DeletedAt   DateTime?
-  p1LastReadAt  DateTime?
-  p2LastReadAt  DateTime?
-  p1Pinned      Boolean  @default(false)
-  p2Pinned      Boolean  @default(false)
-  p1Archived    Boolean  @default(false)
-  p2Archived    Boolean  @default(false)
+  p1UnreadCount       Int       @default(0)
+  p2UnreadCount       Int       @default(0)
+  p1MutedUntil        DateTime?
+  p2MutedUntil        DateTime?
+  p1DeletedAt         DateTime? // "delete conversation for me" — hide messages before this
+  p2DeletedAt         DateTime?
+  p1LastReadAt        DateTime?
+  p2LastReadAt        DateTime?
+  p1Pinned            Boolean   @default(false)
+  p2Pinned            Boolean   @default(false)
+  p1Archived          Boolean   @default(false)
+  p2Archived          Boolean   @default(false)
   // Disappearing messages — conversation-wide TTL in seconds (null = off).
   disappearingSeconds Int?
 
@@ -1528,16 +1528,16 @@ model DirectMessage {
   senderId       String
   createdAt      DateTime  @default(now())
   readAt         DateTime?
-  deliveredAt    DateTime?            // set when recipient's socket is connected
+  deliveredAt    DateTime? // set when recipient's socket is connected
 
   // DM v2 — server-readable content (TLS in transit). `body` holds text or a
   // media caption. Legacy E2E rows keep ciphertext/iv and leave body null.
-  type           MessageType @default(TEXT)
-  body           String?     @db.Text
+  type         MessageType @default(TEXT)
+  body         String?     @db.Text
   // Spoiler segments (||spoiler||) are parsed client-side. animeRef enables
   // progress-aware gating for ANIME_CARD and tagged messages.
-  animeMalId     Int?
-  animeEpisode   Int?                 // recipient client blurs when their progress < episode
+  animeMalId   Int?
+  animeEpisode Int? // recipient client blurs when their progress < episode
 
   // Media (IMAGE / VOICE)
   mediaUrl       String?
@@ -1545,42 +1545,42 @@ model DirectMessage {
   mediaSizeBytes Int?
   mediaWidth     Int?
   mediaHeight    Int?
-  mediaDurationS Int?                 // voice notes
-  mediaBlurhash  String?              // blurred image placeholder
+  mediaDurationS Int? // voice notes
+  mediaBlurhash  String? // blurred image placeholder
 
-  replyToId      String?
-  replyTo        DirectMessage?  @relation("DMReplies", fields: [replyToId], references: [id], onDelete: SetNull)
-  replies        DirectMessage[] @relation("DMReplies")
+  replyToId String?
+  replyTo   DirectMessage?  @relation("DMReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies   DirectMessage[] @relation("DMReplies")
 
-  editedAt       DateTime?
-  clientNonce    String?              // client-generated id for optimistic UI dedup
-  expiresAt      DateTime?            // disappearing messages — purged + hidden after this
+  editedAt    DateTime?
+  clientNonce String? // client-generated id for optimistic UI dedup
+  expiresAt   DateTime? // disappearing messages — purged + hidden after this
 
   // Encrypted content. DM-v2 plaintext rows leave these null and use `body`;
   // E2EE rows (isE2EE) set ciphertext/contentIv and leave body null (dual-read).
   // Stored base64 (repo convention) rather than Prisma Bytes.
-  ciphertext     String?    // AES-GCM(CK, {text,frankingKey}) base64
-  iv             String?    // legacy pairwise IV (pre-v2)
-  contentIv      String?    // AES-GCM content IV for E2EE rows, base64
-  frankingTag    String?    // HMAC-SHA256(frankingKey, plaintext), base64
-  serverFrank    String?    // HMAC(SERVER_FRANK_SECRET, frankingTag‖id‖sender‖ts), base64
-  isE2EE         Boolean    @default(false)
-  envelopesV2    MessageEnvelope[]
+  ciphertext  String? // AES-GCM(CK, {text,frankingKey}) base64
+  iv          String? // legacy pairwise IV (pre-v2)
+  contentIv   String? // AES-GCM content IV for E2EE rows, base64
+  frankingTag String? // HMAC-SHA256(frankingKey, plaintext), base64
+  serverFrank String? // HMAC(SERVER_FRANK_SECRET, frankingTag‖id‖sender‖ts), base64
+  isE2EE      Boolean           @default(false)
+  envelopesV2 MessageEnvelope[]
 
   // WhatsApp-style deletion model:
   // - deletedAt: "Delete for everyone" (sender, within window); body/media/
   //   ciphertext cleared, clients render a tombstone for both users.
   // - deletedForSender / deletedForRecipient: "Delete for me".
-  deletedAt             DateTime?
-  deletedForSender      Boolean   @default(false)
-  deletedForRecipient   Boolean   @default(false)
+  deletedAt           DateTime?
+  deletedForSender    Boolean   @default(false)
+  deletedForRecipient Boolean   @default(false)
 
   // Multi-device E2E (legacy Phase 1, additive). Unused by v2 server-readable.
   senderDeviceKeyId String?
 
-  conversation    Conversation        @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender          User                @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
-  senderDeviceKey UserDeviceKey?      @relation("MsgSenderDeviceKey", fields: [senderDeviceKeyId], references: [id])
+  conversation    Conversation         @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender          User                 @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderDeviceKey UserDeviceKey?       @relation("MsgSenderDeviceKey", fields: [senderDeviceKeyId], references: [id])
   envelopes       MessageKeyEnvelope[]
   reactions       MessageReaction[]
 
@@ -1620,19 +1620,19 @@ model MessageReaction {
 // SAME per-device key infrastructure (UserDevice + per-message envelopes).
 // ─────────────────────────────────────────────────────────────────────────────
 model GroupConversation {
-  id            String   @id @default(cuid())
-  title         String
-  avatarUrl     String?
-  ownerId       String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  lastMessageAt DateTime @default(now())
+  id                  String   @id @default(cuid())
+  title               String
+  avatarUrl           String?
+  ownerId             String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  lastMessageAt       DateTime @default(now())
   // Disappearing messages — group-wide TTL in seconds (null = off).
   disappearingSeconds Int?
   // When true, members send opaque ciphertext + per-device envelopes.
-  isE2EE        Boolean  @default(false)
+  isE2EE              Boolean  @default(false)
   // If set, this group is the chat room for a Club; membership mirrors ClubMember.
-  clubId        String?  @unique
+  clubId              String?  @unique
 
   owner    User           @relation("GroupOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   members  GroupMember[]
@@ -1674,14 +1674,14 @@ model GroupMember {
 }
 
 model GroupMessage {
-  id          String      @id @default(cuid())
-  groupId     String
-  senderId    String?     // null for SYSTEM events (joined/left/renamed)
-  createdAt   DateTime    @default(now())
+  id        String   @id @default(cuid())
+  groupId   String
+  senderId  String? // null for SYSTEM events (joined/left/renamed)
+  createdAt DateTime @default(now())
 
-  type        MessageType @default(TEXT)
-  body        String?     @db.Text
-  animeMalId  Int?
+  type         MessageType @default(TEXT)
+  body         String?     @db.Text
+  animeMalId   Int?
   animeEpisode Int?
 
   // Media (IMAGE / VOICE) — clear URL + dims for plaintext, opaque blob for E2EE.
@@ -1693,9 +1693,9 @@ model GroupMessage {
   mediaDurationS Int?
   mediaBlurhash  String?
 
-  replyToId   String?
-  replyTo     GroupMessage?  @relation("GroupReplies", fields: [replyToId], references: [id], onDelete: SetNull)
-  replies     GroupMessage[] @relation("GroupReplies")
+  replyToId String?
+  replyTo   GroupMessage?  @relation("GroupReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies   GroupMessage[] @relation("GroupReplies")
 
   editedAt    DateTime?
   clientNonce String?
@@ -1706,11 +1706,11 @@ model GroupMessage {
   contentIv   String?
   frankingTag String?
   serverFrank String?
-  isE2EE      Boolean   @default(false)
+  isE2EE      Boolean @default(false)
 
   // "Delete for everyone" tombstone. Per-member "delete for me" lives in the
   // GroupMessageHide table (cheaper than a boolean column per member).
-  deletedAt   DateTime?
+  deletedAt DateTime?
 
   group     GroupConversation      @relation(fields: [groupId], references: [id], onDelete: Cascade)
   sender    User?                  @relation("GroupMessageSender", fields: [senderId], references: [id], onDelete: SetNull)
@@ -1729,7 +1729,7 @@ model GroupMessageEnvelope {
   id           String       @id @default(cuid())
   messageId    String
   message      GroupMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  deviceId     String       // references UserDevice.id (no FK to keep groups self-contained)
+  deviceId     String // references UserDevice.id (no FK to keep groups self-contained)
   ephemeralPub String
   wrappedCK    String
   wrapIv       String
@@ -1739,11 +1739,11 @@ model GroupMessageEnvelope {
 }
 
 model GroupMessageReaction {
-  id        String       @id @default(cuid())
+  id        String   @id @default(cuid())
   messageId String
   userId    String
   emoji     String
-  createdAt DateTime     @default(now())
+  createdAt DateTime @default(now())
 
   message GroupMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
   user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -1766,16 +1766,16 @@ model GroupMessageHide {
 // key (JWK JSON). Many per user — replaces the single-key UserPublicKey going
 // forward; existing UserPublicKey rows are backfilled here as deviceId "legacy".
 model UserDeviceKey {
-  id        String   @id @default(cuid())
-  userId    String
-  deviceId  String   // stable client-generated id (e.g. random, stored locally)
-  publicKey String   // ECDH P-256 public key, JWK JSON string
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  userId     String
+  deviceId   String // stable client-generated id (e.g. random, stored locally)
+  publicKey  String // ECDH P-256 public key, JWK JSON string
+  createdAt  DateTime @default(now())
   lastSeenAt DateTime @updatedAt
 
-  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sentMessages   DirectMessage[]      @relation("MsgSenderDeviceKey")
-  envelopes      MessageKeyEnvelope[]
+  user         User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sentMessages DirectMessage[]      @relation("MsgSenderDeviceKey")
+  envelopes    MessageKeyEnvelope[]
 
   @@unique([userId, deviceId])
   @@index([userId])
@@ -1803,7 +1803,7 @@ model UserBlock {
   id        String   @id @default(cuid())
   blockerId String
   blockedId String
-  blocker   User     @relation("blocksMade",     fields: [blockerId], references: [id], onDelete: Cascade)
+  blocker   User     @relation("blocksMade", fields: [blockerId], references: [id], onDelete: Cascade)
   blocked   User     @relation("blocksReceived", fields: [blockedId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
@@ -1829,10 +1829,10 @@ enum KeyWrapMethod {
 model WebAuthnCredential {
   id           String   @id @default(cuid())
   userId       String
-  credentialId String   @unique           // base64url
-  publicKey    String                      // base64 COSE public key
+  credentialId String   @unique // base64url
+  publicKey    String // base64 COSE public key
   counter      Int      @default(0)
-  transports   String?                     // CSV
+  transports   String? // CSV
   createdAt    DateTime @default(now())
 
   @@index([userId])
@@ -1846,10 +1846,10 @@ model UserMasterKeyWrap {
   userId       String
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   method       KeyWrapMethod
-  credentialId String?       // WebAuthn credential id (PASSKEY_PRF)
-  wrappedUMK   String        // AES-GCM(KRK, UMK) base64
+  credentialId String? // WebAuthn credential id (PASSKEY_PRF)
+  wrappedUMK   String // AES-GCM(KRK, UMK) base64
   wrapIv       String
-  kdfSalt      String?       // RECOVERY_CODE / FALLBACK_PASSPHRASE (Argon2id)
+  kdfSalt      String? // RECOVERY_CODE / FALLBACK_PASSPHRASE (Argon2id)
   kdfParams    Json?
   label        String?
   createdAt    DateTime      @default(now())
@@ -1865,15 +1865,15 @@ model UserDevice {
   id             String   @id @default(cuid())
   userId         String
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  publicKey      String   // ECDH P-256 raw public key, base64
-  wrappedPrivKey String   // AES-GCM(HKDF(UMK,"device-key-wrap"), privKey) base64
+  publicKey      String // ECDH P-256 raw public key, base64
+  wrappedPrivKey String // AES-GCM(HKDF(UMK,"device-key-wrap"), privKey) base64
   wrapIv         String
   name           String
   revoked        Boolean  @default(false)
   createdAt      DateTime @default(now())
   lastSeenAt     DateTime @default(now())
 
-  envelopes      MessageEnvelope[]
+  envelopes MessageEnvelope[]
 
   @@index([userId, revoked])
 }
@@ -1886,8 +1886,8 @@ model MessageEnvelope {
   message      DirectMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
   deviceId     String
   device       UserDevice    @relation(fields: [deviceId], references: [id], onDelete: Cascade)
-  ephemeralPub String        // sender's ephemeral ECDH public key, base64
-  wrappedCK    String        // AES-GCM(HKDF(ECDH), CK) base64
+  ephemeralPub String // sender's ephemeral ECDH public key, base64
+  wrappedCK    String // AES-GCM(HKDF(ECDH), CK) base64
   wrapIv       String
 
   @@unique([messageId, deviceId])
@@ -1903,9 +1903,9 @@ model MessageReport {
   reportedUserId String
   conversationId String
   messageId      String?
-  reason         String                       // spam | harassment | nsfw | other
-  details        String?  @db.Text            // JSON snapshot (immutable)
-  status         String   @default("open")    // open | reviewed | actioned | dismissed
+  reason         String // spam | harassment | nsfw | other
+  details        String?  @db.Text // JSON snapshot (immutable)
+  status         String   @default("open") // open | reviewed | actioned | dismissed
   createdAt      DateTime @default(now())
 
   @@index([status, createdAt])
@@ -1933,52 +1933,52 @@ enum ActivityKind {
 }
 
 enum ListActivityVerb {
-  WATCHED_EPISODE        // ep 12 of Frieren
-  COMPLETED              // finished a series
-  ADDED_TO_PLAN          // moved to plan-to-watch
+  WATCHED_EPISODE // ep 12 of Frieren
+  COMPLETED // finished a series
+  ADDED_TO_PLAN // moved to plan-to-watch
   DROPPED
-  RATED                  // gave a score
-  STARTED                // first episode watched
+  RATED // gave a score
+  STARTED // first episode watched
   REWATCHING
 }
 
 model Activity {
-  id              String          @id @default(cuid())
-  authorId        String
-  kind            ActivityKind
+  id            String            @id @default(cuid())
+  authorId      String
+  kind          ActivityKind
   // Text body — required for TEXT and MESSAGE kinds; optional commentary on LIST_UPDATE
-  body            String?
+  body          String?
   // List-update specifics
-  linkedAnimeId   String?
-  verb            ListActivityVerb?
-  episodeNumber   Int?
-  score           Int?            // for RATED verb (1–10)
+  linkedAnimeId String?
+  verb          ListActivityVerb?
+  episodeNumber Int?
+  score         Int? // for RATED verb (1–10)
   // Message specifics — non-null when kind=MESSAGE; recipient's profile wall
-  wallOwnerId     String?
+  wallOwnerId   String?
   // Spoiler scope — for client-side blur; server still ships text but the
   // recipient must opt-in to render until they've passed `spoilerScopeAnimeId`.
-  hasSpoiler      Boolean         @default(false)
+  hasSpoiler    Boolean           @default(false)
   // Repost chain — non-null if this activity is a repost of another
-  repostOfId      String?
+  repostOfId    String?
   // Reply parent — non-null if this activity is a top-level reply (we keep
   // Reply as a separate model for cheaper queries; this is reserved for V1
   // quote-replies / threaded conversations rooted in Activity).
   // Denormalized engagement counters
-  likeCount       Int             @default(0)
-  repostCount     Int             @default(0)
-  replyCount      Int             @default(0)
+  likeCount     Int               @default(0)
+  repostCount   Int               @default(0)
+  replyCount    Int               @default(0)
   // Lifecycle
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  deletedAt       DateTime?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  deletedAt     DateTime?
 
-  author       User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  linkedAnime  Anime?            @relation(fields: [linkedAnimeId], references: [id], onDelete: SetNull)
-  repostOf     Activity?         @relation("Reposts", fields: [repostOfId], references: [id], onDelete: SetNull)
-  reposts      Activity[]        @relation("Reposts")
-  likes        ActivityLike[]
-  repostsBy    ActivityRepost[]
-  replies      Reply[]
+  author      User             @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  linkedAnime Anime?           @relation(fields: [linkedAnimeId], references: [id], onDelete: SetNull)
+  repostOf    Activity?        @relation("Reposts", fields: [repostOfId], references: [id], onDelete: SetNull)
+  reposts     Activity[]       @relation("Reposts")
+  likes       ActivityLike[]
+  repostsBy   ActivityRepost[]
+  replies     Reply[]
 
   @@index([authorId, createdAt])
   @@index([createdAt])
@@ -2002,12 +2002,12 @@ model ActivityLike {
 // Activity row (visible in feeds) AND a join row here (for "did I repost"
 // checks + counter denormalization on the original).
 model ActivityRepost {
-  userId       String
-  activityId   String   // the ORIGINAL activity being reposted
+  userId           String
+  activityId       String // the ORIGINAL activity being reposted
   // New Activity row produced by the repost; null only if we want to model
   // "silent" boosts later. For MVP, always populated.
-  repostActivityId String? @unique
-  createdAt    DateTime @default(now())
+  repostActivityId String?  @unique
+  createdAt        DateTime @default(now())
 
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
@@ -2017,17 +2017,17 @@ model ActivityRepost {
 }
 
 model Reply {
-  id          String   @id @default(cuid())
-  activityId  String
-  authorId    String
-  body        String
-  hasSpoiler  Boolean  @default(false)
+  id            String    @id @default(cuid())
+  activityId    String
+  authorId      String
+  body          String
+  hasSpoiler    Boolean   @default(false)
   // Denorm for nested reply count (V1)
-  replyCount  Int      @default(0)
-  likeCount   Int      @default(0)
+  replyCount    Int       @default(0)
+  likeCount     Int       @default(0)
   parentReplyId String?
-  createdAt   DateTime @default(now())
-  deletedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
 
   activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   author   User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -2046,8 +2046,8 @@ model Reply {
 
 model Permission {
   id          String   @id @default(cuid())
-  resource    String   // e.g. "users", "billing", "flags"
-  action      String   // e.g. "read", "suspend", "refund", "kill"
+  resource    String // e.g. "users", "billing", "flags"
+  action      String // e.g. "read", "suspend", "refund", "kill"
   description String?
   createdAt   DateTime @default(now())
 
@@ -2059,9 +2059,9 @@ model Permission {
 
 model AdminRole {
   id          String   @id @default(cuid())
-  name        String   @unique          // SuperAdmin, Support, BillingAdmin, Moderator, ReadOnlyAdmin
+  name        String   @unique // SuperAdmin, Support, BillingAdmin, Moderator, ReadOnlyAdmin
   description String?
-  isSystem    Boolean  @default(false)  // system roles cannot be deleted
+  isSystem    Boolean  @default(false) // system roles cannot be deleted
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -2084,7 +2084,7 @@ model RolePermission {
 model UserAdminRole {
   userId    String
   roleId    String
-  grantedBy String?  // actorId who granted (null = system seed)
+  grantedBy String? // actorId who granted (null = system seed)
   createdAt DateTime @default(now())
 
   role AdminRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
@@ -2098,15 +2098,15 @@ model UserAdminRole {
 // chained from the previous row so tampering is detectable.
 model AuditLog {
   id             String   @id @default(cuid())
-  actorId        String?  // userId taking the action (null = system)
-  impersonatorId String?  // userId actually driving the session, if impersonation
-  action         String   // e.g. "user.ban", "role.grant", "flag.kill"
-  targetType     String?  // e.g. "User", "Post"
+  actorId        String? // userId taking the action (null = system)
+  impersonatorId String? // userId actually driving the session, if impersonation
+  action         String // e.g. "user.ban", "role.grant", "flag.kill"
+  targetType     String? // e.g. "User", "Post"
   targetId       String?
-  metadata       Json?    // { before, after, reason, ... }
+  metadata       Json? // { before, after, reason, ... }
   ipAddress      String?
   userAgent      String?
-  prevHash       String?  // integrityHash of the previous AuditLog row
+  prevHash       String? // integrityHash of the previous AuditLog row
   integrityHash  String   @unique
   createdAt      DateTime @default(now())
 
@@ -2119,15 +2119,15 @@ model AuditLog {
 // Admin-initiated invites that create new admin users (or upgrade an existing
 // account to admin). Token sent via email is hashed in storage.
 model UserInvite {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   email      String
-  tokenHash  String   @unique
+  tokenHash  String    @unique
   inviterId  String
-  roleName   String?  // AdminRole.name to assign on accept
+  roleName   String? // AdminRole.name to assign on accept
   expiresAt  DateTime
   acceptedAt DateTime?
-  acceptedBy String?  // userId that consumed the invite
-  createdAt  DateTime @default(now())
+  acceptedBy String? // userId that consumed the invite
+  createdAt  DateTime  @default(now())
 
   @@index([email])
   @@index([expiresAt])
@@ -2136,13 +2136,13 @@ model UserInvite {
 // TOTP secret per user. Stored base32. enabled=true only after first successful
 // verify. backupCodes is a JSON array of SHA-256-hashed single-use codes.
 model TotpSecret {
-  userId       String   @id
+  userId       String    @id
   secretBase32 String
-  enabled      Boolean  @default(false)
+  enabled      Boolean   @default(false)
   backupCodes  Json?
   lastUsedAt   DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 // Shared (cross-instance) brute-force lockout, keyed by login email. Replaces
@@ -2181,13 +2181,13 @@ model EmailVerification {
 // for high-risk admin actions (role grants, kill switches, DSAR delete,
 // impersonation start). Stored hashed.
 model StepUpToken {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   userId     String
-  tokenHash  String   @unique
-  purpose    String   // free-form scope tag, e.g. "role.grant"
+  tokenHash  String    @unique
+  purpose    String // free-form scope tag, e.g. "role.grant"
   expiresAt  DateTime
   consumedAt DateTime?
-  createdAt  DateTime @default(now())
+  createdAt  DateTime  @default(now())
 
   @@index([userId])
   @@index([expiresAt])
@@ -2201,20 +2201,20 @@ model StepUpToken {
 // flags so the UI can group them. `isKillSwitch` flips the default-on flag
 // off without redeploy.
 model FeatureFlag {
-  id                String   @id @default(cuid())
-  key               String   @unique
-  description       String?
-  type              String   @default("release")  // release | experiment | ops | permission
-  enabledGlobally   Boolean  @default(false)
-  rolloutRules      Json?                          // { percentage?, cohorts?, tiers? }
-  isKillSwitch      Boolean  @default(false)
-  killedAt          DateTime?
-  killedBy          String?
-  killedReason      String?
-  createdBy         String?
-  lastEvaluatedAt   DateTime?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id              String    @id @default(cuid())
+  key             String    @unique
+  description     String?
+  type            String    @default("release") // release | experiment | ops | permission
+  enabledGlobally Boolean   @default(false)
+  rolloutRules    Json? // { percentage?, cohorts?, tiers? }
+  isKillSwitch    Boolean   @default(false)
+  killedAt        DateTime?
+  killedBy        String?
+  killedReason    String?
+  createdBy       String?
+  lastEvaluatedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   overrides FeatureFlagOverride[]
 
@@ -2224,14 +2224,14 @@ model FeatureFlag {
 // Per-user override that pins a flag to a value regardless of rollout rules.
 // Used by support to enable/disable a feature for one account during triage.
 model FeatureFlagOverride {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   flagId    String
   userId    String
   enabled   Boolean
   reason    String?
   grantedBy String?
   expiresAt DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 
   flag FeatureFlag @relation(fields: [flagId], references: [id], onDelete: Cascade)
 
@@ -2243,16 +2243,16 @@ model FeatureFlagOverride {
 // entitlements gate paid features. Source = "plan" for plan-derived,
 // "manual" for support-granted, "trial" for time-limited grants.
 model Entitlement {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
-  feature   String                  // e.g. "creator_studio", "ai_oracle"
-  limit     Int?                    // null = unlimited; int = cap (e.g. 5 posts/day)
-  source    String   @default("manual")
+  feature   String // e.g. "creator_studio", "ai_oracle"
+  limit     Int? // null = unlimited; int = cap (e.g. 5 posts/day)
+  source    String    @default("manual")
   expiresAt DateTime?
   grantedBy String?
   reason    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@unique([userId, feature])
   @@index([userId])
@@ -2262,16 +2262,16 @@ model Entitlement {
 // separate; this row records the scoped session and is checked on every
 // request that carries an impersonation access token.
 model ImpersonationSession {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   impersonatorId String
   targetUserId   String
   reason         String
   ipAddress      String?
   userAgent      String?
-  startedAt      DateTime @default(now())
+  startedAt      DateTime  @default(now())
   expiresAt      DateTime
   endedAt        DateTime?
-  endedReason    String?  // "operator_stop" | "expired" | "killed"
+  endedReason    String? // "operator_stop" | "expired" | "killed"
 
   @@index([impersonatorId])
   @@index([targetUserId])
@@ -2285,17 +2285,17 @@ model ImpersonationSession {
 // Hashed API key for partner / programmatic access. The raw key is returned
 // ONCE at create time and never stored. Scopes are space-separated strings.
 model ApiKey {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
-  keyHash     String   @unique
-  keyPrefix   String                       // first 8 chars of raw key — UI display
+  keyHash     String    @unique
+  keyPrefix   String // first 8 chars of raw key — UI display
   ownerUserId String?
-  scopes      String   @default("")        // "read:users write:posts" etc
+  scopes      String    @default("") // "read:users write:posts" etc
   lastUsedAt  DateTime?
   revokedAt   DateTime?
   revokedBy   String?
   createdBy   String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
 
   @@index([ownerUserId])
 }
@@ -2306,8 +2306,8 @@ model ApiKey {
 model WebhookEndpoint {
   id          String   @id @default(cuid())
   url         String
-  events      Json                          // ["user.created", "post.created"]
-  secret      String                        // for HMAC signing
+  events      Json // ["user.created", "post.created"]
+  secret      String // for HMAC signing
   enabled     Boolean  @default(true)
   description String?
   createdBy   String?
@@ -2321,17 +2321,17 @@ model WebhookEndpoint {
 // is the last HTTP code received. Replay creates a new row pointing to the
 // same eventId for traceability.
 model WebhookDelivery {
-  id              String   @id @default(cuid())
-  endpointId      String
-  eventName       String
-  eventId         String                   // dedupe + replay anchor
-  payload         Json
-  responseStatus  Int?
-  responseBody    String?
-  attempts        Int      @default(0)
-  succeededAt     DateTime?
-  lastTriedAt     DateTime?
-  createdAt       DateTime @default(now())
+  id             String    @id @default(cuid())
+  endpointId     String
+  eventName      String
+  eventId        String // dedupe + replay anchor
+  payload        Json
+  responseStatus Int?
+  responseBody   String?
+  attempts       Int       @default(0)
+  succeededAt    DateTime?
+  lastTriedAt    DateTime?
+  createdAt      DateTime  @default(now())
 
   endpoint WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
 
@@ -2342,17 +2342,17 @@ model WebhookDelivery {
 // Platform-wide announcement. Drives in-app banners and (optionally) emails.
 // `audience` examples: "all" | "admins" | "premium" | userId list (JSON).
 model Announcement {
-  id           String   @id @default(cuid())
-  title        String
-  body         String
-  audience     String   @default("all")
-  channel      String   @default("in_app")    // in_app | email | both
-  scheduledAt  DateTime?
-  publishedAt  DateTime?
-  expiresAt    DateTime?
-  createdBy    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          String    @id @default(cuid())
+  title       String
+  body        String
+  audience    String    @default("all")
+  channel     String    @default("in_app") // in_app | email | both
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  expiresAt   DateTime?
+  createdBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([publishedAt])
 }
@@ -2371,18 +2371,18 @@ model AdminSetting {
 // (auto-flagged posts, spam suspects, abuse reports) becomes a row here.
 // Status transitions: PENDING → APPROVED | REJECTED | REMOVED.
 model ModerationItem {
-  id         String   @id @default(cuid())
-  targetType String              // "Post" | "PostComment" | "Club" | "User" | ...
+  id         String    @id @default(cuid())
+  targetType String // "Post" | "PostComment" | "Club" | "User" | ...
   targetId   String
-  reason     String              // why it landed in the queue
-  source     String   @default("manual")  // "manual" | "auto_filter" | "user_report"
-  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED | REMOVED
+  reason     String // why it landed in the queue
+  source     String    @default("manual") // "manual" | "auto_filter" | "user_report"
+  status     String    @default("PENDING") // PENDING | APPROVED | REJECTED | REMOVED
   reviewerId String?
   reviewedAt DateTime?
   reviewNote String?
   metadata   Json?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   @@index([status, createdAt])
   @@index([targetType, targetId])
@@ -2391,10 +2391,10 @@ model ModerationItem {
 // User-facing notification templates so admins don't hardcode email/in-app copy.
 model NotificationTemplate {
   id          String   @id @default(cuid())
-  key         String   @unique           // e.g. "welcome", "password_reset"
-  channel     String                      // "email" | "in_app" | "both"
+  key         String   @unique // e.g. "welcome", "password_reset"
+  channel     String // "email" | "in_app" | "both"
   subject     String?
-  body        String                      // template string, {{var}} interpolated
+  body        String // template string, {{var}} interpolated
   description String?
   isSystem    Boolean  @default(false)
   createdBy   String?
@@ -2405,16 +2405,16 @@ model NotificationTemplate {
 // Operational alert surfaced in the admin overview. Emitted by anomaly
 // detection, high-error-rate watchers, expiring-trials sweepers, etc.
 model AdminAlert {
-  id          String   @id @default(cuid())
-  severity    String                      // "info" | "warning" | "critical"
-  category    String                      // "security" | "billing" | "uptime" | "moderation"
-  title       String
-  body        String?
-  link        String?                     // /admin/... destination
-  metadata    Json?
+  id             String    @id @default(cuid())
+  severity       String // "info" | "warning" | "critical"
+  category       String // "security" | "billing" | "uptime" | "moderation"
+  title          String
+  body           String?
+  link           String? // /admin/... destination
+  metadata       Json?
   acknowledgedAt DateTime?
   acknowledgedBy String?
-  createdAt   DateTime @default(now())
+  createdAt      DateTime  @default(now())
 
   @@index([acknowledgedAt, createdAt])
   @@index([severity])
@@ -2427,39 +2427,39 @@ model AdminAlert {
 // ---------------------------------------------------------------------------
 
 model Plan {
-  id                String   @id @default(cuid())
-  key               String   @unique               // "free" | "pro" | "team"
-  name              String
-  description       String?
-  priceCents        Int      @default(0)
-  currency          String   @default("USD")
-  interval          String   @default("month")     // month | year | once
-  trialDays         Int      @default(0)
-  features          Json                            // ["creator_studio","ai_oracle"]
-  isPublic          Boolean  @default(true)
-  providerPriceId   String?                         // e.g. Stripe price_xxx
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id              String   @id @default(cuid())
+  key             String   @unique // "free" | "pro" | "team"
+  name            String
+  description     String?
+  priceCents      Int      @default(0)
+  currency        String   @default("USD")
+  interval        String   @default("month") // month | year | once
+  trialDays       Int      @default(0)
+  features        Json // ["creator_studio","ai_oracle"]
+  isPublic        Boolean  @default(true)
+  providerPriceId String? // e.g. Stripe price_xxx
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   subscriptions Subscription[]
 }
 
 model Subscription {
-  id              String   @id @default(cuid())
-  userId          String
-  planId          String
-  status          String   @default("ACTIVE")      // ACTIVE | TRIALING | PAST_DUE | CANCELED | PAUSED
-  provider        String   @default("manual")      // stripe | razorpay | manual
-  providerSubId   String?
-  currentPeriodStart DateTime @default(now())
+  id                 String    @id @default(cuid())
+  userId             String
+  planId             String
+  status             String    @default("ACTIVE") // ACTIVE | TRIALING | PAST_DUE | CANCELED | PAUSED
+  provider           String    @default("manual") // stripe | razorpay | manual
+  providerSubId      String?
+  currentPeriodStart DateTime  @default(now())
   currentPeriodEnd   DateTime
-  trialEndsAt     DateTime?
-  cancelAtPeriodEnd Boolean @default(false)
-  canceledAt      DateTime?
-  pausedAt        DateTime?
-  metadata        Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  trialEndsAt        DateTime?
+  cancelAtPeriodEnd  Boolean   @default(false)
+  canceledAt         DateTime?
+  pausedAt           DateTime?
+  metadata           Json?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   plan     Plan      @relation(fields: [planId], references: [id])
   invoices Invoice[]
@@ -2470,19 +2470,19 @@ model Subscription {
 }
 
 model Invoice {
-  id               String   @id @default(cuid())
-  subscriptionId   String
-  amountCents      Int
-  currency         String   @default("USD")
-  status           String   @default("OPEN")       // OPEN | PAID | UNCOLLECTIBLE | VOID | REFUNDED
-  paidAt           DateTime?
-  refundedAmount   Int      @default(0)
-  refundedAt       DateTime?
-  refundReason     String?
+  id                String    @id @default(cuid())
+  subscriptionId    String
+  amountCents       Int
+  currency          String    @default("USD")
+  status            String    @default("OPEN") // OPEN | PAID | UNCOLLECTIBLE | VOID | REFUNDED
+  paidAt            DateTime?
+  refundedAmount    Int       @default(0)
+  refundedAt        DateTime?
+  refundReason      String?
   providerInvoiceId String?
-  hostedInvoiceUrl String?
-  failureReason    String?
-  createdAt        DateTime @default(now())
+  hostedInvoiceUrl  String?
+  failureReason     String?
+  createdAt         DateTime  @default(now())
 
   subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
@@ -2493,15 +2493,15 @@ model Invoice {
 // Audit row for every billing-provider webhook seen. Lets us replay
 // reconciliation if we miss one.
 model BillingEvent {
-  id          String   @id @default(cuid())
-  provider    String                                // stripe | razorpay
-  eventType   String                                // invoice.paid | subscription.updated | ...
-  eventId     String   @unique                      // provider's event id (dedupe)
+  id          String    @id @default(cuid())
+  provider    String // stripe | razorpay
+  eventType   String // invoice.paid | subscription.updated | ...
+  eventId     String    @unique // provider's event id (dedupe)
   payload     Json
-  processed   Boolean  @default(false)
+  processed   Boolean   @default(false)
   processedAt DateTime?
   error       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
 
   @@index([provider, eventType])
 }
@@ -2511,18 +2511,18 @@ model BillingEvent {
 // ---------------------------------------------------------------------------
 
 model ReportSchedule {
-  id          String   @id @default(cuid())
-  name        String
-  reportKey   String                                // identifies which report to generate
-  cron        String                                // standard cron expression
-  format      String   @default("csv")              // csv | json
-  recipients  Json                                  // ["ops@kaiveron.com", "admin@..."]
-  enabled     Boolean  @default(true)
-  lastRunAt   DateTime?
-  lastResult  String?                               // "ok:rowcount=42" | "error:..."
-  createdBy   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String    @id @default(cuid())
+  name       String
+  reportKey  String // identifies which report to generate
+  cron       String // standard cron expression
+  format     String    @default("csv") // csv | json
+  recipients Json // ["ops@kaiveron.com", "admin@..."]
+  enabled    Boolean   @default(true)
+  lastRunAt  DateTime?
+  lastResult String? // "ok:rowcount=42" | "error:..."
+  createdBy  String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 // ---------------------------------------------------------------------------
@@ -2532,11 +2532,11 @@ model ReportSchedule {
 // Temporary IP block. Brute-force protection + admin manual ban. The
 // auth middleware checks this table before processing a request.
 model IpBlock {
-  ip         String   @id
-  reason     String                    // "bruteforce" | "manual" | "anomaly"
-  blockedBy  String?
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
+  ip        String   @id
+  reason    String // "bruteforce" | "manual" | "anomaly"
+  blockedBy String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 
   @@index([expiresAt])
 }
@@ -2544,18 +2544,18 @@ model IpBlock {
 // Auto-flag rule for content moderation. Posts/comments matching any
 // active rule land in the moderation queue automatically.
 model ContentRule {
-  id          String   @id @default(cuid())
-  name        String                    // human-readable
-  kind        String                    // "keyword" | "regex" | "min_length" | "link_count"
-  pattern     String                    // value depends on kind (the keyword, regex, threshold)
-  target      String   @default("post") // "post" | "comment" | "blog" | "review"
-  severity    String   @default("flag") // "flag" (queue) | "block" (refuse outright) | "shadow"
-  enabled     Boolean  @default(true)
-  matchCount  Int      @default(0)
+  id          String    @id @default(cuid())
+  name        String // human-readable
+  kind        String // "keyword" | "regex" | "min_length" | "link_count"
+  pattern     String // value depends on kind (the keyword, regex, threshold)
+  target      String    @default("post") // "post" | "comment" | "blog" | "review"
+  severity    String    @default("flag") // "flag" (queue) | "block" (refuse outright) | "shadow"
+  enabled     Boolean   @default(true)
+  matchCount  Int       @default(0)
   lastMatchAt DateTime?
   createdBy   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([enabled, target])
 }
@@ -2563,11 +2563,11 @@ model ContentRule {
 // Hash of every flagged piece of content. Lets the matcher catch
 // re-uses of previously-rejected text without re-running every rule.
 model ContentFingerprint {
-  hash        String   @id              // SHA-256 of normalized content
-  targetType  String                    // "Post" | "Comment" | ...
+  hash        String   @id // SHA-256 of normalized content
+  targetType  String // "Post" | "Comment" | ...
   targetId    String
   matchedRule String?
-  decision    String                    // "flag" | "removed" | "approved"
+  decision    String // "flag" | "removed" | "approved"
   createdAt   DateTime @default(now())
 
   @@index([targetType, targetId])
@@ -2577,23 +2577,23 @@ model ContentFingerprint {
 // first reference, refreshed weekly. Keeps the admin dashboard fast
 // (single-row lookup) while geo data stays current enough for forensics.
 model IpProfile {
-  ip            String   @id
-  country       String?                 // ISO-2 e.g. "US"
-  countryName   String?
-  region        String?
-  city          String?
-  latitude      Float?
-  longitude     Float?
-  isp           String?
-  org           String?
-  asn           String?
-  isVpn         Boolean  @default(false)
-  isProxy       Boolean  @default(false)
-  isHosting     Boolean  @default(false) // datacenter / cloud IP
-  lookupSource  String   @default("ip-api")
-  lookupError   String?
-  lastSeenAt    DateTime?               // updated whenever security events reference this IP
-  refreshedAt   DateTime @default(now())
+  ip           String    @id
+  country      String? // ISO-2 e.g. "US"
+  countryName  String?
+  region       String?
+  city         String?
+  latitude     Float?
+  longitude    Float?
+  isp          String?
+  org          String?
+  asn          String?
+  isVpn        Boolean   @default(false)
+  isProxy      Boolean   @default(false)
+  isHosting    Boolean   @default(false) // datacenter / cloud IP
+  lookupSource String    @default("ip-api")
+  lookupError  String?
+  lastSeenAt   DateTime? // updated whenever security events reference this IP
+  refreshedAt  DateTime  @default(now())
 
   @@index([country])
   @@index([asn])
@@ -2604,17 +2604,17 @@ model IpProfile {
 // notifications) — anomalies are per-user/per-IP forensic findings that
 // power the /anomalies page and feed the risk score.
 model AnomalyEvent {
-  id            String   @id @default(cuid())
-  kind          String                  // "impossible_travel" | "new_country" | "new_ip" |
-                                         //   "ip_churn" | "concurrent_country" | "high_volume_signup_ip" |
-                                         //   "vpn_login" | "new_device"
-  severity      String   @default("info") // "info" | "warning" | "critical"
-  userId        String?
-  ipAddress     String?
-  evidence      Json?                   // structured detail per kind
+  id             String    @id @default(cuid())
+  kind           String // "impossible_travel" | "new_country" | "new_ip" |
+  //   "ip_churn" | "concurrent_country" | "high_volume_signup_ip" |
+  //   "vpn_login" | "new_device"
+  severity       String    @default("info") // "info" | "warning" | "critical"
+  userId         String?
+  ipAddress      String?
+  evidence       Json? // structured detail per kind
   acknowledgedAt DateTime?
   acknowledgedBy String?
-  createdAt     DateTime @default(now())
+  createdAt      DateTime  @default(now())
 
   @@index([userId, createdAt])
   @@index([kind, createdAt])
@@ -2629,20 +2629,20 @@ model AnomalyEvent {
 // (which is a notification surface); an Incident is the THING that happens
 // and gets a real post-mortem.
 model Incident {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   title         String
-  severity      String                       // "sev1" | "sev2" | "sev3" | "sev4"
-  status        String   @default("open")    // open | investigating | identified | monitoring | resolved
-  category      String                       // "outage" | "degradation" | "security" | "data" | "billing"
-  impactedAreas Json     @default("[]")      // ["auth","feed","search"]
-  startedAt     DateTime @default(now())
-  detectedAt    DateTime?                    // when ops first noticed
+  severity      String // "sev1" | "sev2" | "sev3" | "sev4"
+  status        String    @default("open") // open | investigating | identified | monitoring | resolved
+  category      String // "outage" | "degradation" | "security" | "data" | "billing"
+  impactedAreas Json      @default("[]") // ["auth","feed","search"]
+  startedAt     DateTime  @default(now())
+  detectedAt    DateTime? // when ops first noticed
   resolvedAt    DateTime?
-  postmortem    String?                      // markdown, written after-the-fact
-  rootCause     String?                      // short summary
+  postmortem    String? // markdown, written after-the-fact
+  rootCause     String? // short summary
   openedBy      String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   updates IncidentUpdate[]
 
@@ -2654,12 +2654,12 @@ model Incident {
 // root cause", "rolled back deploy", "resolved"). Each update is itself a
 // historical record.
 model IncidentUpdate {
-  id          String   @id @default(cuid())
-  incidentId  String
-  status      String                       // mirror of Incident.status at update time
-  message     String                       // markdown
-  authorId    String?
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  incidentId String
+  status     String // mirror of Incident.status at update time
+  message    String // markdown
+  authorId   String?
+  createdAt  DateTime @default(now())
 
   incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
 
@@ -2670,16 +2670,16 @@ model IncidentUpdate {
 // /maintenance/current endpoint returns it; admin shell + the user-facing
 // app should show a banner during the window.
 model MaintenanceWindow {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
-  scope       String   @default("all")     // "all" | "api" | "uploads" | "admin"
+  scope       String    @default("all") // "all" | "api" | "uploads" | "admin"
   startsAt    DateTime
   endsAt      DateTime
   cancelledAt DateTime?
   createdBy   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([startsAt, endsAt])
 }
@@ -2687,18 +2687,18 @@ model MaintenanceWindow {
 // Rolling per-endpoint RED metrics aggregated by the SLA middleware. One row
 // per (endpoint, hour) bucket — kept compact so charts stay fast.
 model EndpointStat {
-  id            String   @id @default(cuid())
-  endpoint      String                      // "GET /api/v1/anime/:id"
-  hourBucket    DateTime                    // truncated to the hour
-  requests      Int      @default(0)
-  errors        Int      @default(0)        // 5xx
-  clientErrors  Int      @default(0)        // 4xx
-  totalDurationMs BigInt @default(0)        // sum (for mean = total/requests)
-  maxDurationMs Int      @default(0)
+  id              String   @id @default(cuid())
+  endpoint        String // "GET /api/v1/anime/:id"
+  hourBucket      DateTime // truncated to the hour
+  requests        Int      @default(0)
+  errors          Int      @default(0) // 5xx
+  clientErrors    Int      @default(0) // 4xx
+  totalDurationMs BigInt   @default(0) // sum (for mean = total/requests)
+  maxDurationMs   Int      @default(0)
   // p50/p99 are stored as the result of in-process reservoir sampling. Not
   // exact, but good enough for an admin overview and cheap to compute.
-  p50Ms         Int      @default(0)
-  p99Ms         Int      @default(0)
+  p50Ms           Int      @default(0)
+  p99Ms           Int      @default(0)
 
   @@unique([endpoint, hourBucket])
   @@index([hourBucket])
@@ -2709,15 +2709,15 @@ model EndpointStat {
 // drop into a reply with one click. Markdown body; {{vars}} replaced
 // client-side by the operator.
 model SavedReply {
-  id          String   @id @default(cuid())
-  title       String                       // short label shown in the picker
-  body        String                       // markdown template
-  category    String?                      // "billing" | "abuse" | "bug" | ...
-  shortcut    String?  @unique             // e.g. "/refund" — for type-ahead pickers
-  useCount    Int      @default(0)
-  createdBy   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  title     String // short label shown in the picker
+  body      String // markdown template
+  category  String? // "billing" | "abuse" | "bug" | ...
+  shortcut  String?  @unique // e.g. "/refund" — for type-ahead pickers
+  useCount  Int      @default(0)
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([category])
 }
@@ -2727,18 +2727,18 @@ model SavedReply {
 // read it. Required for GDPR Article 30 records of processing. Auto-seeded
 // from a known-field scanner; admins can override classification/retention.
 model PiiField {
-  id              String   @id @default(cuid())
-  model           String                       // Prisma model name, e.g. "User"
-  field           String                       // column name, e.g. "email"
-  classification  String                       // "identifier" | "contact" | "sensitive" | "behavioral" | "device"
-  legalBasis      String?                      // "consent" | "contract" | "legitimate_interest" | "legal_obligation"
-  retentionDays   Int?                         // null = retain indefinitely; otherwise auto-purge by dataRetention job
-  readRoleMin     String   @default("MOD")     // minimum role that may read this field directly
-  description     String?                      // human note
-  reviewedAt      DateTime?
-  reviewedBy      String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String    @id @default(cuid())
+  model          String // Prisma model name, e.g. "User"
+  field          String // column name, e.g. "email"
+  classification String // "identifier" | "contact" | "sensitive" | "behavioral" | "device"
+  legalBasis     String? // "consent" | "contract" | "legitimate_interest" | "legal_obligation"
+  retentionDays  Int? // null = retain indefinitely; otherwise auto-purge by dataRetention job
+  readRoleMin    String    @default("MOD") // minimum role that may read this field directly
+  description    String? // human note
+  reviewedAt     DateTime?
+  reviewedBy     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   @@unique([model, field])
   @@index([classification])
@@ -2750,20 +2750,20 @@ model PiiField {
 // to proceed by checking ApprovalRequest.status == "approved" before
 // performing the side effect.
 model ApprovalRequest {
-  id             String   @id @default(cuid())
-  action         String                       // "users.delete" | "billing.refund" | ...
-  resource       String                       // free-form: "user:abc" | "invoice:inv_123"
-  payload        Json                         // serialized request body to replay on approve
-  reason         String                       // why the actor requested this
-  status         String   @default("pending") // pending | approved | rejected | expired | executed
-  requestedBy    String                       // actor user id
-  reviewedBy     String?                      // approver user id
-  reviewedAt     DateTime?
-  reviewNote     String?
-  executedAt     DateTime?                    // when the original action actually ran post-approval
-  expiresAt      DateTime                     // auto-expire after 24h by default
-  createdAt      DateTime @default(now())
-  decisions      ApprovalDecision[]
+  id          String             @id @default(cuid())
+  action      String // "users.delete" | "billing.refund" | ...
+  resource    String // free-form: "user:abc" | "invoice:inv_123"
+  payload     Json // serialized request body to replay on approve
+  reason      String // why the actor requested this
+  status      String             @default("pending") // pending | approved | rejected | expired | executed
+  requestedBy String // actor user id
+  reviewedBy  String? // approver user id
+  reviewedAt  DateTime?
+  reviewNote  String?
+  executedAt  DateTime? // when the original action actually ran post-approval
+  expiresAt   DateTime // auto-expire after 24h by default
+  createdAt   DateTime           @default(now())
+  decisions   ApprovalDecision[]
 
   @@index([status, expiresAt])
   @@index([requestedBy])
@@ -2771,14 +2771,14 @@ model ApprovalRequest {
 }
 
 model ApprovalDecision {
-  id          String   @id @default(cuid())
-  requestId   String
-  reviewerId  String
-  decision    String                          // "approve" | "reject"
-  note        String?
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  requestId  String
+  reviewerId String
+  decision   String // "approve" | "reject"
+  note       String?
+  createdAt  DateTime @default(now())
 
-  request     ApprovalRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  request ApprovalRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
 
   @@index([requestId])
   @@index([reviewerId])
@@ -2790,21 +2790,21 @@ model ApprovalDecision {
 // designed. Secret is stored as a one-way hash — admin sees plaintext only
 // once at creation/rotation time.
 model OauthClient {
-  id              String   @id @default(cuid())
-  name            String                                // human label, e.g. "Zapier"
-  clientId        String   @unique                      // public identifier (prefix ka_oc_)
-  clientSecretHash String                               // sha256(secret)
-  type            String   @default("confidential")     // "confidential" | "public"
-  scopes          String[] @default([])                 // "read:users" | "scim" | "webhooks:write" | ...
-  redirectUris    String[] @default([])                 // for future authorization_code flow
-  description     String?
-  ownerEmail      String?                               // contact email for breach notifications
-  revokedAt       DateTime?
-  lastUsedAt      DateTime?
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  accessTokens    OauthAccessToken[]
+  id               String             @id @default(cuid())
+  name             String // human label, e.g. "Zapier"
+  clientId         String             @unique // public identifier (prefix ka_oc_)
+  clientSecretHash String // sha256(secret)
+  type             String             @default("confidential") // "confidential" | "public"
+  scopes           String[]           @default([]) // "read:users" | "scim" | "webhooks:write" | ...
+  redirectUris     String[]           @default([]) // for future authorization_code flow
+  description      String?
+  ownerEmail       String? // contact email for breach notifications
+  revokedAt        DateTime?
+  lastUsedAt       DateTime?
+  createdBy        String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  accessTokens     OauthAccessToken[]
 
   @@index([revokedAt])
 }
@@ -2813,17 +2813,17 @@ model OauthClient {
 // forge calls. Refresh tokens are not part of client_credentials grant —
 // the client just re-exchanges its secret for a new token.
 model OauthAccessToken {
-  id          String   @id @default(cuid())
-  clientId    String                                    // FK to OauthClient.id
-  tokenHash   String   @unique                          // sha256 of the bearer token
-  scopes      String[] @default([])                     // granted at issuance (subset of client scopes)
-  expiresAt   DateTime
-  revokedAt   DateTime?
-  lastUsedAt  DateTime?
-  useCount    Int      @default(0)
-  createdAt   DateTime @default(now())
+  id         String    @id @default(cuid())
+  clientId   String // FK to OauthClient.id
+  tokenHash  String    @unique // sha256 of the bearer token
+  scopes     String[]  @default([]) // granted at issuance (subset of client scopes)
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  lastUsedAt DateTime?
+  useCount   Int       @default(0)
+  createdAt  DateTime  @default(now())
 
-  client      OauthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  client OauthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
   @@index([clientId, expiresAt])
   @@index([expiresAt])
@@ -2836,14 +2836,14 @@ model OauthAccessToken {
 // opt-in integration that can be removed without a User-table migration.
 model ScimSubject {
   id          String   @id @default(cuid())
-  externalId  String   @unique                          // IdP-provided id
-  userId      String   @unique                          // local User.id (1-1)
-  idpClientId String?                                   // OauthClient.id that provisioned this row
-  meta        Json?                                     // raw IdP attrs we don't map (orgUnit, dept, etc.)
+  externalId  String   @unique // IdP-provided id
+  userId      String   @unique // local User.id (1-1)
+  idpClientId String? // OauthClient.id that provisioned this row
+  meta        Json? // raw IdP attrs we don't map (orgUnit, dept, etc.)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([idpClientId])
 }
@@ -2853,24 +2853,24 @@ model ScimSubject {
 // `active` flag is enforced by application code, not a DB constraint, so
 // we can keep historical configs around for audit.
 model SamlConfig {
-  id                String   @id @default(cuid())
-  name              String                              // human label, e.g. "Okta Production"
-  idpEntityId       String                              // urn:something from IdP metadata
-  idpSsoUrl         String                              // where AuthnRequests are POSTed
-  idpSloUrl         String?                             // optional single-logout endpoint
-  idpCertificate    String                              // PEM-formatted X.509 (without headers ok too)
-  spEntityId        String                              // our entityID — usually https://api.kaiveron.com/saml/metadata
-  emailAttribute    String   @default("email")          // SAML attr name to read for the user's email
-  displayNameAttr   String   @default("displayName")    // SAML attr name for the display name
-  autoProvision     Boolean  @default(true)             // create new users on first login?
-  active            Boolean  @default(false)            // exactly one active at a time (enforced app-side)
-  signRequests      Boolean  @default(false)            // sign our AuthnRequests?
-  wantAssertionsSigned Boolean @default(true)
-  spPrivateKey      String?                             // PEM key for signing; null if signRequests=false
-  spCertificate     String?                             // matching public cert
-  createdBy         String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                   String   @id @default(cuid())
+  name                 String // human label, e.g. "Okta Production"
+  idpEntityId          String // urn:something from IdP metadata
+  idpSsoUrl            String // where AuthnRequests are POSTed
+  idpSloUrl            String? // optional single-logout endpoint
+  idpCertificate       String // PEM-formatted X.509 (without headers ok too)
+  spEntityId           String // our entityID — usually https://api.kaiveron.com/saml/metadata
+  emailAttribute       String   @default("email") // SAML attr name to read for the user's email
+  displayNameAttr      String   @default("displayName") // SAML attr name for the display name
+  autoProvision        Boolean  @default(true) // create new users on first login?
+  active               Boolean  @default(false) // exactly one active at a time (enforced app-side)
+  signRequests         Boolean  @default(false) // sign our AuthnRequests?
+  wantAssertionsSigned Boolean  @default(true)
+  spPrivateKey         String? // PEM key for signing; null if signRequests=false
+  spCertificate        String? // matching public cert
+  createdBy            String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
   @@index([active])
 }
@@ -2878,15 +2878,15 @@ model SamlConfig {
 // Per-user saved filter combinations on any admin list page. Bookmarks
 // a URL search-string snapshot under a friendly name.
 model SavedSearch {
-  id          String   @id @default(cuid())
-  ownerId     String
-  resource    String                                  // "users" | "tickets" | "anomalies" | ...
-  name        String
-  query       String                                  // raw search string snapshot
-  shared      Boolean  @default(false)
-  pinned      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  ownerId   String
+  resource  String // "users" | "tickets" | "anomalies" | ...
+  name      String
+  query     String // raw search string snapshot
+  shared    Boolean  @default(false)
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([ownerId, resource, name])
   @@index([resource, shared])
@@ -2894,18 +2894,18 @@ model SavedSearch {
 
 // Generic third-party integration registry.
 model Integration {
-  id              String   @id @default(cuid())
-  provider        String                              // "datadog" | "zendesk" | ...
-  name            String
-  configJson      Json     @default("{}")
-  secretName      String?                             // VaultEntry name for credentials
-  active          Boolean  @default(true)
-  lastSyncAt      DateTime?
-  lastSyncStatus  String?
-  lastError       String?
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String    @id @default(cuid())
+  provider       String // "datadog" | "zendesk" | ...
+  name           String
+  configJson     Json      @default("{}")
+  secretName     String? // VaultEntry name for credentials
+  active         Boolean   @default(true)
+  lastSyncAt     DateTime?
+  lastSyncStatus String?
+  lastError      String?
+  createdBy      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   @@unique([provider, name])
   @@index([provider, active])
@@ -2916,14 +2916,14 @@ model Integration {
 // `kind` against `source` (one of the registered keys) with `config` for
 // per-widget options (axes, columns, filter).
 model Dashboard {
-  id          String   @id @default(cuid())
-  name        String                                  // "Trust & Safety overview"
+  id          String            @id @default(cuid())
+  name        String // "Trust & Safety overview"
   description String?
-  ownerId     String?                                 // admin user that owns this dashboard
-  shared      Boolean  @default(false)                // visible to all admins when true
-  layout      Json     @default("{}")                 // grid props (cols/rowHeight/etc.)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  ownerId     String? // admin user that owns this dashboard
+  shared      Boolean           @default(false) // visible to all admins when true
+  layout      Json              @default("{}") // grid props (cols/rowHeight/etc.)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
   widgets     DashboardWidget[]
 
   @@index([ownerId])
@@ -2931,20 +2931,20 @@ model Dashboard {
 }
 
 model DashboardWidget {
-  id            String   @id @default(cuid())
-  dashboardId   String
-  kind          String                                // "stat" | "table" | "chart" | "text"
-  source        String                                // safelisted source key, e.g. "cost.overview"
-  title         String
-  configJson    Json     @default("{}")               // shape varies by kind
-  x             Int      @default(0)
-  y             Int      @default(0)
-  w             Int      @default(4)                  // columns wide (out of 12)
-  h             Int      @default(3)                  // rows tall
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          String   @id @default(cuid())
+  dashboardId String
+  kind        String // "stat" | "table" | "chart" | "text"
+  source      String // safelisted source key, e.g. "cost.overview"
+  title       String
+  configJson  Json     @default("{}") // shape varies by kind
+  x           Int      @default(0)
+  y           Int      @default(0)
+  w           Int      @default(4) // columns wide (out of 12)
+  h           Int      @default(3) // rows tall
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  dashboard     Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+  dashboard Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
 
   @@index([dashboardId])
 }
@@ -2953,18 +2953,18 @@ model DashboardWidget {
 // (<10k rows) can stream synchronously; this table is for bigger jobs
 // that need to land in object storage.
 model ExportJob {
-  id            String   @id @default(cuid())
-  resource      String                                // "users" | "tickets" | ...
-  format        String                                // "csv" | "json"
-  filtersJson   Json     @default("{}")
-  status        String   @default("pending")          // pending | running | completed | failed
-  rowCount      Int?
-  fileLocation  String?                               // s3://... after completion
-  errorDetail   String?
-  requestedBy   String
-  startedAt     DateTime?
-  completedAt   DateTime?
-  createdAt     DateTime @default(now())
+  id           String    @id @default(cuid())
+  resource     String // "users" | "tickets" | ...
+  format       String // "csv" | "json"
+  filtersJson  Json      @default("{}")
+  status       String    @default("pending") // pending | running | completed | failed
+  rowCount     Int?
+  fileLocation String? // s3://... after completion
+  errorDetail  String?
+  requestedBy  String
+  startedAt    DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
 
   @@index([status, createdAt])
   @@index([requestedBy])
@@ -2975,43 +2975,43 @@ model ExportJob {
 // AdminAlert.create() goes through this pipeline so existing alert UI
 // keeps working unchanged.
 model NotificationChannel {
-  id            String   @id @default(cuid())
-  name          String                                // "Slack #ops" | "PagerDuty critical"
-  kind          String                                // "email" | "slack" | "webhook" | "push"
-  configJson    Json
-  active        Boolean  @default(true)
-  lastDeliveryAt DateTime?
+  id                 String                    @id @default(cuid())
+  name               String // "Slack #ops" | "PagerDuty critical"
+  kind               String // "email" | "slack" | "webhook" | "push"
+  configJson         Json
+  active             Boolean                   @default(true)
+  lastDeliveryAt     DateTime?
   lastDeliveryStatus String?
-  failCount     Int      @default(0)
-  createdBy     String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  rules         NotificationRuleChannel[]
+  failCount          Int                       @default(0)
+  createdBy          String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  rules              NotificationRuleChannel[]
 
   @@index([active, kind])
 }
 
 model NotificationRule {
-  id            String   @id @default(cuid())
-  name          String                                // "All critical alerts to #ops"
-  eventPattern  String                                // "alert.critical.*" or exact "incident.created"
-  minSeverity   String   @default("info")             // info | warning | critical
-  active        Boolean  @default(true)
-  createdBy     String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  channels      NotificationRuleChannel[]
+  id           String                    @id @default(cuid())
+  name         String // "All critical alerts to #ops"
+  eventPattern String // "alert.critical.*" or exact "incident.created"
+  minSeverity  String                    @default("info") // info | warning | critical
+  active       Boolean                   @default(true)
+  createdBy    String?
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+  channels     NotificationRuleChannel[]
 
   @@index([active])
 }
 
 model NotificationRuleChannel {
-  id          String   @id @default(cuid())
-  ruleId      String
-  channelId   String
+  id        String @id @default(cuid())
+  ruleId    String
+  channelId String
 
-  rule        NotificationRule    @relation(fields: [ruleId], references: [id], onDelete: Cascade)
-  channel     NotificationChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  rule    NotificationRule    @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  channel NotificationChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
   @@unique([ruleId, channelId])
 }
@@ -3021,32 +3021,32 @@ model NotificationRuleChannel {
 // User assignment uses sha256(userId + key) modulo 100 so it's stable —
 // the same user always sees the same variant unless we change the key.
 model Experiment {
-  id              String   @id @default(cuid())
-  key             String   @unique                    // "homepage_hero_copy"
-  description     String?
-  status          String   @default("draft")          // "draft" | "running" | "paused" | "completed"
-  startedAt       DateTime?
-  endedAt         DateTime?
-  primaryMetric   String                              // "signup_completed" | "post_created" | ...
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  variants        ExperimentVariant[]
-  exposures       ExperimentExposure[]
+  id            String               @id @default(cuid())
+  key           String               @unique // "homepage_hero_copy"
+  description   String?
+  status        String               @default("draft") // "draft" | "running" | "paused" | "completed"
+  startedAt     DateTime?
+  endedAt       DateTime?
+  primaryMetric String // "signup_completed" | "post_created" | ...
+  createdBy     String?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  variants      ExperimentVariant[]
+  exposures     ExperimentExposure[]
 
   @@index([status])
 }
 
 model ExperimentVariant {
-  id             String   @id @default(cuid())
-  experimentId   String
-  name           String                               // "control" | "treatment" | "var_b"
-  weight         Int                                  // 0..100, sums to 100 across variants
-  isControl      Boolean  @default(false)
-  payload        Json?                                // arbitrary per-variant config the app reads at runtime
+  id           String  @id @default(cuid())
+  experimentId String
+  name         String // "control" | "treatment" | "var_b"
+  weight       Int // 0..100, sums to 100 across variants
+  isControl    Boolean @default(false)
+  payload      Json? // arbitrary per-variant config the app reads at runtime
 
-  experiment     Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
-  exposures      ExperimentExposure[]
+  experiment Experiment           @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  exposures  ExperimentExposure[]
 
   @@unique([experimentId, name])
 }
@@ -3055,15 +3055,15 @@ model ExperimentVariant {
 // Conversion is tracked by the application calling recordExposure(key, userId, "converted")
 // after the primary metric fires. Results endpoint aggregates these.
 model ExperimentExposure {
-  id            String   @id @default(cuid())
-  experimentId  String
-  variantId     String
-  userId        String?
-  event         String                                // "assigned" | "converted"
-  occurredAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  experimentId String
+  variantId    String
+  userId       String?
+  event        String // "assigned" | "converted"
+  occurredAt   DateTime @default(now())
 
-  experiment    Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
-  variant       ExperimentVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  experiment Experiment        @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  variant    ExperimentVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@index([experimentId, event])
   @@index([userId, experimentId])
@@ -3073,27 +3073,27 @@ model ExperimentExposure {
 // every rotationDays. Combined with EscalationPolicy and AdminAlert, the
 // "who do I page right now?" answer becomes a 1-line lookup.
 model OnCallSchedule {
-  id            String   @id @default(cuid())
-  name          String                                // "Primary 24/7" | "DB on-call"
-  timezone      String   @default("UTC")
-  rotationDays  Int      @default(7)                  // length of each shift
-  active        Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  shifts        OnCallShift[]
+  id           String        @id @default(cuid())
+  name         String // "Primary 24/7" | "DB on-call"
+  timezone     String        @default("UTC")
+  rotationDays Int           @default(7) // length of each shift
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  shifts       OnCallShift[]
 
   @@index([active])
 }
 
 model OnCallShift {
-  id            String   @id @default(cuid())
-  scheduleId    String
-  userId        String                                // FK to User.id; the on-call admin
-  startsAt      DateTime
-  endsAt        DateTime
-  notes         String?
+  id         String   @id @default(cuid())
+  scheduleId String
+  userId     String // FK to User.id; the on-call admin
+  startsAt   DateTime
+  endsAt     DateTime
+  notes      String?
 
-  schedule      OnCallSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  schedule OnCallSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
 
   @@index([scheduleId, startsAt])
   @@index([userId])
@@ -3102,32 +3102,32 @@ model OnCallShift {
 // Severity → channel routing. When an AdminAlert fires, we look up the
 // matching policy and emit notifications via the listed channels.
 model EscalationPolicy {
-  id            String   @id @default(cuid())
-  severity      String   @unique                      // "critical" | "warning" | "info"
-  emailTo       String[] @default([])                 // emails to notify
-  slackWebhookSecretName String?                      // VaultEntry name resolving to Slack webhook URL
-  pushUserIds   String[] @default([])                 // admin User.ids to push-notify
-  pagerOnCall   Boolean  @default(false)              // also notify the current on-call from primary schedule
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                     String   @id @default(cuid())
+  severity               String   @unique // "critical" | "warning" | "info"
+  emailTo                String[] @default([]) // emails to notify
+  slackWebhookSecretName String? // VaultEntry name resolving to Slack webhook URL
+  pushUserIds            String[] @default([]) // admin User.ids to push-notify
+  pagerOnCall            Boolean  @default(false) // also notify the current on-call from primary schedule
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }
 
 // Backup tracker. Records every database/storage backup, its size, and the
 // last verification status. If the dataRetention job notices a missed
 // expected backup window, it raises an AdminAlert.
 model BackupRecord {
-  id              String   @id @default(cuid())
-  kind            String                              // "db" | "uploads" | "vault"
-  location        String                              // "s3://kaiveron-backups/db/2026-06-03.dump"
-  sizeBytes       BigInt
-  durationMs      Int?
-  startedAt       DateTime
-  completedAt     DateTime
-  verifiedAt      DateTime?                           // null until a restore-drill verifies
-  verifiedBy      String?
-  retentionUntil  DateTime?
-  notes           String?
-  createdAt       DateTime @default(now())
+  id             String    @id @default(cuid())
+  kind           String // "db" | "uploads" | "vault"
+  location       String // "s3://kaiveron-backups/db/2026-06-03.dump"
+  sizeBytes      BigInt
+  durationMs     Int?
+  startedAt      DateTime
+  completedAt    DateTime
+  verifiedAt     DateTime? // null until a restore-drill verifies
+  verifiedBy     String?
+  retentionUntil DateTime?
+  notes          String?
+  createdAt      DateTime  @default(now())
 
   @@index([kind, completedAt])
   @@index([verifiedAt])
@@ -3136,14 +3136,14 @@ model BackupRecord {
 // Per-user admin notes. Internal-only — never returned via the public
 // /users/:username API. Pinned notes surface first on the user inspect view.
 model UserNote {
-  id          String   @id @default(cuid())
-  userId      String                                  // the user the note is about
-  authorId    String                                  // the admin who wrote it
-  body        String
-  pinned      Boolean  @default(false)
-  category    String?                                 // "support" | "billing" | "safety" | "vip"
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String // the user the note is about
+  authorId  String // the admin who wrote it
+  body      String
+  pinned    Boolean  @default(false)
+  category  String? // "support" | "billing" | "safety" | "vip"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, pinned, createdAt])
   @@index([authorId])
@@ -3159,15 +3159,15 @@ model UserNote {
 // extension + fetch wrapper, which is a bigger lift.
 model TraceSpan {
   id           String   @id @default(cuid())
-  traceId      String                                  // shared across spans in one trace
-  spanId       String                                  // unique to this span
-  parentSpanId String?                                 // nullable for root spans
-  name         String                                  // "GET /api/v1/anime/:id"
-  kind         String   @default("server")             // "server" | "client" | "internal"
-  status       String   @default("ok")                 // "ok" | "error"
+  traceId      String // shared across spans in one trace
+  spanId       String // unique to this span
+  parentSpanId String? // nullable for root spans
+  name         String // "GET /api/v1/anime/:id"
+  kind         String   @default("server") // "server" | "client" | "internal"
+  status       String   @default("ok") // "ok" | "error"
   startedAt    DateTime
   durationMs   Int
-  attributes   Json?                                   // {statusCode, ip, userId, ...}
+  attributes   Json? // {statusCode, ip, userId, ...}
 
   @@index([traceId])
   @@index([startedAt])
@@ -3178,13 +3178,13 @@ model TraceSpan {
 // UI can search recent errors without external log infra. Verbose levels
 // stay on stdout. Pruned by dataRetention job (default 30d).
 model LogEntry {
-  id          String   @id @default(cuid())
-  level       String                                   // "warn" | "error" | "fatal"
-  message     String
-  requestId   String?
-  traceId     String?
-  attributes  Json?                                    // arbitrary structured fields
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  level      String // "warn" | "error" | "fatal"
+  message    String
+  requestId  String?
+  traceId    String?
+  attributes Json? // arbitrary structured fields
+  createdAt  DateTime @default(now())
 
   @@index([level, createdAt])
   @@index([traceId])
@@ -3195,18 +3195,18 @@ model LogEntry {
 // n8n, Zendesk, Linear, Slack) subscribe to ticket lifecycle without us
 // having to integrate with each vendor. HMAC-SHA-256 signed.
 model TicketWebhook {
-  id           String   @id @default(cuid())
-  url          String
-  events       String[] @default(["*"])                // ["ticket.created","ticket.replied","ticket.status_changed"] or ["*"]
-  secret       String                                  // for HMAC sig
-  active       Boolean  @default(true)
-  description  String?
-  lastDeliveryAt DateTime?
-  lastDeliveryStatus String?                           // "ok" | "fail"
-  failCount    Int      @default(0)
-  createdBy    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String    @id @default(cuid())
+  url                String
+  events             String[]  @default(["*"]) // ["ticket.created","ticket.replied","ticket.status_changed"] or ["*"]
+  secret             String // for HMAC sig
+  active             Boolean   @default(true)
+  description        String?
+  lastDeliveryAt     DateTime?
+  lastDeliveryStatus String? // "ok" | "fail"
+  failCount          Int       @default(0)
+  createdBy          String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   @@index([active])
 }
@@ -3217,22 +3217,22 @@ model TicketWebhook {
 // (or closed without resolution). Saved replies (see SavedReply) can be
 // the source of the body for fast canned replies.
 model Ticket {
-  id           String   @id @default(cuid())
-  number       Int      @unique @default(autoincrement())   // human-friendly #1234
-  subject      String
-  body         String                                       // first message
-  status       String   @default("open")                    // open | in_progress | resolved | closed
-  priority     String   @default("normal")                  // low | normal | high | urgent
-  category     String?                                      // "bug" | "billing" | "account" | ...
-  userId       String?                                      // user who opened it (null when admin opens for someone else)
-  email        String                                       // contact email (captured at open time)
-  assigneeId   String?                                      // admin user assigned
-  tags         String[] @default([])
-  resolvedAt   DateTime?
-  closedAt     DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  replies      TicketReply[]
+  id         String        @id @default(cuid())
+  number     Int           @unique @default(autoincrement()) // human-friendly #1234
+  subject    String
+  body       String // first message
+  status     String        @default("open") // open | in_progress | resolved | closed
+  priority   String        @default("normal") // low | normal | high | urgent
+  category   String? // "bug" | "billing" | "account" | ...
+  userId     String? // user who opened it (null when admin opens for someone else)
+  email      String // contact email (captured at open time)
+  assigneeId String? // admin user assigned
+  tags       String[]      @default([])
+  resolvedAt DateTime?
+  closedAt   DateTime?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  replies    TicketReply[]
 
   @@index([status, priority, createdAt])
   @@index([assigneeId, status])
@@ -3240,15 +3240,15 @@ model Ticket {
 }
 
 model TicketReply {
-  id          String   @id @default(cuid())
-  ticketId    String
-  authorId    String?                                       // null for system/external messages
-  authorKind  String   @default("agent")                    // "agent" | "user" | "system"
-  body        String
-  isInternal  Boolean  @default(false)                      // internal notes hidden from end user
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  ticketId   String
+  authorId   String? // null for system/external messages
+  authorKind String   @default("agent") // "agent" | "user" | "system"
+  body       String
+  isInternal Boolean  @default(false) // internal notes hidden from end user
+  createdAt  DateTime @default(now())
 
-  ticket      Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
 
   @@index([ticketId, createdAt])
 }
@@ -3257,17 +3257,17 @@ model TicketReply {
 // row is a compliance certification, contact, or document. Surfaces at
 // GET /api/v1/trust without auth.
 model TrustCenterEntry {
-  id          String   @id @default(cuid())
-  kind        String                                  // "certification" | "document" | "contact" | "principle" | "audit_report"
-  title       String                                  // "SOC 2 Type II"
-  body        String?                                 // short markdown description
-  url         String?                                 // download / link
-  validUntil  DateTime?
-  order       Int      @default(0)                    // display order within kind group
-  active      Boolean  @default(true)
-  createdBy   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String    @id @default(cuid())
+  kind       String // "certification" | "document" | "contact" | "principle" | "audit_report"
+  title      String // "SOC 2 Type II"
+  body       String? // short markdown description
+  url        String? // download / link
+  validUntil DateTime?
+  order      Int       @default(0) // display order within kind group
+  active     Boolean   @default(true)
+  createdBy  String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   @@index([active, kind, order])
 }
@@ -3276,13 +3276,13 @@ model TrustCenterEntry {
 // ApiKey, or User. Empty allowlist means "no restriction". Enforced by a
 // new middleware that reads this table.
 model IpAllowlistEntry {
-  id           String   @id @default(cuid())
-  subjectType  String                                  // "api_key" | "oauth_client" | "user"
-  subjectId    String
-  cidr         String                                  // "203.0.113.0/24" or "203.0.113.42/32"
-  description  String?
-  createdBy    String?
-  createdAt    DateTime @default(now())
+  id          String   @id @default(cuid())
+  subjectType String // "api_key" | "oauth_client" | "user"
+  subjectId   String
+  cidr        String // "203.0.113.0/24" or "203.0.113.42/32"
+  description String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
 
   @@index([subjectType, subjectId])
 }
@@ -3294,19 +3294,19 @@ model IpAllowlistEntry {
 // here we only persist the ciphertext + meta — the actual decryption helper
 // lives in lib/vault.ts (which doesn't ship plaintext over the wire).
 model VaultEntry {
-  id           String   @id @default(cuid())
-  name         String   @unique                       // "stripe.webhook_secret"
-  category     String                                  // "payments" | "ai" | "comms" | "infra"
-  ciphertextB64 String                                 // AES-256-GCM ciphertext, base64
-  ivB64        String                                  // 12-byte IV, base64
-  authTagB64   String                                  // 16-byte auth tag, base64
+  id            String    @id @default(cuid())
+  name          String    @unique // "stripe.webhook_secret"
+  category      String // "payments" | "ai" | "comms" | "infra"
+  ciphertextB64 String // AES-256-GCM ciphertext, base64
+  ivB64         String // 12-byte IV, base64
+  authTagB64    String // 16-byte auth tag, base64
   rotationDueAt DateTime?
-  rotatedAt    DateTime?
-  rotatedBy    String?
-  lastReadAt   DateTime?                               // bumped on each readSecret()
-  notes        String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  rotatedAt     DateTime?
+  rotatedBy     String?
+  lastReadAt    DateTime? // bumped on each readSecret()
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   @@index([category])
 }
@@ -3315,17 +3315,17 @@ model VaultEntry {
 // duration. Surfaces alongside incidents during sev1/sev2 so the on-call
 // has the playbook one click away.
 model DrRunbook {
-  id              String   @id @default(cuid())
-  title           String
-  triggerCategory String                              // matches Incident.category
-  severity        String                              // "sev1" | "sev2" | "sev3"
-  body            String                              // markdown
+  id                      String    @id @default(cuid())
+  title                   String
+  triggerCategory         String // matches Incident.category
+  severity                String // "sev1" | "sev2" | "sev3"
+  body                    String // markdown
   expectedDurationMinutes Int?
-  ownerEmail      String?
-  reviewedAt      DateTime?
-  reviewedBy      String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  ownerEmail              String?
+  reviewedAt              DateTime?
+  reviewedBy              String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
 
   @@index([triggerCategory, severity])
 }
@@ -3334,16 +3334,16 @@ model DrRunbook {
 // EndpointStat table. Single objective per endpoint today; multi-objective
 // (e.g. p99 latency AND error rate combined) in a later batch.
 model SloDefinition {
-  id              String   @id @default(cuid())
-  name            String                              // "API availability — anime catalogue"
-  endpoint        String                              // "GET /api/v1/anime/:id" or "*" for all
-  objectiveType   String                              // "availability" | "latency_p99"
-  targetPct       Float                               // e.g. 99.9 means 99.9% requests succeed / under p99 threshold
-  windowDays      Int      @default(30)               // rolling window
-  thresholdMs     Int?                                // required when objectiveType = latency_p99
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id            String   @id @default(cuid())
+  name          String // "API availability — anime catalogue"
+  endpoint      String // "GET /api/v1/anime/:id" or "*" for all
+  objectiveType String // "availability" | "latency_p99"
+  targetPct     Float // e.g. 99.9 means 99.9% requests succeed / under p99 threshold
+  windowDays    Int      @default(30) // rolling window
+  thresholdMs   Int? // required when objectiveType = latency_p99
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([endpoint])
 }
@@ -3353,40 +3353,40 @@ model SloDefinition {
 // separate worker we don't run in-process). Admins can record manual probes
 // via /admin/observability/monitors/:id/record.
 model SyntheticMonitor {
-  id              String   @id @default(cuid())
-  name            String                              // "Login flow"
-  url             String                              // probe URL
-  method          String   @default("GET")
-  expectedStatus  Int      @default(200)
-  expectedBodyContains String?                        // substring assertion (optional)
-  intervalSeconds Int      @default(300)              // how often it SHOULD run
-  enabled         Boolean  @default(true)
-  lastRunAt       DateTime?
-  lastOutcome     String?                             // "ok" | "fail" | "timeout"
-  lastLatencyMs   Int?
-  lastError       String?
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                   String    @id @default(cuid())
+  name                 String // "Login flow"
+  url                  String // probe URL
+  method               String    @default("GET")
+  expectedStatus       Int       @default(200)
+  expectedBodyContains String? // substring assertion (optional)
+  intervalSeconds      Int       @default(300) // how often it SHOULD run
+  enabled              Boolean   @default(true)
+  lastRunAt            DateTime?
+  lastOutcome          String? // "ok" | "fail" | "timeout"
+  lastLatencyMs        Int?
+  lastError            String?
+  createdBy            String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 }
 
 // AI ops — per-call log of LLM inference requests. Populated by the existing
 // aiRouter wrappers; populates the cost dashboard and the latency trend chart.
 model LlmCall {
-  id              String   @id @default(cuid())
-  provider        String                              // "openai" | "anthropic" | "gateway"
-  model           String                              // "gpt-4o-mini" | "claude-sonnet-4-6" | ...
-  endpoint        String?                             // "/ai/discover" | "/ai/recommend"
-  userId          String?
-  promptTokens    Int      @default(0)
-  completionTokens Int     @default(0)
-  totalTokens     Int      @default(0)
-  costCents       Int      @default(0)                // 1/100ths of a cent (consistent with CostRate)
-  latencyMs       Int      @default(0)
-  status          String   @default("ok")             // "ok" | "error" | "timeout" | "filtered"
-  errorDetail     String?
-  promptVersionId String?                             // optional FK to PromptVersion
-  createdAt       DateTime @default(now())
+  id               String   @id @default(cuid())
+  provider         String // "openai" | "anthropic" | "gateway"
+  model            String // "gpt-4o-mini" | "claude-sonnet-4-6" | ...
+  endpoint         String? // "/ai/discover" | "/ai/recommend"
+  userId           String?
+  promptTokens     Int      @default(0)
+  completionTokens Int      @default(0)
+  totalTokens      Int      @default(0)
+  costCents        Int      @default(0) // 1/100ths of a cent (consistent with CostRate)
+  latencyMs        Int      @default(0)
+  status           String   @default("ok") // "ok" | "error" | "timeout" | "filtered"
+  errorDetail      String?
+  promptVersionId  String? // optional FK to PromptVersion
+  createdAt        DateTime @default(now())
 
   @@index([provider, createdAt])
   @@index([userId, createdAt])
@@ -3397,16 +3397,16 @@ model LlmCall {
 // AI ops — prompt registry with versioning. Lets a non-engineer iterate
 // on a prompt, ship a new version, A/B between them.
 model PromptVersion {
-  id              String   @id @default(cuid())
-  key             String                              // logical name like "anime_recommender"
-  version         Int                                 // monotonic per key
-  template        String                              // markdown template; {{vars}} substituted in code
-  description     String?
-  active          Boolean  @default(false)            // exactly one active per key (app-side enforced)
-  metricsJson     Json?                               // snapshot of eval scores at activation
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(cuid())
+  key         String // logical name like "anime_recommender"
+  version     Int // monotonic per key
+  template    String // markdown template; {{vars}} substituted in code
+  description String?
+  active      Boolean  @default(false) // exactly one active per key (app-side enforced)
+  metricsJson Json? // snapshot of eval scores at activation
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([key, version])
   @@index([key, active])
@@ -3417,9 +3417,9 @@ model PromptVersion {
 model EvalResult {
   id              String   @id @default(cuid())
   promptVersionId String
-  evalSet         String                              // "regression_v1" | "safety_v2"
+  evalSet         String // "regression_v1" | "safety_v2"
   scoreOverall    Float
-  scoresJson      Json                                // per-criterion breakdown
+  scoresJson      Json // per-criterion breakdown
   sampleCount     Int
   ranAt           DateTime @default(now())
   ranBy           String?
@@ -3432,16 +3432,16 @@ model EvalResult {
 // retrieval; size + chunk count surface in the dashboard so admins know
 // what the model is grounded on.
 model RagDocument {
-  id              String   @id @default(cuid())
-  collection      String                              // "anime_facts" | "help_articles"
-  title           String
-  sourceUrl       String?
-  contentHash     String                              // sha256 of source — for change detection
-  chunks          Int      @default(0)
-  bytes           Int      @default(0)
-  lastIndexedAt   DateTime @default(now())
-  active          Boolean  @default(true)
-  metadata        Json?
+  id            String   @id @default(cuid())
+  collection    String // "anime_facts" | "help_articles"
+  title         String
+  sourceUrl     String?
+  contentHash   String // sha256 of source — for change detection
+  chunks        Int      @default(0)
+  bytes         Int      @default(0)
+  lastIndexedAt DateTime @default(now())
+  active        Boolean  @default(true)
+  metadata      Json?
 
   @@unique([collection, contentHash])
   @@index([collection, active])
@@ -3452,15 +3452,15 @@ model RagDocument {
 // withdrawal — `withdrawnAt` set rather than row deleted so the audit
 // trail is preserved.
 model ConsentRecord {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   userId      String
-  purpose     String                                   // "marketing_email" | "personalization" | "third_party_analytics" | "ai_training" | ...
-  version     String                                   // copy of the consent text version
-  givenAt     DateTime @default(now())
+  purpose     String // "marketing_email" | "personalization" | "third_party_analytics" | "ai_training" | ...
+  version     String // copy of the consent text version
+  givenAt     DateTime  @default(now())
   withdrawnAt DateTime?
   ipAddress   String?
   userAgent   String?
-  source      String   @default("ui")                  // "ui" | "imported" | "scim" | "saml"
+  source      String    @default("ui") // "ui" | "imported" | "scim" | "saml"
   metadata    Json?
 
   @@unique([userId, purpose])
@@ -3475,18 +3475,18 @@ model ConsentRecord {
 // Execution = hard purge of personal data, leaving anonymized rows so the
 // audit hash chain isn't broken.
 model RtbfRequest {
-  id           String   @id @default(cuid())
-  userId       String
-  email        String                                  // captured at request time in case user is later anonymized
-  status       String   @default("pending")            // pending | verified | executing | completed | rejected
-  verificationTokenHash String?                        // sha256; null after verification
-  verifiedAt   DateTime?
-  rejectedReason String?
-  executedAt   DateTime?
-  executorId   String?                                 // admin who pressed execute
-  retentionExceptionsJson Json?                        // legal-hold items that survive the purge
-  requestedAt  DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                      String    @id @default(cuid())
+  userId                  String
+  email                   String // captured at request time in case user is later anonymized
+  status                  String    @default("pending") // pending | verified | executing | completed | rejected
+  verificationTokenHash   String? // sha256; null after verification
+  verifiedAt              DateTime?
+  rejectedReason          String?
+  executedAt              DateTime?
+  executorId              String? // admin who pressed execute
+  retentionExceptionsJson Json? // legal-hold items that survive the purge
+  requestedAt             DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
 
   @@index([status, requestedAt])
   @@index([userId])
@@ -3496,19 +3496,19 @@ model RtbfRequest {
 // SOC2 vendor management). Admin-managed list of every third party that
 // touches user data, what they do with it, and the contract.
 model VendorRecord {
-  id              String   @id @default(cuid())
-  name            String                               // "OpenAI"
-  url             String                               // homepage / privacy URL
-  category        String                               // "ai_model" | "email" | "monitoring" | "infra" | "support" | ...
-  dataAccessed    String[] @default([])                // ["email","posts","ip"]
-  region          String?                              // "us-east-1" | "eu-west-1"
-  dpaUrl          String?                              // signed DPA link
-  contactEmail    String?
-  notes           String?
-  reviewedAt      DateTime?
-  reviewedBy      String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id           String    @id @default(cuid())
+  name         String // "OpenAI"
+  url          String // homepage / privacy URL
+  category     String // "ai_model" | "email" | "monitoring" | "infra" | "support" | ...
+  dataAccessed String[]  @default([]) // ["email","posts","ip"]
+  region       String? // "us-east-1" | "eu-west-1"
+  dpaUrl       String? // signed DPA link
+  contactEmail String?
+  notes        String?
+  reviewedAt   DateTime?
+  reviewedBy   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@index([category])
 }
@@ -3519,11 +3519,11 @@ model VendorRecord {
 // see we're managing rotation policy.
 model KmsKeyRotation {
   id            String   @id @default(cuid())
-  keyAlias      String                                 // "rds-master" | "uploads-bucket" | ...
-  provider      String                                 // "aws_kms" | "gcp_kms" | "vault"
-  algorithm     String?                                // "AES-256" | "RSA-2048"
+  keyAlias      String // "rds-master" | "uploads-bucket" | ...
+  provider      String // "aws_kms" | "gcp_kms" | "vault"
+  algorithm     String? // "AES-256" | "RSA-2048"
   lastRotatedAt DateTime
-  nextDueAt     DateTime                               // policy says rotate before this
+  nextDueAt     DateTime // policy says rotate before this
   rotatedBy     String?
   notes         String?
   createdAt     DateTime @default(now())
@@ -3537,16 +3537,16 @@ model KmsKeyRotation {
 // an OauthClient id. Applied at request time by the rate-limit middleware
 // when present, replacing the default global limit.
 model RateLimitOverride {
-  id           String   @id @default(cuid())
-  subjectType  String                                  // "api_key" | "oauth_client"
-  subjectId    String                                  // FK to the appropriate table (no DB-side FK)
-  requestsPerWindow Int                                // total requests
-  windowSeconds Int                                    // window length
-  reason       String?                                 // why this override exists
-  expiresAt    DateTime?                               // null = never; auto-applied/expired by middleware
-  createdBy    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                String    @id @default(cuid())
+  subjectType       String // "api_key" | "oauth_client"
+  subjectId         String // FK to the appropriate table (no DB-side FK)
+  requestsPerWindow Int // total requests
+  windowSeconds     Int // window length
+  reason            String? // why this override exists
+  expiresAt         DateTime? // null = never; auto-applied/expired by middleware
+  createdBy         String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   @@unique([subjectType, subjectId])
   @@index([expiresAt])
@@ -3556,11 +3556,11 @@ model RateLimitOverride {
 // the admin UI. Used for breaking-change announcements + deprecation notices.
 model ApiChangeLog {
   id          String   @id @default(cuid())
-  publishedAt DateTime @default(now())                 // when the change went live
-  changeType  String                                   // "breaking" | "feature" | "fix" | "deprecation" | "security"
+  publishedAt DateTime @default(now()) // when the change went live
+  changeType  String // "breaking" | "feature" | "fix" | "deprecation" | "security"
   title       String
-  body        String                                   // markdown
-  affects     String[] @default([])                    // ["GET /api/v1/anime/:id", "POST /webhooks"]
+  body        String // markdown
+  affects     String[] @default([]) // ["GET /api/v1/anime/:id", "POST /webhooks"]
   authorId    String?
   createdAt   DateTime @default(now())
 
@@ -3573,11 +3573,11 @@ model ApiChangeLog {
 // a strikethrough or banner.
 model DeprecatedEndpoint {
   id           String   @id @default(cuid())
-  endpoint     String   @unique                        // "GET /api/v1/anime/:id"
+  endpoint     String   @unique // "GET /api/v1/anime/:id"
   deprecatedAt DateTime @default(now())
-  sunsetAt     DateTime                                // when the endpoint will be removed
+  sunsetAt     DateTime // when the endpoint will be removed
   reason       String?
-  replacement  String?                                 // "GET /api/v2/anime/:id"
+  replacement  String? // "GET /api/v2/anime/:id"
   createdBy    String?
   createdAt    DateTime @default(now())
 
@@ -3589,7 +3589,7 @@ model DeprecatedEndpoint {
 // restarts; pruned by the dataRetention job.
 model RequestCapture {
   id          String   @id @default(cuid())
-  endpoint    String                                   // "POST /webhooks/foo"
+  endpoint    String // "POST /webhooks/foo"
   method      String
   path        String
   headersJson Json
@@ -3597,7 +3597,7 @@ model RequestCapture {
   bodyText    String?
   statusCode  Int?
   responseMs  Int?
-  capturedBy  String?                                  // userId that triggered the capture
+  capturedBy  String? // userId that triggered the capture
   createdAt   DateTime @default(now())
 
   @@index([endpoint, createdAt])
@@ -3608,28 +3608,28 @@ model RequestCapture {
 // based on infra observation; cost dashboard multiplies request volume
 // from EndpointStat by these rates. Default: 0 (free) when no rate set.
 model CostRate {
-  id              String   @id @default(cuid())
-  endpoint        String   @unique                 // "GET /api/v1/anime/:id" — must match EndpointStat.endpoint
-  centsPer1k      Int      @default(0)             // cost of 1000 requests, in 1/100ths of a cent (so 1 = $0.0001)
-  notes           String?
-  category        String?                          // "db_heavy" | "ai" | "cache_hit" | etc — for grouping
-  updatedBy       String?
-  updatedAt       DateTime @updatedAt
-  createdAt       DateTime @default(now())
+  id         String   @id @default(cuid())
+  endpoint   String   @unique // "GET /api/v1/anime/:id" — must match EndpointStat.endpoint
+  centsPer1k Int      @default(0) // cost of 1000 requests, in 1/100ths of a cent (so 1 = $0.0001)
+  notes      String?
+  category   String? // "db_heavy" | "ai" | "cache_hit" | etc — for grouping
+  updatedBy  String?
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
 }
 
 // Monthly spend budget. Crossing the threshold raises an AdminAlert and
 // (later) can trigger throttling. Single row per scope ("global" today;
 // per-endpoint in a later batch).
 model CostBudget {
-  id              String   @id @default(cuid())
-  scope           String   @unique                 // "global" today; "endpoint:GET /x" later
-  monthlyBudgetCents BigInt                        // total budget in 1/100ths of a cent (kept consistent w/ CostRate)
-  alertAtPct      Int      @default(80)            // raise warn alert at this % of budget
-  hardCapAtPct    Int?                             // null = no hard cap (no enforcement today; placeholder)
-  lastAlertAt     DateTime?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                 String    @id @default(cuid())
+  scope              String    @unique // "global" today; "endpoint:GET /x" later
+  monthlyBudgetCents BigInt // total budget in 1/100ths of a cent (kept consistent w/ CostRate)
+  alertAtPct         Int       @default(80) // raise warn alert at this % of budget
+  hardCapAtPct       Int? // null = no hard cap (no enforcement today; placeholder)
+  lastAlertAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 // Audit trail for SSO logins — useful for "did SSO actually work last week?"
@@ -3637,10 +3637,10 @@ model CostBudget {
 // password/OAuth logins.
 model SamlLoginEvent {
   id          String   @id @default(cuid())
-  configId    String                                    // FK to SamlConfig.id (no constraint — config can be deleted)
-  userId      String?                                   // null if provisioning was rejected
-  email       String?                                   // raw email from SAML
-  outcome     String                                    // "success" | "rejected_provision" | "verification_failed" | "expired_assertion"
+  configId    String // FK to SamlConfig.id (no constraint — config can be deleted)
+  userId      String? // null if provisioning was rejected
+  email       String? // raw email from SAML
+  outcome     String // "success" | "rejected_provision" | "verification_failed" | "expired_assertion"
   ipAddress   String?
   userAgent   String?
   errorDetail String?
@@ -3650,35 +3650,54 @@ model SamlLoginEvent {
   @@index([userId])
 }
 
-
 // ─── Shots — short vertical videos (reels) ──────────────────────────────────
 // Mirrors the Post/PostLike pattern: soft-delete, cursor feed on createdAt,
 // composite-PK likes. Video bytes live in object storage (presigned PUT, same
 // flow as post images) — only URLs are stored here.
 
 model Shot {
-  id           String    @id @default(cuid())
-  authorId     String
-  caption      String?
-  videoUrl     String
-  embedUrl     String?            // set for imported embeds (e.g. TikTok) — render the provider player instead of <video>
-  sourceProvider String?          // null = native upload | "instagram" | "tiktok"
-  thumbnailUrl String?
-  durationMs   Int?
-  animeId      String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  deletedAt    DateTime?
+  id             String    @id @default(cuid())
+  authorId       String
+  caption        String?
+  videoUrl       String
+  embedUrl       String? // set for imported embeds (e.g. TikTok) — render the provider player instead of <video>
+  sourceProvider String? // null = native upload | "instagram" | "tiktok"
+  thumbnailUrl   String?
+  durationMs     Int?
+  animeId        String?
+  viewCount      Int       @default(0) // denormalized; atomically incremented on a new qualifying daily view (see docs/shots-view-counting.md)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
 
   author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   anime    Anime?        @relation(fields: [animeId], references: [id], onDelete: SetNull)
   likes    ShotLike[]
   comments ShotComment[]
   saves    ShotSave[]
+  views    ShotView[]
 
   @@index([createdAt])
   @@index([authorId, createdAt])
   @@index([animeId])
+}
+
+// One row per (shot, viewer, UTC-day). The unique constraint is the dedup +
+// idempotency mechanism for view counting — a view is counted at most once per
+// viewer per day (Reels-style qualification). See docs/shots-view-counting.md.
+model ShotView {
+  id        String   @id @default(cuid())
+  shotId    String
+  viewerKey String // "u:<userId>" for authed, "a:<uuid>" for anon
+  userId    String? // attribution only (no FK relation needed)
+  day       String // "YYYY-MM-DD" (UTC bucket)
+  watchedMs Int      @default(0)
+  createdAt DateTime @default(now())
+
+  shot Shot @relation(fields: [shotId], references: [id], onDelete: Cascade)
+
+  @@unique([shotId, viewerKey, day])
+  @@index([shotId])
 }
 
 model ShotLike {
@@ -3744,10 +3763,10 @@ model ShotCommentLike {
 model SocialConnection {
   id             String    @id @default(cuid())
   userId         String
-  provider       String    // "instagram"
-  providerUserId String    // external account id (IG user id)
-  username       String?   // external handle, for display
-  accessToken    String    // long-lived token (treat as a secret)
+  provider       String // "instagram"
+  providerUserId String // external account id (IG user id)
+  username       String? // external handle, for display
+  accessToken    String // long-lived token (treat as a secret)
   tokenExpiresAt DateTime?
   scopes         String[]
   createdAt      DateTime  @default(now())
@@ -3765,9 +3784,9 @@ model SocialConnection {
 model ImportedMedia {
   id         String   @id @default(cuid())
   userId     String
-  provider   String   // "instagram"
-  externalId String   // provider media id
-  shotId     String?  // resulting Shot, if imported
+  provider   String // "instagram"
+  externalId String // provider media id
+  shotId     String? // resulting Shot, if imported
   permalink  String?
   createdAt  DateTime @default(now())
 
@@ -3776,7 +3795,6 @@ model ImportedMedia {
   @@unique([userId, provider, externalId])
   @@index([userId])
 }
-
 
 // ─── Peeak — 24-hour stories ────────────────────────────────────────────────
 // Ephemeral media shown in the Messages-screen rail. Soft-deleted + expiry
@@ -3787,7 +3805,7 @@ model Story {
   id        String    @id @default(cuid())
   authorId  String
   mediaUrl  String
-  mediaType String    // "image" | "video"
+  mediaType String // "image" | "video"
   caption   String?
   createdAt DateTime  @default(now())
   expiresAt DateTime

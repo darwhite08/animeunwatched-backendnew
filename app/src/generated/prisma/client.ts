@@ -893,6 +893,11 @@ export type SamlLoginEvent = Prisma.SamlLoginEventModel
  */
 export type Shot = Prisma.ShotModel
 /**
+ * Model ShotView
+ * 
+ */
+export type ShotView = Prisma.ShotViewModel
+/**
  * Model ShotLike
  * 
  */

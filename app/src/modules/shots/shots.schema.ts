@@ -9,3 +9,12 @@ export const createShotSchema = z.object({
 });
 
 export type CreateShotDto = z.infer<typeof createShotSchema>;
+
+export const recordViewSchema = z.object({
+  // First-party random id from the client (localStorage). Bounded length so a
+  // crafted body can't bloat the ledger row.
+  viewerKey: z.string().min(8).max(64),
+  watchedMs: z.number().int().nonnegative().max(10 * 60 * 1000).optional(),
+});
+
+export type RecordViewDto = z.infer<typeof recordViewSchema>;
