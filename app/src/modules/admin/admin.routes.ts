@@ -69,12 +69,19 @@ import * as integ        from "./integrations.controller";
 import * as triage       from "./triage.controller";
 import * as flagsExtras  from "./flagsExtras.controller";
 import * as creators     from "./creators.controller";
+import * as signupAccess from "./signupAccess.controller";
 
 export const adminRouter = Router();
 
 // Every admin route requires a valid Bearer token AND legacy role=ADMIN.
 // Fine-grained permission checks layer on top via requirePermission(...).
 adminRouter.use(requireAuth, requireAdmin);
+
+// Signup access — invite-only gate toggle + invite codes
+adminRouter.get(   "/signup-access",         signupAccess.getAccess);
+adminRouter.put(   "/signup-access",         signupAccess.setAccess);
+adminRouter.post(  "/signup-invites",        signupAccess.createInvite);
+adminRouter.delete("/signup-invites/:id",    signupAccess.revokeInvite);
 
 // Headline / overview
 adminRouter.get("/stats",              ctrl.getStats);

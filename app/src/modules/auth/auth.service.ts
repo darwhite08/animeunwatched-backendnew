@@ -8,7 +8,8 @@ import { updateStreak } from "../../lib/streak";
 import { verifyTotp, hashBackupCode } from "../../lib/totp";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
-import { conflict, unauth, badRequest } from "../../lib/errors";
+import { conflict, unauth, badRequest, forbidden } from "../../lib/errors";
+import { enforceSignupGate, getInviteOnly } from "../../lib/inviteGate";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail, verificationEmail, isEmailConfigured } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
@@ -99,6 +100,10 @@ const userSelect = {
 // ---------- service methods ----------
 
 export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
+  // Invite-only gate (no-op unless an admin turned it on). Atomically consumes a
+  // code; throws if the gate is on and the code is missing/invalid/exhausted.
+  await enforceSignupGate(dto.inviteCode);
+
   const [existingEmail, existingUsername] = await Promise.all([
     prisma.user.findUnique({ where: { email: dto.email } }),
     // Case-insensitive: "aniversex" and "AniverseX" are the same handle.
@@ -536,6 +541,11 @@ async function findOrCreateOAuthUser(opts: {
   }
 
   if (!user) {
+    // Invite-only gate: OAuth can't carry an invite code, so new OAuth signups
+    // are blocked while the gate is on (existing users still log in fine).
+    if (await getInviteOnly()) {
+      throw forbidden("Kaiveron is invite-only right now — sign up with an invite code on the web first.");
+    }
     // 3. Create a brand-new user
     const username = await generateUniqueUsername(opts.email.split("@")[0]);
     const slug     = await generateUniqueSlug(opts.displayName || username);

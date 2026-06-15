@@ -2367,6 +2367,23 @@ model AdminSetting {
   updatedAt   DateTime @updatedAt
 }
 
+// Admin-generated codes that gate public signup when the "invite_only"
+// AdminSetting is enabled. maxUses 0 = unlimited; uses is incremented atomically
+// on a successful signup. revokedAt / expiresAt invalidate a code.
+model SignupInvite {
+  id        String    @id @default(cuid())
+  code      String    @unique
+  label     String?
+  createdBy String?
+  maxUses   Int       @default(0)
+  uses      Int       @default(0)
+  expiresAt DateTime?
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([code])
+}
+
 // Generic moderation queue. Source-agnostic: anything that needs human review
 // (auto-flagged posts, spam suspects, abuse reports) becomes a row here.
 // Status transitions: PENDING → APPROVED | REJECTED | REMOVED.

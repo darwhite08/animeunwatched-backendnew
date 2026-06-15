@@ -34,6 +34,7 @@ export const registerSchema = z.object({
   displayName: z.string().min(1).max(60),
   password: PASSWORD_RULES,
   referredBy: z.string().max(30).optional().transform((s) => s?.toLowerCase()), // referral @handle (case-insensitive)
+  inviteCode: z.string().trim().max(40).optional(), // required only when invite-only mode is on (enforced in register())
 });
 
 export const loginSchema = z.object({

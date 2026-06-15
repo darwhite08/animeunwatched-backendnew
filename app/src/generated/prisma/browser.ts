@@ -528,6 +528,11 @@ export type Announcement = Prisma.AnnouncementModel
  */
 export type AdminSetting = Prisma.AdminSettingModel
 /**
+ * Model SignupInvite
+ * 
+ */
+export type SignupInvite = Prisma.SignupInviteModel
+/**
  * Model ModerationItem
  * 
  */

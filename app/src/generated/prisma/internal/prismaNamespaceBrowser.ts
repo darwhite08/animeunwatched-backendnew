@@ -151,6 +151,7 @@ export const ModelName = {
   WebhookDelivery: 'WebhookDelivery',
   Announcement: 'Announcement',
   AdminSetting: 'AdminSetting',
+  SignupInvite: 'SignupInvite',
   ModerationItem: 'ModerationItem',
   NotificationTemplate: 'NotificationTemplate',
   AdminAlert: 'AdminAlert',
@@ -1738,6 +1739,21 @@ export const AdminSettingScalarFieldEnum = {
 } as const
 
 export type AdminSettingScalarFieldEnum = (typeof AdminSettingScalarFieldEnum)[keyof typeof AdminSettingScalarFieldEnum]
+
+
+export const SignupInviteScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  label: 'label',
+  createdBy: 'createdBy',
+  maxUses: 'maxUses',
+  uses: 'uses',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SignupInviteScalarFieldEnum = (typeof SignupInviteScalarFieldEnum)[keyof typeof SignupInviteScalarFieldEnum]
 
 
 export const ModerationItemScalarFieldEnum = {

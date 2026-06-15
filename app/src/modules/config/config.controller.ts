@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./config.service";
 import { broadcastFlagsChanged } from "../../realtime/broadcast";
+import { getInviteOnly } from "../../lib/inviteGate";
+
+/** GET /config/signup — public signup config (is the invite-only gate on?). */
+export async function getSignupConfig(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    res.set("Cache-Control", "public, max-age=10");
+    res.status(200).json({ inviteOnly: await getInviteOnly() });
+  } catch (err) { next(err); }
+}
 
 export async function listFlagsAdmin(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
