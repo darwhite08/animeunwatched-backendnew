@@ -353,7 +353,7 @@ export async function getComments(slug: string, page = 1, limit = 20) {
   const [data, total] = await prisma.$transaction([
     prisma.blogComment.findMany({
       where: { blogId: blog.id },
-      include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+      include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true } } },
       orderBy: { createdAt: "desc" },
       skip, take: limit,
     }),
@@ -369,7 +369,7 @@ export async function createComment(slug: string, authorId: string, content: str
   if (!blog) throw notFound("Blog not found")
   const comment = await prisma.blogComment.create({
     data: { blogId: blog.id, authorId, content },
-    include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true } } },
+    include: { author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true } } },
   })
   return { comment }
 }
