@@ -14,6 +14,8 @@ postsRouter.get("/feed",     requireAuth,  ctrl.getFeed);
 postsRouter.get("/comments/:commentId/replies", optionalAuth, ctrl.getCommentReplies);
 postsRouter.post("/comments/:commentId/like", requireAuth, ctrl.likeComment);
 postsRouter.delete("/comments/:commentId/like", requireAuth, ctrl.unlikeComment);
+postsRouter.post("/comments/:commentId/pin", requireAuth, ctrl.pinComment);
+postsRouter.delete("/comments/:commentId/pin", requireAuth, ctrl.unpinComment);
 
 postsRouter.get("/:id", optionalAuth, ctrl.getPost);
 // turnstile() is a no-op until TURNSTILE_SECRET is set

@@ -195,3 +195,19 @@ export async function unlikeComment(req: Request, res: Response, next: NextFunct
     res.json(result);
   } catch (err) { next(err); }
 }
+
+export async function pinComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const user = res.locals.user;
+    const result = await service.setCommentPinned(user.id, user.role === "ADMIN", req.params.commentId as string, true);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
+export async function unpinComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const user = res.locals.user;
+    const result = await service.setCommentPinned(user.id, user.role === "ADMIN", req.params.commentId as string, false);
+    res.json(result);
+  } catch (err) { next(err); }
+}

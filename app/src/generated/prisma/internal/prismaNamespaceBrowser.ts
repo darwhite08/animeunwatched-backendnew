@@ -791,6 +791,7 @@ export const PostCommentScalarFieldEnum = {
   parentCommentId: 'parentCommentId',
   likeCount: 'likeCount',
   replyCount: 'replyCount',
+  pinnedAt: 'pinnedAt',
   createdAt: 'createdAt'
 } as const
 

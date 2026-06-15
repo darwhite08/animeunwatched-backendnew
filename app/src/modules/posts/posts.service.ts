@@ -733,7 +733,7 @@ export async function unlikePost(userId: string, postId: string) {
 // ─── Comment helpers ─────────────────────────────────────────────────────────
 
 const COMMENT_AUTHOR_SELECT = {
-  id: true, username: true, displayName: true, avatarUrl: true,
+  id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true,
 } as const;
 
 async function attachCommentLikeStatus<T extends { id: string }>(comments: T[], userId?: string) {
@@ -804,7 +804,8 @@ export async function getComments(postId: string, page = 1, limit = 20, viewerId
       where: { postId, parentCommentId: null },
       skip,
       take,
-      orderBy: { createdAt: "asc" },
+      // Pinned comments float to the top (most-recently-pinned first), then chronological.
+      orderBy: [{ pinnedAt: { sort: "desc", nulls: "last" } }, { createdAt: "asc" }],
       include: {
         author:  { select: COMMENT_AUTHOR_SELECT },
         replies: {
@@ -936,4 +937,24 @@ export async function unlikeComment(userId: string, commentId: string) {
     });
     return { ok: true };
   });
+}
+
+// ─── pin / unpin a comment ───────────────────────────────────────────────────
+// Only the post's author (or an admin) may pin/unpin. Pinned comments float to
+// the top of getComments via the pinnedAt ordering.
+
+export async function setCommentPinned(userId: string, isAdmin: boolean, commentId: string, pinned: boolean) {
+  const comment = await prisma.postComment.findUnique({
+    where: { id: commentId },
+    select: { id: true, post: { select: { authorId: true } } },
+  });
+  if (!comment) throw notFound("Comment not found");
+  if (!isAdmin && comment.post.authorId !== userId) {
+    throw forbidden("Only the post author can pin comments");
+  }
+  await prisma.postComment.update({
+    where: { id: commentId },
+    data:  { pinnedAt: pinned ? new Date() : null },
+  });
+  return { ok: true, pinned };
 }

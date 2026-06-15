@@ -928,6 +928,8 @@ model PostComment {
   // as the underlying like / reply write).
   likeCount       Int      @default(0)
   replyCount      Int      @default(0)
+  // Set by the post author to pin a comment to the top (Instagram-style).
+  pinnedAt        DateTime?
   createdAt       DateTime @default(now())
 
   post    Post              @relation(fields: [postId], references: [id], onDelete: Cascade)
