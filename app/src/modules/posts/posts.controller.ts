@@ -211,3 +211,11 @@ export async function unpinComment(req: Request, res: Response, next: NextFuncti
     res.json(result);
   } catch (err) { next(err); }
 }
+
+export async function deleteComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const user = res.locals.user;
+    const result = await service.deletePostComment(user.id, user.role === "ADMIN", req.params.commentId as string);
+    res.json(result);
+  } catch (err) { next(err); }
+}

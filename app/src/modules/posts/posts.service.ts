@@ -981,3 +981,25 @@ export async function setCommentPinned(userId: string, isAdmin: boolean, comment
   });
   return { ok: true, pinned };
 }
+
+// ─── delete a comment ────────────────────────────────────────────────────────
+// The comment's author, the post's author, or an admin may delete. Replies +
+// likes cascade via the schema's onDelete: Cascade relations.
+
+export async function deletePostComment(userId: string, isAdmin: boolean, commentId: string) {
+  const c = await prisma.postComment.findUnique({
+    where: { id: commentId },
+    select: { id: true, authorId: true, parentCommentId: true, post: { select: { authorId: true } } },
+  });
+  if (!c) throw notFound("Comment not found");
+  if (!isAdmin && c.authorId !== userId && c.post.authorId !== userId) {
+    throw forbidden("You can't delete this comment");
+  }
+  await prisma.$transaction(async (tx) => {
+    if (c.parentCommentId) {
+      await tx.postComment.update({ where: { id: c.parentCommentId }, data: { replyCount: { decrement: 1 } } }).catch(() => {});
+    }
+    await tx.postComment.delete({ where: { id: commentId } });
+  });
+  return { ok: true };
+}
