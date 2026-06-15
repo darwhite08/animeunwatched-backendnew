@@ -523,6 +523,16 @@ export async function listComments(shotId: string, userId?: string, limit = 200)
     liked = new Set(rows.map((r) => r.commentId));
   }
 
+  // Which comments the shot AUTHOR liked → "❤ liked by author" badge.
+  let authorLiked = new Set<string>();
+  if (shot?.authorId && comments.length) {
+    const arows = await prisma.shotCommentLike.findMany({
+      where: { userId: shot.authorId, commentId: { in: comments.map((c) => c.id) } },
+      select: { commentId: true },
+    });
+    authorLiked = new Set(arows.map((r) => r.commentId));
+  }
+
   const data = comments.map((c) => ({
     id: c.id,
     body: c.body,
@@ -533,6 +543,7 @@ export async function listComments(shotId: string, userId?: string, limit = 200)
     isAuthor: c.authorId === shot?.authorId,
     likeCount: c._count.likes,
     likedByMe: liked.has(c.id),
+    likedByAuthor: authorLiked.has(c.id),
     author: c.author,
   }));
   return { data, meta: { nextCursor: null } };
