@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { badRequest } from "../../lib/errors";
 import { createShotSchema, recordViewSchema, recordFeedbackSchema } from "./shots.schema";
+import { env } from "../../config/env";
 import * as service from "./shots.service";
 
 export async function getFeed(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -9,7 +10,10 @@ export async function getFeed(req: Request, res: Response, next: NextFunction): 
     const cursor = req.query.cursor as string | undefined;
     const limit = Math.min(30, Math.max(1, Number(req.query.limit) || 10));
     const filter = req.query.filter === "following" ? "following" : undefined;
-    const result = await service.getFeed(userId, cursor, limit, filter);
+    // Ranking observability: only with the guard secret (so scoring internals
+    // aren't publicly exposed/gameable). See docs/shots-recommendation-algorithm.md.
+    const debug = !!env.CRON_SECRET && req.header("x-rank-debug") === env.CRON_SECRET;
+    const result = await service.getFeed(userId, cursor, limit, filter, debug);
     res.status(200).json(result);
   } catch (err) {
     next(err);

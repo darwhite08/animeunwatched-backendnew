@@ -52,7 +52,7 @@ async function decorate<T extends { id: string; authorId: string }>(shots: T[], 
 // default    → personalized Instagram-style ranked feed (cursor = opaque seen
 //              token). See docs/shots-recommendation-algorithm.md.
 
-export async function getFeed(userId?: string, cursor?: string, limit = 10, filter?: "following") {
+export async function getFeed(userId?: string, cursor?: string, limit = 10, filter?: "following", debug = false) {
   if (filter === "following") {
     if (!userId) return { data: [], meta: { nextCursor: null } };
     const follows = await prisma.follow.findMany({ where: { followerId: userId, status: "ACCEPTED" }, select: { followingId: true } });
@@ -70,7 +70,7 @@ export async function getFeed(userId?: string, cursor?: string, limit = 10, filt
     const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
     return { data, meta: { nextCursor } };
   }
-  return getRankedFeed(userId, cursor, limit);
+  return getRankedFeed(userId, cursor, limit, debug);
 }
 
 // ─── Shots Rank (advanced) — hybrid recommender ───────────────────────────────
@@ -130,7 +130,7 @@ function cosine(a: Map<string, number>, aN: number, b: Map<string, number>, bN: 
   return dot / (aN * bN);
 }
 
-export async function getRankedFeed(userId: string | undefined, cursor: string | undefined, limit = 10) {
+export async function getRankedFeed(userId: string | undefined, cursor: string | undefined, limit = 10, debug = false) {
   const seen = decodeSeen(cursor);
   const since = new Date(Date.now() - RANK.poolDays * 86_400_000);
 
@@ -312,7 +312,13 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
     neg = Math.max(0.05, neg);
 
     const score = quality * gravity * testBoost * aff * topicBoost * cfBoost * integrity * neg;
-    return { shot: s, score, ageH, views: s.viewCount };
+    const factors = {
+      score, quality: +quality.toFixed(4), gravity: +gravity.toFixed(4), testBoost,
+      aff: +aff.toFixed(3), topicBoost: +topicBoost.toFixed(3), cfBoost: +cfBoost.toFixed(3),
+      integrity: +integrity.toFixed(3), neg: +neg.toFixed(3), skipRate: +skipRate.toFixed(3),
+      likes, comments, saves, viewCount: s.viewCount,
+    };
+    return { shot: s, score, ageH, views: s.viewCount, factors };
   });
 
   // Stage 6 — rerank with diversity (per-author cap, no back-to-back author) +
@@ -338,8 +344,13 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
     for (const e of byScore) { if (picked.length >= limit) break; if (!pickedIds.has(e.shot.id)) place(e); }
   }
 
-  const data = await decorate(picked.map(p => p.shot), userId);
-  const nextCursor = data.length > 0 ? encodeSeen([...seen, ...data.map(d => d.id)]) : null;
+  const decorated = await decorate(picked.map(p => p.shot), userId);
+  // Tuning hook: with the guard secret, attach the per-shot score breakdown so
+  // weights can be observed/tuned against real engagement. Off for everyone else.
+  const data = debug
+    ? decorated.map((d, i) => ({ ...d, _rank: picked[i].factors }))
+    : decorated;
+  const nextCursor = decorated.length > 0 ? encodeSeen([...seen, ...decorated.map(d => d.id)]) : null;
   return { data, meta: { nextCursor } };
 }
 
