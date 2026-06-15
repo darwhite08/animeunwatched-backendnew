@@ -47,33 +47,153 @@ async function decorate<T extends { id: string; authorId: string }>(shots: T[], 
   return shots.map(s => ({ ...s, isLikedByMe: liked.has(s.id), isSavedByMe: saved.has(s.id), authorFollowedByMe: followed.has(s.authorId) }));
 }
 
-// ─── getFeed (newest-first cursor feed; filter "following" = followed authors) ─
+// ─── getFeed ──────────────────────────────────────────────────────────────────
+// "following" → chronological feed of followed authors (cursor = createdAt).
+// default    → personalized Instagram-style ranked feed (cursor = opaque seen
+//              token). See docs/shots-recommendation-algorithm.md.
 
 export async function getFeed(userId?: string, cursor?: string, limit = 10, filter?: "following") {
-  let authorWhere = {};
   if (filter === "following") {
     if (!userId) return { data: [], meta: { nextCursor: null } };
     const follows = await prisma.follow.findMany({ where: { followerId: userId, status: "ACCEPTED" }, select: { followingId: true } });
     const ids = follows.map(f => f.followingId);
     if (ids.length === 0) return { data: [], meta: { nextCursor: null } };
-    authorWhere = { authorId: { in: ids } };
+    const shots = await prisma.shot.findMany({
+      where: { deletedAt: null, authorId: { in: ids }, ...(cursor ? { createdAt: { lt: new Date(cursor) } } : {}) },
+      take: limit + 1,
+      orderBy: { createdAt: "desc" },
+      include: shotInclude,
+    });
+    const hasMore = shots.length > limit;
+    const slice = hasMore ? shots.slice(0, limit) : shots;
+    const data = await decorate(slice, userId);
+    const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
+    return { data, meta: { nextCursor } };
   }
-  const shots = await prisma.shot.findMany({
-    where: {
-      deletedAt: null,
-      ...authorWhere,
-      ...(cursor ? { createdAt: { lt: new Date(cursor) } } : {}),
-    },
-    take: limit + 1,
+  return getRankedFeed(userId, cursor, limit);
+}
+
+// ─── Shots Rank — personalized recommendation feed ────────────────────────────
+// Faithful, Postgres-only adaptation of how Instagram ranks Reels: a multi-signal
+// value score (engagement-per-view × watch-through) × freshness decay × personal
+// affinity × integrity, then diversity + exploration reranking. Full research &
+// rationale in docs/shots-recommendation-algorithm.md.
+
+const RANK = {
+  poolDays: 45,            // only ever recommend recent shots (freshness, like Reels)
+  poolSize: 300,           // candidates scored per request
+  gravity: 1.2,            // freshness decay exponent
+  priorC: 8,               // Bayesian shrink strength (in "views")
+  priorMean: 0.15,         // prior weighted-engagement per view
+  wLike: 1, wComment: 3, wSave: 5,   // action weights (saves > comments > likes)
+  testMaxAgeH: 48, testMaxViews: 50, testBoost: 1.35,  // cold-start test audience
+  affFollow: 1.6, affEngAuthor: 1.3, affTopic: 1.3, ownShot: 0.3,
+  demoteRepost: 0.7, demoteNoThumb: 0.9,               // integrity/quality
+  perAuthorCap: 2,         // diversity: max shots per author per page
+  exploreFraction: 0.2,    // ε-greedy exploration share of each page
+  seenCap: 400,            // bound the opaque cursor size
+} as const;
+
+function decodeSeen(cursor?: string): string[] {
+  if (!cursor) return [];
+  try {
+    const o = JSON.parse(Buffer.from(cursor, "base64").toString("utf8"));
+    return Array.isArray(o?.seen) ? (o.seen as string[]) : [];
+  } catch { return []; }
+}
+function encodeSeen(seen: string[]): string {
+  return Buffer.from(JSON.stringify({ seen: seen.slice(-RANK.seenCap) })).toString("base64");
+}
+
+export async function getRankedFeed(userId: string | undefined, cursor: string | undefined, limit = 10) {
+  const seen = decodeSeen(cursor);
+  const since = new Date(Date.now() - RANK.poolDays * 86_400_000);
+
+  // Stage 1 — candidate pool: recent, not-deleted, not-already-served.
+  const pool = await prisma.shot.findMany({
+    where: { deletedAt: null, createdAt: { gte: since }, ...(seen.length ? { id: { notIn: seen } } : {}) },
+    take: RANK.poolSize,
     orderBy: { createdAt: "desc" },
     include: shotInclude,
   });
+  if (pool.length === 0) return { data: [], meta: { nextCursor: null } };
+  const ids = pool.map(s => s.id);
 
-  const hasMore = shots.length > limit;
-  const slice = hasMore ? shots.slice(0, limit) : shots;
-  const data = await decorate(slice, userId);
-  const nextCursor = hasMore ? data[data.length - 1].createdAt.toISOString() : null;
+  // Watch-through stats (strongest Reels signal) + personalization sets.
+  const [watch, follows, engRows] = await Promise.all([
+    prisma.shotView.groupBy({ by: ["shotId"], where: { shotId: { in: ids } }, _avg: { watchedMs: true } }),
+    userId ? prisma.follow.findMany({ where: { followerId: userId, status: "ACCEPTED" }, select: { followingId: true } }) : Promise.resolve([]),
+    userId
+      ? prisma.shotLike.findMany({ where: { userId }, take: 300, select: { shot: { select: { authorId: true, animeId: true } } } })
+      : Promise.resolve([] as { shot: { authorId: string; animeId: string | null } | null }[]),
+  ]);
+  const avgWatch = new Map(watch.map(w => [w.shotId, w._avg.watchedMs ?? 0]));
+  const followSet = new Set(follows.map(f => f.followingId));
+  const engAuthors = new Set<string>();
+  const engAnime = new Set<string>();
+  for (const r of engRows) {
+    if (r.shot?.authorId) engAuthors.add(r.shot.authorId);
+    if (r.shot?.animeId) engAnime.add(r.shot.animeId);
+  }
 
+  // Stage 2-5 — score every candidate.
+  const now = Date.now();
+  const scored = pool.map(s => {
+    const likes = s._count.likes, comments = s._count.comments, saves = s._count.saves;
+    const views = Math.max(s.viewCount, likes + saves + comments, 1);
+    const weightedEng = RANK.wLike * likes + RANK.wComment * comments + RANK.wSave * saves;
+    const engRate = (weightedEng + RANK.priorMean * RANK.priorC) / (views + RANK.priorC);
+
+    const dur = s.durationMs ?? 0;
+    const wt = dur > 0 ? Math.max(0, Math.min(1.5, (avgWatch.get(s.id) ?? 0) / dur)) : 0;
+    const watchMul = dur > 0 ? 0.5 + wt : 1; // neutral when we have no duration/watch data
+    const quality = engRate * watchMul;
+
+    const ageH = Math.max(0, (now - s.createdAt.getTime()) / 3_600_000);
+    const gravity = 1 / Math.pow(ageH + 2, RANK.gravity);
+    const testBoost = ageH < RANK.testMaxAgeH && s.viewCount < RANK.testMaxViews ? RANK.testBoost : 1;
+
+    let aff = 1;
+    if (userId) {
+      if (s.authorId === userId) aff *= RANK.ownShot;
+      else {
+        if (followSet.has(s.authorId)) aff *= RANK.affFollow;
+        else if (engAuthors.has(s.authorId)) aff *= RANK.affEngAuthor;
+        if (s.animeId && engAnime.has(s.animeId)) aff *= RANK.affTopic;
+      }
+    }
+    let integrity = 1;
+    if (s.sourceProvider) integrity *= RANK.demoteRepost;
+    if (!s.thumbnailUrl) integrity *= RANK.demoteNoThumb;
+
+    return { shot: s, score: quality * gravity * testBoost * aff * integrity, ageH, views: s.viewCount };
+  });
+
+  // Stage 6 — rerank with diversity (per-author cap, no back-to-back author) +
+  // ε-greedy exploration (reserve a slice for fresh/low-exposure shots).
+  const exploitSlots = limit - Math.round(limit * RANK.exploreFraction);
+  const byScore = [...scored].sort((a, b) => b.score - a.score);
+  const picked: typeof scored = [];
+  const pickedIds = new Set<string>();
+  const authorCount = new Map<string, number>();
+  let lastAuthor = "";
+  const canPlace = (e: typeof scored[number]) =>
+    e.shot.authorId !== lastAuthor && (authorCount.get(e.shot.authorId) ?? 0) < RANK.perAuthorCap;
+  const place = (e: typeof scored[number]) => {
+    picked.push(e); pickedIds.add(e.shot.id);
+    authorCount.set(e.shot.authorId, (authorCount.get(e.shot.authorId) ?? 0) + 1);
+    lastAuthor = e.shot.authorId;
+  };
+
+  for (const e of byScore) { if (picked.length >= exploitSlots) break; if (!pickedIds.has(e.shot.id) && canPlace(e)) place(e); }
+  const explore = scored.filter(e => !pickedIds.has(e.shot.id)).sort((a, b) => a.ageH - b.ageH || a.views - b.views);
+  for (const e of explore) { if (picked.length >= limit) break; if (canPlace(e)) place(e); }
+  if (picked.length < limit) { // diversity left us short → backfill ignoring caps
+    for (const e of byScore) { if (picked.length >= limit) break; if (!pickedIds.has(e.shot.id)) place(e); }
+  }
+
+  const data = await decorate(picked.map(p => p.shot), userId);
+  const nextCursor = data.length > 0 ? encodeSeen([...seen, ...data.map(d => d.id)]) : null;
   return { data, meta: { nextCursor } };
 }
 
