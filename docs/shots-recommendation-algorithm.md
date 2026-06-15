@@ -167,7 +167,32 @@ exhausted.
 | Virality test-audience loop | Cold-start boost + engagement-rate × gravity |
 | Diversity + integrity rerank | Per-author cap + repost/quality demotion |
 | Exploration | ε-greedy fresh/low-exposure injection |
-| Collaborative filtering | (deferred — needs scale; affinity sets approximate it) |
+| Collaborative filtering | **Item-based co-engagement** (neighbors who liked/saved the same shots → their other shots) — retrieval source + score boost |
+| Content embeddings | **Genre-cosine similarity** between the viewer's interest vector (onboarding + watchlist + engaged-shot genres) and each shot's anime genres |
+
+### Advanced (hybrid recommender) — what `getRankedFeed` actually runs
+The shipped ranker is a **hybrid recommender**, the tractable form of Instagram's
+neural stack:
+
+1. **Multi-source retrieval** — candidates are the union of (a) the recency pool
+   and (b) **collaborative-filtering candidates**: shots engaged by the viewer's
+   *neighbors* (users who co-liked/saved the same shots), which can surface
+   relevant shots **outside** the recency window — real retrieval, not a re-sort.
+2. **Content-based scoring** — a genre **interest vector** is built from the
+   viewer's onboarding genres + watchlist (status-weighted) + engaged-shot genres,
+   then each candidate is boosted by the **cosine similarity** of its anime's
+   genres to that vector (`×(1 + 0.9·cos)`). This replaces the crude binary topic
+   hit with a graded content match (the "content tower").
+3. **Collaborative-filtering scoring** — each candidate is boosted by the
+   normalized co-engagement weight of the viewer's neighbors (`×(1 + 1.0·cfNorm)`)
+   — the "people like you also liked this" signal.
+4. Steps 2–3 multiply the **value model × freshness × integrity** from above; then
+   the same diversity + exploration rerank applies.
+
+All of it is bounded Postgres queries (seed ≤ 80, neighbors ≤ 120, CF candidates ≤
+150) + in-Node vector math — no vector DB, no Redis. The candidate-union step is
+exactly where neural ANN retrieval would slot in at much larger scale without
+touching the scoring/rerank stages.
 
 ### Why Postgres-only is enough at our scale
 Per refresh: one `findMany` (pool ≤ 300) + one `ShotView` groupBy (watch stats) +

@@ -73,25 +73,33 @@ export async function getFeed(userId?: string, cursor?: string, limit = 10, filt
   return getRankedFeed(userId, cursor, limit);
 }
 
-// ─── Shots Rank — personalized recommendation feed ────────────────────────────
-// Faithful, Postgres-only adaptation of how Instagram ranks Reels: a multi-signal
-// value score (engagement-per-view × watch-through) × freshness decay × personal
-// affinity × integrity, then diversity + exploration reranking. Full research &
-// rationale in docs/shots-recommendation-algorithm.md.
+// ─── Shots Rank (advanced) — hybrid recommender ───────────────────────────────
+// Postgres-only adaptation of Instagram's Reels stack: multi-source RETRIEVAL
+// (recency + collaborative filtering) → a value model (engagement-per-view ×
+// watch-through) blended with CONTENT-based topic similarity (genre cosine) and
+// COLLABORATIVE-filtering co-engagement, × freshness × integrity, then diversity
+// + exploration reranking. Full research & rationale in
+// docs/shots-recommendation-algorithm.md.
 
 const RANK = {
-  poolDays: 45,            // only ever recommend recent shots (freshness, like Reels)
-  poolSize: 300,           // candidates scored per request
+  poolDays: 60,            // recency-bounded retrieval (freshness, like Reels)
+  poolSize: 400,           // recency candidates scored per request
   gravity: 1.2,            // freshness decay exponent
   priorC: 8,               // Bayesian shrink strength (in "views")
   priorMean: 0.15,         // prior weighted-engagement per view
   wLike: 1, wComment: 3, wSave: 5,   // action weights (saves > comments > likes)
   testMaxAgeH: 48, testMaxViews: 50, testBoost: 1.35,  // cold-start test audience
-  affFollow: 1.6, affEngAuthor: 1.3, affTopic: 1.3, ownShot: 0.3,
+  affFollow: 1.6, affEngAuthor: 1.3, ownShot: 0.3,
+  topicAffMax: 0.9,        // content-based: ×(1 + topicAffMax·genreCosine)
+  cfBoostMax: 1.0,         // collaborative: ×(1 + cfBoostMax·normCoEngagement)
   demoteRepost: 0.7, demoteNoThumb: 0.9,               // integrity/quality
   perAuthorCap: 2,         // diversity: max shots per author per page
   exploreFraction: 0.2,    // ε-greedy exploration share of each page
   seenCap: 400,            // bound the opaque cursor size
+  // collaborative-filtering retrieval caps
+  cfSeedCap: 80,           // viewer's recent engaged shots used as CF seeds
+  cfNeighborCap: 120,      // top co-engaging neighbors considered
+  cfCandidateCap: 150,     // CF-surfaced shots merged into the pool
 } as const;
 
 function decodeSeen(cursor?: string): string[] {
@@ -105,38 +113,118 @@ function encodeSeen(seen: string[]): string {
   return Buffer.from(JSON.stringify({ seen: seen.slice(-RANK.seenCap) })).toString("base64");
 }
 
+// Small vector helpers for the content-based (genre cosine) signal.
+function addW(m: Map<string, number>, k: string, w: number) { m.set(k, (m.get(k) ?? 0) + w); }
+function l2(m: Map<string, number>) { let s = 0; for (const v of m.values()) s += v * v; return Math.sqrt(s); }
+function cosine(a: Map<string, number>, aN: number, b: Map<string, number>, bN: number) {
+  if (aN === 0 || bN === 0) return 0;
+  const [small, large] = a.size <= b.size ? [a, b] : [b, a];
+  let dot = 0;
+  for (const [k, v] of small) { const o = large.get(k); if (o) dot += v * o; }
+  return dot / (aN * bN);
+}
+
 export async function getRankedFeed(userId: string | undefined, cursor: string | undefined, limit = 10) {
   const seen = decodeSeen(cursor);
   const since = new Date(Date.now() - RANK.poolDays * 86_400_000);
 
-  // Stage 1 — candidate pool: recent, not-deleted, not-already-served.
-  const pool = await prisma.shot.findMany({
+  // ── Stage A — RETRIEVAL ─────────────────────────────────────────────────────
+  // Source 1: collaborative filtering. Find users who co-engaged the same shots
+  // as the viewer (neighbors), then surface shots THOSE users engaged with. This
+  // is item-based CF: "people who liked what you liked also liked X" — and it can
+  // surface relevant shots OUTSIDE the recency window (true retrieval, not a sort).
+  const cfScoreRaw = new Map<string, number>();
+  if (userId) {
+    const [seedLikes, seedSaves] = await Promise.all([
+      prisma.shotLike.findMany({ where: { userId }, take: RANK.cfSeedCap, select: { shotId: true } }),
+      prisma.shotSave.findMany({ where: { userId }, take: RANK.cfSeedCap, orderBy: { createdAt: "desc" }, select: { shotId: true } }),
+    ]);
+    const seedSet = new Set([...seedLikes, ...seedSaves].map(r => r.shotId));
+    const seeds = [...seedSet];
+    if (seeds.length) {
+      const [nl, ns] = await Promise.all([
+        prisma.shotLike.findMany({ where: { shotId: { in: seeds }, userId: { not: userId } }, take: 2000, select: { userId: true } }),
+        prisma.shotSave.findMany({ where: { shotId: { in: seeds }, userId: { not: userId } }, take: 2000, select: { userId: true } }),
+      ]);
+      const overlap = new Map<string, number>();
+      for (const r of [...nl, ...ns]) overlap.set(r.userId, (overlap.get(r.userId) ?? 0) + 1);
+      const neighbors = [...overlap.entries()].sort((a, b) => b[1] - a[1]).slice(0, RANK.cfNeighborCap);
+      const nIds = neighbors.map(n => n[0]);
+      const nWeight = new Map(neighbors);
+      if (nIds.length) {
+        const [el, es] = await Promise.all([
+          prisma.shotLike.findMany({ where: { userId: { in: nIds } }, take: 4000, select: { userId: true, shotId: true } }),
+          prisma.shotSave.findMany({ where: { userId: { in: nIds } }, take: 4000, select: { userId: true, shotId: true } }),
+        ]);
+        for (const r of [...el, ...es]) {
+          if (seedSet.has(r.shotId)) continue; // viewer already engaged it
+          cfScoreRaw.set(r.shotId, (cfScoreRaw.get(r.shotId) ?? 0) + (nWeight.get(r.userId) ?? 1));
+        }
+      }
+    }
+  }
+
+  // Source 2: recency. Pool = recent ∪ (CF candidates outside the recency window).
+  const recent = await prisma.shot.findMany({
     where: { deletedAt: null, createdAt: { gte: since }, ...(seen.length ? { id: { notIn: seen } } : {}) },
     take: RANK.poolSize,
     orderBy: { createdAt: "desc" },
     include: shotInclude,
   });
+  const recentIds = new Set(recent.map(s => s.id));
+  const seenSet = new Set(seen);
+  const extraCfIds = [...cfScoreRaw.keys()].filter(id => !recentIds.has(id) && !seenSet.has(id)).slice(0, RANK.cfCandidateCap);
+  const extra = extraCfIds.length
+    ? await prisma.shot.findMany({ where: { id: { in: extraCfIds }, deletedAt: null }, include: shotInclude })
+    : [];
+  const pool = [...recent, ...extra];
   if (pool.length === 0) return { data: [], meta: { nextCursor: null } };
   const ids = pool.map(s => s.id);
+  const poolAnimeIds = [...new Set(pool.map(s => s.animeId).filter((x): x is string => !!x))];
 
-  // Watch-through stats (strongest Reels signal) + personalization sets.
-  const [watch, follows, engRows] = await Promise.all([
+  // ── Stage B — feature gathering ─────────────────────────────────────────────
+  const [watch, follows, profileRows, listRows, userRow, candGenreRows] = await Promise.all([
     prisma.shotView.groupBy({ by: ["shotId"], where: { shotId: { in: ids } }, _avg: { watchedMs: true } }),
     userId ? prisma.follow.findMany({ where: { followerId: userId, status: "ACCEPTED" }, select: { followingId: true } }) : Promise.resolve([]),
-    userId
-      ? prisma.shotLike.findMany({ where: { userId }, take: 300, select: { shot: { select: { authorId: true, animeId: true } } } })
-      : Promise.resolve([] as { shot: { authorId: string; animeId: string | null } | null }[]),
+    // viewer's engaged shots → author (affinity) + anime genres (content vector)
+    userId ? prisma.shotLike.findMany({ where: { userId }, take: 200, select: { shot: { select: { authorId: true, anime: { select: { genres: { select: { genre: { select: { name: true } } } } } } } } } }) : Promise.resolve([] as Array<{ shot: { authorId: string; anime: { genres: { genre: { name: string } }[] } | null } | null }>),
+    // watchlist → strong topic signal
+    userId ? prisma.listEntry.findMany({ where: { userId }, take: 300, select: { status: true, anime: { select: { genres: { select: { genre: { select: { name: true } } } } } } } }) : Promise.resolve([] as Array<{ status: string; anime: { genres: { genre: { name: string } }[] } | null }>),
+    userId ? prisma.user.findUnique({ where: { id: userId }, select: { favoriteGenres: true } }) : Promise.resolve(null),
+    poolAnimeIds.length ? prisma.animeGenre.findMany({ where: { animeId: { in: poolAnimeIds } }, select: { animeId: true, genre: { select: { name: true } } } }) : Promise.resolve([] as Array<{ animeId: string; genre: { name: string } }>),
   ]);
+
   const avgWatch = new Map(watch.map(w => [w.shotId, w._avg.watchedMs ?? 0]));
   const followSet = new Set(follows.map(f => f.followingId));
-  const engAuthors = new Set<string>();
-  const engAnime = new Set<string>();
-  for (const r of engRows) {
-    if (r.shot?.authorId) engAuthors.add(r.shot.authorId);
-    if (r.shot?.animeId) engAnime.add(r.shot.animeId);
-  }
 
-  // Stage 2-5 — score every candidate.
+  // Build the viewer's CONTENT (genre) interest vector — onboarding picks +
+  // watchlist genres (weighted by status) + engaged-shot genres.
+  const userGenre = new Map<string, number>();
+  const engAuthors = new Set<string>();
+  for (const g of userRow?.favoriteGenres ?? []) addW(userGenre, g.toLowerCase(), 2);
+  for (const le of listRows) {
+    const w = le.status === "COMPLETED" || le.status === "WATCHING" || le.status === "REWATCHING" ? 1.5 : 1;
+    for (const ag of le.anime?.genres ?? []) addW(userGenre, ag.genre.name.toLowerCase(), w);
+  }
+  for (const r of profileRows) {
+    if (r.shot?.authorId) engAuthors.add(r.shot.authorId);
+    for (const ag of r.shot?.anime?.genres ?? []) addW(userGenre, ag.genre.name.toLowerCase(), 2);
+  }
+  const userGenreNorm = l2(userGenre);
+
+  // Per-anime genre vectors for the candidate pool (content tower).
+  const animeGenre = new Map<string, Map<string, number>>();
+  for (const row of candGenreRows) {
+    let v = animeGenre.get(row.animeId);
+    if (!v) { v = new Map(); animeGenre.set(row.animeId, v); }
+    addW(v, row.genre.name.toLowerCase(), 1);
+  }
+  const animeGenreNorm = new Map([...animeGenre].map(([k, v]) => [k, l2(v)]));
+
+  // Normalize the collaborative-filtering scores into [0,1].
+  let cfMax = 0; for (const v of cfScoreRaw.values()) cfMax = Math.max(cfMax, v);
+
+  // ── Stage C — score every candidate (value × content × CF × freshness) ──────
   const now = Date.now();
   const scored = pool.map(s => {
     const likes = s._count.likes, comments = s._count.comments, saves = s._count.saves;
@@ -153,20 +241,30 @@ export async function getRankedFeed(userId: string | undefined, cursor: string |
     const gravity = 1 / Math.pow(ageH + 2, RANK.gravity);
     const testBoost = ageH < RANK.testMaxAgeH && s.viewCount < RANK.testMaxViews ? RANK.testBoost : 1;
 
+    // Content-based: cosine between the viewer's genre vector and this shot's
+    // anime genres (graded topic match, not a binary tag hit).
+    let topicSim = 0;
+    if (userId && s.animeId && userGenreNorm > 0) {
+      const gv = animeGenre.get(s.animeId);
+      if (gv) topicSim = cosine(userGenre, userGenreNorm, gv, animeGenreNorm.get(s.animeId) ?? 0);
+    }
+    const topicBoost = 1 + RANK.topicAffMax * topicSim;
+
+    // Collaborative: how strongly the viewer's neighbors co-engaged this shot.
+    const cfBoost = 1 + RANK.cfBoostMax * (cfMax > 0 ? (cfScoreRaw.get(s.id) ?? 0) / cfMax : 0);
+
     let aff = 1;
     if (userId) {
       if (s.authorId === userId) aff *= RANK.ownShot;
-      else {
-        if (followSet.has(s.authorId)) aff *= RANK.affFollow;
-        else if (engAuthors.has(s.authorId)) aff *= RANK.affEngAuthor;
-        if (s.animeId && engAnime.has(s.animeId)) aff *= RANK.affTopic;
-      }
+      else if (followSet.has(s.authorId)) aff *= RANK.affFollow;
+      else if (engAuthors.has(s.authorId)) aff *= RANK.affEngAuthor;
     }
     let integrity = 1;
     if (s.sourceProvider) integrity *= RANK.demoteRepost;
     if (!s.thumbnailUrl) integrity *= RANK.demoteNoThumb;
 
-    return { shot: s, score: quality * gravity * testBoost * aff * integrity, ageH, views: s.viewCount };
+    const score = quality * gravity * testBoost * aff * topicBoost * cfBoost * integrity;
+    return { shot: s, score, ageH, views: s.viewCount };
   });
 
   // Stage 6 — rerank with diversity (per-author cap, no back-to-back author) +
