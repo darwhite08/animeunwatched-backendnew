@@ -112,6 +112,17 @@ export async function listComments(req: Request, res: Response, next: NextFuncti
   }
 }
 
+export async function getShotLikers(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Math.min(60, Number(req.query.limit) || 30);
+    const result = await service.getShotLikers(req.params.id as string, page, limit, res.locals.user?.id);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function createComment(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

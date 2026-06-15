@@ -464,6 +464,40 @@ export async function unlikeShot(userId: string, shotId: string) {
   return { likes };
 }
 
+// ─── getShotLikers ──────────────────────────────────────────────────────────
+// Who liked a reel (Instagram-style "Liked by" list), each annotated with
+// whether the viewer already follows them. (ShotLike has no createdAt, so order
+// is by the like row's natural order.)
+const SHOT_LIKER_SELECT = {
+  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true,
+} as const;
+
+export async function getShotLikers(shotId: string, page = 1, limit = 30, viewerId?: string) {
+  const shot = await prisma.shot.findUnique({ where: { id: shotId }, select: { id: true, deletedAt: true } });
+  if (!shot || shot.deletedAt) throw notFound("Shot not found");
+  const take = Math.min(60, Math.max(1, limit));
+  const skip = (Math.max(1, page) - 1) * take;
+  const [rows, total] = await prisma.$transaction([
+    prisma.shotLike.findMany({ where: { shotId }, skip, take, select: { user: { select: SHOT_LIKER_SELECT } } }),
+    prisma.shotLike.count({ where: { shotId } }),
+  ]);
+  const ids = rows.map((r: { user: { id: string } }) => r.user.id);
+  let followed = new Set<string>();
+  if (viewerId && ids.length) {
+    const f = await prisma.follow.findMany({
+      where: { followerId: viewerId, followingId: { in: ids }, status: "ACCEPTED" },
+      select: { followingId: true },
+    });
+    followed = new Set(f.map((x: { followingId: string }) => x.followingId));
+  }
+  const data = rows.map((r: { user: { id: string } }) => ({
+    ...r.user,
+    isFollowedByMe: followed.has(r.user.id),
+    isMe: r.user.id === viewerId,
+  }));
+  return { data, meta: { total, page, limit: take, hasMore: skip + rows.length < total } };
+}
+
 // ─── comments ─────────────────────────────────────────────────────────────────
 
 const commentInclude = {

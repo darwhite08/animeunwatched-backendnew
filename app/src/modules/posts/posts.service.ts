@@ -828,10 +828,20 @@ export async function getComments(postId: string, page = 1, limit = 20, viewerId
     });
     for (const l of likes) likedSet.add(l.commentId);
   }
+  // Which comments the POST AUTHOR liked → "❤ liked by author" badge.
+  const authorLikedSet = new Set<string>();
+  if (post.authorId && allIds.length > 0) {
+    const al = await prisma.postCommentLike.findMany({
+      where: { userId: post.authorId, commentId: { in: allIds } },
+      select: { commentId: true },
+    });
+    for (const l of al) authorLikedSet.add(l.commentId);
+  }
   const data = topLevel.map(c => ({
     ...c,
     isLikedByMe: likedSet.has(c.id),
-    replies: c.replies.map(r => ({ ...r, isLikedByMe: likedSet.has(r.id) })),
+    likedByAuthor: authorLikedSet.has(c.id),
+    replies: c.replies.map(r => ({ ...r, isLikedByMe: likedSet.has(r.id), likedByAuthor: authorLikedSet.has(r.id) })),
   }));
 
   return { data, meta: meta(total, page, limit) };
@@ -841,7 +851,10 @@ export async function getComments(postId: string, page = 1, limit = 20, viewerId
 // Page-paginated replies for a single parent comment (used by "View N more").
 
 export async function getCommentReplies(commentId: string, page = 1, limit = 20, viewerId?: string) {
-  const parent = await prisma.postComment.findUnique({ where: { id: commentId }, select: { id: true } });
+  const parent = await prisma.postComment.findUnique({
+    where: { id: commentId },
+    select: { id: true, post: { select: { authorId: true } } },
+  });
   if (!parent) throw notFound("Comment not found");
 
   const { skip, take } = paginate(page, limit);
@@ -854,7 +867,17 @@ export async function getCommentReplies(commentId: string, page = 1, limit = 20,
     }),
     prisma.postComment.count({ where: { parentCommentId: commentId } }),
   ]);
-  const data = await attachCommentLikeStatus(rows, viewerId);
+  const liked = await attachCommentLikeStatus(rows, viewerId);
+  const authorId = parent.post.authorId;
+  const authorLikedSet = new Set<string>();
+  if (authorId && rows.length > 0) {
+    const al = await prisma.postCommentLike.findMany({
+      where: { userId: authorId, commentId: { in: rows.map((r: { id: string }) => r.id) } },
+      select: { commentId: true },
+    });
+    for (const l of al) authorLikedSet.add(l.commentId);
+  }
+  const data = liked.map((c) => ({ ...c, likedByAuthor: authorLikedSet.has(c.id) }));
   return { data, meta: meta(total, page, limit) };
 }
 

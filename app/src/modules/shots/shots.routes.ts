@@ -20,6 +20,7 @@ shotsRouter.post("/", requireAuth, turnstile(), ctrl.createShot);
 shotsRouter.delete("/:id", requireAuth, ctrl.deleteShot);
 shotsRouter.post("/:id/like", requireAuth, ctrl.likeShot);
 shotsRouter.delete("/:id/like", requireAuth, ctrl.unlikeShot);
+shotsRouter.get("/:id/likers", optionalAuth, ctrl.getShotLikers);
 shotsRouter.post("/:id/save", requireAuth, ctrl.saveShot);
 shotsRouter.delete("/:id/save", requireAuth, ctrl.unsaveShot);
 
