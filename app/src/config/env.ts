@@ -30,6 +30,10 @@ export const env = {
   FRONTEND_URL:       process.env.FRONTEND_URL       || "http://localhost:3000",
   // Public base URL of this API — used to build one-click unsubscribe links.
   API_URL:            process.env.API_URL            || "https://api.kaiveron.com",
+  // Quiet-hours window (recipient local time) for the offline DM email digest —
+  // no emails sent between START and END. Tunable without a deploy.
+  MESSAGE_QUIET_START_HOUR: process.env.MESSAGE_QUIET_START_HOUR ? Number(process.env.MESSAGE_QUIET_START_HOUR) : 22,
+  MESSAGE_QUIET_END_HOUR:   process.env.MESSAGE_QUIET_END_HOUR   ? Number(process.env.MESSAGE_QUIET_END_HOUR)   : 8,
 
   // Google OAuth — https://console.cloud.google.com/
   GOOGLE_CLIENT_ID:     process.env.GOOGLE_CLIENT_ID     || "",

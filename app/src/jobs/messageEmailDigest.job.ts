@@ -2,6 +2,7 @@ import { prisma } from "../config/prisma"
 import { sendEmail, newMessageEmail, isEmailConfigured } from "../lib/email"
 import { isOnline } from "../realtime/presence"
 import { unsubscribeUrl } from "../lib/unsubscribe"
+import { env } from "../config/env"
 
 // Offline "new message" email notifications. This job is the WHEN behind the
 // feature — it never sends one email per message. Research-backed cadence
@@ -171,14 +172,18 @@ const recipientSelect = {
   emailOnNewMessage: true, emailVerifiedAt: true, isBanned: true, lastMessageEmailAt: true,
 } as const
 
-// Recipient's local night → hold the email. Unknown/invalid tz → treat as
-// daytime (12:00) so we never trap someone in permanent quiet hours.
-const QUIET_START_HOUR = 22
-const QUIET_END_HOUR = 8
+// Recipient's local night → hold the email (they stay eligible for the next
+// daytime run). Window is env-tunable. Unknown/invalid tz → treat as daytime
+// (12:00) so we never trap someone in permanent quiet hours. If START === END,
+// quiet hours are effectively disabled.
 function inQuietHours(tz: string | null): boolean {
+  const start = env.MESSAGE_QUIET_START_HOUR
+  const end = env.MESSAGE_QUIET_END_HOUR
+  if (start === end) return false
   let hour = 12
   try {
     hour = Number(new Intl.DateTimeFormat("en-US", { timeZone: tz || "UTC", hour: "numeric", hour12: false }).format(new Date())) % 24
   } catch { /* invalid tz → daytime */ }
-  return hour >= QUIET_START_HOUR || hour < QUIET_END_HOUR
+  // Handles windows that cross midnight (e.g. 22→8) and same-day windows.
+  return start < end ? (hour >= start && hour < end) : (hour >= start || hour < end)
 }

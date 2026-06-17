@@ -324,7 +324,7 @@ const escapeHtml = (s: string) =>
  * triggered transactional email (fired on the transition into CREATOR). Warm +
  * celebratory, leads with the achievement, and points at what it unlocks.
  */
-export function creatorBadgeEmail(email: string, displayName: string): EmailOpts {
+export function creatorBadgeEmail(email: string, displayName: string, repBonus = 0): EmailOpts {
   const name = escapeHtml(displayName || "there")
   const perk = (title: string, body: string) => `
     <tr><td style="padding:12px 0;border-bottom:1px solid #1a1a1a;vertical-align:top">
@@ -344,6 +344,7 @@ export function creatorBadgeEmail(email: string, displayName: string): EmailOpts
         ${perk("The verified seal on your profile", "Your badge shows everywhere your name appears — posts, comments, clubs and search.")}
         ${perk("Creator Studio", "Deep analytics, audience insights, your content dashboard and monetization tools.")}
         ${perk("Stand out", "Verified creators get more reach and trust across feeds and recommendations.")}
+        ${repBonus > 0 ? perk(`+${repBonus} reputation`, "A welcome boost to your standing on the leaderboard — added to your profile already.") : ""}
       </table>
       <a href="https://creator-studio.kaiveron.com" style="display:inline-block;margin-top:28px;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Open Creator Studio →</a>
       <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Welcome to the creator side of ${BRAND_NAME}. We can't wait to see what you make. 🧡</p>
@@ -356,7 +357,7 @@ export function creatorBadgeEmail(email: string, displayName: string): EmailOpts
  * creators ever. The serial ("#N of 250") is the hook: scarcity = status. Sent
  * once, only when the badge is newly issued.
  */
-export function foundingBadgeEmail(email: string, displayName: string, serial: number): EmailOpts {
+export function foundingBadgeEmail(email: string, displayName: string, serial: number, repBonus = 0): EmailOpts {
   const name = escapeHtml(displayName || "there")
   return {
     to: email,
@@ -374,7 +375,7 @@ export function foundingBadgeEmail(email: string, displayName: string, serial: n
         This is the rarest badge on ${BRAND_NAME}. You became a Verified Creator early enough to claim a permanent <strong style="color:#fff">Founding Creator</strong> seal — only ever given to the first 250 people. It's yours for good, serial number and all.
       </p>
       <p style="color:#aaa;line-height:1.7;margin:0 0 22px">
-        You also get everything a Verified Creator does: the verified seal across the app, Creator Studio analytics, and monetization tools. But the founding mark? That one says you were here at the start.
+        You also get everything a Verified Creator does: the verified seal across the app, Creator Studio analytics, and monetization tools${repBonus > 0 ? `, plus a <strong style="color:#fff">+${repBonus} reputation</strong> welcome boost (already on your profile)` : ""}. But the founding mark? That one says you were here at the start.
       </p>
       <a href="https://creator-studio.kaiveron.com" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Open Creator Studio →</a>
       <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Thank you for building ${BRAND_NAME} with us from day one. 🧡</p>

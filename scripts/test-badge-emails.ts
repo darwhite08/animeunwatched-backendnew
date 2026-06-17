@@ -8,7 +8,8 @@
  *   npx tsx scripts/test-badge-emails.ts info@athavita.com
  */
 import nodemailer from "nodemailer"
-import { creatorBadgeEmail, foundingBadgeEmail, verifiedBadgeEmail } from "../app/src/lib/email"
+import { creatorBadgeEmail, foundingBadgeEmail, verifiedBadgeEmail, newMessageEmail } from "../app/src/lib/email"
+import { unsubscribeUrl } from "../app/src/lib/unsubscribe"
 
 async function main() {
   const to = process.argv[2] || process.env.TEST_EMAIL || "info@athavita.com"
@@ -30,10 +31,13 @@ async function main() {
   })
 
   const samples = [
-    creatorBadgeEmail(to, name),          // Verified Creator (past the founding window)
-    foundingBadgeEmail(to, name, 7),      // Founding Creator #7 / 250
-    verifiedBadgeEmail(to, name, "USER"), // Verified (user)
+    creatorBadgeEmail(to, name, 250),       // Verified Creator (+250 rep reward)
+    foundingBadgeEmail(to, name, 7, 250),   // Founding Creator #7 / 250 (+250 rep)
+    verifiedBadgeEmail(to, name, "USER"),   // Verified (user)
     verifiedBadgeEmail(to, name, "STUDIO"), // Verified Studio
+    // DM digest — carries the RFC 8058 one-click unsubscribe headers (#3 check:
+    // Gmail should show an "Unsubscribe" affordance next to the sender).
+    newMessageEmail(to, name, [{ name: "Aki", preview: "yo did you watch the new ep??", unread: 2 }], 2, unsubscribeUrl("test-user-id", "msg")),
   ]
 
   for (const m of samples) {

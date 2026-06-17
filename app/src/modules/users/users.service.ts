@@ -84,7 +84,11 @@ async function congratulateNewCreator(userId: string): Promise<void> {
   }
 }
 
-/** Send the Creator/Founding congrats email + in-app notification. */
+// Non-billing welcome perk for new Verified Creators: a reputation boost (real,
+// wired system — feeds the leaderboard + unlocks rep-gated features). Tunable.
+const CREATOR_REP_BONUS = 250;
+
+/** Award the creator rep bonus + send the congrats email + in-app notification. */
 async function notifyCreatorBadge(userId: string, foundingSerial: number | null): Promise<void> {
   const u = await prisma.user.findUnique({
     where: { id: userId },
@@ -92,10 +96,17 @@ async function notifyCreatorBadge(userId: string, foundingSerial: number | null)
   });
   if (!u) return;
   const isFounding = foundingSerial != null;
+
+  // Reward: bump reputation (idempotency is handled by the callers, which only
+  // fire this on the transition into CREATOR — never on a re-grant).
+  await prisma.user
+    .update({ where: { id: userId }, data: { reputation: { increment: CREATOR_REP_BONUS } } })
+    .catch((e) => console.error("[badge] rep bonus failed:", e));
+
   if (u.email) {
     const mail = isFounding
-      ? foundingBadgeEmail(u.email, u.displayName, foundingSerial)
-      : creatorBadgeEmail(u.email, u.displayName);
+      ? foundingBadgeEmail(u.email, u.displayName, foundingSerial, CREATOR_REP_BONUS)
+      : creatorBadgeEmail(u.email, u.displayName, CREATOR_REP_BONUS);
     await sendEmail(mail).catch((e) => console.error("[badge] email failed:", e));
   }
   await createNotification({
@@ -105,9 +116,10 @@ async function notifyCreatorBadge(userId: string, foundingSerial: number | null)
       kind: "badge_granted",
       badge: isFounding ? "FOUNDING_CREATOR" : "CREATOR",
       ...(isFounding ? { serial: foundingSerial } : {}),
+      repBonus: CREATOR_REP_BONUS,
       message: isFounding
-        ? `You're Founding Creator #${foundingSerial} — one of the first 250! ⚡`
-        : "You're now a Verified Creator on Kaiveron! 🎉",
+        ? `You're Founding Creator #${foundingSerial} — one of the first 250! +${CREATOR_REP_BONUS} reputation ⚡`
+        : `You're now a Verified Creator on Kaiveron! +${CREATOR_REP_BONUS} reputation 🎉`,
       link: "/me",
     },
   }).catch((e) => console.error("[badge] notification failed:", e));
