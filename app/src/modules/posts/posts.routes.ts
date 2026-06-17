@@ -8,6 +8,7 @@ export const postsRouter = Router();
 // Specific named routes before dynamic /:id
 postsRouter.get("/discover", optionalAuth, ctrl.getDiscover);
 postsRouter.get("/trending", optionalAuth, ctrl.getTrending);
+postsRouter.get("/for-you",  requireAuth,  ctrl.getForYou); // X-style ranked "For You"
 postsRouter.get("/feed",     requireAuth,  ctrl.getFeed);
 
 // Threaded replies + comment likes (must be before /:id catch-all)

@@ -6,6 +6,7 @@ import { createNotification, NotificationType } from "../../lib/notify";
 import { updateStreak } from "../../lib/streak";
 import { auditDelete } from "../../lib/audit";
 import { cache } from "../../lib/cache";
+import { rankForYou, type RankableActivity, type ViewerContext } from "../../lib/feedRanking";
 import {
   broadcastPostCreated, broadcastPostLiked, broadcastPostUnliked,
   broadcastAdminPostCreated, broadcastAdminPostDeleted,
@@ -498,6 +499,158 @@ export async function getTrending(userId?: string, limit = 20) {
       algorithm:    "trending-v2",
       count:        data.length,
       personalized: !!userId,
+    },
+  }
+}
+
+// ─── "For You" feed (X-style pipeline, runnable on our stack) ────────────────
+//
+// Faithful adaptation of X's "For You" recommendation model
+// (github.com/xai-org/x-algorithm). Same pipeline shape — only the ranker
+// differs: X scores candidates with a Grok-1 transformer that predicts ~15
+// engagement probabilities and sums them by weight; we don't run model serving,
+// so we substitute a transparent weighted score over OBSERVED engagement +
+// recency + interest/affinity (lib/feedRanking.ts, weights in config/ranking.ts).
+//
+//   1. Query hydration   — follows, blocks, hides, list (taste/progress), past likes
+//   2. Candidate sourcing — in-network (followed, recent)  ⨁  out-of-network
+//                           (top global engagement) — X's Thunder ⨁ Phoenix mix
+//   3. Enrichment         — like/comment counts, author, anime, recency
+//   4. Pre-scoring filters — banned/shadow-banned/blocked authors, hidden posts, age
+//   5. Scoring            — weighted engagement velocity + recency + author affinity
+//                           + topic (anime taste) match − spoiler/quality penalties
+//   6. Selection          — sort → series diversify → per-author cap → top-K
+//   7. Post-selection     — hydrate + like status + "why am I seeing this" reason
+const FORYOU_CONFIG = {
+  WINDOW_DAYS:       7,    // only posts younger than this are candidates
+  IN_NETWORK_FETCH:  60,   // recent followed-author posts to consider
+  OUT_NETWORK_FETCH: 80,   // top global-engagement posts (discovery)
+  OVERFETCH_MULT:    5,
+  MAX_PER_AUTHOR:    2,     // author-diversity cap (X does author diversity)
+  FOLLOW_AFFINITY:   0.6,   // baseline author affinity for in-network authors
+  LIKE_AFFINITY_STEP:0.25,  // +per past like you've given that author (affinity ≤ 1)
+} as const
+
+export async function getForYou(userId: string, limit = 20) {
+  const since = new Date(Date.now() - FORYOU_CONFIG.WINDOW_DAYS * 24 * 60 * 60 * 1000)
+
+  // 2) CANDIDATE SOURCING — in-network (followed) ⨁ out-of-network (engagement).
+  const follows = await prisma.follow.findMany({
+    where: { followerId: userId, status: "ACCEPTED" },
+    select: { followingId: true },
+  })
+  const followedSet = new Set(follows.map(f => f.followingId))
+
+  const [inNet, outNet] = await Promise.all([
+    followedSet.size
+      ? prisma.post.findMany({
+          where: { authorId: { in: [...followedSet] }, deletedAt: null, createdAt: { gte: since } },
+          orderBy: { createdAt: "desc" }, take: FORYOU_CONFIG.IN_NETWORK_FETCH, select: { id: true },
+        })
+      : Promise.resolve([] as { id: string }[]),
+    prisma.post.findMany({
+      where: { deletedAt: null, createdAt: { gte: since } },
+      orderBy: [{ likes: { _count: "desc" } }, { createdAt: "desc" }],
+      take: FORYOU_CONFIG.OUT_NETWORK_FETCH, select: { id: true },
+    }),
+  ])
+  const candidateIds = [...new Set([...inNet.map(p => p.id), ...outNet.map(p => p.id)])]
+  const emptyResult = { data: [] as unknown[], meta: { algorithm: "for-you-v1", count: 0, personalized: true } }
+  if (candidateIds.length === 0) return emptyResult
+
+  // 3) ENRICHMENT — engagement counts + author flags + recency, one query.
+  const rows = await prisma.$queryRaw<Array<{
+    id: string; authorId: string; animeId: string | null; createdAt: Date; content: string
+    likeCount: number; commentCount: number; isBanned: boolean; isShadowBanned: boolean
+  }>>`
+    SELECT p.id, p."authorId", p."animeId", p."createdAt", p.content,
+           COUNT(DISTINCT pl."userId")::int AS "likeCount",
+           COUNT(DISTINCT pc.id)::int       AS "commentCount",
+           u."isBanned", u."isShadowBanned"
+    FROM "Post" p
+    JOIN "User" u ON u.id = p."authorId"
+    LEFT JOIN "PostLike"    pl ON pl."postId" = p.id
+    LEFT JOIN "PostComment" pc ON pc."postId" = p.id
+    WHERE p.id IN (${Prisma.join(candidateIds)}) AND p."deletedAt" IS NULL
+    GROUP BY p.id, p."authorId", p."animeId", p."createdAt", p.content, u."isBanned", u."isShadowBanned"
+  `
+
+  // 1) QUERY HYDRATION — viewer signals (parallel).
+  const candidateAuthors  = [...new Set(rows.map(r => r.authorId))]
+  const candidateAnimeIds = rows.map(r => r.animeId).filter((a): a is string => !!a)
+  const [blocks, hides, listEntries, pastLikes] = await Promise.all([
+    prisma.userBlock.findMany({ where: { blockerId: userId }, select: { blockedId: true } }),
+    prisma.postHide.findMany({ where: { userId, postId: { in: candidateIds } }, select: { postId: true } }),
+    prisma.listEntry.findMany({
+      where: { userId, animeId: { in: candidateAnimeIds } },
+      select: { animeId: true, score: true, episodesSeen: true },
+    }),
+    prisma.postLike.findMany({
+      where: { userId, post: { authorId: { in: candidateAuthors } } },
+      select: { post: { select: { authorId: true } } },
+    }),
+  ])
+
+  const blocked = new Set(blocks.map(b => b.blockedId))
+  const hidden  = new Set(hides.map(h => h.postId))
+  const likesByAuthor = new Map<string, number>()
+  for (const l of pastLikes) likesByAuthor.set(l.post.authorId, (likesByAuthor.get(l.post.authorId) ?? 0) + 1)
+
+  // Build the X-style ViewerContext.
+  const affinity = new Map<string, number>()
+  for (const a of candidateAuthors) {
+    let v = followedSet.has(a) ? FORYOU_CONFIG.FOLLOW_AFFINITY : 0
+    v += (likesByAuthor.get(a) ?? 0) * FORYOU_CONFIG.LIKE_AFFINITY_STEP
+    if (v > 0) affinity.set(a, Math.min(1, v))
+  }
+  const seriesAffinity = new Map<string, number>()
+  const progress = new Map<string, number>()
+  for (const e of listEntries) {
+    seriesAffinity.set(e.animeId, (e.score ?? 0) >= 8 ? 1 : 0.6) // rated-high vs on-list taste
+    progress.set(e.animeId, e.episodesSeen)
+  }
+  const viewer: ViewerContext = {
+    affinity, seriesAffinity, progress,
+    spoilerOptIn: new Set(), mutedKeywords: [], blocked,
+  }
+
+  // 4) PRE-SCORING FILTERS → candidate objects for the ranker.
+  const candidates: RankableActivity[] = rows
+    .filter(r => !r.isBanned && !r.isShadowBanned && !hidden.has(r.id) && !blocked.has(r.authorId))
+    .map(r => ({
+      id: r.id, authorId: r.authorId, body: r.content,
+      linkedSeriesId: r.animeId, createdAt: r.createdAt,
+      likeCount: Number(r.likeCount), replyCount: Number(r.commentCount),
+      repostCount: 0, saveCount: 0, quoteCount: 0, // Posts have no reposts/saves/quotes
+    }))
+  if (candidates.length === 0) return emptyResult
+
+  // 5+6) SCORE → series-diversify (rankForYou) → author-diversity cap → top-K.
+  const overFetch = Math.max(limit * FORYOU_CONFIG.OVERFETCH_MULT, 60)
+  const scored = rankForYou(viewer, candidates, overFetch)
+  const reasonById = new Map(scored.map(s => [s.activity.id, s.dominantTerm]))
+  const picked = applyDiversityCap(
+    scored.map(s => ({ id: s.activity.id, authorId: s.activity.authorId })),
+    limit,
+    FORYOU_CONFIG.MAX_PER_AUTHOR,
+  )
+  const ids = picked.map(p => p.id)
+  if (ids.length === 0) return emptyResult
+
+  // 7) HYDRATE — preserve ranked order + attach like status + "why am I seeing this".
+  const posts = await prisma.post.findMany({ where: { id: { in: ids } }, include: postInclude })
+  const byId = new Map(posts.map(p => [p.id, p]))
+  const ordered = ids.map(id => byId.get(id)).filter((p): p is NonNullable<typeof p> => !!p)
+  const withLikes = await withLikeStatus(ordered, userId)
+  const data = withLikes.map(p => ({ ...p, reason: reasonById.get(p.id) ?? "recency" }))
+
+  return {
+    data,
+    meta: {
+      algorithm: "for-you-v1",
+      count: data.length,
+      personalized: true,
+      sources: { inNetwork: inNet.length, outOfNetwork: outNet.length },
     },
   }
 }
