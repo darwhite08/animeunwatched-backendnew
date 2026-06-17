@@ -270,6 +270,7 @@ export function newMessageEmail(
   name: string,
   senders: Array<{ name: string; preview: string; unread: number }>,
   totalUnread: number,
+  unsubUrl?: string,
 ): EmailOpts {
   const people = senders.length
   const esc = (s: string) =>
@@ -298,10 +299,11 @@ export function newMessageEmail(
   return {
     to: email,
     subject,
-    headers: {
-      // Let recipients opt out from their mail client (deliverability baseline).
-      "List-Unsubscribe": `<${BRAND_URL}/me/settings/notifications>, <mailto:unsubscribe@kaiveron.com?subject=unsubscribe-messages>`,
-    },
+    // RFC 8058 one-click unsubscribe when we have a signed URL; the GET also
+    // works for human clicks. Falls back to the settings page + mailto otherwise.
+    headers: unsubUrl
+      ? { "List-Unsubscribe": `<${unsubUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" }
+      : { "List-Unsubscribe": `<${BRAND_URL}/me/settings/notifications>, <mailto:unsubscribe@kaiveron.com?subject=unsubscribe-messages>` },
     html: emailBase(`
       <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">New on Kaiveron</p>
       <h1 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 8px;font-style:italic;letter-spacing:-0.02em">${headline}</h1>

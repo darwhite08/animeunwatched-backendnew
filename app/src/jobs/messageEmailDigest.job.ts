@@ -1,6 +1,7 @@
 import { prisma } from "../config/prisma"
 import { sendEmail, newMessageEmail, isEmailConfigured } from "../lib/email"
 import { isOnline } from "../realtime/presence"
+import { unsubscribeUrl } from "../lib/unsubscribe"
 
 // Offline "new message" email notifications. This job is the WHEN behind the
 // feature — it never sends one email per message. Research-backed cadence
@@ -58,7 +59,7 @@ function previewOf(m: LastMsg | undefined, senderId: string): string {
 
 type Candidate = { conversationId: string; side: 1 | 2; senderName: string; preview: string; unread: number }
 type Recipient = {
-  id: string; email: string; displayName: string; username: string
+  id: string; email: string; displayName: string; username: string; timezone: string | null
   emailOnNewMessage: boolean; emailVerifiedAt: Date | null; isBanned: boolean
   lastMessageEmailAt: Date | null
 }
@@ -134,6 +135,9 @@ export async function runMessageEmailNotifications(): Promise<{ sent: number; sc
     if (user.isBanned) continue
     if (SYNTHETIC.some((d) => user.email.includes(d))) continue
     if (user.lastMessageEmailAt && user.lastMessageEmailAt.getTime() > cooldownBefore.getTime()) continue
+    // Quiet hours — don't email in the recipient's local night (22:00–08:00).
+    // They stay eligible, so the next daytime run picks them up.
+    if (inQuietHours(user.timezone)) continue
 
     // Batch: one mail summarizing every unread conversation, biggest first.
     candidates.sort((a, b) => b.unread - a.unread)
@@ -142,7 +146,7 @@ export async function runMessageEmailNotifications(): Promise<{ sent: number; sc
     const senders = candidates.map((c) => ({ name: c.senderName, preview: c.preview, unread: c.unread }))
 
     try {
-      await sendEmail(newMessageEmail(user.email, firstName, senders, totalUnread))
+      await sendEmail(newMessageEmail(user.email, firstName, senders, totalUnread, unsubscribeUrl(user.id, "msg")))
       const stamp = new Date()
       const p1Ids = candidates.filter((c) => c.side === 1).map((c) => c.conversationId)
       const p2Ids = candidates.filter((c) => c.side === 2).map((c) => c.conversationId)
@@ -163,6 +167,18 @@ export async function runMessageEmailNotifications(): Promise<{ sent: number; sc
 }
 
 const recipientSelect = {
-  id: true, email: true, displayName: true, username: true,
+  id: true, email: true, displayName: true, username: true, timezone: true,
   emailOnNewMessage: true, emailVerifiedAt: true, isBanned: true, lastMessageEmailAt: true,
 } as const
+
+// Recipient's local night → hold the email. Unknown/invalid tz → treat as
+// daytime (12:00) so we never trap someone in permanent quiet hours.
+const QUIET_START_HOUR = 22
+const QUIET_END_HOUR = 8
+function inQuietHours(tz: string | null): boolean {
+  let hour = 12
+  try {
+    hour = Number(new Intl.DateTimeFormat("en-US", { timeZone: tz || "UTC", hour: "numeric", hour12: false }).format(new Date())) % 24
+  } catch { /* invalid tz → daytime */ }
+  return hour >= QUIET_START_HOUR || hour < QUIET_END_HOUR
+}

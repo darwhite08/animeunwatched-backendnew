@@ -28,6 +28,8 @@ export const env = {
   CATALOG_PROVIDER:   (process.env.CATALOG_PROVIDER  || "jikan") as "jikan" | "mal" | "anilist",
   CORS_ORIGIN:        process.env.CORS_ORIGIN        || "http://localhost:3000",
   FRONTEND_URL:       process.env.FRONTEND_URL       || "http://localhost:3000",
+  // Public base URL of this API — used to build one-click unsubscribe links.
+  API_URL:            process.env.API_URL            || "https://api.kaiveron.com",
 
   // Google OAuth — https://console.cloud.google.com/
   GOOGLE_CLIENT_ID:     process.env.GOOGLE_CLIENT_ID     || "",

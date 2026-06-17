@@ -19,6 +19,7 @@ const userSelect = {
   isBanned: true,
   verifiedKind: true,
   onboardedAt: true,
+  emailOnNewMessage: true, // so settings can render the DM-email toggle's state
   createdAt: true,
 } as const;
 
