@@ -5,6 +5,8 @@ type EmailOpts = {
   to: string
   subject: string
   html: string
+  // Extra SMTP headers (e.g. List-Unsubscribe for deliverability). Optional.
+  headers?: Record<string, string>
 }
 
 // Lazily create transporter so it doesn't fail on startup if SMTP is not configured
@@ -63,6 +65,7 @@ export async function sendEmail(opts: EmailOpts): Promise<void> {
       to: opts.to,
       subject: opts.subject,
       html: opts.html,
+      ...(opts.headers ? { headers: opts.headers } : {}),
     });
   } catch (err) {
     console.error("[Email] Failed to send email:", err);
@@ -251,6 +254,153 @@ export function reengagementCampaignEmail(
       ${rows ? `<p style="color:#fff;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;margin:30px 0 6px">🔥 Trending right now</p><table role="presentation" width="100%">${rows}</table>` : ""}
       <a href="${BRAND_URL}/community" style="display:inline-block;margin-top:30px;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Catch up now →</a>
       <p style="color:#555;font-size:12px;margin:24px 0 0">Your watchlist and streak are waiting — pick them back up.</p>
+    `),
+  }
+}
+
+/**
+ * Offline "new message" notification — sent by the messageEmailDigest job to a
+ * recipient who has unread DMs and is not currently online. It BATCHES every
+ * unread conversation into one email (never one email per message) and carries a
+ * List-Unsubscribe header so it stays deliverable. See the job for the cadence/
+ * throttle rules that decide WHEN this is sent.
+ */
+export function newMessageEmail(
+  email: string,
+  name: string,
+  senders: Array<{ name: string; preview: string; unread: number }>,
+  totalUnread: number,
+): EmailOpts {
+  const people = senders.length
+  const esc = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+
+  const headline =
+    people === 1
+      ? `${esc(senders[0].name)} messaged you`
+      : `${totalUnread} new messages from ${people} people`
+
+  const rows = senders.slice(0, 6).map((s) =>
+    `<tr><td style="padding:14px 0;border-bottom:1px solid #1a1a1a;vertical-align:top">
+       <div style="color:#fff;font-size:14px;font-weight:800;margin-bottom:3px">
+         ${esc(s.name)}${s.unread > 1 ? `<span style="color:${ACCENT};font-weight:900;font-size:12px"> · ${s.unread} new</span>` : ""}
+       </div>
+       <div style="color:#888;font-size:13px;line-height:1.5">${esc(s.preview)}</div>
+     </td></tr>`
+  ).join("")
+  const more = people > 6 ? `<p style="color:#555;font-size:12px;margin:14px 0 0">…and ${people - 6} more conversation${people - 6 === 1 ? "" : "s"}.</p>` : ""
+
+  const subject =
+    people === 1
+      ? `${senders[0].name} sent you a message on ${BRAND_NAME}`
+      : `You have ${totalUnread} unread messages on ${BRAND_NAME}`
+
+  return {
+    to: email,
+    subject,
+    headers: {
+      // Let recipients opt out from their mail client (deliverability baseline).
+      "List-Unsubscribe": `<${BRAND_URL}/me/settings/notifications>, <mailto:unsubscribe@kaiveron.com?subject=unsubscribe-messages>`,
+    },
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">New on Kaiveron</p>
+      <h1 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 8px;font-style:italic;letter-spacing:-0.02em">${headline}</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 24px">Hey <strong style="color:#fff">${esc(name)}</strong> — you've got unread messages waiting while you were away.</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%">${rows}</table>
+      ${more}
+      <a href="${BRAND_URL}/messages" style="display:inline-block;margin-top:28px;padding:14px 28px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.05em;text-transform:uppercase">Open Messages →</a>
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:26px 0 0">You're getting this because someone messaged you on ${BRAND_NAME} and you weren't online. Turn these off anytime under <a href="${BRAND_URL}/me/settings/notifications" style="color:#888">notification settings</a>.</p>
+    `),
+  }
+}
+
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+
+/**
+ * Congrats email when a user is granted the Verified Creator badge. A one-time,
+ * triggered transactional email (fired on the transition into CREATOR). Warm +
+ * celebratory, leads with the achievement, and points at what it unlocks.
+ */
+export function creatorBadgeEmail(email: string, displayName: string): EmailOpts {
+  const name = escapeHtml(displayName || "there")
+  const perk = (title: string, body: string) => `
+    <tr><td style="padding:12px 0;border-bottom:1px solid #1a1a1a;vertical-align:top">
+      <div style="color:#fff;font-size:14px;font-weight:800;margin-bottom:2px">${title}</div>
+      <div style="color:#888;font-size:13px;line-height:1.5">${body}</div>
+    </td></tr>`
+  return {
+    to: email,
+    subject: `You're a Verified Creator on ${BRAND_NAME} 🎉`,
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">Verified Creator</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 14px;font-style:italic;letter-spacing:-0.02em">Congrats, ${name} — you're verified. 🎉</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 24px">
+        Your ${BRAND_NAME} profile now carries the <strong style="color:#fff">Verified Creator</strong> seal. It's a signal to the whole community that your voice is the real deal — and it unlocks the creator toolkit:
+      </p>
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 8px">
+        ${perk("The verified seal on your profile", "Your badge shows everywhere your name appears — posts, comments, clubs and search.")}
+        ${perk("Creator Studio", "Deep analytics, audience insights, your content dashboard and monetization tools.")}
+        ${perk("Stand out", "Verified creators get more reach and trust across feeds and recommendations.")}
+      </table>
+      <a href="https://creator-studio.kaiveron.com" style="display:inline-block;margin-top:28px;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Open Creator Studio →</a>
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Welcome to the creator side of ${BRAND_NAME}. We can't wait to see what you make. 🧡</p>
+    `),
+  }
+}
+
+/**
+ * Congrats email for the Founding Creator badge — one of the first 250 verified
+ * creators ever. The serial ("#N of 250") is the hook: scarcity = status. Sent
+ * once, only when the badge is newly issued.
+ */
+export function foundingBadgeEmail(email: string, displayName: string, serial: number): EmailOpts {
+  const name = escapeHtml(displayName || "there")
+  return {
+    to: email,
+    subject: `You're Founding Creator #${serial} on ${BRAND_NAME} ⚡`,
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">Founding Creator · Limited to 250</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 6px;font-style:italic;letter-spacing:-0.02em">${name}, you're one of the first. ⚡</h1>
+      <div style="text-align:center;margin:22px 0 26px">
+        <div style="display:inline-block;padding:22px 40px;background:#0f0f0f;border:1px solid #2a1f00;border-radius:18px">
+          <div style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:6px">Founding Creator</div>
+          <div style="color:${ACCENT};font-size:40px;font-weight:900;font-style:italic;letter-spacing:-0.03em">#${serial}<span style="color:#555;font-size:18px;font-weight:700"> / 250</span></div>
+        </div>
+      </div>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 22px">
+        This is the rarest badge on ${BRAND_NAME}. You became a Verified Creator early enough to claim a permanent <strong style="color:#fff">Founding Creator</strong> seal — only ever given to the first 250 people. It's yours for good, serial number and all.
+      </p>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 22px">
+        You also get everything a Verified Creator does: the verified seal across the app, Creator Studio analytics, and monetization tools. But the founding mark? That one says you were here at the start.
+      </p>
+      <a href="https://creator-studio.kaiveron.com" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Open Creator Studio →</a>
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Thank you for building ${BRAND_NAME} with us from day one. 🧡</p>
+    `),
+  }
+}
+
+/**
+ * Congrats email for the Verified (USER) and Verified Studio (STUDIO) badges.
+ * One-time, triggered on the transition into that badge.
+ */
+export function verifiedBadgeEmail(email: string, displayName: string, kind: "USER" | "STUDIO"): EmailOpts {
+  const name = escapeHtml(displayName || "there")
+  const isStudio = kind === "STUDIO"
+  const label = isStudio ? "Verified Studio" : "Verified"
+  const lede = isStudio
+    ? `Your studio is now <strong style="color:#fff">Verified</strong> on ${BRAND_NAME} — the official seal that tells fans this is the real, authentic home of your studio.`
+    : `Your account is now <strong style="color:#fff">Verified</strong> on ${BRAND_NAME} — a seal of authenticity that shows the community you're the real you.`
+  return {
+    to: email,
+    subject: isStudio ? `Your studio is verified on ${BRAND_NAME} ✓` : `You're verified on ${BRAND_NAME} ✓`,
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">${label}</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 14px;font-style:italic;letter-spacing:-0.02em">Congrats, ${name} — you're verified. ✓</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 22px">${lede}</p>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 24px">The verified seal now appears everywhere your name shows up — posts, comments, clubs and search — so people always know it's genuinely you.</p>
+      <a href="${BRAND_URL}/me" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">View your profile →</a>
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Welcome to the verified side of ${BRAND_NAME}. 🧡</p>
     `),
   }
 }

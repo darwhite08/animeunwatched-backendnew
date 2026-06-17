@@ -14028,6 +14028,9 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerifiedAt: 'emailVerifiedAt',
   lastReengagedAt: 'lastReengagedAt',
+  emailOnNewMessage: 'emailOnNewMessage',
+  lastMessageEmailAt: 'lastMessageEmailAt',
+  signupPlatform: 'signupPlatform',
   username: 'username',
   slug: 'slug',
   displayName: 'displayName',
@@ -14926,6 +14929,8 @@ export const ConversationScalarFieldEnum = {
   p2DeletedAt: 'p2DeletedAt',
   p1LastReadAt: 'p1LastReadAt',
   p2LastReadAt: 'p2LastReadAt',
+  p1LastEmailedAt: 'p1LastEmailedAt',
+  p2LastEmailedAt: 'p2LastEmailedAt',
   p1Pinned: 'p1Pinned',
   p2Pinned: 'p2Pinned',
   p1Archived: 'p1Archived',
@@ -16830,6 +16835,13 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'Role'
  */
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -16868,13 +16880,6 @@ export type EnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'VerificationKind[]'
  */
 export type ListEnumVerificationKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationKind[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

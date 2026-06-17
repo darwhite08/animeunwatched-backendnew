@@ -55,6 +55,8 @@ export type ConversationMinAggregateOutputType = {
   p2DeletedAt: Date | null
   p1LastReadAt: Date | null
   p2LastReadAt: Date | null
+  p1LastEmailedAt: Date | null
+  p2LastEmailedAt: Date | null
   p1Pinned: boolean | null
   p2Pinned: boolean | null
   p1Archived: boolean | null
@@ -79,6 +81,8 @@ export type ConversationMaxAggregateOutputType = {
   p2DeletedAt: Date | null
   p1LastReadAt: Date | null
   p2LastReadAt: Date | null
+  p1LastEmailedAt: Date | null
+  p2LastEmailedAt: Date | null
   p1Pinned: boolean | null
   p2Pinned: boolean | null
   p1Archived: boolean | null
@@ -103,6 +107,8 @@ export type ConversationCountAggregateOutputType = {
   p2DeletedAt: number
   p1LastReadAt: number
   p2LastReadAt: number
+  p1LastEmailedAt: number
+  p2LastEmailedAt: number
   p1Pinned: number
   p2Pinned: number
   p1Archived: number
@@ -141,6 +147,8 @@ export type ConversationMinAggregateInputType = {
   p2DeletedAt?: true
   p1LastReadAt?: true
   p2LastReadAt?: true
+  p1LastEmailedAt?: true
+  p2LastEmailedAt?: true
   p1Pinned?: true
   p2Pinned?: true
   p1Archived?: true
@@ -165,6 +173,8 @@ export type ConversationMaxAggregateInputType = {
   p2DeletedAt?: true
   p1LastReadAt?: true
   p2LastReadAt?: true
+  p1LastEmailedAt?: true
+  p2LastEmailedAt?: true
   p1Pinned?: true
   p2Pinned?: true
   p1Archived?: true
@@ -189,6 +199,8 @@ export type ConversationCountAggregateInputType = {
   p2DeletedAt?: true
   p1LastReadAt?: true
   p2LastReadAt?: true
+  p1LastEmailedAt?: true
+  p2LastEmailedAt?: true
   p1Pinned?: true
   p2Pinned?: true
   p1Archived?: true
@@ -300,6 +312,8 @@ export type ConversationGroupByOutputType = {
   p2DeletedAt: Date | null
   p1LastReadAt: Date | null
   p2LastReadAt: Date | null
+  p1LastEmailedAt: Date | null
+  p2LastEmailedAt: Date | null
   p1Pinned: boolean
   p2Pinned: boolean
   p1Archived: boolean
@@ -347,6 +361,8 @@ export type ConversationWhereInput = {
   p2DeletedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p2LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p1LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p2LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
@@ -374,6 +390,8 @@ export type ConversationOrderByWithRelationInput = {
   p2DeletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p1LastReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p2LastReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  p1LastEmailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  p2LastEmailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p1Pinned?: Prisma.SortOrder
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
@@ -405,6 +423,8 @@ export type ConversationWhereUniqueInput = Prisma.AtLeast<{
   p2DeletedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p2LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p1LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p2LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
@@ -432,6 +452,8 @@ export type ConversationOrderByWithAggregationInput = {
   p2DeletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p1LastReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p2LastReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  p1LastEmailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  p2LastEmailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   p1Pinned?: Prisma.SortOrder
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
@@ -464,6 +486,8 @@ export type ConversationScalarWhereWithAggregatesInput = {
   p2DeletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Conversation"> | Date | string | null
   p1LastReadAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Conversation"> | Date | string | null
   p2LastReadAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Conversation"> | Date | string | null
+  p1LastEmailedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Conversation"> | Date | string | null
+  p2LastEmailedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Conversation"> | Date | string | null
   p1Pinned?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
   p2Pinned?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolWithAggregatesFilter<"Conversation"> | boolean
@@ -486,6 +510,8 @@ export type ConversationCreateInput = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -513,6 +539,8 @@ export type ConversationUncheckedCreateInput = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -536,6 +564,8 @@ export type ConversationUpdateInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -563,6 +593,8 @@ export type ConversationUncheckedUpdateInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -588,6 +620,8 @@ export type ConversationCreateManyInput = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -610,6 +644,8 @@ export type ConversationUpdateManyMutationInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -634,6 +670,8 @@ export type ConversationUncheckedUpdateManyInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -673,6 +711,8 @@ export type ConversationCountOrderByAggregateInput = {
   p2DeletedAt?: Prisma.SortOrder
   p1LastReadAt?: Prisma.SortOrder
   p2LastReadAt?: Prisma.SortOrder
+  p1LastEmailedAt?: Prisma.SortOrder
+  p2LastEmailedAt?: Prisma.SortOrder
   p1Pinned?: Prisma.SortOrder
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
@@ -703,6 +743,8 @@ export type ConversationMaxOrderByAggregateInput = {
   p2DeletedAt?: Prisma.SortOrder
   p1LastReadAt?: Prisma.SortOrder
   p2LastReadAt?: Prisma.SortOrder
+  p1LastEmailedAt?: Prisma.SortOrder
+  p2LastEmailedAt?: Prisma.SortOrder
   p1Pinned?: Prisma.SortOrder
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
@@ -727,6 +769,8 @@ export type ConversationMinOrderByAggregateInput = {
   p2DeletedAt?: Prisma.SortOrder
   p1LastReadAt?: Prisma.SortOrder
   p2LastReadAt?: Prisma.SortOrder
+  p1LastEmailedAt?: Prisma.SortOrder
+  p2LastEmailedAt?: Prisma.SortOrder
   p1Pinned?: Prisma.SortOrder
   p2Pinned?: Prisma.SortOrder
   p1Archived?: Prisma.SortOrder
@@ -862,6 +906,8 @@ export type ConversationCreateWithoutUser1Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -887,6 +933,8 @@ export type ConversationUncheckedCreateWithoutUser1Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -920,6 +968,8 @@ export type ConversationCreateWithoutUser2Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -945,6 +995,8 @@ export type ConversationUncheckedCreateWithoutUser2Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -999,6 +1051,8 @@ export type ConversationScalarWhereInput = {
   p2DeletedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p2LastReadAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p1LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
+  p2LastEmailedAt?: Prisma.DateTimeNullableFilter<"Conversation"> | Date | string | null
   p1Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p2Pinned?: Prisma.BoolFilter<"Conversation"> | boolean
   p1Archived?: Prisma.BoolFilter<"Conversation"> | boolean
@@ -1037,6 +1091,8 @@ export type ConversationCreateWithoutMessagesInput = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1063,6 +1119,8 @@ export type ConversationUncheckedCreateWithoutMessagesInput = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1101,6 +1159,8 @@ export type ConversationUpdateWithoutMessagesInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1127,6 +1187,8 @@ export type ConversationUncheckedUpdateWithoutMessagesInput = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1150,6 +1212,8 @@ export type ConversationCreateManyUser1Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1173,6 +1237,8 @@ export type ConversationCreateManyUser2Input = {
   p2DeletedAt?: Date | string | null
   p1LastReadAt?: Date | string | null
   p2LastReadAt?: Date | string | null
+  p1LastEmailedAt?: Date | string | null
+  p2LastEmailedAt?: Date | string | null
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1195,6 +1261,8 @@ export type ConversationUpdateWithoutUser1Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1220,6 +1288,8 @@ export type ConversationUncheckedUpdateWithoutUser1Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1244,6 +1314,8 @@ export type ConversationUncheckedUpdateManyWithoutUser1Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1266,6 +1338,8 @@ export type ConversationUpdateWithoutUser2Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1291,6 +1365,8 @@ export type ConversationUncheckedUpdateWithoutUser2Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1315,6 +1391,8 @@ export type ConversationUncheckedUpdateManyWithoutUser2Input = {
   p2DeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p2LastReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p1LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  p2LastEmailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   p1Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p2Pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   p1Archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1370,6 +1448,8 @@ export type ConversationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   p2DeletedAt?: boolean
   p1LastReadAt?: boolean
   p2LastReadAt?: boolean
+  p1LastEmailedAt?: boolean
+  p2LastEmailedAt?: boolean
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1398,6 +1478,8 @@ export type ConversationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   p2DeletedAt?: boolean
   p1LastReadAt?: boolean
   p2LastReadAt?: boolean
+  p1LastEmailedAt?: boolean
+  p2LastEmailedAt?: boolean
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1424,6 +1506,8 @@ export type ConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   p2DeletedAt?: boolean
   p1LastReadAt?: boolean
   p2LastReadAt?: boolean
+  p1LastEmailedAt?: boolean
+  p2LastEmailedAt?: boolean
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1450,6 +1534,8 @@ export type ConversationSelectScalar = {
   p2DeletedAt?: boolean
   p1LastReadAt?: boolean
   p2LastReadAt?: boolean
+  p1LastEmailedAt?: boolean
+  p2LastEmailedAt?: boolean
   p1Pinned?: boolean
   p2Pinned?: boolean
   p1Archived?: boolean
@@ -1457,7 +1543,7 @@ export type ConversationSelectScalar = {
   disappearingSeconds?: boolean
 }
 
-export type ConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "participant1" | "participant2" | "createdAt" | "updatedAt" | "status" | "initiatorId" | "lastMessageAt" | "p1UnreadCount" | "p2UnreadCount" | "p1MutedUntil" | "p2MutedUntil" | "p1DeletedAt" | "p2DeletedAt" | "p1LastReadAt" | "p2LastReadAt" | "p1Pinned" | "p2Pinned" | "p1Archived" | "p2Archived" | "disappearingSeconds", ExtArgs["result"]["conversation"]>
+export type ConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "participant1" | "participant2" | "createdAt" | "updatedAt" | "status" | "initiatorId" | "lastMessageAt" | "p1UnreadCount" | "p2UnreadCount" | "p1MutedUntil" | "p2MutedUntil" | "p1DeletedAt" | "p2DeletedAt" | "p1LastReadAt" | "p2LastReadAt" | "p1LastEmailedAt" | "p2LastEmailedAt" | "p1Pinned" | "p2Pinned" | "p1Archived" | "p2Archived" | "disappearingSeconds", ExtArgs["result"]["conversation"]>
 export type ConversationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user1?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   user2?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1497,6 +1583,8 @@ export type $ConversationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     p2DeletedAt: Date | null
     p1LastReadAt: Date | null
     p2LastReadAt: Date | null
+    p1LastEmailedAt: Date | null
+    p2LastEmailedAt: Date | null
     p1Pinned: boolean
     p2Pinned: boolean
     p1Archived: boolean
@@ -1944,6 +2032,8 @@ export interface ConversationFieldRefs {
   readonly p2DeletedAt: Prisma.FieldRef<"Conversation", 'DateTime'>
   readonly p1LastReadAt: Prisma.FieldRef<"Conversation", 'DateTime'>
   readonly p2LastReadAt: Prisma.FieldRef<"Conversation", 'DateTime'>
+  readonly p1LastEmailedAt: Prisma.FieldRef<"Conversation", 'DateTime'>
+  readonly p2LastEmailedAt: Prisma.FieldRef<"Conversation", 'DateTime'>
   readonly p1Pinned: Prisma.FieldRef<"Conversation", 'Boolean'>
   readonly p2Pinned: Prisma.FieldRef<"Conversation", 'Boolean'>
   readonly p1Archived: Prisma.FieldRef<"Conversation", 'Boolean'>

@@ -71,6 +71,16 @@ model User {
   // Last time we sent this user a re-engagement email — enforces a per-user
   // cooldown so the recurring campaign never spams anyone.
   lastReengagedAt   DateTime?
+  // Email-on-new-message (offline DM notifications). Opt-out toggle + a per-user
+  // global cooldown anchor so the batched digest never emails more than once an
+  // hour, regardless of how many people message you. See jobs/messageEmailDigest.
+  emailOnNewMessage  Boolean           @default(true)
+  lastMessageEmailAt DateTime?
+  // Where this account was created — "web" | "mobile" | "unknown". Set once at
+  // signup from the request origin. Powers the admin Product Analytics
+  // web-vs-mobile split (activation funnel / retention / activation cohort).
+  // Null for accounts created before this was added.
+  signupPlatform     String?
   emailVerification EmailVerification?
   username          String             @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.
@@ -1499,6 +1509,11 @@ model Conversation {
   p2DeletedAt         DateTime?
   p1LastReadAt        DateTime?
   p2LastReadAt        DateTime?
+  // Last time each participant was sent an offline "new message" email for this
+  // conversation. We only re-email when lastMessageAt advances past this, so a
+  // recipient is never nagged twice about the same unread batch.
+  p1LastEmailedAt     DateTime?
+  p2LastEmailedAt     DateTime?
   p1Pinned            Boolean   @default(false)
   p2Pinned            Boolean   @default(false)
   p1Archived          Boolean   @default(false)

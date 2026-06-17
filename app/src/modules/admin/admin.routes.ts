@@ -94,6 +94,10 @@ adminRouter.get("/metrics/timeseries", ctrl.getTimeSeries);
 adminRouter.get("/metrics/top",        ctrl.getTopPerformers);
 adminRouter.get("/metrics/funnel",     ctrl.getFunnel);
 adminRouter.get("/metrics/system",     ctrl.getSystemMetrics);
+// Product analytics — activation funnel + per-signup-week cohorts (D1/D7
+// retention, 24h activation). Support ?platform=web|mobile|unknown|all.
+adminRouter.get("/metrics/activation-funnel", ctrl.getActivationFunnel);
+adminRouter.get("/metrics/cohorts",           ctrl.getCohorts);
 
 // Users — read
 adminRouter.get("/users",                  requirePermission("users","read"),  ctrl.listUsers);

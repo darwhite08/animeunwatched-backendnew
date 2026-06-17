@@ -1,6 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { Prisma } from "../../generated/prisma/client";
 import { grantFoundingCreatorBadge } from "../../lib/founding";
+import { sendEmail, creatorBadgeEmail, foundingBadgeEmail, verifiedBadgeEmail } from "../../lib/email";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { validateSlug, generateUniqueSlug } from "../../lib/slug";
@@ -26,7 +27,10 @@ const safeUserSelect = {
 // ─── verified badge (admin) ─────────────────────────────────────────────────────
 
 export async function setVerification(username: string, kind: "USER" | "CREATOR" | "STUDIO" | null) {
-  const user = await prisma.user.findUnique({ where: { username }, select: { id: true } });
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: { id: true, verifiedKind: true },
+  });
   if (!user) throw notFound("User not found");
   const updated = await prisma.user.update({
     where: { id: user.id },
@@ -34,13 +38,11 @@ export async function setVerification(username: string, kind: "USER" | "CREATOR"
     select: safeUserSelect,
   });
 
-  // Becoming a Verified Creator is the trigger for the Founding Creator badge
-  // (first 250, first-come). Fire after the verification commit; never let it
-  // block or fail the verification flow.
-  if (kind === "CREATOR") {
-    void grantFoundingCreatorBadge(user.id).catch((e) =>
-      console.error("[founding] grant after setVerification failed:", e),
-    );
+  // Celebrate on the actual transition INTO a badge (never re-fire if unchanged,
+  // and never on removal). CREATOR also triggers the Founding badge grant.
+  if (kind && kind !== user.verifiedKind) {
+    if (kind === "CREATOR") void congratulateNewCreator(user.id);
+    else void congratulateVerifiedBadge(user.id, kind); // USER | STUDIO
   }
 
   return { user: updated };
@@ -48,17 +50,96 @@ export async function setVerification(username: string, kind: "USER" | "CREATOR"
 
 /**
  * Grant the Verified Creator badge to a user (idempotent), then fire the
- * Founding Creator grant. The programmatic entry point for the verified-creator
- * flow; the admin path (setVerification) triggers founding too. Returns the
- * Founding badge if one was issued, else null (window closed / already founding).
+ * Founding Creator grant + congrats email. The programmatic entry point for the
+ * verified-creator flow; the admin path (setVerification) triggers founding too.
+ * Returns the Founding badge if one was issued, else null (window closed/already).
  */
 export async function grantVerifiedCreatorBadge(userId: string) {
+  const before = await prisma.user.findUnique({ where: { id: userId }, select: { verifiedKind: true } });
   await prisma.user.update({
     where: { id: userId },
     data: { verifiedKind: "CREATOR", verifiedAt: new Date() },
     select: { id: true },
   });
-  return grantFoundingCreatorBadge(userId);
+  const founding = await grantFoundingCreatorBadge(userId);
+  // Email + in-app notification only on the transition into CREATOR.
+  if (before?.verifiedKind !== "CREATOR") {
+    void notifyCreatorBadge(userId, founding?.serial ?? null);
+  }
+  return founding;
+}
+
+/**
+ * Grant the Founding badge (if within the window) and fire ONE congrats email +
+ * an in-app notification: the Founding variant (with serial) when they made the
+ * first-250 cut, otherwise the plain Verified Creator one. Fully fire-and-forget
+ * — never blocks or fails the verification flow. Used by the admin verify path.
+ */
+async function congratulateNewCreator(userId: string): Promise<void> {
+  try {
+    const founding = await grantFoundingCreatorBadge(userId);
+    await notifyCreatorBadge(userId, founding?.serial ?? null);
+  } catch (e) {
+    console.error("[badge] congratulateNewCreator failed:", e);
+  }
+}
+
+/** Send the Creator/Founding congrats email + in-app notification. */
+async function notifyCreatorBadge(userId: string, foundingSerial: number | null): Promise<void> {
+  const u = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { email: true, displayName: true },
+  });
+  if (!u) return;
+  const isFounding = foundingSerial != null;
+  if (u.email) {
+    const mail = isFounding
+      ? foundingBadgeEmail(u.email, u.displayName, foundingSerial)
+      : creatorBadgeEmail(u.email, u.displayName);
+    await sendEmail(mail).catch((e) => console.error("[badge] email failed:", e));
+  }
+  await createNotification({
+    recipientId: userId,
+    type: NotificationType.ACHIEVEMENT,
+    payload: {
+      kind: "badge_granted",
+      badge: isFounding ? "FOUNDING_CREATOR" : "CREATOR",
+      ...(isFounding ? { serial: foundingSerial } : {}),
+      message: isFounding
+        ? `You're Founding Creator #${foundingSerial} — one of the first 250! ⚡`
+        : "You're now a Verified Creator on Kaiveron! 🎉",
+      link: "/me",
+    },
+  }).catch((e) => console.error("[badge] notification failed:", e));
+}
+
+/** Send the Verified (USER) / Verified Studio (STUDIO) congrats email + notification. */
+async function congratulateVerifiedBadge(userId: string, kind: "USER" | "STUDIO"): Promise<void> {
+  try {
+    const u = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, displayName: true },
+    });
+    if (!u) return;
+    if (u.email) {
+      await sendEmail(verifiedBadgeEmail(u.email, u.displayName, kind))
+        .catch((e) => console.error("[badge] email failed:", e));
+    }
+    await createNotification({
+      recipientId: userId,
+      type: NotificationType.ACHIEVEMENT,
+      payload: {
+        kind: "badge_granted",
+        badge: kind === "STUDIO" ? "VERIFIED_STUDIO" : "VERIFIED",
+        message: kind === "STUDIO"
+          ? "Your studio is now Verified on Kaiveron! ✓"
+          : "You're now Verified on Kaiveron! ✓",
+        link: "/me",
+      },
+    }).catch((e) => console.error("[badge] notification failed:", e));
+  } catch (e) {
+    console.error("[badge] congratulateVerifiedBadge failed:", e);
+  }
 }
 
 // ─── getProfile ───────────────────────────────────────────────────────────────
@@ -175,8 +256,9 @@ export async function updateMe(userId: string, dto: UpdateMeDto) {
       ...(dto.avatarUrl !== undefined ? { avatarUrl: dto.avatarUrl } : {}),
       ...(dto.coverImage !== undefined ? { coverImage: dto.coverImage } : {}),
       ...(dto.isPrivate !== undefined ? { isPrivate: dto.isPrivate } : {}),
+      ...(dto.emailOnNewMessage !== undefined ? { emailOnNewMessage: dto.emailOnNewMessage } : {}),
     },
-    select: { ...safeUserSelect, isPrivate: true },
+    select: { ...safeUserSelect, isPrivate: true, emailOnNewMessage: true },
   });
   return { user };
 }

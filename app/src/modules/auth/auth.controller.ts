@@ -15,11 +15,31 @@ import * as service from "./auth.service";
  * has geo data to work with. Reads X-Forwarded-For first (we sit behind
  * App Runner's ALB; trust proxy is set in app.ts).
  */
-function authMeta(req: Request): { ip: string | null; userAgent: string | null } {
+function authMeta(req: Request): { ip: string | null; userAgent: string | null; platform: string } {
   const xff = req.headers["x-forwarded-for"]
   const ip  = typeof xff === "string" ? xff.split(",")[0].trim() : (req.ip ?? null)
   const ua  = req.headers["user-agent"]
-  return { ip: ip || null, userAgent: typeof ua === "string" ? ua : null }
+  return { ip: ip || null, userAgent: typeof ua === "string" ? ua : null, platform: detectPlatform(req) }
+}
+
+/**
+ * Best-effort platform attribution for product analytics. The mobile app is a
+ * Capacitor WebView served from app.kaiveron.com (and a Capacitor UA); the web
+ * app is kaiveron.com. Clients may also send an explicit `X-Kaiveron-Platform`
+ * header, which wins. Returns "web" | "mobile" | "unknown".
+ */
+function detectPlatform(req: Request): string {
+  const explicit = req.headers["x-kaiveron-platform"]
+  if (typeof explicit === "string") {
+    const v = explicit.toLowerCase().trim()
+    if (v === "web" || v === "mobile") return v
+  }
+  const origin = (typeof req.headers.origin === "string" ? req.headers.origin : "")
+    || (typeof req.headers.referer === "string" ? req.headers.referer : "")
+  const ua = (typeof req.headers["user-agent"] === "string" ? req.headers["user-agent"] : "").toLowerCase()
+  if (/app\.kaiveron\.com/i.test(origin) || ua.includes("capacitor") || ua.includes("kaiveron-app")) return "mobile"
+  if (/kaiveron\.com/i.test(origin)) return "web"
+  return "unknown"
 }
 
 // Setting `domain: ".kaiveron.com"` makes the refresh cookie readable on

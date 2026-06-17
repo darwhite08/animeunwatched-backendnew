@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./admin.service";
+import * as productAnalytics from "./productAnalytics.service";
 import { badRequest, forbidden } from "../../lib/errors";
 import { prisma } from "../../config/prisma";
 import { getLiveSnapshot } from "../../lib/realtimeAnalytics";
@@ -178,6 +179,24 @@ export async function getFunnel(_req: Request, res: Response, next: NextFunction
 export async function getSystemMetrics(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     res.status(200).json(await service.getSystemMetrics())
+  } catch (err) { next(err) }
+}
+
+// ─── Product analytics (activation + retention), web/mobile split ──────────────
+
+export async function getActivationFunnel(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const days = Number(req.query.days) || 7
+    const platform = productAnalytics.normalizePlatform(req.query.platform)
+    res.status(200).json(await productAnalytics.getActivationFunnel({ days, platform }))
+  } catch (err) { next(err) }
+}
+
+export async function getCohorts(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const weeks = Number(req.query.weeks) || 8
+    const platform = productAnalytics.normalizePlatform(req.query.platform)
+    res.status(200).json(await productAnalytics.getCohorts({ weeks, platform }))
   } catch (err) { next(err) }
 }
 

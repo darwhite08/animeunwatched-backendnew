@@ -143,6 +143,7 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
       passwordHash,
       emailVerifiedAt: requireVerification ? null : new Date(),
       referredById: referrer?.id ?? null,
+      signupPlatform: meta.platform ?? "unknown",
     },
     select: userSelect,
   });
@@ -325,6 +326,8 @@ async function clearLoginAttempts(email: string): Promise<void> {
 export interface AuthMeta {
   ip?:        string | null
   userAgent?: string | null
+  // "web" | "mobile" | "unknown" — captured at signup for product analytics.
+  platform?:  string | null
 }
 
 /**

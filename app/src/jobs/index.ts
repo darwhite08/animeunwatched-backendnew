@@ -15,6 +15,7 @@ import { computeTrending } from "../lib/trending/trending.service"
 import { collectBuzz } from "../lib/buzz"
 import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
 import { runReEngagementCampaign } from "./reEngagementCampaign.job"
+import { runMessageEmailNotifications } from "./messageEmailDigest.job"
 
 export function startJobs() {
   // Win-back inactive users — checks daily (robust to restarts), but the job's
@@ -41,6 +42,14 @@ export function startJobs() {
     name: "dmExpiry",
     description: "Purge disappeared (TTL-elapsed) DM messages",
     intervalMs: 10 * 60_000, handler: runDmExpiry,
+  });
+  // Offline "new message" email notifications — flushes every 5 min. Only emails
+  // offline recipients with DMs unread >= 5 min, batched, max 1/hour/user. Inert
+  // until SMTP is configured. NOT run on boot so a deploy never fires sends.
+  registerJob({
+    name: "messageEmailDigest",
+    description: "Email offline users about unread DMs (5m debounce, batched, 1/hour/user cooldown, opt-out aware)",
+    intervalMs: 5 * 60_000, handler: runMessageEmailNotifications,
   });
   // Register jobs in the in-process registry so /admin/jobs shows them.
   registerJob({
@@ -179,6 +188,11 @@ export function startJobs() {
   // deploy can never fire a campaign. Per-user 14-day cooldown does the rest.
   const reEngage = instrument("reEngagementCampaign", runReEngagementCampaign)
   setInterval(reEngage, 24 * 60 * 60_000)
+
+  // Offline new-message email flush — every 5 min. NOT run on boot (sends mail);
+  // the 5-min debounce means freshly-arrived messages wait for the next tick.
+  const msgEmail = instrument("messageEmailDigest", runMessageEmailNotifications)
+  setInterval(msgEmail, 5 * 60_000)
 
   // Webhook dispatcher — polls WebhookDelivery rows every 30s
   startWebhookDispatcher()

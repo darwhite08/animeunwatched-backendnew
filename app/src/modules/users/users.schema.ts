@@ -6,6 +6,8 @@ export const updateMeSchema = z.object({
   avatarUrl: z.string().url().optional(),
   coverImage: z.string().url().optional(),
   isPrivate: z.boolean().optional(),
+  // Opt in/out of offline "new message" email notifications.
+  emailOnNewMessage: z.boolean().optional(),
 });
 
 export type UpdateMeDto = z.infer<typeof updateMeSchema>;
