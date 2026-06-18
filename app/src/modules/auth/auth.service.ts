@@ -14,6 +14,7 @@ import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail, verificationEmail, isEmailConfigured } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
 import { captureUserGeo } from "../../lib/geoip";
+import { maybeAwardDayOne } from "../../lib/badges";
 import { broadcastAdminUserSignup } from "../../realtime/broadcast";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
@@ -154,6 +155,9 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
 
   // Capture country/state from signup IP (no GPS). Fire-and-forget.
   void captureUserGeo(user.id, meta.ip);
+
+  // "Day One" founding badge for the first 1,000 members. Fire-and-forget.
+  void maybeAwardDayOne(user.id);
 
   if (requireVerification) {
     // Fire the verification code; don't send the welcome email until verified.

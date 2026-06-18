@@ -33,7 +33,14 @@ export const BADGES = {
   // ── Streak milestones (forgiving-streak instrumentation) ──
   STREAK_7:       { name: "One Week Strong",  tier: "milestone",  desc: "Kept a 7-day streak" },
   STREAK_30:      { name: "Thirty Days",      tier: "rare",       desc: "Kept a 30-day streak" },
+
+  // ── Founding / identity (scarce, retroactive-friendly, highly loved) ──
+  // "I was here at the start" — granted to the first DAY_ONE_CAP sign-ups.
+  DAY_ONE:        { name: "Day One",          tier: "founding",   desc: "Here from the beginning — one of the first 1,000 members" },
 } as const;
+
+/** Sign-up ordinal cutoff for the Day One badge. Closed forever once reached. */
+export const DAY_ONE_CAP = 1000;
 
 export type BadgeCode = keyof typeof BADGES;
 
@@ -78,5 +85,17 @@ export async function checkStreakBadges(userId: string, milestonesCrossed: numbe
   try {
     if (milestonesCrossed.includes(7))  await awardBadge(userId, "STREAK_7");
     if (milestonesCrossed.includes(30)) await awardBadge(userId, "STREAK_30");
+  } catch { /* best-effort */ }
+}
+
+/**
+ * Grant the "Day One" founding badge if the user is within the first
+ * DAY_ONE_CAP sign-ups. Called at registration (the new user is already counted)
+ * and by the retroactive backfill. Idempotent + best-effort.
+ */
+export async function maybeAwardDayOne(userId: string): Promise<void> {
+  try {
+    const total = await prisma.user.count();
+    if (total <= DAY_ONE_CAP) await awardBadge(userId, "DAY_ONE");
   } catch { /* best-effort */ }
 }
