@@ -51,6 +51,10 @@ export type LoginDto    = z.infer<typeof loginSchema>;
 // OAuth — frontend sends the provider's id_token after user authenticates via popup
 export const googleLoginSchema = z.object({
   idToken: z.string().min(1, "Google ID token required"),
+  // Carried through on signup so Google works under invite-only (gate enforced
+  // server-side; ignored for existing users logging in).
+  inviteCode: z.string().trim().max(40).optional(),
+  referredBy: z.string().max(30).optional().transform((s) => s?.toLowerCase()),
 });
 
 export const appleLoginSchema = z.object({

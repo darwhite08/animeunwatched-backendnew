@@ -301,6 +301,14 @@ export function googleRedirect(req: Request, res: Response): void {
     });
   }
 
+  // Carry invite code / referral through the OAuth round-trip (short-lived
+  // cookies, like the CSRF state above) so Google signup works under invite-only.
+  const cookieOpts = { httpOnly: true, secure: env.NODE_ENV === "production", sameSite: "lax" as const, maxAge: 10 * 60 * 1000 };
+  const inv = typeof req.query.invite === "string" ? req.query.invite.slice(0, 40) : "";
+  const ref = typeof req.query.ref === "string" ? req.query.ref.slice(0, 30) : "";
+  if (inv) res.cookie("aw_oauth_invite", inv, cookieOpts);
+  if (ref) res.cookie("aw_oauth_ref", ref, cookieOpts);
+
   const params = new URLSearchParams({
     client_id:     env.GOOGLE_CLIENT_ID,
     redirect_uri:  callbackUrl,
@@ -350,7 +358,12 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
         ? `https://${req.get("host")}`      // force https in prod (Render terminates SSL)
         : `http://localhost:${env.PORT}`);
     const callbackUrl = `${base}/api/v1/auth/google/callback`;
-    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req));
+    // Invite/referral stashed by googleRedirect — lets Google pass invite-only.
+    const inviteCode = req.cookies?.aw_oauth_invite as string | undefined;
+    const referredBy = req.cookies?.aw_oauth_ref as string | undefined;
+    if (inviteCode) res.clearCookie("aw_oauth_invite");
+    if (referredBy) res.clearCookie("aw_oauth_ref");
+    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req), { inviteCode, referredBy });
     recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "google", flow: "redirect" } });
 
     // Set refresh cookie (httpOnly)

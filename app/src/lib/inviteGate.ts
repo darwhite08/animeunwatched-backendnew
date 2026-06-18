@@ -32,24 +32,54 @@ export async function setInviteOnly(enabled: boolean, actorId?: string) {
  * consume one use (the DB-level conditional update prevents over-use races).
  * Throws `forbidden` otherwise.
  */
-export async function enforceSignupGate(code: string | undefined): Promise<void> {
-  if (!(await getInviteOnly())) return;
-  const c = (code ?? "").trim();
-  if (!c) throw forbidden("Kaiveron is invite-only right now. A valid invite code is required to sign up.");
+// How many people one existing member may bring in via their referral while
+// invite-only is on — keeps user-invites viral without one account flooding it.
+const REFERRER_INVITE_CAP = 25;
 
-  const { count } = await prisma.signupInvite.updateMany({
-    where: {
-      code: c,
-      revokedAt: null,
-      AND: [
-        { OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
-        // maxUses 0 = unlimited; otherwise only while uses < maxUses
-        { OR: [{ maxUses: 0 }, { uses: { lt: prisma.signupInvite.fields.maxUses } }] },
-      ],
-    },
-    data: { uses: { increment: 1 } },
-  });
-  if (count === 0) throw forbidden("That invite code is invalid, expired, or fully used.");
+export async function enforceSignupGate(
+  code: string | undefined,
+  opts: { referrerHandle?: string | null } = {},
+): Promise<void> {
+  if (!(await getInviteOnly())) return;
+
+  // 1) A valid admin invite code consumes one use and passes.
+  const c = (code ?? "").trim();
+  if (c) {
+    const { count } = await prisma.signupInvite.updateMany({
+      where: {
+        code: c,
+        revokedAt: null,
+        AND: [
+          { OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
+          // maxUses 0 = unlimited; otherwise only while uses < maxUses
+          { OR: [{ maxUses: 0 }, { uses: { lt: prisma.signupInvite.fields.maxUses } }] },
+        ],
+      },
+      data: { uses: { increment: 1 } },
+    });
+    if (count > 0) return; // valid code → in
+  }
+
+  // 2) A valid referral from an existing member also passes — this is how
+  // user-to-user invites work under invite-only. Capped per referrer to limit
+  // abuse (must be an active, non-banned member under their invite cap).
+  const handle = (opts.referrerHandle ?? "").trim().replace(/^@/, "");
+  if (handle) {
+    const referrer = await prisma.user.findFirst({
+      where: { username: { equals: handle, mode: "insensitive" }, isBanned: false },
+      select: { id: true },
+    });
+    if (referrer) {
+      const brought = await prisma.user.count({ where: { referredById: referrer.id } });
+      if (brought < REFERRER_INVITE_CAP) return; // referred by a real member → in
+    }
+  }
+
+  throw forbidden(
+    c
+      ? "That invite code is invalid, expired, or fully used."
+      : "Kaiveron is invite-only right now. Use an invite code or an invite link from a member to sign up.",
+  );
 }
 
 // ── Admin management ─────────────────────────────────────────────────────────

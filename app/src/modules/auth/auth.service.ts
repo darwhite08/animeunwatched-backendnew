@@ -9,7 +9,7 @@ import { verifyTotp, hashBackupCode } from "../../lib/totp";
 import { prisma } from "../../config/prisma";
 import { env } from "../../config/env";
 import { conflict, unauth, badRequest, forbidden } from "../../lib/errors";
-import { enforceSignupGate, getInviteOnly } from "../../lib/inviteGate";
+import { enforceSignupGate } from "../../lib/inviteGate";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail, verificationEmail, isEmailConfigured } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
@@ -104,7 +104,7 @@ const userSelect = {
 export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
   // Invite-only gate (no-op unless an admin turned it on). Atomically consumes a
   // code; throws if the gate is on and the code is missing/invalid/exhausted.
-  await enforceSignupGate(dto.inviteCode);
+  await enforceSignupGate(dto.inviteCode, { referrerHandle: dto.referredBy });
 
   const [existingEmail, existingUsername] = await Promise.all([
     prisma.user.findUnique({ where: { email: dto.email } }),
@@ -531,6 +531,8 @@ async function findOrCreateOAuthUser(opts: {
   email:       string;
   displayName: string;
   avatarUrl?:  string;
+  inviteCode?: string;
+  referredBy?: string | null;
 }) {
   // 1. Check if this provider account is already linked
   const existingProvider = await prisma.userOAuthProvider.findUnique({
@@ -555,11 +557,10 @@ async function findOrCreateOAuthUser(opts: {
   }
 
   if (!user) {
-    // Invite-only gate: OAuth can't carry an invite code, so new OAuth signups
-    // are blocked while the gate is on (existing users still log in fine).
-    if (await getInviteOnly()) {
-      throw forbidden("Kaiveron is invite-only right now — sign up with an invite code on the web first.");
-    }
+    // Invite-only gate for NEW OAuth signups — accepts an invite code OR a valid
+    // member referral (same rule as email signup). Existing users always log in
+    // (this branch only runs when no account exists yet). Throws if not allowed.
+    await enforceSignupGate(opts.inviteCode, { referrerHandle: opts.referredBy });
     // 3. Create a brand-new user
     const username = await generateUniqueUsername(opts.email.split("@")[0]);
     const slug     = await generateUniqueSlug(opts.displayName || username);
@@ -605,6 +606,8 @@ export async function googleLogin(dto: GoogleLoginDto, meta: AuthMeta = {}) {
     email:       payload.email,
     displayName: payload.name || payload.email.split("@")[0],
     avatarUrl:   payload.picture,
+    inviteCode:  dto.inviteCode,   // gate new Google signups under invite-only
+    referredBy:  dto.referredBy,   // …or a valid member referral
   });
 
   return issueTokens(user, meta);
@@ -640,7 +643,7 @@ export async function appleLogin(dto: AppleLoginDto, meta: AuthMeta = {}) {
 
 // ─── Redirect-based Google OAuth: exchange authorization code for tokens ─────
 
-export async function googleCallbackCode(code: string, redirectUri: string, meta: AuthMeta = {}) {
+export async function googleCallbackCode(code: string, redirectUri: string, meta: AuthMeta = {}, gate: { inviteCode?: string; referredBy?: string | null } = {}) {
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
     throw unauth("Google OAuth is not configured");
   }
@@ -686,6 +689,8 @@ export async function googleCallbackCode(code: string, redirectUri: string, meta
     email:       payload.email,
     displayName: payload.name || payload.email.split("@")[0],
     avatarUrl:   payload.picture,
+    inviteCode:  gate.inviteCode,
+    referredBy:  gate.referredBy,
   });
 
   return issueTokens(user, meta);
