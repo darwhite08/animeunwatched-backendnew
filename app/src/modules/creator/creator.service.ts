@@ -66,7 +66,7 @@ const CREATOR_TIERS = [
 
 export async function getCreatorLevel(userId: string) {
   const [user, followers, blogs, polls, shots, posts] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { reputation: true, verifiedKind: true, verifiedAt: true } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { reputation: true, verifiedKind: true, communityLead: true, verifiedAt: true } }),
     prisma.follow.count({ where: { followingId: userId, status: "ACCEPTED" } }),
     prisma.blog.count({ where: { authorId: userId, status: "PUBLISHED" } }),
     prisma.poll.count({ where: { authorId: userId } }),
@@ -105,7 +105,7 @@ export async function getCreatorLevel(userId: string) {
 export async function getStorefront(username: string, viewerId?: string) {
   const user = await prisma.user.findUnique({
     where: { username },
-    select: { id: true, username: true, slug: true, displayName: true, avatarUrl: true, bio: true, verifiedKind: true, reputation: true, createdAt: true },
+    select: { id: true, username: true, slug: true, displayName: true, avatarUrl: true, bio: true, verifiedKind: true, communityLead: true, reputation: true, createdAt: true },
   });
   if (!user) throw notFound("Creator not found");
   const uid = user.id;

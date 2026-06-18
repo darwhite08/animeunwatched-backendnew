@@ -32,6 +32,8 @@ usersRouter.post("/me/follow-requests/:requesterId/reject", requireAuth, ctrl.re
 
 // Verified badge — admin only
 usersRouter.patch("/:username/verify",     requireAuth, requireAdmin, requireStepUp("verify"), ctrl.setVerification);
+// Community Lead role — admin only. body { enabled: boolean }
+usersRouter.patch("/:username/community-lead", requireAuth, requireAdmin, ctrl.setCommunityLead);
 
 // ── Dynamic routes ────────────────────────────────────────────────────────────
 usersRouter.get("/:username",              optionalAuth, ctrl.getProfile);

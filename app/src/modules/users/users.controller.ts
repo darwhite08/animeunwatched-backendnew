@@ -55,6 +55,16 @@ export async function setVerification(req: Request, res: Response, next: NextFun
   }
 }
 
+export async function setCommunityLead(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const enabled = Boolean((req.body ?? {}).enabled);
+    const result = await service.setCommunityLead(req.params.username as string, enabled);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function updateMe(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId: string = res.locals.user.id;

@@ -407,3 +407,25 @@ export function verifiedBadgeEmail(email: string, displayName: string, kind: "US
     `),
   }
 }
+
+/**
+ * Congrats email when a user is made a Community Lead (admin-granted role).
+ * One-time, fired on the transition into the role.
+ */
+export function communityLeadEmail(email: string, displayName: string): EmailOpts {
+  const name = escapeHtml(displayName || "there")
+  return {
+    to: email,
+    subject: `You're now a Community Lead on ${BRAND_NAME} 🎉`,
+    html: emailBase(`
+      <p style="color:${ACCENT};font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 10px">Community Lead</p>
+      <h1 style="color:#fff;font-size:28px;font-weight:900;margin:0 0 14px;font-style:italic;letter-spacing:-0.02em">Congrats, ${name} — you're a Community Lead. 🎉</h1>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 22px">
+        You're now an official <strong style="color:#fff">Community Lead</strong> for anime &amp; manga on ${BRAND_NAME} — one of the people helping shape and steer the community: welcoming new members, sparking discussion, and being a trusted voice as we grow.
+      </p>
+      <p style="color:#aaa;line-height:1.7;margin:0 0 24px">Your <strong style="color:#fff">Community Lead</strong> flair now shows next to your name across the app. No heavy commitment — mostly doing what you already do, with a bit more reach.</p>
+      <a href="${BRAND_URL}/me" style="display:inline-block;padding:15px 30px;background:linear-gradient(135deg,#fbbf24,${ACCENT});color:#000;text-decoration:none;border-radius:12px;font-weight:900;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 8px 24px rgba(245,158,11,0.25)">Open your profile →</a>
+      <p style="color:#555;font-size:12px;line-height:1.6;margin:28px 0 0">Glad to have you steering the community. 🧡</p>
+    `),
+  }
+}

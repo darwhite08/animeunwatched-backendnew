@@ -269,6 +269,8 @@ export const UserScalarFieldEnum = {
   reputation: 'reputation',
   verifiedKind: 'verifiedKind',
   verifiedAt: 'verifiedAt',
+  communityLead: 'communityLead',
+  communityLeadAt: 'communityLeadAt',
   isBanned: 'isBanned',
   bannedReason: 'bannedReason',
   isShadowBanned: 'isShadowBanned',

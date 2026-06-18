@@ -12,7 +12,7 @@ const authorSelect = {
   username: true,
   displayName: true,
   avatarUrl: true,
-  verifiedKind: true,
+  verifiedKind: true, communityLead: true,
 } as const;
 
 // ─── Pagination helper ────────────────────────────────────────────────────────
@@ -583,7 +583,7 @@ export async function getClubMembers(slug: string, page: number, limit: number) 
             displayName: true,
             avatarUrl: true,
             reputation: true,
-            verifiedKind: true,
+            verifiedKind: true, communityLead: true,
           },
         },
       },

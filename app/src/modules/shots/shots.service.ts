@@ -13,7 +13,7 @@ const shotInclude = {
       username: true,
       displayName: true,
       avatarUrl: true,
-      verifiedKind: true,
+      verifiedKind: true, communityLead: true,
     },
   },
   anime: {
@@ -469,7 +469,7 @@ export async function unlikeShot(userId: string, shotId: string) {
 // whether the viewer already follows them. (ShotLike has no createdAt, so order
 // is by the like row's natural order.)
 const SHOT_LIKER_SELECT = {
-  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true,
+  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true, communityLead: true,
 } as const;
 
 export async function getShotLikers(shotId: string, page = 1, limit = 30, viewerId?: string) {
@@ -501,7 +501,7 @@ export async function getShotLikers(shotId: string, page = 1, limit = 30, viewer
 // ─── comments ─────────────────────────────────────────────────────────────────
 
 const commentInclude = {
-  author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true } },
+  author: { select: { id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true, communityLead: true } },
   _count: { select: { likes: true } },
 } as const;
 

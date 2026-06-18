@@ -89,7 +89,7 @@ const userSelect = {
   coverImage: true,
   role: true,
   reputation: true,
-  verifiedKind: true,
+  verifiedKind: true, communityLead: true,
   onboardedAt: true,
   streakDays: true,   // real streak tracking (not rep-estimate)
   bestStreak: true,

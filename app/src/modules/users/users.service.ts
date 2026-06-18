@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma";
 import { Prisma } from "../../generated/prisma/client";
 import { grantFoundingCreatorBadge } from "../../lib/founding";
-import { sendEmail, creatorBadgeEmail, foundingBadgeEmail, verifiedBadgeEmail } from "../../lib/email";
+import { sendEmail, creatorBadgeEmail, foundingBadgeEmail, verifiedBadgeEmail, communityLeadEmail } from "../../lib/email";
 import { notFound, conflict } from "../../lib/errors";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { validateSlug, generateUniqueSlug } from "../../lib/slug";
@@ -20,7 +20,7 @@ const safeUserSelect = {
   coverImage: true,
   role: true,
   reputation: true,
-  verifiedKind: true,
+  verifiedKind: true, communityLead: true,
   createdAt: true,
 } as const;
 
@@ -29,7 +29,7 @@ const safeUserSelect = {
 export async function setVerification(username: string, kind: "USER" | "CREATOR" | "STUDIO" | null) {
   const user = await prisma.user.findUnique({
     where: { username },
-    select: { id: true, verifiedKind: true },
+    select: { id: true, verifiedKind: true, communityLead: true },
   });
   if (!user) throw notFound("User not found");
   const updated = await prisma.user.update({
@@ -49,13 +49,56 @@ export async function setVerification(username: string, kind: "USER" | "CREATOR"
 }
 
 /**
+ * Admin: turn the Community Lead role on/off for a user. Independent of the
+ * verified badge (a user can be both). Fires a one-time congrats email +
+ * notification on the transition into the role; silent on removal / no-op.
+ */
+export async function setCommunityLead(username: string, enabled: boolean) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: { id: true, communityLead: true },
+  });
+  if (!user) throw notFound("User not found");
+  const updated = await prisma.user.update({
+    where: { id: user.id },
+    data: { communityLead: enabled, communityLeadAt: enabled ? new Date() : null },
+    select: safeUserSelect,
+  });
+  if (enabled && !user.communityLead) void congratulateCommunityLead(user.id);
+  return { user: updated };
+}
+
+/** Send the Community Lead congrats email + in-app notification. */
+async function congratulateCommunityLead(userId: string): Promise<void> {
+  try {
+    const u = await prisma.user.findUnique({ where: { id: userId }, select: { email: true, displayName: true } });
+    if (!u) return;
+    if (u.email) {
+      await sendEmail(communityLeadEmail(u.email, u.displayName)).catch((e) => console.error("[badge] email failed:", e));
+    }
+    await createNotification({
+      recipientId: userId,
+      type: NotificationType.ACHIEVEMENT,
+      payload: {
+        kind: "badge_granted",
+        badge: "COMMUNITY_LEAD",
+        message: "You're now a Community Lead on Kaiveron! 🎉",
+        link: "/me",
+      },
+    }).catch((e) => console.error("[badge] notification failed:", e));
+  } catch (e) {
+    console.error("[badge] congratulateCommunityLead failed:", e);
+  }
+}
+
+/**
  * Grant the Verified Creator badge to a user (idempotent), then fire the
  * Founding Creator grant + congrats email. The programmatic entry point for the
  * verified-creator flow; the admin path (setVerification) triggers founding too.
  * Returns the Founding badge if one was issued, else null (window closed/already).
  */
 export async function grantVerifiedCreatorBadge(userId: string) {
-  const before = await prisma.user.findUnique({ where: { id: userId }, select: { verifiedKind: true } });
+  const before = await prisma.user.findUnique({ where: { id: userId }, select: { verifiedKind: true, communityLead: true } });
   await prisma.user.update({
     where: { id: userId },
     data: { verifiedKind: "CREATOR", verifiedAt: new Date() },
@@ -1015,7 +1058,7 @@ export async function getBoardLeaderboard(opts: {
         where: { id: { in: uids } },
         select: {
           id: true, username: true, slug: true, displayName: true, avatarUrl: true,
-          verifiedKind: true, reputation: true, streakDays: true, bestStreak: true,
+          verifiedKind: true, communityLead: true, reputation: true, streakDays: true, bestStreak: true,
         },
       })
     : [];

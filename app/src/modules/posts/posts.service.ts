@@ -23,7 +23,7 @@ const postInclude = {
       username: true,
       displayName: true,
       avatarUrl: true,
-      verifiedKind: true,
+      verifiedKind: true, communityLead: true,
     },
   },
   anime: {
@@ -886,7 +886,7 @@ export async function unlikePost(userId: string, postId: string) {
 // ─── Comment helpers ─────────────────────────────────────────────────────────
 
 const COMMENT_AUTHOR_SELECT = {
-  id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true,
+  id: true, username: true, displayName: true, avatarUrl: true, verifiedKind: true, communityLead: true,
 } as const;
 
 async function attachCommentLikeStatus<T extends { id: string }>(comments: T[], userId?: string) {
@@ -904,7 +904,7 @@ async function attachCommentLikeStatus<T extends { id: string }>(comments: T[], 
 // annotated with whether the viewer already follows each one (for follow CTAs).
 
 const LIKER_SELECT = {
-  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true,
+  id: true, username: true, slug: true, displayName: true, avatarUrl: true, verifiedKind: true, communityLead: true,
 } as const;
 
 export async function getLikers(postId: string, page = 1, limit = 30, viewerId?: string) {

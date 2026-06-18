@@ -75,7 +75,7 @@ export async function listUsers(opts: {
         id: true, username: true, displayName: true, email: true,
         role: true, reputation: true, isBanned: true,
         avatarUrl: true, createdAt: true,
-        verifiedKind: true, verifiedAt: true,
+        verifiedKind: true, communityLead: true, verifiedAt: true,
         _count: { select: { posts: true, followers: true, following: true } },
       },
     }),
