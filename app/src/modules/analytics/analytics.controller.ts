@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import * as analyticsService from "./analytics.service";
 import { recordPageview } from "../../lib/realtimeAnalytics";
+import { getIpProfile } from "../../lib/geoip";
+
+/** Real client IP behind the App Runner ALB / Vercel proxy (XFF first hop). */
+function clientIp(req: Request): string | null {
+  const xff = req.headers["x-forwarded-for"];
+  if (typeof xff === "string" && xff) return xff.split(",")[0].trim();
+  return req.ip ?? null;
+}
 
 export async function platformStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -54,10 +62,20 @@ export function pageview(req: Request, res: Response): void {
     res.status(204).send()  // Silent reject — never block the user
     return
   }
-  recordPageview({
-    path,
-    visitorId,
-    userId: res.locals.user?.id ?? null,
-  })
+  const userId = res.locals.user?.id ?? null
+  // Ack immediately; resolve geo (IP→country/state, cached, no GPS) without
+  // blocking the response. Cold IPs return null and self-populate the cache,
+  // so their first ping records geo-less and subsequent ones carry it.
   res.status(204).send()
+  const ip = clientIp(req)
+  void (async () => {
+    let country: string | null = null, countryName: string | null = null, region: string | null = null
+    if (ip) {
+      try {
+        const geo = await getIpProfile(ip)
+        if (geo) { country = geo.country; countryName = geo.countryName; region = geo.region }
+      } catch { /* geo is best-effort */ }
+    }
+    recordPageview({ path, visitorId, userId, country, countryName, region })
+  })()
 }
