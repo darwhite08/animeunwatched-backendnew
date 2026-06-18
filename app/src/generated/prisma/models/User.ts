@@ -50,6 +50,8 @@ export type UserMinAggregateOutputType = {
   emailOnNewMessage: boolean | null
   lastMessageEmailAt: Date | null
   signupPlatform: string | null
+  country: string | null
+  region: string | null
   username: string | null
   slug: string | null
   displayName: string | null
@@ -95,6 +97,8 @@ export type UserMaxAggregateOutputType = {
   emailOnNewMessage: boolean | null
   lastMessageEmailAt: Date | null
   signupPlatform: string | null
+  country: string | null
+  region: string | null
   username: string | null
   slug: string | null
   displayName: string | null
@@ -140,6 +144,8 @@ export type UserCountAggregateOutputType = {
   emailOnNewMessage: number
   lastMessageEmailAt: number
   signupPlatform: number
+  country: number
+  region: number
   username: number
   slug: number
   displayName: number
@@ -204,6 +210,8 @@ export type UserMinAggregateInputType = {
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
   signupPlatform?: true
+  country?: true
+  region?: true
   username?: true
   slug?: true
   displayName?: true
@@ -249,6 +257,8 @@ export type UserMaxAggregateInputType = {
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
   signupPlatform?: true
+  country?: true
+  region?: true
   username?: true
   slug?: true
   displayName?: true
@@ -294,6 +304,8 @@ export type UserCountAggregateInputType = {
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
   signupPlatform?: true
+  country?: true
+  region?: true
   username?: true
   slug?: true
   displayName?: true
@@ -427,6 +439,8 @@ export type UserGroupByOutputType = {
   emailOnNewMessage: boolean
   lastMessageEmailAt: Date | null
   signupPlatform: string | null
+  country: string | null
+  region: string | null
   username: string
   slug: string | null
   displayName: string
@@ -496,6 +510,8 @@ export type UserWhereInput = {
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  region?: Prisma.StringNullableFilter<"User"> | string | null
   username?: Prisma.StringFilter<"User"> | string
   slug?: Prisma.StringNullableFilter<"User"> | string | null
   displayName?: Prisma.StringFilter<"User"> | string
@@ -622,6 +638,8 @@ export type UserOrderByWithRelationInput = {
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrderInput | Prisma.SortOrder
   signupPlatform?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  region?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrder
   slug?: Prisma.SortOrderInput | Prisma.SortOrder
   displayName?: Prisma.SortOrder
@@ -753,6 +771,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  region?: Prisma.StringNullableFilter<"User"> | string | null
   displayName?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
@@ -877,6 +897,8 @@ export type UserOrderByWithAggregationInput = {
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrderInput | Prisma.SortOrder
   signupPlatform?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  region?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrder
   slug?: Prisma.SortOrderInput | Prisma.SortOrder
   displayName?: Prisma.SortOrder
@@ -931,6 +953,8 @@ export type UserScalarWhereWithAggregatesInput = {
   emailOnNewMessage?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   signupPlatform?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  region?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   slug?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   displayName?: Prisma.StringWithAggregatesFilter<"User"> | string
@@ -977,6 +1001,8 @@ export type UserCreateInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -1102,6 +1128,8 @@ export type UserUncheckedCreateInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -1227,6 +1255,8 @@ export type UserUpdateInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1352,6 +1382,8 @@ export type UserUncheckedUpdateInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1477,6 +1509,8 @@ export type UserCreateManyInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -1523,6 +1557,8 @@ export type UserUpdateManyMutationInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1568,6 +1604,8 @@ export type UserUncheckedUpdateManyInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1637,6 +1675,8 @@ export type UserCountOrderByAggregateInput = {
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   username?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
@@ -1691,6 +1731,8 @@ export type UserMaxOrderByAggregateInput = {
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   username?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
@@ -1736,6 +1778,8 @@ export type UserMinOrderByAggregateInput = {
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   username?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
@@ -2993,6 +3037,8 @@ export type UserCreateWithoutReferralsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -3117,6 +3163,8 @@ export type UserUncheckedCreateWithoutReferralsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -3246,6 +3294,8 @@ export type UserCreateWithoutReferredByInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -3370,6 +3420,8 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -3515,6 +3567,8 @@ export type UserUpdateWithoutReferralsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3639,6 +3693,8 @@ export type UserUncheckedUpdateWithoutReferralsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3782,6 +3838,8 @@ export type UserScalarWhereInput = {
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  region?: Prisma.StringNullableFilter<"User"> | string | null
   username?: Prisma.StringFilter<"User"> | string
   slug?: Prisma.StringNullableFilter<"User"> | string | null
   displayName?: Prisma.StringFilter<"User"> | string
@@ -3828,6 +3886,8 @@ export type UserCreateWithoutCreatorProfileInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -3952,6 +4012,8 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -4092,6 +4154,8 @@ export type UserUpdateWithoutCreatorProfileInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4216,6 +4280,8 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4340,6 +4406,8 @@ export type UserCreateWithoutCreatorTiersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -4464,6 +4532,8 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -4604,6 +4674,8 @@ export type UserUpdateWithoutCreatorTiersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4728,6 +4800,8 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4852,6 +4926,8 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -4976,6 +5052,8 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -5105,6 +5183,8 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -5229,6 +5309,8 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -5369,6 +5451,8 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5493,6 +5577,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5628,6 +5714,8 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5752,6 +5840,8 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5876,6 +5966,8 @@ export type UserCreateWithoutTipsSentInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -6000,6 +6092,8 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -6129,6 +6223,8 @@ export type UserCreateWithoutTipsReceivedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -6253,6 +6349,8 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -6393,6 +6491,8 @@ export type UserUpdateWithoutTipsSentInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6517,6 +6617,8 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6652,6 +6754,8 @@ export type UserUpdateWithoutTipsReceivedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6776,6 +6880,8 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6900,6 +7006,8 @@ export type UserCreateWithoutCreatorEarningsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -7024,6 +7132,8 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -7164,6 +7274,8 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7288,6 +7400,8 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7412,6 +7526,8 @@ export type UserCreateWithoutPayoutAccountInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -7536,6 +7652,8 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -7676,6 +7794,8 @@ export type UserUpdateWithoutPayoutAccountInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7800,6 +7920,8 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7924,6 +8046,8 @@ export type UserCreateWithoutPayoutsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -8048,6 +8172,8 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -8188,6 +8314,8 @@ export type UserUpdateWithoutPayoutsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8312,6 +8440,8 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8436,6 +8566,8 @@ export type UserCreateWithoutStreakDaysLogInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -8560,6 +8692,8 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -8700,6 +8834,8 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8824,6 +8960,8 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8948,6 +9086,8 @@ export type UserCreateWithoutBadgesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -9072,6 +9212,8 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -9212,6 +9354,8 @@ export type UserUpdateWithoutBadgesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9336,6 +9480,8 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9460,6 +9606,8 @@ export type UserCreateWithoutLbSnapshotsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -9584,6 +9732,8 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -9724,6 +9874,8 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9848,6 +10000,8 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9972,6 +10126,8 @@ export type UserCreateWithoutDeviceTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -10096,6 +10252,8 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -10236,6 +10394,8 @@ export type UserUpdateWithoutDeviceTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10360,6 +10520,8 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10484,6 +10646,8 @@ export type UserCreateWithoutNativePushTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -10608,6 +10772,8 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -10748,6 +10914,8 @@ export type UserUpdateWithoutNativePushTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10872,6 +11040,8 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10996,6 +11166,8 @@ export type UserCreateWithoutWebPushSubscriptionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -11120,6 +11292,8 @@ export type UserUncheckedCreateWithoutWebPushSubscriptionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -11260,6 +11434,8 @@ export type UserUpdateWithoutWebPushSubscriptionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11384,6 +11560,8 @@ export type UserUncheckedUpdateWithoutWebPushSubscriptionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11508,6 +11686,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -11632,6 +11812,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -11772,6 +11954,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11896,6 +12080,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12020,6 +12206,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -12144,6 +12332,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -12284,6 +12474,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12408,6 +12600,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12532,6 +12726,8 @@ export type UserCreateWithoutSecurityEventsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -12656,6 +12852,8 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -12796,6 +12994,8 @@ export type UserUpdateWithoutSecurityEventsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12920,6 +13120,8 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13044,6 +13246,8 @@ export type UserCreateWithoutFollowingInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -13168,6 +13372,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -13297,6 +13503,8 @@ export type UserCreateWithoutFollowersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -13421,6 +13629,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -13561,6 +13771,8 @@ export type UserUpdateWithoutFollowingInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13685,6 +13897,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13820,6 +14034,8 @@ export type UserUpdateWithoutFollowersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13944,6 +14160,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14068,6 +14286,8 @@ export type UserCreateWithoutListEntriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -14192,6 +14412,8 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -14332,6 +14554,8 @@ export type UserUpdateWithoutListEntriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14456,6 +14680,8 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14580,6 +14806,8 @@ export type UserCreateWithoutMangaEntriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -14704,6 +14932,8 @@ export type UserUncheckedCreateWithoutMangaEntriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -14844,6 +15074,8 @@ export type UserUpdateWithoutMangaEntriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14968,6 +15200,8 @@ export type UserUncheckedUpdateWithoutMangaEntriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15092,6 +15326,8 @@ export type UserCreateWithoutPostsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -15216,6 +15452,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -15356,6 +15594,8 @@ export type UserUpdateWithoutPostsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15480,6 +15720,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15604,6 +15846,8 @@ export type UserCreateWithoutPostHidesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -15728,6 +15972,8 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -15868,6 +16114,8 @@ export type UserUpdateWithoutPostHidesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15992,6 +16240,8 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16116,6 +16366,8 @@ export type UserCreateWithoutPostLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -16240,6 +16492,8 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -16380,6 +16634,8 @@ export type UserUpdateWithoutPostLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16504,6 +16760,8 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16628,6 +16886,8 @@ export type UserCreateWithoutPostCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -16752,6 +17012,8 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -16892,6 +17154,8 @@ export type UserUpdateWithoutPostCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17016,6 +17280,8 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17140,6 +17406,8 @@ export type UserCreateWithoutPostCommentLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -17264,6 +17532,8 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -17404,6 +17674,8 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17528,6 +17800,8 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17652,6 +17926,8 @@ export type UserCreateWithoutOwnedClubsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -17776,6 +18052,8 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -17916,6 +18194,8 @@ export type UserUpdateWithoutOwnedClubsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18040,6 +18320,8 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18164,6 +18446,8 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -18288,6 +18572,8 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -18428,6 +18714,8 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18552,6 +18840,8 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18676,6 +18966,8 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -18800,6 +19092,8 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -18940,6 +19234,8 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19064,6 +19360,8 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19188,6 +19486,8 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -19312,6 +19612,8 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -19452,6 +19754,8 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19576,6 +19880,8 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19700,6 +20006,8 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -19824,6 +20132,8 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -19964,6 +20274,8 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20088,6 +20400,8 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20212,6 +20526,8 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -20336,6 +20652,8 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -20476,6 +20794,8 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20600,6 +20920,8 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20724,6 +21046,8 @@ export type UserCreateWithoutClubMembershipsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -20848,6 +21172,8 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -20988,6 +21314,8 @@ export type UserUpdateWithoutClubMembershipsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21112,6 +21440,8 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21236,6 +21566,8 @@ export type UserCreateWithoutThreadReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -21360,6 +21692,8 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -21500,6 +21834,8 @@ export type UserUpdateWithoutThreadReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21624,6 +21960,8 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21748,6 +22086,8 @@ export type UserCreateWithoutThreadsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -21872,6 +22212,8 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -22012,6 +22354,8 @@ export type UserUpdateWithoutThreadsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22136,6 +22480,8 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22260,6 +22606,8 @@ export type UserCreateWithoutSavedThreadsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -22384,6 +22732,8 @@ export type UserUncheckedCreateWithoutSavedThreadsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -22524,6 +22874,8 @@ export type UserUpdateWithoutSavedThreadsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22648,6 +23000,8 @@ export type UserUncheckedUpdateWithoutSavedThreadsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22772,6 +23126,8 @@ export type UserCreateWithoutThreadRepliesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -22896,6 +23252,8 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -23036,6 +23394,8 @@ export type UserUpdateWithoutThreadRepliesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23160,6 +23520,8 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23284,6 +23646,8 @@ export type UserCreateWithoutReviewsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -23408,6 +23772,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -23548,6 +23914,8 @@ export type UserUpdateWithoutReviewsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23672,6 +24040,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23796,6 +24166,8 @@ export type UserCreateWithoutReviewLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -23920,6 +24292,8 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -24060,6 +24434,8 @@ export type UserUpdateWithoutReviewLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24184,6 +24560,8 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24308,6 +24686,8 @@ export type UserCreateWithoutBlogsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -24432,6 +24812,8 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -24572,6 +24954,8 @@ export type UserUpdateWithoutBlogsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24696,6 +25080,8 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24820,6 +25206,8 @@ export type UserCreateWithoutBlogLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -24944,6 +25332,8 @@ export type UserUncheckedCreateWithoutBlogLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -25084,6 +25474,8 @@ export type UserUpdateWithoutBlogLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25208,6 +25600,8 @@ export type UserUncheckedUpdateWithoutBlogLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25332,6 +25726,8 @@ export type UserCreateWithoutBlogCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -25456,6 +25852,8 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -25596,6 +25994,8 @@ export type UserUpdateWithoutBlogCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25720,6 +26120,8 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25844,6 +26246,8 @@ export type UserCreateWithoutNotificationsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -25968,6 +26372,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -26108,6 +26514,8 @@ export type UserUpdateWithoutNotificationsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26232,6 +26640,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26356,6 +26766,8 @@ export type UserCreateWithoutReportsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -26480,6 +26892,8 @@ export type UserUncheckedCreateWithoutReportsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -26620,6 +27034,8 @@ export type UserUpdateWithoutReportsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26744,6 +27160,8 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26868,6 +27286,8 @@ export type UserCreateWithoutModerationActionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -26992,6 +27412,8 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -27132,6 +27554,8 @@ export type UserUpdateWithoutModerationActionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27256,6 +27680,8 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27380,6 +27806,8 @@ export type UserCreateWithoutPollsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -27504,6 +27932,8 @@ export type UserUncheckedCreateWithoutPollsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -27644,6 +28074,8 @@ export type UserUpdateWithoutPollsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27768,6 +28200,8 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27892,6 +28326,8 @@ export type UserCreateWithoutPollVotesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -28016,6 +28452,8 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -28156,6 +28594,8 @@ export type UserUpdateWithoutPollVotesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28280,6 +28720,8 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28404,6 +28846,8 @@ export type UserCreateWithoutOauthProvidersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -28528,6 +28972,8 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -28668,6 +29114,8 @@ export type UserUpdateWithoutOauthProvidersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28792,6 +29240,8 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -28916,6 +29366,8 @@ export type UserCreateWithoutPublicKeyInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29040,6 +29492,8 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29180,6 +29634,8 @@ export type UserUpdateWithoutPublicKeyInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29304,6 +29760,8 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -29428,6 +29886,8 @@ export type UserCreateWithoutConversations1Input = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29552,6 +30012,8 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29681,6 +30143,8 @@ export type UserCreateWithoutConversations2Input = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29805,6 +30269,8 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -29945,6 +30411,8 @@ export type UserUpdateWithoutConversations1Input = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30069,6 +30537,8 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30204,6 +30674,8 @@ export type UserUpdateWithoutConversations2Input = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30328,6 +30800,8 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30452,6 +30926,8 @@ export type UserCreateWithoutSentMessagesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -30576,6 +31052,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -30716,6 +31194,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30840,6 +31320,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -30964,6 +31446,8 @@ export type UserCreateWithoutMessageReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -31088,6 +31572,8 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -31228,6 +31714,8 @@ export type UserUpdateWithoutMessageReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31352,6 +31840,8 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31476,6 +31966,8 @@ export type UserCreateWithoutGroupsOwnedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -31600,6 +32092,8 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -31740,6 +32234,8 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31864,6 +32360,8 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -31988,6 +32486,8 @@ export type UserCreateWithoutGroupMembershipsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -32112,6 +32612,8 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -32252,6 +32754,8 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32376,6 +32880,8 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32500,6 +33006,8 @@ export type UserCreateWithoutGroupMessagesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -32624,6 +33132,8 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -32764,6 +33274,8 @@ export type UserUpdateWithoutGroupMessagesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -32888,6 +33400,8 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33012,6 +33526,8 @@ export type UserCreateWithoutGroupReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -33136,6 +33652,8 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -33276,6 +33794,8 @@ export type UserUpdateWithoutGroupReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33400,6 +33920,8 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33524,6 +34046,8 @@ export type UserCreateWithoutDeviceKeysInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -33648,6 +34172,8 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -33788,6 +34314,8 @@ export type UserUpdateWithoutDeviceKeysInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -33912,6 +34440,8 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -34036,6 +34566,8 @@ export type UserCreateWithoutBlocksMadeInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -34160,6 +34692,8 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -34289,6 +34823,8 @@ export type UserCreateWithoutBlocksReceivedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -34413,6 +34949,8 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -34553,6 +35091,8 @@ export type UserUpdateWithoutBlocksMadeInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -34677,6 +35217,8 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -34812,6 +35354,8 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -34936,6 +35480,8 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -35060,6 +35606,8 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -35184,6 +35732,8 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -35324,6 +35874,8 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -35448,6 +36000,8 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -35572,6 +36126,8 @@ export type UserCreateWithoutE2eDevicesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -35696,6 +36252,8 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -35836,6 +36394,8 @@ export type UserUpdateWithoutE2eDevicesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -35960,6 +36520,8 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -36084,6 +36646,8 @@ export type UserCreateWithoutActivitiesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -36208,6 +36772,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -36348,6 +36914,8 @@ export type UserUpdateWithoutActivitiesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -36472,6 +37040,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -36596,6 +37166,8 @@ export type UserCreateWithoutActivityLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -36720,6 +37292,8 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -36860,6 +37434,8 @@ export type UserUpdateWithoutActivityLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -36984,6 +37560,8 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -37108,6 +37686,8 @@ export type UserCreateWithoutActivityRepostsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -37232,6 +37812,8 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -37372,6 +37954,8 @@ export type UserUpdateWithoutActivityRepostsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -37496,6 +38080,8 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -37620,6 +38206,8 @@ export type UserCreateWithoutRepliesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -37744,6 +38332,8 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -37884,6 +38474,8 @@ export type UserUpdateWithoutRepliesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -38008,6 +38600,8 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -38132,6 +38726,8 @@ export type UserCreateWithoutEmailVerificationInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -38256,6 +38852,8 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -38396,6 +38994,8 @@ export type UserUpdateWithoutEmailVerificationInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -38520,6 +39120,8 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -38644,6 +39246,8 @@ export type UserCreateWithoutScimSubjectInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -38768,6 +39372,8 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -38908,6 +39514,8 @@ export type UserUpdateWithoutScimSubjectInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -39032,6 +39640,8 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -39156,6 +39766,8 @@ export type UserCreateWithoutShotsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -39280,6 +39892,8 @@ export type UserUncheckedCreateWithoutShotsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -39420,6 +40034,8 @@ export type UserUpdateWithoutShotsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -39544,6 +40160,8 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -39668,6 +40286,8 @@ export type UserCreateWithoutShotLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -39792,6 +40412,8 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -39932,6 +40554,8 @@ export type UserUpdateWithoutShotLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -40056,6 +40680,8 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -40180,6 +40806,8 @@ export type UserCreateWithoutShotSavesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -40304,6 +40932,8 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -40444,6 +41074,8 @@ export type UserUpdateWithoutShotSavesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -40568,6 +41200,8 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -40692,6 +41326,8 @@ export type UserCreateWithoutShotCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -40816,6 +41452,8 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -40956,6 +41594,8 @@ export type UserUpdateWithoutShotCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -41080,6 +41720,8 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -41204,6 +41846,8 @@ export type UserCreateWithoutShotCommentLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -41328,6 +41972,8 @@ export type UserUncheckedCreateWithoutShotCommentLikesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -41468,6 +42114,8 @@ export type UserUpdateWithoutShotCommentLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -41592,6 +42240,8 @@ export type UserUncheckedUpdateWithoutShotCommentLikesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -41716,6 +42366,8 @@ export type UserCreateWithoutSocialConnectionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -41840,6 +42492,8 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -41980,6 +42634,8 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -42104,6 +42760,8 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -42228,6 +42886,8 @@ export type UserCreateWithoutImportedMediaInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -42352,6 +43012,8 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -42492,6 +43154,8 @@ export type UserUpdateWithoutImportedMediaInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -42616,6 +43280,8 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -42740,6 +43406,8 @@ export type UserCreateWithoutStoriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -42864,6 +43532,8 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -43004,6 +43674,8 @@ export type UserUpdateWithoutStoriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -43128,6 +43800,8 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -43252,6 +43926,8 @@ export type UserCreateWithoutStoryViewsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -43376,6 +44052,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -43516,6 +44194,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -43640,6 +44320,8 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -43764,6 +44446,8 @@ export type UserCreateManyReferredByInput = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
   signupPlatform?: string | null
+  country?: string | null
+  region?: string | null
   username: string
   slug?: string | null
   displayName: string
@@ -43809,6 +44493,8 @@ export type UserUpdateWithoutReferredByInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -43933,6 +44619,8 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -44057,6 +44745,8 @@ export type UserUncheckedUpdateManyWithoutReferredByInput = {
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -44790,6 +45480,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
   signupPlatform?: boolean
+  country?: boolean
+  region?: boolean
   username?: boolean
   slug?: boolean
   displayName?: boolean
@@ -44917,6 +45609,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
   signupPlatform?: boolean
+  country?: boolean
+  region?: boolean
   username?: boolean
   slug?: boolean
   displayName?: boolean
@@ -44964,6 +45658,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
   signupPlatform?: boolean
+  country?: boolean
+  region?: boolean
   username?: boolean
   slug?: boolean
   displayName?: boolean
@@ -45011,6 +45707,8 @@ export type UserSelectScalar = {
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
   signupPlatform?: boolean
+  country?: boolean
+  region?: boolean
   username?: boolean
   slug?: boolean
   displayName?: boolean
@@ -45049,7 +45747,7 @@ export type UserSelectScalar = {
   referredById?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerifiedAt" | "lastReengagedAt" | "emailOnNewMessage" | "lastMessageEmailAt" | "signupPlatform" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "coverImage" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "communityLead" | "communityLeadAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt" | "referredById", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerifiedAt" | "lastReengagedAt" | "emailOnNewMessage" | "lastMessageEmailAt" | "signupPlatform" | "country" | "region" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "coverImage" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "communityLead" | "communityLeadAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt" | "referredById", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerification?: boolean | Prisma.User$emailVerificationArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
@@ -45237,6 +45935,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailOnNewMessage: boolean
     lastMessageEmailAt: Date | null
     signupPlatform: string | null
+    country: string | null
+    region: string | null
     username: string
     /**
      * URL-safe slug for human-readable routing. Derived from displayName at registration.
@@ -45798,6 +46498,8 @@ export interface UserFieldRefs {
   readonly emailOnNewMessage: Prisma.FieldRef<"User", 'Boolean'>
   readonly lastMessageEmailAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly signupPlatform: Prisma.FieldRef<"User", 'String'>
+  readonly country: Prisma.FieldRef<"User", 'String'>
+  readonly region: Prisma.FieldRef<"User", 'String'>
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly slug: Prisma.FieldRef<"User", 'String'>
   readonly displayName: Prisma.FieldRef<"User", 'String'>

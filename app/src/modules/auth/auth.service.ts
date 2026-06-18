@@ -13,6 +13,7 @@ import { enforceSignupGate, getInviteOnly } from "../../lib/inviteGate";
 import { createNotification, NotificationType } from "../../lib/notify";
 import { sendEmail, welcomeEmail, verificationEmail, isEmailConfigured } from "../../lib/email";
 import { recordSecurityEvent } from "../../lib/audit";
+import { captureUserGeo } from "../../lib/geoip";
 import { broadcastAdminUserSignup } from "../../realtime/broadcast";
 import type { RegisterDto, LoginDto, GoogleLoginDto, AppleLoginDto, ChangePasswordDto } from "./auth.schema";
 
@@ -150,6 +151,9 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
 
   // Realtime signal to the admin dashboard (no-op if Socket.io isn't up yet).
   broadcastAdminUserSignup(user);
+
+  // Capture country/state from signup IP (no GPS). Fire-and-forget.
+  void captureUserGeo(user.id, meta.ip);
 
   if (requireVerification) {
     // Fire the verification code; don't send the welcome email until verified.
@@ -393,6 +397,9 @@ export async function login(dto: LoginDto, meta: AuthMeta = {}) {
 
   // Successful login → clear failure counter
   await clearLoginAttempts(dto.email);
+
+  // Backfill country/state from the login IP if we don't have it yet (no GPS).
+  void captureUserGeo(userWithHash.id, meta.ip);
 
   // Strip the passwordHash before returning to callers
   const { passwordHash: _hash, ...user } = userWithHash;

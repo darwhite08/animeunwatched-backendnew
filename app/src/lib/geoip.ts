@@ -188,3 +188,25 @@ export function haversineKm(a: { lat: number; lon: number }, b: { lat: number; l
   const h = Math.sin(dLat/2)**2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2)**2
   return 2 * R * Math.asin(Math.sqrt(h))
 }
+
+/**
+ * Persist a user's country/region from an IP (no GPS). Best-effort, fire-and-
+ * forget: resolves via getIpProfile (cached) and writes User.country/region.
+ * By default only fills when empty (so we don't churn on every login); pass
+ * overwrite to refresh. Used at signup/login and by the backfill script.
+ */
+export async function captureUserGeo(userId: string, ip: string | null | undefined, overwrite = false): Promise<void> {
+  if (!ip || isPrivateOrInvalid(ip)) return
+  try {
+    if (!overwrite) {
+      const u = await prisma.user.findUnique({ where: { id: userId }, select: { country: true } })
+      if (u?.country) return // already known
+    }
+    const geo = await getIpProfile(ip)
+    if (!geo?.country) return
+    await prisma.user.update({
+      where: { id: userId },
+      data: { country: geo.country, region: geo.region ?? null },
+    })
+  } catch { /* geo is best-effort — never break auth */ }
+}

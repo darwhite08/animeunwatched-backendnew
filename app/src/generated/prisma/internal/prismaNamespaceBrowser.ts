@@ -256,6 +256,8 @@ export const UserScalarFieldEnum = {
   emailOnNewMessage: 'emailOnNewMessage',
   lastMessageEmailAt: 'lastMessageEmailAt',
   signupPlatform: 'signupPlatform',
+  country: 'country',
+  region: 'region',
   username: 'username',
   slug: 'slug',
   displayName: 'displayName',

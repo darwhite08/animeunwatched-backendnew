@@ -81,6 +81,11 @@ model User {
   // web-vs-mobile split (activation funnel / retention / activation cohort).
   // Null for accounts created before this was added.
   signupPlatform     String?
+  // Geo from IP (no GPS) — captured at signup/login, backfilled from session IPs.
+  // ISO-3166 alpha-2 country code + state/region name. Powers the admin "where
+  // are our users from" view.
+  country            String?
+  region             String?
   emailVerification EmailVerification?
   username          String             @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.

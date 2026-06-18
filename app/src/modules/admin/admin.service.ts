@@ -76,6 +76,7 @@ export async function listUsers(opts: {
         role: true, reputation: true, isBanned: true,
         avatarUrl: true, createdAt: true,
         verifiedKind: true, communityLead: true, verifiedAt: true,
+        country: true, region: true,
         _count: { select: { posts: true, followers: true, following: true } },
       },
     }),
@@ -94,6 +95,7 @@ export async function getUserDetail(userId: string) {
       id: true, username: true, displayName: true, email: true,
       role: true, reputation: true, isBanned: true, bannedReason: true,
       avatarUrl: true, createdAt: true, updatedAt: true,
+      country: true, region: true,
       _count: { select: { posts: true, postComments: true, followers: true, following: true, blogs: true, reviews: true } },
     },
   })
