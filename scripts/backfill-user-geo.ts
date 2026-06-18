@@ -7,7 +7,7 @@
  *   npx tsx scripts/backfill-user-geo.ts --write   # apply
  */
 import { prisma } from "../app/src/config/prisma"
-import { getIpProfile } from "../app/src/lib/geoip"
+import { getIpProfile, refreshIpProfile } from "../app/src/lib/geoip"
 
 async function latestIp(userId: string): Promise<string | null> {
   const rt = await prisma.refreshToken.findFirst({
@@ -32,7 +32,8 @@ async function main() {
   for (const u of users) {
     const ip = await latestIp(u.id)
     if (!ip) { noIp++; continue }
-    const geo = await getIpProfile(ip)
+    // Synchronous fetch (cached-or-fetch) so cold IPs resolve in one pass.
+    const geo = (await getIpProfile(ip))?.country ? await getIpProfile(ip) : await refreshIpProfile(ip)
     if (!geo?.country) { noGeo++; continue }
     console.log(`  @${u.username} → ${geo.country}${geo.region ? " / " + geo.region : ""}  (${ip})`)
     if (write) {

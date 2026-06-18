@@ -7,6 +7,7 @@ import { pushToUser } from "../../lib/push";
 import { isOnline, isViewing } from "../../realtime/presence";
 import { canSeeActivity } from "../../realtime/activityGuard";
 import { computeServerFrank } from "../../lib/franking";
+import { createNotification, NotificationType } from "../../lib/notify";
 
 // ─── DM v2 helpers ──────────────────────────────────────────────────────────
 
@@ -149,7 +150,12 @@ export async function getOrCreateConversation(callerId: string, recipientId: str
     // here; `followers` only differs in discovery surfaces elsewhere.
     if (recipient.dmPrivacy === "nobody") throw dmRejection();
     const recipientFollowsCaller = await follows(recipientId, callerId);
-    const status = recipientFollowsCaller ? "ACTIVE" : "PENDING";
+    // Staff (admin/mod) outreach — e.g. the Kaiveron account — lands directly in
+    // the recipient's inbox (ACTIVE), never a message request, so official notes
+    // are seen. (Still respects an explicit "nobody" privacy setting above.)
+    const caller = await prisma.user.findUnique({ where: { id: callerId }, select: { role: true } });
+    const isStaff = caller?.role === "ADMIN" || caller?.role === "MOD";
+    const status = (recipientFollowsCaller || isStaff) ? "ACTIVE" : "PENDING";
     conversation = await prisma.conversation.create({
       data: {
         participant1: p1,
@@ -626,6 +632,29 @@ export async function sendMessage(opts: SendMessageDto) {
       firstPendingMessage,
     }).catch(() => {});
   }
+
+  // Official/staff DMs (e.g. the Kaiveron account) also drop an in-app
+  // notification in the recipient's bell — normal DMs rely on the chat unread
+  // badge instead, so the notifications feed isn't flooded. Best-effort.
+  void (async () => {
+    try {
+      const sender = await prisma.user.findUnique({
+        where: { id: opts.senderId },
+        select: { role: true, displayName: true, username: true },
+      });
+      if (sender?.role === "ADMIN" || sender?.role === "MOD") {
+        await createNotification({
+          recipientId,
+          type: NotificationType.SYSTEM,
+          payload: {
+            kind: "dm_from_staff",
+            message: `${sender.displayName || sender.username} sent you a message`,
+            link: `/chat/${conversation.id}`,
+          },
+        });
+      }
+    } catch { /* notification is best-effort — never break the send */ }
+  })();
 
   return message;
 }
