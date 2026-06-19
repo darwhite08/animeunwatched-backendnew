@@ -55,6 +55,8 @@ export const googleLoginSchema = z.object({
   // server-side; ignored for existing users logging in).
   inviteCode: z.string().trim().max(40).optional(),
   referredBy: z.string().max(30).optional().transform((s) => s?.toLowerCase()),
+  // false = sign-IN only (login page) → reject unknown users instead of creating.
+  allowCreate: z.boolean().optional(),
 });
 
 export const appleLoginSchema = z.object({

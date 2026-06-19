@@ -533,6 +533,9 @@ async function findOrCreateOAuthUser(opts: {
   avatarUrl?:  string;
   inviteCode?: string;
   referredBy?: string | null;
+  // When false (a sign-IN, not sign-up), never auto-create an account — reject
+  // unknown users so "Sign in with Google" can't silently register someone.
+  allowCreate?: boolean;
 }) {
   // 1. Check if this provider account is already linked
   const existingProvider = await prisma.userOAuthProvider.findUnique({
@@ -557,6 +560,15 @@ async function findOrCreateOAuthUser(opts: {
   }
 
   if (!user) {
+    // Sign-IN intent: do NOT create an account for an unknown user. They must
+    // sign up (and pass the invite gate) first. Prevents "Sign in with Google"
+    // from silently registering people who never joined.
+    if (opts.allowCreate === false) {
+      throw unauth(
+        "No Kaiveron account is linked to this Google account. Sign up or join the waitlist first.",
+        "NO_ACCOUNT",
+      );
+    }
     // Invite-only gate for NEW OAuth signups — accepts an invite code OR a valid
     // member referral (same rule as email signup). Existing users always log in
     // (this branch only runs when no account exists yet). Throws if not allowed.
@@ -608,6 +620,7 @@ export async function googleLogin(dto: GoogleLoginDto, meta: AuthMeta = {}) {
     avatarUrl:   payload.picture,
     inviteCode:  dto.inviteCode,   // gate new Google signups under invite-only
     referredBy:  dto.referredBy,   // …or a valid member referral
+    allowCreate: dto.allowCreate !== false, // login pages send false → sign-in only
   });
 
   return issueTokens(user, meta);
@@ -643,7 +656,7 @@ export async function appleLogin(dto: AppleLoginDto, meta: AuthMeta = {}) {
 
 // ─── Redirect-based Google OAuth: exchange authorization code for tokens ─────
 
-export async function googleCallbackCode(code: string, redirectUri: string, meta: AuthMeta = {}, gate: { inviteCode?: string; referredBy?: string | null } = {}) {
+export async function googleCallbackCode(code: string, redirectUri: string, meta: AuthMeta = {}, gate: { inviteCode?: string; referredBy?: string | null; allowCreate?: boolean } = {}) {
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
     throw unauth("Google OAuth is not configured");
   }
@@ -691,6 +704,7 @@ export async function googleCallbackCode(code: string, redirectUri: string, meta
     avatarUrl:   payload.picture,
     inviteCode:  gate.inviteCode,
     referredBy:  gate.referredBy,
+    allowCreate: gate.allowCreate !== false, // redirect login flow sets false
   });
 
   return issueTokens(user, meta);

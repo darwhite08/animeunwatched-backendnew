@@ -308,6 +308,8 @@ export function googleRedirect(req: Request, res: Response): void {
   const ref = typeof req.query.ref === "string" ? req.query.ref.slice(0, 30) : "";
   if (inv) res.cookie("aw_oauth_invite", inv, cookieOpts);
   if (ref) res.cookie("aw_oauth_ref", ref, cookieOpts);
+  // mode=login → this is a sign-IN; the callback must NOT create a new account.
+  if (req.query.mode === "login") res.cookie("aw_oauth_mode", "login", cookieOpts);
 
   const params = new URLSearchParams({
     client_id:     env.GOOGLE_CLIENT_ID,
@@ -361,9 +363,11 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
     // Invite/referral stashed by googleRedirect — lets Google pass invite-only.
     const inviteCode = req.cookies?.aw_oauth_invite as string | undefined;
     const referredBy = req.cookies?.aw_oauth_ref as string | undefined;
+    const mode       = req.cookies?.aw_oauth_mode as string | undefined;
     if (inviteCode) res.clearCookie("aw_oauth_invite");
     if (referredBy) res.clearCookie("aw_oauth_ref");
-    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req), { inviteCode, referredBy });
+    if (mode) res.clearCookie("aw_oauth_mode");
+    const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req), { inviteCode, referredBy, allowCreate: mode !== "login" });
     recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "google", flow: "redirect" } });
 
     // Set refresh cookie (httpOnly)
@@ -386,6 +390,12 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
     );
   } catch (err) {
     console.error("[Google callback]", err);
+    // Unknown user tried to sign IN → send them to the login page with a clear,
+    // dedicated error so the UI can nudge them to sign up / join the waitlist.
+    if ((err as { code?: string })?.code === "NO_ACCOUNT") {
+      res.redirect(errorDest("no_account"));
+      return;
+    }
     const reason = err instanceof Error ? err.message.slice(0, 100) : "unknown";
     const dest = errorDest("google_failed");
     res.redirect(`${dest}${dest.includes("?") ? "&" : "?"}reason=${encodeURIComponent(reason)}`);
