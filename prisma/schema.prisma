@@ -3892,3 +3892,16 @@ model StoryView {
 
   @@id([userId, storyId])
 }
+
+/// Email capture for visitors who land while the platform is invite-only and
+/// don't have an invite. One row per email (idempotent join).
+model Waitlist {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  source     String? // where they joined from, e.g. "register"
+  referredBy String? // handle that referred them, if any
+  invited    Boolean  @default(false) // flipped when we send them an invite
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}

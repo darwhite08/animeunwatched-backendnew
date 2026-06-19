@@ -947,3 +947,9 @@ export type Story = Prisma.StoryModel
  * 
  */
 export type StoryView = Prisma.StoryViewModel
+/**
+ * Model Waitlist
+ * Email capture for visitors who land while the platform is invite-only and
+ * don't have an invite. One row per email (idempotent join).
+ */
+export type Waitlist = Prisma.WaitlistModel

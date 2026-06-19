@@ -40,6 +40,7 @@ import { socialRouter } from "./modules/social/social.routes";
 import { linksRouter } from "./modules/links/links.routes";
 import { storefrontRouter } from "./modules/creator/storefront.routes";
 import { unsubscribeRouter } from "./modules/unsubscribe/unsubscribe.routes";
+import { waitlistRouter } from "./modules/waitlist/waitlist.routes";
 
 /**
  * Source of truth for what's mounted under /api/v1. Single array consumed
@@ -96,6 +97,7 @@ export const ROUTE_MOUNTS = [
   ["/changelog",                       changelogRouter],
   ["/tickets",                         ticketsRouter],
   ["/unsubscribe",                     unsubscribeRouter],
+  ["/waitlist",                        waitlistRouter],
 ] as const;
 
 const router = Router();
