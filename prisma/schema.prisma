@@ -3713,6 +3713,9 @@ model Shot {
   durationMs     Int?
   animeId        String?
   viewCount      Int       @default(0) // denormalized; atomically incremented on a new qualifying daily view (see docs/shots-view-counting.md)
+  // Loudness normalization (−14 LUFS / −1 dBTP) — set when the media pipeline
+  // has processed this clip. Null = not yet normalized (eligible for the queue).
+  normalizedAt   DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   deletedAt      DateTime?

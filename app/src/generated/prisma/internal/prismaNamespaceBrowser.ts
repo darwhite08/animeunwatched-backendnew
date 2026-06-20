@@ -2857,6 +2857,7 @@ export const ShotScalarFieldEnum = {
   durationMs: 'durationMs',
   animeId: 'animeId',
   viewCount: 'viewCount',
+  normalizedAt: 'normalizedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'

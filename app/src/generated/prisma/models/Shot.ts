@@ -47,6 +47,7 @@ export type ShotMinAggregateOutputType = {
   durationMs: number | null
   animeId: string | null
   viewCount: number | null
+  normalizedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -63,6 +64,7 @@ export type ShotMaxAggregateOutputType = {
   durationMs: number | null
   animeId: string | null
   viewCount: number | null
+  normalizedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -79,6 +81,7 @@ export type ShotCountAggregateOutputType = {
   durationMs: number
   animeId: number
   viewCount: number
+  normalizedAt: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -107,6 +110,7 @@ export type ShotMinAggregateInputType = {
   durationMs?: true
   animeId?: true
   viewCount?: true
+  normalizedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -123,6 +127,7 @@ export type ShotMaxAggregateInputType = {
   durationMs?: true
   animeId?: true
   viewCount?: true
+  normalizedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -139,6 +144,7 @@ export type ShotCountAggregateInputType = {
   durationMs?: true
   animeId?: true
   viewCount?: true
+  normalizedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -242,6 +248,7 @@ export type ShotGroupByOutputType = {
   durationMs: number | null
   animeId: string | null
   viewCount: number
+  normalizedAt: Date | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -281,6 +288,7 @@ export type ShotWhereInput = {
   durationMs?: Prisma.IntNullableFilter<"Shot"> | number | null
   animeId?: Prisma.StringNullableFilter<"Shot"> | string | null
   viewCount?: Prisma.IntFilter<"Shot"> | number
+  normalizedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
@@ -304,6 +312,7 @@ export type ShotOrderByWithRelationInput = {
   durationMs?: Prisma.SortOrderInput | Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+  normalizedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -330,6 +339,7 @@ export type ShotWhereUniqueInput = Prisma.AtLeast<{
   durationMs?: Prisma.IntNullableFilter<"Shot"> | number | null
   animeId?: Prisma.StringNullableFilter<"Shot"> | string | null
   viewCount?: Prisma.IntFilter<"Shot"> | number
+  normalizedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
@@ -353,6 +363,7 @@ export type ShotOrderByWithAggregationInput = {
   durationMs?: Prisma.SortOrderInput | Prisma.SortOrder
   animeId?: Prisma.SortOrderInput | Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+  normalizedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -377,6 +388,7 @@ export type ShotScalarWhereWithAggregatesInput = {
   durationMs?: Prisma.IntNullableWithAggregatesFilter<"Shot"> | number | null
   animeId?: Prisma.StringNullableWithAggregatesFilter<"Shot"> | string | null
   viewCount?: Prisma.IntWithAggregatesFilter<"Shot"> | number
+  normalizedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Shot"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shot"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shot"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Shot"> | Date | string | null
@@ -391,6 +403,7 @@ export type ShotCreateInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -414,6 +427,7 @@ export type ShotUncheckedCreateInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -433,6 +447,7 @@ export type ShotUpdateInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -456,6 +471,7 @@ export type ShotUncheckedUpdateInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -477,6 +493,7 @@ export type ShotCreateManyInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -491,6 +508,7 @@ export type ShotUpdateManyMutationInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -507,6 +525,7 @@ export type ShotUncheckedUpdateManyInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -533,6 +552,7 @@ export type ShotCountOrderByAggregateInput = {
   durationMs?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+  normalizedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -554,6 +574,7 @@ export type ShotMaxOrderByAggregateInput = {
   durationMs?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+  normalizedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -570,6 +591,7 @@ export type ShotMinOrderByAggregateInput = {
   durationMs?: Prisma.SortOrder
   animeId?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+  normalizedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -748,6 +770,7 @@ export type ShotCreateWithoutAuthorInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -769,6 +792,7 @@ export type ShotUncheckedCreateWithoutAuthorInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -819,6 +843,7 @@ export type ShotScalarWhereInput = {
   durationMs?: Prisma.IntNullableFilter<"Shot"> | number | null
   animeId?: Prisma.StringNullableFilter<"Shot"> | string | null
   viewCount?: Prisma.IntFilter<"Shot"> | number
+  normalizedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shot"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Shot"> | Date | string | null
@@ -833,6 +858,7 @@ export type ShotCreateWithoutAnimeInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -854,6 +880,7 @@ export type ShotUncheckedCreateWithoutAnimeInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -899,6 +926,7 @@ export type ShotCreateWithoutViewsInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -921,6 +949,7 @@ export type ShotUncheckedCreateWithoutViewsInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -955,6 +984,7 @@ export type ShotUpdateWithoutViewsInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -977,6 +1007,7 @@ export type ShotUncheckedUpdateWithoutViewsInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -995,6 +1026,7 @@ export type ShotCreateWithoutFeedbackInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1017,6 +1049,7 @@ export type ShotUncheckedCreateWithoutFeedbackInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1051,6 +1084,7 @@ export type ShotUpdateWithoutFeedbackInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1073,6 +1107,7 @@ export type ShotUncheckedUpdateWithoutFeedbackInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1091,6 +1126,7 @@ export type ShotCreateWithoutLikesInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1113,6 +1149,7 @@ export type ShotUncheckedCreateWithoutLikesInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1147,6 +1184,7 @@ export type ShotUpdateWithoutLikesInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1169,6 +1207,7 @@ export type ShotUncheckedUpdateWithoutLikesInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1187,6 +1226,7 @@ export type ShotCreateWithoutSavesInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1209,6 +1249,7 @@ export type ShotUncheckedCreateWithoutSavesInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1243,6 +1284,7 @@ export type ShotUpdateWithoutSavesInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1265,6 +1307,7 @@ export type ShotUncheckedUpdateWithoutSavesInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1283,6 +1326,7 @@ export type ShotCreateWithoutCommentsInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1305,6 +1349,7 @@ export type ShotUncheckedCreateWithoutCommentsInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1339,6 +1384,7 @@ export type ShotUpdateWithoutCommentsInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1361,6 +1407,7 @@ export type ShotUncheckedUpdateWithoutCommentsInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1380,6 +1427,7 @@ export type ShotCreateManyAuthorInput = {
   durationMs?: number | null
   animeId?: string | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1394,6 +1442,7 @@ export type ShotUpdateWithoutAuthorInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1415,6 +1464,7 @@ export type ShotUncheckedUpdateWithoutAuthorInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1435,6 +1485,7 @@ export type ShotUncheckedUpdateManyWithoutAuthorInput = {
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   animeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1450,6 +1501,7 @@ export type ShotCreateManyAnimeInput = {
   thumbnailUrl?: string | null
   durationMs?: number | null
   viewCount?: number
+  normalizedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1464,6 +1516,7 @@ export type ShotUpdateWithoutAnimeInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1485,6 +1538,7 @@ export type ShotUncheckedUpdateWithoutAnimeInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1505,6 +1559,7 @@ export type ShotUncheckedUpdateManyWithoutAnimeInput = {
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  normalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1588,6 +1643,7 @@ export type ShotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   durationMs?: boolean
   animeId?: boolean
   viewCount?: boolean
+  normalizedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1612,6 +1668,7 @@ export type ShotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   durationMs?: boolean
   animeId?: boolean
   viewCount?: boolean
+  normalizedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1630,6 +1687,7 @@ export type ShotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   durationMs?: boolean
   animeId?: boolean
   viewCount?: boolean
+  normalizedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1648,12 +1706,13 @@ export type ShotSelectScalar = {
   durationMs?: boolean
   animeId?: boolean
   viewCount?: boolean
+  normalizedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type ShotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "caption" | "videoUrl" | "embedUrl" | "sourceProvider" | "thumbnailUrl" | "durationMs" | "animeId" | "viewCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["shot"]>
+export type ShotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "caption" | "videoUrl" | "embedUrl" | "sourceProvider" | "thumbnailUrl" | "durationMs" | "animeId" | "viewCount" | "normalizedAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["shot"]>
 export type ShotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   anime?: boolean | Prisma.Shot$animeArgs<ExtArgs>
@@ -1695,6 +1754,7 @@ export type $ShotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     durationMs: number | null
     animeId: string | null
     viewCount: number
+    normalizedAt: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2138,6 +2198,7 @@ export interface ShotFieldRefs {
   readonly durationMs: Prisma.FieldRef<"Shot", 'Int'>
   readonly animeId: Prisma.FieldRef<"Shot", 'String'>
   readonly viewCount: Prisma.FieldRef<"Shot", 'Int'>
+  readonly normalizedAt: Prisma.FieldRef<"Shot", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Shot", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shot", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Shot", 'DateTime'>
