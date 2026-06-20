@@ -674,6 +674,7 @@ export async function getLeaderboard(limit = 50, period = "all-time") {
         username: u.username,
         displayName: u.displayName,
         avatarUrl: u.avatarUrl,
+        verifiedKind: u.verifiedKind,
         reputation: u.reputation,
         xp,
         level: Math.max(1, level),
