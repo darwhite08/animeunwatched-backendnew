@@ -92,6 +92,7 @@ const userSelect = {
   role: true,
   reputation: true,
   verifiedKind: true, communityLead: true,
+  audioEnabled: true,
   onboardedAt: true,
   streakDays: true,   // real streak tracking (not rep-estimate)
   bestStreak: true,
@@ -509,6 +510,12 @@ export async function logoutAll(userId: string): Promise<void> {
   await prisma.refreshToken.deleteMany({
     where: { userId },
   });
+}
+
+/** Persist the member's feed-audio on/off choice (synced across devices). */
+export async function setAudioEnabled(userId: string, enabled: boolean): Promise<{ audioEnabled: boolean }> {
+  await prisma.user.update({ where: { id: userId }, data: { audioEnabled: enabled } });
+  return { audioEnabled: enabled };
 }
 
 // ─── OAuth helpers ────────────────────────────────────────────────────────────

@@ -153,6 +153,15 @@ export function me(req: Request, res: Response): void {
   res.status(200).json({ user: res.locals.user });
 }
 
+/** PATCH /auth/audio { enabled } — persist the member's feed-sound choice. */
+export async function setAudio(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const userId: string = res.locals.user?.id;
+    const enabled = Boolean(req.body?.enabled);
+    res.status(200).json(await service.setAudioEnabled(userId, enabled));
+  } catch (err) { next(err); }
+}
+
 // Confirm the signup email-verification code. Requires a valid access token
 // (the user is logged in but unverified). On success returns the updated user.
 export async function verifyEmail(req: Request, res: Response, next: NextFunction): Promise<void> {

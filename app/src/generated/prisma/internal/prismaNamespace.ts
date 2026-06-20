@@ -14105,6 +14105,7 @@ export const UserScalarFieldEnum = {
   lastReengagedAt: 'lastReengagedAt',
   emailOnNewMessage: 'emailOnNewMessage',
   lastMessageEmailAt: 'lastMessageEmailAt',
+  audioEnabled: 'audioEnabled',
   signupPlatform: 'signupPlatform',
   country: 'country',
   region: 'region',

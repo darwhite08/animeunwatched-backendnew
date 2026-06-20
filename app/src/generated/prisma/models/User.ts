@@ -49,6 +49,7 @@ export type UserMinAggregateOutputType = {
   lastReengagedAt: Date | null
   emailOnNewMessage: boolean | null
   lastMessageEmailAt: Date | null
+  audioEnabled: boolean | null
   signupPlatform: string | null
   country: string | null
   region: string | null
@@ -96,6 +97,7 @@ export type UserMaxAggregateOutputType = {
   lastReengagedAt: Date | null
   emailOnNewMessage: boolean | null
   lastMessageEmailAt: Date | null
+  audioEnabled: boolean | null
   signupPlatform: string | null
   country: string | null
   region: string | null
@@ -143,6 +145,7 @@ export type UserCountAggregateOutputType = {
   lastReengagedAt: number
   emailOnNewMessage: number
   lastMessageEmailAt: number
+  audioEnabled: number
   signupPlatform: number
   country: number
   region: number
@@ -209,6 +212,7 @@ export type UserMinAggregateInputType = {
   lastReengagedAt?: true
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
+  audioEnabled?: true
   signupPlatform?: true
   country?: true
   region?: true
@@ -256,6 +260,7 @@ export type UserMaxAggregateInputType = {
   lastReengagedAt?: true
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
+  audioEnabled?: true
   signupPlatform?: true
   country?: true
   region?: true
@@ -303,6 +308,7 @@ export type UserCountAggregateInputType = {
   lastReengagedAt?: true
   emailOnNewMessage?: true
   lastMessageEmailAt?: true
+  audioEnabled?: true
   signupPlatform?: true
   country?: true
   region?: true
@@ -438,6 +444,7 @@ export type UserGroupByOutputType = {
   lastReengagedAt: Date | null
   emailOnNewMessage: boolean
   lastMessageEmailAt: Date | null
+  audioEnabled: boolean
   signupPlatform: string | null
   country: string | null
   region: string | null
@@ -509,6 +516,7 @@ export type UserWhereInput = {
   lastReengagedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  audioEnabled?: Prisma.BoolFilter<"User"> | boolean
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
@@ -637,6 +645,7 @@ export type UserOrderByWithRelationInput = {
   lastReengagedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioEnabled?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -770,6 +779,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   lastReengagedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  audioEnabled?: Prisma.BoolFilter<"User"> | boolean
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
@@ -896,6 +906,7 @@ export type UserOrderByWithAggregationInput = {
   lastReengagedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioEnabled?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -952,6 +963,7 @@ export type UserScalarWhereWithAggregatesInput = {
   lastReengagedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   emailOnNewMessage?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  audioEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   signupPlatform?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   region?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -1000,6 +1012,7 @@ export type UserCreateInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -1127,6 +1140,7 @@ export type UserUncheckedCreateInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -1254,6 +1268,7 @@ export type UserUpdateInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1381,6 +1396,7 @@ export type UserUncheckedUpdateInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1508,6 +1524,7 @@ export type UserCreateManyInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -1556,6 +1573,7 @@ export type UserUpdateManyMutationInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1603,6 +1621,7 @@ export type UserUncheckedUpdateManyInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1674,6 +1693,7 @@ export type UserCountOrderByAggregateInput = {
   lastReengagedAt?: Prisma.SortOrder
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
+  audioEnabled?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
@@ -1730,6 +1750,7 @@ export type UserMaxOrderByAggregateInput = {
   lastReengagedAt?: Prisma.SortOrder
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
+  audioEnabled?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
@@ -1777,6 +1798,7 @@ export type UserMinOrderByAggregateInput = {
   lastReengagedAt?: Prisma.SortOrder
   emailOnNewMessage?: Prisma.SortOrder
   lastMessageEmailAt?: Prisma.SortOrder
+  audioEnabled?: Prisma.SortOrder
   signupPlatform?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
@@ -3036,6 +3058,7 @@ export type UserCreateWithoutReferralsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -3162,6 +3185,7 @@ export type UserUncheckedCreateWithoutReferralsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -3293,6 +3317,7 @@ export type UserCreateWithoutReferredByInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -3419,6 +3444,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -3566,6 +3592,7 @@ export type UserUpdateWithoutReferralsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3692,6 +3719,7 @@ export type UserUncheckedUpdateWithoutReferralsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3837,6 +3865,7 @@ export type UserScalarWhereInput = {
   lastReengagedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   emailOnNewMessage?: Prisma.BoolFilter<"User"> | boolean
   lastMessageEmailAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  audioEnabled?: Prisma.BoolFilter<"User"> | boolean
   signupPlatform?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
@@ -3885,6 +3914,7 @@ export type UserCreateWithoutCreatorProfileInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -4011,6 +4041,7 @@ export type UserUncheckedCreateWithoutCreatorProfileInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -4153,6 +4184,7 @@ export type UserUpdateWithoutCreatorProfileInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4279,6 +4311,7 @@ export type UserUncheckedUpdateWithoutCreatorProfileInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4405,6 +4438,7 @@ export type UserCreateWithoutCreatorTiersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -4531,6 +4565,7 @@ export type UserUncheckedCreateWithoutCreatorTiersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -4673,6 +4708,7 @@ export type UserUpdateWithoutCreatorTiersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4799,6 +4835,7 @@ export type UserUncheckedUpdateWithoutCreatorTiersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4925,6 +4962,7 @@ export type UserCreateWithoutMembershipsAsFanInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -5051,6 +5089,7 @@ export type UserUncheckedCreateWithoutMembershipsAsFanInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -5182,6 +5221,7 @@ export type UserCreateWithoutMembershipsAsCreatorInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -5308,6 +5348,7 @@ export type UserUncheckedCreateWithoutMembershipsAsCreatorInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -5450,6 +5491,7 @@ export type UserUpdateWithoutMembershipsAsFanInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5576,6 +5618,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsFanInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5713,6 +5756,7 @@ export type UserUpdateWithoutMembershipsAsCreatorInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5839,6 +5883,7 @@ export type UserUncheckedUpdateWithoutMembershipsAsCreatorInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5965,6 +6010,7 @@ export type UserCreateWithoutTipsSentInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -6091,6 +6137,7 @@ export type UserUncheckedCreateWithoutTipsSentInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -6222,6 +6269,7 @@ export type UserCreateWithoutTipsReceivedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -6348,6 +6396,7 @@ export type UserUncheckedCreateWithoutTipsReceivedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -6490,6 +6539,7 @@ export type UserUpdateWithoutTipsSentInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6616,6 +6666,7 @@ export type UserUncheckedUpdateWithoutTipsSentInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6753,6 +6804,7 @@ export type UserUpdateWithoutTipsReceivedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6879,6 +6931,7 @@ export type UserUncheckedUpdateWithoutTipsReceivedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7005,6 +7058,7 @@ export type UserCreateWithoutCreatorEarningsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -7131,6 +7185,7 @@ export type UserUncheckedCreateWithoutCreatorEarningsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -7273,6 +7328,7 @@ export type UserUpdateWithoutCreatorEarningsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7399,6 +7455,7 @@ export type UserUncheckedUpdateWithoutCreatorEarningsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7525,6 +7582,7 @@ export type UserCreateWithoutPayoutAccountInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -7651,6 +7709,7 @@ export type UserUncheckedCreateWithoutPayoutAccountInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -7793,6 +7852,7 @@ export type UserUpdateWithoutPayoutAccountInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7919,6 +7979,7 @@ export type UserUncheckedUpdateWithoutPayoutAccountInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8045,6 +8106,7 @@ export type UserCreateWithoutPayoutsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -8171,6 +8233,7 @@ export type UserUncheckedCreateWithoutPayoutsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -8313,6 +8376,7 @@ export type UserUpdateWithoutPayoutsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8439,6 +8503,7 @@ export type UserUncheckedUpdateWithoutPayoutsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8565,6 +8630,7 @@ export type UserCreateWithoutStreakDaysLogInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -8691,6 +8757,7 @@ export type UserUncheckedCreateWithoutStreakDaysLogInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -8833,6 +8900,7 @@ export type UserUpdateWithoutStreakDaysLogInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8959,6 +9027,7 @@ export type UserUncheckedUpdateWithoutStreakDaysLogInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9085,6 +9154,7 @@ export type UserCreateWithoutBadgesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -9211,6 +9281,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -9353,6 +9424,7 @@ export type UserUpdateWithoutBadgesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9479,6 +9551,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9605,6 +9678,7 @@ export type UserCreateWithoutLbSnapshotsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -9731,6 +9805,7 @@ export type UserUncheckedCreateWithoutLbSnapshotsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -9873,6 +9948,7 @@ export type UserUpdateWithoutLbSnapshotsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9999,6 +10075,7 @@ export type UserUncheckedUpdateWithoutLbSnapshotsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10125,6 +10202,7 @@ export type UserCreateWithoutDeviceTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -10251,6 +10329,7 @@ export type UserUncheckedCreateWithoutDeviceTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -10393,6 +10472,7 @@ export type UserUpdateWithoutDeviceTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10519,6 +10599,7 @@ export type UserUncheckedUpdateWithoutDeviceTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10645,6 +10726,7 @@ export type UserCreateWithoutNativePushTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -10771,6 +10853,7 @@ export type UserUncheckedCreateWithoutNativePushTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -10913,6 +10996,7 @@ export type UserUpdateWithoutNativePushTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11039,6 +11123,7 @@ export type UserUncheckedUpdateWithoutNativePushTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11165,6 +11250,7 @@ export type UserCreateWithoutWebPushSubscriptionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -11291,6 +11377,7 @@ export type UserUncheckedCreateWithoutWebPushSubscriptionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -11433,6 +11520,7 @@ export type UserUpdateWithoutWebPushSubscriptionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11559,6 +11647,7 @@ export type UserUncheckedUpdateWithoutWebPushSubscriptionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11685,6 +11774,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -11811,6 +11901,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -11953,6 +12044,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12079,6 +12171,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12205,6 +12298,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -12331,6 +12425,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -12473,6 +12568,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12599,6 +12695,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12725,6 +12822,7 @@ export type UserCreateWithoutSecurityEventsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -12851,6 +12949,7 @@ export type UserUncheckedCreateWithoutSecurityEventsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -12993,6 +13092,7 @@ export type UserUpdateWithoutSecurityEventsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13119,6 +13219,7 @@ export type UserUncheckedUpdateWithoutSecurityEventsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13245,6 +13346,7 @@ export type UserCreateWithoutFollowingInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -13371,6 +13473,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -13502,6 +13605,7 @@ export type UserCreateWithoutFollowersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -13628,6 +13732,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -13770,6 +13875,7 @@ export type UserUpdateWithoutFollowingInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13896,6 +14002,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14033,6 +14140,7 @@ export type UserUpdateWithoutFollowersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14159,6 +14267,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14285,6 +14394,7 @@ export type UserCreateWithoutListEntriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -14411,6 +14521,7 @@ export type UserUncheckedCreateWithoutListEntriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -14553,6 +14664,7 @@ export type UserUpdateWithoutListEntriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14679,6 +14791,7 @@ export type UserUncheckedUpdateWithoutListEntriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14805,6 +14918,7 @@ export type UserCreateWithoutMangaEntriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -14931,6 +15045,7 @@ export type UserUncheckedCreateWithoutMangaEntriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -15073,6 +15188,7 @@ export type UserUpdateWithoutMangaEntriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15199,6 +15315,7 @@ export type UserUncheckedUpdateWithoutMangaEntriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15325,6 +15442,7 @@ export type UserCreateWithoutPostsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -15451,6 +15569,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -15593,6 +15712,7 @@ export type UserUpdateWithoutPostsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15719,6 +15839,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15845,6 +15966,7 @@ export type UserCreateWithoutPostHidesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -15971,6 +16093,7 @@ export type UserUncheckedCreateWithoutPostHidesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -16113,6 +16236,7 @@ export type UserUpdateWithoutPostHidesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16239,6 +16363,7 @@ export type UserUncheckedUpdateWithoutPostHidesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16365,6 +16490,7 @@ export type UserCreateWithoutPostLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -16491,6 +16617,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -16633,6 +16760,7 @@ export type UserUpdateWithoutPostLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16759,6 +16887,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16885,6 +17014,7 @@ export type UserCreateWithoutPostCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -17011,6 +17141,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -17153,6 +17284,7 @@ export type UserUpdateWithoutPostCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17279,6 +17411,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17405,6 +17538,7 @@ export type UserCreateWithoutPostCommentLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -17531,6 +17665,7 @@ export type UserUncheckedCreateWithoutPostCommentLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -17673,6 +17808,7 @@ export type UserUpdateWithoutPostCommentLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17799,6 +17935,7 @@ export type UserUncheckedUpdateWithoutPostCommentLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17925,6 +18062,7 @@ export type UserCreateWithoutOwnedClubsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -18051,6 +18189,7 @@ export type UserUncheckedCreateWithoutOwnedClubsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -18193,6 +18332,7 @@ export type UserUpdateWithoutOwnedClubsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18319,6 +18459,7 @@ export type UserUncheckedUpdateWithoutOwnedClubsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18445,6 +18586,7 @@ export type UserCreateWithoutClubWatchlistAddsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -18571,6 +18713,7 @@ export type UserUncheckedCreateWithoutClubWatchlistAddsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -18713,6 +18856,7 @@ export type UserUpdateWithoutClubWatchlistAddsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18839,6 +18983,7 @@ export type UserUncheckedUpdateWithoutClubWatchlistAddsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18965,6 +19110,7 @@ export type UserCreateWithoutClubInvitesCreatedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -19091,6 +19237,7 @@ export type UserUncheckedCreateWithoutClubInvitesCreatedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -19233,6 +19380,7 @@ export type UserUpdateWithoutClubInvitesCreatedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19359,6 +19507,7 @@ export type UserUncheckedUpdateWithoutClubInvitesCreatedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19485,6 +19634,7 @@ export type UserCreateWithoutClubJoinRequestsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -19611,6 +19761,7 @@ export type UserUncheckedCreateWithoutClubJoinRequestsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -19753,6 +19904,7 @@ export type UserUpdateWithoutClubJoinRequestsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19879,6 +20031,7 @@ export type UserUncheckedUpdateWithoutClubJoinRequestsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20005,6 +20158,7 @@ export type UserCreateWithoutClubEventsCreatedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -20131,6 +20285,7 @@ export type UserUncheckedCreateWithoutClubEventsCreatedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -20273,6 +20428,7 @@ export type UserUpdateWithoutClubEventsCreatedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20399,6 +20555,7 @@ export type UserUncheckedUpdateWithoutClubEventsCreatedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20525,6 +20682,7 @@ export type UserCreateWithoutClubEventRsvpsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -20651,6 +20809,7 @@ export type UserUncheckedCreateWithoutClubEventRsvpsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -20793,6 +20952,7 @@ export type UserUpdateWithoutClubEventRsvpsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20919,6 +21079,7 @@ export type UserUncheckedUpdateWithoutClubEventRsvpsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21045,6 +21206,7 @@ export type UserCreateWithoutClubMembershipsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -21171,6 +21333,7 @@ export type UserUncheckedCreateWithoutClubMembershipsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -21313,6 +21476,7 @@ export type UserUpdateWithoutClubMembershipsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21439,6 +21603,7 @@ export type UserUncheckedUpdateWithoutClubMembershipsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21565,6 +21730,7 @@ export type UserCreateWithoutThreadReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -21691,6 +21857,7 @@ export type UserUncheckedCreateWithoutThreadReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -21833,6 +22000,7 @@ export type UserUpdateWithoutThreadReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21959,6 +22127,7 @@ export type UserUncheckedUpdateWithoutThreadReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22085,6 +22254,7 @@ export type UserCreateWithoutThreadsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -22211,6 +22381,7 @@ export type UserUncheckedCreateWithoutThreadsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -22353,6 +22524,7 @@ export type UserUpdateWithoutThreadsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22479,6 +22651,7 @@ export type UserUncheckedUpdateWithoutThreadsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22605,6 +22778,7 @@ export type UserCreateWithoutSavedThreadsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -22731,6 +22905,7 @@ export type UserUncheckedCreateWithoutSavedThreadsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -22873,6 +23048,7 @@ export type UserUpdateWithoutSavedThreadsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22999,6 +23175,7 @@ export type UserUncheckedUpdateWithoutSavedThreadsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23125,6 +23302,7 @@ export type UserCreateWithoutThreadRepliesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -23251,6 +23429,7 @@ export type UserUncheckedCreateWithoutThreadRepliesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -23393,6 +23572,7 @@ export type UserUpdateWithoutThreadRepliesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23519,6 +23699,7 @@ export type UserUncheckedUpdateWithoutThreadRepliesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23645,6 +23826,7 @@ export type UserCreateWithoutReviewsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -23771,6 +23953,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -23913,6 +24096,7 @@ export type UserUpdateWithoutReviewsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24039,6 +24223,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24165,6 +24350,7 @@ export type UserCreateWithoutReviewLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -24291,6 +24477,7 @@ export type UserUncheckedCreateWithoutReviewLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -24433,6 +24620,7 @@ export type UserUpdateWithoutReviewLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24559,6 +24747,7 @@ export type UserUncheckedUpdateWithoutReviewLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24685,6 +24874,7 @@ export type UserCreateWithoutBlogsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -24811,6 +25001,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -24953,6 +25144,7 @@ export type UserUpdateWithoutBlogsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25079,6 +25271,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25205,6 +25398,7 @@ export type UserCreateWithoutBlogLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -25331,6 +25525,7 @@ export type UserUncheckedCreateWithoutBlogLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -25473,6 +25668,7 @@ export type UserUpdateWithoutBlogLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25599,6 +25795,7 @@ export type UserUncheckedUpdateWithoutBlogLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25725,6 +25922,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -25851,6 +26049,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -25993,6 +26192,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26119,6 +26319,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26245,6 +26446,7 @@ export type UserCreateWithoutNotificationsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -26371,6 +26573,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -26513,6 +26716,7 @@ export type UserUpdateWithoutNotificationsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26639,6 +26843,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26765,6 +26970,7 @@ export type UserCreateWithoutReportsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -26891,6 +27097,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -27033,6 +27240,7 @@ export type UserUpdateWithoutReportsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27159,6 +27367,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27285,6 +27494,7 @@ export type UserCreateWithoutModerationActionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -27411,6 +27621,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -27553,6 +27764,7 @@ export type UserUpdateWithoutModerationActionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27679,6 +27891,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27805,6 +28018,7 @@ export type UserCreateWithoutPollsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -27931,6 +28145,7 @@ export type UserUncheckedCreateWithoutPollsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -28073,6 +28288,7 @@ export type UserUpdateWithoutPollsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28199,6 +28415,7 @@ export type UserUncheckedUpdateWithoutPollsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28325,6 +28542,7 @@ export type UserCreateWithoutPollVotesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -28451,6 +28669,7 @@ export type UserUncheckedCreateWithoutPollVotesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -28593,6 +28812,7 @@ export type UserUpdateWithoutPollVotesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28719,6 +28939,7 @@ export type UserUncheckedUpdateWithoutPollVotesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28845,6 +29066,7 @@ export type UserCreateWithoutOauthProvidersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -28971,6 +29193,7 @@ export type UserUncheckedCreateWithoutOauthProvidersInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -29113,6 +29336,7 @@ export type UserUpdateWithoutOauthProvidersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29239,6 +29463,7 @@ export type UserUncheckedUpdateWithoutOauthProvidersInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29365,6 +29590,7 @@ export type UserCreateWithoutPublicKeyInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -29491,6 +29717,7 @@ export type UserUncheckedCreateWithoutPublicKeyInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -29633,6 +29860,7 @@ export type UserUpdateWithoutPublicKeyInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29759,6 +29987,7 @@ export type UserUncheckedUpdateWithoutPublicKeyInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29885,6 +30114,7 @@ export type UserCreateWithoutConversations1Input = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -30011,6 +30241,7 @@ export type UserUncheckedCreateWithoutConversations1Input = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -30142,6 +30373,7 @@ export type UserCreateWithoutConversations2Input = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -30268,6 +30500,7 @@ export type UserUncheckedCreateWithoutConversations2Input = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -30410,6 +30643,7 @@ export type UserUpdateWithoutConversations1Input = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30536,6 +30770,7 @@ export type UserUncheckedUpdateWithoutConversations1Input = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30673,6 +30908,7 @@ export type UserUpdateWithoutConversations2Input = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30799,6 +31035,7 @@ export type UserUncheckedUpdateWithoutConversations2Input = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30925,6 +31162,7 @@ export type UserCreateWithoutSentMessagesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -31051,6 +31289,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -31193,6 +31432,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31319,6 +31559,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31445,6 +31686,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -31571,6 +31813,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -31713,6 +31956,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31839,6 +32083,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31965,6 +32210,7 @@ export type UserCreateWithoutGroupsOwnedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -32091,6 +32337,7 @@ export type UserUncheckedCreateWithoutGroupsOwnedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -32233,6 +32480,7 @@ export type UserUpdateWithoutGroupsOwnedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32359,6 +32607,7 @@ export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32485,6 +32734,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -32611,6 +32861,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -32753,6 +33004,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32879,6 +33131,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33005,6 +33258,7 @@ export type UserCreateWithoutGroupMessagesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -33131,6 +33385,7 @@ export type UserUncheckedCreateWithoutGroupMessagesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -33273,6 +33528,7 @@ export type UserUpdateWithoutGroupMessagesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33399,6 +33655,7 @@ export type UserUncheckedUpdateWithoutGroupMessagesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33525,6 +33782,7 @@ export type UserCreateWithoutGroupReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -33651,6 +33909,7 @@ export type UserUncheckedCreateWithoutGroupReactionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -33793,6 +34052,7 @@ export type UserUpdateWithoutGroupReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33919,6 +34179,7 @@ export type UserUncheckedUpdateWithoutGroupReactionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34045,6 +34306,7 @@ export type UserCreateWithoutDeviceKeysInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -34171,6 +34433,7 @@ export type UserUncheckedCreateWithoutDeviceKeysInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -34313,6 +34576,7 @@ export type UserUpdateWithoutDeviceKeysInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34439,6 +34703,7 @@ export type UserUncheckedUpdateWithoutDeviceKeysInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34565,6 +34830,7 @@ export type UserCreateWithoutBlocksMadeInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -34691,6 +34957,7 @@ export type UserUncheckedCreateWithoutBlocksMadeInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -34822,6 +35089,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -34948,6 +35216,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -35090,6 +35359,7 @@ export type UserUpdateWithoutBlocksMadeInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35216,6 +35486,7 @@ export type UserUncheckedUpdateWithoutBlocksMadeInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35353,6 +35624,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35479,6 +35751,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35605,6 +35878,7 @@ export type UserCreateWithoutE2eKeyWrapsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -35731,6 +36005,7 @@ export type UserUncheckedCreateWithoutE2eKeyWrapsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -35873,6 +36148,7 @@ export type UserUpdateWithoutE2eKeyWrapsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35999,6 +36275,7 @@ export type UserUncheckedUpdateWithoutE2eKeyWrapsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36125,6 +36402,7 @@ export type UserCreateWithoutE2eDevicesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -36251,6 +36529,7 @@ export type UserUncheckedCreateWithoutE2eDevicesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -36393,6 +36672,7 @@ export type UserUpdateWithoutE2eDevicesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36519,6 +36799,7 @@ export type UserUncheckedUpdateWithoutE2eDevicesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36645,6 +36926,7 @@ export type UserCreateWithoutActivitiesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -36771,6 +37053,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -36913,6 +37196,7 @@ export type UserUpdateWithoutActivitiesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37039,6 +37323,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37165,6 +37450,7 @@ export type UserCreateWithoutActivityLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -37291,6 +37577,7 @@ export type UserUncheckedCreateWithoutActivityLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -37433,6 +37720,7 @@ export type UserUpdateWithoutActivityLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37559,6 +37847,7 @@ export type UserUncheckedUpdateWithoutActivityLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37685,6 +37974,7 @@ export type UserCreateWithoutActivityRepostsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -37811,6 +38101,7 @@ export type UserUncheckedCreateWithoutActivityRepostsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -37953,6 +38244,7 @@ export type UserUpdateWithoutActivityRepostsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38079,6 +38371,7 @@ export type UserUncheckedUpdateWithoutActivityRepostsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38205,6 +38498,7 @@ export type UserCreateWithoutRepliesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -38331,6 +38625,7 @@ export type UserUncheckedCreateWithoutRepliesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -38473,6 +38768,7 @@ export type UserUpdateWithoutRepliesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38599,6 +38895,7 @@ export type UserUncheckedUpdateWithoutRepliesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38725,6 +39022,7 @@ export type UserCreateWithoutEmailVerificationInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -38851,6 +39149,7 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -38993,6 +39292,7 @@ export type UserUpdateWithoutEmailVerificationInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39119,6 +39419,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39245,6 +39546,7 @@ export type UserCreateWithoutScimSubjectInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -39371,6 +39673,7 @@ export type UserUncheckedCreateWithoutScimSubjectInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -39513,6 +39816,7 @@ export type UserUpdateWithoutScimSubjectInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39639,6 +39943,7 @@ export type UserUncheckedUpdateWithoutScimSubjectInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39765,6 +40070,7 @@ export type UserCreateWithoutShotsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -39891,6 +40197,7 @@ export type UserUncheckedCreateWithoutShotsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -40033,6 +40340,7 @@ export type UserUpdateWithoutShotsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40159,6 +40467,7 @@ export type UserUncheckedUpdateWithoutShotsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40285,6 +40594,7 @@ export type UserCreateWithoutShotLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -40411,6 +40721,7 @@ export type UserUncheckedCreateWithoutShotLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -40553,6 +40864,7 @@ export type UserUpdateWithoutShotLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40679,6 +40991,7 @@ export type UserUncheckedUpdateWithoutShotLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40805,6 +41118,7 @@ export type UserCreateWithoutShotSavesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -40931,6 +41245,7 @@ export type UserUncheckedCreateWithoutShotSavesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -41073,6 +41388,7 @@ export type UserUpdateWithoutShotSavesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41199,6 +41515,7 @@ export type UserUncheckedUpdateWithoutShotSavesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41325,6 +41642,7 @@ export type UserCreateWithoutShotCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -41451,6 +41769,7 @@ export type UserUncheckedCreateWithoutShotCommentsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -41593,6 +41912,7 @@ export type UserUpdateWithoutShotCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41719,6 +42039,7 @@ export type UserUncheckedUpdateWithoutShotCommentsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41845,6 +42166,7 @@ export type UserCreateWithoutShotCommentLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -41971,6 +42293,7 @@ export type UserUncheckedCreateWithoutShotCommentLikesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -42113,6 +42436,7 @@ export type UserUpdateWithoutShotCommentLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42239,6 +42563,7 @@ export type UserUncheckedUpdateWithoutShotCommentLikesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42365,6 +42690,7 @@ export type UserCreateWithoutSocialConnectionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -42491,6 +42817,7 @@ export type UserUncheckedCreateWithoutSocialConnectionsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -42633,6 +42960,7 @@ export type UserUpdateWithoutSocialConnectionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42759,6 +43087,7 @@ export type UserUncheckedUpdateWithoutSocialConnectionsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42885,6 +43214,7 @@ export type UserCreateWithoutImportedMediaInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -43011,6 +43341,7 @@ export type UserUncheckedCreateWithoutImportedMediaInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -43153,6 +43484,7 @@ export type UserUpdateWithoutImportedMediaInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43279,6 +43611,7 @@ export type UserUncheckedUpdateWithoutImportedMediaInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43405,6 +43738,7 @@ export type UserCreateWithoutStoriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -43531,6 +43865,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -43673,6 +44008,7 @@ export type UserUpdateWithoutStoriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43799,6 +44135,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43925,6 +44262,7 @@ export type UserCreateWithoutStoryViewsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -44051,6 +44389,7 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -44193,6 +44532,7 @@ export type UserUpdateWithoutStoryViewsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44319,6 +44659,7 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44445,6 +44786,7 @@ export type UserCreateManyReferredByInput = {
   lastReengagedAt?: Date | string | null
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: Date | string | null
+  audioEnabled?: boolean
   signupPlatform?: string | null
   country?: string | null
   region?: string | null
@@ -44492,6 +44834,7 @@ export type UserUpdateWithoutReferredByInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44618,6 +44961,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44744,6 +45088,7 @@ export type UserUncheckedUpdateManyWithoutReferredByInput = {
   lastReengagedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   emailOnNewMessage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastMessageEmailAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  audioEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signupPlatform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45479,6 +45824,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   lastReengagedAt?: boolean
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
+  audioEnabled?: boolean
   signupPlatform?: boolean
   country?: boolean
   region?: boolean
@@ -45608,6 +45954,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   lastReengagedAt?: boolean
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
+  audioEnabled?: boolean
   signupPlatform?: boolean
   country?: boolean
   region?: boolean
@@ -45657,6 +46004,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   lastReengagedAt?: boolean
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
+  audioEnabled?: boolean
   signupPlatform?: boolean
   country?: boolean
   region?: boolean
@@ -45706,6 +46054,7 @@ export type UserSelectScalar = {
   lastReengagedAt?: boolean
   emailOnNewMessage?: boolean
   lastMessageEmailAt?: boolean
+  audioEnabled?: boolean
   signupPlatform?: boolean
   country?: boolean
   region?: boolean
@@ -45747,7 +46096,7 @@ export type UserSelectScalar = {
   referredById?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerifiedAt" | "lastReengagedAt" | "emailOnNewMessage" | "lastMessageEmailAt" | "signupPlatform" | "country" | "region" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "coverImage" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "communityLead" | "communityLeadAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt" | "referredById", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerifiedAt" | "lastReengagedAt" | "emailOnNewMessage" | "lastMessageEmailAt" | "audioEnabled" | "signupPlatform" | "country" | "region" | "username" | "slug" | "displayName" | "bio" | "avatarUrl" | "coverImage" | "favoriteGenres" | "onboardedAt" | "passwordHash" | "role" | "reputation" | "verifiedKind" | "verifiedAt" | "communityLead" | "communityLeadAt" | "isBanned" | "bannedReason" | "isShadowBanned" | "isPrivate" | "dmPrivacy" | "readReceiptsOn" | "showOnlineStatus" | "dmLastSeenAt" | "streakDays" | "lastActiveAt" | "bestStreak" | "lastStreakDate" | "timezone" | "streakFreezes" | "freezeGrantedAt" | "streakRepairAt" | "streakBrokenAt" | "prevStreakDays" | "createdAt" | "updatedAt" | "referredById", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerification?: boolean | Prisma.User$emailVerificationArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
@@ -45934,6 +46283,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     lastReengagedAt: Date | null
     emailOnNewMessage: boolean
     lastMessageEmailAt: Date | null
+    audioEnabled: boolean
     signupPlatform: string | null
     country: string | null
     region: string | null
@@ -46497,6 +46847,7 @@ export interface UserFieldRefs {
   readonly lastReengagedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly emailOnNewMessage: Prisma.FieldRef<"User", 'Boolean'>
   readonly lastMessageEmailAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly audioEnabled: Prisma.FieldRef<"User", 'Boolean'>
   readonly signupPlatform: Prisma.FieldRef<"User", 'String'>
   readonly country: Prisma.FieldRef<"User", 'String'>
   readonly region: Prisma.FieldRef<"User", 'String'>

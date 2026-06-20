@@ -76,6 +76,10 @@ model User {
   // hour, regardless of how many people message you. See jobs/messageEmailDigest.
   emailOnNewMessage  Boolean           @default(true)
   lastMessageEmailAt DateTime?
+  // Feed (Shots) sound on/off, persisted per-member so "unmute once" = sound on
+  // every future session, synced across phone + laptop. Default false = new web
+  // members start muted-with-captions; first unmute flips it true forever.
+  audioEnabled       Boolean           @default(false)
   // Where this account was created — "web" | "mobile" | "unknown". Set once at
   // signup from the request origin. Powers the admin Product Analytics
   // web-vs-mobile split (activation funnel / retention / activation cohort).

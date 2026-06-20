@@ -20,6 +20,7 @@ const userSelect = {
   verifiedKind: true, communityLead: true,
   onboardedAt: true,
   emailOnNewMessage: true, // so settings can render the DM-email toggle's state
+  audioEnabled: true,      // feed sound pref, restored client-side on load
   createdAt: true,
 } as const;
 

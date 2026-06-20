@@ -17,6 +17,7 @@ authRouter.post("/logout",           ctrl.logout);
 authRouter.post("/logout-all",       requireAuth, ctrl.logoutAll);
 authRouter.post("/change-password",  requireAuth, ctrl.changePassword);
 authRouter.get( "/me",               requireAuth, ctrl.me);
+authRouter.patch("/audio",           requireAuth, ctrl.setAudio);
 
 // Email verification (signup OTP). User is authenticated but unverified.
 authRouter.post("/verify-email",        requireAuth, ctrl.verifyEmail);
