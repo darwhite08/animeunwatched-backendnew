@@ -86,6 +86,13 @@ export function initSocket(httpServer: HttpServer) {
   (io as unknown as { getOnlineUsers: () => string[]; getOnlineCount: () => number }).getOnlineCount = () =>
     presenceCounts.size;
 
+  // ── Watch Party in-memory room state ──────────────────────────────────────
+  // Best-effort synced playback. Host drives; server stores latest state and
+  // replays to late joiners. Resets if the server restarts (acceptable for v1).
+  type WpState = { hostId: string; videoId: string | null; playing: boolean; time: number; at: number };
+  const wpRooms = new Map<string, WpState>();
+  const WP_ROOM = /^wp:[a-zA-Z0-9_-]{4,48}$/;
+
   io.on("connection", (socket) => {
     const userId = socket.data.userId as string;
     socket.join(`user:${userId}`);
@@ -146,6 +153,54 @@ export function initSocket(httpServer: HttpServer) {
     const JOINABLE = /^(anime:[0-9]+|post:[a-z0-9]+|thread:[a-z0-9]+|blog:[a-z0-9-]+|feed)$/i;
     socket.on("room:join",  (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.join(room) });
     socket.on("room:leave", (room: string) => { if (typeof room === "string" && JOINABLE.test(room)) socket.leave(room) });
+
+    // ── Watch Party ───────────────────────────────────────────────────────
+    const wpCount = (room: string) => io.sockets.adapter.rooms.get(room)?.size ?? 0;
+    socket.on("wp:join", (room: string) => {
+      if (typeof room !== "string" || !WP_ROOM.test(room)) return;
+      socket.join(room);
+      if (!wpRooms.has(room)) wpRooms.set(room, { hostId: userId, videoId: null, playing: false, time: 0, at: Date.now() });
+      const cur = wpRooms.get(room)!;
+      socket.emit("wp:state", { ...cur, youAreHost: cur.hostId === userId });
+      io.to(room).emit("wp:presence", { count: wpCount(room) });
+    });
+    socket.on("wp:sync", (d: { room: string; videoId?: string | null; playing?: boolean; time?: number }) => {
+      if (typeof d?.room !== "string" || !WP_ROOM.test(d.room)) return;
+      const cur = wpRooms.get(d.room);
+      if (!cur || cur.hostId !== userId) return; // only the host drives playback
+      if (typeof d.videoId === "string") cur.videoId = d.videoId;
+      if (typeof d.playing === "boolean") cur.playing = d.playing;
+      if (typeof d.time === "number") cur.time = d.time;
+      cur.at = Date.now();
+      socket.to(d.room).emit("wp:state", { ...cur });
+    });
+    socket.on("wp:chat", (d: { room: string; text: string; name?: string }) => {
+      if (typeof d?.room !== "string" || !WP_ROOM.test(d.room)) return;
+      const text = String(d?.text ?? "").slice(0, 500).trim();
+      if (!text) return;
+      io.to(d.room).emit("wp:chat", { userId, name: String(d?.name ?? "").slice(0, 40), text, at: Date.now() });
+    });
+    socket.on("wp:leave", (room: string) => {
+      if (typeof room === "string" && WP_ROOM.test(room)) { socket.leave(room); io.to(room).emit("wp:presence", { count: wpCount(room) }); }
+    });
+    // On disconnect: if the host leaves a party, hand the room to another member.
+    socket.on("disconnecting", () => {
+      for (const room of socket.rooms) {
+        if (!WP_ROOM.test(room)) continue;
+        const cur = wpRooms.get(room);
+        const remaining = (io.sockets.adapter.rooms.get(room)?.size ?? 1) - 1;
+        if (remaining <= 0) { wpRooms.delete(room); continue; }
+        io.to(room).emit("wp:presence", { count: remaining });
+        if (cur && cur.hostId === userId) {
+          const others = io.sockets.adapter.rooms.get(room);
+          for (const sid of others ?? []) {
+            if (sid === socket.id) continue;
+            const newHostId = io.sockets.sockets.get(sid)?.data?.userId as string | undefined;
+            if (newHostId) { cur.hostId = newHostId; cur.at = Date.now(); io.to(room).emit("wp:state", { ...cur }); break; }
+          }
+        }
+      }
+    });
 
     socket.on("disconnect", () => {
       setOffline(userId);
