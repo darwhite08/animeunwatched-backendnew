@@ -19,6 +19,7 @@
  * and records trailerCheckedAt so misses are not re-queried.
  */
 import { prisma } from "../../config/prisma";
+import { cache } from "../../lib/cache";
 import { askLLM } from "../ai/ai.service";
 
 const YT_BASE = "https://www.googleapis.com/youtube/v3";
@@ -226,4 +227,41 @@ export async function backfillTrailers(limit = 80, recheckDays = 45): Promise<{ 
     await sleep(120);
   }
   return { scanned: rows.length, resolved, skipped: false };
+}
+
+// In-process guard so concurrent views of the same anime don't fire duplicate
+// YouTube lookups before the first one writes trailerCheckedAt.
+const inFlight = new Set<number>();
+
+/**
+ * Lazy, on-demand trailer resolution for a SINGLE anime — call fire-and-forget
+ * from the detail endpoint. This is how trailers reach EVERY anime users
+ * actually open (not just the popular backfill set), prioritised by real demand
+ * and bounded by the same per-miss recheck window so quota is respected.
+ *
+ * No-op when: YouTube isn't configured, the anime already has a trailer, or it
+ * was checked within `recheckDays`. On a hit it busts the cached detail so the
+ * very next view serves the new trailer.
+ */
+export async function ensureTrailerForView(malId: number, recheckDays = 45): Promise<void> {
+  if (!ytKey() || inFlight.has(malId)) return;
+  const a = await prisma.anime.findUnique({
+    where: { malId },
+    select: { malId: true, title: true, titleEnglish: true, year: true, trailerYoutubeId: true, trailerCheckedAt: true },
+  });
+  if (!a || a.trailerYoutubeId) return; // already has one
+  const recheckBefore = new Date(Date.now() - recheckDays * 24 * 60 * 60_000);
+  if (a.trailerCheckedAt && a.trailerCheckedAt > recheckBefore) return; // checked recently → skip (quota)
+
+  inFlight.add(malId);
+  try {
+    const id = await resolveTrailer(a).catch(() => null);
+    await prisma.anime.update({
+      where: { malId },
+      data: { trailerCheckedAt: new Date(), ...(id ? { trailerYoutubeId: id } : {}) },
+    });
+    if (id) { cache.del(`anime:${malId}`); cache.delPattern("anime:slug:"); }
+  } catch { /* best-effort */ } finally {
+    inFlight.delete(malId);
+  }
 }

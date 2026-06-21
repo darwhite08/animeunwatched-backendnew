@@ -302,6 +302,14 @@ async function serveLocalAnime(
 }
 
 export async function getById(malId: number, userId?: string) {
+  // Lazy trailer integration: any anime someone actually opens gets its official
+  // YouTube trailer resolved on view (fire-and-forget; no-op if it already has
+  // one or was checked recently). This extends trailer coverage beyond the
+  // popularity backfill to every viewed title, within YouTube quota.
+  import("./youtubeTrailer.service")
+    .then((m) => m.ensureTrailerForView(malId))
+    .catch(() => {});
+
   // Only cache for unauthenticated requests (no userId) since listEntry is user-specific
   const cacheKey = `anime:${malId}`;
   if (!userId) {
