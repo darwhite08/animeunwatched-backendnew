@@ -289,30 +289,30 @@ export function googleRedirect(req: Request, res: Response): void {
       : `http://localhost:${env.PORT}`);
   const callbackUrl = `${base}/api/v1/auth/google/callback`;
 
-  // Generate a CSRF state token and store it in a short-lived cookie
-  const state = require("crypto").randomBytes(16).toString("hex");
-  res.cookie("aw_oauth_state", state, {
+  // Short-lived cookies that carry the CSRF state + invite/referral/mode through
+  // the OAuth round-trip. CRITICAL: Google's redirect_uri is api.kaiveron.com,
+  // but these cookies are first set on kaiveron.com (the frontend's Vercel-proxied
+  // <a href="/api/v1/auth/google/redirect">). Without an explicit parent Domain
+  // they're host-only on kaiveron.com, so the api.kaiveron.com callback never sees
+  // them — silently dropping the referral and making EVERY invite-only Google
+  // signup fail. Scope them to the apex domain in prod so both subdomains share.
+  const cookieOpts = {
     httpOnly: true,
     secure: env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "lax" as const,
     maxAge: 10 * 60 * 1000, // 10 minutes
-  });
+    ...(env.NODE_ENV === "production" ? { domain: ".kaiveron.com" } : {}),
+  };
+
+  // Generate a CSRF state token and store it
+  const state = require("crypto").randomBytes(16).toString("hex");
+  res.cookie("aw_oauth_state", state, cookieOpts);
 
   // Native (Capacitor) app flow: opened in the system browser with ?native=1.
-  // Remember it so the callback deep-links the result back into the app
-  // (kaiveron://) instead of redirecting to the web frontend.
-  if (req.query.native === "1") {
-    res.cookie("aw_oauth_native", "1", {
-      httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 10 * 60 * 1000,
-    });
-  }
+  // Remember it so the callback deep-links the result back into the app.
+  if (req.query.native === "1") res.cookie("aw_oauth_native", "1", cookieOpts);
 
-  // Carry invite code / referral through the OAuth round-trip (short-lived
-  // cookies, like the CSRF state above) so Google signup works under invite-only.
-  const cookieOpts = { httpOnly: true, secure: env.NODE_ENV === "production", sameSite: "lax" as const, maxAge: 10 * 60 * 1000 };
+  // Carry invite code / referral so Google signup passes the invite-only gate.
   const inv = typeof req.query.invite === "string" ? req.query.invite.slice(0, 40) : "";
   const ref = typeof req.query.ref === "string" ? req.query.ref.slice(0, 30) : "";
   if (inv) res.cookie("aw_oauth_invite", inv, cookieOpts);
@@ -337,10 +337,15 @@ export function googleRedirect(req: Request, res: Response): void {
 export async function googleCallback(req: Request, res: Response, next: NextFunction): Promise<void> {
   const frontendUrl = env.FRONTEND_URL || "http://localhost:3000";
 
+  // Must match the Domain used when these cookies were SET in googleRedirect,
+  // otherwise clearCookie is a no-op and a stale aw_oauth_mode/ref could leak
+  // into the next attempt within its 10-min TTL.
+  const clearOpts = env.NODE_ENV === "production" ? { domain: ".kaiveron.com" as const } : {};
+
   // Native (Capacitor) app: send the result to the app's custom URL scheme so
   // the in-app browser hands control back to the app. Web stays on the site.
   const isNative = req.cookies?.aw_oauth_native === "1";
-  if (isNative) res.clearCookie("aw_oauth_native");
+  if (isNative) res.clearCookie("aw_oauth_native", clearOpts);
   // Where errors go: a deep link for native, the web login page otherwise.
   const errorDest = (code: string) =>
     isNative ? `kaiveron://auth/callback?error=${code}` : `${frontendUrl}/login?error=${code}`;
@@ -353,7 +358,7 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
       res.redirect(errorDest("oauth_state_mismatch"));
       return;
     }
-    res.clearCookie("aw_oauth_state");
+    res.clearCookie("aw_oauth_state", clearOpts);
 
     const code = req.query.code as string | undefined;
     if (!code) {
@@ -373,9 +378,9 @@ export async function googleCallback(req: Request, res: Response, next: NextFunc
     const inviteCode = req.cookies?.aw_oauth_invite as string | undefined;
     const referredBy = req.cookies?.aw_oauth_ref as string | undefined;
     const mode       = req.cookies?.aw_oauth_mode as string | undefined;
-    if (inviteCode) res.clearCookie("aw_oauth_invite");
-    if (referredBy) res.clearCookie("aw_oauth_ref");
-    if (mode) res.clearCookie("aw_oauth_mode");
+    if (inviteCode) res.clearCookie("aw_oauth_invite", clearOpts);
+    if (referredBy) res.clearCookie("aw_oauth_ref", clearOpts);
+    if (mode) res.clearCookie("aw_oauth_mode", clearOpts);
     const { user, accessToken, refreshToken } = await service.googleCallbackCode(code, callbackUrl, authMeta(req), { inviteCode, referredBy, allowCreate: mode !== "login" });
     recordSecurityEvent("oauth_login", { userId: (user as { id: string }).id, req, metadata: { provider: "google", flow: "redirect" } });
 
