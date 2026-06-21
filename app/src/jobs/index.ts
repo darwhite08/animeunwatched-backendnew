@@ -261,20 +261,34 @@ export function startJobs() {
   // daily) WITHOUT marking anything checked, then resumes automatically; when the
   // catalog is fully covered it idles and rechecks periodically. Inert unless
   // YOUTUBE_API_KEY is set. First tick ~2min after boot.
-  const TRAILER_BATCH = 5
+  const TRAILER_BATCH = 3
   const ACTIVE_DELAY  = 20_000        // work remains → keep going
   const IDLE_DELAY    = 30 * 60_000   // caught up (or no API key) → recheck later
   const QUOTA_DELAY   = 60 * 60_000   // out of quota → retry in ~1h
   const ERROR_DELAY   = 5 * 60_000
+  // Daily self-cap so the background worker can't consume the ENTIRE shared
+  // YouTube quota — it leaves headroom for user-facing lookups (the /watch
+  // resolver + lazy trailer-on-view). ~70 trailers/day backfilled; the rest of
+  // the ~100/day quota stays free for what users actually request right now.
+  const TRAILER_DAILY_CAP = 70
+  let trailerDay = ""          // UTC date string of the current budget window
+  let trailerToday = 0
   const tickTrailerWorker = async (): Promise<void> => {
     let delay = ERROR_DELAY
     try {
-      const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
-      const r = await backfillTrailers(TRAILER_BATCH)
-      if (r.skipped || r.scanned === 0) delay = IDLE_DELAY
-      else if (r.quotaExceeded) delay = QUOTA_DELAY
-      else delay = ACTIVE_DELAY
-      if (r.resolved) console.log(`[trailerWorker] resolved ${r.resolved}/${r.scanned} (next in ${Math.round(delay / 1000)}s)`)
+      const today = new Date().toISOString().slice(0, 10)
+      if (today !== trailerDay) { trailerDay = today; trailerToday = 0 } // new day → reset budget
+      if (trailerToday >= TRAILER_DAILY_CAP) {
+        delay = IDLE_DELAY // budget spent for today; recheck after the daily reset
+      } else {
+        const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
+        const r = await backfillTrailers(TRAILER_BATCH)
+        trailerToday += r.resolved + (r.scanned - r.resolved) // count attempts toward the cap
+        if (r.skipped || r.scanned === 0) delay = IDLE_DELAY
+        else if (r.quotaExceeded) delay = QUOTA_DELAY
+        else delay = ACTIVE_DELAY
+        if (r.resolved) console.log(`[trailerWorker] resolved ${r.resolved}/${r.scanned} (today ${trailerToday}/${TRAILER_DAILY_CAP})`)
+      }
     } catch (e) {
       console.error("[trailerWorker]", (e as Error)?.message ?? e)
     } finally {
