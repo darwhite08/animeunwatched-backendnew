@@ -25,6 +25,13 @@ import { askLLM } from "../ai/ai.service";
 const YT_BASE = "https://www.googleapis.com/youtube/v3";
 const ytKey = (): string | undefined => process.env.YOUTUBE_API_KEY;
 
+/** Thrown when the YouTube Data API daily quota is exhausted. The continuous
+ *  worker uses this to back off until quota resets and — crucially — to NOT mark
+ *  the anime as "checked" (which would block a retry for 45 days). */
+export class YouTubeQuotaError extends Error {
+  constructor() { super("YouTube API quota exceeded"); this.name = "YouTubeQuotaError"; }
+}
+
 export function youtubeTrailersEnabled(): boolean {
   return Boolean(ytKey());
 }
@@ -64,7 +71,13 @@ async function searchCandidates(query: string): Promise<Candidate[]> {
       `${YT_BASE}/search?part=snippet&type=video&videoEmbeddable=true&safeSearch=none` +
       `&maxResults=10&q=${encodeURIComponent(query)}&key=${key}`;
     const sRes = await fetch(sUrl);
-    if (!sRes.ok) return [];
+    if (!sRes.ok) {
+      if (sRes.status === 403) {
+        const body = await sRes.text().catch(() => "");
+        if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
+      }
+      return [];
+    }
     const sData = (await sRes.json()) as {
       items?: Array<{ id?: { videoId?: string }; snippet?: { title?: string; channelTitle?: string; publishedAt?: string } }>;
     };
@@ -94,7 +107,8 @@ async function searchCandidates(query: string): Promise<Candidate[]> {
       })
       .filter((c) => c._embeddable)
       .map(({ _embeddable, ...c }) => c);
-  } catch {
+  } catch (e) {
+    if (e instanceof YouTubeQuotaError) throw e; // let the worker back off
     return [];
   }
 }
@@ -198,7 +212,7 @@ export async function resolveTrailer(anime: AnimeLite): Promise<string | null> {
  * Popularity-ordered, quota-bounded, and records trailerCheckedAt so a miss is
  * not re-queried for `recheckDays`. Returns counts for the job log.
  */
-export async function backfillTrailers(limit = 80, recheckDays = 45): Promise<{ scanned: number; resolved: number; skipped: boolean }> {
+export async function backfillTrailers(limit = 80, recheckDays = 45): Promise<{ scanned: number; resolved: number; skipped: boolean; quotaExceeded?: boolean }> {
   if (!ytKey()) return { scanned: 0, resolved: 0, skipped: true };
 
   const recheckBefore = new Date(Date.now() - recheckDays * 24 * 60 * 60_000);
@@ -217,8 +231,15 @@ export async function backfillTrailers(limit = 80, recheckDays = 45): Promise<{ 
   });
 
   let resolved = 0;
+  let quotaExceeded = false;
   for (const a of rows) {
-    const id = await resolveTrailer(a).catch(() => null);
+    let id: string | null = null;
+    try {
+      id = await resolveTrailer(a);
+    } catch (e) {
+      if (e instanceof YouTubeQuotaError) { quotaExceeded = true; break; } // stop NOW, leave row un-checked so it retries after quota resets
+      id = null; // other error → treat as "no trailer" (rechecked after recheckDays)
+    }
     await prisma.anime.update({
       where: { malId: a.malId },
       data: { trailerCheckedAt: new Date(), ...(id ? { trailerYoutubeId: id } : {}) },
@@ -226,7 +247,7 @@ export async function backfillTrailers(limit = 80, recheckDays = 45): Promise<{ 
     if (id) resolved++;
     await sleep(120);
   }
-  return { scanned: rows.length, resolved, skipped: false };
+  return { scanned: rows.length, resolved, skipped: false, quotaExceeded };
 }
 
 // In-process guard so concurrent views of the same anime don't fire duplicate
@@ -255,7 +276,13 @@ export async function ensureTrailerForView(malId: number, recheckDays = 45): Pro
 
   inFlight.add(malId);
   try {
-    const id = await resolveTrailer(a).catch(() => null);
+    let id: string | null = null;
+    try {
+      id = await resolveTrailer(a);
+    } catch (e) {
+      if (e instanceof YouTubeQuotaError) return; // out of quota → leave un-checked, retry later
+      id = null;
+    }
     await prisma.anime.update({
       where: { malId },
       data: { trailerCheckedAt: new Date(), ...(id ? { trailerYoutubeId: id } : {}) },

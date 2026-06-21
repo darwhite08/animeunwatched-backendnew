@@ -254,14 +254,34 @@ export function startJobs() {
   })
   setInterval(publishScheduled, 60_000)
 
-  // YouTube trailer backfill — every 6h, ~80 popular anime per run (quota-bounded).
-  // Inert unless YOUTUBE_API_KEY is set. First run ~2min after boot.
-  const backfillTrailersJob = instrument("backfillYoutubeTrailers", async () => {
-    const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
-    return backfillTrailers(80)
-  })
-  setInterval(backfillTrailersJob, 6 * 60 * 60_000)
-  setTimeout(() => { backfillTrailersJob().catch(console.error) }, 120_000)
+  // Continuous YouTube trailer worker — keeps resolving an official trailer for
+  // EVERY anime missing one, forever, with zero manual intervention. It bursts
+  // through small batches (popularity-first) and self-throttles around the
+  // YouTube daily quota: on quota-exhaustion it backs off ~1h (quota resets
+  // daily) WITHOUT marking anything checked, then resumes automatically; when the
+  // catalog is fully covered it idles and rechecks periodically. Inert unless
+  // YOUTUBE_API_KEY is set. First tick ~2min after boot.
+  const TRAILER_BATCH = 5
+  const ACTIVE_DELAY  = 20_000        // work remains → keep going
+  const IDLE_DELAY    = 30 * 60_000   // caught up (or no API key) → recheck later
+  const QUOTA_DELAY   = 60 * 60_000   // out of quota → retry in ~1h
+  const ERROR_DELAY   = 5 * 60_000
+  const tickTrailerWorker = async (): Promise<void> => {
+    let delay = ERROR_DELAY
+    try {
+      const { backfillTrailers } = await import("../modules/anime/youtubeTrailer.service")
+      const r = await backfillTrailers(TRAILER_BATCH)
+      if (r.skipped || r.scanned === 0) delay = IDLE_DELAY
+      else if (r.quotaExceeded) delay = QUOTA_DELAY
+      else delay = ACTIVE_DELAY
+      if (r.resolved) console.log(`[trailerWorker] resolved ${r.resolved}/${r.scanned} (next in ${Math.round(delay / 1000)}s)`)
+    } catch (e) {
+      console.error("[trailerWorker]", (e as Error)?.message ?? e)
+    } finally {
+      setTimeout(tickTrailerWorker, delay)
+    }
+  }
+  setTimeout(tickTrailerWorker, 120_000)
 
   // Instagram token refresh — renew long-lived tokens nearing expiry so Shots
   // connections never lapse (each refresh extends +60 days). Every 12h, plus a
