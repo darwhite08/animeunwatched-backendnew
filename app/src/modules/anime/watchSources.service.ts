@@ -32,6 +32,47 @@ export interface WatchSource {
   allowedRegions: string[]; // if present, ONLY these regions can play
 }
 
+/**
+ * CURATED official sources — hand-verified official uploads keyed by malId.
+ * These are returned ALWAYS (even when the YouTube quota is exhausted or the
+ * search can't surface a region-locked upload), merged ahead of resolver hits.
+ * Only add OFFICIAL, embeddable uploads here. Region info drives the client's
+ * "watch elsewhere" fallback for out-of-region viewers.
+ */
+const CURATED: Record<number, Array<{
+  videoId: string; episode: number; channel: string;
+  allowedRegions?: string[]; blockedRegions?: string[];
+}>> = {
+  // I Was Reincarnated as the 7th Prince — S1 (Muse India, Hindi dub, IN-only)
+  53516: [
+    { videoId: "4k1YC2z5VOw", episode: 1, channel: "Muse India", allowedRegions: ["IN"] },
+  ],
+};
+
+function curatedFor(malId: number): WatchSource[] {
+  return (CURATED[malId] ?? []).map((c) => ({
+    videoId: c.videoId,
+    title: `Episode ${c.episode}`,
+    channel: c.channel,
+    durationSec: 0,
+    episode: c.episode,
+    blockedRegions: c.blockedRegions ?? [],
+    allowedRegions: c.allowedRegions ?? [],
+  }));
+}
+
+function mergeSources(curated: WatchSource[], resolved: WatchSource[]): WatchSource[] {
+  const seen = new Set(curated.map((s) => s.videoId));
+  const merged = [...curated, ...resolved.filter((s) => !seen.has(s.videoId))];
+  merged.sort((a, b) => {
+    if (a.episode != null && b.episode != null) return a.episode - b.episode;
+    if (a.episode != null) return -1;
+    if (b.episode != null) return 1;
+    return b.durationSec - a.durationSec;
+  });
+  return merged;
+}
+
 // Official anime distributors that legitimately upload FULL episodes with
 // embedding on. Tighter than the trailer allowlist (which includes studios that
 // only post PVs). Matched against the uploader's channel title.
@@ -80,18 +121,32 @@ async function ytSearch(query: string, key: string): Promise<SearchItem[]> {
  * [] when nothing legitimate is found (frontend then deep-links out).
  */
 export async function resolveWatchSources(malId: number): Promise<WatchSource[]> {
+  const curated = curatedFor(malId);
   const key = ytKey();
-  if (!key) return [];
+  if (!key) return curated;
 
   const cacheKey = `watch:${malId}`;
   const cached = cache.get<WatchSource[]>(cacheKey);
   if (cached) return cached;
 
+  try {
+    return await resolveFromYouTube(malId, key, curated, cacheKey);
+  } catch (e) {
+    // Quota exhausted → still serve curated (and DON'T cache, so the resolver
+    // retries once quota returns). Other errors bubble up.
+    if (e instanceof YouTubeQuotaError) return curated;
+    throw e;
+  }
+}
+
+async function resolveFromYouTube(
+  malId: number, key: string, curated: WatchSource[], cacheKey: string,
+): Promise<WatchSource[]> {
   const anime = await prisma.anime.findUnique({
     where: { malId },
     select: { title: true, titleEnglish: true },
   });
-  if (!anime) return [];
+  if (!anime) return curated;
   const name = anime.titleEnglish || anime.title;
 
   // Search both phrasings; dedupe by videoId.
@@ -109,7 +164,7 @@ export async function resolveWatchSources(malId: number): Promise<WatchSource[]>
   // Dedupe
   const byId = new Map(candidates.map((c) => [c.videoId, c]));
   const ids = [...byId.keys()].slice(0, 50);
-  if (!ids.length) { cache.set(cacheKey, [], 6 * 60 * 60_000); return []; }
+  if (!ids.length) { const m = mergeSources(curated, []); cache.set(cacheKey, m, 6 * 60 * 60_000); return m; }
 
   // Enrich with duration + embeddable + region restriction (videos.list).
   const vUrl = `${YT_BASE}/videos?part=contentDetails,status&id=${ids.join(",")}&key=${key}`;
@@ -120,7 +175,7 @@ export async function resolveWatchSources(malId: number): Promise<WatchSource[]>
       const body = await vRes.text().catch(() => "");
       if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded|userRateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
     }
-    return [];
+    return mergeSources(curated, []);
   }
   const vData = (await vRes.json()) as {
     items?: Array<{
@@ -149,14 +204,8 @@ export async function resolveWatchSources(malId: number): Promise<WatchSource[]>
     });
   }
 
-  // Sort by parsed episode (nulls last), then duration.
-  sources.sort((a, b) => {
-    if (a.episode != null && b.episode != null) return a.episode - b.episode;
-    if (a.episode != null) return -1;
-    if (b.episode != null) return 1;
-    return b.durationSec - a.durationSec;
-  });
-
-  cache.set(cacheKey, sources, 6 * 60 * 60_000);
-  return sources;
+  // Merge curated (always first) with resolver hits, dedupe + sort by episode.
+  const merged = mergeSources(curated, sources);
+  cache.set(cacheKey, merged, 6 * 60 * 60_000);
+  return merged;
 }
