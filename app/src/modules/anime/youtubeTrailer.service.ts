@@ -72,9 +72,10 @@ async function searchCandidates(query: string): Promise<Candidate[]> {
       `&maxResults=10&q=${encodeURIComponent(query)}&key=${key}`;
     const sRes = await fetch(sUrl);
     if (!sRes.ok) {
+      if (sRes.status === 429) throw new YouTubeQuotaError();
       if (sRes.status === 403) {
         const body = await sRes.text().catch(() => "");
-        if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
+        if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded|userRateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
       }
       return [];
     }

@@ -63,9 +63,12 @@ async function ytSearch(query: string, key: string): Promise<SearchItem[]> {
     `&maxResults=25&order=relevance&q=${encodeURIComponent(query)}&key=${key}`;
   const res = await fetch(url);
   if (!res.ok) {
+    // 429 = rate/quota limit; 403 quotaExceeded = daily cap. Either → throw so the
+    // caller backs off and does NOT cache an empty (poisoned) result.
+    if (res.status === 429) throw new YouTubeQuotaError();
     if (res.status === 403) {
       const body = await res.text().catch(() => "");
-      if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
+      if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded|userRateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
     }
     return [];
   }
@@ -112,9 +115,10 @@ export async function resolveWatchSources(malId: number): Promise<WatchSource[]>
   const vUrl = `${YT_BASE}/videos?part=contentDetails,status&id=${ids.join(",")}&key=${key}`;
   const vRes = await fetch(vUrl);
   if (!vRes.ok) {
+    if (vRes.status === 429) throw new YouTubeQuotaError();
     if (vRes.status === 403) {
       const body = await vRes.text().catch(() => "");
-      if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
+      if (/quotaExceeded|dailyLimitExceeded|rateLimitExceeded|userRateLimitExceeded/i.test(body)) throw new YouTubeQuotaError();
     }
     return [];
   }
