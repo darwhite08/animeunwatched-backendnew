@@ -20,6 +20,7 @@ animeRouter.get("/:malId/user-stats",  optionalAuth, ctrl.getAnimeUserStats);
 animeRouter.get("/:malId/characters",  optionalAuth, ctrl.getCharacters);
 animeRouter.get("/:malId/staff",       optionalAuth, ctrl.getStaff);
 animeRouter.get("/:malId/episodes",    optionalAuth, ctrl.getEpisodes);
+animeRouter.get("/:malId/watch-sources", ctrl.getWatchSources); // official embeddable streams
 animeRouter.get("/:malId/franchise",   optionalAuth, ctrl.getFranchise);
 animeRouter.get("/:malId",             optionalAuth, ctrl.getById); // numeric malId OR seo slug
 animeRouter.get("/", optionalAuth, ctrl.browse);

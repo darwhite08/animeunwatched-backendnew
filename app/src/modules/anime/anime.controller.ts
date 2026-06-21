@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { browseQuerySchema } from "./anime.schema";
 import * as service from "./anime.service";
+import { resolveWatchSources, watchSourcesEnabled } from "./watchSources.service";
+import { YouTubeQuotaError } from "./youtubeTrailer.service";
 import { badReq } from "../../lib/errors";
 
 const VALID_SEASONS = ["winter", "spring", "summer", "fall"] as const;
@@ -64,6 +66,21 @@ export async function getById(req: Request, res: Response, next: NextFunction): 
       : await service.getBySlug(raw, userId);
     res.status(200).json(result);
   } catch (err) {
+    next(err);
+  }
+}
+
+/** GET /anime/:malId/watch-sources — official, embeddable full episodes (best-effort). */
+export async function getWatchSources(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const raw = Array.isArray(req.params.malId) ? req.params.malId[0] : req.params.malId;
+    if (!/^\d+$/.test(raw)) throw badReq("watch-sources requires a numeric malId");
+    if (!watchSourcesEnabled()) { res.status(200).json({ sources: [], enabled: false }); return; }
+    const sources = await resolveWatchSources(parseInt(raw, 10));
+    res.status(200).json({ sources, enabled: true });
+  } catch (err) {
+    // Quota exhaustion is expected/transient — degrade to empty, don't 500.
+    if (err instanceof YouTubeQuotaError) { res.status(200).json({ sources: [], enabled: true, quota: true }); return; }
     next(err);
   }
 }
