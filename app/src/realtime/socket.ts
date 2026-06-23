@@ -40,7 +40,17 @@ export function initSocket(httpServer: HttpServer) {
 
   io.use((socket, next) => {
     const token = socket.handshake.auth?.token as string | undefined;
-    if (!token) return next(new Error("unauthorized"));
+    // No token → connect as an anonymous guest (watch-party invite links and
+    // other public realtime). Guests are barred from every authenticated
+    // subsystem in the connection handler below; they only get the public
+    // room:join allowlist + watch-party handlers. A token that is PRESENT but
+    // invalid/expired is still rejected, so the client's refresh-and-reconnect
+    // flow keeps working instead of silently downgrading a real user to a guest.
+    if (!token) {
+      socket.data.userId = `guest_${socket.id}`;
+      socket.data.anon = true;
+      return next();
+    }
     try {
       const payload = jwt.verify(token, env.JWT_ACCESS_SECRET) as { userId: string; exp?: number };
       socket.data.userId = payload.userId;
@@ -95,54 +105,62 @@ export function initSocket(httpServer: HttpServer) {
 
   io.on("connection", (socket) => {
     const userId = socket.data.userId as string;
-    socket.join(`user:${userId}`);
+    const anon = socket.data.anon === true;
 
-    // Enforce access-token expiry on the live socket: a long-lived connection
-    // must not outlive its token. Disconnect at exp; the client reconnects with
-    // a freshly-refreshed token (frontend re-emits token after refresh). Without
-    // this, a socket opened with a stolen token keeps realtime access forever.
-    const expSec = socket.data.tokenExp as number | undefined;
-    if (expSec) {
-      const msLeft = expSec * 1000 - Date.now();
-      const t = setTimeout(() => { try { socket.disconnect(true); } catch { /* noop */ } },
-        Math.max(0, Math.min(msLeft, 2_147_483_000)));
-      socket.on("disconnect", () => clearTimeout(t));
+    // Anonymous guests skip every authenticated subsystem below — no per-user
+    // DM stream, presence, undelivered-DM flush, admin room, or online snapshot.
+    // They still get the public room:join allowlist + watch-party handlers wired
+    // up further down. This keeps guests out of presence/DM bookkeeping entirely.
+    if (!anon) {
+      socket.join(`user:${userId}`);
+
+      // Enforce access-token expiry on the live socket: a long-lived connection
+      // must not outlive its token. Disconnect at exp; the client reconnects with
+      // a freshly-refreshed token (frontend re-emits token after refresh). Without
+      // this, a socket opened with a stolen token keeps realtime access forever.
+      const expSec = socket.data.tokenExp as number | undefined;
+      if (expSec) {
+        const msLeft = expSec * 1000 - Date.now();
+        const t = setTimeout(() => { try { socket.disconnect(true); } catch { /* noop */ } },
+          Math.max(0, Math.min(msLeft, 2_147_483_000)));
+        socket.on("disconnect", () => clearTimeout(t));
+      }
+      // Join the global feed channel so server can broadcast posts/reviews
+      socket.join("feed");
+      setOnline(userId);
+      // DM v2 presence (per-socket online + focus tracking for the chat service).
+      addSocket(userId, socket.id);
+
+      // Batch-deliver any messages that arrived while this user was offline, then
+      // emit a delivery receipt to each sender (spec §4 connect behavior).
+      void deliverUndelivered(userId).then((receipts) => {
+        for (const r of receipts) {
+          io.to(`user:${r.senderId}`).emit("chat.delivered", {
+            conversationId: r.conversationId, messageId: r.id, deliveredAt: r.deliveredAt,
+          });
+        }
+      }).catch(() => {});
+
+      // ── Admin room ──────────────────────────────────────────────────────────
+      // ADMIN-role users auto-join `admin` so they get live updates of signups,
+      // reports, audit events, etc. Lookup is async — done outside the main
+      // connection handler critical path. Other handlers don't depend on it.
+      void prisma.user.findUnique({
+        where:  { id: userId },
+        select: { role: true },
+      }).then((u) => {
+        if (u?.role === "ADMIN") {
+          socket.join("admin")
+          socket.data.role = "ADMIN"
+        }
+      }).catch((err) => {
+        console.error("[socket] admin role lookup failed for user", userId, err)
+      })
+
+      // Snapshot of who is currently online (for status indicators) + total count
+      socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });
+      socket.emit("presence.count", { online: presenceCounts.size, at: Date.now() });
     }
-    // Join the global feed channel so server can broadcast posts/reviews
-    socket.join("feed");
-    setOnline(userId);
-    // DM v2 presence (per-socket online + focus tracking for the chat service).
-    addSocket(userId, socket.id);
-
-    // Batch-deliver any messages that arrived while this user was offline, then
-    // emit a delivery receipt to each sender (spec §4 connect behavior).
-    void deliverUndelivered(userId).then((receipts) => {
-      for (const r of receipts) {
-        io.to(`user:${r.senderId}`).emit("chat.delivered", {
-          conversationId: r.conversationId, messageId: r.id, deliveredAt: r.deliveredAt,
-        });
-      }
-    }).catch(() => {});
-
-    // ── Admin room ──────────────────────────────────────────────────────────
-    // ADMIN-role users auto-join `admin` so they get live updates of signups,
-    // reports, audit events, etc. Lookup is async — done outside the main
-    // connection handler critical path. Other handlers don't depend on it.
-    void prisma.user.findUnique({
-      where:  { id: userId },
-      select: { role: true },
-    }).then((u) => {
-      if (u?.role === "ADMIN") {
-        socket.join("admin")
-        socket.data.role = "ADMIN"
-      }
-    }).catch((err) => {
-      console.error("[socket] admin role lookup failed for user", userId, err)
-    })
-
-    // Snapshot of who is currently online (for status indicators) + total count
-    socket.emit("presence.snapshot", { online: Array.from(presenceCounts.keys()) });
-    socket.emit("presence.count", { online: presenceCounts.size, at: Date.now() });
 
     // Client opts in to PUBLIC content rooms when viewing those pages. Only an
     // allowlist of public prefixes is joinable — never `user:` (per-user DM /
@@ -203,6 +221,7 @@ export function initSocket(httpServer: HttpServer) {
     });
 
     socket.on("disconnect", () => {
+      if (anon) return; // guests were never added to presence/DM bookkeeping
       setOffline(userId);
       removeSocket(userId, socket.id);
       // Persist last-seen at most once/min/user (spec §4).
