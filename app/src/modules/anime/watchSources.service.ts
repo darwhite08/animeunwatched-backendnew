@@ -46,9 +46,20 @@ const CURATED: Record<number, Array<{
   videoId: string; episode: number; channel: string;
   allowedRegions?: string[]; blockedRegions?: string[];
 }>> = {
-  // I Was Reincarnated as the 7th Prince — S1 (Muse India, Hindi dub, IN-only)
+  // I Was Reincarnated as the 7th Prince — S1, all 12 eps (Muse India, Hindi dub, IN-only)
   53516: [
-    { videoId: "4k1YC2z5VOw", episode: 1, channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "4k1YC2z5VOw", episode: 1,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "3FEHxiFg5lo", episode: 2,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "5zTXKUonmXI", episode: 3,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "8-GWlCoERJ8", episode: 4,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "PGOETz4L9Kk", episode: 5,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "JHAkqwDhgcA", episode: 6,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "ukloC0mZViA", episode: 7,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "3kgE-mSInhQ", episode: 8,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "LNs3uguqnKs", episode: 9,  channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "BMfsegZiWrs", episode: 10, channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "JhHNtdmteEo", episode: 11, channel: "Muse India", allowedRegions: ["IN"] },
+    { videoId: "ZxOSsD2uga8", episode: 12, channel: "Muse India", allowedRegions: ["IN"] },
   ],
   // Mushoku Tensei: Jobless Reincarnation — S1 (Muse Asia, English sub, SEA + India)
   39535: [
