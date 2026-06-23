@@ -32,6 +32,9 @@ export interface WatchSource {
   allowedRegions: string[]; // if present, ONLY these regions can play
 }
 
+// Muse Asia's standard licensed region set (SEA + South Asia, incl. India).
+const MUSE_SEA = ["BD", "BN", "BT", "ID", "IN", "KH", "LA", "MM", "MY", "NP", "PK", "PH", "SG", "TH", "VN"];
+
 /**
  * CURATED official sources — hand-verified official uploads keyed by malId.
  * These are returned ALWAYS (even when the YouTube quota is exhausted or the
@@ -46,6 +49,12 @@ const CURATED: Record<number, Array<{
   // I Was Reincarnated as the 7th Prince — S1 (Muse India, Hindi dub, IN-only)
   53516: [
     { videoId: "4k1YC2z5VOw", episode: 1, channel: "Muse India", allowedRegions: ["IN"] },
+  ],
+  // Mushoku Tensei: Jobless Reincarnation — S1 (Muse Asia, English sub, SEA + India)
+  39535: [
+    { videoId: "mKS67U6ZEWM", episode: 1, channel: "Muse Asia", allowedRegions: MUSE_SEA },
+    { videoId: "Y4bP1PMvsag", episode: 2, channel: "Muse Asia", allowedRegions: MUSE_SEA },
+    { videoId: "WqlyT_-kIGM", episode: 3, channel: "Muse Asia", allowedRegions: MUSE_SEA },
   ],
 };
 
