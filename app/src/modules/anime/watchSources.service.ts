@@ -49,6 +49,12 @@ const CURATED: Record<number, Array<{
   ],
 };
 
+/** malIds that have at least one hand-curated official source ("wired"). The
+ *  /watch hub shows ONLY these so every banner/card actually plays. */
+export function wiredMalIds(): number[] {
+  return Object.keys(CURATED).map(Number);
+}
+
 function curatedFor(malId: number): WatchSource[] {
   return (CURATED[malId] ?? []).map((c) => ({
     videoId: c.videoId,

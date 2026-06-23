@@ -301,6 +301,13 @@ async function serveLocalAnime(
   return result;
 }
 
+/** Fetch + flatten a set of anime by malId (used by the watch catalog). */
+export async function getByMalIds(ids: number[]) {
+  if (!ids.length) return [];
+  const rows = await prisma.anime.findMany({ where: { malId: { in: ids } }, include: animeInclude });
+  return (rows as AnimeWithRelations[]).map((a) => flattenAnime(a));
+}
+
 export async function getById(malId: number, userId?: string) {
   // Lazy trailer integration: any anime someone actually opens gets its official
   // YouTube trailer resolved on view (fire-and-forget; no-op if it already has

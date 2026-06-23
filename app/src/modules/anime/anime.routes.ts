@@ -8,6 +8,7 @@ export const animeRouter = Router();
 animeRouter.get("/search", optionalAuth, ctrl.search);
 animeRouter.get("/trending", ctrl.getTrending);
 animeRouter.get("/trailers", ctrl.getTrailers);   // anime trailers gallery
+animeRouter.get("/watch-catalog", ctrl.getWatchCatalog); // only anime wired with episodes
 animeRouter.get("/sitemap", ctrl.getSitemap);     // SEO: all index-worthy anime (malId + lastmod)
 animeRouter.get("/for-you", requireAuth, ctrl.getForYou);  // personalised recs
 animeRouter.get("/top", ctrl.getTrending);        // alias: GET /anime/top?limit=20

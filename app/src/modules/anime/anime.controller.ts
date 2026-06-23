@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { browseQuerySchema } from "./anime.schema";
 import * as service from "./anime.service";
-import { resolveWatchSources, watchSourcesEnabled } from "./watchSources.service";
+import { resolveWatchSources, watchSourcesEnabled, wiredMalIds } from "./watchSources.service";
 import { YouTubeQuotaError } from "./youtubeTrailer.service";
 import { badReq } from "../../lib/errors";
 
@@ -68,6 +68,14 @@ export async function getById(req: Request, res: Response, next: NextFunction): 
   } catch (err) {
     next(err);
   }
+}
+
+/** GET /anime/watch-catalog — only anime that have real wired episodes. */
+export async function getWatchCatalog(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const data = await service.getByMalIds(wiredMalIds());
+    res.status(200).json({ data });
+  } catch (err) { next(err); }
 }
 
 /** GET /anime/:malId/watch-sources — official, embeddable full episodes (best-effort). */
