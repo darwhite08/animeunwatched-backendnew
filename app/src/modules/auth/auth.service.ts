@@ -630,6 +630,7 @@ export async function googleLogin(dto: GoogleLoginDto, meta: AuthMeta = {}) {
     allowCreate: dto.allowCreate !== false, // login pages send false → sign-in only
   });
 
+  void captureUserGeo(user.id, meta.ip); // OAuth signups need country/state too
   return issueTokens(user, meta);
 }
 
@@ -658,6 +659,7 @@ export async function appleLogin(dto: AppleLoginDto, meta: AuthMeta = {}) {
     displayName,
   });
 
+  void captureUserGeo(user.id, meta.ip); // OAuth signups need country/state too
   return issueTokens(user, meta);
 }
 
@@ -714,6 +716,7 @@ export async function googleCallbackCode(code: string, redirectUri: string, meta
     allowCreate: gate.allowCreate !== false, // redirect login flow sets false
   });
 
+  void captureUserGeo(user.id, meta.ip); // OAuth signups need country/state too
   return issueTokens(user, meta);
 }
 
