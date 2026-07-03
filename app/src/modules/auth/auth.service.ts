@@ -151,6 +151,10 @@ export async function register(dto: RegisterDto, meta: AuthMeta = {}) {
     select: userSelect,
   });
 
+  // Now a member — drop them from the waitlist so their email never shows there
+  // or receives a "your spot opened" invite. Case-insensitive, fire-and-forget.
+  void prisma.waitlist.deleteMany({ where: { email: { equals: dto.email, mode: "insensitive" } } }).catch(() => {});
+
   // Realtime signal to the admin dashboard (no-op if Socket.io isn't up yet).
   broadcastAdminUserSignup(user);
 
@@ -596,6 +600,8 @@ async function findOrCreateOAuthUser(opts: {
       },
       select: userSelect,
     });
+    // Now a member — drop them from the waitlist (case-insensitive, fire-and-forget).
+    void prisma.waitlist.deleteMany({ where: { email: { equals: opts.email, mode: "insensitive" } } }).catch(() => {});
     sendEmail(welcomeEmail(opts.email, opts.displayName)).catch(console.error);
   }
 

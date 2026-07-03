@@ -1,5 +1,8 @@
 import { prisma } from "../../config/prisma";
 import type { JoinWaitlistInput } from "./waitlist.schema";
+import { getInviteOnly } from "../../lib/inviteGate";
+import { sendMail } from "../../lib/mailer";
+import { buildWaitlistInvite, waitlistInviteCtaUrl } from "../../lib/waitlistInviteEmail";
 
 /**
  * Idempotent join — one row per email. Re-submitting the same email is a no-op
@@ -34,8 +37,30 @@ export async function joinWaitlist(
   return { ok: true, alreadyOn: false, alreadyMember: false };
 }
 
-/** Admin: paginated list, newest first. */
+/**
+ * Delete any waitlist rows whose email now belongs to a registered member, so
+ * the waitlist never shows someone who has already signed up / logged in.
+ * Case-insensitive: User.email keeps its original casing while waitlist emails
+ * are normalized to lowercase. Returns how many stale rows were removed.
+ */
+export async function pruneMembersFromWaitlist(): Promise<number> {
+  const removed = await prisma.$executeRaw`
+    DELETE FROM "Waitlist" w
+    USING "User" u
+    WHERE lower(w.email) = lower(u.email)
+  `;
+  return removed;
+}
+
+/** Remove a single email from the waitlist (used on register). Case-insensitive. */
+export async function removeFromWaitlist(email: string): Promise<void> {
+  await prisma.waitlist.deleteMany({ where: { email: { equals: email, mode: "insensitive" } } });
+}
+
+/** Admin: paginated list, newest first. Prunes now-registered members first. */
 export async function listWaitlist(opts: { take?: number; skip?: number } = {}) {
+  // Self-heal: never surface an email that already belongs to a member.
+  await pruneMembersFromWaitlist().catch(() => {});
   const take = Math.min(Math.max(opts.take ?? 100, 1), 500);
   const skip = Math.max(opts.skip ?? 0, 0);
   const [total, entries] = await Promise.all([
@@ -48,4 +73,100 @@ export async function listWaitlist(opts: { take?: number; skip?: number } = {}) 
     }),
   ]);
   return { total, entries };
+}
+
+/** Inspect a signup-invite code so we never mass-mail a link that can't be redeemed. */
+export async function inspectInviteCode(code: string | undefined) {
+  const inviteOnly = await getInviteOnly();
+  const c = (code ?? "").trim();
+  if (!c) return { inviteOnly, code: null as string | null, valid: !inviteOnly, reason: inviteOnly ? "no code provided" : "invite-only is off" };
+
+  const row = await prisma.signupInvite.findUnique({ where: { code: c } });
+  if (!row) return { inviteOnly, code: c, valid: false, reason: "code does not exist" };
+
+  const now = new Date();
+  const revoked = !!row.revokedAt;
+  const expired = !!row.expiresAt && row.expiresAt <= now;
+  const exhausted = row.maxUses > 0 && row.uses >= row.maxUses;
+  const remaining = row.maxUses === 0 ? null : Math.max(0, row.maxUses - row.uses);
+  const valid = !inviteOnly || (!revoked && !expired && !exhausted);
+  const reason = !inviteOnly
+    ? "invite-only is off (code optional)"
+    : revoked ? "code revoked"
+    : expired ? "code expired"
+    : exhausted ? "code fully used"
+    : "ok";
+
+  return {
+    inviteOnly,
+    code: c,
+    valid,
+    reason,
+    maxUses: row.maxUses,          // 0 = unlimited
+    uses: row.uses,
+    remaining,                     // null = unlimited
+    expiresAt: row.expiresAt,
+    revokedAt: row.revokedAt,
+  };
+}
+
+export interface SendInvitesOpts {
+  invite?: string;   // signup-invite code embedded in the CTA link
+  dryRun?: boolean;  // preview only — no email sent, nothing marked invited
+  resend?: boolean;  // include rows already marked invited (default: only un-invited)
+  limit?: number;    // cap how many to process this call (for batching)
+}
+
+/**
+ * Send the "your spot opened" invite to the waitlist cohort.
+ * Always prunes members first (requirement: no member ever gets a waitlist mail),
+ * then processes un-invited rows oldest-first, marking each invited on success.
+ */
+export async function sendWaitlistInvites(opts: SendInvitesOpts = {}) {
+  const prunedMembers = await pruneMembersFromWaitlist().catch(() => 0);
+  const codeInfo = await inspectInviteCode(opts.invite);
+
+  const take = Math.min(Math.max(opts.limit ?? 1000, 1), 5000);
+  const recipients = await prisma.waitlist.findMany({
+    where: opts.resend ? {} : { invited: false },
+    orderBy: { createdAt: "asc" },
+    take,
+    select: { id: true, email: true },
+  });
+
+  if (opts.dryRun) {
+    return {
+      dryRun: true,
+      inviteCode: codeInfo,
+      prunedMembers,
+      recipientCount: recipients.length,
+      sample: recipients.slice(0, 15).map((r) => r.email),
+      ctaUrl: waitlistInviteCtaUrl(opts.invite),
+    };
+  }
+
+  const { subject, text, html } = buildWaitlistInvite(opts.invite);
+  let sent = 0;
+  const failed: { email: string; error: string }[] = [];
+
+  for (const r of recipients) {
+    const res = await sendMail({ to: r.email, subject, text, html, tag: "waitlist-invite" });
+    if (res.ok) {
+      sent++;
+      await prisma.waitlist.update({ where: { id: r.id }, data: { invited: true } }).catch(() => {});
+    } else {
+      failed.push({ email: r.email, error: res.error ?? "unknown" });
+    }
+  }
+
+  return {
+    dryRun: false,
+    inviteCode: codeInfo,
+    prunedMembers,
+    attempted: recipients.length,
+    sent,
+    failedCount: failed.length,
+    failed: failed.slice(0, 25),
+    ctaUrl: waitlistInviteCtaUrl(opts.invite),
+  };
 }
