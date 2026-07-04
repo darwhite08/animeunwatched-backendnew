@@ -57,6 +57,17 @@ export async function removeFromWaitlist(email: string): Promise<void> {
   await prisma.waitlist.deleteMany({ where: { email: { equals: email, mode: "insensitive" } } });
 }
 
+/** Flag specific emails as invited (no send) — e.g. after an out-of-band send. */
+export async function markInvited(emails: string[]): Promise<number> {
+  const list = emails.map((e) => e.trim().toLowerCase()).filter(Boolean);
+  if (!list.length) return 0;
+  const res = await prisma.waitlist.updateMany({
+    where: { email: { in: list } },
+    data: { invited: true },
+  });
+  return res.count;
+}
+
 /** Admin: paginated list, newest first. Prunes now-registered members first. */
 export async function listWaitlist(opts: { take?: number; skip?: number } = {}) {
   // Self-heal: never surface an email that already belongs to a member.

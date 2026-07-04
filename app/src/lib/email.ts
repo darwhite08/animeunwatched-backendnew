@@ -1,29 +1,12 @@
-import nodemailer from "nodemailer";
 import { env } from "../config/env";
+import { deliverEmail, emailTransportConfigured } from "./deliver";
 
 type EmailOpts = {
   to: string
   subject: string
   html: string
-  // Extra SMTP headers (e.g. List-Unsubscribe for deliverability). Optional.
+  // Extra headers (e.g. List-Unsubscribe for deliverability). Optional.
   headers?: Record<string, string>
-}
-
-// Lazily create transporter so it doesn't fail on startup if SMTP is not configured
-let _transporter: ReturnType<typeof nodemailer.createTransport> | null = null;
-
-function getTransporter() {
-  if (_transporter) return _transporter;
-  _transporter = nodemailer.createTransport({
-    host: env.SMTP_HOST,
-    port: env.SMTP_PORT,
-    secure: env.SMTP_PORT === 465,
-    auth: {
-      user: env.SMTP_USER,
-      pass: env.SMTP_PASS,
-    },
-  });
-  return _transporter;
 }
 
 /**
@@ -36,9 +19,7 @@ export function isEmailConfigured(): boolean {
   return (
     env.NODE_ENV === "production" &&
     !!env.ENABLE_EMAIL_NOTIFICATIONS &&
-    !!env.SMTP_HOST &&
-    !!env.SMTP_USER &&
-    !!env.SMTP_PASS
+    emailTransportConfigured()
   );
 }
 
@@ -50,26 +31,25 @@ export async function sendEmail(opts: EmailOpts): Promise<void> {
     return
   }
 
-  if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASS) {
-    console.warn("[Email] SMTP not configured — skipping email send");
+  if (!emailTransportConfigured()) {
+    console.warn("[Email] no transport configured — skipping email send");
     return;
   }
 
-  try {
-    // Prefer an explicit From address; fall back to the SMTP username for
-    // plain mailbox SMTP. (Resend/SES use a non-email SMTP_USER, so EMAIL_FROM
-    // must be set to a verified sender there.)
-    const fromAddress = env.EMAIL_FROM || env.SMTP_USER;
-    await getTransporter().sendMail({
-      from: `"Kaiveron" <${fromAddress}>`,
-      to: opts.to,
-      subject: opts.subject,
-      html: opts.html,
-      ...(opts.headers ? { headers: opts.headers } : {}),
-    });
-  } catch (err) {
-    console.error("[Email] Failed to send email:", err);
-    // Don't throw — email failure should never break user-facing flows
+  // Prefer an explicit From address; fall back to the SMTP username for
+  // plain mailbox SMTP. (Resend/SES use a non-email SMTP_USER, so EMAIL_FROM
+  // must be set to a verified sender there.)
+  const fromAddress = env.EMAIL_FROM || env.SMTP_USER;
+  const res = await deliverEmail({
+    from: `"Kaiveron" <${fromAddress}>`,
+    to: opts.to,
+    subject: opts.subject,
+    html: opts.html,
+    headers: opts.headers,
+  });
+  if (!res.ok) {
+    // Don't throw — email failure should never break user-facing flows.
+    console.error(`[Email] Failed to send via ${res.via}: ${res.error}`);
   }
 }
 

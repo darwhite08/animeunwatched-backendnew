@@ -40,6 +40,12 @@ export async function sendInvites(req: Request, res: Response, next: NextFunctio
   try {
     if (!verifyCronSecret(req)) { res.status(401).json({ error: "Unauthorized" }); return; }
     const body = (req.body ?? {}) as Record<string, unknown>;
+    // Out-of-band bookkeeping: flag emails as invited without sending.
+    if (Array.isArray(body.markInvited)) {
+      const marked = await service.markInvited(body.markInvited.filter((x): x is string => typeof x === "string"));
+      res.status(200).json({ marked });
+      return;
+    }
     const result = await service.sendWaitlistInvites({
       invite: typeof body.invite === "string" ? body.invite : undefined,
       dryRun: body.dryRun === true || body.dryRun === "true",
