@@ -57,6 +57,70 @@ export async function removeFromWaitlist(email: string): Promise<void> {
   await prisma.waitlist.deleteMany({ where: { email: { equals: email, mode: "insensitive" } } });
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Admin manual/bulk invite: email a signup link to arbitrary addresses.
+ * Skips addresses that already belong to a member, records each invited address
+ * in the waitlist (source "admin-invite", invited=true) for tracking, and sends
+ * with modest concurrency so large batches finish inside the request window.
+ */
+export async function inviteEmails(
+  emailsIn: string[],
+  code: string | undefined,
+  source = "admin-invite",
+): Promise<{
+  code: string | undefined;
+  sent: number;
+  recipients: string[];
+  skippedMembers: string[];
+  invalid: string[];
+  failed: { email: string; error: string }[];
+}> {
+  const normalized = [...new Set(emailsIn.map((e) => e.trim().toLowerCase()).filter(Boolean))];
+  const invalid = normalized.filter((e) => !EMAIL_RE.test(e));
+  const valid = normalized.filter((e) => EMAIL_RE.test(e));
+
+  // Exclude anyone who already has an account (case-insensitive).
+  const members = valid.length
+    ? await prisma.user.findMany({
+        where: { OR: valid.map((e) => ({ email: { equals: e, mode: "insensitive" as const } })) },
+        select: { email: true },
+      })
+    : [];
+  const memberSet = new Set(members.map((m) => m.email.toLowerCase()));
+  const skippedMembers = valid.filter((e) => memberSet.has(e));
+  const recipients = valid.filter((e) => !memberSet.has(e));
+
+  const { subject, text, html } = buildWaitlistInvite(code);
+  let sent = 0;
+  const failed: { email: string; error: string }[] = [];
+
+  // Concurrency-limited fan-out (chunks of 10) to stay well under the 120s limit.
+  for (let i = 0; i < recipients.length; i += 10) {
+    const chunk = recipients.slice(i, i + 10);
+    await Promise.all(
+      chunk.map(async (email) => {
+        const res = await sendMail({ to: email, subject, text, html, tag: "admin-invite" });
+        if (res.ok) {
+          sent++;
+          await prisma.waitlist
+            .upsert({
+              where: { email },
+              update: { invited: true, source },
+              create: { email, source, invited: true },
+            })
+            .catch(() => {});
+        } else {
+          failed.push({ email, error: res.error ?? "unknown" });
+        }
+      }),
+    );
+  }
+
+  return { code, sent, recipients, skippedMembers, invalid, failed };
+}
+
 /** Flag specific emails as invited (no send) — e.g. after an out-of-band send. */
 export async function markInvited(emails: string[]): Promise<number> {
   const list = emails.map((e) => e.trim().toLowerCase()).filter(Boolean);

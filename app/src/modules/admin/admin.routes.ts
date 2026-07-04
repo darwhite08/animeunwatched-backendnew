@@ -81,6 +81,7 @@ adminRouter.use(requireAuth, requireAdmin);
 adminRouter.get(   "/signup-access",         signupAccess.getAccess);
 adminRouter.put(   "/signup-access",         signupAccess.setAccess);
 adminRouter.post(  "/signup-invites",        signupAccess.createInvite);
+adminRouter.post(  "/signup-access/invite",  signupAccess.bulkInvite);
 adminRouter.delete("/signup-invites/:id",    signupAccess.revokeInvite);
 
 // Headline / overview
