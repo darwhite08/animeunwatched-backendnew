@@ -31,7 +31,7 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.kaiver
 export async function campaign(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     if (!verifyCronSecret(req)) { res.status(401).json({ error: "Unauthorized" }); return; }
-    const b = (req.body ?? {}) as { target?: string; email?: string; channel?: string; title?: string; body?: string; link?: string; dryRun?: boolean | string };
+    const b = (req.body ?? {}) as { target?: string; email?: string; emails?: string[] | string; channel?: string; title?: string; body?: string; link?: string; dryRun?: boolean | string };
 
     const channel = b.channel === "email" ? "email" : "push";
     const title = b.title || "Kaiveron is on Google Play 📲";
@@ -61,8 +61,15 @@ export async function campaign(req: Request, res: Response, next: NextFunction):
 
     // ── Email channel ────────────────────────────────────────────────────────
     if (channel === "email") {
+      // Explicit list wins — lets us retry exactly the addresses that failed
+      // (e.g. rate-limited) without re-emailing everyone else.
+      const explicit = Array.isArray(b.emails)
+        ? b.emails
+        : typeof b.emails === "string" ? b.emails.split(/[\s,;]+/) : [];
       let emails: string[];
-      if (b.target === "email") {
+      if (explicit.length) {
+        emails = [...new Set(explicit.map((e) => e.trim()).filter(Boolean))];
+      } else if (b.target === "email") {
         emails = directEmail ? [directEmail] : [];
       } else {
         const users = userIds.length
@@ -71,19 +78,21 @@ export async function campaign(req: Request, res: Response, next: NextFunction):
         emails = [...new Set(users.map((u) => u.email).filter((e): e is string => !!e))];
       }
 
-      if (dryRun) { res.status(200).json({ dryRun: true, channel, target: b.target, recipients: emails.length, sample: emails.slice(0, 10), link }); return; }
+      if (dryRun) { res.status(200).json({ dryRun: true, channel, target: b.target, recipients: emails.length, recipientsList: emails, link }); return; }
 
       const mail = buildAppPromoEmail(link);
       let emailed = 0;
       const failed: { email: string; error: string }[] = [];
-      for (let i = 0; i < emails.length; i += 10) {
-        const chunk = emails.slice(i, i + 10);
+      // Resend caps at 10 requests/sec — send in chunks of 8 with a ~1.1s gap.
+      for (let i = 0; i < emails.length; i += 8) {
+        const chunk = emails.slice(i, i + 8);
         await Promise.all(chunk.map(async (email) => {
           const r = await sendMail({ to: email, subject: mail.subject, text: mail.text, html: mail.html, tag: "app-promo" });
           if (r.ok) emailed++; else failed.push({ email, error: r.error ?? "unknown" });
         }));
+        if (i + 8 < emails.length) await new Promise((r) => setTimeout(r, 1100));
       }
-      res.status(200).json({ channel, target: b.target, recipients: emails.length, emailed, failedCount: failed.length, failed: failed.slice(0, 25), link });
+      res.status(200).json({ channel, target: b.target, recipients: emails.length, emailed, failedCount: failed.length, failed, link });
       return;
     }
 
