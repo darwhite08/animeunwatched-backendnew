@@ -11,6 +11,8 @@ pushRouter.post("/native-token", requireAuth, ctrl.registerNative);
 pushRouter.delete("/native-token", requireAuth, ctrl.unregisterNative);
 pushRouter.get("/devices", requireAuth, ctrl.list);
 pushRouter.post("/test", requireAuth, ctrl.test);
+// CRON_SECRET-gated broadcast push campaign (targets an email or all Android users)
+pushRouter.post("/campaign", ctrl.campaign);
 // Web Push (VAPID) — browser/PWA subscriptions
 pushRouter.post("/web/subscribe", requireAuth, ctrl.webSubscribe);
 pushRouter.delete("/web/subscribe", requireAuth, ctrl.webUnsubscribe);
