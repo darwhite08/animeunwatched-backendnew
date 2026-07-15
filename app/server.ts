@@ -8,6 +8,7 @@ import { prisma } from "./src/config/prisma";
 import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 import { ensureAdminSeed } from "./src/lib/adminSeed";
+import { ensureBlogDraftChannelSchema } from "./src/lib/ensureSchema";
 import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
 import { seedPiiInventory } from "./src/lib/piiScanner";
 
@@ -35,6 +36,12 @@ setInterval(() => {
   try { broadcastAdminAnalyticsLive(getLiveSnapshot()) }
   catch (err) { console.error("[analytics-ticker] emit failed:", err) }
 }, 5_000).unref();
+
+// Blog Draft Channel schema — idempotent additive migration applied on boot,
+// since App Runner doesn't run prisma db push/migrate and the RDS is private.
+ensureBlogDraftChannelSchema()
+  .then((r) => r.applied && console.log("[schema-ensure] Blog Draft Channel schema applied"))
+  .catch((err: unknown) => console.error("[schema-ensure] failed:", err));
 
 // Admin RBAC seed — idempotent. Runs after `prisma db push` completes (CMD chain).
 ensureAdminSeed()
