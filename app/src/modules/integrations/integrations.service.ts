@@ -62,8 +62,11 @@ export async function createKey(ownerId: string, label: string) {
 }
 
 export async function listKeys(ownerId: string) {
+  // Revoked keys are dead — hide them so the list only shows active keys (a
+  // revoked row lingering as "REVOKED" reads like an error). The row stays in
+  // the DB for attribution/idempotency; the intake rejects it regardless.
   const keys = await prisma.integrationKey.findMany({
-    where: { ownerId },
+    where: { ownerId, revoked: false },
     orderBy: { createdAt: "desc" },
     select: keySelect,
   });
