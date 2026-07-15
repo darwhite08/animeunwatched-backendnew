@@ -26,11 +26,11 @@ export async function instagramCallback(req: Request, res: Response): Promise<vo
   try {
     const code = String(req.query.code ?? "");
     const state = String(req.query.state ?? "");
-    if (req.query.error || !code) { res.redirect(`${studio}/shots?ig=denied`); return; }
+    if (req.query.error || !code) { res.redirect(`${studio}/integrations?ig=denied`); return; }
     await service.handleInstagramCallback(code, state);
-    res.redirect(`${studio}/shots?ig=connected`);
+    res.redirect(`${studio}/integrations?ig=connected`);
   } catch {
-    res.redirect(`${studio}/shots?ig=error`);
+    res.redirect(`${studio}/integrations?ig=error`);
   }
 }
 
@@ -63,11 +63,11 @@ export async function tiktokCallback(req: Request, res: Response): Promise<void>
   try {
     const code = String(req.query.code ?? "");
     const state = String(req.query.state ?? "");
-    if (req.query.error || !code) { res.redirect(`${studio}/shots?tt=denied`); return; }
+    if (req.query.error || !code) { res.redirect(`${studio}/integrations?tt=denied`); return; }
     await service.handleTiktokCallback(code, state);
-    res.redirect(`${studio}/shots?tt=connected`);
+    res.redirect(`${studio}/integrations?tt=connected`);
   } catch {
-    res.redirect(`${studio}/shots?tt=error`);
+    res.redirect(`${studio}/integrations?tt=error`);
   }
 }
 

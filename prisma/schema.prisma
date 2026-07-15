@@ -36,6 +36,10 @@ enum WatchStatus {
 
 enum BlogStatus {
   DRAFT
+  // Submitted through an inbound integration channel (bot/script/Zapier) and
+  // waiting for the creator to review + publish. Author-only visible, exactly
+  // like DRAFT — a leaked channel key can never put content live on its own.
+  PENDING_REVIEW
   SCHEDULED
   PUBLISHED
 }
@@ -62,24 +66,24 @@ enum ReportStatus {
 // ---------------------------------------------------------------------------
 
 model User {
-  id                String             @id @default(cuid())
-  email             String             @unique
+  id                 String             @id @default(cuid())
+  email              String             @unique
   /// When the email address was confirmed. null = unverified (email/password
   /// signups before they enter the code). OAuth signups + existing users are
   /// backfilled as verified. Enforcement is inert until SMTP is configured.
-  emailVerifiedAt   DateTime?
+  emailVerifiedAt    DateTime?
   // Last time we sent this user a re-engagement email — enforces a per-user
   // cooldown so the recurring campaign never spams anyone.
-  lastReengagedAt   DateTime?
+  lastReengagedAt    DateTime?
   // Email-on-new-message (offline DM notifications). Opt-out toggle + a per-user
   // global cooldown anchor so the batched digest never emails more than once an
   // hour, regardless of how many people message you. See jobs/messageEmailDigest.
-  emailOnNewMessage  Boolean           @default(true)
+  emailOnNewMessage  Boolean            @default(true)
   lastMessageEmailAt DateTime?
   // Feed (Shots) sound on/off, persisted per-member so "unmute once" = sound on
   // every future session, synced across phone + laptop. Default false = new web
   // members start muted-with-captions; first unmute flips it true forever.
-  audioEnabled       Boolean           @default(false)
+  audioEnabled       Boolean            @default(false)
   // Where this account was created — "web" | "mobile" | "unknown". Set once at
   // signup from the request origin. Powers the admin Product Analytics
   // web-vs-mobile split (activation funnel / retention / activation cohort).
@@ -90,58 +94,58 @@ model User {
   // are our users from" view.
   country            String?
   region             String?
-  emailVerification EmailVerification?
-  username          String             @unique
+  emailVerification  EmailVerification?
+  username           String             @unique
   /// URL-safe slug for human-readable routing. Derived from displayName at registration.
   /// Never used for data access — only for URL display. Always look up session userId internally.
   /// Nullable so existing users can be backfilled without data loss.
-  slug              String?            @unique
-  displayName       String
-  bio               String?
-  avatarUrl         String?
-  coverImage        String?
+  slug               String?            @unique
+  displayName        String
+  bio                String?
+  avatarUrl          String?
+  coverImage         String?
   // Onboarding (first-run): chosen genres + completion timestamp
-  favoriteGenres    String[]           @default([])
-  onboardedAt       DateTime?
-  passwordHash      String             @default("")
-  role              Role               @default(USER)
-  reputation        Int                @default(0)
+  favoriteGenres     String[]           @default([])
+  onboardedAt        DateTime?
+  passwordHash       String             @default("")
+  role               Role               @default(USER)
+  reputation         Int                @default(0)
   // Verified badge (admin-granted). null = not verified.
-  verifiedKind      VerificationKind?
-  verifiedAt        DateTime?
+  verifiedKind       VerificationKind?
+  verifiedAt         DateTime?
   // Community Lead role (admin-granted, independent of verification — a user can
   // be both a Verified Creator AND a Community Lead). Distinct profile flair.
-  communityLead     Boolean            @default(false)
-  communityLeadAt   DateTime?
-  isBanned          Boolean            @default(false)
-  bannedReason      String? // operator-supplied reason shown in admin tooling, null when not banned
-  isShadowBanned    Boolean            @default(false) // soft moderation: user can post but content is hidden from others
-  isPrivate         Boolean            @default(false) // private account (Instagram-style): followers need approval
+  communityLead      Boolean            @default(false)
+  communityLeadAt    DateTime?
+  isBanned           Boolean            @default(false)
+  bannedReason       String? // operator-supplied reason shown in admin tooling, null when not banned
+  isShadowBanned     Boolean            @default(false) // soft moderation: user can post but content is hidden from others
+  isPrivate          Boolean            @default(false) // private account (Instagram-style): followers need approval
   // DM privacy (DM v2). Who may start a DM, whether read receipts are sent,
   // and who may see online/last-seen status. Enforced server-side.
-  dmPrivacy         String             @default("everyone") // everyone | followers | nobody
-  readReceiptsOn    Boolean            @default(true)
-  showOnlineStatus  String             @default("everyone") // everyone | followers | nobody
-  dmLastSeenAt      DateTime? // presence "last seen" (throttled writes)
+  dmPrivacy          String             @default("everyone") // everyone | followers | nobody
+  readReceiptsOn     Boolean            @default(true)
+  showOnlineStatus   String             @default("everyone") // everyone | followers | nobody
+  dmLastSeenAt       DateTime? // presence "last seen" (throttled writes)
   // Streak tracking — real database-backed (not rep estimate). See
   // docs/streak-algorithm.md: timezone-correct day boundary + grace + freezes +
   // soft-break + repair (humane, anti-frustration).
-  streakDays        Int                @default(0)
-  lastActiveAt      DateTime?
-  bestStreak        Int                @default(0)
+  streakDays         Int                @default(0)
+  lastActiveAt       DateTime?
+  bestStreak         Int                @default(0)
   /// Local-day key "YYYY-MM-DD" (in `timezone`, grace-shifted) the streak was
   /// last credited — the REAL consecutive-day comparison key (not a UTC ts).
-  lastStreakDate    String?
+  lastStreakDate     String?
   /// IANA tz for the user's day boundary (fixes the UTC-midnight churn bug).
-  timezone          String             @default("Asia/Kolkata")
+  timezone           String             @default("Asia/Kolkata")
   /// Auto-consumed freeze tokens that absorb a missed day (Duolingo-style).
-  streakFreezes     Int                @default(0)
-  freezeGrantedAt   DateTime? // weekly earn-cap anchor
-  streakRepairAt    DateTime? // last free repair (monthly cap)
-  streakBrokenAt    DateTime? // when the last break happened (48h repair window)
-  prevStreakDays    Int                @default(0) // streak value just before a break (for repair)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  streakFreezes      Int                @default(0)
+  freezeGrantedAt    DateTime? // weekly earn-cap anchor
+  streakRepairAt     DateTime? // last free repair (monthly cap)
+  streakBrokenAt     DateTime? // when the last break happened (48h repair window)
+  prevStreakDays     Int                @default(0) // streak value just before a break (for repair)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
 
   // Referral / viral loop — who invited this user (set once at signup, by handle).
   referredById String?
@@ -240,6 +244,9 @@ model User {
   // Connected external accounts (Instagram, …) + imported media dedup
   socialConnections    SocialConnection[]
   importedMedia        ImportedMedia[]
+  // Inbound integration channel — API keys this creator issued for services that
+  // POST blog drafts into their review queue.
+  integrationKeys      IntegrationKey[]
 
   @@index([slug])
   @@index([referredById])
@@ -941,7 +948,7 @@ model PostLike {
 }
 
 model PostComment {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   postId          String
   authorId        String
   content         String
@@ -949,11 +956,11 @@ model PostComment {
   parentCommentId String?
   // Denormalized engagement counters (always updated in the same transaction
   // as the underlying like / reply write).
-  likeCount       Int      @default(0)
-  replyCount      Int      @default(0)
+  likeCount       Int       @default(0)
+  replyCount      Int       @default(0)
   // Set by the post author to pin a comment to the top (Instagram-style).
   pinnedAt        DateTime?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime  @default(now())
 
   post    Post              @relation(fields: [postId], references: [id], onDelete: Cascade)
   author  User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -1304,15 +1311,46 @@ model Blog {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
-  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  comments BlogComment[]
-  views    BlogView[]
-  likes    BlogLike[]
+  // Inbound integration channel provenance. sourceKeyId is set when this blog was
+  // created by an external service via an IntegrationKey (null for normal editor
+  // authoring) — lets the studio attribute + bulk-revoke channel drafts.
+  // idempotencyKey dedupes submissions: the same key never creates two blogs.
+  sourceKeyId    String?
+  idempotencyKey String? @unique
+
+  author    User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  sourceKey IntegrationKey? @relation(fields: [sourceKeyId], references: [id], onDelete: SetNull)
+  comments  BlogComment[]
+  views     BlogView[]
+  likes     BlogLike[]
 
   @@index([authorId])
   @@index([status, publishedAt])
   @@index([category, status, publishedAt])
   @@index([animeMalId])
+  @@index([sourceKeyId])
+}
+
+// ─── Inbound integration channel: API keys ──────────────────────────────────
+// A creator issues a key OUTWARD; an external service (bot/script/Zapier) uses it
+// to POST finished blog DRAFTS in. The raw key is shown ONCE at creation and never
+// stored — only its SHA-256 hash lives here. A leaked key can at worst drop junk
+// into the creator's review queue; it can NEVER publish.
+model IntegrationKey {
+  id         String    @id @default(cuid())
+  ownerId    String
+  label      String // human name the creator gave the key ("Anime news bot")
+  keyHash    String    @unique // SHA-256 of the raw key — the only stored form
+  keyPrefix  String // display-only, e.g. "kv_live_a1b2…" (never the full secret)
+  revoked    Boolean   @default(false)
+  draftCount Int       @default(0) // how many drafts this key has created
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  owner  User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  drafts Blog[]
+
+  @@index([ownerId])
 }
 
 // One row per (blog, viewer, UTC day) — deduplicates views so refreshes and

@@ -41,6 +41,7 @@ export type WatchStatus = (typeof WatchStatus)[keyof typeof WatchStatus]
 
 export const BlogStatus = {
   DRAFT: 'DRAFT',
+  PENDING_REVIEW: 'PENDING_REVIEW',
   SCHEDULED: 'SCHEDULED',
   PUBLISHED: 'PUBLISHED'
 } as const

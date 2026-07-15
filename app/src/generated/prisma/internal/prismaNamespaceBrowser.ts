@@ -99,6 +99,7 @@ export const ModelName = {
   Review: 'Review',
   ReviewLike: 'ReviewLike',
   Blog: 'Blog',
+  IntegrationKey: 'IntegrationKey',
   BlogView: 'BlogView',
   BlogLike: 'BlogLike',
   BlogComment: 'BlogComment',
@@ -1017,10 +1018,27 @@ export const BlogScalarFieldEnum = {
   viewCount: 'viewCount',
   likeCount: 'likeCount',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  sourceKeyId: 'sourceKeyId',
+  idempotencyKey: 'idempotencyKey'
 } as const
 
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const IntegrationKeyScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  label: 'label',
+  keyHash: 'keyHash',
+  keyPrefix: 'keyPrefix',
+  revoked: 'revoked',
+  draftCount: 'draftCount',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type IntegrationKeyScalarFieldEnum = (typeof IntegrationKeyScalarFieldEnum)[keyof typeof IntegrationKeyScalarFieldEnum]
 
 
 export const BlogViewScalarFieldEnum = {

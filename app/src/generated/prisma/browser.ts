@@ -268,6 +268,11 @@ export type ReviewLike = Prisma.ReviewLikeModel
  */
 export type Blog = Prisma.BlogModel
 /**
+ * Model IntegrationKey
+ * 
+ */
+export type IntegrationKey = Prisma.IntegrationKeyModel
+/**
  * Model BlogView
  * 
  */

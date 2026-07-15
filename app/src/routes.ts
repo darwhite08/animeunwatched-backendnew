@@ -37,6 +37,7 @@ import { changelogRouter } from "./modules/changelog/changelog.routes";
 import { ticketsRouter } from "./modules/tickets/tickets.routes";
 import { clubThreadsRouter } from "./modules/threads/threads.routes";
 import { socialRouter } from "./modules/social/social.routes";
+import { integrationsRouter } from "./modules/integrations/integrations.routes";
 import { linksRouter } from "./modules/links/links.routes";
 import { storefrontRouter } from "./modules/creator/storefront.routes";
 import { unsubscribeRouter } from "./modules/unsubscribe/unsubscribe.routes";
@@ -79,6 +80,7 @@ export const ROUTE_MOUNTS = [
   ["/admin",                           adminRouter],
   ["/creator",                         creatorRouter],
   ["/social",                          socialRouter],
+  ["/integrations",                    integrationsRouter],
   ["/links",                           linksRouter],
   ["/storefront",                      storefrontRouter],
   ["/monetization",                    monetizationRouter],
