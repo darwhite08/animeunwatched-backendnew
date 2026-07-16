@@ -300,7 +300,10 @@ export async function update(slug: string, userId: string, dto: UpdateBlogDto) {
   if (!blog) throw notFound("Blog not found");
   if (blog.authorId !== userId) throw forbidden("Not allowed to edit this blog");
 
-  const newSlug = dto.title ? toSlug(dto.title) : undefined;
+  // The slug is a PERMANENT public URL — set once at creation and never changed
+  // on edit. Regenerating it (it used to, whenever the title was present, which
+  // the editor always sends) churned the URL on every save/publish, 404-ing
+  // shared links, Google-indexed pages, and sitemap entries. Stable slugs win.
   const scheduledAt = dto.scheduledAt ? new Date(dto.scheduledAt) : undefined;
   const isScheduling = dto.status === "SCHEDULED" && scheduledAt && scheduledAt.getTime() > Date.now();
   const isPublishing = dto.status === "PUBLISHED" && blog.status !== "PUBLISHED" && !isScheduling;
@@ -316,7 +319,6 @@ export async function update(slug: string, userId: string, dto: UpdateBlogDto) {
         ? { animeMalId: dto.animeMalId, animeTitle: dto.animeMalId ? (dto.animeTitle ?? null) : null }
         : {}),
       ...(dto.status !== undefined ? { status: isScheduling ? "SCHEDULED" : dto.status } : {}),
-      ...(newSlug ? { slug: newSlug } : {}),
       ...(isScheduling ? { scheduledAt } : {}),
       ...(dto.scheduledAt === null ? { scheduledAt: null } : {}),
       ...(isPublishing ? { publishedAt: new Date(), scheduledAt: null } : {}),
