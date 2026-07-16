@@ -76,6 +76,10 @@ export async function search(q: string) {
   return { data: await searchManga(q) };
 }
 
+// Hydrate the catalog link so clients can deep-link to /manga/:malId (the
+// entry's own mangaId is an internal cuid, not a routable id).
+const entryInclude = { manga: { select: { malId: true, slug: true } } } as const;
+
 export async function getByUsername(usernameOrSlug: string) {
   // The profile URL uses the slug; the API also accepts the raw username.
   const user = await prisma.user.findFirst({
@@ -83,12 +87,20 @@ export async function getByUsername(usernameOrSlug: string) {
     select: { id: true },
   });
   if (!user) throw notFound("User not found");
-  const data = await prisma.mangaEntry.findMany({ where: { userId: user.id }, orderBy: { updatedAt: "desc" } });
+  const data = await prisma.mangaEntry.findMany({
+    where: { userId: user.id },
+    orderBy: { updatedAt: "desc" },
+    include: entryInclude,
+  });
   return { data };
 }
 
 export async function getMine(userId: string) {
-  const data = await prisma.mangaEntry.findMany({ where: { userId }, orderBy: { updatedAt: "desc" } });
+  const data = await prisma.mangaEntry.findMany({
+    where: { userId },
+    orderBy: { updatedAt: "desc" },
+    include: entryInclude,
+  });
   return { data };
 }
 
