@@ -7,6 +7,7 @@ export const NotificationType = {
   NEW_FOLLOWER:    "new_follower",
   REVIEW_LIKED:    "review_liked",
   POST_LIKED:      "post_liked",
+  POST_COMMENT:    "post_comment",
   STREAK_REMINDER: "streak_reminder",
   ACHIEVEMENT:     "achievement",
   SYSTEM:          "system",
@@ -22,6 +23,7 @@ function shortTitle(type: NotificationTypeValue): string {
     case "new_follower":    return "New follower";
     case "review_liked":    return "Someone liked your review";
     case "post_liked":      return "Someone liked your post";
+    case "post_comment":    return "New comment on your post";
     case "streak_reminder": return "Your streak is at risk";
     case "achievement":     return "Achievement unlocked";
     case "system":          return "Kaiveron";

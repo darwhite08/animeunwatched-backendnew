@@ -858,6 +858,26 @@ export async function likePost(userId: string, postId: string) {
   // Only award reputation for a new like, not a duplicate
   if (!existing) {
     addReputation(post.authorId, "post_liked").catch(console.error);
+    // Notify the post author of a new like (never for self-likes). Fire-and-forget.
+    if (post.authorId !== userId) {
+      prisma.user
+        .findUnique({ where: { id: userId }, select: { username: true, displayName: true, avatarUrl: true } })
+        .then((liker) =>
+          createNotification({
+            recipientId: post.authorId,
+            type: NotificationType.POST_LIKED,
+            payload: {
+              message: `${liker?.displayName ?? liker?.username ?? "Someone"} liked your post`,
+              link: `/posts/${postId}`,
+              actorUsername: liker?.username,
+              actorDisplayName: liker?.displayName,
+              actorAvatarUrl: liker?.avatarUrl ?? null,
+              postId,
+            },
+          }),
+        )
+        .catch(console.error);
+    }
   }
 
   // Authoritative count from the DB — used by the response AND the broadcast,
@@ -1074,6 +1094,35 @@ export async function createComment(postId: string, authorId: string, content: s
     }
     broadcastPostComment(postId, comment);
   } catch { /* fire-and-forget */ }
+
+  // Notify the post author (and the parent-comment author on a reply). Never
+  // self-notify. Fire-and-forget so a notification failure can't fail the comment.
+  void (async () => {
+    const name = comment.author?.displayName ?? comment.author?.username ?? "Someone";
+    const actor = {
+      actorUsername: comment.author?.username,
+      actorDisplayName: comment.author?.displayName,
+      actorAvatarUrl: comment.author?.avatarUrl ?? null,
+    };
+    const preview = content.slice(0, 100);
+    if (post.authorId !== authorId) {
+      await createNotification({
+        recipientId: post.authorId,
+        type: NotificationType.POST_COMMENT,
+        payload: { message: `${name} commented on your post`, link: `/posts/${postId}`, postId, content: preview, ...actor },
+      });
+    }
+    if (parentCommentId) {
+      const parent = await prisma.postComment.findUnique({ where: { id: parentCommentId }, select: { authorId: true } });
+      if (parent && parent.authorId !== authorId && parent.authorId !== post.authorId) {
+        await createNotification({
+          recipientId: parent.authorId,
+          type: NotificationType.POST_COMMENT,
+          payload: { message: `${name} replied to your comment`, link: `/posts/${postId}`, postId, content: preview, ...actor },
+        });
+      }
+    }
+  })().catch(console.error);
 
   return { comment: { ...comment, isLikedByMe: false, likeCount: 0, replyCount: 0, replies: [] } };
 }
