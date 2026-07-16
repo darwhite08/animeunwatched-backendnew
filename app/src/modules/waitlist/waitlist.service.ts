@@ -2,7 +2,7 @@ import { prisma } from "../../config/prisma";
 import type { JoinWaitlistInput } from "./waitlist.schema";
 import { getInviteOnly } from "../../lib/inviteGate";
 import { sendMail } from "../../lib/mailer";
-import { buildWaitlistInvite, waitlistInviteCtaUrl } from "../../lib/waitlistInviteEmail";
+import { buildWaitlistInvite, waitlistInviteCtaUrl, WAITLIST_INVITE_FROM } from "../../lib/waitlistInviteEmail";
 
 /**
  * Idempotent join — one row per email. Re-submitting the same email is a no-op
@@ -101,7 +101,7 @@ export async function inviteEmails(
     const chunk = recipients.slice(i, i + 10);
     await Promise.all(
       chunk.map(async (email) => {
-        const res = await sendMail({ to: email, subject, text, html, tag: "admin-invite" });
+        const res = await sendMail({ from: WAITLIST_INVITE_FROM, to: email, subject, text, html, tag: "admin-invite" });
         if (res.ok) {
           sent++;
           await prisma.waitlist
@@ -225,7 +225,7 @@ export async function sendWaitlistInvites(opts: SendInvitesOpts = {}) {
   const failed: { email: string; error: string }[] = [];
 
   for (const r of recipients) {
-    const res = await sendMail({ to: r.email, subject, text, html, tag: "waitlist-invite" });
+    const res = await sendMail({ from: WAITLIST_INVITE_FROM, to: r.email, subject, text, html, tag: "waitlist-invite" });
     if (res.ok) {
       sent++;
       await prisma.waitlist.update({ where: { id: r.id }, data: { invited: true } }).catch(() => {});
