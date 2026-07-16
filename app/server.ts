@@ -8,7 +8,7 @@ import { prisma } from "./src/config/prisma";
 import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 import { ensureAdminSeed } from "./src/lib/adminSeed";
-import { ensureBlogDraftChannelSchema, ensureAnimeSearchSchema } from "./src/lib/ensureSchema";
+import { ensureBlogDraftChannelSchema, ensureAnimeSearchSchema, ensureNotificationGroupingSchema } from "./src/lib/ensureSchema";
 import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
 import { seedPiiInventory } from "./src/lib/piiScanner";
 
@@ -47,6 +47,11 @@ ensureBlogDraftChannelSchema()
 ensureAnimeSearchSchema()
   .then((r) => r.applied && console.log("[search-ensure] anime pg_trgm search schema applied"))
   .catch((err: unknown) => console.error("[search-ensure] failed:", err));
+
+// Notification grouping columns (DM collapse) — idempotent on boot.
+ensureNotificationGroupingSchema()
+  .then((r) => r.applied && console.log("[notif-ensure] notification grouping schema applied"))
+  .catch((err: unknown) => console.error("[notif-ensure] failed:", err));
 
 // Admin RBAC seed — idempotent. Runs after `prisma db push` completes (CMD chain).
 ensureAdminSeed()

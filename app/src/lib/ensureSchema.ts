@@ -40,7 +40,13 @@ const STATEMENTS: string[] = [
        ADD CONSTRAINT "Blog_sourceKeyId_fkey"
        FOREIGN KEY ("sourceKeyId") REFERENCES "IntegrationKey"("id") ON DELETE SET NULL ON UPDATE CASCADE;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
-  // ── Notification grouping (DM collapse) ──────────────────────────────────
+];
+
+// ─── Notification grouping (DM collapse) ────────────────────────────────────
+// Own ensure function with its OWN marker fast-path — these must never live in
+// another ensure's statement list, whose fast-path would skip them once ITS
+// marker exists (that exact mistake 500'd the notifications feed once).
+const NOTIF_STATEMENTS: string[] = [
   `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "groupKey" TEXT`,
   `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "count" INTEGER NOT NULL DEFAULT 1`,
   `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP`,
@@ -50,6 +56,25 @@ const STATEMENTS: string[] = [
   // "message" notifications replace them.
   `DELETE FROM "Notification" WHERE type = 'system' AND payload->>'kind' = 'dm_from_staff'`,
 ];
+
+export async function ensureNotificationGroupingSchema(): Promise<{ applied: boolean }> {
+  const rows = await prisma.$queryRawUnsafe<Array<{ present: boolean }>>(
+    `SELECT EXISTS (
+       SELECT 1 FROM information_schema.columns
+       WHERE table_name = 'Notification' AND column_name = 'groupKey'
+     ) AS present`,
+  ).catch(() => [{ present: false }] as Array<{ present: boolean }>);
+  if (rows?.[0]?.present) return { applied: false };
+
+  for (const sql of NOTIF_STATEMENTS) {
+    try {
+      await prisma.$executeRawUnsafe(sql);
+    } catch (err) {
+      console.error("[notif-ensure] statement failed (continuing):", (err as Error).message);
+    }
+  }
+  return { applied: true };
+}
 
 export async function ensureBlogDraftChannelSchema(): Promise<{ applied: boolean }> {
   // Fast path: marker column present → nothing to do.
