@@ -2,7 +2,72 @@ import { prisma } from "../../config/prisma";
 import { badRequest, notFound } from "../../lib/errors";
 import { searchManga, getMangaMalIds } from "../../lib/anilist";
 import { buildSearchText } from "../../lib/searchText";
+import { updateStreak } from "../../lib/streak";
+import { createNotification, NotificationType } from "../../lib/notify";
+import { addReputation } from "../../lib/reputation";
+import { broadcastMangaListChanged, broadcastUserReadlistChanged } from "../../realtime/broadcast";
 import type { AddMangaDto, UpdateMangaDto } from "./readlist.schema";
+
+// ─── Gamification / realtime hooks ──────────────────────────────────────────
+// Mirrors lists.service upsertEntry: reading activity drives the SAME streak,
+// badge, reputation-milestone and realtime machinery as watching. Everything
+// is fire-and-forget — a hook failure never fails the user's request.
+
+function fireReadlistHooks(userId: string, opts: { status?: string; mangaId?: string | null }): void {
+  // Streak — readlist activity counts as daily engagement
+  void updateStreak(userId).catch(() => {});
+
+  // Badge hooks — first readlist add + manga completion tiers
+  void (async () => {
+    const { awardBadge, checkMangaCompletionBadges } = await import("../../lib/badges");
+    const n = await prisma.mangaEntry.count({ where: { userId } });
+    if (n === 1) await awardBadge(userId, "FIRST_MANGA");
+    if (opts.status === "COMPLETED") await checkMangaCompletionBadges(userId);
+  })().catch(() => {});
+
+  // Realtime: manga detail user-stats counters + the user's own readlist sync
+  void (async () => {
+    if (!opts.mangaId) return;
+    const manga = await prisma.manga.findUnique({ where: { id: opts.mangaId }, select: { malId: true } });
+    if (!manga) return;
+    broadcastMangaListChanged(manga.malId);
+    try { broadcastUserReadlistChanged(userId, manga.malId, opts.status ?? null); } catch { /* best-effort */ }
+  })().catch(() => {});
+
+  // COMPLETED milestones → reputation + achievement notification (same tiers
+  // and reputation event as the watchlist's completion milestones)
+  if (opts.status === "COMPLETED") {
+    void (async () => {
+      try {
+        const completedCount = await prisma.mangaEntry.count({ where: { userId, status: "COMPLETED" } });
+        const milestones: Record<number, { badge: string; xp: number }> = {
+          1:   { badge: "First Volume",     xp: 100 },
+          10:  { badge: "Shelf Starter",    xp: 200 },
+          25:  { badge: "Quarter Library",  xp: 500 },
+          50:  { badge: "Half-Stack",       xp: 1000 },
+          100: { badge: "Centurion Reader", xp: 2500 },
+          250: { badge: "Legendary Stack",  xp: 5000 },
+          500: { badge: "Paper Oracle",     xp: 10000 },
+        };
+        const milestone = milestones[completedCount];
+        if (milestone) {
+          await addReputation(userId, "achievement_unlocked").catch(() => {});
+          await createNotification({
+            recipientId: userId,
+            type: NotificationType.ACHIEVEMENT,
+            payload: {
+              message: `Achievement unlocked: ${milestone.badge}! You've completed ${completedCount} manga.`,
+              badge: milestone.badge,
+              completedCount,
+              xp: milestone.xp,
+              link: "/streak",
+            },
+          });
+        }
+      } catch { /* never fail the main request */ }
+    })();
+  }
+}
 
 export async function search(q: string) {
   // Still AniList-shaped (anilistId + denormalized fields) because the live web
@@ -55,6 +120,7 @@ export async function add(userId: string, dto: AddMangaDto) {
       },
       update: {},
     });
+    fireReadlistHooks(userId, { status: entry.status, mangaId: entry.mangaId });
     return { entry };
   }
 
@@ -75,6 +141,7 @@ export async function add(userId: string, dto: AddMangaDto) {
     },
     update: {},
   });
+  fireReadlistHooks(userId, { status: entry.status, mangaId: entry.mangaId });
   return { entry };
 }
 
@@ -93,6 +160,7 @@ export async function update(userId: string, id: string, dto: UpdateMangaDto) {
   }
 
   const entry = await prisma.mangaEntry.update({ where: { id }, data });
+  fireReadlistHooks(userId, { status: dto.status, mangaId: entry.mangaId });
   return { entry };
 }
 

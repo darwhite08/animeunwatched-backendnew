@@ -25,6 +25,7 @@ function enqueueOutbound(eventName: string, payload: Record<string, unknown>): P
 export const FEED_ROOM            = "feed"
 export const ADMIN_ROOM           = "admin"
 export const animeRoom    = (malId: number) => `anime:${malId}`
+export const mangaRoom    = (malId: number) => `manga:${malId}`
 export const clubRoom     = (clubId: string) => `club:${clubId}`
 export const threadRoom   = (threadId: string) => `thread:${threadId}`
 export const postRoom     = (postId: string) => `post:${postId}`
@@ -95,6 +96,18 @@ export function broadcastAnimeListChanged(malId: number): void {
 /** A user updated their own list — sync their watchlist tabs/devices */
 export function broadcastUserListChanged(userId: string, malId: number, status: string | null): void {
   emit(userRoom(userId), "list.changed", { malId, status, at: Date.now() })
+}
+
+// ── Manga events (mirror the anime ones) ─────────────────────────────────────
+
+/** Someone added/removed/changed status on the manga — live user-stats counters */
+export function broadcastMangaListChanged(malId: number): void {
+  emit(mangaRoom(malId), "manga.list-changed", { malId, at: Date.now() })
+}
+
+/** A user updated their own readlist — sync their readlist tabs/devices */
+export function broadcastUserReadlistChanged(userId: string, malId: number, status: string | null): void {
+  emit(userRoom(userId), "readlist.changed", { malId, status, at: Date.now() })
 }
 
 /** A new discussion thread was started on an anime — viewers of that anime's

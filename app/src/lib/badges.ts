@@ -24,11 +24,17 @@ export const BADGES = {
   FIRST_BLOG:     { name: "Ink Initiate",     tier: "first",      desc: "Published your first blog" },
   FIRST_REVIEW:   { name: "First Verdict",    tier: "first",      desc: "Wrote your first review" },
   FIRST_CLUB:     { name: "Found the Dojo",   tier: "first",      desc: "Joined your first community" },
+  FIRST_MANGA:    { name: "First Page",       tier: "first",      desc: "Added your first manga to the readlist" },
 
   // ── Completion / collection badges (anime completionism drive) ──
   ARC_CLEARED:    { name: "Arc Cleared",      tier: "completion", desc: "Completed your first series" },
   ARC_CLEARED_10: { name: "Ten Arcs Deep",    tier: "completion", desc: "Completed 10 series" },
   ARC_CLEARED_50: { name: "Archive Master",   tier: "rare",       desc: "Completed 50 series" },
+
+  // ── Reading completion badges (manga completionism drive) ──
+  VOLUME_CLOSED:    { name: "Volume Closed",    tier: "completion", desc: "Completed your first manga" },
+  VOLUME_CLOSED_10: { name: "Ten Volumes Shut", tier: "completion", desc: "Completed 10 manga" },
+  VOLUME_CLOSED_50: { name: "Library Keeper",   tier: "rare",       desc: "Completed 50 manga" },
 
   // ── Streak milestones (forgiving-streak instrumentation) ──
   STREAK_7:       { name: "One Week Strong",  tier: "milestone",  desc: "Kept a 7-day streak" },
@@ -77,6 +83,16 @@ export async function checkCompletionBadges(userId: string): Promise<void> {
     if (completed >= 1)  await awardBadge(userId, "ARC_CLEARED");
     if (completed >= 10) await awardBadge(userId, "ARC_CLEARED_10");
     if (completed >= 50) await awardBadge(userId, "ARC_CLEARED_50");
+  } catch { /* best-effort */ }
+}
+
+/** Manga completion-count → badge mapping, called when an entry transitions to COMPLETED. */
+export async function checkMangaCompletionBadges(userId: string): Promise<void> {
+  try {
+    const completed = await prisma.mangaEntry.count({ where: { userId, status: "COMPLETED" } });
+    if (completed >= 1)  await awardBadge(userId, "VOLUME_CLOSED");
+    if (completed >= 10) await awardBadge(userId, "VOLUME_CLOSED_10");
+    if (completed >= 50) await awardBadge(userId, "VOLUME_CLOSED_50");
   } catch { /* best-effort */ }
 }
 
