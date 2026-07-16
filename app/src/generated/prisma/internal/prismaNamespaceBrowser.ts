@@ -558,6 +558,7 @@ export const AnimeScalarFieldEnum = {
   titleEnglish: 'titleEnglish',
   titleJapanese: 'titleJapanese',
   titleSynonyms: 'titleSynonyms',
+  searchText: 'searchText',
   synopsis: 'synopsis',
   background: 'background',
   type: 'type',

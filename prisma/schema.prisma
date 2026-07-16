@@ -600,6 +600,10 @@ model Anime {
   titleEnglish     String?
   titleJapanese    String?
   titleSynonyms    String[]  @default([])
+  // Normalized concat of every title variant (romaji/english/synonyms), for
+  // fuzzy multi-title search. Backed by a pg_trgm GIN index (added in
+  // ensureSchema.ts). Written on every Jikan upsert; backfilled once for old rows.
+  searchText       String?
   synopsis         String?
   background       String?
   type             String?

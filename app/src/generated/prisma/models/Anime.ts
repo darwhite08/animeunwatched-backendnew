@@ -65,6 +65,7 @@ export type AnimeMinAggregateOutputType = {
   title: string | null
   titleEnglish: string | null
   titleJapanese: string | null
+  searchText: string | null
   synopsis: string | null
   background: string | null
   type: string | null
@@ -115,6 +116,7 @@ export type AnimeMaxAggregateOutputType = {
   title: string | null
   titleEnglish: string | null
   titleJapanese: string | null
+  searchText: string | null
   synopsis: string | null
   background: string | null
   type: string | null
@@ -166,6 +168,7 @@ export type AnimeCountAggregateOutputType = {
   titleEnglish: number
   titleJapanese: number
   titleSynonyms: number
+  searchText: number
   synopsis: number
   background: number
   type: number
@@ -251,6 +254,7 @@ export type AnimeMinAggregateInputType = {
   title?: true
   titleEnglish?: true
   titleJapanese?: true
+  searchText?: true
   synopsis?: true
   background?: true
   type?: true
@@ -301,6 +305,7 @@ export type AnimeMaxAggregateInputType = {
   title?: true
   titleEnglish?: true
   titleJapanese?: true
+  searchText?: true
   synopsis?: true
   background?: true
   type?: true
@@ -352,6 +357,7 @@ export type AnimeCountAggregateInputType = {
   titleEnglish?: true
   titleJapanese?: true
   titleSynonyms?: true
+  searchText?: true
   synopsis?: true
   background?: true
   type?: true
@@ -491,6 +497,7 @@ export type AnimeGroupByOutputType = {
   titleEnglish: string | null
   titleJapanese: string | null
   titleSynonyms: string[]
+  searchText: string | null
   synopsis: string | null
   background: string | null
   type: string | null
@@ -566,6 +573,7 @@ export type AnimeWhereInput = {
   titleEnglish?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
+  searchText?: Prisma.StringNullableFilter<"Anime"> | string | null
   synopsis?: Prisma.StringNullableFilter<"Anime"> | string | null
   background?: Prisma.StringNullableFilter<"Anime"> | string | null
   type?: Prisma.StringNullableFilter<"Anime"> | string | null
@@ -630,6 +638,7 @@ export type AnimeOrderByWithRelationInput = {
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   titleJapanese?: Prisma.SortOrderInput | Prisma.SortOrder
   titleSynonyms?: Prisma.SortOrder
+  searchText?: Prisma.SortOrderInput | Prisma.SortOrder
   synopsis?: Prisma.SortOrderInput | Prisma.SortOrder
   background?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -697,6 +706,7 @@ export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   titleEnglish?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableFilter<"Anime"> | string | null
   titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
+  searchText?: Prisma.StringNullableFilter<"Anime"> | string | null
   synopsis?: Prisma.StringNullableFilter<"Anime"> | string | null
   background?: Prisma.StringNullableFilter<"Anime"> | string | null
   type?: Prisma.StringNullableFilter<"Anime"> | string | null
@@ -761,6 +771,7 @@ export type AnimeOrderByWithAggregationInput = {
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   titleJapanese?: Prisma.SortOrderInput | Prisma.SortOrder
   titleSynonyms?: Prisma.SortOrder
+  searchText?: Prisma.SortOrderInput | Prisma.SortOrder
   synopsis?: Prisma.SortOrderInput | Prisma.SortOrder
   background?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -821,6 +832,7 @@ export type AnimeScalarWhereWithAggregatesInput = {
   titleEnglish?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   titleJapanese?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   titleSynonyms?: Prisma.StringNullableListFilter<"Anime">
+  searchText?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   synopsis?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   background?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
   type?: Prisma.StringNullableWithAggregatesFilter<"Anime"> | string | null
@@ -873,6 +885,7 @@ export type AnimeCreateInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -937,6 +950,7 @@ export type AnimeUncheckedCreateInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -1001,6 +1015,7 @@ export type AnimeUpdateInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1065,6 +1080,7 @@ export type AnimeUncheckedUpdateInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1129,6 +1145,7 @@ export type AnimeCreateManyInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -1181,6 +1198,7 @@ export type AnimeUpdateManyMutationInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1233,6 +1251,7 @@ export type AnimeUncheckedUpdateManyInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1285,6 +1304,7 @@ export type AnimeCountOrderByAggregateInput = {
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
   titleSynonyms?: Prisma.SortOrder
+  searchText?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
   background?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -1352,6 +1372,7 @@ export type AnimeMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
+  searchText?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
   background?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -1402,6 +1423,7 @@ export type AnimeMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrder
   titleJapanese?: Prisma.SortOrder
+  searchText?: Prisma.SortOrder
   synopsis?: Prisma.SortOrder
   background?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -1687,6 +1709,7 @@ export type AnimeCreateWithoutTrendingStateInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -1750,6 +1773,7 @@ export type AnimeUncheckedCreateWithoutTrendingStateInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -1829,6 +1853,7 @@ export type AnimeUpdateWithoutTrendingStateInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1892,6 +1917,7 @@ export type AnimeUncheckedUpdateWithoutTrendingStateInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1955,6 +1981,7 @@ export type AnimeCreateWithoutGenresInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2018,6 +2045,7 @@ export type AnimeUncheckedCreateWithoutGenresInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2097,6 +2125,7 @@ export type AnimeUpdateWithoutGenresInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2160,6 +2189,7 @@ export type AnimeUncheckedUpdateWithoutGenresInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2223,6 +2253,7 @@ export type AnimeCreateWithoutStudiosInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2286,6 +2317,7 @@ export type AnimeUncheckedCreateWithoutStudiosInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2365,6 +2397,7 @@ export type AnimeUpdateWithoutStudiosInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2428,6 +2461,7 @@ export type AnimeUncheckedUpdateWithoutStudiosInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2491,6 +2525,7 @@ export type AnimeCreateWithoutEpisodeListInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2554,6 +2589,7 @@ export type AnimeUncheckedCreateWithoutEpisodeListInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2633,6 +2669,7 @@ export type AnimeUpdateWithoutEpisodeListInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2696,6 +2733,7 @@ export type AnimeUncheckedUpdateWithoutEpisodeListInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2759,6 +2797,7 @@ export type AnimeCreateWithoutRelationsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2822,6 +2861,7 @@ export type AnimeUncheckedCreateWithoutRelationsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2890,6 +2930,7 @@ export type AnimeCreateWithoutRelatedToInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -2953,6 +2994,7 @@ export type AnimeUncheckedCreateWithoutRelatedToInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3032,6 +3074,7 @@ export type AnimeUpdateWithoutRelationsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3095,6 +3138,7 @@ export type AnimeUncheckedUpdateWithoutRelationsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3169,6 +3213,7 @@ export type AnimeUpdateWithoutRelatedToInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3232,6 +3277,7 @@ export type AnimeUncheckedUpdateWithoutRelatedToInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3295,6 +3341,7 @@ export type AnimeCreateWithoutListEntriesInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3358,6 +3405,7 @@ export type AnimeUncheckedCreateWithoutListEntriesInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3437,6 +3485,7 @@ export type AnimeUpdateWithoutListEntriesInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3500,6 +3549,7 @@ export type AnimeUncheckedUpdateWithoutListEntriesInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3563,6 +3613,7 @@ export type AnimeCreateWithoutPostsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3626,6 +3677,7 @@ export type AnimeUncheckedCreateWithoutPostsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3705,6 +3757,7 @@ export type AnimeUpdateWithoutPostsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3768,6 +3821,7 @@ export type AnimeUncheckedUpdateWithoutPostsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3831,6 +3885,7 @@ export type AnimeCreateWithoutThreadsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3894,6 +3949,7 @@ export type AnimeUncheckedCreateWithoutThreadsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -3973,6 +4029,7 @@ export type AnimeUpdateWithoutThreadsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4036,6 +4093,7 @@ export type AnimeUncheckedUpdateWithoutThreadsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4099,6 +4157,7 @@ export type AnimeCreateWithoutReviewsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4162,6 +4221,7 @@ export type AnimeUncheckedCreateWithoutReviewsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4241,6 +4301,7 @@ export type AnimeUpdateWithoutReviewsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4304,6 +4365,7 @@ export type AnimeUncheckedUpdateWithoutReviewsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4367,6 +4429,7 @@ export type AnimeCreateWithoutActivitiesInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4430,6 +4493,7 @@ export type AnimeUncheckedCreateWithoutActivitiesInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4509,6 +4573,7 @@ export type AnimeUpdateWithoutActivitiesInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4572,6 +4637,7 @@ export type AnimeUncheckedUpdateWithoutActivitiesInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4635,6 +4701,7 @@ export type AnimeCreateWithoutShotsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4698,6 +4765,7 @@ export type AnimeUncheckedCreateWithoutShotsInput = {
   titleEnglish?: string | null
   titleJapanese?: string | null
   titleSynonyms?: Prisma.AnimeCreatetitleSynonymsInput | string[]
+  searchText?: string | null
   synopsis?: string | null
   background?: string | null
   type?: string | null
@@ -4777,6 +4845,7 @@ export type AnimeUpdateWithoutShotsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4840,6 +4909,7 @@ export type AnimeUncheckedUpdateWithoutShotsInput = {
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleJapanese?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleSynonyms?: Prisma.AnimeUpdatetitleSynonymsInput | string[]
+  searchText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   synopsis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5024,6 +5094,7 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   titleEnglish?: boolean
   titleJapanese?: boolean
   titleSynonyms?: boolean
+  searchText?: boolean
   synopsis?: boolean
   background?: boolean
   type?: boolean
@@ -5089,6 +5160,7 @@ export type AnimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   titleEnglish?: boolean
   titleJapanese?: boolean
   titleSynonyms?: boolean
+  searchText?: boolean
   synopsis?: boolean
   background?: boolean
   type?: boolean
@@ -5141,6 +5213,7 @@ export type AnimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   titleEnglish?: boolean
   titleJapanese?: boolean
   titleSynonyms?: boolean
+  searchText?: boolean
   synopsis?: boolean
   background?: boolean
   type?: boolean
@@ -5193,6 +5266,7 @@ export type AnimeSelectScalar = {
   titleEnglish?: boolean
   titleJapanese?: boolean
   titleSynonyms?: boolean
+  searchText?: boolean
   synopsis?: boolean
   background?: boolean
   type?: boolean
@@ -5237,7 +5311,7 @@ export type AnimeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "trailerCheckedAt" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "wikipediaTitle" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
+export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malId" | "slug" | "title" | "titleEnglish" | "titleJapanese" | "titleSynonyms" | "searchText" | "synopsis" | "background" | "type" | "episodes" | "status" | "airing" | "airedFrom" | "airedTo" | "duration" | "season" | "year" | "rating" | "score" | "scoredBy" | "rank" | "popularity" | "membersCount" | "favoritesCount" | "imageUrl" | "imageSmallUrl" | "imageWebpUrl" | "localImagePath" | "trailerUrl" | "trailerYoutubeId" | "trailerCheckedAt" | "broadcastDay" | "broadcastTime" | "broadcastTz" | "source" | "lastSyncedAt" | "syncPriority" | "syncFailCount" | "isStub" | "kaiveronTags" | "waieScore" | "isFeatured" | "wikipediaTitle" | "trendingScore" | "trendingRank" | "trendingUpdatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["anime"]>
 export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Anime$genresArgs<ExtArgs>
   studios?: boolean | Prisma.Anime$studiosArgs<ExtArgs>
@@ -5285,6 +5359,7 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     titleEnglish: string | null
     titleJapanese: string | null
     titleSynonyms: string[]
+    searchText: string | null
     synopsis: string | null
     background: string | null
     type: string | null
@@ -5788,6 +5863,7 @@ export interface AnimeFieldRefs {
   readonly titleEnglish: Prisma.FieldRef<"Anime", 'String'>
   readonly titleJapanese: Prisma.FieldRef<"Anime", 'String'>
   readonly titleSynonyms: Prisma.FieldRef<"Anime", 'String[]'>
+  readonly searchText: Prisma.FieldRef<"Anime", 'String'>
   readonly synopsis: Prisma.FieldRef<"Anime", 'String'>
   readonly background: Prisma.FieldRef<"Anime", 'String'>
   readonly type: Prisma.FieldRef<"Anime", 'String'>

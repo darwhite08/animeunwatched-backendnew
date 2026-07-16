@@ -63,3 +63,42 @@ export async function ensureBlogDraftChannelSchema(): Promise<{ applied: boolean
   }
   return { applied: true };
 }
+
+// ─── Anime fuzzy search (pg_trgm) ────────────────────────────────────────────
+// Enables multi-title fuzzy search: a normalized "searchText" haystack (all
+// title variants) + a pg_trgm GIN index for similarity()/LIKE. Idempotent; the
+// backfill only touches rows that don't yet have searchText, and the SQL
+// normalization is kept in lockstep with lib/searchText.ts (NFKD≈unaccent,
+// [^a-z0-9]→space) so backfilled + upserted rows normalize identically.
+const SEARCH_STATEMENTS: string[] = [
+  `CREATE EXTENSION IF NOT EXISTS pg_trgm`,
+  `CREATE EXTENSION IF NOT EXISTS unaccent`,
+  `ALTER TABLE "Anime" ADD COLUMN IF NOT EXISTS "searchText" TEXT`,
+  `CREATE INDEX IF NOT EXISTS "Anime_searchText_trgm_idx" ON "Anime" USING gin ("searchText" gin_trgm_ops)`,
+  // Backfill existing rows once (idempotent: only NULL searchText).
+  `UPDATE "Anime" SET "searchText" = trim(regexp_replace(lower(unaccent(
+       coalesce(title,'') || ' ' || coalesce("titleEnglish",'') || ' ' ||
+       array_to_string(coalesce("titleSynonyms", '{}'), ' ')
+     )), '[^a-z0-9]+', ' ', 'g'))
+   WHERE "searchText" IS NULL`,
+];
+
+export async function ensureAnimeSearchSchema(): Promise<{ applied: boolean }> {
+  // Fast path: index present AND no un-backfilled rows → nothing to do.
+  const rows = await prisma.$queryRawUnsafe<Array<{ pending: number }>>(
+    `SELECT (
+       CASE WHEN to_regclass('"Anime_searchText_trgm_idx"') IS NULL THEN 1
+            ELSE (SELECT count(*) FROM "Anime" WHERE "searchText" IS NULL)
+       END)::int AS pending`,
+  ).catch(() => [{ pending: 1 }] as Array<{ pending: number }>);
+  if (rows?.[0]?.pending === 0) return { applied: false };
+
+  for (const sql of SEARCH_STATEMENTS) {
+    try {
+      await prisma.$executeRawUnsafe(sql);
+    } catch (err) {
+      console.error("[search-ensure] statement failed (continuing):", (err as Error).message);
+    }
+  }
+  return { applied: true };
+}

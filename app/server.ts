@@ -8,7 +8,7 @@ import { prisma } from "./src/config/prisma";
 import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 import { ensureAdminSeed } from "./src/lib/adminSeed";
-import { ensureBlogDraftChannelSchema } from "./src/lib/ensureSchema";
+import { ensureBlogDraftChannelSchema, ensureAnimeSearchSchema } from "./src/lib/ensureSchema";
 import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
 import { seedPiiInventory } from "./src/lib/piiScanner";
 
@@ -42,6 +42,11 @@ setInterval(() => {
 ensureBlogDraftChannelSchema()
   .then((r) => r.applied && console.log("[schema-ensure] Blog Draft Channel schema applied"))
   .catch((err: unknown) => console.error("[schema-ensure] failed:", err));
+
+// Anime fuzzy-search schema (pg_trgm + searchText backfill) — idempotent on boot.
+ensureAnimeSearchSchema()
+  .then((r) => r.applied && console.log("[search-ensure] anime pg_trgm search schema applied"))
+  .catch((err: unknown) => console.error("[search-ensure] failed:", err));
 
 // Admin RBAC seed — idempotent. Runs after `prisma db push` completes (CMD chain).
 ensureAdminSeed()

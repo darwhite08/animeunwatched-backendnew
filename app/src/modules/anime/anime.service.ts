@@ -2,6 +2,7 @@ import { prisma } from "../../config/prisma";
 import type { CatalogAnime } from "../../lib/catalog/types";
 import { notFound } from "../../lib/errors";
 import { cache } from "../../lib/cache";
+import { normalizeForSearch } from "../../lib/searchText";
 import { jaccard, overlapCoeff, linearProximity, capPerGroup, logNormalize } from "../../lib/ranking";
 import { getAnimeFull, getRaw, searchAnimePage } from "../../lib/catalog/jikanClient";
 import { logSyncJob, upsertAnimeFromJikan, upsertStubFromSearchResult } from "./animeSync.service";
@@ -426,26 +427,65 @@ export async function getSeasonal(
 
 // ─── searchWithFallback ──────────────────────────────────────────────────────
 
-export async function searchWithFallback(q: string): Promise<AnimeWithRelations[]> {
+export async function searchWithFallback(qRaw: string): Promise<AnimeWithRelations[]> {
+  const q = normalizeForSearch(qRaw)
+  if (!q) return []
   const cacheKey = `search:${q}`
   const cached = cache.get<AnimeWithRelations[]>(cacheKey)
   if (cached) return cached
 
-  // Local DB first — search title, synopsis AND genres
-  const local = await prisma.anime.findMany({
-    where: {
-      OR: [
-        { title: { contains: q, mode: "insensitive" } },
-        { titleEnglish: { contains: q, mode: "insensitive" } },
-        { synopsis: { contains: q, mode: "insensitive" } },
-        { genres: { some: { genre: { name: { contains: q, mode: "insensitive" } } } } },
-        { studios: { some: { studio: { name: { contains: q, mode: "insensitive" } } } } },
-      ]
-    },
-    include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
-    take: 20,
-    orderBy: { score: { sort: "desc", nulls: "last" } },
-  })
+  // Fuzzy multi-title search over the normalized haystack (all title variants).
+  // Ranking: exact(4) > prefix(3) > word-boundary(2) > trigram-only(1), tie-broken
+  // by trigram similarity then catalog score. The pg_trgm GIN index accelerates
+  // BOTH `LIKE '%q%'` and the `%` similarity operator, so typos ("atack on titan"),
+  // romaji/synonyms ("shingeki no kyojin", "aot"), and punctuation/spacing variants
+  // ("re zero" ↔ "Re:Zero") all match. Params are bound ($1..$3) — injection-safe.
+  const like = `%${q}%`
+  const prefix = `${q}%`
+  let local: AnimeWithRelations[] = []
+  try {
+    const idRows = await prisma.$queryRawUnsafe<Array<{ id: string }>>(
+      `SELECT id FROM "Anime"
+        WHERE "searchText" IS NOT NULL AND ("searchText" LIKE $1 OR "searchText" % $2)
+        ORDER BY
+          (CASE
+             WHEN "searchText" = $2 THEN 4
+             WHEN "searchText" LIKE $3 THEN 3
+             WHEN "searchText" LIKE ('% ' || $2 || '%') THEN 2
+             ELSE 1
+           END) DESC,
+          similarity("searchText", $2) DESC,
+          COALESCE("score", 0) DESC
+        LIMIT 25`,
+      like, q, prefix,
+    )
+    const ids = idRows.map((r) => r.id)
+    if (ids.length) {
+      const found = await prisma.anime.findMany({
+        where: { id: { in: ids } },
+        include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+      })
+      const order = new Map(ids.map((id, i) => [id, i]))
+      local = (found as AnimeWithRelations[]).sort(
+        (a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0),
+      )
+    }
+  } catch (err) {
+    // pg_trgm / searchText not ready yet (fresh deploy, migration still running) →
+    // degrade to a plain multi-field contains match rather than erroring.
+    console.error("[search] trigram query failed, falling back to contains:", (err as Error).message)
+    local = (await prisma.anime.findMany({
+      where: {
+        OR: [
+          { title: { contains: qRaw, mode: "insensitive" } },
+          { titleEnglish: { contains: qRaw, mode: "insensitive" } },
+        ],
+      },
+      include: { genres: { include: { genre: true } }, studios: { include: { studio: true } } },
+      take: 20,
+      orderBy: { score: { sort: "desc", nulls: "last" } },
+    })) as AnimeWithRelations[]
+  }
 
   // Local DB satisfies the query → done. Threshold of 5 (spec §5): fewer hits
   // than that and we top up from Jikan so sparse-DB searches still work.
@@ -457,7 +497,8 @@ export async function searchWithFallback(q: string): Promise<AnimeWithRelations[
   // Upstream top-up: stub-upsert Jikan results (full detail arrives via the
   // worker queue), then merge with the local hits.
   try {
-    const upstream = await searchAnimePage(q, { limit: 10 })
+    // Jikan gets the RAW query (it does its own matching); local uses normalized.
+    const upstream = await searchAnimePage(qRaw, { limit: 10 })
     for (const a of upstream.data ?? []) {
       await upsertStubFromSearchResult(a)
       void enqueueAnimeFullSync(a.mal_id).catch(() => {})

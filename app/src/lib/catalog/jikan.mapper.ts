@@ -4,6 +4,7 @@
  */
 import type { CatalogAnime } from "./types";
 import type { JikanAnime, JikanEpisode, JikanMalEntity } from "./jikanClient";
+import { buildSearchText } from "../searchText";
 
 /** Jikan often leaves trailer.youtube_id null but provides embed_url — pull the
  *  11-char video id out of either. */
@@ -77,6 +78,7 @@ export interface MappedAnimeScalars {
   titleEnglish: string | null;
   titleJapanese: string | null;
   titleSynonyms: string[];
+  searchText: string;
   synopsis: string | null;
   background: string | null;
   type: string | null;
@@ -113,6 +115,12 @@ export function mapAnimeScalars(a: JikanAnime): MappedAnimeScalars {
     titleEnglish: a.title_english ?? null,
     titleJapanese: a.title_japanese ?? null,
     titleSynonyms: a.title_synonyms ?? [],
+    searchText: buildSearchText({
+      title: a.title,
+      titleEnglish: a.title_english,
+      titleJapanese: a.title_japanese,
+      titleSynonyms: a.title_synonyms,
+    }),
     synopsis: a.synopsis ?? null,
     background: a.background ?? null,
     type: a.type ?? null,
