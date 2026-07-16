@@ -30,6 +30,19 @@ export async function list(req: Request, res: Response, next: NextFunction): Pro
   } catch (err) { next(err); }
 }
 
+/** DELETE /waitlist — admin. Remove waitlist rows by email. Body: { emails: string[] }. */
+export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const raw = (req.body ?? {}) as { emails?: unknown };
+    const emails = Array.isArray(raw.emails)
+      ? raw.emails.filter((x): x is string => typeof x === "string")
+      : [];
+    if (!emails.length) throw badRequest("Provide emails[] to delete.", "VALIDATION");
+    const deleted = await service.deleteByEmails(emails);
+    res.status(200).json({ deleted });
+  } catch (err) { next(err); }
+}
+
 /**
  * POST /waitlist/send-invites — CRON_SECRET-gated. Sends the "your spot opened"
  * invite to the waitlist cohort. Always prunes registered members first.

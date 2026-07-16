@@ -18,3 +18,6 @@ waitlistRouter.post("/send-invites", ctrl.sendInvites);
 
 // Admin — list captured emails.
 waitlistRouter.get("/", requireAuth, requireAdmin, ctrl.list);
+
+// Admin — remove rows by email (prune test/junk/bot signups). Body: { emails[] }.
+waitlistRouter.delete("/", requireAuth, requireAdmin, ctrl.remove);

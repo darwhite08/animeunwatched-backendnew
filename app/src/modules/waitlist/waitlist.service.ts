@@ -132,6 +132,17 @@ export async function markInvited(emails: string[]): Promise<number> {
   return res.count;
 }
 
+/** Admin: hard-delete waitlist rows by email (case-insensitive). Returns count.
+ *  Used to prune test/junk/bot signups out of the list. */
+export async function deleteByEmails(emails: string[]): Promise<number> {
+  const list = [...new Set(emails.map((e) => e.trim().toLowerCase()).filter(Boolean))];
+  if (!list.length) return 0;
+  const { count } = await prisma.waitlist.deleteMany({
+    where: { OR: list.map((e) => ({ email: { equals: e, mode: "insensitive" as const } })) },
+  });
+  return count;
+}
+
 /** Admin: paginated list, newest first. Prunes now-registered members first. */
 export async function listWaitlist(opts: { take?: number; skip?: number } = {}) {
   // Self-heal: never surface an email that already belongs to a member.
