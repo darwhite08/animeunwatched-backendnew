@@ -165,8 +165,12 @@ async function seedMangaListPages(
     await enqueueSyncJob(
       jobType,
       { fromPage: lastChunkPage + 1, toPage },
-      // Seeds run below manga full syncs so newly-discovered titles complete first.
-      { dedupeKey: `${jobType}:${lastChunkPage + 1}-${toPage}`, priority: -3 },
+      // Top seed rides HIGH priority (it's only ~80 requests total and fills
+      // the browsable catalog); the full mal_id sweep stays below everything.
+      {
+        dedupeKey: `${jobType}:${lastChunkPage + 1}-${toPage}`,
+        priority: jobType === SYNC_JOB.SEED_TOP_MANGA ? 3 : -3,
+      },
     );
   }
 }
@@ -433,12 +437,23 @@ export function enqueueMangaRefreshCold(): Promise<{ id: string } | null> {
   return enqueueSyncJob(SYNC_JOB.REFRESH_MANGA_COLD, {}, { dedupeKey: SYNC_JOB.REFRESH_MANGA_COLD, priority: 1 });
 }
 
-export function enqueueTopMangaSeed(): Promise<{ id: string } | null> {
-  // 80 pages × 25 = the top ~2000 manga by rank.
+export async function enqueueTopMangaSeed(): Promise<{ id: string } | null> {
+  const { prisma } = await import("../config/prisma");
+  // Self-heal: earlier code enqueued this seed at priority -3, where it starves
+  // behind thousands of anime jobs. Bump any pending chunk to the new priority.
+  await prisma.syncJob
+    .updateMany({
+      where: { jobType: SYNC_JOB.SEED_TOP_MANGA, status: "PENDING", priority: { lt: 3 } },
+      data: { priority: 3 },
+    })
+    .catch(() => {});
+  // 80 pages × 25 = the top ~2000 manga by rank. Priority 3 (above anime full
+  // syncs): the seed itself is only ~80 Jikan requests — the expensive part
+  // (per-title full syncs) is enqueued at MANGA_FULL_PRIORITY below everything.
   return enqueueSyncJob(
     SYNC_JOB.SEED_TOP_MANGA,
     { fromPage: 1, toPage: 80 },
-    { dedupeKey: `${SYNC_JOB.SEED_TOP_MANGA}:1-80`, priority: -3 },
+    { dedupeKey: `${SYNC_JOB.SEED_TOP_MANGA}:1-80`, priority: 3 },
   );
 }
 
