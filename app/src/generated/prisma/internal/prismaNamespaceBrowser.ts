@@ -103,6 +103,7 @@ export const ModelName = {
   BlogView: 'BlogView',
   BlogLike: 'BlogLike',
   BlogComment: 'BlogComment',
+  AnimeTitleRequest: 'AnimeTitleRequest',
   Notification: 'Notification',
   Report: 'Report',
   ModerationAction: 'ModerationAction',
@@ -1071,6 +1072,18 @@ export const BlogCommentScalarFieldEnum = {
 } as const
 
 export type BlogCommentScalarFieldEnum = (typeof BlogCommentScalarFieldEnum)[keyof typeof BlogCommentScalarFieldEnum]
+
+
+export const AnimeTitleRequestScalarFieldEnum = {
+  id: 'id',
+  query: 'query',
+  rawQuery: 'rawQuery',
+  requestCount: 'requestCount',
+  lastRequestedAt: 'lastRequestedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AnimeTitleRequestScalarFieldEnum = (typeof AnimeTitleRequestScalarFieldEnum)[keyof typeof AnimeTitleRequestScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

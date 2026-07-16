@@ -1404,6 +1404,19 @@ model BlogComment {
   @@index([authorId])
 }
 
+// Titles users searched for that returned nothing (not even a fuzzy/Jikan hit).
+// Powers the "not in our catalog yet — request it" flow so a genuine gap is
+// surfaced to us instead of looking like broken search. Deduped by normalized
+// query with a request counter.
+model AnimeTitleRequest {
+  id              String   @id @default(cuid())
+  query           String   @unique // normalized (normalizeForSearch)
+  rawQuery        String // exactly what the user typed
+  requestCount    Int      @default(1)
+  lastRequestedAt DateTime @default(now())
+  createdAt       DateTime @default(now())
+}
+
 // ---------------------------------------------------------------------------
 // Notifications
 // ---------------------------------------------------------------------------

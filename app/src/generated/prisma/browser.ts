@@ -288,6 +288,11 @@ export type BlogLike = Prisma.BlogLikeModel
  */
 export type BlogComment = Prisma.BlogCommentModel
 /**
+ * Model AnimeTitleRequest
+ * 
+ */
+export type AnimeTitleRequest = Prisma.AnimeTitleRequestModel
+/**
  * Model Notification
  * 
  */

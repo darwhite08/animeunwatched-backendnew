@@ -6,6 +6,7 @@ export const animeRouter = Router();
 
 // NOTE: named routes (/search, /season/..., /trending) must come before dynamic /:malId
 animeRouter.get("/search", optionalAuth, ctrl.search);
+animeRouter.post("/request-title", optionalAuth, ctrl.requestTitle);
 animeRouter.get("/trending", ctrl.getTrending);
 animeRouter.get("/trailers", ctrl.getTrailers);   // anime trailers gallery
 animeRouter.get("/watch-catalog", ctrl.getWatchCatalog); // only anime wired with episodes

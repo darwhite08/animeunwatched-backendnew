@@ -81,6 +81,17 @@ const SEARCH_STATEMENTS: string[] = [
        array_to_string(coalesce("titleSynonyms", '{}'), ' ')
      )), '[^a-z0-9]+', ' ', 'g'))
    WHERE "searchText" IS NULL`,
+  // "Request a missing title" store.
+  `CREATE TABLE IF NOT EXISTS "AnimeTitleRequest" (
+     "id" TEXT NOT NULL,
+     "query" TEXT NOT NULL,
+     "rawQuery" TEXT NOT NULL,
+     "requestCount" INTEGER NOT NULL DEFAULT 1,
+     "lastRequestedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     CONSTRAINT "AnimeTitleRequest_pkey" PRIMARY KEY ("id")
+   )`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS "AnimeTitleRequest_query_key" ON "AnimeTitleRequest"("query")`,
 ];
 
 export async function ensureAnimeSearchSchema(): Promise<{ applied: boolean }> {

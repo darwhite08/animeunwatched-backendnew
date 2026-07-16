@@ -444,6 +444,7 @@ export const ModelName = {
   BlogView: 'BlogView',
   BlogLike: 'BlogLike',
   BlogComment: 'BlogComment',
+  AnimeTitleRequest: 'AnimeTitleRequest',
   Notification: 'Notification',
   Report: 'Report',
   ModerationAction: 'ModerationAction',
@@ -588,7 +589,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "integrationKey" | "blogView" | "blogLike" | "blogComment" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "signupInvite" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotFeedback" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView" | "waitlist"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "integrationKey" | "blogView" | "blogLike" | "blogComment" | "animeTitleRequest" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "signupInvite" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotFeedback" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView" | "waitlist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4585,6 +4586,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.BlogCommentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.BlogCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    AnimeTitleRequest: {
+      payload: Prisma.$AnimeTitleRequestPayload<ExtArgs>
+      fields: Prisma.AnimeTitleRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnimeTitleRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnimeTitleRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.AnimeTitleRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnimeTitleRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        findMany: {
+          args: Prisma.AnimeTitleRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>[]
+        }
+        create: {
+          args: Prisma.AnimeTitleRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        createMany: {
+          args: Prisma.AnimeTitleRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AnimeTitleRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.AnimeTitleRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        update: {
+          args: Prisma.AnimeTitleRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.AnimeTitleRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnimeTitleRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AnimeTitleRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.AnimeTitleRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnimeTitleRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.AnimeTitleRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnimeTitleRequest>
+        }
+        groupBy: {
+          args: Prisma.AnimeTitleRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnimeTitleRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnimeTitleRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnimeTitleRequestCountAggregateOutputType> | number
         }
       }
     }
@@ -14996,6 +15071,18 @@ export const BlogCommentScalarFieldEnum = {
 export type BlogCommentScalarFieldEnum = (typeof BlogCommentScalarFieldEnum)[keyof typeof BlogCommentScalarFieldEnum]
 
 
+export const AnimeTitleRequestScalarFieldEnum = {
+  id: 'id',
+  query: 'query',
+  rawQuery: 'rawQuery',
+  requestCount: 'requestCount',
+  lastRequestedAt: 'lastRequestedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AnimeTitleRequestScalarFieldEnum = (typeof AnimeTitleRequestScalarFieldEnum)[keyof typeof AnimeTitleRequestScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   recipientId: 'recipientId',
@@ -17489,6 +17576,7 @@ export type GlobalOmitConfig = {
   blogView?: Prisma.BlogViewOmit
   blogLike?: Prisma.BlogLikeOmit
   blogComment?: Prisma.BlogCommentOmit
+  animeTitleRequest?: Prisma.AnimeTitleRequestOmit
   notification?: Prisma.NotificationOmit
   report?: Prisma.ReportOmit
   moderationAction?: Prisma.ModerationActionOmit

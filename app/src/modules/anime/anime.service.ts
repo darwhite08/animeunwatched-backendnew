@@ -518,6 +518,33 @@ export async function searchWithFallback(qRaw: string): Promise<AnimeWithRelatio
   }
 }
 
+// ─── requestMissingTitle ─────────────────────────────────────────────────────
+// Called when a user hits the "not in our catalog yet — request it" CTA after a
+// search returns nothing (not even fuzzy/Jikan). Records the demand (deduped +
+// counted) AND kicks a Jikan search in case it actually exists upstream, so a
+// genuine gap self-heals where possible.
+export async function requestMissingTitle(rawQuery: string): Promise<{ ok: true }> {
+  const query = normalizeForSearch(rawQuery)
+  if (!query || query.length < 2) return { ok: true }
+  await prisma.animeTitleRequest
+    .upsert({
+      where: { query },
+      create: { query, rawQuery: rawQuery.slice(0, 200) },
+      update: { requestCount: { increment: 1 }, lastRequestedAt: new Date() },
+    })
+    .catch(() => {})
+  void (async () => {
+    try {
+      const up = await searchAnimePage(rawQuery, { limit: 5 })
+      for (const a of up.data ?? []) {
+        await upsertStubFromSearchResult(a)
+        void enqueueAnimeFullSync(a.mal_id).catch(() => {})
+      }
+    } catch { /* best-effort */ }
+  })()
+  return { ok: true }
+}
+
 // ─── getTrending ─────────────────────────────────────────────────────────────
 
 /** Top anime that have a YouTube trailer — powers the /trailers gallery. */

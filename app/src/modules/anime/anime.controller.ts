@@ -106,6 +106,17 @@ export async function search(req: Request, res: Response, next: NextFunction): P
   }
 }
 
+/** POST /anime/request-title — record a "not in our catalog yet" request. */
+export async function requestTitle(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const q = String((req.body as { query?: unknown; q?: unknown })?.query ?? (req.body as { q?: unknown })?.q ?? "").trim();
+    if (!q) throw badReq("Query is required");
+    res.status(200).json(await service.requestMissingTitle(q.slice(0, 200)));
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getSeasonal(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const yearStr = Array.isArray(req.params.year) ? req.params.year[0] : req.params.year;
