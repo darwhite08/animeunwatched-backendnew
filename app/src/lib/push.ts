@@ -158,7 +158,10 @@ export async function sendWebPush(
     title: notif.title,
     body: notif.body,
     url: (notif.data?.link as string) || "/",
-    tag: (notif.data?.type as string) || undefined,
+    // Prefer an explicit per-group tag (e.g. one per DM conversation) so the OS
+    // replaces repeats instead of stacking; fall back to the notification type.
+    tag: (notif.data?.tag as string) || (notif.data?.type as string) || undefined,
+    renotify: (notif.data?.renotify as boolean) ?? undefined,
   });
   await Promise.all(
     subs.map(async (s) => {

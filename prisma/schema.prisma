@@ -1427,11 +1427,22 @@ model Notification {
   type        String
   payload     Json
   read        Boolean  @default(false)
+  // Collapse key — one row per (recipient, group) instead of one per event.
+  // e.g. "dm:<conversationId>" so N messages from a sender = ONE bumped row.
+  // NULL for one-off notifications (follows, likes, …); Postgres treats NULLs as
+  // distinct in the unique index, so those never collide.
+  groupKey    String?
+  // Events collapsed into this row (unread messages in the conversation).
+  count       Int      @default(1)
   createdAt   DateTime @default(now())
+  // Bumped every time the group grows, so grouped rows re-sort to the top.
+  updatedAt   DateTime @default(now()) @updatedAt
 
   recipient User @relation(fields: [recipientId], references: [id], onDelete: Cascade)
 
+  @@unique([recipientId, groupKey])
   @@index([recipientId, createdAt])
+  @@index([recipientId, updatedAt])
   @@index([recipientId, read])
 }
 

@@ -40,6 +40,15 @@ const STATEMENTS: string[] = [
        ADD CONSTRAINT "Blog_sourceKeyId_fkey"
        FOREIGN KEY ("sourceKeyId") REFERENCES "IntegrationKey"("id") ON DELETE SET NULL ON UPDATE CASCADE;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  // ── Notification grouping (DM collapse) ──────────────────────────────────
+  `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "groupKey" TEXT`,
+  `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "count" INTEGER NOT NULL DEFAULT 1`,
+  `ALTER TABLE "Notification" ADD COLUMN IF NOT EXISTS "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS "Notification_recipientId_groupKey_key" ON "Notification"("recipientId", "groupKey")`,
+  `CREATE INDEX IF NOT EXISTS "Notification_recipientId_updatedAt_idx" ON "Notification"("recipientId", "updatedAt")`,
+  // Clean up the legacy one-row-per-message staff DM flood; the new grouped
+  // "message" notifications replace them.
+  `DELETE FROM "Notification" WHERE type = 'system' AND payload->>'kind' = 'dm_from_staff'`,
 ];
 
 export async function ensureBlogDraftChannelSchema(): Promise<{ applied: boolean }> {

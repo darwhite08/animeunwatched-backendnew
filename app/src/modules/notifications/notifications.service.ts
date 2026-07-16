@@ -21,7 +21,9 @@ export async function list(userId: string, page = 1, limit = 20) {
       where: { recipientId: userId },
       skip,
       take,
-      orderBy: { createdAt: "desc" },
+      // updatedAt so a bumped (grouped) DM notification re-sorts to the top;
+      // for one-off rows updatedAt == createdAt, so ordering is unchanged.
+      orderBy: { updatedAt: "desc" },
     }),
     prisma.notification.count({ where: { recipientId: userId } }),
   ]);

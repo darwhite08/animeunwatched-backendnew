@@ -1092,7 +1092,10 @@ export const NotificationScalarFieldEnum = {
   type: 'type',
   payload: 'payload',
   read: 'read',
-  createdAt: 'createdAt'
+  groupKey: 'groupKey',
+  count: 'count',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]

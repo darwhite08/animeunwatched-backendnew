@@ -7,7 +7,7 @@ import { pushToUser } from "../../lib/push";
 import { isOnline, isViewing } from "../../realtime/presence";
 import { canSeeActivity } from "../../realtime/activityGuard";
 import { computeServerFrank } from "../../lib/franking";
-import { createNotification, NotificationType } from "../../lib/notify";
+import { bumpDmNotification, clearDmNotification } from "../../lib/notify";
 
 // ─── DM v2 helpers ──────────────────────────────────────────────────────────
 
@@ -633,27 +633,23 @@ export async function sendMessage(opts: SendMessageDto) {
     }).catch(() => {});
   }
 
-  // Official/staff DMs (e.g. the Kaiveron account) also drop an in-app
-  // notification in the recipient's bell — normal DMs rely on the chat unread
-  // badge instead, so the notifications feed isn't flooded. Best-effort.
+  // One COLLAPSED bell notification per conversation, attributed to the real
+  // sender and bumped (not duplicated) on each message. Content-free (E2EE-safe).
+  // Best-effort — never break the send.
   void (async () => {
     try {
       const sender = await prisma.user.findUnique({
         where: { id: opts.senderId },
-        select: { role: true, displayName: true, username: true },
+        select: { displayName: true, username: true, avatarUrl: true },
       });
-      if (sender?.role === "ADMIN" || sender?.role === "MOD") {
-        await createNotification({
-          recipientId,
-          type: NotificationType.SYSTEM,
-          payload: {
-            kind: "dm_from_staff",
-            message: `${sender.displayName || sender.username} sent you a message`,
-            link: `/chat/${conversation.id}`,
-          },
-        });
-      }
-    } catch { /* notification is best-effort — never break the send */ }
+      await bumpDmNotification({
+        recipientId,
+        conversationId: conversation.id,
+        senderName: sender?.displayName || sender?.username || "Someone",
+        senderUsername: sender?.username ?? null,
+        senderAvatarUrl: sender?.avatarUrl ?? null,
+      });
+    } catch { /* notification is best-effort */ }
   })();
 
   return message;
@@ -932,6 +928,9 @@ export async function markConversationRead(conversationId: string, userId: strin
         : { p2UnreadCount: 0, p2LastReadAt: now },
     }),
   ]);
+
+  // Opening the conversation clears its grouped bell notification (live via socket).
+  void clearDmNotification(userId, conversationId).catch(() => {});
 
   // Read receipts are mutual: only emit dm:read if BOTH the reader and the
   // other party have read receipts enabled (security §3, spec §2.markRead).
