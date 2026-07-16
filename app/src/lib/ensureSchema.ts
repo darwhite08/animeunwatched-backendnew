@@ -128,6 +128,138 @@ const SEARCH_STATEMENTS: string[] = [
   `CREATE UNIQUE INDEX IF NOT EXISTS "AnimeTitleRequest_query_key" ON "AnimeTitleRequest"("query")`,
 ];
 
+// ─── Manga catalog ───────────────────────────────────────────────────────────
+// Manga table + MangaGenre join + MangaEntry catalog-link columns. Own ensure
+// with its OWN marker fast-path (see the note above NOTIF_STATEMENTS). The
+// trigram index statements assume pg_trgm/unaccent exist — ensureAnimeSearchSchema
+// created them, but CREATE EXTENSION IF NOT EXISTS is repeated here so this
+// ensure is self-sufficient on a fresh database.
+const MANGA_STATEMENTS: string[] = [
+  `CREATE EXTENSION IF NOT EXISTS pg_trgm`,
+  `CREATE EXTENSION IF NOT EXISTS unaccent`,
+  `CREATE TABLE IF NOT EXISTS "Manga" (
+     "id" TEXT NOT NULL,
+     "malId" INTEGER NOT NULL,
+     "slug" TEXT,
+     "title" TEXT NOT NULL,
+     "titleEnglish" TEXT,
+     "titleJapanese" TEXT,
+     "titleSynonyms" TEXT[] NOT NULL DEFAULT '{}',
+     "searchText" TEXT,
+     "synopsis" TEXT,
+     "background" TEXT,
+     "type" TEXT,
+     "chapters" INTEGER,
+     "volumes" INTEGER,
+     "status" TEXT,
+     "publishing" BOOLEAN NOT NULL DEFAULT false,
+     "publishedFrom" TIMESTAMP(3),
+     "publishedTo" TIMESTAMP(3),
+     "demographic" TEXT,
+     "authors" TEXT[] NOT NULL DEFAULT '{}',
+     "serializations" TEXT[] NOT NULL DEFAULT '{}',
+     "score" DOUBLE PRECISION,
+     "scoredBy" INTEGER,
+     "rank" INTEGER,
+     "popularity" INTEGER,
+     "membersCount" INTEGER,
+     "favoritesCount" INTEGER,
+     "imageUrl" TEXT,
+     "imageSmallUrl" TEXT,
+     "imageWebpUrl" TEXT,
+     "lastSyncedAt" TIMESTAMP(3),
+     "syncPriority" "SyncPriority" NOT NULL DEFAULT 'NORMAL',
+     "syncFailCount" INTEGER NOT NULL DEFAULT 0,
+     "isStub" BOOLEAN NOT NULL DEFAULT false,
+     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     CONSTRAINT "Manga_pkey" PRIMARY KEY ("id")
+   )`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS "Manga_malId_key" ON "Manga"("malId")`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS "Manga_slug_key" ON "Manga"("slug")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_malId_idx" ON "Manga"("malId")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_slug_idx" ON "Manga"("slug")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_score_idx" ON "Manga"("score")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_popularity_idx" ON "Manga"("popularity")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_status_syncPriority_idx" ON "Manga"("status", "syncPriority")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_syncPriority_lastSyncedAt_idx" ON "Manga"("syncPriority", "lastSyncedAt")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_demographic_idx" ON "Manga"("demographic")`,
+  `CREATE INDEX IF NOT EXISTS "Manga_searchText_trgm_idx" ON "Manga" USING gin ("searchText" gin_trgm_ops)`,
+  `CREATE TABLE IF NOT EXISTS "MangaGenre" (
+     "mangaId" TEXT NOT NULL,
+     "genreId" TEXT NOT NULL,
+     CONSTRAINT "MangaGenre_pkey" PRIMARY KEY ("mangaId", "genreId")
+   )`,
+  `CREATE INDEX IF NOT EXISTS "MangaGenre_genreId_idx" ON "MangaGenre"("genreId")`,
+  `DO $$ BEGIN
+     ALTER TABLE "MangaGenre"
+       ADD CONSTRAINT "MangaGenre_mangaId_fkey"
+       FOREIGN KEY ("mangaId") REFERENCES "Manga"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+   EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  `DO $$ BEGIN
+     ALTER TABLE "MangaGenre"
+       ADD CONSTRAINT "MangaGenre_genreId_fkey"
+       FOREIGN KEY ("genreId") REFERENCES "Genre"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+   EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  // Readlist → catalog link. anilistId becomes optional (legacy-only). Guarded
+  // on table existence so a FRESH database (where prisma db push creates the
+  // final shape directly and this table may not exist yet at ensure time)
+  // doesn't error on every boot.
+  `DO $$ BEGIN
+     IF to_regclass('"MangaEntry"') IS NOT NULL THEN
+       ALTER TABLE "MangaEntry" ALTER COLUMN "anilistId" DROP NOT NULL;
+       ALTER TABLE "MangaEntry" ADD COLUMN IF NOT EXISTS "mangaId" TEXT;
+       ALTER TABLE "MangaEntry" ADD COLUMN IF NOT EXISTS "volumesRead" INTEGER NOT NULL DEFAULT 0;
+     END IF;
+   END $$`,
+  `DO $$ BEGIN
+     IF to_regclass('"MangaEntry"') IS NOT NULL THEN
+       CREATE UNIQUE INDEX IF NOT EXISTS "MangaEntry_userId_mangaId_key" ON "MangaEntry"("userId", "mangaId");
+       CREATE INDEX IF NOT EXISTS "MangaEntry_mangaId_idx" ON "MangaEntry"("mangaId");
+     END IF;
+   END $$`,
+  `DO $$ BEGIN
+     IF to_regclass('"MangaEntry"') IS NOT NULL THEN
+       BEGIN
+         ALTER TABLE "MangaEntry"
+           ADD CONSTRAINT "MangaEntry_mangaId_fkey"
+           FOREIGN KEY ("mangaId") REFERENCES "Manga"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+       EXCEPTION WHEN duplicate_object THEN NULL; END;
+     END IF;
+   END $$`,
+  // Title requests now carry which catalog they target.
+  `DO $$ BEGIN
+     IF to_regclass('"AnimeTitleRequest"') IS NOT NULL THEN
+       ALTER TABLE "AnimeTitleRequest" ADD COLUMN IF NOT EXISTS "kind" TEXT NOT NULL DEFAULT 'anime';
+     END IF;
+   END $$`,
+]
+
+export async function ensureMangaSchema(): Promise<{ applied: boolean }> {
+  // Fast path: Manga table exists AND the readlist link column landed (or the
+  // readlist table doesn't exist at all — fresh DB, prisma creates it fully).
+  const rows = await prisma.$queryRawUnsafe<Array<{ present: boolean }>>(
+    `SELECT (
+       to_regclass('"Manga"') IS NOT NULL AND (
+         to_regclass('"MangaEntry"') IS NULL OR EXISTS (
+           SELECT 1 FROM information_schema.columns
+           WHERE table_name = 'MangaEntry' AND column_name = 'mangaId'
+         )
+       )
+     ) AS present`,
+  ).catch(() => [{ present: false }] as Array<{ present: boolean }>);
+  if (rows?.[0]?.present) return { applied: false };
+
+  for (const sql of MANGA_STATEMENTS) {
+    try {
+      await prisma.$executeRawUnsafe(sql);
+    } catch (err) {
+      console.error("[manga-ensure] statement failed (continuing):", (err as Error).message);
+    }
+  }
+  return { applied: true };
+}
+
 export async function ensureAnimeSearchSchema(): Promise<{ applied: boolean }> {
   // Fast path: index present AND no un-backfilled rows → nothing to do.
   const rows = await prisma.$queryRawUnsafe<Array<{ pending: number }>>(

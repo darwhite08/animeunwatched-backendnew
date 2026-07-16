@@ -209,6 +209,7 @@ export type GenreWhereInput = {
   malId?: Prisma.IntNullableFilter<"Genre"> | number | null
   type?: Prisma.StringFilter<"Genre"> | string
   animes?: Prisma.AnimeGenreListRelationFilter
+  mangas?: Prisma.MangaGenreListRelationFilter
 }
 
 export type GenreOrderByWithRelationInput = {
@@ -217,6 +218,7 @@ export type GenreOrderByWithRelationInput = {
   malId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   animes?: Prisma.AnimeGenreOrderByRelationAggregateInput
+  mangas?: Prisma.MangaGenreOrderByRelationAggregateInput
 }
 
 export type GenreWhereUniqueInput = Prisma.AtLeast<{
@@ -228,6 +230,7 @@ export type GenreWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.GenreWhereInput | Prisma.GenreWhereInput[]
   type?: Prisma.StringFilter<"Genre"> | string
   animes?: Prisma.AnimeGenreListRelationFilter
+  mangas?: Prisma.MangaGenreListRelationFilter
 }, "id" | "name" | "malId">
 
 export type GenreOrderByWithAggregationInput = {
@@ -258,6 +261,7 @@ export type GenreCreateInput = {
   malId?: number | null
   type?: string
   animes?: Prisma.AnimeGenreCreateNestedManyWithoutGenreInput
+  mangas?: Prisma.MangaGenreCreateNestedManyWithoutGenreInput
 }
 
 export type GenreUncheckedCreateInput = {
@@ -266,6 +270,7 @@ export type GenreUncheckedCreateInput = {
   malId?: number | null
   type?: string
   animes?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutGenreInput
+  mangas?: Prisma.MangaGenreUncheckedCreateNestedManyWithoutGenreInput
 }
 
 export type GenreUpdateInput = {
@@ -274,6 +279,7 @@ export type GenreUpdateInput = {
   malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   animes?: Prisma.AnimeGenreUpdateManyWithoutGenreNestedInput
+  mangas?: Prisma.MangaGenreUpdateManyWithoutGenreNestedInput
 }
 
 export type GenreUncheckedUpdateInput = {
@@ -282,6 +288,7 @@ export type GenreUncheckedUpdateInput = {
   malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   animes?: Prisma.AnimeGenreUncheckedUpdateManyWithoutGenreNestedInput
+  mangas?: Prisma.MangaGenreUncheckedUpdateManyWithoutGenreNestedInput
 }
 
 export type GenreCreateManyInput = {
@@ -353,11 +360,26 @@ export type GenreUpdateOneRequiredWithoutAnimesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutAnimesInput, Prisma.GenreUpdateWithoutAnimesInput>, Prisma.GenreUncheckedUpdateWithoutAnimesInput>
 }
 
+export type GenreCreateNestedOneWithoutMangasInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutMangasInput, Prisma.GenreUncheckedCreateWithoutMangasInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMangasInput
+  connect?: Prisma.GenreWhereUniqueInput
+}
+
+export type GenreUpdateOneRequiredWithoutMangasNestedInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutMangasInput, Prisma.GenreUncheckedCreateWithoutMangasInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMangasInput
+  upsert?: Prisma.GenreUpsertWithoutMangasInput
+  connect?: Prisma.GenreWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutMangasInput, Prisma.GenreUpdateWithoutMangasInput>, Prisma.GenreUncheckedUpdateWithoutMangasInput>
+}
+
 export type GenreCreateWithoutAnimesInput = {
   id?: string
   name: string
   malId?: number | null
   type?: string
+  mangas?: Prisma.MangaGenreCreateNestedManyWithoutGenreInput
 }
 
 export type GenreUncheckedCreateWithoutAnimesInput = {
@@ -365,6 +387,7 @@ export type GenreUncheckedCreateWithoutAnimesInput = {
   name: string
   malId?: number | null
   type?: string
+  mangas?: Prisma.MangaGenreUncheckedCreateNestedManyWithoutGenreInput
 }
 
 export type GenreCreateOrConnectWithoutAnimesInput = {
@@ -388,6 +411,7 @@ export type GenreUpdateWithoutAnimesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  mangas?: Prisma.MangaGenreUpdateManyWithoutGenreNestedInput
 }
 
 export type GenreUncheckedUpdateWithoutAnimesInput = {
@@ -395,6 +419,55 @@ export type GenreUncheckedUpdateWithoutAnimesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  mangas?: Prisma.MangaGenreUncheckedUpdateManyWithoutGenreNestedInput
+}
+
+export type GenreCreateWithoutMangasInput = {
+  id?: string
+  name: string
+  malId?: number | null
+  type?: string
+  animes?: Prisma.AnimeGenreCreateNestedManyWithoutGenreInput
+}
+
+export type GenreUncheckedCreateWithoutMangasInput = {
+  id?: string
+  name: string
+  malId?: number | null
+  type?: string
+  animes?: Prisma.AnimeGenreUncheckedCreateNestedManyWithoutGenreInput
+}
+
+export type GenreCreateOrConnectWithoutMangasInput = {
+  where: Prisma.GenreWhereUniqueInput
+  create: Prisma.XOR<Prisma.GenreCreateWithoutMangasInput, Prisma.GenreUncheckedCreateWithoutMangasInput>
+}
+
+export type GenreUpsertWithoutMangasInput = {
+  update: Prisma.XOR<Prisma.GenreUpdateWithoutMangasInput, Prisma.GenreUncheckedUpdateWithoutMangasInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutMangasInput, Prisma.GenreUncheckedCreateWithoutMangasInput>
+  where?: Prisma.GenreWhereInput
+}
+
+export type GenreUpdateToOneWithWhereWithoutMangasInput = {
+  where?: Prisma.GenreWhereInput
+  data: Prisma.XOR<Prisma.GenreUpdateWithoutMangasInput, Prisma.GenreUncheckedUpdateWithoutMangasInput>
+}
+
+export type GenreUpdateWithoutMangasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  animes?: Prisma.AnimeGenreUpdateManyWithoutGenreNestedInput
+}
+
+export type GenreUncheckedUpdateWithoutMangasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  malId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  animes?: Prisma.AnimeGenreUncheckedUpdateManyWithoutGenreNestedInput
 }
 
 
@@ -404,10 +477,12 @@ export type GenreUncheckedUpdateWithoutAnimesInput = {
 
 export type GenreCountOutputType = {
   animes: number
+  mangas: number
 }
 
 export type GenreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animes?: boolean | GenreCountOutputTypeCountAnimesArgs
+  mangas?: boolean | GenreCountOutputTypeCountMangasArgs
 }
 
 /**
@@ -427,6 +502,13 @@ export type GenreCountOutputTypeCountAnimesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.AnimeGenreWhereInput
 }
 
+/**
+ * GenreCountOutputType without action
+ */
+export type GenreCountOutputTypeCountMangasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MangaGenreWhereInput
+}
+
 
 export type GenreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -434,6 +516,7 @@ export type GenreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   malId?: boolean
   type?: boolean
   animes?: boolean | Prisma.Genre$animesArgs<ExtArgs>
+  mangas?: boolean | Prisma.Genre$mangasArgs<ExtArgs>
   _count?: boolean | Prisma.GenreCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["genre"]>
 
@@ -461,6 +544,7 @@ export type GenreSelectScalar = {
 export type GenreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "malId" | "type", ExtArgs["result"]["genre"]>
 export type GenreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animes?: boolean | Prisma.Genre$animesArgs<ExtArgs>
+  mangas?: boolean | Prisma.Genre$mangasArgs<ExtArgs>
   _count?: boolean | Prisma.GenreCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GenreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -470,6 +554,7 @@ export type $GenrePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Genre"
   objects: {
     animes: Prisma.$AnimeGenrePayload<ExtArgs>[]
+    mangas: Prisma.$MangaGenrePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -878,6 +963,7 @@ readonly fields: GenreFieldRefs;
 export interface Prisma__GenreClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   animes<T extends Prisma.Genre$animesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$animesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimeGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mangas<T extends Prisma.Genre$mangasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$mangasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1320,6 +1406,30 @@ export type Genre$animesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.AnimeGenreScalarFieldEnum | Prisma.AnimeGenreScalarFieldEnum[]
+}
+
+/**
+ * Genre.mangas
+ */
+export type Genre$mangasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MangaGenre
+   */
+  select?: Prisma.MangaGenreSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MangaGenre
+   */
+  omit?: Prisma.MangaGenreOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaGenreInclude<ExtArgs> | null
+  where?: Prisma.MangaGenreWhereInput
+  orderBy?: Prisma.MangaGenreOrderByWithRelationInput | Prisma.MangaGenreOrderByWithRelationInput[]
+  cursor?: Prisma.MangaGenreWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MangaGenreScalarFieldEnum | Prisma.MangaGenreScalarFieldEnum[]
 }
 
 /**

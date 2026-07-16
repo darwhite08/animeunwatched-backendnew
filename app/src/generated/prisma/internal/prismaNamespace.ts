@@ -419,6 +419,8 @@ export const ModelName = {
   AnimeRelation: 'AnimeRelation',
   SyncJob: 'SyncJob',
   SyncJobLog: 'SyncJobLog',
+  Manga: 'Manga',
+  MangaGenre: 'MangaGenre',
   ListEntry: 'ListEntry',
   MangaEntry: 'MangaEntry',
   Post: 'Post',
@@ -589,7 +591,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "integrationKey" | "blogView" | "blogLike" | "blogComment" | "animeTitleRequest" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "signupInvite" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotFeedback" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView" | "waitlist"
+    modelProps: "user" | "creatorProfile" | "creatorTier" | "creatorMembership" | "tip" | "creatorEarning" | "payoutAccount" | "payout" | "streakDay" | "userBadge" | "foundingCounter" | "leaderboardSnapshot" | "deviceToken" | "nativePushToken" | "webPushSubscription" | "refreshToken" | "passwordResetToken" | "securityEvent" | "follow" | "anime" | "trendingState" | "genre" | "studio" | "animeGenre" | "animeStudio" | "episode" | "animeRelation" | "syncJob" | "syncJobLog" | "manga" | "mangaGenre" | "listEntry" | "mangaEntry" | "post" | "postHide" | "postLike" | "postComment" | "postCommentLike" | "club" | "clubWatchlistItem" | "clubInvite" | "clubJoinRequest" | "clubEvent" | "clubEventRSVP" | "clubMember" | "threadReaction" | "thread" | "threadSave" | "threadReply" | "review" | "reviewLike" | "blog" | "integrationKey" | "blogView" | "blogLike" | "blogComment" | "animeTitleRequest" | "notification" | "report" | "moderationAction" | "poll" | "pollOption" | "pollVote" | "userOAuthProvider" | "userPublicKey" | "conversation" | "directMessage" | "messageReaction" | "groupConversation" | "groupMember" | "groupMessage" | "groupMessageEnvelope" | "groupMessageReaction" | "groupMessageHide" | "userDeviceKey" | "messageKeyEnvelope" | "userBlock" | "webAuthnCredential" | "userMasterKeyWrap" | "userDevice" | "messageEnvelope" | "messageReport" | "activity" | "activityLike" | "activityRepost" | "reply" | "permission" | "adminRole" | "rolePermission" | "userAdminRole" | "auditLog" | "userInvite" | "totpSecret" | "loginAttempt" | "rateLimitBucket" | "emailVerification" | "stepUpToken" | "featureFlag" | "featureFlagOverride" | "entitlement" | "impersonationSession" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "announcement" | "adminSetting" | "signupInvite" | "moderationItem" | "notificationTemplate" | "adminAlert" | "plan" | "subscription" | "invoice" | "billingEvent" | "reportSchedule" | "ipBlock" | "contentRule" | "contentFingerprint" | "ipProfile" | "anomalyEvent" | "incident" | "incidentUpdate" | "maintenanceWindow" | "endpointStat" | "savedReply" | "piiField" | "approvalRequest" | "approvalDecision" | "oauthClient" | "oauthAccessToken" | "scimSubject" | "samlConfig" | "savedSearch" | "integration" | "dashboard" | "dashboardWidget" | "exportJob" | "notificationChannel" | "notificationRule" | "notificationRuleChannel" | "experiment" | "experimentVariant" | "experimentExposure" | "onCallSchedule" | "onCallShift" | "escalationPolicy" | "backupRecord" | "userNote" | "traceSpan" | "logEntry" | "ticketWebhook" | "ticket" | "ticketReply" | "trustCenterEntry" | "ipAllowlistEntry" | "vaultEntry" | "drRunbook" | "sloDefinition" | "syntheticMonitor" | "llmCall" | "promptVersion" | "evalResult" | "ragDocument" | "consentRecord" | "rtbfRequest" | "vendorRecord" | "kmsKeyRotation" | "rateLimitOverride" | "apiChangeLog" | "deprecatedEndpoint" | "requestCapture" | "costRate" | "costBudget" | "samlLoginEvent" | "shot" | "shotView" | "shotFeedback" | "shotLike" | "shotSave" | "shotComment" | "shotCommentLike" | "socialConnection" | "importedMedia" | "story" | "storyView" | "waitlist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2736,6 +2738,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.SyncJobLogCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.SyncJobLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    Manga: {
+      payload: Prisma.$MangaPayload<ExtArgs>
+      fields: Prisma.MangaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MangaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MangaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        findFirst: {
+          args: Prisma.MangaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MangaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        findMany: {
+          args: Prisma.MangaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        create: {
+          args: Prisma.MangaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        createMany: {
+          args: Prisma.MangaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MangaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        delete: {
+          args: Prisma.MangaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        update: {
+          args: Prisma.MangaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        deleteMany: {
+          args: Prisma.MangaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MangaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MangaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        upsert: {
+          args: Prisma.MangaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        aggregate: {
+          args: Prisma.MangaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateManga>
+        }
+        groupBy: {
+          args: Prisma.MangaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MangaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaCountAggregateOutputType> | number
+        }
+      }
+    }
+    MangaGenre: {
+      payload: Prisma.$MangaGenrePayload<ExtArgs>
+      fields: Prisma.MangaGenreFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MangaGenreFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MangaGenreFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        findFirst: {
+          args: Prisma.MangaGenreFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MangaGenreFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        findMany: {
+          args: Prisma.MangaGenreFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>[]
+        }
+        create: {
+          args: Prisma.MangaGenreCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        createMany: {
+          args: Prisma.MangaGenreCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MangaGenreCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>[]
+        }
+        delete: {
+          args: Prisma.MangaGenreDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        update: {
+          args: Prisma.MangaGenreUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        deleteMany: {
+          args: Prisma.MangaGenreDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MangaGenreUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MangaGenreUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>[]
+        }
+        upsert: {
+          args: Prisma.MangaGenreUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaGenrePayload>
+        }
+        aggregate: {
+          args: Prisma.MangaGenreAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMangaGenre>
+        }
+        groupBy: {
+          args: Prisma.MangaGenreGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaGenreGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MangaGenreCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaGenreCountAggregateOutputType> | number
         }
       }
     }
@@ -14719,6 +14869,55 @@ export const SyncJobLogScalarFieldEnum = {
 export type SyncJobLogScalarFieldEnum = (typeof SyncJobLogScalarFieldEnum)[keyof typeof SyncJobLogScalarFieldEnum]
 
 
+export const MangaScalarFieldEnum = {
+  id: 'id',
+  malId: 'malId',
+  slug: 'slug',
+  title: 'title',
+  titleEnglish: 'titleEnglish',
+  titleJapanese: 'titleJapanese',
+  titleSynonyms: 'titleSynonyms',
+  searchText: 'searchText',
+  synopsis: 'synopsis',
+  background: 'background',
+  type: 'type',
+  chapters: 'chapters',
+  volumes: 'volumes',
+  status: 'status',
+  publishing: 'publishing',
+  publishedFrom: 'publishedFrom',
+  publishedTo: 'publishedTo',
+  demographic: 'demographic',
+  authors: 'authors',
+  serializations: 'serializations',
+  score: 'score',
+  scoredBy: 'scoredBy',
+  rank: 'rank',
+  popularity: 'popularity',
+  membersCount: 'membersCount',
+  favoritesCount: 'favoritesCount',
+  imageUrl: 'imageUrl',
+  imageSmallUrl: 'imageSmallUrl',
+  imageWebpUrl: 'imageWebpUrl',
+  lastSyncedAt: 'lastSyncedAt',
+  syncPriority: 'syncPriority',
+  syncFailCount: 'syncFailCount',
+  isStub: 'isStub',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
+
+
+export const MangaGenreScalarFieldEnum = {
+  mangaId: 'mangaId',
+  genreId: 'genreId'
+} as const
+
+export type MangaGenreScalarFieldEnum = (typeof MangaGenreScalarFieldEnum)[keyof typeof MangaGenreScalarFieldEnum]
+
+
 export const ListEntryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -14740,6 +14939,7 @@ export const MangaEntryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   anilistId: 'anilistId',
+  mangaId: 'mangaId',
   title: 'title',
   coverUrl: 'coverUrl',
   author: 'author',
@@ -14748,6 +14948,7 @@ export const MangaEntryScalarFieldEnum = {
   genre: 'genre',
   status: 'status',
   progress: 'progress',
+  volumesRead: 'volumesRead',
   score: 'score',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -15075,6 +15276,7 @@ export const AnimeTitleRequestScalarFieldEnum = {
   id: 'id',
   query: 'query',
   rawQuery: 'rawQuery',
+  kind: 'kind',
   requestCount: 'requestCount',
   lastRequestedAt: 'lastRequestedAt',
   createdAt: 'createdAt'
@@ -17554,6 +17756,8 @@ export type GlobalOmitConfig = {
   animeRelation?: Prisma.AnimeRelationOmit
   syncJob?: Prisma.SyncJobOmit
   syncJobLog?: Prisma.SyncJobLogOmit
+  manga?: Prisma.MangaOmit
+  mangaGenre?: Prisma.MangaGenreOmit
   listEntry?: Prisma.ListEntryOmit
   mangaEntry?: Prisma.MangaEntryOmit
   post?: Prisma.PostOmit

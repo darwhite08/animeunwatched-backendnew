@@ -10,7 +10,7 @@ import { runSyntheticMonitors } from "./syntheticMonitor.job"
 import { flushLogs } from "../lib/logSink"
 import { backupHeartbeat } from "./backupHeartbeat.job"
 import { runExportJobs } from "../lib/exportRunner"
-import { drainSyncQueue, startAnimeSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
+import { drainSyncQueue, startAnimeSyncSchedules, startMangaSyncSchedules, syncQueueMaintenance } from "./animeSync.worker"
 import { computeTrending } from "../lib/trending/trending.service"
 import { collectBuzz } from "../lib/buzz"
 import { runDmNightlyCleanup, runDmUnreadReconcile, runDmExpiry } from "./dmMaintenance.job"
@@ -227,6 +227,18 @@ export function startJobs() {
   setInterval(animeMaint, 60 * 60_000)
   animeMaint().catch(console.error)
   startAnimeSyncSchedules()
+  // Manga catalog sync — same SyncJob queue/drain loop, lower priorities, plus
+  // a one-time cold-catalog bootstrap sweep (guarded, restart-safe).
+  startMangaSyncSchedules()
+
+  // One-off on boot: link legacy AniList-keyed readlist entries to the local
+  // Manga catalog (idempotent — only rows where mangaId IS NULL).
+  setTimeout(() => {
+    import("../modules/readlist/readlist.service")
+      .then((m) => m.backfillCatalogLinks())
+      .then((r) => { if (r.linked) console.log(`[readlist] linked ${r.linked}/${r.scanned} legacy entries to the manga catalog`) })
+      .catch(console.error)
+  }, 150_000)
 
   // Trending Now — recompute every 20 min from first-party activity (O(1) per
   // active title, no history rescan). One run on boot to warm trendingScore.

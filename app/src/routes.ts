@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authRouter } from "./modules/auth/auth.routes";
 import { animeRouter } from "./modules/anime/anime.routes";
+import { mangaRouter } from "./modules/manga/manga.routes";
 import { usersRouter } from "./modules/users/users.routes";
 import { listsRouter } from "./modules/lists/lists.routes";
 import { readlistRouter } from "./modules/readlist/readlist.routes";
@@ -55,6 +56,7 @@ import { statsRouter } from "./modules/stats/stats.routes";
 export const ROUTE_MOUNTS = [
   ["/auth",                            authRouter],
   ["/anime",                           animeRouter],
+  ["/manga",                           mangaRouter],
   ["/anime/:animeId/reviews",          reviewsAnimeRouter],
   ["/anime/:malId/threads",            animeThreadsRouter],
   // Block routes mount on /users BEFORE usersRouter so /users/blocked and

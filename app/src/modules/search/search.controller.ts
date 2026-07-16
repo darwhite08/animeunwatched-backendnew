@@ -3,7 +3,7 @@ import { prisma } from "../../config/prisma";
 import { badReq } from "../../lib/errors";
 import { titleRelevance, bodyRelevance, logNormalize } from "../../lib/ranking";
 
-type SearchType = "anime" | "posts" | "users" | "blogs" | "clubs" | "threads" | "reviews";
+type SearchType = "anime" | "manga" | "posts" | "users" | "blogs" | "clubs" | "threads" | "reviews";
 
 function paginate(page: number, limit: number) {
   return { skip: (page - 1) * limit, take: limit };
@@ -71,6 +71,48 @@ export async function search(req: Request, res: Response, next: NextFunction): P
           .map(({ row }) => {
             // Drop synopsis from the response (it wasn't in the original
             // shape — only used for scoring).
+            const { synopsis: _drop, ...rest } = row;
+            void _drop;
+            return rest;
+          });
+
+        res.status(200).json({ data: ranked, meta: meta(total, page, limit) });
+        return;
+      }
+
+      case "manga": {
+        // Same multi-signal relevance ranking as anime, over the Manga catalog.
+        const where = {
+          OR: [
+            { title:        { contains: q, mode: "insensitive" as const } },
+            { titleEnglish: { contains: q, mode: "insensitive" as const } },
+            { synopsis:     { contains: q, mode: "insensitive" as const } },
+          ],
+        };
+        const total = await prisma.manga.count({ where });
+        const candidates = await prisma.manga.findMany({
+          where, take: 200,
+          select: {
+            id: true, malId: true, title: true, titleEnglish: true,
+            synopsis: true, imageUrl: true, score: true, type: true, status: true,
+          },
+        });
+
+        const ranked = candidates
+          .map(m => {
+            const tScore = Math.max(
+              titleRelevance(m.title, q),
+              titleRelevance(m.titleEnglish ?? "", q) * 0.9,
+            );
+            const bScore = bodyRelevance(m.synopsis, q);
+            const qBoost = logNormalize(Math.round((m.score ?? 0) * 10), 100) * 8;
+            const publishing = m.status === "Publishing" ? 2 : 0;
+            return { row: m, score: tScore + bScore + qBoost + publishing };
+          })
+          .filter(s => s.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(skip, skip + take)
+          .map(({ row }) => {
             const { synopsis: _drop, ...rest } = row;
             void _drop;
             return rest;
@@ -241,7 +283,7 @@ export async function search(req: Request, res: Response, next: NextFunction): P
       }
 
       default:
-        throw badReq("Invalid type. Must be one of: anime, posts, users, blogs, clubs, threads, reviews");
+        throw badReq("Invalid type. Must be one of: anime, manga, posts, users, blogs, clubs, threads, reviews");
     }
 
     res.status(200).json({ data, meta: meta(total, page, limit) });

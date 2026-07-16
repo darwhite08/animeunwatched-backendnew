@@ -9,7 +9,23 @@
  * not memory.
  */
 import { env } from "../config/env";
-import { JikanError, browseAnime, getAnimeFull, getSeasonPage, getTopAnimePage } from "../lib/catalog/jikanClient";
+import {
+  JikanError,
+  browseAnime,
+  browseManga,
+  getAnimeFull,
+  getMangaFull,
+  getSeasonPage,
+  getTopAnimePage,
+  getTopMangaPage,
+} from "../lib/catalog/jikanClient";
+import {
+  enqueueMangaFullSync,
+  enqueueStaleMangaRefreshBatch,
+  recordMangaSyncFailure,
+  upsertMangaFromJikan,
+  upsertMangaStubFromSearchResult,
+} from "../modules/manga/mangaSync.service";
 import {
   getAnimeIdByMalId,
   logSyncJob,
@@ -118,6 +134,67 @@ async function handleSeedSeason(payload: {
   }
 }
 
+// ─── Manga handlers (same queue, mirrored shapes) ────────────────────────────
+
+async function handleMangaFull(payload: { malId: number }): Promise<void> {
+  const full = await getMangaFull(payload.malId);
+  await upsertMangaFromJikan(full);
+}
+
+/** Chunked page-walker for manga list seeds — same restart-safe continuation
+ *  chaining as seedListPages, against /top/manga or the full /manga sweep. */
+async function seedMangaListPages(
+  jobType: typeof SYNC_JOB.SEED_TOP_MANGA | typeof SYNC_JOB.SEED_ALL_MANGA,
+  fetchPage: (page: number) => ReturnType<typeof getTopMangaPage>,
+  payload: { fromPage: number; toPage: number },
+): Promise<void> {
+  const { fromPage, toPage } = payload;
+  const lastChunkPage = Math.min(fromPage + SEED_CHUNK_PAGES - 1, toPage);
+  let hasNext = true;
+
+  for (let page = fromPage; page <= lastChunkPage && hasNext; page++) {
+    const res = await fetchPage(page);
+    for (const item of res.data ?? []) {
+      await upsertMangaStubFromSearchResult(item);
+      await enqueueMangaFullSync(item.mal_id); // dedupe + 7-day freshness skip inside
+    }
+    hasNext = res.pagination?.has_next_page ?? (res.data ?? []).length > 0;
+  }
+
+  if (hasNext && lastChunkPage < toPage) {
+    await enqueueSyncJob(
+      jobType,
+      { fromPage: lastChunkPage + 1, toPage },
+      // Seeds run below manga full syncs so newly-discovered titles complete first.
+      { dedupeKey: `${jobType}:${lastChunkPage + 1}-${toPage}`, priority: -3 },
+    );
+  }
+}
+
+function handleSeedTopManga(payload: { fromPage: number; toPage: number }): Promise<void> {
+  return seedMangaListPages(SYNC_JOB.SEED_TOP_MANGA, getTopMangaPage, payload);
+}
+
+/** Complete manga catalog sweep by mal_id — covers classics, unranked titles
+ *  and BL (deliberately NO sfw filter anywhere on the manga paths). */
+function handleSeedAllManga(payload: { fromPage: number; toPage: number }): Promise<void> {
+  return seedMangaListPages(
+    SYNC_JOB.SEED_ALL_MANGA,
+    (page) => browseManga(`page=${page}&order_by=mal_id&sort=asc`),
+    payload,
+  );
+}
+
+async function handleMangaRefresh(priority: "HOT" | "NORMAL" | "COLD"): Promise<void> {
+  const config = {
+    HOT: { olderThanMs: 12 * HOUR_MS, batchMax: 500 },
+    NORMAL: { olderThanMs: env.ANIME_SYNC_NORMAL_DAYS * DAY_MS, batchMax: 300 },
+    COLD: { olderThanMs: env.ANIME_SYNC_COLD_DAYS * DAY_MS, batchMax: 200 },
+  }[priority];
+  const enqueued = await enqueueStaleMangaRefreshBatch(priority, config.olderThanMs, config.batchMax);
+  console.log(`[mangaSync] refresh-manga-${priority.toLowerCase()}: enqueued ${enqueued} full syncs`);
+}
+
 async function handleRefresh(priority: "HOT" | "NORMAL" | "COLD"): Promise<void> {
   const { enqueueStaleRefreshBatch } = await import("../modules/anime/syncQueue.service");
   const config = {
@@ -148,6 +225,18 @@ async function handleJob(job: SyncJobRow): Promise<void> {
       return handleRefresh("NORMAL");
     case SYNC_JOB.REFRESH_COLD:
       return handleRefresh("COLD");
+    case SYNC_JOB.MANGA_FULL:
+      return handleMangaFull(payload as { malId: number });
+    case SYNC_JOB.SEED_TOP_MANGA:
+      return handleSeedTopManga(payload as { fromPage: number; toPage: number });
+    case SYNC_JOB.SEED_ALL_MANGA:
+      return handleSeedAllManga(payload as { fromPage: number; toPage: number });
+    case SYNC_JOB.REFRESH_MANGA_HOT:
+      return handleMangaRefresh("HOT");
+    case SYNC_JOB.REFRESH_MANGA_NORMAL:
+      return handleMangaRefresh("NORMAL");
+    case SYNC_JOB.REFRESH_MANGA_COLD:
+      return handleMangaRefresh("COLD");
     default:
       throw new Error(`Unknown sync job type: ${job.jobType}`);
   }
@@ -195,6 +284,9 @@ async function processOneJob(job: SyncJobRow): Promise<void> {
       await failJob(job, message);
       if (job.jobType === SYNC_JOB.ANIME_FULL && malId) {
         await recordSyncFailure(malId);
+      }
+      if (job.jobType === SYNC_JOB.MANGA_FULL && malId) {
+        await recordMangaSyncFailure(malId);
       }
       await logSyncJob({
         jobType: job.jobType,
@@ -315,4 +407,80 @@ export function startAnimeSyncSchedules(): void {
     void enqueueCurrentSeasonSeed().catch(console.error);
     setInterval(() => void enqueueCurrentSeasonSeed().catch(console.error), 7 * DAY_MS);
   }, 60_000); // first season sweep a minute after boot, then weekly
+}
+
+// ─── Manga schedules ─────────────────────────────────────────────────────────
+// Mirrors the anime schedules at gentler cadences (manga metadata moves slower)
+// and offset IST times so the two pipelines don't enqueue simultaneously:
+//   refresh-manga-hot    — every 12h
+//   refresh-manga-normal — daily 04:00 IST
+//   refresh-manga-cold   — weekly Sunday 05:00 IST
+//   seed-top-manga       — weekly (top ~2000 stay fresh)
+// Plus a ONE-TIME bootstrap on a cold catalog: full /manga sweep by mal_id
+// (skipped once the catalog is populated or a sweep is already queued).
+
+const MANGA_BOOTSTRAP_FLOOR = 15_000; // rows; below this the full sweep (re)runs
+
+export function enqueueMangaRefreshHot(): Promise<{ id: string } | null> {
+  return enqueueSyncJob(SYNC_JOB.REFRESH_MANGA_HOT, {}, { dedupeKey: SYNC_JOB.REFRESH_MANGA_HOT, priority: 8 });
+}
+
+export function enqueueMangaRefreshNormal(): Promise<{ id: string } | null> {
+  return enqueueSyncJob(SYNC_JOB.REFRESH_MANGA_NORMAL, {}, { dedupeKey: SYNC_JOB.REFRESH_MANGA_NORMAL, priority: 4 });
+}
+
+export function enqueueMangaRefreshCold(): Promise<{ id: string } | null> {
+  return enqueueSyncJob(SYNC_JOB.REFRESH_MANGA_COLD, {}, { dedupeKey: SYNC_JOB.REFRESH_MANGA_COLD, priority: 1 });
+}
+
+export function enqueueTopMangaSeed(): Promise<{ id: string } | null> {
+  // 80 pages × 25 = the top ~2000 manga by rank.
+  return enqueueSyncJob(
+    SYNC_JOB.SEED_TOP_MANGA,
+    { fromPage: 1, toPage: 80 },
+    { dedupeKey: `${SYNC_JOB.SEED_TOP_MANGA}:1-80`, priority: -3 },
+  );
+}
+
+/** One-time full-catalog sweep. Guarded so boots don't restart a finished or
+ *  in-flight sweep: skipped when the catalog already has rows, or when any
+ *  seed-manga-all chunk is still pending/running (continuation chain). */
+export async function enqueueMangaBootstrapIfNeeded(): Promise<{ id: string } | null> {
+  const { prisma } = await import("../config/prisma");
+  const [count, inFlight] = await Promise.all([
+    prisma.manga.count(),
+    prisma.syncJob.findFirst({
+      where: { jobType: SYNC_JOB.SEED_ALL_MANGA, status: { in: ["PENDING", "RUNNING"] } },
+      select: { id: true },
+    }),
+  ]);
+  if (inFlight || count >= MANGA_BOOTSTRAP_FLOOR) return null;
+  console.log(`[mangaSync] bootstrap: catalog has ${count} rows — enqueueing full /manga sweep`);
+  return enqueueSyncJob(
+    SYNC_JOB.SEED_ALL_MANGA,
+    { fromPage: 1, toPage: 4_000 }, // walker stops early at has_next_page=false
+    { dedupeKey: `${SYNC_JOB.SEED_ALL_MANGA}:1-4000`, priority: -3 },
+  );
+}
+
+export function startMangaSyncSchedules(): void {
+  setInterval(() => void enqueueMangaRefreshHot().catch(console.error), 12 * HOUR_MS);
+
+  setTimeout(() => {
+    void enqueueMangaRefreshNormal().catch(console.error);
+    setInterval(() => void enqueueMangaRefreshNormal().catch(console.error), DAY_MS);
+  }, msUntilIST(4, 0));
+
+  setTimeout(() => {
+    void enqueueMangaRefreshCold().catch(console.error);
+    setInterval(() => void enqueueMangaRefreshCold().catch(console.error), 7 * DAY_MS);
+  }, msUntilIST(5, 0, 0));
+
+  setTimeout(() => {
+    void enqueueTopMangaSeed().catch(console.error);
+    setInterval(() => void enqueueTopMangaSeed().catch(console.error), 7 * DAY_MS);
+  }, 90_000); // first top-manga sweep 90s after boot, then weekly
+
+  // Cold-catalog bootstrap — ~2 min after boot so ensureMangaSchema ran first.
+  setTimeout(() => void enqueueMangaBootstrapIfNeeded().catch(console.error), 120_000);
 }

@@ -109,6 +109,38 @@ Auth: optional
 Query: `sort=helpful|recent`
 200: paginated
 
+### Manga (parallels Anime — local Postgres catalog synced from Jikan /manga)
+
+#### GET /manga
+Auth: optional
+Query: `q?, type?, status?, demographic?, genre?, page?, limit?` — `genre` includes Boys Love / Girls Love; `demographic` = Shounen|Shoujo|Seinen|Josei|Kids
+200: paginated
+
+#### GET /manga/search
+Auth: optional
+Query: `q` (required)
+Fuzzy multi-title search (same pg_trgm ranking as anime: exact > prefix > word-boundary > trigram/word similarity). Local misses top up from Jikan `/manga?q=`; when that endpoint is down (it 504s for long stretches), falls back to AniList search (MAL-keyed stubs).
+200: `{ data: Manga[], meta: { total } }`
+
+#### POST /manga/request-title
+Auth: optional
+Body: `{ query }` — records a "not in our catalog yet" request (`AnimeTitleRequest.kind = "manga"`) + best-effort upstream re-search.
+
+#### GET /manga/:id
+Auth: optional
+`:id` accepts a numeric malId (canonical) OR an SEO slug.
+200: `{ manga, readlistEntry? }` — `readlistEntry` present only when authenticated.
+Unknown malId → one read-through Jikan fetch, persisted, then served locally.
+
+#### GET /manga/:malId/user-stats
+200: `{ reading, completed, planToRead, onHold, dropped, total }`
+
+#### GET /manga/sitemap
+200: `{ data: [{ malId, updatedAt }], meta }` — quality-gated (non-stub, scored, membersCount ≥ 200, real synopsis)
+
+#### GET /manga/genres
+200: `{ data: [{ name, count }] }` — genres actually used by manga
+
 ### Lists
 
 #### GET /lists/:username

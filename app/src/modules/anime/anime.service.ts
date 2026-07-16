@@ -444,21 +444,27 @@ export async function searchWithFallback(qRaw: string): Promise<AnimeWithRelatio
   const prefix = `${q}%`
   let local: AnimeWithRelations[] = []
   try {
-    const idRows = await prisma.$queryRawUnsafe<Array<{ id: string }>>(
-      `SELECT id FROM "Anime"
-        WHERE "searchText" IS NOT NULL AND ("searchText" LIKE $1 OR "searchText" % $2)
-        ORDER BY
-          (CASE
-             WHEN "searchText" = $2 THEN 4
-             WHEN "searchText" LIKE $3 THEN 3
-             WHEN "searchText" LIKE ('% ' || $2 || '%') THEN 2
-             ELSE 1
-           END) DESC,
-          similarity("searchText", $2) DESC,
-          COALESCE("score", 0) DESC
-        LIMIT 25`,
-      like, q, prefix,
-    )
+    // <% (word_similarity) catches single-word typos ("narto") that whole-string
+    // similarity misses against long multi-title haystacks; SET LOCAL keeps the
+    // permissive threshold scoped to this transaction's connection only.
+    const [, idRows] = await prisma.$transaction([
+      prisma.$executeRawUnsafe(`SET LOCAL pg_trgm.word_similarity_threshold = 0.45`),
+      prisma.$queryRawUnsafe<Array<{ id: string }>>(
+        `SELECT id FROM "Anime"
+          WHERE "searchText" IS NOT NULL AND ("searchText" LIKE $1 OR $2 <% "searchText")
+          ORDER BY
+            (CASE
+               WHEN "searchText" = $2 THEN 4
+               WHEN "searchText" LIKE $3 THEN 3
+               WHEN "searchText" LIKE ('% ' || $2 || '%') THEN 2
+               ELSE 1
+             END) DESC,
+            GREATEST(similarity("searchText", $2), word_similarity($2, "searchText")) DESC,
+            COALESCE("score", 0) DESC
+          LIMIT 25`,
+        like, q, prefix,
+      ),
+    ])
     const ids = idRows.map((r) => r.id)
     if (ids.length) {
       const found = await prisma.anime.findMany({

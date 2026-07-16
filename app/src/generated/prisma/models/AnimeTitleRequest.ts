@@ -38,6 +38,7 @@ export type AnimeTitleRequestMinAggregateOutputType = {
   id: string | null
   query: string | null
   rawQuery: string | null
+  kind: string | null
   requestCount: number | null
   lastRequestedAt: Date | null
   createdAt: Date | null
@@ -47,6 +48,7 @@ export type AnimeTitleRequestMaxAggregateOutputType = {
   id: string | null
   query: string | null
   rawQuery: string | null
+  kind: string | null
   requestCount: number | null
   lastRequestedAt: Date | null
   createdAt: Date | null
@@ -56,6 +58,7 @@ export type AnimeTitleRequestCountAggregateOutputType = {
   id: number
   query: number
   rawQuery: number
+  kind: number
   requestCount: number
   lastRequestedAt: number
   createdAt: number
@@ -75,6 +78,7 @@ export type AnimeTitleRequestMinAggregateInputType = {
   id?: true
   query?: true
   rawQuery?: true
+  kind?: true
   requestCount?: true
   lastRequestedAt?: true
   createdAt?: true
@@ -84,6 +88,7 @@ export type AnimeTitleRequestMaxAggregateInputType = {
   id?: true
   query?: true
   rawQuery?: true
+  kind?: true
   requestCount?: true
   lastRequestedAt?: true
   createdAt?: true
@@ -93,6 +98,7 @@ export type AnimeTitleRequestCountAggregateInputType = {
   id?: true
   query?: true
   rawQuery?: true
+  kind?: true
   requestCount?: true
   lastRequestedAt?: true
   createdAt?: true
@@ -189,6 +195,7 @@ export type AnimeTitleRequestGroupByOutputType = {
   id: string
   query: string
   rawQuery: string
+  kind: string
   requestCount: number
   lastRequestedAt: Date
   createdAt: Date
@@ -221,6 +228,7 @@ export type AnimeTitleRequestWhereInput = {
   id?: Prisma.StringFilter<"AnimeTitleRequest"> | string
   query?: Prisma.StringFilter<"AnimeTitleRequest"> | string
   rawQuery?: Prisma.StringFilter<"AnimeTitleRequest"> | string
+  kind?: Prisma.StringFilter<"AnimeTitleRequest"> | string
   requestCount?: Prisma.IntFilter<"AnimeTitleRequest"> | number
   lastRequestedAt?: Prisma.DateTimeFilter<"AnimeTitleRequest"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"AnimeTitleRequest"> | Date | string
@@ -230,6 +238,7 @@ export type AnimeTitleRequestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   query?: Prisma.SortOrder
   rawQuery?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   requestCount?: Prisma.SortOrder
   lastRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -242,6 +251,7 @@ export type AnimeTitleRequestWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AnimeTitleRequestWhereInput[]
   NOT?: Prisma.AnimeTitleRequestWhereInput | Prisma.AnimeTitleRequestWhereInput[]
   rawQuery?: Prisma.StringFilter<"AnimeTitleRequest"> | string
+  kind?: Prisma.StringFilter<"AnimeTitleRequest"> | string
   requestCount?: Prisma.IntFilter<"AnimeTitleRequest"> | number
   lastRequestedAt?: Prisma.DateTimeFilter<"AnimeTitleRequest"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"AnimeTitleRequest"> | Date | string
@@ -251,6 +261,7 @@ export type AnimeTitleRequestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   query?: Prisma.SortOrder
   rawQuery?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   requestCount?: Prisma.SortOrder
   lastRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -268,6 +279,7 @@ export type AnimeTitleRequestScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AnimeTitleRequest"> | string
   query?: Prisma.StringWithAggregatesFilter<"AnimeTitleRequest"> | string
   rawQuery?: Prisma.StringWithAggregatesFilter<"AnimeTitleRequest"> | string
+  kind?: Prisma.StringWithAggregatesFilter<"AnimeTitleRequest"> | string
   requestCount?: Prisma.IntWithAggregatesFilter<"AnimeTitleRequest"> | number
   lastRequestedAt?: Prisma.DateTimeWithAggregatesFilter<"AnimeTitleRequest"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AnimeTitleRequest"> | Date | string
@@ -277,6 +289,7 @@ export type AnimeTitleRequestCreateInput = {
   id?: string
   query: string
   rawQuery: string
+  kind?: string
   requestCount?: number
   lastRequestedAt?: Date | string
   createdAt?: Date | string
@@ -286,6 +299,7 @@ export type AnimeTitleRequestUncheckedCreateInput = {
   id?: string
   query: string
   rawQuery: string
+  kind?: string
   requestCount?: number
   lastRequestedAt?: Date | string
   createdAt?: Date | string
@@ -295,6 +309,7 @@ export type AnimeTitleRequestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   query?: Prisma.StringFieldUpdateOperationsInput | string
   rawQuery?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
   requestCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastRequestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -304,6 +319,7 @@ export type AnimeTitleRequestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   query?: Prisma.StringFieldUpdateOperationsInput | string
   rawQuery?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
   requestCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastRequestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -313,6 +329,7 @@ export type AnimeTitleRequestCreateManyInput = {
   id?: string
   query: string
   rawQuery: string
+  kind?: string
   requestCount?: number
   lastRequestedAt?: Date | string
   createdAt?: Date | string
@@ -322,6 +339,7 @@ export type AnimeTitleRequestUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   query?: Prisma.StringFieldUpdateOperationsInput | string
   rawQuery?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
   requestCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastRequestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,6 +349,7 @@ export type AnimeTitleRequestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   query?: Prisma.StringFieldUpdateOperationsInput | string
   rawQuery?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
   requestCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastRequestedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +359,7 @@ export type AnimeTitleRequestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   query?: Prisma.SortOrder
   rawQuery?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   requestCount?: Prisma.SortOrder
   lastRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -353,6 +373,7 @@ export type AnimeTitleRequestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   query?: Prisma.SortOrder
   rawQuery?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   requestCount?: Prisma.SortOrder
   lastRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -362,6 +383,7 @@ export type AnimeTitleRequestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   query?: Prisma.SortOrder
   rawQuery?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   requestCount?: Prisma.SortOrder
   lastRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -377,6 +399,7 @@ export type AnimeTitleRequestSelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   query?: boolean
   rawQuery?: boolean
+  kind?: boolean
   requestCount?: boolean
   lastRequestedAt?: boolean
   createdAt?: boolean
@@ -386,6 +409,7 @@ export type AnimeTitleRequestSelectCreateManyAndReturn<ExtArgs extends runtime.T
   id?: boolean
   query?: boolean
   rawQuery?: boolean
+  kind?: boolean
   requestCount?: boolean
   lastRequestedAt?: boolean
   createdAt?: boolean
@@ -395,6 +419,7 @@ export type AnimeTitleRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   id?: boolean
   query?: boolean
   rawQuery?: boolean
+  kind?: boolean
   requestCount?: boolean
   lastRequestedAt?: boolean
   createdAt?: boolean
@@ -404,12 +429,13 @@ export type AnimeTitleRequestSelectScalar = {
   id?: boolean
   query?: boolean
   rawQuery?: boolean
+  kind?: boolean
   requestCount?: boolean
   lastRequestedAt?: boolean
   createdAt?: boolean
 }
 
-export type AnimeTitleRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "query" | "rawQuery" | "requestCount" | "lastRequestedAt" | "createdAt", ExtArgs["result"]["animeTitleRequest"]>
+export type AnimeTitleRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "query" | "rawQuery" | "kind" | "requestCount" | "lastRequestedAt" | "createdAt", ExtArgs["result"]["animeTitleRequest"]>
 
 export type $AnimeTitleRequestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AnimeTitleRequest"
@@ -418,6 +444,10 @@ export type $AnimeTitleRequestPayload<ExtArgs extends runtime.Types.Extensions.I
     id: string
     query: string
     rawQuery: string
+    /**
+     * anime | manga — which catalog the request targets
+     */
+    kind: string
     requestCount: number
     lastRequestedAt: Date
     createdAt: Date
@@ -847,6 +877,7 @@ export interface AnimeTitleRequestFieldRefs {
   readonly id: Prisma.FieldRef<"AnimeTitleRequest", 'String'>
   readonly query: Prisma.FieldRef<"AnimeTitleRequest", 'String'>
   readonly rawQuery: Prisma.FieldRef<"AnimeTitleRequest", 'String'>
+  readonly kind: Prisma.FieldRef<"AnimeTitleRequest", 'String'>
   readonly requestCount: Prisma.FieldRef<"AnimeTitleRequest", 'Int'>
   readonly lastRequestedAt: Prisma.FieldRef<"AnimeTitleRequest", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"AnimeTitleRequest", 'DateTime'>

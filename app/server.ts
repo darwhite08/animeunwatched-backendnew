@@ -8,7 +8,7 @@ import { prisma } from "./src/config/prisma";
 import { getLiveSnapshot } from "./src/lib/realtimeAnalytics";
 import { broadcastAdminAnalyticsLive } from "./src/realtime/broadcast";
 import { ensureAdminSeed } from "./src/lib/adminSeed";
-import { ensureBlogDraftChannelSchema, ensureAnimeSearchSchema, ensureNotificationGroupingSchema } from "./src/lib/ensureSchema";
+import { ensureBlogDraftChannelSchema, ensureAnimeSearchSchema, ensureNotificationGroupingSchema, ensureMangaSchema } from "./src/lib/ensureSchema";
 import { purgeExpiredStepUpTokens } from "./src/lib/stepup";
 import { seedPiiInventory } from "./src/lib/piiScanner";
 
@@ -47,6 +47,11 @@ ensureBlogDraftChannelSchema()
 ensureAnimeSearchSchema()
   .then((r) => r.applied && console.log("[search-ensure] anime pg_trgm search schema applied"))
   .catch((err: unknown) => console.error("[search-ensure] failed:", err));
+
+// Manga catalog tables + readlist catalog-link columns — idempotent on boot.
+ensureMangaSchema()
+  .then((r) => r.applied && console.log("[manga-ensure] manga catalog schema applied"))
+  .catch((err: unknown) => console.error("[manga-ensure] failed:", err));
 
 // Notification grouping columns (DM collapse) — idempotent on boot.
 ensureNotificationGroupingSchema()

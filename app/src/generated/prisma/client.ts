@@ -188,6 +188,16 @@ export type SyncJob = Prisma.SyncJobModel
  */
 export type SyncJobLog = Prisma.SyncJobLogModel
 /**
+ * Model Manga
+ * 
+ */
+export type Manga = Prisma.MangaModel
+/**
+ * Model MangaGenre
+ * 
+ */
+export type MangaGenre = Prisma.MangaGenreModel
+/**
  * Model ListEntry
  * 
  */

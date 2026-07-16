@@ -18,6 +18,14 @@ export const SYNC_JOB = {
   REFRESH_HOT: "refresh-hot",
   REFRESH_NORMAL: "refresh-normal",
   REFRESH_COLD: "refresh-cold",
+  // ── Manga (same queue, same drain loop; handlers in modules/manga) ──
+  MANGA_FULL: "sync-manga-full",
+  SEED_TOP_MANGA: "seed-top-manga",
+  /** Walks the COMPLETE /manga catalog ordered by mal_id (includes classics + BL). */
+  SEED_ALL_MANGA: "seed-manga-all",
+  REFRESH_MANGA_HOT: "refresh-manga-hot",
+  REFRESH_MANGA_NORMAL: "refresh-manga-normal",
+  REFRESH_MANGA_COLD: "refresh-manga-cold",
 } as const;
 
 export type SyncJobType = (typeof SYNC_JOB)[keyof typeof SYNC_JOB];

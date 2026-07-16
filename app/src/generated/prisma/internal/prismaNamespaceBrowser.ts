@@ -78,6 +78,8 @@ export const ModelName = {
   AnimeRelation: 'AnimeRelation',
   SyncJob: 'SyncJob',
   SyncJobLog: 'SyncJobLog',
+  Manga: 'Manga',
+  MangaGenre: 'MangaGenre',
   ListEntry: 'ListEntry',
   MangaEntry: 'MangaEntry',
   Post: 'Post',
@@ -722,6 +724,55 @@ export const SyncJobLogScalarFieldEnum = {
 export type SyncJobLogScalarFieldEnum = (typeof SyncJobLogScalarFieldEnum)[keyof typeof SyncJobLogScalarFieldEnum]
 
 
+export const MangaScalarFieldEnum = {
+  id: 'id',
+  malId: 'malId',
+  slug: 'slug',
+  title: 'title',
+  titleEnglish: 'titleEnglish',
+  titleJapanese: 'titleJapanese',
+  titleSynonyms: 'titleSynonyms',
+  searchText: 'searchText',
+  synopsis: 'synopsis',
+  background: 'background',
+  type: 'type',
+  chapters: 'chapters',
+  volumes: 'volumes',
+  status: 'status',
+  publishing: 'publishing',
+  publishedFrom: 'publishedFrom',
+  publishedTo: 'publishedTo',
+  demographic: 'demographic',
+  authors: 'authors',
+  serializations: 'serializations',
+  score: 'score',
+  scoredBy: 'scoredBy',
+  rank: 'rank',
+  popularity: 'popularity',
+  membersCount: 'membersCount',
+  favoritesCount: 'favoritesCount',
+  imageUrl: 'imageUrl',
+  imageSmallUrl: 'imageSmallUrl',
+  imageWebpUrl: 'imageWebpUrl',
+  lastSyncedAt: 'lastSyncedAt',
+  syncPriority: 'syncPriority',
+  syncFailCount: 'syncFailCount',
+  isStub: 'isStub',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
+
+
+export const MangaGenreScalarFieldEnum = {
+  mangaId: 'mangaId',
+  genreId: 'genreId'
+} as const
+
+export type MangaGenreScalarFieldEnum = (typeof MangaGenreScalarFieldEnum)[keyof typeof MangaGenreScalarFieldEnum]
+
+
 export const ListEntryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -743,6 +794,7 @@ export const MangaEntryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   anilistId: 'anilistId',
+  mangaId: 'mangaId',
   title: 'title',
   coverUrl: 'coverUrl',
   author: 'author',
@@ -751,6 +803,7 @@ export const MangaEntryScalarFieldEnum = {
   genre: 'genre',
   status: 'status',
   progress: 'progress',
+  volumesRead: 'volumesRead',
   score: 'score',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1078,6 +1131,7 @@ export const AnimeTitleRequestScalarFieldEnum = {
   id: 'id',
   query: 'query',
   rawQuery: 'rawQuery',
+  kind: 'kind',
   requestCount: 'requestCount',
   lastRequestedAt: 'lastRequestedAt',
   createdAt: 'createdAt'

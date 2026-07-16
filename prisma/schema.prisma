@@ -729,6 +729,7 @@ model Genre {
   type  String @default("genre")
 
   animes AnimeGenre[]
+  mangas MangaGenre[]
 }
 
 model Studio {
@@ -839,6 +840,86 @@ model SyncJobLog {
 }
 
 // ---------------------------------------------------------------------------
+// Manga catalog — parallels Anime. Synced from Jikan /manga endpoints via the
+// same SyncJob queue + rate-limited client. Applied to prod via
+// ensureMangaSchema() in lib/ensureSchema.ts (App Runner never runs migrate).
+// ---------------------------------------------------------------------------
+
+model Manga {
+  id            String   @id @default(cuid())
+  malId         Int      @unique
+  /// SEO slug — set ONCE on first sync, never changed (same policy as Anime.slug).
+  slug          String?  @unique
+  title         String
+  titleEnglish  String?
+  titleJapanese String?
+  titleSynonyms String[] @default([])
+  /// Normalized concat of every title variant for fuzzy multi-title search.
+  /// pg_trgm GIN index added in ensureSchema.ts, kept in lockstep with Anime.
+  searchText    String?
+  synopsis      String?
+  background    String?
+  /// Manga | Novel | Light Novel | One-shot | Doujinshi | Manhwa | Manhua
+  type          String?
+  chapters      Int? // total chapters (null = unknown/ongoing)
+  volumes       Int?
+  /// Publishing | Finished | On Hiatus | Discontinued
+  status        String?
+  publishing    Boolean   @default(false)
+  publishedFrom DateTime?
+  publishedTo   DateTime?
+  /// Shounen | Shoujo | Seinen | Josei | Kids — first Jikan demographic (also
+  /// kept as a Genre join for filtering).
+  demographic   String?
+  /// Author names ("Story & Art" credits) — scalar list; MAL people ids aren't
+  /// needed for browse/detail yet.
+  authors        String[] @default([])
+  serializations String[] @default([])
+
+  score          Float?
+  scoredBy       Int?
+  rank           Int?
+  popularity     Int?
+  membersCount   Int?
+  favoritesCount Int?
+
+  imageUrl      String? // large JPG — canonical, hotlinked like Anime covers
+  imageSmallUrl String?
+  imageWebpUrl  String?
+
+  // ── Sync bookkeeping (same semantics as Anime) ──
+  lastSyncedAt  DateTime?
+  syncPriority  SyncPriority @default(NORMAL)
+  syncFailCount Int          @default(0)
+  isStub        Boolean      @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  genres      MangaGenre[]
+  listEntries MangaEntry[]
+
+  @@index([malId])
+  @@index([slug])
+  @@index([score])
+  @@index([popularity])
+  @@index([status, syncPriority])
+  @@index([syncPriority, lastSyncedAt])
+  @@index([demographic])
+}
+
+model MangaGenre {
+  mangaId String
+  genreId String
+
+  manga Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([mangaId, genreId])
+  @@index([genreId])
+}
+
+// ---------------------------------------------------------------------------
 // User watch list
 // ---------------------------------------------------------------------------
 
@@ -862,13 +943,18 @@ model ListEntry {
   @@index([userId, status])
 }
 
-// Manga reading list. Manga isn't in our anime catalog, so each entry caches the
-// AniList media (id + title + cover + author) alongside the user's tracking
-// state. status: READING | COMPLETED | PLAN_TO_READ | ON_HOLD | DROPPED.
+// Manga reading list. Originally AniList-keyed (each entry cached the AniList
+// media denormalized); now backed by the local Manga catalog via mangaId.
+// anilistId is kept for legacy rows and backfilled to mangaId at boot.
+// status: READING | COMPLETED | PLAN_TO_READ | ON_HOLD | DROPPED.
+// progress = chapters read; volumesRead tracks volumes separately.
 model MangaEntry {
   id            String   @id @default(cuid())
   userId        String
-  anilistId     Int
+  /// Legacy AniList media id (pre-catalog entries). New adds use mangaId.
+  anilistId     Int?
+  /// Local Manga catalog FK — nullable while legacy rows await backfill.
+  mangaId       String?
   title         String
   coverUrl      String?
   author        String?
@@ -877,14 +963,18 @@ model MangaEntry {
   genre         String?
   status        String   @default("PLAN_TO_READ")
   progress      Int      @default(0)
+  volumesRead   Int      @default(0)
   score         Int?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  manga Manga? @relation(fields: [mangaId], references: [id], onDelete: SetNull)
 
   @@unique([userId, anilistId])
+  @@unique([userId, mangaId])
   @@index([userId, status])
+  @@index([mangaId])
 }
 
 // ---------------------------------------------------------------------------
@@ -1412,6 +1502,8 @@ model AnimeTitleRequest {
   id              String   @id @default(cuid())
   query           String   @unique // normalized (normalizeForSearch)
   rawQuery        String // exactly what the user typed
+  /// anime | manga — which catalog the request targets
+  kind            String   @default("anime")
   requestCount    Int      @default(1)
   lastRequestedAt DateTime @default(now())
   createdAt       DateTime @default(now())

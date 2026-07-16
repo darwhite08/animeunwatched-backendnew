@@ -118,6 +118,40 @@ export interface JikanAnime {
   relations?: Array<{ relation: string; entry: JikanMalEntity[] }> | null;
 }
 
+export interface JikanManga {
+  mal_id: number;
+  title: string;
+  title_english?: string | null;
+  title_japanese?: string | null;
+  title_synonyms?: string[] | null;
+  titles?: Array<{ type: string; title: string }> | null;
+  /** Manga | Novel | Light Novel | One-shot | Doujinshi | Manhwa | Manhua */
+  type?: string | null;
+  chapters?: number | null;
+  volumes?: number | null;
+  /** Publishing | Finished | On Hiatus | Discontinued */
+  status?: string | null;
+  publishing?: boolean | null;
+  published?: { from?: string | null; to?: string | null } | null;
+  score?: number | null;
+  scored_by?: number | null;
+  /** Jikan quirk: /manga list payloads use `scored` where detail uses `score`. */
+  scored?: number | null;
+  rank?: number | null;
+  popularity?: number | null;
+  members?: number | null;
+  favorites?: number | null;
+  synopsis?: string | null;
+  background?: string | null;
+  images?: JikanImages | null;
+  authors?: JikanMalEntity[] | null;
+  serializations?: JikanMalEntity[] | null;
+  genres?: JikanMalEntity[] | null;
+  explicit_genres?: JikanMalEntity[] | null;
+  themes?: JikanMalEntity[] | null;
+  demographics?: JikanMalEntity[] | null;
+}
+
 export interface JikanEpisode {
   mal_id: number; // episode number on MAL
   title?: string | null;
@@ -296,4 +330,42 @@ export function browseAnime(queryString: string): Promise<JikanListResponse<Jika
 /** Raw passthrough for endpoints we don't persist (characters, staff…). */
 export function getRaw<T = unknown>(path: string): Promise<T> {
   return jikanFetch<T>(path);
+}
+
+// ─── Manga endpoints (same limiter/retry as anime) ───────────────────────────
+
+export async function getMangaFull(malId: number, opts?: { timeoutMs?: number }): Promise<JikanManga> {
+  const res = await jikanFetch<{ data?: JikanManga; status?: number; message?: string }>(
+    `/manga/${malId}/full`,
+    opts,
+  );
+  // Same 200-with-error-envelope quirk as getAnimeFull.
+  if (!res.data) {
+    throw new JikanError(
+      res.message ?? "Jikan returned an empty data envelope",
+      typeof res.status === "number" ? res.status : null,
+      `/manga/${malId}/full`,
+    );
+  }
+  return res.data;
+}
+
+/** 25 items per page. */
+export function getTopMangaPage(page = 1): Promise<JikanListResponse<JikanManga>> {
+  return jikanFetch<JikanListResponse<JikanManga>>(`/top/manga?page=${page}`);
+}
+
+export function searchMangaPage(
+  query: string,
+  opts?: { page?: number; limit?: number },
+): Promise<JikanListResponse<JikanManga>> {
+  const qs = new URLSearchParams({ q: query, page: String(opts?.page ?? 1) });
+  if (opts?.limit) qs.set("limit", String(opts.limit));
+  // Deliberately NO sfw filter — BL/GL and mature classics must stay findable.
+  return jikanFetch<JikanListResponse<JikanManga>>(`/manga?${qs.toString()}`);
+}
+
+/** Browse /manga with arbitrary query params (used by the seed-manga-all sweep). */
+export function browseManga(queryString: string): Promise<JikanListResponse<JikanManga>> {
+  return jikanFetch<JikanListResponse<JikanManga>>(`/manga?${queryString}`);
 }
