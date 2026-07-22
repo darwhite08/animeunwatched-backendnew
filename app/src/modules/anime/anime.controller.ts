@@ -140,8 +140,9 @@ export async function getSeasonal(req: Request, res: Response, next: NextFunctio
 
 export async function getTrailers(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const limit = Math.min(60, Number(req.query.limit) || 30);
-    res.status(200).json({ data: await service.getTrailers(limit) });
+    const page = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(60, Number(req.query.limit) || 48);
+    res.status(200).json(await service.getTrailers(page, limit));
   } catch (err) { next(err); }
 }
 

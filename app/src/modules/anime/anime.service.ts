@@ -599,18 +599,26 @@ export async function requestMissingTitle(rawQuery: string): Promise<{ ok: true 
 
 // ─── getTrending ─────────────────────────────────────────────────────────────
 
-/** Top anime that have a YouTube trailer — powers the /trailers gallery. */
-export async function getTrailers(limit = 30) {
-  const cacheKey = `anime:trailers:${limit}`;
-  const cached = cache.get<unknown[]>(cacheKey);
+/** Anime that have a YouTube trailer — powers the /trailers gallery. Paginated
+ *  so users can browse EVERY resolved trailer, not just the top page. Ordered by
+ *  trending then score, with malId as a stable tiebreak so pages don't overlap. */
+export async function getTrailers(page = 1, limit = 48) {
+  const take = Math.min(60, Math.max(1, limit));
+  const skip = (Math.max(1, page) - 1) * take;
+  const cacheKey = `anime:trailers:${page}:${take}`;
+  const cached = cache.get<{ data: unknown[]; meta: unknown }>(cacheKey);
   if (cached) return cached;
 
-  const rows = await prisma.anime.findMany({
-    where: { trailerYoutubeId: { not: null } },
-    orderBy: [{ trendingScore: "desc" }, { score: { sort: "desc", nulls: "last" } }],
-    take: Math.min(60, Math.max(1, limit)),
-    select: { malId: true, title: true, titleEnglish: true, imageUrl: true, trailerYoutubeId: true, score: true, type: true, year: true },
-  });
+  const where = { trailerYoutubeId: { not: null } };
+  const [rows, total] = await prisma.$transaction([
+    prisma.anime.findMany({
+      where,
+      orderBy: [{ trendingScore: "desc" }, { score: { sort: "desc", nulls: "last" } }, { malId: "asc" }],
+      skip, take,
+      select: { malId: true, title: true, titleEnglish: true, imageUrl: true, trailerYoutubeId: true, score: true, type: true, year: true },
+    }),
+    prisma.anime.count({ where }),
+  ]);
   const data = rows.map((a) => ({
     malId: a.malId,
     title: a.titleEnglish || a.title,
@@ -620,8 +628,9 @@ export async function getTrailers(limit = 30) {
     type: a.type,
     year: a.year,
   }));
-  cache.set(cacheKey, data, 60 * 60_000); // 1h
-  return data;
+  const result = { data, meta: buildMeta(total, page, take) };
+  cache.set(cacheKey, result, 60 * 60_000); // 1h
+  return result;
 }
 
 export async function getTrending(limit = 20) {
