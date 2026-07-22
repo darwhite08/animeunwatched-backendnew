@@ -29,7 +29,8 @@ function parseMalId(raw: string | string[]): number {
 export async function browse(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const query = browseQuerySchema.parse(req.query);
-    const result = await service.browse(query);
+    const userId: string | undefined = res.locals.user?.id;
+    const result = await service.browse(query, userId);
     res.status(200).json(result);
   } catch (err) {
     next(err);

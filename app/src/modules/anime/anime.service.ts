@@ -149,13 +149,30 @@ export async function upsertFromCatalog(data: CatalogAnime) {
 // Never calls Jikan at request time (spec §5). Jikan stays the background
 // sync feed; on-demand fetches happen only on the single-anime getById path.
 
-export async function browse(query: BrowseQuery) {
-  const cacheKey = `anime:browse:${JSON.stringify(query)}`;
+// Map the Vault's status keyword → the MAL status string stored on Anime.status.
+// Pass-through when it's already a raw MAL value.
+function normalizeStatus(status: string | undefined): string | undefined {
+  if (!status) return undefined;
+  switch (status.toLowerCase()) {
+    case "airing":   return "Currently Airing";
+    case "finished": return "Finished Airing";
+    case "upcoming": return "Not yet aired";
+    default:         return status;
+  }
+}
+
+export async function browse(query: BrowseQuery, userId?: string) {
+  const cacheKey = `anime:browse:${JSON.stringify(query)}:${userId ?? "anon"}`;
   const cached = cache.get<{ data: unknown[]; meta: unknown }>(cacheKey);
   if (cached) return cached;
 
-  const { q, year, season, type, status, studio, start_date, end_date, page, limit, genre } = query as typeof query & { genre?: string };
-  const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date || genre);
+  const { q, year, season, type, status, studio, start_date, end_date, page, limit, genre,
+          min_score, year_from, year_to, eps, exclude_listed } =
+    query as typeof query & { genre?: string; min_score?: number; year_from?: number; year_to?: number; eps?: string; exclude_listed?: string };
+
+  const wantExclude = exclude_listed === "true" && !!userId;
+  const hasFilters = !!(q || year || season || type || status || studio || start_date || end_date || genre ||
+                        min_score !== undefined || year_from !== undefined || year_to !== undefined || eps || wantExclude);
 
   // ── No filters: Postgres ONLY (spec §5: "Listing endpoints query Postgres
   // only — never Jikan at request time"). The catalog is fully seeded, so the
@@ -180,6 +197,32 @@ export async function browse(query: BrowseQuery) {
 
   // ── Filters applied OR Jikan failed: use local DB ──
   const { skip, take } = paginate(page, limit);
+
+  // Episode-count bucket → range (movies handled via type below).
+  const epsWhere =
+    eps === "short"  ? { episodes: { gt: 0, lt: 12 } } :
+    eps === "medium" ? { episodes: { gte: 12, lte: 26 } } :
+    eps === "long"   ? { episodes: { gt: 26 } } :
+    {};
+  // "movie" bucket = the Movie type (unless an explicit type was already chosen).
+  const effectiveType = type || (eps === "movie" ? "Movie" : undefined);
+
+  // Decade/year range. `year_from`/`year_to` win over legacy start_date/end_date.
+  const yf = year_from ?? (start_date ? Number(start_date.slice(0, 4)) : undefined);
+  const yt = year_to   ?? (end_date   ? Number(end_date.slice(0, 4))   : undefined);
+  const yearWhere =
+    year !== undefined ? { year }
+    : (yf !== undefined || yt !== undefined)
+      ? { year: { ...(yf !== undefined ? { gte: yf } : {}), ...(yt !== undefined ? { lte: yt } : {}) } }
+      : {};
+
+  // Exclude anime already on the requesting user's list.
+  let excludeIds: string[] = [];
+  if (wantExclude) {
+    const entries = await prisma.listEntry.findMany({ where: { userId }, select: { animeId: true } });
+    excludeIds = entries.map(e => e.animeId);
+  }
+
   const where = {
     ...(q ? { OR: [
       { title:        { contains: q, mode: "insensitive" as const } },
@@ -187,10 +230,13 @@ export async function browse(query: BrowseQuery) {
       { synopsis:     { contains: q, mode: "insensitive" as const } },
       { genres: { some: { genre: { name: { contains: q, mode: "insensitive" as const } } } } },
     ]} : {}),
-    ...(year !== undefined ? { year } : {}),
+    ...yearWhere,
     ...(season ? { season } : {}),
-    ...(type ? { type } : {}),
-    ...(status ? { status } : {}),
+    ...(effectiveType ? { type: effectiveType } : {}),
+    ...(status ? { status: normalizeStatus(status) } : {}),
+    ...(min_score !== undefined ? { score: { not: null, gte: min_score } } : {}),
+    ...epsWhere,
+    ...(excludeIds.length ? { id: { notIn: excludeIds } } : {}),
     ...(studio ? { studios: { some: { studio: { name: { contains: studio, mode: "insensitive" as const } } } } } : {}),
     ...(genre  ? { genres:  { some: { genre:  { name: { contains: genre,  mode: "insensitive" as const } } } } } : {}),
   };
