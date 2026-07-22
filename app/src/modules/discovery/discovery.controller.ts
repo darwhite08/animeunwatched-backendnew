@@ -12,7 +12,8 @@ function parseOr400<T>(schema: { safeParse: (input: unknown) => { success: boole
 export async function ai(req: Request, res: Response, next: NextFunction) {
   try {
     const dto = parseOr400(aiPromptSchema, req.body);
-    const result = await service.aiDiscovery(dto);
+    const userId = res.locals.user?.id as string | undefined;
+    const result = await service.aiDiscovery(dto, userId);
     res.json(result);
   } catch (e) { next(e); }
 }

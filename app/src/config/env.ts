@@ -100,6 +100,11 @@ export const env = {
   // OpenAI for /ai/ask — optional; falls back to stub responses if not set
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
 
+  // Groq (OpenAI-compatible) — powers AI Discover query understanding + rerank.
+  // Optional: when unset, /discovery/ai degrades to the legacy regex matcher.
+  GROQ_API_KEY: process.env.GROQ_API_KEY || "",
+  GROQ_MODEL:   process.env.GROQ_MODEL   || "llama-3.3-70b-versatile",
+
   // ── Creator monetization payments (Phase 2). Inert until set: monetization
   // payment endpoints 503 with "payments not configured" when STRIPE is absent.
   STRIPE_SECRET_KEY:      process.env.STRIPE_SECRET_KEY      || "",

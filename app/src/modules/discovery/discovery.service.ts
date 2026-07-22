@@ -1,4 +1,7 @@
 import { prisma } from "../../config/prisma";
+import { cache } from "../../lib/cache";
+import { groqJSON, groqEnabled } from "../../lib/groq";
+import { getSimilar } from "../anime/anime.service";
 import type { AiPromptDto, MoodDto, QuizDto } from "./discovery.schema";
 
 const animeInclude = {
@@ -135,14 +138,247 @@ async function scoreAnimeByGenres(
 
 // ─── Public services ─────────────────────────────────────────────────────────
 
-export async function aiDiscovery(dto: AiPromptDto) {
-  const wanted = extractGenres(dto.prompt);
-  const results = await scoreAnimeByGenres(wanted, dto.limit);
+// ─── AI Discover — Groq-grounded pipeline ────────────────────────────────────
+//
+// Two stages, both grounded so the model can NEVER surface an anime that isn't
+// in our catalog:
+//   1. UNDERSTAND — Groq parses the free-text prompt into a structured intent
+//      (genres from OUR real vocabulary, theme keywords, "like X" title anchors,
+//      era/length/score filters, exclusions). Nuance the old regex missed
+//      ("overpowered MC who hides it", "no filler", "devastating ending",
+//      "like Death Note but funnier") is captured here.
+//   2. RETRIEVE + RERANK — we pull real catalog candidates from three sources
+//      (genre overlap, synopsis keyword match, neighbors of the anchor titles),
+//      then Groq reranks ONLY those candidates by malId, adding a one-line
+//      reason. It cannot invent titles — it can only order real rows.
+//
+// Degrades to the legacy regex matcher when GROQ_API_KEY is unset or Groq errors.
+
+interface DiscoverIntent {
+  genres: string[];        // constrained to catalog genre names
+  keywords: string[];      // theme words to match against synopsis
+  titleAnchors: string[];  // anime the user references ("like Steins;Gate")
+  excludeGenres: string[];
+  era: "classic" | "modern" | null;
+  length: "movie" | "short" | "medium" | "long" | null;
+  minScore: number | null;
+}
+
+/** Distinct catalog genre names — the controlled vocabulary handed to the model
+ *  so it can only pick genres we actually have. Cached 1h. */
+async function catalogGenreNames(): Promise<string[]> {
+  const key = "discovery:genre-vocab";
+  const cached = cache.get<string[]>(key);
+  if (cached) return cached;
+  const rows = await prisma.genre.findMany({ select: { name: true }, orderBy: { name: "asc" } });
+  const names = rows.map(r => r.name);
+  cache.set(key, names, 60 * 60_000);
+  return names;
+}
+
+const INTENT_SYSTEM = (genres: string[]) =>
+  `You turn a natural-language anime request into a strict JSON search intent. ` +
+  `Capture the REAL intent including nuance, themes, tone, and any anime the user references.\n\n` +
+  `Return ONLY this JSON object:\n` +
+  `{"genres":string[],"keywords":string[],"titleAnchors":string[],"excludeGenres":string[],` +
+  `"era":"classic"|"modern"|null,"length":"movie"|"short"|"medium"|"long"|null,"minScore":number|null}\n\n` +
+  `Rules:\n` +
+  `- "genres" and "excludeGenres" MUST be chosen ONLY from this exact list (copy spelling): ${genres.join(", ")}.\n` +
+  `- "keywords": 0-6 concise theme/plot words to look for in synopses (e.g. "revenge","time loop","found family","hidden power"). Lowercase, no genres.\n` +
+  `- "titleAnchors": 0-3 specific anime titles the user compares to ("like X"). Empty if none named.\n` +
+  `- "era": "classic" if they want older/retro, "modern" if recent/new, else null.\n` +
+  `- "length": map "movie"/"short series"/"one-cour"/"long-running" appropriately, else null.\n` +
+  `- "minScore": a 0-10 number if they demand high quality ("only the best", "highly rated"), else null.\n` +
+  `- Never invent genres outside the list. Output JSON only.`;
+
+interface RerankOut { results: Array<{ malId: number; match: number; reason: string }> }
+
+const RERANK_SYSTEM =
+  `You are an expert anime recommender. Given a user's request and a numbered list of REAL candidate anime, ` +
+  `select and rank the ones that best satisfy the request — honor nuance, themes, and tone, not just genre labels.\n\n` +
+  `Return ONLY JSON: {"results":[{"malId":number,"match":number,"reason":string}]}\n` +
+  `- Use ONLY malId values from the provided candidates. Never invent one.\n` +
+  `- "match": 0-100 how well it fits the request.\n` +
+  `- "reason": <= 14 words, concrete, why it fits THIS request.\n` +
+  `- Order best first. Include only genuinely good fits (drop weak ones).`;
+
+type CandidateRow = ReturnType<typeof flatten>;
+
+/** Resolve a referenced title to a REAL catalogued anime — local only (no
+ *  Jikan), most-popular match wins. Returns null if we don't have it. */
+async function resolveLocalTitle(anchor: string): Promise<{ malId: number } | null> {
+  const q = anchor.trim();
+  if (q.length < 2) return null;
+  const row = await prisma.anime.findFirst({
+    where: {
+      OR: [
+        { title:        { contains: q, mode: "insensitive" } },
+        { titleEnglish: { contains: q, mode: "insensitive" } },
+        { titleSynonyms: { has: q } },
+      ],
+    },
+    orderBy: [{ membersCount: { sort: "desc", nulls: "last" } }, { score: { sort: "desc", nulls: "last" } }],
+    select: { malId: true },
+  });
+  return row?.malId ? { malId: row.malId } : null;
+}
+
+/** Gather a deduped candidate pool of REAL catalog rows from genre overlap,
+ *  synopsis keyword matches, and neighbors of the referenced titles. */
+async function gatherCandidates(intent: DiscoverIntent, excludeAnimeIds: Set<string>): Promise<CandidateRow[]> {
+  const minScore = intent.minScore ?? 6;
+  const byMalId = new Map<number, CandidateRow>();
+
+  const filters: Record<string, unknown> = {};
+  if (intent.era === "classic") filters.year = { lte: 2010 };
+  if (intent.era === "modern")  filters.year = { gte: 2015 };
+  if (intent.length === "movie")  filters.type = "Movie";
+  if (intent.length === "short")  filters.episodes = { lte: 13 };
+  if (intent.length === "medium") filters.episodes = { gte: 13, lte: 26 };
+  if (intent.length === "long")   filters.episodes = { gte: 26 };
+
+  const collect = (rows: AnimeRow[]) => {
+    for (const r of rows) {
+      if (excludeAnimeIds.has(r.id)) continue;
+      if (!byMalId.has(r.malId)) byMalId.set(r.malId, flatten(r));
+    }
+  };
+
+  // 1) Genre overlap
+  if (intent.genres.length) {
+    const rows = await prisma.anime.findMany({
+      where: {
+        score: { not: null, gte: minScore },
+        genres: { some: { genre: { name: { in: intent.genres } } } },
+        ...(intent.excludeGenres.length ? { NOT: { genres: { some: { genre: { name: { in: intent.excludeGenres } } } } } } : {}),
+        ...filters,
+      },
+      include: animeInclude,
+      orderBy: { score: "desc" },
+      take: 30,
+    });
+    collect(rows as AnimeRow[]);
+  }
+
+  // 2) Synopsis keyword matches (theme words)
+  if (intent.keywords.length) {
+    const rows = await prisma.anime.findMany({
+      where: {
+        score: { not: null, gte: Math.min(minScore, 6.5) },
+        OR: intent.keywords.slice(0, 6).map(k => ({ synopsis: { contains: k, mode: "insensitive" as const } })),
+        ...filters,
+      },
+      include: animeInclude,
+      orderBy: { score: "desc" },
+      take: 24,
+    });
+    collect(rows as AnimeRow[]);
+  }
+
+  // 3) Neighbors of referenced titles ("like X"). LOCAL-ONLY resolution — we
+  // never hit Jikan here, so an anchor can only ever resolve to an anime we've
+  // actually catalogued (no fake/stub output), and it's fast.
+  for (const anchor of intent.titleAnchors.slice(0, 3)) {
+    try {
+      const top = await resolveLocalTitle(anchor);
+      if (!top) continue;
+      const similar = await getSimilar(top.malId, 12);
+      // Fetch the neighbors through our own include so flatten() types line up.
+      const malIds = (similar as Array<{ malId: number }>).map(s => s.malId).filter(Boolean);
+      if (malIds.length) {
+        const rows = await prisma.anime.findMany({
+          where: { malId: { in: malIds }, ...filters },
+          include: animeInclude,
+        });
+        collect(rows as AnimeRow[]);
+      }
+    } catch { /* anchor unresolved — skip */ }
+  }
+
+  return Array.from(byMalId.values());
+}
+
+export async function aiDiscovery(dto: AiPromptDto, userId?: string) {
+  // Exclusion set: what the signed-in user already tracks (don't recommend it back).
+  const excludeAnimeIds = new Set<string>();
+  if (userId) {
+    const entries = await prisma.listEntry.findMany({ where: { userId }, select: { animeId: true } });
+    for (const e of entries) excludeAnimeIds.add(e.animeId);
+  }
+
+  // ── Legacy path when Groq is off ──
+  if (!groqEnabled()) {
+    const wanted = extractGenres(dto.prompt);
+    const results = await scoreAnimeByGenres(wanted, dto.limit);
+    return { prompt: dto.prompt, extractedGenres: Array.from(wanted.keys()), data: results, meta: { count: results.length, source: "keyword" } };
+  }
+
+  // ── Stage 1: understand ──
+  const genres = await catalogGenreNames();
+  const intent = await groqJSON<DiscoverIntent>(INTENT_SYSTEM(genres), dto.prompt, { temperature: 0.1, maxTokens: 400 });
+
+  if (!intent) {
+    // Groq unavailable mid-request → graceful regex fallback.
+    const wanted = extractGenres(dto.prompt);
+    const results = await scoreAnimeByGenres(wanted, dto.limit);
+    return { prompt: dto.prompt, extractedGenres: Array.from(wanted.keys()), data: results, meta: { count: results.length, source: "keyword-fallback" } };
+  }
+
+  // Validate genres against the real vocabulary (defends against any stray label).
+  const vocab = new Set(genres.map(g => g.toLowerCase()));
+  intent.genres = (intent.genres ?? []).filter(g => vocab.has(g.toLowerCase()));
+  intent.excludeGenres = (intent.excludeGenres ?? []).filter(g => vocab.has(g.toLowerCase()));
+  intent.keywords = (intent.keywords ?? []).filter(k => typeof k === "string" && k.length > 1).slice(0, 6);
+  intent.titleAnchors = (intent.titleAnchors ?? []).filter(t => typeof t === "string" && t.length > 1).slice(0, 3);
+
+  // ── Stage 2: retrieve real candidates ──
+  const candidates = await gatherCandidates(intent, excludeAnimeIds);
+
+  // Nothing matched the parsed intent → fall back to genre scoring on the intent's genres.
+  if (candidates.length === 0) {
+    const wanted = new Map<string, number>();
+    for (const g of intent.genres) wanted.set(g, 3);
+    const results = await scoreAnimeByGenres(wanted, dto.limit);
+    return { prompt: dto.prompt, extractedGenres: intent.genres, data: results, meta: { count: results.length, source: "groq-genre" } };
+  }
+
+  // ── Stage 2b: rerank the real candidates with reasons ──
+  const shortlist = candidates.slice(0, 40);
+  const compact = shortlist.map(c => ({
+    malId: c.malId,
+    title: c.titleEnglish || c.title,
+    year: c.year,
+    score: c.score,
+    genres: c.genres,
+    synopsis: (c.synopsis ?? "").slice(0, 220),
+  }));
+  const rerank = await groqJSON<RerankOut>(
+    RERANK_SYSTEM,
+    `Request: "${dto.prompt}"\n\nCandidates (JSON):\n${JSON.stringify(compact)}\n\nReturn the best ${dto.limit} as specified.`,
+    { temperature: 0.2, maxTokens: 1200 },
+  );
+
+  const byMal = new Map(shortlist.map(c => [c.malId, c]));
+  let data: Array<{ anime: CandidateRow; match: number; reason?: string }>;
+  if (rerank?.results?.length) {
+    data = rerank.results
+      .filter(r => byMal.has(r.malId))
+      .slice(0, dto.limit)
+      .map(r => ({ anime: byMal.get(r.malId)!, match: Math.min(99, Math.max(50, Math.round(r.match))), reason: (r.reason ?? "").slice(0, 120) }));
+  } else {
+    // Rerank failed → return the retrieved candidates ordered by community score.
+    data = shortlist
+      .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+      .slice(0, dto.limit)
+      .map(c => ({ anime: c, match: Math.min(95, Math.round((c.score ?? 7) * 10)) }));
+  }
+
   return {
     prompt: dto.prompt,
-    extractedGenres: Array.from(wanted.keys()),
-    data: results,
-    meta: { count: results.length },
+    extractedGenres: intent.genres,
+    intent: { keywords: intent.keywords, titleAnchors: intent.titleAnchors, era: intent.era, length: intent.length },
+    data,
+    meta: { count: data.length, source: rerank?.results?.length ? "groq" : "groq-retrieve" },
   };
 }
 
