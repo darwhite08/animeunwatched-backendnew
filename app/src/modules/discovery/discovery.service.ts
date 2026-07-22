@@ -20,7 +20,7 @@ function flatten(a: AnimeRow) {
     titleJapanese: a.titleJapanese, titleEnglish: a.titleEnglish,
     synopsis: a.synopsis, type: a.type, episodes: a.episodes, status: a.status,
     airedFrom: a.airedFrom, airedTo: a.airedTo, season: a.season, year: a.year,
-    rating: a.rating, score: a.score, imageUrl: a.imageUrl, trailerUrl: a.trailerUrl,
+    rating: a.rating, score: a.score, imageUrl: a.imageUrl, trailerUrl: a.trailerUrl, trailerYoutubeId: a.trailerYoutubeId,
     source: a.source, updatedAt: a.updatedAt,
     genres:  a.genres.map(g => g.genre.name),
     studios: a.studios.map(s => s.studio.name),
