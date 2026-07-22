@@ -199,7 +199,9 @@ const RERANK_SYSTEM =
   `Return ONLY JSON: {"results":[{"malId":number,"match":number,"reason":string}]}\n` +
   `- Use ONLY malId values from the provided candidates. Never invent one.\n` +
   `- "match": 0-100 how well it fits the request.\n` +
-  `- "reason": <= 14 words, concrete, why it fits THIS request.\n` +
+  `- "reason": 6-14 words, SPECIFIC and concrete — reference the exact theme, tone, or compared title the user asked for. ` +
+  `Never generic filler like "great anime", "epic story", or "similar vibes".\n` +
+  `- Write reasons in clear English.\n` +
   `- Order best first. Include only genuinely good fits (drop weak ones).`;
 
 type CandidateRow = ReturnType<typeof flatten>;
